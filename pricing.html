@@ -586,6 +586,18 @@
                 margin: 0 auto 4rem auto;
             }
         }
+
+        /* Payment Notification Animation */
+        @keyframes slideIn {
+            from {
+                transform: translateX(400px);
+                opacity: 0;
+            }
+            to {
+                transform: translateX(0);
+                opacity: 1;
+            }
+        }
     </style>
 </head>
 <body>
@@ -674,9 +686,9 @@
                         <li>Advanced analytics & reporting</li>
                     </ul>
                     
-                    <a href="https://dmtoolsfun-llc.lemonsqueezy.com/buy/899c3c4c-2f92-489c-a8c4-11914cd89692?embed=1" class="lemonsqueezy-button choose-btn">
+                    <button class="lemonsqueezy-button choose-btn" onclick="handlePlanSelection('1034541', 'enterprise')">
                         Contact Sales - Get Custom Quote
-                    </a>
+                    </button>
                     <span class="cta-subtext">🏆 Powers 200+ organizations</span>
                 </div>
 
@@ -700,9 +712,9 @@
                         <li>Advanced analytics & reporting</li>
                     </ul>
                     
-                    <a href="https://dmtoolsfun-llc.lemonsqueezy.com/buy/0bb6e756-ab23-4db0-8359-f06f7f621d1c?embed=1" class="lemonsqueezy-button choose-btn">
+                    <button class="lemonsqueezy-button choose-btn" onclick="handlePlanSelection('1034540', 'business')">
                         Scale Your Agency
-                    </a>
+                    </button>
                     <span class="cta-subtext">💼 Trusted by 1,100+ agencies</span>
                 </div>
 
@@ -730,9 +742,9 @@
                         <li>Advanced analytics</li>
                     </ul>
                     
-                    <a href="https://dmtoolsfun-llc.lemonsqueezy.com/buy/c6f7c828-dd29-4ef7-b4d7-9270f390a41c?embed=1" class="lemonsqueezy-button choose-btn">
+                    <button class="lemonsqueezy-button choose-btn" onclick="handlePlanSelection('1034539', 'pro')">
                         Get Best Value - Start Saving Now
-                    </a>
+                    </button>
                     <span class="cta-subtext">✓ Join 8,000+ creators ✓ Cancel anytime</span>
                 </div>
 
@@ -754,9 +766,9 @@
                         <li>Email support</li>
                     </ul>
                     
-                    <a href="https://dmtoolsfun-llc.lemonsqueezy.com/buy/d8258a23-e538-4bd6-baf3-15a58cea80bf?embed=1" class="lemonsqueezy-button choose-btn">
+                    <button class="lemonsqueezy-button choose-btn" onclick="handlePlanSelection('1034521', 'starter')">
                         Start Saving Time - $5.99/week
-                    </a>
+                    </button>
                     <span class="cta-subtext">🎯 Perfect for 3,200+ beginners</span>
                 </div>
 
@@ -1126,6 +1138,111 @@
             // Monthly is default, so don't call toggle
             // User can click to switch to annual
         });
+
+        // ========================================
+        // PAYMENT FLOW HANDLER (BACKEND INTEGRATION)
+        // ========================================
+        async function handlePlanSelection(variantId, planName) {
+            // Check if user is authenticated
+            if (!isAuthenticated) {
+                // Show auth modal if not logged in
+                showAuthModal(false); // false = registration mode
+                
+                // Show helpful message
+                showNotification('Please sign in or create an account to continue', 'info');
+                
+                // Track attempted purchase in analytics
+                if (typeof gtag !== 'undefined') {
+                    gtag('event', 'plan_selection_unauthenticated', {
+                        'event_category': 'Pricing',
+                        'event_label': planName,
+                        'variant_id': variantId
+                    });
+                }
+                return;
+            }
+
+            // Show loading state
+            showNotification('Creating checkout session...', 'info');
+
+            try {
+                // Call backend API to create checkout with user_id
+                const response = await apiCall('/subscription/checkout', {
+                    method: 'POST',
+                    body: JSON.stringify({
+                        variant_id: variantId,
+                        plan_name: planName
+                    })
+                });
+
+                if (response.success && response.checkout_url) {
+                    // Track successful checkout creation
+                    if (typeof gtag !== 'undefined') {
+                        gtag('event', 'checkout_initiated', {
+                            'event_category': 'Pricing',
+                            'event_label': planName,
+                            'variant_id': variantId
+                        });
+                    }
+
+                    // Redirect to Lemon Squeezy checkout (now includes user_id)
+                    window.location.href = response.checkout_url;
+                } else {
+                    throw new Error(response.error || 'Failed to create checkout');
+                }
+
+            } catch (error) {
+                console.error('Checkout error:', error);
+                showNotification('Failed to start checkout. Please try again.', 'error');
+                
+                // Track error in analytics
+                if (typeof gtag !== 'undefined') {
+                    gtag('event', 'checkout_error', {
+                        'event_category': 'Pricing',
+                        'event_label': planName,
+                        'error': error.message
+                    });
+                }
+            }
+        }
+
+        // Simple notification helper
+        function showNotification(message, type = 'info') {
+            // Create notification element if it doesn't exist
+            let notification = document.getElementById('payment-notification');
+            if (!notification) {
+                notification = document.createElement('div');
+                notification.id = 'payment-notification';
+                notification.style.cssText = `
+                    position: fixed;
+                    top: 20px;
+                    right: 20px;
+                    padding: 1rem 1.5rem;
+                    border-radius: 12px;
+                    font-weight: 500;
+                    z-index: 10000;
+                    animation: slideIn 0.3s ease;
+                    max-width: 400px;
+                `;
+                document.body.appendChild(notification);
+            }
+
+            // Set color based on type
+            const colors = {
+                info: 'background: linear-gradient(135deg, #8b5cf6, #ec4899); color: white;',
+                error: 'background: #ef4444; color: white;',
+                success: 'background: #10b981; color: white;'
+            };
+
+            notification.style.cssText += colors[type] || colors.info;
+            notification.textContent = message;
+            notification.style.display = 'block';
+
+            // Auto-hide after 3 seconds
+            setTimeout(() => {
+                notification.style.display = 'none';
+            }, 3000);
+        }
     </script>
 
 <script>

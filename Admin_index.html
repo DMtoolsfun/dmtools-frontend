@@ -1,0 +1,1413 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🛡️ DMTools Admin Dashboard - LemonSqueezy Edition</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            background: linear-gradient(135deg, #0f172a 0%, #1e293b 50%, #334155 100%);
+            background-attachment: fixed;
+            color: #e5e7eb;
+            min-height: 100vh;
+        }
+
+        .hidden {
+            display: none !important;
+        }
+
+        /* Login Screen */
+        .login-container {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            padding: 2rem;
+        }
+
+        .login-card {
+            background: rgba(30, 41, 59, 0.95);
+            backdrop-filter: blur(10px);
+            border: 1px solid #374151;
+            border-radius: 16px;
+            padding: 3rem;
+            width: 100%;
+            max-width: 450px;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+        }
+
+        .login-header {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .login-title {
+            font-size: 2rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, #8b5cf6, #06b6d4);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 0.5rem;
+        }
+
+        .login-subtitle {
+            color: #9ca3af;
+            font-size: 0.9rem;
+        }
+
+        /* Form Elements */
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-label {
+            display: block;
+            color: #d1d5db;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            font-size: 0.9rem;
+        }
+
+        .form-input {
+            width: 100%;
+            padding: 0.875rem 1rem;
+            background: #1e293b;
+            border: 1px solid #374151;
+            border-radius: 8px;
+            color: #e5e7eb;
+            font-size: 0.95rem;
+            transition: all 0.3s ease;
+        }
+
+        .form-input:focus {
+            outline: none;
+            border-color: #8b5cf6;
+            box-shadow: 0 0 0 3px rgba(139, 92, 246, 0.1);
+        }
+
+        /* Buttons */
+        .btn {
+            padding: 0.875rem 1.5rem;
+            border: none;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 0.95rem;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #8b5cf6, #7c3aed);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(139, 92, 246, 0.3);
+        }
+
+        .btn-secondary {
+            background: #374151;
+            color: #e5e7eb;
+        }
+
+        .btn-secondary:hover {
+            background: #4b5563;
+        }
+
+        .btn-success {
+            background: linear-gradient(135deg, #10b981, #059669);
+            color: white;
+        }
+
+        .btn-warning {
+            background: linear-gradient(135deg, #f59e0b, #d97706);
+            color: white;
+        }
+
+        .btn-danger {
+            background: linear-gradient(135deg, #ef4444, #dc2626);
+            color: white;
+        }
+
+        /* Dashboard */
+        .container {
+            max-width: 1600px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        .header {
+            background: rgba(30, 41, 59, 0.95);
+            backdrop-filter: blur(10px);
+            border: 1px solid #374151;
+            border-radius: 16px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .header-title {
+            font-size: 2rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, #8b5cf6, #06b6d4);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .header-actions {
+            display: flex;
+            gap: 1rem;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+
+        /* Stats Grid */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .stat-card {
+            background: rgba(30, 41, 59, 0.95);
+            backdrop-filter: blur(10px);
+            border: 1px solid #374151;
+            border-radius: 16px;
+            padding: 1.5rem;
+            transition: all 0.3s ease;
+        }
+
+        .stat-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 12px 30px rgba(139, 92, 246, 0.2);
+            border-color: #8b5cf6;
+        }
+
+        .stat-value {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: #8b5cf6;
+            margin-bottom: 0.5rem;
+        }
+
+        .stat-label {
+            color: #9ca3af;
+            font-size: 0.9rem;
+            font-weight: 500;
+        }
+
+        /* Revenue Card Specific */
+        .stat-card.revenue-card .stat-value {
+            color: #10b981;
+        }
+
+        /* Admin Sections */
+        .admin-section {
+            background: rgba(30, 41, 59, 0.95);
+            backdrop-filter: blur(10px);
+            border: 1px solid #374151;
+            border-radius: 16px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .section-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .section-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #e5e7eb;
+        }
+
+        /* Tables */
+        .table-container {
+            overflow-x: auto;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        th {
+            background: #1e293b;
+            padding: 1rem;
+            text-align: left;
+            font-weight: 600;
+            color: #d1d5db;
+            border-bottom: 2px solid #374151;
+        }
+
+        td {
+            padding: 1rem;
+            border-bottom: 1px solid #374151;
+            color: #e5e7eb;
+        }
+
+        tr:hover {
+            background: rgba(139, 92, 246, 0.05);
+        }
+
+        /* Badge */
+        .badge {
+            padding: 0.25rem 0.75rem;
+            border-radius: 9999px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            display: inline-block;
+        }
+
+        .badge-success {
+            background: rgba(16, 185, 129, 0.2);
+            color: #10b981;
+        }
+
+        .badge-warning {
+            background: rgba(245, 158, 11, 0.2);
+            color: #f59e0b;
+        }
+
+        .badge-danger {
+            background: rgba(239, 68, 68, 0.2);
+            color: #ef4444;
+        }
+
+        .badge-info {
+            background: rgba(6, 182, 212, 0.2);
+            color: #06b6d4;
+        }
+
+        /* Messages */
+        .message {
+            padding: 1rem;
+            border-radius: 8px;
+            margin-bottom: 1rem;
+            font-weight: 500;
+        }
+
+        .message.success {
+            background: rgba(16, 185, 129, 0.2);
+            color: #10b981;
+            border: 1px solid #10b981;
+        }
+
+        .message.error {
+            background: rgba(239, 68, 68, 0.2);
+            color: #ef4444;
+            border: 1px solid #ef4444;
+        }
+
+        .message.info {
+            background: rgba(6, 182, 212, 0.2);
+            color: #06b6d4;
+            border: 1px solid #06b6d4;
+        }
+
+        /* Modal */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.7);
+            backdrop-filter: blur(5px);
+            z-index: 1000;
+            align-items: center;
+            justify-content: center;
+            padding: 2rem;
+        }
+
+        .modal.show {
+            display: flex;
+        }
+
+        .modal-content {
+            background: #1e293b;
+            border: 1px solid #374151;
+            border-radius: 16px;
+            padding: 2rem;
+            max-width: 600px;
+            width: 100%;
+            max-height: 90vh;
+            overflow-y: auto;
+        }
+
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+        }
+
+        .modal-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #e5e7eb;
+        }
+
+        .modal-close {
+            background: none;
+            border: none;
+            color: #9ca3af;
+            font-size: 1.5rem;
+            cursor: pointer;
+            padding: 0;
+            width: 32px;
+            height: 32px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 4px;
+            transition: all 0.3s ease;
+        }
+
+        .modal-close:hover {
+            background: rgba(239, 68, 68, 0.2);
+            color: #ef4444;
+        }
+
+        .modal-buttons {
+            display: flex;
+            gap: 1rem;
+            margin-top: 2rem;
+            justify-content: flex-end;
+        }
+
+        /* Filters */
+        .filters {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+            flex-wrap: wrap;
+        }
+
+        .filters input,
+        .filters select {
+            flex: 1;
+            min-width: 200px;
+        }
+
+        /* Spinner */
+        .spinner {
+            width: 40px;
+            height: 40px;
+            border: 4px solid #374151;
+            border-top: 4px solid #8b5cf6;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin: 2rem auto;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        /* Loading State */
+        .loading-state {
+            text-align: center;
+            padding: 4rem 2rem;
+        }
+
+        .loading-state .spinner {
+            display: inline-block;
+        }
+
+        /* Revenue Breakdown */
+        .revenue-breakdown {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+
+        .revenue-item {
+            background: #1e293b;
+            padding: 1rem;
+            border-radius: 8px;
+            border: 1px solid #374151;
+        }
+
+        .revenue-plan {
+            color: #9ca3af;
+            font-size: 0.85rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .revenue-amount {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #10b981;
+        }
+
+        .revenue-subs {
+            color: #6b7280;
+            font-size: 0.8rem;
+            margin-top: 0.25rem;
+        }
+
+        /* Tabs */
+        .tabs {
+            display: flex;
+            gap: 0.5rem;
+            margin-bottom: 1.5rem;
+            border-bottom: 2px solid #374151;
+            overflow-x: auto;
+        }
+
+        .tab {
+            padding: 0.75rem 1.5rem;
+            background: none;
+            border: none;
+            color: #9ca3af;
+            font-weight: 600;
+            cursor: pointer;
+            border-bottom: 2px solid transparent;
+            margin-bottom: -2px;
+            transition: all 0.3s ease;
+            white-space: nowrap;
+        }
+
+        .tab:hover {
+            color: #8b5cf6;
+        }
+
+        .tab.active {
+            color: #8b5cf6;
+            border-bottom-color: #8b5cf6;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .container {
+                padding: 1rem;
+            }
+
+            .header {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .stats-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .filters {
+                flex-direction: column;
+            }
+
+            .filters input,
+            .filters select {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Login Screen -->
+    <div id="login-screen" class="login-container">
+        <div class="login-card">
+            <div class="login-header">
+                <h1 class="login-title">🛡️ Admin Dashboard</h1>
+                <p class="login-subtitle">DMTools.fun Administration</p>
+            </div>
+
+            <div id="login-error" class="message error hidden"></div>
+
+            <form id="login-form">
+                <div class="form-group">
+                    <label class="form-label">Email</label>
+                    <input type="email" id="login-email" class="form-input" 
+                           value="admin@dmtools.fun" required />
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">Password</label>
+                    <input type="password" id="login-password" class="form-input" 
+                           value="DMTools2025Admin!" required />
+                </div>
+
+                <button type="submit" class="btn btn-primary" style="width: 100%;">
+                    Sign In
+                </button>
+            </form>
+
+            <div style="margin-top: 1rem; padding-top: 1rem; border-top: 1px solid #374151; font-size: 0.8rem; color: #9ca3af; text-align: center;">
+                Default credentials pre-filled for testing
+            </div>
+        </div>
+    </div>
+
+    <!-- Dashboard -->
+    <div id="dashboard" class="hidden">
+        <div class="container">
+            <!-- Header -->
+            <div class="header">
+                <h1 class="header-title">🛡️ Admin Dashboard</h1>
+                <div class="header-actions">
+                    <span id="admin-email" style="color: #9ca3af; font-size: 0.9rem;"></span>
+                    <button class="btn btn-secondary" onclick="logout()">Sign Out</button>
+                </div>
+            </div>
+
+            <!-- Loading State -->
+            <div id="loading-state" class="loading-state">
+                <div class="spinner"></div>
+                <p style="color: #9ca3af; margin-top: 1rem;">Loading dashboard...</p>
+            </div>
+
+            <!-- Main Content -->
+            <div id="main-content" class="hidden">
+                <!-- Stats Grid -->
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <div class="stat-value" id="total-users">0</div>
+                        <div class="stat-label">Total Users</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-value" id="active-users">0</div>
+                        <div class="stat-label">Active Users (30 days)</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-value" id="active-subscriptions">0</div>
+                        <div class="stat-label">Active Subscriptions</div>
+                    </div>
+                    <div class="stat-card revenue-card">
+                        <div class="stat-value" id="monthly-revenue">$0</div>
+                        <div class="stat-label">Monthly Recurring Revenue</div>
+                    </div>
+                    <div class="stat-card revenue-card">
+                        <div class="stat-value" id="annual-revenue">$0</div>
+                        <div class="stat-label">Annual Recurring Revenue</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-value" id="api-calls-today">0</div>
+                        <div class="stat-label">API Calls Today</div>
+                    </div>
+                </div>
+
+                <!-- Revenue Breakdown Section -->
+                <div class="admin-section">
+                    <div class="section-header">
+                        <h2 class="section-title">💰 Revenue Breakdown</h2>
+                        <button class="btn btn-secondary" onclick="loadRevenueData()">🔄 Refresh</button>
+                    </div>
+                    <div id="revenue-breakdown" class="revenue-breakdown">
+                        <div class="loading-state"><div class="spinner"></div></div>
+                    </div>
+                </div>
+
+                <!-- Subscription Analytics -->
+                <div class="admin-section">
+                    <div class="section-header">
+                        <h2 class="section-title">📊 Subscription Analytics</h2>
+                        <button class="btn btn-secondary" onclick="loadSubscriptionAnalytics()">🔄 Refresh</button>
+                    </div>
+                    
+                    <div class="tabs">
+                        <button class="tab active" onclick="showTab('by-plan')">By Plan</button>
+                        <button class="tab" onclick="showTab('by-status')">By Status</button>
+                        <button class="tab" onclick="showTab('failed-payments')">Failed Payments</button>
+                    </div>
+
+                    <div id="tab-by-plan" class="tab-content">
+                        <div class="table-container">
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>Plan</th>
+                                        <th>Active Subscribers</th>
+                                        <th>MRR Contribution</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="plan-breakdown-table">
+                                    <tr><td colspan="3" style="text-align: center; color: #9ca3af;">Loading...</td></tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                    <div id="tab-by-status" class="tab-content hidden">
+                        <div class="table-container">
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>Status</th>
+                                        <th>Count</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="status-breakdown-table">
+                                    <tr><td colspan="2" style="text-align: center; color: #9ca3af;">Loading...</td></tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                    <div id="tab-failed-payments" class="tab-content hidden">
+                        <div class="table-container">
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>Email</th>
+                                        <th>Plan</th>
+                                        <th>Subscription ID</th>
+                                        <th>Last Login</th>
+                                        <th>Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="failed-payments-table">
+                                    <tr><td colspan="5" style="text-align: center; color: #9ca3af;">Loading...</td></tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Customer Service Tools -->
+                <div class="admin-section">
+                    <div class="section-header">
+                        <h2 class="section-title">🛠️ Customer Service Tools</h2>
+                        <div style="display: flex; gap: 1rem;">
+                            <button class="btn btn-success" onclick="showCreateUserModal()">🙋‍♂️ Create User</button>
+                            <button class="btn btn-warning" onclick="showGrantMessagesModal()">💬 Grant Messages</button>
+                        </div>
+                    </div>
+                    <div id="cs-message" class="message hidden"></div>
+                </div>
+
+                <!-- User Management -->
+                <div class="admin-section">
+                    <div class="section-header">
+                        <h2 class="section-title">👥 User Management</h2>
+                        <button class="btn btn-secondary" onclick="loadUsers()">🔄 Refresh</button>
+                    </div>
+
+                    <div class="filters">
+                        <input type="text" id="search-users" class="form-input" 
+                               placeholder="Search by email..." onkeyup="applyFilters()">
+                        <select id="filter-plan" class="form-input" onchange="applyFilters()">
+                            <option value="">All Plans</option>
+                            <option value="free">Free</option>
+                            <option value="starter">Starter</option>
+                            <option value="starter_weekly">Starter Weekly</option>
+                            <option value="pro">Pro</option>
+                            <option value="pro_weekly">Pro Weekly</option>
+                            <option value="business">Business</option>
+                            <option value="enterprise">Enterprise</option>
+                        </select>
+                        <select id="filter-status" class="form-input" onchange="applyFilters()">
+                            <option value="">All Statuses</option>
+                            <option value="active">Active Subscription</option>
+                            <option value="inactive">Inactive</option>
+                            <option value="cancelled">Cancelled</option>
+                            <option value="past_due">Past Due</option>
+                        </select>
+                    </div>
+
+                    <div class="table-container">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>ID</th>
+                                    <th>Email</th>
+                                    <th>Name</th>
+                                    <th>Plan</th>
+                                    <th>Usage</th>
+                                    <th>Status</th>
+                                    <th>Sub ID</th>
+                                    <th>Created</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody id="users-table">
+                                <tr><td colspan="9" style="text-align: center; color: #9ca3af;">Loading users...</td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Create User Modal -->
+    <div id="create-user-modal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title">🙋‍♂️ Create User Account</h3>
+                <button class="modal-close" onclick="hideCreateUserModal()">×</button>
+            </div>
+
+            <div id="create-user-message" class="message hidden"></div>
+
+            <form id="create-user-form">
+                <div class="form-group">
+                    <label class="form-label">Email *</label>
+                    <input type="email" id="new-user-email" class="form-input" required>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">Password *</label>
+                    <input type="text" id="new-user-password" class="form-input" required>
+                    <button type="button" class="btn btn-secondary" 
+                            style="margin-top: 0.5rem; font-size: 0.85rem; padding: 0.5rem 1rem;"
+                            onclick="generatePassword()">
+                        Generate Random Password
+                    </button>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">First Name</label>
+                    <input type="text" id="new-user-firstname" class="form-input">
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">Last Name</label>
+                    <input type="text" id="new-user-lastname" class="form-input">
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">Plan</label>
+                    <select id="new-user-plan" class="form-input">
+                        <option value="free">Free</option>
+                        <option value="starter">Starter Monthly</option>
+                        <option value="starter_weekly">Starter Weekly</option>
+                        <option value="pro">Pro Monthly</option>
+                        <option value="pro_weekly">Pro Weekly</option>
+                        <option value="business">Business Monthly</option>
+                        <option value="enterprise">Enterprise</option>
+                    </select>
+                </div>
+
+                <div class="modal-buttons">
+                    <button type="button" class="btn btn-secondary" onclick="hideCreateUserModal()">Cancel</button>
+                    <button type="submit" class="btn btn-success">Create User</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Grant Messages Modal -->
+    <div id="grant-messages-modal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title">💬 Grant Additional Messages</h3>
+                <button class="modal-close" onclick="hideGrantMessagesModal()">×</button>
+            </div>
+
+            <div id="grant-messages-message" class="message hidden"></div>
+
+            <form id="grant-messages-form">
+                <div class="form-group">
+                    <label class="form-label">User Email *</label>
+                    <input type="email" id="grant-user-email" class="form-input" 
+                           placeholder="user@example.com" required>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">Number of Messages to Grant *</label>
+                    <input type="number" id="grant-messages-count" class="form-input" 
+                           min="1" max="10000" value="100" required>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">Reason</label>
+                    <input type="text" id="grant-messages-reason" class="form-input" 
+                           placeholder="e.g., Service recovery, Compensation">
+                </div>
+
+                <div class="modal-buttons">
+                    <button type="button" class="btn btn-secondary" onclick="hideGrantMessagesModal()">Cancel</button>
+                    <button type="submit" class="btn btn-warning">Grant Messages</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Edit User Modal -->
+    <div id="edit-user-modal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title">✏️ Edit User</h3>
+                <button class="modal-close" onclick="hideEditUserModal()">×</button>
+            </div>
+
+            <div id="edit-user-message" class="message hidden"></div>
+
+            <form id="edit-user-form">
+                <input type="hidden" id="edit-user-id">
+
+                <div class="form-group">
+                    <label class="form-label">Email</label>
+                    <input type="email" id="edit-user-email" class="form-input">
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">First Name</label>
+                    <input type="text" id="edit-user-firstname" class="form-input">
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">Last Name</label>
+                    <input type="text" id="edit-user-lastname" class="form-input">
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">Plan</label>
+                    <select id="edit-user-plan" class="form-input">
+                        <option value="free">Free</option>
+                        <option value="starter">Starter Monthly</option>
+                        <option value="starter_weekly">Starter Weekly</option>
+                        <option value="pro">Pro Monthly</option>
+                        <option value="pro_weekly">Pro Weekly</option>
+                        <option value="business">Business Monthly</option>
+                        <option value="enterprise">Enterprise</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">Monthly Usage</label>
+                    <input type="number" id="edit-user-usage" class="form-input" min="0">
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">Subscription Status</label>
+                    <select id="edit-user-substatus" class="form-input">
+                        <option value="inactive">Inactive</option>
+                        <option value="active">Active</option>
+                        <option value="cancelled">Cancelled</option>
+                        <option value="past_due">Past Due</option>
+                        <option value="expired">Expired</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">Subscription ID (LemonSqueezy)</label>
+                    <input type="text" id="edit-user-subid" class="form-input" 
+                           placeholder="LemonSqueezy subscription ID">
+                </div>
+
+                <div class="modal-buttons">
+                    <button type="button" class="btn btn-secondary" onclick="hideEditUserModal()">Cancel</button>
+                    <button type="submit" class="btn btn-primary">Save Changes</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        // Configuration
+        const API_BASE = 'https://dmtools-backend-production.up.railway.app/api';
+        let authToken = localStorage.getItem('adminToken');
+        let currentUsers = [];
+
+        // Initialize
+        document.addEventListener('DOMContentLoaded', () => {
+            if (authToken) {
+                checkAuth();
+            } else {
+                showLoginScreen();
+            }
+
+            // Form handlers
+            document.getElementById('login-form').addEventListener('submit', handleLogin);
+            document.getElementById('create-user-form').addEventListener('submit', handleCreateUser);
+            document.getElementById('grant-messages-form').addEventListener('submit', handleGrantMessages);
+            document.getElementById('edit-user-form').addEventListener('submit', handleEditUser);
+        });
+
+        // Authentication
+        async function handleLogin(e) {
+            e.preventDefault();
+            
+            const email = document.getElementById('login-email').value;
+            const password = document.getElementById('login-password').value;
+
+            try {
+                const response = await fetch(`${API_BASE}/admin/login`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ email, password })
+                });
+
+                const data = await response.json();
+
+                if (response.ok) {
+                    authToken = data.token;
+                    localStorage.setItem('adminToken', authToken);
+                    showDashboard();
+                } else {
+                    showLoginError(data.error || 'Login failed');
+                }
+            } catch (error) {
+                showLoginError('Connection error. Please try again.');
+            }
+        }
+
+        async function checkAuth() {
+            try {
+                const response = await apiCall('/admin/dashboard');
+                if (response.success) {
+                    showDashboard();
+                } else {
+                    logout();
+                }
+            } catch (error) {
+                logout();
+            }
+        }
+
+        function logout() {
+            authToken = null;
+            localStorage.removeItem('adminToken');
+            showLoginScreen();
+        }
+
+        function showLoginScreen() {
+            document.getElementById('login-screen').classList.remove('hidden');
+            document.getElementById('dashboard').classList.add('hidden');
+        }
+
+        function showLoginError(message) {
+            const errorEl = document.getElementById('login-error');
+            errorEl.textContent = message;
+            errorEl.classList.remove('hidden');
+            setTimeout(() => errorEl.classList.add('hidden'), 5000);
+        }
+
+        async function showDashboard() {
+            document.getElementById('login-screen').classList.add('hidden');
+            document.getElementById('dashboard').classList.remove('hidden');
+            document.getElementById('loading-state').classList.remove('hidden');
+            document.getElementById('main-content').classList.add('hidden');
+
+            // Extract email from token
+            try {
+                const payload = JSON.parse(atob(authToken.split('.')[1]));
+                document.getElementById('admin-email').textContent = payload.email;
+            } catch (e) {}
+
+            // Load all data
+            await Promise.all([
+                loadDashboardStats(),
+                loadRevenueData(),
+                loadSubscriptionAnalytics(),
+                loadUsers()
+            ]);
+
+            document.getElementById('loading-state').classList.add('hidden');
+            document.getElementById('main-content').classList.remove('hidden');
+        }
+
+        // API Helper
+        async function apiCall(endpoint, options = {}) {
+            const response = await fetch(`${API_BASE}${endpoint}`, {
+                ...options,
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${authToken}`,
+                    ...options.headers
+                }
+            });
+
+            if (response.status === 401) {
+                logout();
+                throw new Error('Unauthorized');
+            }
+
+            const data = await response.json();
+            
+            if (!response.ok) {
+                throw new Error(data.error || 'Request failed');
+            }
+
+            return data;
+        }
+
+        // Dashboard Stats
+        async function loadDashboardStats() {
+            try {
+                const data = await apiCall('/admin/dashboard');
+                
+                document.getElementById('total-users').textContent = data.dashboard.totalUsers || 0;
+                document.getElementById('active-users').textContent = data.dashboard.activeUsers || 0;
+                document.getElementById('active-subscriptions').textContent = data.dashboard.activeSubscriptions || 0;
+                document.getElementById('api-calls-today').textContent = data.dashboard.apiCallsToday || 0;
+
+            } catch (error) {
+                console.error('Failed to load dashboard stats:', error);
+            }
+        }
+
+        // Revenue Data
+        async function loadRevenueData() {
+            try {
+                const data = await apiCall('/admin/revenue');
+                
+                document.getElementById('monthly-revenue').textContent = 
+                    `$${data.revenue.mrr.toLocaleString()}`;
+                document.getElementById('annual-revenue').textContent = 
+                    `$${data.revenue.arr.toLocaleString()}`;
+
+                // Render breakdown
+                const breakdown = document.getElementById('revenue-breakdown');
+                breakdown.innerHTML = '';
+
+                Object.entries(data.revenue.breakdown).forEach(([plan, info]) => {
+                    breakdown.innerHTML += `
+                        <div class="revenue-item">
+                            <div class="revenue-plan">${plan.replace(/_/g, ' ').toUpperCase()}</div>
+                            <div class="revenue-amount">$${info.revenue.toFixed(2)}</div>
+                            <div class="revenue-subs">${info.subscribers} subscribers @ $${info.price_per_user}/mo</div>
+                        </div>
+                    `;
+                });
+
+            } catch (error) {
+                console.error('Failed to load revenue data:', error);
+            }
+        }
+
+        // Subscription Analytics
+        async function loadSubscriptionAnalytics() {
+            try {
+                const [subsData, failedData] = await Promise.all([
+                    apiCall('/admin/subscriptions'),
+                    apiCall('/admin/failed-payments')
+                ]);
+
+                // Plan breakdown
+                const planTable = document.getElementById('plan-breakdown-table');
+                planTable.innerHTML = '';
+                
+                const planPricing = {
+                    free: 0, starter: 19, starter_weekly: 5, pro: 49, pro_weekly: 13,
+                    business: 129, business_weekly: 33, enterprise: 349
+                };
+
+                subsData.analytics.by_plan.forEach(row => {
+                    const mrr = parseInt(row.count) * (planPricing[row.plan] || 0);
+                    planTable.innerHTML += `
+                        <tr>
+                            <td><span class="badge badge-info">${row.plan.replace(/_/g, ' ').toUpperCase()}</span></td>
+                            <td>${row.count}</td>
+                            <td>$${mrr.toFixed(2)}</td>
+                        </tr>
+                    `;
+                });
+
+                // Status breakdown
+                const statusTable = document.getElementById('status-breakdown-table');
+                statusTable.innerHTML = '';
+                
+                subsData.analytics.by_status.forEach(row => {
+                    const badgeClass = row.subscription_status === 'active' ? 'badge-success' : 
+                                      row.subscription_status === 'past_due' ? 'badge-danger' : 
+                                      'badge-warning';
+                    statusTable.innerHTML += `
+                        <tr>
+                            <td><span class="badge ${badgeClass}">${row.subscription_status || 'none'}</span></td>
+                            <td>${row.count}</td>
+                        </tr>
+                    `;
+                });
+
+                // Failed payments
+                const failedTable = document.getElementById('failed-payments-table');
+                failedTable.innerHTML = '';
+                
+                if (failedData.failed_payments.length === 0) {
+                    failedTable.innerHTML = '<tr><td colspan="5" style="text-align: center; color: #10b981;">✅ No failed payments!</td></tr>';
+                } else {
+                    failedData.failed_payments.forEach(user => {
+                        failedTable.innerHTML += `
+                            <tr>
+                                <td>${user.email}</td>
+                                <td><span class="badge badge-info">${user.plan}</span></td>
+                                <td><code style="font-size: 0.8rem;">${user.subscription_id || 'N/A'}</code></td>
+                                <td>${user.last_login ? new Date(user.last_login).toLocaleDateString() : 'Never'}</td>
+                                <td>
+                                    <button class="btn btn-secondary" style="padding: 0.5rem 1rem; font-size: 0.85rem;" 
+                                            onclick="editUser(${user.id})">Edit</button>
+                                </td>
+                            </tr>
+                        `;
+                    });
+                }
+
+            } catch (error) {
+                console.error('Failed to load subscription analytics:', error);
+            }
+        }
+
+        // Users
+        async function loadUsers() {
+            try {
+                const data = await apiCall('/admin/users');
+                currentUsers = data.users;
+                renderUsers(currentUsers);
+            } catch (error) {
+                console.error('Failed to load users:', error);
+            }
+        }
+
+        function renderUsers(users) {
+            const tbody = document.getElementById('users-table');
+            tbody.innerHTML = '';
+
+            if (users.length === 0) {
+                tbody.innerHTML = '<tr><td colspan="9" style="text-align: center; color: #9ca3af;">No users found</td></tr>';
+                return;
+            }
+
+            users.forEach(user => {
+                const statusClass = user.subscription_status === 'active' ? 'badge-success' : 
+                                   user.subscription_status === 'past_due' ? 'badge-danger' : 
+                                   'badge-warning';
+                
+                tbody.innerHTML += `
+                    <tr>
+                        <td>${user.id}</td>
+                        <td>${user.email}</td>
+                        <td>${user.first_name || ''} ${user.last_name || ''}</td>
+                        <td><span class="badge badge-info">${user.plan || 'free'}</span></td>
+                        <td>${user.monthly_usage || 0}</td>
+                        <td><span class="badge ${statusClass}">${user.subscription_status || 'inactive'}</span></td>
+                        <td style="font-size: 0.75rem;">${user.subscription_id ? user.subscription_id.substring(0, 20) + '...' : 'N/A'}</td>
+                        <td>${new Date(user.created_at).toLocaleDateString()}</td>
+                        <td>
+                            <button class="btn btn-secondary" style="padding: 0.5rem 1rem; font-size: 0.85rem; margin-right: 0.5rem;" 
+                                    onclick="editUser(${user.id})">Edit</button>
+                            <button class="btn btn-danger" style="padding: 0.5rem 1rem; font-size: 0.85rem;" 
+                                    onclick="deleteUser(${user.id}, '${user.email}')">Delete</button>
+                        </td>
+                    </tr>
+                `;
+            });
+        }
+
+        function applyFilters() {
+            const searchTerm = document.getElementById('search-users').value.toLowerCase();
+            const planFilter = document.getElementById('filter-plan').value;
+            const statusFilter = document.getElementById('filter-status').value;
+
+            const filtered = currentUsers.filter(user => {
+                const matchesSearch = user.email.toLowerCase().includes(searchTerm);
+                const matchesPlan = !planFilter || user.plan === planFilter;
+                const matchesStatus = !statusFilter || user.subscription_status === statusFilter;
+                return matchesSearch && matchesPlan && matchesStatus;
+            });
+
+            renderUsers(filtered);
+        }
+
+        // User Actions
+        async function editUser(userId) {
+            const user = currentUsers.find(u => u.id === userId);
+            if (!user) return;
+
+            document.getElementById('edit-user-id').value = user.id;
+            document.getElementById('edit-user-email').value = user.email;
+            document.getElementById('edit-user-firstname').value = user.first_name || '';
+            document.getElementById('edit-user-lastname').value = user.last_name || '';
+            document.getElementById('edit-user-plan').value = user.plan || 'free';
+            document.getElementById('edit-user-usage').value = user.monthly_usage || 0;
+            document.getElementById('edit-user-substatus').value = user.subscription_status || 'inactive';
+            document.getElementById('edit-user-subid').value = user.subscription_id || '';
+
+            showEditUserModal();
+        }
+
+        async function handleEditUser(e) {
+            e.preventDefault();
+
+            const userId = document.getElementById('edit-user-id').value;
+            const updates = {
+                email: document.getElementById('edit-user-email').value,
+                first_name: document.getElementById('edit-user-firstname').value,
+                last_name: document.getElementById('edit-user-lastname').value,
+                plan: document.getElementById('edit-user-plan').value,
+                monthly_usage: parseInt(document.getElementById('edit-user-usage').value),
+                subscription_status: document.getElementById('edit-user-substatus').value,
+                subscription_id: document.getElementById('edit-user-subid').value || null
+            };
+
+            try {
+                await apiCall(`/admin/users/${userId}`, {
+                    method: 'PUT',
+                    body: JSON.stringify(updates)
+                });
+
+                showMessage('edit-user-message', 'User updated successfully!', 'success');
+                setTimeout(() => {
+                    hideEditUserModal();
+                    loadUsers();
+                }, 1500);
+            } catch (error) {
+                showMessage('edit-user-message', error.message, 'error');
+            }
+        }
+
+        async function deleteUser(userId, email) {
+            if (!confirm(`Are you sure you want to delete user ${email}? This action cannot be undone.`)) {
+                return;
+            }
+
+            try {
+                await apiCall(`/admin/users/${userId}`, { method: 'DELETE' });
+                loadUsers();
+            } catch (error) {
+                alert('Failed to delete user: ' + error.message);
+            }
+        }
+
+        // Create User
+        async function handleCreateUser(e) {
+            e.preventDefault();
+
+            const userData = {
+                email: document.getElementById('new-user-email').value,
+                password: document.getElementById('new-user-password').value,
+                first_name: document.getElementById('new-user-firstname').value,
+                last_name: document.getElementById('new-user-lastname').value,
+                plan: document.getElementById('new-user-plan').value
+            };
+
+            try {
+                await apiCall('/admin/users/create', {
+                    method: 'POST',
+                    body: JSON.stringify(userData)
+                });
+
+                showMessage('create-user-message', `User ${userData.email} created successfully!`, 'success');
+                document.getElementById('create-user-form').reset();
+                
+                setTimeout(() => {
+                    hideCreateUserModal();
+                    loadUsers();
+                }, 1500);
+            } catch (error) {
+                showMessage('create-user-message', error.message, 'error');
+            }
+        }
+
+        // Grant Messages
+        async function handleGrantMessages(e) {
+            e.preventDefault();
+
+            const email = document.getElementById('grant-user-email').value;
+            const messages = parseInt(document.getElementById('grant-messages-count').value);
+            const reason = document.getElementById('grant-messages-reason').value;
+
+            // Find user ID by email
+            const user = currentUsers.find(u => u.email === email);
+            if (!user) {
+                showMessage('grant-messages-message', 'User not found with that email', 'error');
+                return;
+            }
+
+            try {
+                await apiCall(`/admin/users/${user.id}/grant-messages`, {
+                    method: 'POST',
+                    body: JSON.stringify({ messages, reason })
+                });
+
+                showMessage('grant-messages-message', `Successfully granted ${messages} messages to ${email}!`, 'success');
+                document.getElementById('grant-messages-form').reset();
+                
+                setTimeout(() => {
+                    hideGrantMessagesModal();
+                    loadUsers();
+                }, 1500);
+            } catch (error) {
+                showMessage('grant-messages-message', error.message, 'error');
+            }
+        }
+
+        // Utility Functions
+        function generatePassword() {
+            const length = 12;
+            const charset = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!@#$%^&*';
+            let password = '';
+            for (let i = 0; i < length; i++) {
+                password += charset.charAt(Math.floor(Math.random() * charset.length));
+            }
+            document.getElementById('new-user-password').value = password;
+        }
+
+        function showMessage(elementId, message, type) {
+            const el = document.getElementById(elementId);
+            el.textContent = message;
+            el.className = `message ${type}`;
+            el.classList.remove('hidden');
+        }
+
+        // Tab Management
+        function showTab(tabName) {
+            // Update tab buttons
+            document.querySelectorAll('.tab').forEach(tab => tab.classList.remove('active'));
+            event.target.classList.add('active');
+
+            // Update content
+            document.querySelectorAll('.tab-content').forEach(content => content.classList.add('hidden'));
+            document.getElementById(`tab-${tabName}`).classList.remove('hidden');
+        }
+
+        // Modal Management
+        function showCreateUserModal() {
+            document.getElementById('create-user-modal').classList.add('show');
+            generatePassword(); // Auto-generate password
+        }
+
+        function hideCreateUserModal() {
+            document.getElementById('create-user-modal').classList.remove('show');
+            document.getElementById('create-user-form').reset();
+            document.getElementById('create-user-message').classList.add('hidden');
+        }
+
+        function showGrantMessagesModal() {
+            document.getElementById('grant-messages-modal').classList.add('show');
+        }
+
+        function hideGrantMessagesModal() {
+            document.getElementById('grant-messages-modal').classList.remove('show');
+            document.getElementById('grant-messages-form').reset();
+            document.getElementById('grant-messages-message').classList.add('hidden');
+        }
+
+        function showEditUserModal() {
+            document.getElementById('edit-user-modal').classList.add('show');
+        }
+
+        function hideEditUserModal() {
+            document.getElementById('edit-user-modal').classList.remove('show');
+            document.getElementById('edit-user-message').classList.add('hidden');
+        }
+    </script>
+</body>
+</html>

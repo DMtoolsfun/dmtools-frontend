@@ -1,0 +1,894 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <!-- Taboola Pixel Code -->
+<script type='text/javascript'>
+  window._tfa = window._tfa || [];
+  window._tfa.push({notify: 'event', name: 'page_view', id: 1909973});
+  !function (t, f, a, x) {
+         if (!document.getElementById(x)) {
+            t.async = 1;t.src = a;t.id=x;f.parentNode.insertBefore(t, f);
+         }
+  }(document.createElement('script'),
+  document.getElementsByTagName('script')[0],
+  '//cdn.taboola.com/libtrc/unip/1909973/tfa.js',
+  'tb_tfa_script');
+</script>
+<!-- End of Taboola Pixel Code -->
+  
+  <!-- PWA Manifest -->
+<link rel="manifest" href="/manifest.json">
+<meta name="theme-color" content="#8b5cf6">
+<meta name="apple-mobile-web-app-capable" content="yes">
+  
+   <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-GFG0RYJNR0"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-GFG0RYJNR0');
+    </script> 
+  
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DMTools.fun - Analytics Dashboard</title>
+    <meta name="description" content="Track your universal message response generation analytics, usage patterns, and productivity insights across all digital messaging platforms.">
+    
+    <!-- Favicon -->
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>📊</text></svg>">
+    
+    <!-- Chart.js -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.9.1/chart.min.js"></script>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: #0f172a;
+            color: #ffffff;
+            line-height: 1.6;
+        }
+
+        /* Header */
+        .header {
+            background: rgba(15, 23, 42, 0.95);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid #1e293b;
+            padding: 1rem 0;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: 900;
+            background: linear-gradient(135deg, #8b5cf6, #06b6d4);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            cursor: pointer;
+            text-decoration: none;
+        }
+
+        .nav-back {
+            background: #374151;
+            color: #ffffff;
+            padding: 0.5rem 1rem;
+            border-radius: 8px;
+            text-decoration: none;
+            border: 1px solid #4b5563;
+            transition: all 0.3s ease;
+        }
+
+        .nav-back:hover {
+            border-color: #8b5cf6;
+            color: #8b5cf6;
+        }
+
+        /* Container */
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        /* Page Title */
+        .page-title {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .page-title h1 {
+            font-size: 3rem;
+            font-weight: 900;
+            background: linear-gradient(135deg, #8b5cf6, #06b6d4);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 1rem;
+        }
+
+        .page-title p {
+            color: #9ca3af;
+            font-size: 1.2rem;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        /* Stats Grid */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+
+        .stat-card {
+            background: #1f2937;
+            border: 1px solid #374151;
+            border-radius: 16px;
+            padding: 2rem;
+            text-align: center;
+            position: relative;
+            transition: all 0.3s ease;
+        }
+
+        .stat-card:hover {
+            border-color: #8b5cf6;
+            transform: translateY(-5px);
+            box-shadow: 0 20px 40px rgba(139, 92, 246, 0.1);
+        }
+
+        .stat-icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+
+        .stat-value {
+            font-size: 2.5rem;
+            font-weight: 900;
+            color: #8b5cf6;
+            margin-bottom: 0.5rem;
+        }
+
+        .stat-label {
+            color: #9ca3af;
+            font-size: 1rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .stat-change {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            background: rgba(16, 185, 129, 0.2);
+            color: #10b981;
+            padding: 0.25rem 0.5rem;
+            border-radius: 12px;
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
+
+        /* Charts Grid */
+        .charts-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+
+        .chart-section {
+            background: #1f2937;
+            border: 1px solid #374151;
+            border-radius: 16px;
+            padding: 2rem;
+        }
+
+        .chart-title {
+            color: #ffffff;
+            font-size: 1.3rem;
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+            text-align: center;
+        }
+
+        .chart-container {
+            position: relative;
+            height: 300px;
+        }
+
+        /* Platform Grid */
+        .platform-charts {
+            display: grid;
+            grid-template-rows: 1fr 1fr;
+            gap: 2rem;
+        }
+
+        /* Buttons */
+        .btn {
+            padding: 0.75rem 1.5rem;
+            border: none;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 0.9rem;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #8b5cf6, #7c3aed);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(139, 92, 246, 0.3);
+        }
+      
+         /* Navigation Tabs */
+.nav-tabs {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+    padding: 1rem 2rem;
+    border-top: 1px solid #1e293b;
+}
+
+.tab-btn {
+    background: transparent;
+    border: 1px solid #374151;
+    color: #9ca3af;
+    padding: 0.75rem 1.5rem;
+    border-radius: 8px;
+    text-decoration: none;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    cursor: pointer;
+    font-size: 0.9rem;
+}
+
+.tab-btn:hover,
+.tab-btn.active {
+    border-color: #8b5cf6;
+    color: #8b5cf6;
+    background: rgba(139, 92, 246, 0.1);
+}
+
+.tab-btn.active {
+    background: rgba(139, 92, 246, 0.2);
+}
+
+@media (max-width: 768px) {
+    .nav-tabs {
+        flex-wrap: wrap;
+        gap: 0.5rem;
+        padding: 1rem;
+    }
+    
+    .tab-btn {
+        padding: 0.5rem 1rem;
+        font-size: 0.8rem;
+    }
+}
+
+        /* Loading States */
+        .loading {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 4rem;
+            color: #9ca3af;
+        }
+
+        .spinner {
+            width: 40px;
+            height: 40px;
+            border: 4px solid #374151;
+            border-top: 4px solid #8b5cf6;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin-bottom: 1rem;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        /* Hidden utility */
+        .hidden {
+            display: none !important;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .container {
+                padding: 1rem;
+            }
+
+            .page-title h1 {
+                font-size: 2.5rem;
+            }
+
+            .stats-grid {
+                grid-template-columns: 1fr;
+                gap: 1rem;
+            }
+
+            .charts-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .nav-container {
+                flex-wrap: wrap;
+                gap: 1rem;
+            }
+        }
+      /* =============================================== */
+/* FOOTER STYLES */
+/* =============================================== */
+
+.footer {
+    background: #111827;
+    border-top: 1px solid #374151;
+    padding: 3rem 0 2rem;
+    margin-top: 4rem;
+}
+
+.footer-content {
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+    gap: 3rem;
+    margin-bottom: 2rem;
+}
+
+.footer-logo {
+    font-size: 1.5rem;
+    font-weight: 900;
+    color: #8b5cf6;
+    margin-bottom: 1rem;
+}
+
+.footer-description {
+    color: #9ca3af;
+    line-height: 1.6;
+}
+
+.footer-links {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2rem;
+}
+
+.link-group h4 {
+    color: #ffffff;
+    font-weight: 600;
+    margin-bottom: 1rem;
+    font-size: 0.9rem;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.link-group a {
+    display: block;
+    color: #9ca3af;
+    text-decoration: none;
+    margin-bottom: 0.5rem;
+    transition: color 0.3s ease;
+}
+
+.link-group a:hover {
+    color: #8b5cf6;
+}
+
+.footer-bottom {
+    padding-top: 2rem;
+    border-top: 1px solid #374151;
+    text-align: center;
+}
+
+.footer-copyright {
+    color: #6b7280;
+    font-size: 0.875rem;
+}
+
+/* Mobile Responsive Footer */
+@media (max-width: 768px) {
+    .footer-content {
+        grid-template-columns: 1fr;
+        gap: 2rem;
+    }
+    
+    .footer-links {
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+    }
+}
+      
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="nav-container">
+            <a href="/" class="logo">DMTools.fun</a>
+            <a href="/app.html" class="nav-back">← Back to App</a>
+        </div>
+      <nav class="nav-tabs">
+    <a href="/app.html" class="tab-btn">💬 Generator</a>
+    <a href="/presets.html" class="tab-btn">📋 Templates</a>
+    <a href="/analytics.html" class="tab-btn active">📊 Analytics</a>
+    <a href="/contact.html" class="tab-btn">📞 Contact</a>
+    <a href="/pricing.html" class="tab-btn">💎 Pricing</a>
+    <a href="/account.html" class="tab-btn">👤 Account</a>
+</nav>
+    </header>
+<main>
+    <!-- Main Content -->
+    <div class="container">
+        <!-- Page Title -->
+        <div class="page-title">
+            <h1>📊 Analytics Dashboard</h1>
+            <p>Track your universal message response generation, usage patterns, and productivity insights.</p>
+        </div>
+
+        <!-- Analytics Content -->
+        <div id="analytics-content">
+            <!-- Stats Grid -->
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-change">+0%</div>
+                    <div class="stat-icon">⚡</div>
+                    <div class="stat-value" id="total-responses">0</div>
+                    <div class="stat-label">Total Responses</div>
+                </div>
+                
+                <div class="stat-card">
+                    <div class="stat-change">This Month</div>
+                    <div class="stat-icon">📅</div>
+                    <div class="stat-value" id="monthly-usage">0</div>
+                    <div class="stat-label">Monthly Usage</div>
+                </div>
+                
+                <div class="stat-card">
+                    <div class="stat-change">+0%</div>
+                    <div class="stat-icon">📈</div>
+                    <div class="stat-value" id="avg-daily">0</div>
+                    <div class="stat-label">Daily Average</div>
+                </div>
+                
+                <div class="stat-card">
+                    <div class="stat-change" id="plan-badge">Active</div>
+                    <div class="stat-icon">💎</div>
+                    <div class="stat-value" id="plan-type">FREE</div>
+                    <div class="stat-label">Current Plan</div>
+                </div>
+            </div>
+
+            <!-- Charts Grid -->
+            <div class="charts-grid">
+                <!-- Usage Over Time -->
+                <div class="chart-section">
+                    <h3 class="chart-title">Response Generation Over Time</h3>
+                    <div class="chart-container">
+                        <canvas id="usageChart"></canvas>
+                    </div>
+                </div>
+
+                <!-- Platform Charts -->
+                <div class="platform-charts">
+                    <!-- Response Tones -->
+                    <div class="chart-section">
+                        <h3 class="chart-title">Response Tones</h3>
+                        <div class="chart-container" style="height: 200px;">
+                            <canvas id="toneChart"></canvas>
+                        </div>
+                    </div>
+
+                    <!-- Platform Usage -->
+                    <div class="chart-section">
+                        <h3 class="chart-title">Platform Usage</h3>
+                        <div class="chart-container" style="height: 200px;">
+                            <canvas id="platformChart"></canvas>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Loading State -->
+        <div id="loading-state" class="hidden">
+            <div class="loading">
+                <div class="spinner"></div>
+                <p>Loading your analytics data...</p>
+            </div>
+        </div>
+
+        <!-- Unauthenticated State -->
+        <div id="unauthenticated-state" class="hidden">
+            <div style="text-align: center; padding: 4rem; background: #1f2937; border-radius: 16px; border: 1px solid #374151;">
+                <div style="font-size: 4rem; margin-bottom: 1rem;">🔒</div>
+                <h2 style="color: #ffffff; margin-bottom: 1rem;">Sign In to View Analytics</h2>
+                <p style="color: #9ca3af; margin-bottom: 2rem;">
+                    Track your message response generation, usage patterns, and productivity insights.
+                </p>
+                <a href="/login.html" class="btn btn-primary">Sign In</a>
+                <div style="margin-top: 1rem;">
+                    <p style="color: #9ca3af;">
+                        Don't have an account? <a href="/register.html" style="color: #8b5cf6; text-decoration: none;">Sign up free</a>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+  </main>
+  <!-- Footer -->
+<footer class="footer">
+    <div class="container">
+        <div class="footer-content">
+            <div class="footer-description">
+                <h3 class="footer-logo">DMTools.fun</h3>
+                <p>The world's first Universal Digital Messaging Response Command Center. Generate perfect responses for any digital messaging service including social media DMs, email, SMS, dating apps, and customer service chat. Save 10+ hours weekly with our AI-powered universal unlimited batch response draft generator.</p>
+            </div>
+            
+            <div class="footer-links">
+                <div class="link-group">
+                    <h4>Legal</h4>
+                    <a href="/terms-of-service.html">Terms of Service</a>
+                    <a href="/privacy-policy.html">Privacy Policy</a>
+                    <a href="/refund-policy.html">Refund Policy</a>
+                    <a href="/cookie-policy.html">Cookie Policy</a>
+                </div>
+                
+                <div class="link-group">
+                    <h4>Product</h4>
+                    <a href="/pricing.html">Pricing</a>
+                    <a href="/analytics.html">Analytics</a>
+                    <a href="/presets.html">Templates</a>
+                    <a href="/app.html">Generator</a>
+                </div>
+                
+                <div class="link-group">
+                    <h4>Support</h4>
+                    <a href="/contact.html">Contact Support</a>
+                    <a href="/account.html">My Account</a>
+                    <a href="mailto:support@dmtools.fun">Email Support</a>
+                    <a href="/">Back to Home</a>
+                </div>
+            </div>
+        </div>
+        
+        <div class="footer-bottom">
+            <div class="footer-copyright">
+                © 2025 DMTools.fun. All rights reserved.
+            </div>
+        </div>
+    </div>
+</footer>
+
+    <script>
+        // Global Variables
+        let currentUser = null;
+        let isAuthenticated = false;
+        let usageChart = null;
+        let toneChart = null;
+        let platformChart = null;
+        
+        // API Configuration
+        const API_BASE = 'https://dmtools-backend-production.up.railway.app/api';
+
+        // Initialize App
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log('📊 Initializing DMTools Analytics Dashboard...');
+            checkAuthAndLoadData();
+        });
+
+        // Simple auth check and data loading
+        async function checkAuthAndLoadData() {
+            const token = localStorage.getItem('authToken');
+            
+            if (!token) {
+                showUnauthenticatedState();
+                return;
+            }
+
+            showLoadingState();
+
+            try {
+                // Simple API call to check auth and get user data
+                const response = await fetch(`${API_BASE}/user/profile`, {
+                    headers: {
+                        'Authorization': `Bearer ${token}`,
+                        'Content-Type': 'application/json'
+                    }
+                });
+
+                if (response.ok) {
+                    const data = await response.json();
+                    currentUser = data.user;
+                    isAuthenticated = true;
+                    
+                    // Load analytics with user data
+                    loadAnalyticsData();
+                } else {
+                    // Token is invalid, clear it and show sign-in
+                    localStorage.removeItem('authToken');
+                    showUnauthenticatedState();
+                }
+
+            } catch (error) {
+                console.error('Auth check failed:', error);
+                showUnauthenticatedState();
+            }
+        }
+
+        // Load analytics data
+       // REPLACE this entire function:
+async function loadAnalyticsData() {
+    if (!currentUser) {
+        showUnauthenticatedState();
+        return;
+    }
+
+    try {
+        // Get real analytics data
+        const [overviewRes, platformsRes, tonesRes] = await Promise.all([
+            fetch(`${API_BASE}/analytics/overview`, {
+                headers: { 'Authorization': `Bearer ${localStorage.getItem('authToken')}` }
+            }),
+            fetch(`${API_BASE}/analytics/platforms`, {
+                headers: { 'Authorization': `Bearer ${localStorage.getItem('authToken')}` }
+            }),
+            fetch(`${API_BASE}/analytics/tones`, {
+                headers: { 'Authorization': `Bearer ${localStorage.getItem('authToken')}` }
+            })
+        ]);
+
+        const overview = await overviewRes.json();
+        const platforms = await platformsRes.json();
+        const tones = await tonesRes.json();
+
+        // Update stats with real data
+        document.getElementById('total-responses').textContent = overview.overview.totalResponses;
+        document.getElementById('monthly-usage').textContent = overview.overview.monthlyUsage;
+        document.getElementById('avg-daily').textContent = Math.ceil(overview.overview.monthlyUsage / new Date().getDate());
+        document.getElementById('plan-type').textContent = (overview.overview.currentPlan || 'free').toUpperCase();
+
+        // Update plan badge color
+        const planBadge = document.getElementById('plan-badge');
+        const planType = (overview.overview.currentPlan || 'free').toUpperCase();
+        if (planType === 'FREE') {
+            planBadge.style.background = 'rgba(156, 163, 175, 0.2)';
+            planBadge.style.color = '#9ca3af';
+        } else if (planType === 'PRO') {
+            planBadge.style.background = 'rgba(139, 92, 246, 0.2)';
+            planBadge.style.color = '#8b5cf6';
+        } else {
+            planBadge.style.background = 'rgba(251, 191, 36, 0.2)';
+            planBadge.style.color = '#fbbf24';
+        }
+
+        // Create charts with real data
+        createRealCharts(overview.dailyUsage, platforms.platforms, tones.tones);
+        
+        showAnalyticsContent();
+        
+    } catch (error) {
+        console.error('Failed to load analytics:', error);
+        // Fallback to demo data
+        createChartsWithUserData(currentUser.monthly_usage || 0);
+        showAnalyticsContent();
+    }
+}
+      
+     // ADD this new function after loadAnalyticsData():
+function createRealCharts(dailyUsage, platformData, toneData) {
+    // Process daily usage for chart
+    const last7Days = [];
+    const today = new Date();
+    for (let i = 6; i >= 0; i--) {
+        const date = new Date(today);
+        date.setDate(date.getDate() - i);
+        const dateStr = date.toISOString().split('T')[0];
+        
+        const usage = dailyUsage.find(d => d.date === dateStr);
+        last7Days.push({
+            label: i === 0 ? 'Today' : i === 1 ? 'Yesterday' : `${i} days ago`,
+            value: usage ? usage.count : 0
+        });
+    }
+
+    createUsageChart({
+        labels: last7Days.map(d => d.label),
+        data: last7Days.map(d => d.value)
+    });
+
+    createToneChart({
+        labels: toneData.map(t => t.tone || 'Unknown'),
+        data: toneData.map(t => t.count)
+    });
+
+    createPlatformChart({
+        labels: platformData.map(p => p.platform || 'Unknown'),
+        data: platformData.map(p => p.count)
+    });
+}
+      
+
+        // Create charts with user-based data
+        function createChartsWithUserData(usage) {
+            // Usage chart - last 7 days pattern
+            const dailyAvg = Math.ceil(usage / 30) || 1;
+            const usageData = {
+                labels: ['6 days ago', '5 days ago', '4 days ago', '3 days ago', '2 days ago', 'Yesterday', 'Today'],
+                data: Array(7).fill().map(() => Math.max(0, dailyAvg + Math.floor(Math.random() * 6) - 3))
+            };
+
+            // Tone distribution
+            const toneData = {
+                labels: ['Friendly', 'Professional', 'Enthusiastic', 'Grateful', 'Supportive'],
+                data: usage > 0 ? [
+                    Math.floor(usage * 0.4),  // Friendly
+                    Math.floor(usage * 0.3),  // Professional
+                    Math.floor(usage * 0.15), // Enthusiastic
+                    Math.floor(usage * 0.1),  // Grateful
+                    Math.floor(usage * 0.05)  // Supportive
+                ] : [1, 1, 1, 1, 1]
+            };
+
+            // Platform distribution
+            const platformData = {
+                labels: ['Instagram', 'Facebook', 'TikTok', 'X', 'LinkedIn'],
+                data: usage > 0 ? [
+                    Math.floor(usage * 0.4),  // Instagram
+                    Math.floor(usage * 0.25), // Facebook
+                    Math.floor(usage * 0.15), // TikTok
+                    Math.floor(usage * 0.1),  // X
+                    Math.floor(usage * 0.1)   // LinkedIn
+                ] : [1, 1, 1, 1, 1]
+            };
+
+            createUsageChart(usageData);
+            createToneChart(toneData);
+            createPlatformChart(platformData);
+        }
+
+        // Create Usage Chart
+        function createUsageChart(data) {
+            const ctx = document.getElementById('usageChart');
+            if (usageChart) usageChart.destroy();
+
+            usageChart = new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels: data.labels,
+                    datasets: [{
+                        label: 'Responses Generated',
+                        data: data.data,
+                        borderColor: '#8b5cf6',
+                        backgroundColor: 'rgba(139, 92, 246, 0.1)',
+                        borderWidth: 3,
+                        fill: true,
+                        tension: 0.4
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: { legend: { display: false } },
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            grid: { color: '#374151' },
+                            ticks: { color: '#9ca3af' }
+                        },
+                        x: {
+                            grid: { color: '#374151' },
+                            ticks: { color: '#9ca3af' }
+                        }
+                    }
+                }
+            });
+        }
+
+        // Create Tone Chart
+        function createToneChart(data) {
+            const ctx = document.getElementById('toneChart');
+            if (toneChart) toneChart.destroy();
+
+            toneChart = new Chart(ctx, {
+                type: 'doughnut',
+                data: {
+                    labels: data.labels,
+                    datasets: [{
+                        data: data.data,
+                        backgroundColor: ['#8b5cf6', '#06b6d4', '#10b981', '#f59e0b', '#ef4444']
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            position: 'bottom',
+                            labels: { color: '#9ca3af', padding: 15 }
+                        }
+                    }
+                }
+            });
+        }
+
+        // Create Platform Chart
+        function createPlatformChart(data) {
+            const ctx = document.getElementById('platformChart');
+            if (platformChart) platformChart.destroy();
+
+            platformChart = new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: data.labels,
+                    datasets: [{
+                        data: data.data,
+                        backgroundColor: ['#8b5cf6', '#06b6d4', '#10b981', '#f59e0b', '#ef4444']
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: { legend: { display: false } },
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            grid: { color: '#374151' },
+                            ticks: { color: '#9ca3af' }
+                        },
+                        x: {
+                            grid: { display: false },
+                            ticks: { color: '#9ca3af' }
+                        }
+                    }
+                }
+            });
+        }
+
+        // UI State Functions
+        function showLoadingState() {
+            document.getElementById('analytics-content').classList.add('hidden');
+            document.getElementById('unauthenticated-state').classList.add('hidden');
+            document.getElementById('loading-state').classList.remove('hidden');
+        }
+
+        function showAnalyticsContent() {
+            document.getElementById('loading-state').classList.add('hidden');
+            document.getElementById('unauthenticated-state').classList.add('hidden');
+            document.getElementById('analytics-content').classList.remove('hidden');
+        }
+
+        function showUnauthenticatedState() {
+            document.getElementById('loading-state').classList.add('hidden');
+            document.getElementById('analytics-content').classList.add('hidden');
+            document.getElementById('unauthenticated-state').classList.remove('hidden');
+        }
+    </script>
+</body>
+</html>

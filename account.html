@@ -1152,50 +1152,93 @@
       
         
 
-        function updatePlanDisplay() {
+     // REPLACE the updatePlanDisplay() function in account.html with this:
+
+function updatePlanDisplay() {
     const plan = currentUser.plan || 'free';
+    
+    console.log('📊 Updating plan display for plan:', plan);
+    
     const planNames = {
         free: 'Free Plan',
         starter: 'Starter Monthly Plan', 
         startwk: 'Starter Weekly Plan',
+        starter_weekly: 'Starter Weekly Plan',  // Added underscore version
         pro: 'Pro Monthly Plan',
-        proAnnual: 'Pro Annual Plan',        // Fixed: removed space
+        proAnnual: 'Pro Annual Plan',
+        pro_annual: 'Pro Annual Plan',  // Added underscore version
         business: 'Business Monthly Plan',
-        businessAnnual: 'Business Annual Plan', // Fixed: removed space  
+        businessAnnual: 'Business Annual Plan',
+        business_annual: 'Business Annual Plan',  // Added underscore version
         enterprise: 'Enterprise Monthly Plan',
-        enterpriseAnnual: 'Enterprise Annual Plan' // Fixed: removed space
+        enterpriseAnnual: 'Enterprise Annual Plan',
+        enterprise_annual: 'Enterprise Annual Plan'  // Added underscore version
     };
+    
     const planPrices = {
         free: '$0/month',
         starter: '$19/month',
-        startwk: '$5.99/week', 
+        startwk: '$5.99/week',
+        starter_weekly: '$5.99/week',
         pro: '$59/month',
-        proAnnual: '$531/year',           // Fixed: consistent formatting
-        business: '$149/month',          // Fixed: consistent case
-        businessAnnual: '$1,341/year',   // Added comma for readability
+        proAnnual: '$531/year',
+        pro_annual: '$531/year',
+        business: '$149/month',
+        businessAnnual: '$1,341/year',
+        business_annual: '$1,341/year',
         enterprise: '$399/month',
-        enterpriseAnnual: '$3,591/year'  // Added comma for readability
+        enterpriseAnnual: '$3,591/year',
+        enterprise_annual: '$3,591/year'
     };
-      
-           
+    
     const planFeatures = {
         free: ['10 responses per month', '5 custom templates', 'Basic analytics', 'Email support'],
         starter: ['100 responses per month', '10 custom templates', 'Basic analytics', 'Email support', 'Batch processing'],
         startwk: ['30 responses per week', '10 custom templates', 'Basic analytics', 'Email support', 'Batch processing'],
-        pro: ['1,000 responses per month', '20 custom templates', 'Advanced analytics', 'Priority support', 'Batch processing', 'Export functionality'],
-        proAnnual: ['1,000 responses per month', '20 custom templates', 'Advanced analytics', 'Priority support', 'Batch processing', 'Export functionality', '3 months free'],
-        business: ['5,000 responses per month', '200 custom templates', 'Team analytics', 'Phone support', 'Advanced batch processing', 'API access', 'White-label options'],
-        businessAnnual: ['5,000 responses per month', '200 custom templates', 'Team analytics', 'Phone support', 'Advanced batch processing', 'API access', 'White-label options', '3 months free'],
-        enterprise: ['25,000 responses per month', 'Unlimited templates', 'Custom analytics', 'Dedicated support', 'Advanced API access', 'Custom integrations', 'SLA guarantee'],
-        enterpriseAnnual: ['25,000 responses per month', 'Unlimited templates', 'Custom analytics', 'Dedicated support', 'Advanced API access', 'Custom integrations', 'SLA guarantee', '3 months free']
+        starter_weekly: ['30 responses per week', '10 custom templates', 'Basic analytics', 'Email support', 'Batch processing'],
+        pro: ['1,000 responses per month', '20 custom templates', 'Advanced analytics', 'Priority support', 'Batch processing', 'Export functionality', 'Chrome Extension Access'],
+        proAnnual: ['1,000 responses per month', '20 custom templates', 'Advanced analytics', 'Priority support', 'Batch processing', 'Export functionality', 'Chrome Extension Access', '3 months free'],
+        pro_annual: ['1,000 responses per month', '20 custom templates', 'Advanced analytics', 'Priority support', 'Batch processing', 'Export functionality', 'Chrome Extension Access', '3 months free'],
+        business: ['5,000 responses per month', '200 custom templates', 'Team analytics', 'Phone support', 'Advanced batch processing', 'API access', 'Chrome Extension Access', 'White-label options'],
+        businessAnnual: ['5,000 responses per month', '200 custom templates', 'Team analytics', 'Phone support', 'Advanced batch processing', 'API access', 'Chrome Extension Access', 'White-label options', '3 months free'],
+        business_annual: ['5,000 responses per month', '200 custom templates', 'Team analytics', 'Phone support', 'Advanced batch processing', 'API access', 'Chrome Extension Access', 'White-label options', '3 months free'],
+        enterprise: ['25,000 responses per month', 'Unlimited templates', 'Custom analytics', 'Chrome Extension Access'],
+        enterpriseAnnual: ['25,000 responses per month', 'Unlimited templates', 'Custom analytics', 'Chrome Extension Access', '3 months free'],
+        enterprise_annual: ['25,000 responses per month', 'Unlimited templates', 'Custom analytics', 'Chrome Extension Access', '3 months free']
     };
-            document.getElementById('current-plan-badge').textContent = planNames[plan];
-            document.getElementById('current-plan-price').textContent = planPrices[plan];
-            
-            const featuresContainer = document.getElementById('current-plan-features');
-            featuresContainer.innerHTML = planFeatures[plan].map(feature => `<li>${feature}</li>`).join('');
-        
-      }
+    
+    // Update plan badge - with fallback
+    const planBadge = document.getElementById('current-plan-badge');
+    if (planBadge) {
+        planBadge.textContent = planNames[plan] || plan || 'Free Plan';
+    }
+    
+    // Update plan price - with fallback
+    const planPrice = document.getElementById('current-plan-price');
+    if (planPrice) {
+        planPrice.textContent = planPrices[plan] || '$0/month';
+    }
+    
+    // Update features - WITH SAFETY CHECK BEFORE .map()
+    const featuresContainer = document.getElementById('current-plan-features');
+    if (featuresContainer) {
+        // Check if features exist for this plan
+        if (planFeatures[plan]) {
+            // Safe to use .map()
+            featuresContainer.innerHTML = planFeatures[plan]
+                .map(feature => `<li>${feature}</li>`)
+                .join('');
+        } else {
+            // Fallback for unknown plans
+            console.warn('⚠️ Unknown plan type:', plan, '- using Free plan features');
+            featuresContainer.innerHTML = planFeatures['free']
+                .map(feature => `<li>${feature}</li>`)
+                .join('');
+        }
+    }
+    
+    console.log('✅ Plan display updated successfully');
+}
 
         // Load real usage statistics from API
         async function loadUsageStatistics() {

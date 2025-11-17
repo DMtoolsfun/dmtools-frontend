@@ -1,1351 +1,374 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <!-- PWA Manifest -->
-<link rel="manifest" href="/manifest.json">
-<meta name="theme-color" content="#8b5cf6">
-<meta name="apple-mobile-web-app-capable" content="yes">
-  
-   <!-- Google tag (gtag.js) -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-GFG0RYJNR0"></script>
-    <script>
-        window.dataLayer = window.dataLayer || [];
-        function gtag(){dataLayer.push(arguments);}
-        gtag('js', new Date());
-        gtag('config', 'G-GFG0RYJNR0');
-    </script>
-  
-  
-  <script>window.lemonSqueezyAffiliateConfig = { store: "dmtoolsfun-llc" };</script>
-<script src="https://lmsqueezy.com/affiliate.js" defer></script>
-  
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <!-- PWA Manifest and Meta Tags -->
-<link rel="manifest" href="/manifest.json">
-<meta name="theme-color" content="#8b5cf6">
-<meta name="apple-mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-<meta name="apple-mobile-web-app-title" content="DMTools">
-<link rel="apple-touch-icon" href="/icons/icon-180x180.png">
-    <title>Pricing - DMTools.fun | AI-Powered Universal Unlimited Batch Response Generator</title>
-    <meta name="description" content="AI-powered universal unlimited batch response draft generator for any digital messaging service. Process email, SMS, DMs, dating apps, customer service chat simultaneously. Free plan available.">
-    <link rel="icon" type="image/x-icon" href="/favicon.ico">
-    
-    <!-- Lemon Squeezy Script -->
-    <script src="https://assets.lemonsqueezy.com/lemon.js" defer></script>
-    
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
-            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
-            color: #e0e0e0;
-            min-height: 100vh;
-        }
-
-        .header {
-            background: rgba(31, 41, 55, 0.8);
-            backdrop-filter: blur(10px);
-            border-bottom: 1px solid rgba(139, 92, 246, 0.2);
-            padding: 1rem 0;
-            position: sticky;
-            top: 0;
-            z-index: 1000;
-        }
-
-        .container {
-            max-width: 1400px;
-            margin: 0 auto;
-            padding: 0 2rem;
-        }
-
-        .header-content {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .logo {
-            font-size: 1.5rem;
-            font-weight: 700;
-            background: linear-gradient(135deg, #8b5cf6, #ec4899);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            text-decoration: none;
-            cursor: pointer;
-        }
-
-        .nav-tabs {
-            display: flex;
-            gap: 0.5rem;
-        }
-
-        .tab-btn {
-            padding: 0.75rem 1.5rem;
-            background: transparent;
-            color: #9ca3af;
-            border: none;
-            border-radius: 12px;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            font-size: 0.95rem;
-            text-decoration: none;
-            display: inline-block;
-        }
-
-        .tab-btn:hover {
-            background: rgba(139, 92, 246, 0.1);
-            color: #8b5cf6;
-        }
-
-        .tab-btn.active {
-            background: rgba(139, 92, 246, 0.2);
-            color: #8b5cf6;
-        }
-
-        .auth-buttons {
-            display: flex;
-            gap: 1rem;
-        }
-
-        .btn {
-            padding: 0.75rem 1.5rem;
-            border-radius: 12px;
-            border: none;
-            cursor: pointer;
-            font-weight: 600;
-            transition: all 0.3s ease;
-            font-size: 0.95rem;
-        }
-
-        .btn-primary {
-            background: linear-gradient(135deg, #8b5cf6, #7c3aed);
-            color: white;
-        }
-
-        .btn-primary:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 8px 20px rgba(139, 92, 246, 0.4);
-        }
-
-        .btn-secondary {
-            background: transparent;
-            color: #8b5cf6;
-            border: 2px solid #8b5cf6;
-        }
-
-        .btn-secondary:hover {
-            background: rgba(139, 92, 246, 0.1);
-        }
-
-        .hero {
-            text-align: center;
-            padding: 4rem 0 3rem 0;
-        }
-
-        .hero-title {
-            font-size: 3rem;
-            font-weight: 900;
-            background: linear-gradient(135deg, #ffffff, #8b5cf6);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            margin-bottom: 1rem;
-        }
-
-        .hero-subtitle {
-            font-size: 1.25rem;
-            color: #9ca3af;
-            max-width: 800px;
-            margin: 0 auto 2rem auto;
-        }
-
-        .section-subtitle {
-            text-align: center;
-            color: #9ca3af;
-            margin-bottom: 3rem;
-            font-size: 1.1rem;
-        }
-
-        .pricing-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 2rem;
-            margin-bottom: 4rem;
-            max-width: 1600px;
-            margin-left: auto;
-            margin-right: auto;
-        }
-
-        .pricing-card {
-            background: rgba(31, 41, 59, 0.8);
-            border: 1px solid #374151;
-            border-radius: 24px;
-            padding: 2rem;
-            text-align: center;
-            position: relative;
-            transition: all 0.3s ease;
-        }
-
-        .pricing-card:hover {
-            transform: translateY(-8px);
-            border-color: #8b5cf6;
-            box-shadow: 0 20px 60px rgba(139, 92, 246, 0.3);
-        }
-
-        .pricing-card.featured {
-            border-color: #8b5cf6;
-            background: rgba(139, 92, 246, 0.1);
-            box-shadow: 0 20px 60px rgba(139, 92, 246, 0.3);
-        }
-
-        .plan-badge {
-            position: absolute;
-            top: -12px;
-            left: 50%;
-            transform: translateX(-50%);
-            background: linear-gradient(135deg, #8b5cf6, #7c3aed);
-            color: white;
-            padding: 0.5rem 1.5rem;
-            border-radius: 20px;
-            font-size: 0.75rem;
-            font-weight: 700;
-        }
-
-        .plan-name {
-            font-size: 1.5rem;
-            font-weight: 700;
-            color: #ffffff;
-            margin-bottom: 1rem;
-        }
-
-        .plan-price {
-            font-size: 2.5rem;
-            font-weight: 900;
-            color: #8b5cf6;
-            margin-bottom: 0.5rem;
-        }
-
-        .plan-price-range {
-            font-size: 1rem;
-            color: #9ca3af;
-            margin-bottom: 1rem;
-        }
-
-        .plan-description {
-            color: #d1d5db;
-            margin-bottom: 2rem;
-            font-size: 0.9rem;
-        }
-
-        .plan-features {
-            list-style: none;
-            margin-bottom: 2rem;
-            text-align: left;
-        }
-
-        .plan-features li {
-            color: #d1d5db;
-            margin-bottom: 0.75rem;
-            padding-left: 1.5rem;
-            position: relative;
-        }
-
-        .plan-features li:before {
-            content: "✓";
-            position: absolute;
-            left: 0;
-            color: #22c55e;
-            font-weight: 700;
-        }
-
-        .choose-btn, .free-btn {
-            width: 100%;
-            padding: 1rem 2rem;
-            border-radius: 12px;
-            border: none;
-            font-weight: 700;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            font-size: 1rem;
-            text-decoration: none;
-            display: inline-block;
-        }
-
-        .choose-btn {
-            background: linear-gradient(135deg, #8b5cf6, #7c3aed);
-            color: white;
-        }
-
-        .choose-btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 8px 20px rgba(139, 92, 246, 0.5);
-        }
-
-        .free-btn {
-            background: transparent;
-            color: #8b5cf6;
-            border: 2px solid #8b5cf6;
-        }
-
-        .free-btn:hover {
-            background: rgba(139, 92, 246, 0.1);
-            transform: translateY(-2px);
-        }
-
-        .auth-modal {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.8);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            z-index: 10000;
-            opacity: 0;
-            visibility: hidden;
-            transition: all 0.3s ease;
-        }
-
-        .auth-modal.active {
-            opacity: 1;
-            visibility: visible;
-        }
-
-        .auth-modal-content {
-            background: rgba(31, 41, 59, 0.95);
-            border: 1px solid rgba(139, 92, 246, 0.3);
-            border-radius: 24px;
-            padding: 2.5rem;
-            max-width: 450px;
-            width: 90%;
-            position: relative;
-        }
-
-        .modal-close {
-            position: absolute;
-            top: 1rem;
-            right: 1rem;
-            background: transparent;
-            border: none;
-            color: #9ca3af;
-            font-size: 2rem;
-            cursor: pointer;
-            transition: color 0.3s ease;
-        }
-
-        .modal-close:hover {
-            color: #ffffff;
-        }
-
-        .auth-modal-header {
-            text-align: center;
-            margin-bottom: 2rem;
-        }
-
-        .auth-modal-title {
-            font-size: 2rem;
-            font-weight: 700;
-            color: #ffffff;
-            margin-bottom: 0.5rem;
-        }
-
-        .auth-modal-subtitle {
-            color: #9ca3af;
-        }
-
-        .form-group {
-            margin-bottom: 1.5rem;
-        }
-
-        .form-label {
-            display: block;
-            color: #d1d5db;
-            margin-bottom: 0.5rem;
-            font-weight: 500;
-        }
-
-        .form-input {
-            width: 100%;
-            padding: 0.75rem 1rem;
-            background: rgba(17, 24, 39, 0.8);
-            border: 1px solid #374151;
-            border-radius: 12px;
-            color: #ffffff;
-            font-size: 1rem;
-            transition: all 0.3s ease;
-        }
-
-        .form-input:focus {
-            outline: none;
-            border-color: #8b5cf6;
-            box-shadow: 0 0 0 3px rgba(139, 92, 246, 0.2);
-        }
-
-        .name-fields {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 1rem;
-        }
-
-        .auth-switch {
-            text-align: center;
-            margin-top: 1.5rem;
-            color: #9ca3af;
-        }
-
-        .auth-switch button {
-            background: none;
-            border: none;
-            color: #8b5cf6;
-            cursor: pointer;
-            font-weight: 600;
-            text-decoration: underline;
-        }
-
-        .error-message {
-            background: rgba(239, 68, 68, 0.1);
-            border: 1px solid rgba(239, 68, 68, 0.3);
-            color: #ef4444;
-            padding: 1rem;
-            border-radius: 12px;
-            margin-bottom: 1rem;
-            display: none;
-        }
-
-        .error-message.show {
-            display: block;
-        }
-
-        .success-message {
-            background: rgba(34, 197, 94, 0.1);
-            border: 1px solid rgba(34, 197, 94, 0.3);
-            color: #22c55e;
-            padding: 1rem;
-            border-radius: 12px;
-            margin-bottom: 1rem;
-            display: none;
-        }
-
-        .success-message.show {
-            display: block;
-        }
-
-        /* OPTIMIZATION: Urgency Banner */
-        .urgency-banner {
-            background: linear-gradient(135deg, #ec4899, #8b5cf6);
-            color: white;
-            text-align: center;
-            padding: 1rem 2rem;
-            font-weight: 600;
-            font-size: 1rem;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-        }
-
-        .urgency-banner span {
-            margin: 0 0.5rem;
-        }
-
-        /* OPTIMIZATION: Annual/Monthly Toggle */
-        .billing-toggle {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            gap: 1rem;
-            margin-bottom: 2rem;
-        }
-
-        .toggle-switch {
-            position: relative;
-            width: 60px;
-            height: 30px;
-            background: #374151;
-            border-radius: 30px;
-            cursor: pointer;
-            transition: background 0.3s;
-        }
-
-        .toggle-switch.active {
-            background: #8b5cf6;
-        }
-
-        .toggle-slider {
-            position: absolute;
-            top: 3px;
-            left: 3px;
-            width: 24px;
-            height: 24px;
-            background: white;
-            border-radius: 50%;
-            transition: transform 0.3s;
-        }
-
-        .toggle-switch.active .toggle-slider {
-            transform: translateX(30px);
-        }
-
-        .billing-label {
-            font-size: 1.1rem;
-            font-weight: 600;
-            color: #9ca3af;
-            cursor: pointer;
-        }
-
-        .billing-label.active {
-            color: #8b5cf6;
-        }
-
-        .savings-badge {
-            background: #22c55e;
-            color: white;
-            padding: 0.25rem 0.75rem;
-            border-radius: 12px;
-            font-size: 0.85rem;
-            font-weight: 700;
-        }
-
-        /* OPTIMIZATION: Enhanced Pro Card */
-        .pricing-card.best-value {
-            transform: scale(1.05);
-            border: 2px solid #8b5cf6;
-            box-shadow: 0 25px 70px rgba(139, 92, 246, 0.4);
-            position: relative;
-            z-index: 10;
-        }
-
-        .best-value-badge {
-            position: absolute;
-            top: -15px;
-            left: 50%;
-            transform: translateX(-50%);
-            background: linear-gradient(135deg, #fbbf24, #f59e0b);
-            color: #1a1a2e;
-            padding: 0.5rem 1.5rem;
-            border-radius: 20px;
-            font-size: 0.8rem;
-            font-weight: 800;
-            box-shadow: 0 4px 12px rgba(251, 191, 36, 0.4);
-            z-index: 11;
-        }
-
-        /* OPTIMIZATION: Social Proof */
-        .social-proof {
-            text-align: center;
-            margin-bottom: 2rem;
-            color: #9ca3af;
-        }
-
-        .social-proof-stars {
-            color: #fbbf24;
-            font-size: 1.2rem;
-            margin-bottom: 0.5rem;
-        }
-
-        /* OPTIMIZATION: Value Indicators */
-        .value-indicator {
-            background: rgba(34, 197, 94, 0.1);
-            border: 1px solid rgba(34, 197, 94, 0.3);
-            color: #22c55e;
-            padding: 0.5rem;
-            border-radius: 8px;
-            font-size: 0.85rem;
-            margin-top: 0.5rem;
-            font-weight: 600;
-        }
-
-        .cta-subtext {
-            font-size: 0.8rem;
-            color: #9ca3af;
-            margin-top: 0.5rem;
-            display: block;
-        }
-
-        @media (max-width: 768px) {
-            .container {
-                padding: 0 1rem;
-            }
-            
-            .hero-title {
-                font-size: 2.5rem;
-            }
-            
-            .nav-tabs {
-                display: none;
-            }
-            
-            .pricing-grid {
-                grid-template-columns: 1fr;
-                max-width: 400px;
-                margin: 0 auto 4rem auto;
-            }
-        }
-
-        /* Payment Notification Animation */
-        @keyframes slideIn {
-            from {
-                transform: translateX(400px);
-                opacity: 0;
-            }
-            to {
-                transform: translateX(0);
-                opacity: 1;
-            }
-        }
-    </style>
-</head>
-<body>
-    <!-- Header -->
-    <header class="header">
-        <div class="container">
-            <div class="header-content">
-                <a href="/" class="logo">DMTools.fun</a>
-                
-                <nav class="nav-tabs">
-                    <a href="/app.html" class="tab-btn">💬 Generator</a>
-                    <a href="/presets.html" class="tab-btn">📋 Templates</a>
-                    <a href="/analytics.html" class="tab-btn">📊 Analytics</a>
-                    <a href="/contact.html" class="tab-btn">📞 Contact</a>
-                    <a href="/pricing.html" class="tab-btn active">💎 Pricing</a>
-                    <a href="/account.html" class="tab-btn">👤 Account</a>
-                </nav>
-
-                
-                <div class="auth-buttons" id="auth-buttons">
-                    <button class="btn btn-secondary" onclick="showAuthModal(true)">Sign In</button>
-                    <button class="btn btn-primary" onclick="showAuthModal(false)">Start Free</button>
-                </div>
-            </div>
-        </div>
-    </header>
-
-    <!-- OPTIMIZATION: Urgency Banner -->
-    <div class="urgency-banner">
-        ⏰ <strong>LIMITED TIME:</strong> Get 20% off your first 3 months! <span>|</span> Use code: <strong>LAUNCH20</strong> <span>|</span> Expires Nov 30, 2025
-    </div>
-
-    <!-- Hero Section -->
-    <section class="hero">
-        <div class="container">
-            <h1 class="hero-title">AI-Powered Universal Digital Messaging Response Command Center</h1>
-            <p class="hero-subtitle">
-                Generate perfect responses for any digital messaging service including social media DMs (Instagram, Twitter, TikTok, Facebook, LinkedIn), email, SMS, dating apps, and customer service chat. Save 10+ hours weekly with our AI-powered universal unlimited batch response draft generator.
-            </p>
-        </div>
-    </section>
-
-    <!-- Pricing Section -->
-    <section>
-        <div class="container">
-            <div class="section-subtitle">
-                Choose the perfect plan for your needs. All plans include our core AI features.
-            </div>
-
-            <!-- OPTIMIZATION: Social Proof -->
-            <div class="social-proof">
-                <div class="social-proof-stars">⭐⭐⭐⭐⭐</div>
-                <div style="font-size: 1.1rem; color: #ffffff; margin-bottom: 0.5rem;">
-                    <strong>Trusted by 15,000+ Content Creators</strong>
-                </div>
-                <div>"DMTools saves me 10+ hours every week!" - Sarah M., Influencer</div>
-            </div>
-
-            <!-- OPTIMIZATION: Annual/Monthly Toggle -->
-            <div class="billing-toggle">
-                <span class="billing-label active" id="monthly-label">Monthly</span>
-                <div class="toggle-switch" id="billing-toggle" onclick="toggleBilling()">
-                    <div class="toggle-slider"></div>
-                </div>
-                <span class="billing-label" id="annual-label">Annual <span class="savings-badge">SAVE 25%</span></span>
-            </div>
-            
-            <!-- Pricing Grid -->
-            <div class="pricing-grid">
-                <!-- OPTIMIZATION: Enterprise Plan FIRST (Anchoring) -->
-                <div class="pricing-card">
-                    <div class="plan-name">Enterprise Plan</div>
-                    <div class="plan-price">$399</div>
-                    <div class="plan-price-range">
-                        Monthly: $399<br>
-                        Yearly: $3,591 (save 25%)
-                    </div>
-                    <div class="plan-description">For large organizations and enterprise clients</div>
-                    
-                    <ul class="plan-features">
-                        <li>25,000 AI responses per month</li>
-                        <li>Unlimited custom templates</li>
-                        <li>Unlimited batch processing</li>
-                        <li>Universal platform support</li>
-                        <li>Dedicated support</li>
-                        <li>Advanced analytics & reporting</li>
-                    </ul>
-                    
-                    <button class="lemonsqueezy-button choose-btn" onclick="handlePlanSelection('1034541', 'enterprise')">
-                        Contact Sales - Get Custom Quote
-                    </button>
-                    <span class="cta-subtext">🏆 Powers 200+ organizations</span>
-                </div>
-
-                <!-- OPTIMIZATION: Business Plan SECOND (Decoy) -->
-                <div class="pricing-card">
-                    <div class="plan-name">Business Plan</div>
-                    <div class="plan-price">$39.99</div>
-                    <div class="plan-price-range">
-                        Weekly: $39.99<br>
-                        Monthly: $149<br>
-                        Yearly: $1,341 (save 25%)
-                    </div>
-                    <div class="plan-description">For teams and agencies managing multiple accounts</div>
-                    
-                    <ul class="plan-features">
-                        <li>5,000 AI responses per month</li>
-                        <li>200 custom response templates</li>
-                        <li>Unlimited batch processing</li>
-                        <li>Universal platform support</li>
-                        <li>Priority support</li>
-                        <li>Advanced analytics & reporting</li>
-                    </ul>
-                    
-                    <button class="lemonsqueezy-button choose-btn" onclick="handlePlanSelection('1034540', 'business')">
-                        Scale Your Agency
-                    </button>
-                    <span class="cta-subtext">💼 Trusted by 1,100+ agencies</span>
-                </div>
-
-                <!-- OPTIMIZATION: Pro Plan THIRD (Best Value - Featured) -->
-                <div class="pricing-card featured best-value">
-                    <div class="best-value-badge">⭐ BEST VALUE - Most Popular</div>
-                    <div class="plan-name">Pro Plan</div>
-                    <div class="plan-price">$15.99</div>
-                    <div class="plan-price-range">
-                        Weekly: $15.99<br>
-                        Monthly: $59<br>
-                        Yearly: $531 (save 25%)
-                    </div>
-                    <div class="value-indicator">
-                        💰 Save 73% per response vs Starter • Only $0.016 per AI response
-                    </div>
-                    <div class="plan-description">For serious content creators and influencers</div>
-                    
-                    <ul class="plan-features">
-                        <li>1,000 AI responses per month</li>
-                        <li>20 custom response templates</li>
-                        <li>Unlimited batch processing</li>
-                        <li>Universal platform support</li>
-                        <li>Priority email support</li>
-                        <li>Advanced analytics</li>
-                    </ul>
-                    
-                    <button class="lemonsqueezy-button choose-btn" onclick="handlePlanSelection('1034539', 'pro')">
-                        Get Best Value - Start Saving Now
-                    </button>
-                    <span class="cta-subtext">✓ Join 8,000+ creators ✓ Cancel anytime</span>
-                </div>
-
-                <!-- Starter Plan FOURTH -->
-                <div class="pricing-card">
-                    <div class="plan-name">Starter Plan</div>
-                    <div class="plan-price">$5.99</div>
-                    <div class="plan-price-range">
-                        Weekly: $5.99<br>
-                        Monthly: $19
-                    </div>
-                    <div class="plan-description">For individual creators getting started</div>
-                    
-                    <ul class="plan-features">
-                        <li>100 AI responses per month</li>
-                        <li>5 custom response templates</li>
-                        <li>Unlimited batch processing</li>
-                        <li>Universal platform support</li>
-                        <li>Email support</li>
-                    </ul>
-                    
-                    <button class="lemonsqueezy-button choose-btn" onclick="handlePlanSelection('1034521', 'starter')">
-                        Start Saving Time - $5.99/week
-                    </button>
-                    <span class="cta-subtext">🎯 Perfect for 3,200+ beginners</span>
-                </div>
-
-                <!-- Free Plan LAST -->
-                <div class="pricing-card">
-                    <div class="plan-name">Free Forever</div>
-                    <div class="plan-price">$0</div>
-                    <div class="plan-description">Perfect for trying out our universal messaging assistant</div>
-                    
-                    <ul class="plan-features">
-                        <li>10 AI responses per month</li>
-                        <li>Basic response templates</li>
-                        <li>All messaging platforms</li>
-                        <li>Community support</li>
-                    </ul>
-                    
-                    <button class="free-btn" onclick="showAuthModal(false)">
-                        Try 10 Free Responses - No Card Required
-                    </button>
-                    <span class="cta-subtext">✓ No credit card required</span>
-                </div>
-            </div>
-        </div>
-
-    </section>
-
-    <!-- Auth Modal -->
-    <div id="auth-modal" class="auth-modal">
-        <div class="auth-modal-content">
-            <button class="modal-close" onclick="hideAuthModal()">×</button>
-            <div class="auth-modal-header">
-                <h2 class="auth-modal-title" id="auth-modal-title">Start Free</h2>
-                <p class="auth-modal-subtitle" id="auth-modal-subtitle">Get 10 free AI responses per month</p>
-            </div>
-
-            <div id="auth-error" class="error-message"></div>
-            <div id="auth-success" class="success-message"></div>
-
-            <form id="auth-form" onsubmit="handleAuthSubmit(event)">
-                <div id="name-fields" class="name-fields">
-                    <div class="form-group">
-                        <label class="form-label">First Name</label>
-                        <input type="text" id="first-name" class="form-input" placeholder="First name" />
-                    </div>
-                    <div class="form-group">
-                        <label class="form-label">Last Name</label>
-                        <input type="text" id="last-name" class="form-input" placeholder="Last name" />
-                    </div>
-                </div>
-                
-                <div class="form-group">
-                    <label class="form-label">Email</label>
-                    <input type="email" id="auth-email" class="form-input" placeholder="Enter your email" required />
-                </div>
-                
-                <div class="form-group">
-                    <label class="form-label">Password</label>
-                    <input type="password" id="auth-password" class="form-input" placeholder="Enter your password" minlength="6" required />
-                </div>
-                
-                <button type="submit" class="btn btn-primary" id="auth-submit-btn" style="width: 100%; margin-top: 1rem;">
-                    Start Free
-                </button>
-            </form>
-            
-            <div class="auth-switch">
-                <span id="auth-switch-text">Already have an account?</span>
-                <button type="button" id="auth-switch-btn" onclick="toggleAuthMode()">Sign In</button>
-            </div>
-        </div>
-    </div>
-
-    <script>
-        // Configuration
-        const API_BASE = 'https://dmtools-backend-production.up.railway.app/api';
-        let isLoginMode = false;
-        let currentUser = null;
-        let isAuthenticated = false;
-
-        // Initialize on page load
-        document.addEventListener('DOMContentLoaded', async () => {
-            await checkAuthStatus();
-        });
-
-        // API helper function
-        async function apiCall(endpoint, options = {}) {
-            const token = localStorage.getItem('authToken');
-            const url = API_BASE + endpoint;
-            
-            const config = {
-                headers: {
-                    'Content-Type': 'application/json',
-                    ...(token ? { 'Authorization': `Bearer ${token}` } : {})
-                },
-                ...options,
-            };
-
-            try {
-                const response = await fetch(url, config);
-                const data = await response.json();
-
-                if (!response.ok) {
-                    if (response.status === 401) {
-                        localStorage.removeItem('authToken');
-                        currentUser = null;
-                        isAuthenticated = false;
-                        updateAuthUI();
-                        throw new Error('Please sign in to continue');
-                    }
-                    throw new Error(data.error || data.message || 'Request failed');
-                }
-
-                return data;
-            } catch (error) {
-                throw error;
-            }
-        }
-
-        // Check authentication status
-        async function checkAuthStatus() {
-            const token = localStorage.getItem('authToken');
-            
-            if (token) {
-                try {
-                    const response = await apiCall('/user/profile');
-                    currentUser = response.user;
-                    isAuthenticated = true;
-                    updateAuthUI();
-                } catch (error) {
-                    console.error('Auth check failed:', error);
-                    localStorage.removeItem('authToken');
-                    isAuthenticated = false;
-                    updateAuthUI();
-                }
-            }
-        }
-
-        // Update authentication state in UI
-        function updateAuthUI() {
-            const authButtons = document.getElementById('auth-buttons');
-            
-            if (isAuthenticated && currentUser) {
-                authButtons.innerHTML = `
-                    <span style="color: #9ca3af; margin-right: 1rem;">Welcome, ${currentUser.first_name}!</span>
-                    <button class="btn btn-primary" onclick="goToApp()">Open App</button>
-                    <button class="btn btn-secondary" onclick="logout()">Logout</button>
-                `;
-            } else {
-                authButtons.innerHTML = `
-                    <button class="btn btn-secondary" onclick="showAuthModal(true)">Sign In</button>
-                    <button class="btn btn-primary" onclick="showAuthModal(false)">Start Free</button>
-                `;
-            }
-        }
-
-        // Show auth modal
-        function showAuthModal(loginMode) {
-            isLoginMode = loginMode;
-            const modal = document.getElementById('auth-modal');
-            const title = document.getElementById('auth-modal-title');
-            const subtitle = document.getElementById('auth-modal-subtitle');
-            const nameFields = document.getElementById('name-fields');
-            const submitBtn = document.getElementById('auth-submit-btn');
-            const switchText = document.getElementById('auth-switch-text');
-            const switchBtn = document.getElementById('auth-switch-btn');
-            
-            modal.classList.add('active');
-            clearAuthMessages();
-            clearAuthForm();
-            
-            if (loginMode) {
-                title.textContent = 'Welcome Back';
-                subtitle.textContent = 'Sign in to your account';
-                nameFields.style.display = 'none';
-                submitBtn.textContent = 'Sign In';
-                switchText.textContent = "Don't have an account?";
-                switchBtn.textContent = 'Sign Up';
-            } else {
-                title.textContent = 'Create Account';
-                subtitle.textContent = 'Get 10 free AI responses per month';
-                nameFields.style.display = 'grid';
-                submitBtn.textContent = 'Create Account';
-                switchText.textContent = 'Already have an account?';
-                switchBtn.textContent = 'Sign In';
-            }
-        }
-
-        // Hide auth modal
-        function hideAuthModal() {
-            const modal = document.getElementById('auth-modal');
-            modal.classList.remove('active');
-            clearAuthForm();
-            clearAuthMessages();
-        }
-
-        // Toggle auth mode
-        function toggleAuthMode() {
-            showAuthModal(!isLoginMode);
-        }
-
-        // Handle auth form submission
-        async function handleAuthSubmit(event) {
-            event.preventDefault();
-            
-            const email = document.getElementById('auth-email')?.value.trim();
-            const password = document.getElementById('auth-password')?.value;
-            const firstName = document.getElementById('first-name')?.value.trim();
-            const lastName = document.getElementById('last-name')?.value.trim();
-            
-            if (!email || !password) {
-                showAuthError('Email and password are required');
-                return;
-            }
-            
-            if (!isLoginMode && (!firstName || !lastName)) {
-                showAuthError('First name and last name are required');
-                return;
-            }
-            
-            if (password.length < 6) {
-                showAuthError('Password must be at least 6 characters');
-                return;
-            }
-
-            const submitBtn = document.getElementById('auth-submit-btn');
-            const originalText = submitBtn?.textContent;
-            
-            try {
-                if (submitBtn) {
-                    submitBtn.innerHTML = 'Processing...';
-                    submitBtn.disabled = true;
-                }
-                clearAuthMessages();
-
-                let response;
-                if (isLoginMode) {
-                    response = await apiCall('/user/login', {
-                        method: 'POST',
-                        body: JSON.stringify({ email, password })
-                    });
-                } else {
-                    response = await apiCall('/user/register', {
-                        method: 'POST',
-                        body: JSON.stringify({
-                            email,
-                            password,
-                            first_name: firstName,
-                            last_name: lastName
-                        })
-                    });
-                }
-
-                if (response.token) {
-                    localStorage.setItem('authToken', response.token);
-                    currentUser = response.user;
-                    isAuthenticated = true;
-                    
-                    showAuthSuccess(`Welcome${isLoginMode ? ' back' : ''}, ${response.user.first_name}!`);
-                    
-                    setTimeout(() => {
-                        hideAuthModal();
-                        updateAuthUI();
-                    }, 1500);
-                }
-
-            } catch (error) {
-                console.error('Authentication failed:', error);
-                showAuthError(error.message || 'Authentication failed. Please try again.');
-            } finally {
-                if (submitBtn) {
-                    submitBtn.innerHTML = originalText;
-                    submitBtn.disabled = false;
-                }
-            }
-        }
-
-        // Helper functions
-        function showAuthError(message) {
-            const errorDiv = document.getElementById('auth-error');
-            errorDiv.textContent = message;
-            errorDiv.classList.add('show');
-            document.getElementById('auth-success').classList.remove('show');
-        }
-
-        function showAuthSuccess(message) {
-            const successDiv = document.getElementById('auth-success');
-            successDiv.textContent = message;
-            successDiv.classList.add('show');
-            document.getElementById('auth-error').classList.remove('show');
-        }
-
-        function clearAuthMessages() {
-            document.getElementById('auth-error').classList.remove('show');
-            document.getElementById('auth-success').classList.remove('show');
-        }
-
-        function clearAuthForm() {
-            document.getElementById('auth-email').value = '';
-            document.getElementById('auth-password').value = '';
-            document.getElementById('first-name').value = '';
-            document.getElementById('last-name').value = '';
-        }
-
-        function logout() {
-            localStorage.removeItem('authToken');
-            currentUser = null;
-            isAuthenticated = false;
-            updateAuthUI();
-        }
-
-        function goToApp() {
-            window.location.href = '/app.html';
-        }
-
-        // OPTIMIZATION: Annual/Monthly Toggle Function
-        function toggleBilling() {
-            const toggle = document.getElementById('billing-toggle');
-            const monthlyLabel = document.getElementById('monthly-label');
-            const annualLabel = document.getElementById('annual-label');
-            const isAnnual = toggle.classList.toggle('active');
-            
-            monthlyLabel.classList.toggle('active');
-            annualLabel.classList.toggle('active');
-            
-            // Get all pricing range elements
-            const priceRanges = document.querySelectorAll('.plan-price-range');
-            
-            priceRanges.forEach(range => {
-                const lines = range.innerHTML.split('<br>');
-                
-                if (isAnnual) {
-                    // Highlight annual pricing, fade monthly/weekly
-                    let newHTML = lines.map(line => {
-                        if (line.includes('Yearly:') || line.includes('Annual:')) {
-                            return `<strong style="color: #22c55e; font-size: 1.1rem;">${line}</strong>`;
-                        } else {
-                            return `<span style="opacity: 0.5;">${line}</span>`;
-                        }
-                    }).join('<br>');
-                    range.innerHTML = newHTML;
-                } else {
-                    // Highlight monthly/weekly, fade annual
-                    let newHTML = lines.map(line => {
-                        if (line.includes('Yearly:') || line.includes('Annual:')) {
-                            return `<span style="opacity: 0.5;">${line}</span>`;
-                        } else if (line.includes('Monthly:')) {
-                            return `<strong style="color: #8b5cf6; font-size: 1.1rem;">${line}</strong>`;
-                        } else {
-                            return line;
-                        }
-                    }).join('<br>');
-                    range.innerHTML = newHTML;
-                }
-            });
-            
-            // Track toggle in analytics
-            if (typeof gtag !== 'undefined') {
-                gtag('event', 'billing_toggle', {
-                    'event_category': 'Pricing',
-                    'event_label': isAnnual ? 'Annual' : 'Monthly'
-                });
-            }
-        }
-        
-        // Set initial state (default to monthly highlighted)
-        document.addEventListener('DOMContentLoaded', () => {
-            // Monthly is default, so don't call toggle
-            // User can click to switch to annual
-        });
-
-        // ========================================
-        // PAYMENT FLOW HANDLER (BACKEND INTEGRATION)
-        // ========================================
-        async function handlePlanSelection(variantId, planName) {
-            // Check if user is authenticated
-            if (!isAuthenticated) {
-                // Show auth modal if not logged in
-                showAuthModal(false); // false = registration mode
-                
-                // Show helpful message
-                showNotification('Please sign in or create an account to continue', 'info');
-                
-                // Track attempted purchase in analytics
-                if (typeof gtag !== 'undefined') {
-                    gtag('event', 'plan_selection_unauthenticated', {
-                        'event_category': 'Pricing',
-                        'event_label': planName,
-                        'variant_id': variantId
-                    });
-                }
-                return;
-            }
-
-            // Show loading state
-            showNotification('Creating checkout session...', 'info');
-
-            try {
-                // Call backend API to create checkout with user_id
-                const response = await apiCall('/subscription/checkout', {
-                    method: 'POST',
-                    body: JSON.stringify({
-                        variant_id: variantId,
-                        plan_name: planName
-                    })
-                });
-
-                if (response.success && response.checkout_url) {
-                    // Track successful checkout creation
-                    if (typeof gtag !== 'undefined') {
-                        gtag('event', 'checkout_initiated', {
-                            'event_category': 'Pricing',
-                            'event_label': planName,
-                            'variant_id': variantId
-                        });
-                    }
-
-                    // Redirect to Lemon Squeezy checkout (now includes user_id)
-                    window.location.href = response.checkout_url;
-                } else {
-                    throw new Error(response.error || 'Failed to create checkout');
-                }
-
-            } catch (error) {
-                console.error('Checkout error:', error);
-                showNotification('Failed to start checkout. Please try again.', 'error');
-                
-                // Track error in analytics
-                if (typeof gtag !== 'undefined') {
-                    gtag('event', 'checkout_error', {
-                        'event_category': 'Pricing',
-                        'event_label': planName,
-                        'error': error.message
-                    });
-                }
-            }
-        }
-
-        // Simple notification helper
-        function showNotification(message, type = 'info') {
-            // Create notification element if it doesn't exist
-            let notification = document.getElementById('payment-notification');
-            if (!notification) {
-                notification = document.createElement('div');
-                notification.id = 'payment-notification';
-                notification.style.cssText = `
-                    position: fixed;
-                    top: 20px;
-                    right: 20px;
-                    padding: 1rem 1.5rem;
-                    border-radius: 12px;
-                    font-weight: 500;
-                    z-index: 10000;
-                    animation: slideIn 0.3s ease;
-                    max-width: 400px;
-                `;
-                document.body.appendChild(notification);
-            }
-
-            // Set color based on type
-            const colors = {
-                info: 'background: linear-gradient(135deg, #8b5cf6, #ec4899); color: white;',
-                error: 'background: #ef4444; color: white;',
-                success: 'background: #10b981; color: white;'
-            };
-
-            notification.style.cssText += colors[type] || colors.info;
-            notification.textContent = message;
-            notification.style.display = 'block';
-
-            // Auto-hide after 3 seconds
-            setTimeout(() => {
-                notification.style.display = 'none';
-            }, 3000);
-        }
-    </script>
-
-<script>
-// ========================================
-// SERVICE WORKER REGISTRATION
-// ========================================
-
-if ('serviceWorker' in navigator) {
-    window.addEventListener('load', () => {
-        navigator.serviceWorker.register('/service-worker.js')
-            .then(registration => {
-                console.log('✅ Service Worker registered successfully:', registration.scope);
-                
-                // Check for updates every hour
-                setInterval(() => {
-                    registration.update();
-                }, 60 * 60 * 1000);
-                
-                // Track service worker registration
-                if (typeof gtag !== 'undefined') {
-                    gtag('event', 'service_worker_registered', {
-                        'event_category': 'PWA',
-                        'event_label': 'Service Worker Active'
-                    });
-                }
-            })
-            .catch(error => {
-                console.error('❌ Service Worker registration failed:', error);
-                
-                // Track service worker errors
-                if (typeof gtag !== 'undefined') {
-                    gtag('event', 'service_worker_error', {
-                        'event_category': 'PWA',
-                        'event_label': error.message
-                    });
-                }
-            });
-    });
-    
-    // Handle service worker updates
-    let refreshing = false;
-    navigator.serviceWorker.addEventListener('controllerchange', () => {
-        if (!refreshing) {
-            refreshing = true;
-            console.log('🔄 Service Worker updated - reloading page');
-            window.location.reload();
-        }
-    });
-} else {
-    console.warn('⚠️ Service Workers are not supported in this browser');
+<!-- ========================================= -->
+<!-- UPDATED PRICING SECTION - HYBRID MODEL -->
+<!-- REPLACE YOUR EXISTING PRICING CARDS WITH THIS -->
+<!-- ========================================= -->
+
+<style>
+.included-badge {
+    display: inline-block;
+    background: linear-gradient(135deg, #10b981, #059669);
+    color: white;
+    padding: 0.4rem 1rem;
+    border-radius: 20px;
+    font-size: 0.85rem;
+    font-weight: 700;
+    margin: 0.5rem 0;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
 }
-</script>
 
-    <!-- Footer -->
-    <footer style="background: rgba(31, 41, 55, 0.8); backdrop-filter: blur(10px); border-top: 1px solid rgba(139, 92, 246, 0.2); padding: 3rem 0 2rem 0; margin-top: 6rem;">
-        <div class="container">
-            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 3rem; margin-bottom: 2rem;">
-                <!-- Company Info -->
-                <div>
-                    <div class="logo" style="margin-bottom: 1rem;">DMTools.fun</div>
-                    <p style="color: #9ca3af; line-height: 1.6; margin-bottom: 1rem;">
-                        AI-powered universal messaging assistant for all digital communication platforms.
-                    </p>
-                </div>
+.unlimited-badge {
+    display: inline-block;
+    background: linear-gradient(135deg, #8b5cf6, #7c3aed);
+    color: white;
+    padding: 0.4rem 1rem;
+    border-radius: 20px;
+    font-size: 0.85rem;
+    font-weight: 700;
+    margin: 0.5rem 0;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    animation: pulse 2s infinite;
+}
 
-                <!-- Product Links -->
-                <div>
-                    <h4 style="color: #ffffff; margin-bottom: 1rem; font-size: 1.1rem;">Product</h4>
-                    <div style="display: flex; flex-direction: column; gap: 0.75rem;">
-                        <a href="/" style="color: #9ca3af; text-decoration: none; transition: color 0.3s;">Home</a>
-                        <a href="/pricing.html" style="color: #9ca3af; text-decoration: none; transition: color 0.3s;">Pricing</a>
-                        <a href="/app.html" style="color: #9ca3af; text-decoration: none; transition: color 0.3s;">Dashboard</a>
-                        <a href="/presets.html" style="color: #9ca3af; text-decoration: none; transition: color 0.3s;">Templates</a>
-                    </div>
-                </div>
+.extension-highlight {
+    background: rgba(139, 92, 246, 0.1);
+    border-left: 3px solid #8b5cf6;
+    padding: 1rem;
+    margin: 1rem 0;
+    border-radius: 8px;
+}
+</style>
 
-                <!-- Legal Links -->
-                <div>
-                    <h4 style="color: #ffffff; margin-bottom: 1rem; font-size: 1.1rem;">Legal</h4>
-                    <div style="display: flex; flex-direction: column; gap: 0.75rem;">
-                        <a href="/privacy-policy.html" style="color: #9ca3af; text-decoration: none; transition: color 0.3s;">Privacy Policy</a>
-                        <a href="/terms-of-service.html" style="color: #9ca3af; text-decoration: none; transition: color 0.3s;">Terms of Service</a>
-                        <a href="/refund-policy.html" style="color: #9ca3af; text-decoration: none; transition: color 0.3s;">Refund Policy</a>
-                        <a href="/cookie-policy.html" style="color: #9ca3af; text-decoration: none; transition: color 0.3s;">Cookie Policy</a>
-                    </div>
-                </div>
-
-                <!-- Support Links -->
-                <div>
-                    <h4 style="color: #ffffff; margin-bottom: 1rem; font-size: 1.1rem;">Support</h4>
-                    <div style="display: flex; flex-direction: column; gap: 0.75rem;">
-                        <a href="/contact.html" style="color: #9ca3af; text-decoration: none; transition: color 0.3s;">Contact Us</a>
-                        <a href="/account.html" style="color: #9ca3af; text-decoration: none; transition: color 0.3s;">My Account</a>
-                        <a href="/analytics.html" style="color: #9ca3af; text-decoration: none; transition: color 0.3s;">Analytics</a>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Copyright -->
-            <div style="border-top: 1px solid rgba(139, 92, 246, 0.2); padding-top: 2rem; text-align: center; color: #9ca3af;">
-                <p>© 2025 DMTools.fun. All rights reserved.</p>
-            </div>
+<div class="pricing-container">
+    
+    <!-- Free Plan -->
+    <div class="pricing-card">
+        <div class="plan-name">Free Plan</div>
+        <div class="plan-price">$0</div>
+        <div class="plan-price-range">forever</div>
+        <div class="plan-description">Perfect for testing the magic</div>
+        
+        <ul class="plan-features">
+            <li>10 AI responses per month</li>
+            <li>Batch processor access</li>
+            <li>Basic templates (5 presets)</li>
+            <li>All messaging platforms supported</li>
+            <li style="color: #9ca3af; font-style: italic;">💎 Extension: Purchase response packs</li>
+        </ul>
+        
+        <div class="extension-highlight" style="margin-top: 1rem;">
+            <strong style="color: #8b5cf6;">Want the Chrome Extension?</strong><br>
+            <span style="font-size: 0.9rem; color: #d1d5db;">
+                Buy response packs to use inline generation, or upgrade to any paid plan to get it included!
+            </span>
         </div>
-    </footer>
-</body>
-</html>
+        
+        <a href="/app.html" class="choose-btn" style="background: #6b7280;">
+            Start Free
+        </a>
+    </div>
+
+    <!-- Pro Plan -->
+    <div class="pricing-card featured">
+        <div class="popular-badge">MOST POPULAR</div>
+        <div class="plan-name">Pro Plan</div>
+        <div class="plan-price">$59 - $531</div>
+        <div class="plan-price-range">monthly or annual</div>
+        <div class="plan-description">Best for professionals & creators</div>
+        
+        <div class="included-badge">✨ Chrome Extension INCLUDED</div>
+        
+        <ul class="plan-features">
+            <li><strong>1,000 AI responses per month</strong></li>
+            <li>Use for batch processor OR extension</li>
+            <li>Unlimited custom templates</li>
+            <li>Unlimited batch processing</li>
+            <li>Priority support</li>
+            <li>All messaging platforms</li>
+            <li style="border-top: 1px solid #374151; margin-top: 1rem; padding-top: 1rem; color: #10b981; font-weight: 600;">Save 25% with annual billing</li>
+        </ul>
+        
+        <div class="extension-highlight">
+            <strong style="color: #10b981;">🚀 Extension Included:</strong><br>
+            <span style="font-size: 0.9rem; color: #d1d5db;">
+                Generate responses inline on Gmail, LinkedIn, Twitter, Instagram & everywhere else. Uses your monthly 1,000 responses - no extra charge!
+            </span>
+        </div>
+        
+        <div style="background: rgba(16, 185, 129, 0.1); border: 1px solid #10b981; border-radius: 8px; padding: 1rem; margin: 1rem 0; text-align: center;">
+            <strong style="color: #10b981; font-size: 1.1rem;">🎁 BLACK FRIDAY BONUS</strong><br>
+            <span style="color: #d1d5db; font-size: 0.9rem;">
+                Sign up today → Get FREE 500 Response Pack ($10 value)<br>
+                <strong style="color: #10b981;">Ends Nov 29, 11:59 PM PST</strong>
+            </span>
+        </div>
+        
+        <a href="https://dmtoolsfun-llc.lemonsqueezy.com/buy/[YOUR-PRO-VARIANT-ID]?embed=1" class="lemonsqueezy-button choose-btn">
+            Choose Pro Plan
+        </a>
+    </div>
+
+    <!-- Business Plan -->
+    <div class="pricing-card">
+        <div class="plan-name">Business Plan</div>
+        <div class="plan-price">$149 - $1,341</div>
+        <div class="plan-price-range">monthly or annual</div>
+        <div class="plan-description">For power users & small teams</div>
+        
+        <div class="included-badge">✨ Chrome Extension INCLUDED</div>
+        
+        <ul class="plan-features">
+            <li><strong>5,000 AI responses per month</strong></li>
+            <li>Use for batch processor OR extension</li>
+            <li>Unlimited custom templates</li>
+            <li>Unlimited batch processing</li>
+            <li>Priority support</li>
+            <li>Advanced analytics & reporting</li>
+            <li>All messaging platforms</li>
+            <li style="border-top: 1px solid #374151; margin-top: 1rem; padding-top: 1rem; color: #10b981; font-weight: 600;">Save 25% with annual billing</li>
+        </ul>
+        
+        <div class="extension-highlight">
+            <strong style="color: #10b981;">🚀 Extension Included:</strong><br>
+            <span style="font-size: 0.9rem; color: #d1d5db;">
+                Generate 5,000 responses via batch OR extension. Complete flexibility - allocate however you want!
+            </span>
+        </div>
+        
+        <div style="background: rgba(16, 185, 129, 0.1); border: 1px solid #10b981; border-radius: 8px; padding: 1rem; margin: 1rem 0; text-align: center;">
+            <strong style="color: #10b981; font-size: 1.1rem;">🎁 BLACK FRIDAY BONUS</strong><br>
+            <span style="color: #d1d5db; font-size: 0.9rem;">
+                Sign up today → Get FREE 500 Response Pack ($10 value)<br>
+                <strong style="color: #10b981;">Ends Nov 29, 11:59 PM PST</strong>
+            </span>
+        </div>
+        
+        <a href="https://dmtoolsfun-llc.lemonsqueezy.com/buy/[YOUR-BUSINESS-VARIANT-ID]?embed=1" class="lemonsqueezy-button choose-btn">
+            Choose Business Plan
+        </a>
+    </div>
+
+    <!-- Enterprise Plan -->
+    <div class="pricing-card" style="border: 2px solid #8b5cf6;">
+        <div class="plan-name" style="color: #8b5cf6;">Enterprise Plan</div>
+        <div class="plan-price">$399 - $3,591</div>
+        <div class="plan-price-range">monthly or annual</div>
+        <div class="plan-description">For large teams & heavy users</div>
+        
+        <div class="unlimited-badge">🚀 UNLIMITED EXTENSION</div>
+        
+        <ul class="plan-features">
+            <li><strong>25,000 batch responses per month</strong></li>
+            <li style="color: #8b5cf6; font-weight: 700; font-size: 1.05rem;">+ UNLIMITED inline extension responses</li>
+            <li>Extension doesn't count against batch allowance</li>
+            <li>Unlimited custom templates</li>
+            <li>Unlimited batch processing</li>
+            <li>Dedicated support</li>
+            <li>Advanced analytics & reporting</li>
+            <li>White-label options</li>
+            <li>Custom integrations</li>
+            <li style="border-top: 1px solid #374151; margin-top: 1rem; padding-top: 1rem; color: #10b981; font-weight: 600;">Save 25% with annual billing</li>
+        </ul>
+        
+        <div class="extension-highlight" style="border-left-color: #8b5cf6; background: rgba(139, 92, 246, 0.1);">
+            <strong style="color: #8b5cf6;">💎 Enterprise Advantage:</strong><br>
+            <span style="font-size: 0.9rem; color: #d1d5db;">
+                Generate UNLIMITED responses via the Chrome extension. Batch responses (25K) are completely separate. Never run out!
+            </span>
+        </div>
+        
+        <div style="background: rgba(139, 92, 246, 0.1); border: 1px solid #8b5cf6; border-radius: 8px; padding: 1rem; margin: 1rem 0; text-align: center;">
+            <strong style="color: #8b5cf6; font-size: 1.1rem;">🎁 BLACK FRIDAY EXCLUSIVE</strong><br>
+            <span style="color: #d1d5db; font-size: 0.9rem;">
+                Sign up today → Unlimited extension GUARANTEED FOREVER<br>
+                <strong style="color: #8b5cf6;">Lock in this rate - Ends Nov 29, 11:59 PM PST</strong>
+            </span>
+        </div>
+        
+        <a href="https://dmtoolsfun-llc.lemonsqueezy.com/buy/[YOUR-ENTERPRISE-VARIANT-ID]?embed=1" class="lemonsqueezy-button choose-btn" style="background: linear-gradient(135deg, #8b5cf6, #7c3aed);">
+            Choose Enterprise Plan
+        </a>
+    </div>
+</div>
+
+<!-- Comparison Table Section -->
+<div style="max-width: 1200px; margin: 4rem auto; padding: 0 2rem;">
+    <h2 style="text-align: center; font-size: 2rem; margin-bottom: 2rem; color: #ffffff;">
+        What's Included in Each Plan
+    </h2>
+    
+    <div style="overflow-x: auto;">
+        <table style="width: 100%; border-collapse: collapse; background: rgba(30, 41, 59, 0.8); border-radius: 12px; overflow: hidden;">
+            <thead>
+                <tr style="background: rgba(139, 92, 246, 0.2);">
+                    <th style="padding: 1rem; text-align: left; color: #8b5cf6;">Feature</th>
+                    <th style="padding: 1rem; text-align: center; color: #9ca3af;">Free</th>
+                    <th style="padding: 1rem; text-align: center; color: #10b981;">Pro</th>
+                    <th style="padding: 1rem; text-align: center; color: #10b981;">Business</th>
+                    <th style="padding: 1rem; text-align: center; color: #8b5cf6;">Enterprise</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr style="border-bottom: 1px solid #374151;">
+                    <td style="padding: 1rem; color: #d1d5db;">Monthly Responses</td>
+                    <td style="padding: 1rem; text-align: center; color: #9ca3af;">10</td>
+                    <td style="padding: 1rem; text-align: center; color: #d1d5db;">1,000</td>
+                    <td style="padding: 1rem; text-align: center; color: #d1d5db;">5,000</td>
+                    <td style="padding: 1rem; text-align: center; color: #d1d5db;">25,000</td>
+                </tr>
+                <tr style="border-bottom: 1px solid #374151;">
+                    <td style="padding: 1rem; color: #d1d5db;">Batch Processor</td>
+                    <td style="padding: 1rem; text-align: center;">✅</td>
+                    <td style="padding: 1rem; text-align: center;">✅</td>
+                    <td style="padding: 1rem; text-align: center;">✅</td>
+                    <td style="padding: 1rem; text-align: center;">✅</td>
+                </tr>
+                <tr style="border-bottom: 1px solid #374151; background: rgba(139, 92, 246, 0.05);">
+                    <td style="padding: 1rem; color: #d1d5db;"><strong>Chrome Extension</strong></td>
+                    <td style="padding: 1rem; text-align: center; color: #9ca3af; font-size: 0.85rem;">Buy packs</td>
+                    <td style="padding: 1rem; text-align: center; color: #10b981; font-weight: 700;">INCLUDED</td>
+                    <td style="padding: 1rem; text-align: center; color: #10b981; font-weight: 700;">INCLUDED</td>
+                    <td style="padding: 1rem; text-align: center; color: #8b5cf6; font-weight: 700;">UNLIMITED ⚡</td>
+                </tr>
+                <tr style="border-bottom: 1px solid #374151;">
+                    <td style="padding: 1rem; color: #d1d5db;">Custom Templates</td>
+                    <td style="padding: 1rem; text-align: center; color: #9ca3af;">5</td>
+                    <td style="padding: 1rem; text-align: center;">Unlimited</td>
+                    <td style="padding: 1rem; text-align: center;">Unlimited</td>
+                    <td style="padding: 1rem; text-align: center;">Unlimited</td>
+                </tr>
+                <tr style="border-bottom: 1px solid #374151;">
+                    <td style="padding: 1rem; color: #d1d5db;">Priority Support</td>
+                    <td style="padding: 1rem; text-align: center;">❌</td>
+                    <td style="padding: 1rem; text-align: center;">✅</td>
+                    <td style="padding: 1rem; text-align: center;">✅</td>
+                    <td style="padding: 1rem; text-align: center;">✅ Dedicated</td>
+                </tr>
+                <tr style="border-bottom: 1px solid #374151;">
+                    <td style="padding: 1rem; color: #d1d5db;">Analytics Dashboard</td>
+                    <td style="padding: 1rem; text-align: center;">❌</td>
+                    <td style="padding: 1rem; text-align: center;">Basic</td>
+                    <td style="padding: 1rem; text-align: center;">Advanced</td>
+                    <td style="padding: 1rem; text-align: center;">Enterprise</td>
+                </tr>
+                <tr>
+                    <td style="padding: 1rem; color: #d1d5db;">White-label Options</td>
+                    <td style="padding: 1rem; text-align: center;">❌</td>
+                    <td style="padding: 1rem; text-align: center;">❌</td>
+                    <td style="padding: 1rem; text-align: center;">❌</td>
+                    <td style="padding: 1rem; text-align: center;">✅</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    
+    <div style="text-align: center; margin-top: 2rem; padding: 1.5rem; background: rgba(139, 92, 246, 0.1); border-radius: 12px; border: 1px solid #8b5cf6;">
+        <strong style="color: #8b5cf6; font-size: 1.2rem;">💡 Understanding the Hybrid Model</strong><br>
+        <p style="color: #d1d5db; margin-top: 1rem; line-height: 1.6;">
+            <strong>Free users:</strong> Get 10 batch responses. Want the extension? Buy response packs ($10-$150).<br>
+            <strong>Pro & Business:</strong> Your monthly responses work for BOTH batch and extension. Use them however you want!<br>
+            <strong>Enterprise:</strong> Get 25,000 batch responses PLUS unlimited extension responses (separate allowances).
+        </p>
+    </div>
+</div>
+
+<!-- Response Packs Section (For Free Users) -->
+<div style="max-width: 1200px; margin: 4rem auto; padding: 0 2rem;">
+    <h2 style="text-align: center; font-size: 2rem; margin-bottom: 1rem; color: #ffffff;">
+        Response Packs (For Free Users)
+    </h2>
+    <p style="text-align: center; color: #9ca3af; margin-bottom: 3rem; font-size: 1.1rem;">
+        Not ready to subscribe? Buy pay-as-you-go response packs to use the Chrome extension.
+    </p>
+    
+    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1.5rem;">
+        
+        <div style="background: rgba(30, 41, 59, 0.8); border: 1px solid #374151; border-radius: 12px; padding: 1.5rem; text-align: center;">
+            <div style="font-size: 1.5rem; font-weight: 700; color: #ffffff;">Starter Pack</div>
+            <div style="font-size: 2rem; font-weight: 800; color: #06b6d4; margin: 1rem 0;">$9.99</div>
+            <div style="color: #9ca3af; margin-bottom: 1rem;">500 responses</div>
+            <div style="color: #6b7280; font-size: 0.85rem;">$0.020 per response</div>
+            <a href="#" class="lemonsqueezy-button" style="display: inline-block; margin-top: 1rem; padding: 0.75rem 1.5rem; background: #06b6d4; color: white; text-decoration: none; border-radius: 8px; font-weight: 600;">Buy Pack</a>
+        </div>
+        
+        <div style="background: rgba(30, 41, 59, 0.8); border: 1px solid #374151; border-radius: 12px; padding: 1.5rem; text-align: center;">
+            <div style="font-size: 1.5rem; font-weight: 700; color: #ffffff;">Popular Pack</div>
+            <div style="font-size: 2rem; font-weight: 800; color: #10b981; margin: 1rem 0;">$16.99</div>
+            <div style="color: #9ca3af; margin-bottom: 1rem;">1,000 responses</div>
+            <div style="color: #6b7280; font-size: 0.85rem;">$0.017 per response</div>
+            <div style="background: rgba(16, 185, 129, 0.2); color: #10b981; padding: 0.25rem 0.75rem; border-radius: 20px; font-size: 0.75rem; display: inline-block; margin-bottom: 0.5rem;">Save 15%</div>
+            <a href="#" class="lemonsqueezy-button" style="display: inline-block; margin-top: 1rem; padding: 0.75rem 1.5rem; background: #10b981; color: white; text-decoration: none; border-radius: 8px; font-weight: 600;">Buy Pack</a>
+        </div>
+        
+        <div style="background: rgba(30, 41, 59, 0.8); border: 1px solid #374151; border-radius: 12px; padding: 1.5rem; text-align: center;">
+            <div style="font-size: 1.5rem; font-weight: 700; color: #ffffff;">Pro Pack</div>
+            <div style="font-size: 2rem; font-weight: 800; color: #8b5cf6; margin: 1rem 0;">$34.99</div>
+            <div style="color: #9ca3af; margin-bottom: 1rem;">2,500 responses</div>
+            <div style="color: #6b7280; font-size: 0.85rem;">$0.014 per response</div>
+            <div style="background: rgba(139, 92, 246, 0.2); color: #8b5cf6; padding: 0.25rem 0.75rem; border-radius: 20px; font-size: 0.75rem; display: inline-block; margin-bottom: 0.5rem;">Save 30%</div>
+            <a href="#" class="lemonsqueezy-button" style="display: inline-block; margin-top: 1rem; padding: 0.75rem 1.5rem; background: #8b5cf6; color: white; text-decoration: none; border-radius: 8px; font-weight: 600;">Buy Pack</a>
+        </div>
+        
+    </div>
+    
+    <div style="text-align: center; margin-top: 2rem; color: #9ca3af;">
+        💡 <strong style="color: #ffffff;">Pro Tip:</strong> For heavy usage, a Pro subscription ($59/month for 1,000 responses + batch processor) is better value than buying packs!
+    </div>
+</div>
+
+<!-- FAQ Section About Hybrid Model -->
+<div style="max-width: 800px; margin: 4rem auto; padding: 0 2rem;">
+    <h2 style="text-align: center; font-size: 2rem; margin-bottom: 3rem; color: #ffffff;">
+        Frequently Asked Questions
+    </h2>
+    
+    <div style="margin-bottom: 2rem;">
+        <div style="font-size: 1.2rem; font-weight: 700; color: #8b5cf6; margin-bottom: 0.5rem;">
+            How does the hybrid model work?
+        </div>
+        <div style="color: #d1d5db; line-height: 1.6;">
+            If you're on a paid plan (Pro, Business, or Enterprise), the Chrome extension uses your monthly response allowance. Free users need to purchase response packs to use the extension.
+        </div>
+    </div>
+    
+    <div style="margin-bottom: 2rem;">
+        <div style="font-size: 1.2rem; font-weight: 700; color: #8b5cf6; margin-bottom: 0.5rem;">
+            Can I use some responses for batch and some for extension?
+        </div>
+        <div style="color: #d1d5db; line-height: 1.6;">
+            Yes! If you're a Pro or Business subscriber, your monthly responses work for BOTH the batch processor and the Chrome extension. Use them however you want - 100% batch, 100% extension, or any mix!
+        </div>
+    </div>
+    
+    <div style="margin-bottom: 2rem;">
+        <div style="font-size: 1.2rem; font-weight: 700; color: #8b5cf6; margin-bottom: 0.5rem;">
+            Why is Enterprise unlimited for the extension?
+        </div>
+        <div style="color: #d1d5db; line-height: 1.6;">
+            Enterprise plans include 25,000 batch responses PLUS unlimited inline extension responses. This means your batch allowance is completely separate - heavy extension users never run out!
+        </div>
+    </div>
+    
+    <div style="margin-bottom: 2rem;">
+        <div style="font-size: 1.2rem; font-weight: 700; color: #8b5cf6; margin-bottom: 0.5rem;">
+            Should I buy packs or subscribe?
+        </div>
+        <div style="color: #d1d5db; line-height: 1.6;">
+            If you only use the extension occasionally (< 50 responses/month), packs are great. If you're a regular user, Pro subscription ($59/month) gives you 1,000 responses PLUS the batch processor - much better value!
+        </div>
+    </div>
+    
+    <div style="margin-bottom: 2rem;">
+        <div style="font-size: 1.2rem; font-weight: 700; color: #8b5cf6; margin-bottom: 0.5rem;">
+            Do response packs expire?
+        </div>
+        <div style="color: #d1d5db; line-height: 1.6;">
+            Inactive packs never expire! Once you activate a pack, you have 12 months to use all responses. You can only have one active pack at a time.
+        </div>
+    </div>
+</div>
+
+<!-- ========================================= -->
+<!-- END UPDATED PRICING SECTION -->
+<!-- ========================================= -->

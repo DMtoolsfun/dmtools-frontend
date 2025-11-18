@@ -28,7 +28,7 @@
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <meta name="apple-mobile-web-app-title" content="DMTools">
 <link rel="apple-touch-icon" href="/icons/icon-180x180.png">
-    <title>Pricing - DMTools.fun | AI-Powered Universal Unlimited Batch And 2-Step in-line Response Generator</title>
+    <title>Pricing - DMTools.fun | AI-Powered Universal Unlimited Batch Response Generator</title>
     <meta name="description" content="AI-powered universal unlimited batch response draft generator for any digital messaging service. Process email, SMS, DMs, dating apps, customer service chat simultaneously. Free plan available.">
     <link rel="icon" type="image/x-icon" href="/favicon.ico">
     
@@ -438,135 +438,6 @@
             display: block;
         }
 
-        /* OPTIMIZATION: Urgency Banner */
-        .urgency-banner {
-            background: linear-gradient(135deg, #ec4899, #8b5cf6);
-            color: white;
-            text-align: center;
-            padding: 1rem 2rem;
-            font-weight: 600;
-            font-size: 1rem;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-        }
-
-        .urgency-banner span {
-            margin: 0 0.5rem;
-        }
-
-        /* OPTIMIZATION: Annual/Monthly Toggle */
-        .billing-toggle {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            gap: 1rem;
-            margin-bottom: 2rem;
-        }
-
-        .toggle-switch {
-            position: relative;
-            width: 60px;
-            height: 30px;
-            background: #374151;
-            border-radius: 30px;
-            cursor: pointer;
-            transition: background 0.3s;
-        }
-
-        .toggle-switch.active {
-            background: #8b5cf6;
-        }
-
-        .toggle-slider {
-            position: absolute;
-            top: 3px;
-            left: 3px;
-            width: 24px;
-            height: 24px;
-            background: white;
-            border-radius: 50%;
-            transition: transform 0.3s;
-        }
-
-        .toggle-switch.active .toggle-slider {
-            transform: translateX(30px);
-        }
-
-        .billing-label {
-            font-size: 1.1rem;
-            font-weight: 600;
-            color: #9ca3af;
-            cursor: pointer;
-        }
-
-        .billing-label.active {
-            color: #8b5cf6;
-        }
-
-        .savings-badge {
-            background: #22c55e;
-            color: white;
-            padding: 0.25rem 0.75rem;
-            border-radius: 12px;
-            font-size: 0.85rem;
-            font-weight: 700;
-        }
-
-        /* OPTIMIZATION: Enhanced Pro Card */
-        .pricing-card.best-value {
-            transform: scale(1.05);
-            border: 2px solid #8b5cf6;
-            box-shadow: 0 25px 70px rgba(139, 92, 246, 0.4);
-            position: relative;
-            z-index: 10;
-        }
-
-        .best-value-badge {
-            position: absolute;
-            top: -15px;
-            left: 50%;
-            transform: translateX(-50%);
-            background: linear-gradient(135deg, #fbbf24, #f59e0b);
-            color: #1a1a2e;
-            padding: 0.5rem 1.5rem;
-            border-radius: 20px;
-            font-size: 0.8rem;
-            font-weight: 800;
-            box-shadow: 0 4px 12px rgba(251, 191, 36, 0.4);
-            z-index: 11;
-        }
-
-        /* OPTIMIZATION: Social Proof */
-        .social-proof {
-            text-align: center;
-            margin-bottom: 2rem;
-            color: #9ca3af;
-        }
-
-        .social-proof-stars {
-            color: #fbbf24;
-            font-size: 1.2rem;
-            margin-bottom: 0.5rem;
-        }
-
-        /* OPTIMIZATION: Value Indicators */
-        .value-indicator {
-            background: rgba(34, 197, 94, 0.1);
-            border: 1px solid rgba(34, 197, 94, 0.3);
-            color: #22c55e;
-            padding: 0.5rem;
-            border-radius: 8px;
-            font-size: 0.85rem;
-            margin-top: 0.5rem;
-            font-weight: 600;
-        }
-
-        .cta-subtext {
-            font-size: 0.8rem;
-            color: #9ca3af;
-            margin-top: 0.5rem;
-            display: block;
-        }
-
         @media (max-width: 768px) {
             .container {
                 padding: 0 1rem;
@@ -586,21 +457,14 @@
                 margin: 0 auto 4rem auto;
             }
         }
-
-        /* Payment Notification Animation */
-        @keyframes slideIn {
-            from {
-                transform: translateX(400px);
-                opacity: 0;
-            }
-            to {
-                transform: translateX(0);
-                opacity: 1;
-            }
-        }
     </style>
 </head>
 <body>
+  <!-- PWA Floating Install Button -->
+<button id="pwa-floating-install" class="pwa-floating-install">
+    📱 Install App
+</button>
+  
     <!-- Header -->
     <header class="header">
         <div class="container">
@@ -615,6 +479,18 @@
                     <a href="/pricing.html" class="tab-btn active">💎 Pricing</a>
                     <a href="/account.html" class="tab-btn">👤 Account</a>
                 </nav>
+              <!-- PWA Sticky Install Banner -->
+<div id="pwa-sticky-banner" class="pwa-sticky-banner">
+    <div class="pwa-sticky-banner-text">
+        📱 Install DMTools for faster access and offline use
+    </div>
+    <button id="pwa-sticky-banner-btn" class="pwa-sticky-banner-btn">
+        Install Now
+    </button>
+    <button id="pwa-sticky-banner-close" class="pwa-sticky-banner-close">
+        ×
+    </button>
+</div>
 
                 
                 <div class="auth-buttons" id="auth-buttons">
@@ -624,11 +500,6 @@
             </div>
         </div>
     </header>
-
-    <!-- OPTIMIZATION: Urgency Banner -->
-    <div class="urgency-banner">
-        ⏰ <strong>LIMITED TIME:</strong> Get 20% off your first 3 months! <span>|</span> Use code: <strong>LAUNCH20</strong> <span>|</span> Expires Nov 30, 2025
-    </div>
 
     <!-- Hero Section -->
     <section class="hero">
@@ -646,133 +517,10 @@
             <div class="section-subtitle">
                 Choose the perfect plan for your needs. All plans include our core AI features.
             </div>
-
-            <!-- OPTIMIZATION: Social Proof -->
-            <div class="social-proof">
-                <div class="social-proof-stars">⭐⭐⭐⭐⭐</div>
-                <div style="font-size: 1.1rem; color: #ffffff; margin-bottom: 0.5rem;">
-                    <strong>Trusted by 15,000+ Content Creators</strong>
-                </div>
-                <div>"DMTools saves me 10+ hours every week!" - Sarah M., Influencer</div>
-            </div>
-
-            <!-- OPTIMIZATION: Annual/Monthly Toggle -->
-            <div class="billing-toggle">
-                <span class="billing-label active" id="monthly-label">Monthly</span>
-                <div class="toggle-switch" id="billing-toggle" onclick="toggleBilling()">
-                    <div class="toggle-slider"></div>
-                </div>
-                <span class="billing-label" id="annual-label">Annual <span class="savings-badge">SAVE 25%</span></span>
-            </div>
             
             <!-- Pricing Grid -->
             <div class="pricing-grid">
-                <!-- OPTIMIZATION: Enterprise Plan FIRST (Anchoring) -->
-                <div class="pricing-card">
-                    <div class="plan-name">Enterprise Plan</div>
-                    <div class="plan-price">$399</div>
-                    <div class="plan-price-range">
-                        Monthly: $399<br>
-                        Yearly: $3,591 (save 25%)
-                    </div>
-                    <div class="plan-description">For large organizations and enterprise clients</div>
-                    
-                    <ul class="plan-features">
-                        <li>25,000 AI responses per month</li>
-                        <li>Unlimited custom templates</li>
-                        <li>Unlimited batch processing</li>
-                        <li>Universal platform support</li>
-                        <li>Dedicated support</li>
-                        <li>Advanced analytics & reporting</li>
-                    </ul>
-                    
-                    <button class="lemonsqueezy-button choose-btn" onclick="handlePlanSelection('1034541', 'enterprise')">
-                        Contact Sales - Get Custom Quote
-                    </button>
-                    <span class="cta-subtext">🏆 Powers 200+ organizations</span>
-                </div>
-
-                <!-- OPTIMIZATION: Business Plan SECOND (Decoy) -->
-                <div class="pricing-card">
-                    <div class="plan-name">Business Plan</div>
-                    <div class="plan-price">$39.99</div>
-                    <div class="plan-price-range">
-                        Weekly: $39.99<br>
-                        Monthly: $149<br>
-                        Yearly: $1,341 (save 25%)
-                    </div>
-                    <div class="plan-description">For teams and agencies managing multiple accounts</div>
-                    
-                    <ul class="plan-features">
-                        <li>5,000 AI responses per month</li>
-                        <li>200 custom response templates</li>
-                        <li>Unlimited batch processing</li>
-                        <li>Universal platform support</li>
-                        <li>Priority support</li>
-                        <li>Advanced analytics & reporting</li>
-                    </ul>
-                    
-                    <button class="lemonsqueezy-button choose-btn" onclick="handlePlanSelection('1034540', 'business')">
-                        Scale Your Agency
-                    </button>
-                    <span class="cta-subtext">💼 Trusted by 1,100+ agencies</span>
-                </div>
-
-                <!-- OPTIMIZATION: Pro Plan THIRD (Best Value - Featured) -->
-                <div class="pricing-card featured best-value">
-                    <div class="best-value-badge">⭐ BEST VALUE - Most Popular</div>
-                    <div class="plan-name">Pro Plan</div>
-                    <div class="plan-price">$15.99</div>
-                    <div class="plan-price-range">
-                        Weekly: $15.99<br>
-                        Monthly: $59<br>
-                        Yearly: $531 (save 25%)
-                    </div>
-                    <div class="value-indicator">
-                        💰 Save 73% per response vs Starter • Only $0.016 per AI response
-                    </div>
-                    <div class="plan-description">For serious content creators and influencers</div>
-                    
-                    <ul class="plan-features">
-                        <li>1,000 AI responses per month</li>
-                        <li>20 custom response templates</li>
-                        <li>Unlimited batch processing</li>
-                        <li>Universal platform support</li>
-                        <li>Priority email support</li>
-                        <li>Advanced analytics</li>
-                    </ul>
-                    
-                    <button class="lemonsqueezy-button choose-btn" onclick="handlePlanSelection('1034539', 'pro')">
-                        Get Best Value - Start Saving Now
-                    </button>
-                    <span class="cta-subtext">✓ Join 8,000+ creators ✓ Cancel anytime</span>
-                </div>
-
-                <!-- Starter Plan FOURTH -->
-                <div class="pricing-card">
-                    <div class="plan-name">Starter Plan</div>
-                    <div class="plan-price">$5.99</div>
-                    <div class="plan-price-range">
-                        Weekly: $5.99<br>
-                        Monthly: $19
-                    </div>
-                    <div class="plan-description">For individual creators getting started</div>
-                    
-                    <ul class="plan-features">
-                        <li>100 AI responses per month</li>
-                        <li>5 custom response templates</li>
-                        <li>Unlimited batch processing</li>
-                        <li>Universal platform support</li>
-                        <li>Email support</li>
-                    </ul>
-                    
-                    <button class="lemonsqueezy-button choose-btn" onclick="handlePlanSelection('1034521', 'starter')">
-                        Start Saving Time - $5.99/week
-                    </button>
-                    <span class="cta-subtext">🎯 Perfect for 3,200+ beginners</span>
-                </div>
-
-                <!-- Free Plan LAST -->
+                <!-- Free Plan -->
                 <div class="pricing-card">
                     <div class="plan-name">Free Forever</div>
                     <div class="plan-price">$0</div>
@@ -786,12 +534,180 @@
                     </ul>
                     
                     <button class="free-btn" onclick="showAuthModal(false)">
-                        Try 10 Free Responses - No Card Required
+                        Start Free
                     </button>
-                    <span class="cta-subtext">✓ No credit card required</span>
+                </div>
+
+                <!-- Starter Plan -->
+                <div class="pricing-card">
+                    <div class="plan-name">Starter Plan</div>
+                    <div class="plan-price">$5.99 - $19</div>
+                    <div class="plan-price-range">per week or month</div>
+                    <div class="plan-description">For individual creators getting started</div>
+                    
+                    <ul class="plan-features">
+                        <li>30-100 AI responses</li>
+                        <li>5 custom response templates</li>
+                        <li>Unlimited batch processing</li>
+                        <li>Universal platform support</li>
+                        <li>Email support</li>
+                        <li>Choose weekly or monthly billing</li>
+                    </ul>
+                    
+                    <a href="https://dmtoolsfun-llc.lemonsqueezy.com/buy/d8258a23-e538-4bd6-baf3-15a58cea80bf?embed=1" class="lemonsqueezy-button choose-btn">
+                        Choose Plan
+                    </a>
+                </div>
+              
+                <!-- Pro Plan -->
+                <div class="pricing-card featured">
+                    <div class="plan-badge">Most Popular</div>
+                    <div class="plan-name">Pro Plan</div>
+                    <div class="plan-price">$15.99 - $531</div>
+                    <div class="plan-price-range">weekly, monthly, or annual</div>
+                    <div class="plan-description">For serious content creators and influencers</div>
+                    
+                    <ul class="plan-features">
+                        <li>250-1,000 AI responses</li>
+                        <li>20 custom response templates</li>
+                        <li>Unlimited batch processing</li>
+                        <li>Universal platform support</li>
+                        <li>Priority email support</li>
+                        <li>Advanced analytics</li>
+                        <li>Save up to 25% with annual billing</li>
+                    </ul>
+                    
+                    <a href="https://dmtoolsfun-llc.lemonsqueezy.com/buy/c6f7c828-dd29-4ef7-b4d7-9270f390a41c?embed=1" class="lemonsqueezy-button choose-btn">
+                        Choose Plan
+                    </a>
+                </div>
+
+                <!-- Business Plan -->
+                <div class="pricing-card">
+                    <div class="plan-name">Business Plan</div>
+                    <div class="plan-price">$39.99 - $1,341</div>
+                    <div class="plan-price-range">weekly, monthly, or annual</div>
+                    <div class="plan-description">For teams and agencies managing multiple accounts</div>
+                    
+                    <ul class="plan-features">
+                        <li>1,250-5,000 AI responses</li>
+                        <li>200 custom response templates</li>
+                        <li>Unlimited batch processing</li>
+                        <li>Universal platform support</li>
+                        <li>Priority support</li>
+                        <li>Advanced analytics & reporting</li>
+                        <li>Team collaboration tools</li>
+                        <li>Save up to 25% with annual billing</li>
+                    </ul>
+                    
+                    <a href="https://dmtoolsfun-llc.lemonsqueezy.com/buy/0bb6e756-ab23-4db0-8359-f06f7f621d1c?embed=1" class="lemonsqueezy-button choose-btn">
+                        Choose Plan
+                    </a>
+                </div>
+
+                <!-- Enterprise Plan -->
+                <div class="pricing-card">
+                    <div class="plan-name">Enterprise Plan</div>
+                    <div class="plan-price">$399 - $3,591</div>
+                    <div class="plan-price-range">monthly or annual</div>
+                    <div class="plan-description">For large organizations and enterprise clients</div>
+                    
+                    <ul class="plan-features">
+                        <li>25,000+ AI responses</li>
+                        <li>Unlimited custom templates</li>
+                        <li>Unlimited batch processing</li>
+                        <li>Universal platform support</li>
+                        <li>Dedicated support</li>
+                        <li>Advanced analytics & reporting</li>
+                        <li>White-label options</li>
+                        <li>Custom integrations</li>
+                        <li>Save 25% with annual billing</li>
+                    </ul>
+                    
+                    <a href="https://dmtoolsfun-llc.lemonsqueezy.com/buy/899c3c4c-2f92-489c-a8c4-11914cd89692?embed=1" class="lemonsqueezy-button choose-btn">
+                        Choose Plan
+                    </a>
                 </div>
             </div>
         </div>
+        
+        <!-- Response Packs Section -->
+        <div style="margin-top: 6rem;">
+            <h2 style="text-align: center; font-size: 2rem; margin-bottom: 1rem; color: #ffffff;">
+                Response Packs (Chrome Extension)
+            </h2>
+            <p style="text-align: center; color: #9ca3af; margin-bottom: 3rem; font-size: 1.1rem; max-width: 700px; margin-left: auto; margin-right: auto;">
+                Not ready to subscribe? Buy pay-as-you-go response packs to use the Chrome extension.<br>
+                <span style="font-size: 0.9rem;">Packs never expire until activated. Once activated, use within 12 months.</span>
+            </p>
+            
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 2rem; max-width: 1000px; margin: 0 auto;">
+                
+                <!-- Starter Pack -->
+                <div style="background: rgba(30, 41, 59, 0.8); border: 2px solid #06b6d4; border-radius: 16px; padding: 2rem; text-align: center; transition: transform 0.3s ease;">
+                    <div style="font-size: 1.5rem; font-weight: 700; color: #ffffff; margin-bottom: 0.5rem;">Starter Pack</div>
+                    <div style="font-size: 2.5rem; font-weight: 800; color: #06b6d4; margin: 1rem 0;">$9.99</div>
+                    <div style="color: #d1d5db; font-size: 1.2rem; margin-bottom: 0.5rem;">500 responses</div>
+                    <div style="color: #6b7280; font-size: 0.9rem; margin-bottom: 2rem;">$0.020 per response</div>
+                    <button class="choose-btn" style="background: #06b6d4;" onclick="handlePackPurchase('starter', 9.99, 500)">
+                        Buy Starter Pack
+                    </button>
+                </div>
+                
+                <!-- Pro Pack -->
+                <div style="background: rgba(30, 41, 59, 0.8); border: 2px solid #10b981; border-radius: 16px; padding: 2rem; text-align: center; position: relative; transform: scale(1.05); transition: transform 0.3s ease;">
+                    <div style="position: absolute; top: -12px; left: 50%; transform: translateX(-50%); background: linear-gradient(135deg, #10b981, #059669); color: white; padding: 0.4rem 1.2rem; border-radius: 20px; font-size: 0.75rem; font-weight: 700;">POPULAR</div>
+                    <div style="font-size: 1.5rem; font-weight: 700; color: #ffffff; margin-bottom: 0.5rem;">Pro Pack</div>
+                    <div style="font-size: 2.5rem; font-weight: 800; color: #10b981; margin: 1rem 0;">$16.99</div>
+                    <div style="color: #d1d5db; font-size: 1.2rem; margin-bottom: 0.5rem;">1,000 responses</div>
+                    <div style="color: #6b7280; font-size: 0.9rem; margin-bottom: 0.5rem;">$0.017 per response</div>
+                    <div style="background: rgba(16, 185, 129, 0.2); color: #10b981; padding: 0.25rem 0.75rem; border-radius: 20px; font-size: 0.85rem; display: inline-block; margin-bottom: 1.5rem; font-weight: 600;">Save 15%</div>
+                    <button class="choose-btn" style="background: #10b981;" onclick="handlePackPurchase('pro', 16.99, 1000)">
+                        Buy Pro Pack
+                    </button>
+                </div>
+                
+                <!-- Business Pack -->
+                <div style="background: rgba(30, 41, 59, 0.8); border: 2px solid #8b5cf6; border-radius: 16px; padding: 2rem; text-align: center; transition: transform 0.3s ease;">
+                    <div style="font-size: 1.5rem; font-weight: 700; color: #ffffff; margin-bottom: 0.5rem;">Business Pack</div>
+                    <div style="font-size: 2.5rem; font-weight: 800; color: #8b5cf6; margin: 1rem 0;">$34.99</div>
+                    <div style="color: #d1d5db; font-size: 1.2rem; margin-bottom: 0.5rem;">2,500 responses</div>
+                    <div style="color: #6b7280; font-size: 0.9rem; margin-bottom: 0.5rem;">$0.014 per response</div>
+                    <div style="background: rgba(139, 92, 246, 0.2); color: #8b5cf6; padding: 0.25rem 0.75rem; border-radius: 20px; font-size: 0.85rem; display: inline-block; margin-bottom: 1.5rem; font-weight: 600;">Save 30%</div>
+                    <button class="choose-btn" style="background: #8b5cf6;" onclick="handlePackPurchase('business', 34.99, 2500)">
+                        Buy Business Pack
+                    </button>
+                </div>
+                
+            </div>
+            
+            <!-- Pro Tip -->
+            <div style="text-align: center; margin-top: 3rem; padding: 1.5rem; background: rgba(139, 92, 246, 0.1); border-radius: 12px; border: 1px solid #8b5cf6; max-width: 800px; margin-left: auto; margin-right: auto;">
+                <div style="font-size: 1.1rem; color: #ffffff; margin-bottom: 0.5rem;">
+                    💡 <strong>Pro Tip:</strong> For regular users
+                </div>
+                <div style="color: #d1d5db; line-height: 1.6;">
+                    If you use more than 50 responses per month, a <strong style="color: #10b981;">Pro subscription ($59/month for 1,000 responses)</strong> is better value than buying packs! Plus you get the batch processor included.
+                </div>
+            </div>
+        </div>
+        
+      <!-- PWA Install CTA After Pricing -->
+<div style="text-align: center; margin: 4rem 0 2rem;">
+    <h3 style="color: #ffffff; font-size: 1.8rem; margin-bottom: 1rem;">
+        Ready to Get Started?
+    </h3>
+    <p style="color: #9ca3af; font-size: 1.1rem; margin-bottom: 2rem;">
+        Install the app for the best experience across all your devices
+    </p>
+    <button id="pwa-inline-install" class="pwa-inline-install">
+        <span style="font-size: 24px;">📱</span>
+        <div>
+            <div>Install DMTools App</div>
+            <div style="font-size: 14px; opacity: 0.9; font-weight: 400;">Free to try • Works on Android & iOS</div>
+        </div>
+    </button>
+</div>
 
     </section>
 
@@ -1083,169 +999,311 @@
             window.location.href = '/app.html';
         }
 
-        // OPTIMIZATION: Annual/Monthly Toggle Function
-        function toggleBilling() {
-            const toggle = document.getElementById('billing-toggle');
-            const monthlyLabel = document.getElementById('monthly-label');
-            const annualLabel = document.getElementById('annual-label');
-            const isAnnual = toggle.classList.toggle('active');
+        // Handle response pack purchase
+        async function handlePackPurchase(packType, price, responses) {
+            console.log(`Pack purchase initiated: ${packType}, $${price}, ${responses} responses`);
             
-            monthlyLabel.classList.toggle('active');
-            annualLabel.classList.toggle('active');
-            
-            // Get all pricing range elements
-            const priceRanges = document.querySelectorAll('.plan-price-range');
-            
-            priceRanges.forEach(range => {
-                const lines = range.innerHTML.split('<br>');
-                
-                if (isAnnual) {
-                    // Highlight annual pricing, fade monthly/weekly
-                    let newHTML = lines.map(line => {
-                        if (line.includes('Yearly:') || line.includes('Annual:')) {
-                            return `<strong style="color: #22c55e; font-size: 1.1rem;">${line}</strong>`;
-                        } else {
-                            return `<span style="opacity: 0.5;">${line}</span>`;
-                        }
-                    }).join('<br>');
-                    range.innerHTML = newHTML;
-                } else {
-                    // Highlight monthly/weekly, fade annual
-                    let newHTML = lines.map(line => {
-                        if (line.includes('Yearly:') || line.includes('Annual:')) {
-                            return `<span style="opacity: 0.5;">${line}</span>`;
-                        } else if (line.includes('Monthly:')) {
-                            return `<strong style="color: #8b5cf6; font-size: 1.1rem;">${line}</strong>`;
-                        } else {
-                            return line;
-                        }
-                    }).join('<br>');
-                    range.innerHTML = newHTML;
-                }
-            });
-            
-            // Track toggle in analytics
-            if (typeof gtag !== 'undefined') {
-                gtag('event', 'billing_toggle', {
-                    'event_category': 'Pricing',
-                    'event_label': isAnnual ? 'Annual' : 'Monthly'
-                });
-            }
-        }
-        
-        // Set initial state (default to monthly highlighted)
-        document.addEventListener('DOMContentLoaded', () => {
-            // Monthly is default, so don't call toggle
-            // User can click to switch to annual
-        });
-
-        // ========================================
-        // PAYMENT FLOW HANDLER (BACKEND INTEGRATION)
-        // ========================================
-        async function handlePlanSelection(variantId, planName) {
             // Check if user is authenticated
             if (!isAuthenticated) {
                 // Show auth modal if not logged in
                 showAuthModal(false); // false = registration mode
                 
                 // Show helpful message
-                showNotification('Please sign in or create an account to continue', 'info');
+                alert('Please sign in or create an account to purchase response packs');
                 
                 // Track attempted purchase in analytics
                 if (typeof gtag !== 'undefined') {
-                    gtag('event', 'plan_selection_unauthenticated', {
-                        'event_category': 'Pricing',
-                        'event_label': planName,
-                        'variant_id': variantId
+                    gtag('event', 'pack_purchase_unauthenticated', {
+                        'event_category': 'Response Packs',
+                        'event_label': packType,
+                        'value': price
                     });
                 }
                 return;
             }
 
-            // Show loading state
-            showNotification('Creating checkout session...', 'info');
-
             try {
-                // Call backend API to create checkout with user_id
-                const response = await apiCall('/subscription/checkout', {
-                    method: 'POST',
-                    body: JSON.stringify({
-                        variant_id: variantId,
-                        plan_name: planName
-                    })
-                });
+                // Show loading notification
+                if (confirm(`Purchase ${packType} pack: ${responses} responses for $${price}?`)) {
+                    
+                    // Map pack types to Lemon Squeezy variant IDs
+                    // TODO: Replace these with your actual Lemon Squeezy variant IDs
+                    const variantIds = {
+                        'starter': 'YOUR_STARTER_PACK_VARIANT_ID',
+                        'pro': 'YOUR_PRO_PACK_VARIANT_ID',
+                        'business': 'YOUR_BUSINESS_PACK_VARIANT_ID'
+                    };
+                    
+                    const variantId = variantIds[packType];
+                    
+                    // Call backend API to create checkout with user_id
+                    const response = await apiCall('/packs/checkout', {
+                        method: 'POST',
+                        body: JSON.stringify({
+                            variant_id: variantId,
+                            pack_type: packType,
+                            pack_size: responses,
+                            price: price
+                        })
+                    });
 
-                if (response.success && response.checkout_url) {
-                    // Track successful checkout creation
-                    if (typeof gtag !== 'undefined') {
-                        gtag('event', 'checkout_initiated', {
-                            'event_category': 'Pricing',
-                            'event_label': planName,
-                            'variant_id': variantId
-                        });
+                    if (response.success && response.checkout_url) {
+                        // Track successful checkout creation
+                        if (typeof gtag !== 'undefined') {
+                            gtag('event', 'pack_checkout_initiated', {
+                                'event_category': 'Response Packs',
+                                'event_label': packType,
+                                'value': price
+                            });
+                        }
+
+                        // Redirect to Lemon Squeezy checkout (now includes user_id)
+                        window.location.href = response.checkout_url;
+                    } else {
+                        throw new Error(response.error || 'Failed to create checkout');
                     }
-
-                    // Redirect to Lemon Squeezy checkout (now includes user_id)
-                    window.location.href = response.checkout_url;
-                } else {
-                    throw new Error(response.error || 'Failed to create checkout');
                 }
 
             } catch (error) {
-                console.error('Checkout error:', error);
-                showNotification('Failed to start checkout. Please try again.', 'error');
+                console.error('Pack checkout error:', error);
+                alert('Failed to start checkout. Please try again or contact support.');
                 
-                // Track error in analytics
+                // Track error
                 if (typeof gtag !== 'undefined') {
-                    gtag('event', 'checkout_error', {
-                        'event_category': 'Pricing',
-                        'event_label': planName,
-                        'error': error.message
+                    gtag('event', 'pack_checkout_error', {
+                        'event_category': 'Response Packs',
+                        'event_label': packType,
+                        'value': price
                     });
                 }
             }
         }
-
-        // Simple notification helper
-        function showNotification(message, type = 'info') {
-            // Create notification element if it doesn't exist
-            let notification = document.getElementById('payment-notification');
-            if (!notification) {
-                notification = document.createElement('div');
-                notification.id = 'payment-notification';
-                notification.style.cssText = `
-                    position: fixed;
-                    top: 20px;
-                    right: 20px;
-                    padding: 1rem 1.5rem;
-                    border-radius: 12px;
-                    font-weight: 500;
-                    z-index: 10000;
-                    animation: slideIn 0.3s ease;
-                    max-width: 400px;
-                `;
-                document.body.appendChild(notification);
-            }
-
-            // Set color based on type
-            const colors = {
-                info: 'background: linear-gradient(135deg, #8b5cf6, #ec4899); color: white;',
-                error: 'background: #ef4444; color: white;',
-                success: 'background: #10b981; color: white;'
-            };
-
-            notification.style.cssText += colors[type] || colors.info;
-            notification.textContent = message;
-            notification.style.display = 'block';
-
-            // Auto-hide after 3 seconds
-            setTimeout(() => {
-                notification.style.display = 'none';
-            }, 3000);
-        }
     </script>
+    /* ========================================
+   PWA INSTALL BUTTON JAVASCRIPT
+   Add this script right before </body> tag
+   ======================================== */
 
 <script>
+// ========================================
+// PWA INSTALL FUNCTIONALITY
+// ========================================
+
+(function() {
+    'use strict';
+    
+    let deferredPrompt = null;
+    const floatingBtn = document.getElementById('pwa-floating-install');
+    const headerBtn = document.getElementById('pwa-header-install');
+    const inlineBtn = document.getElementById('pwa-inline-install');
+    const stickyBanner = document.getElementById('pwa-sticky-banner');
+    const stickyBannerBtn = document.getElementById('pwa-sticky-banner-btn');
+    const stickyBannerClose = document.getElementById('pwa-sticky-banner-close');
+    
+    // Check if already running as installed PWA
+    function isRunningAsPWA() {
+        return window.matchMedia('(display-mode: standalone)').matches || 
+               window.navigator.standalone === true;
+    }
+    
+    // Hide all install prompts if running as PWA
+    if (isRunningAsPWA()) {
+        console.log('📱 Running as installed PWA - hiding install buttons');
+        document.body.classList.add('running-as-pwa');
+        return; // Exit early, no need to set up install prompts
+    }
+    
+    // Listen for beforeinstallprompt event
+    window.addEventListener('beforeinstallprompt', (e) => {
+        console.log('💡 PWA install prompt available');
+        
+        // Prevent Chrome 76+ from automatically showing the prompt
+        e.preventDefault();
+        
+        // Save the event for later use
+        deferredPrompt = e;
+        
+        // Show install buttons
+        showInstallButtons();
+        
+        // Track that install prompt is available
+        if (typeof gtag !== 'undefined') {
+            gtag('event', 'pwa_install_prompt_shown', {
+                'event_category': 'PWA',
+                'event_label': 'Install Prompt Available'
+            });
+        }
+    });
+    
+    // Show appropriate install buttons based on page
+    function showInstallButtons() {
+        // Show floating button on all pages
+        if (floatingBtn) {
+            floatingBtn.style.display = 'flex';
+            // Add pulse animation for first 5 seconds
+            floatingBtn.classList.add('pulse');
+            setTimeout(() => {
+                floatingBtn.classList.remove('pulse');
+            }, 5000);
+        }
+        
+        // Show header button
+        if (headerBtn) {
+            headerBtn.style.display = 'flex';
+        }
+        
+        // Show inline button (on index.html)
+        if (inlineBtn) {
+            inlineBtn.style.display = 'flex';
+        }
+        
+        // Show sticky banner (on app.html) after 3 seconds
+        if (stickyBanner) {
+            setTimeout(() => {
+                // Check if banner was dismissed in this session
+                if (!sessionStorage.getItem('pwa_banner_dismissed')) {
+                    stickyBanner.style.display = 'flex';
+                }
+            }, 3000);
+        }
+    }
+    
+    // Handle install button clicks
+    async function handleInstallClick(source) {
+        console.log(`🎯 Install button clicked from: ${source}`);
+        
+        if (!deferredPrompt) {
+            console.log('❌ No install prompt available');
+            return;
+        }
+        
+        // Show the install prompt
+        deferredPrompt.prompt();
+        
+        // Wait for the user to respond to the prompt
+        const { outcome } = await deferredPrompt.userChoice;
+        
+        console.log(`👤 User response: ${outcome}`);
+        
+        // Track the outcome
+        if (typeof gtag !== 'undefined') {
+            gtag('event', 'pwa_install_attempt', {
+                'event_category': 'PWA',
+                'event_label': source,
+                'value': outcome === 'accepted' ? 1 : 0
+            });
+        }
+        
+        if (outcome === 'accepted') {
+            console.log('✅ User accepted PWA installation');
+            hideAllInstallButtons();
+        } else {
+            console.log('❌ User dismissed PWA installation');
+        }
+        
+        // Clear the deferred prompt
+        deferredPrompt = null;
+    }
+    
+    // Hide all install buttons
+    function hideAllInstallButtons() {
+        if (floatingBtn) floatingBtn.style.display = 'none';
+        if (headerBtn) headerBtn.style.display = 'none';
+        if (inlineBtn) inlineBtn.style.display = 'none';
+        if (stickyBanner) stickyBanner.style.display = 'none';
+    }
+    
+    // Attach click handlers
+    if (floatingBtn) {
+        floatingBtn.addEventListener('click', () => handleInstallClick('floating_button'));
+    }
+    
+    if (headerBtn) {
+        headerBtn.addEventListener('click', () => handleInstallClick('header_button'));
+    }
+    
+    if (inlineBtn) {
+        inlineBtn.addEventListener('click', () => handleInstallClick('inline_button'));
+    }
+    
+    if (stickyBannerBtn) {
+        stickyBannerBtn.addEventListener('click', () => handleInstallClick('sticky_banner'));
+    }
+    
+    // Handle sticky banner close
+    if (stickyBannerClose) {
+        stickyBannerClose.addEventListener('click', () => {
+            stickyBanner.style.display = 'none';
+            // Remember that user dismissed banner for this session
+            sessionStorage.setItem('pwa_banner_dismissed', 'true');
+            
+            // Track dismissal
+            if (typeof gtag !== 'undefined') {
+                gtag('event', 'pwa_banner_dismissed', {
+                    'event_category': 'PWA',
+                    'event_label': 'Sticky Banner Closed'
+                });
+            }
+        });
+    }
+    
+    // Listen for successful app installation
+    window.addEventListener('appinstalled', (evt) => {
+        console.log('🎉 PWA was successfully installed!');
+        
+        // Hide all install buttons
+        hideAllInstallButtons();
+        
+        // Track successful installation
+        if (typeof gtag !== 'undefined') {
+            gtag('event', 'pwa_installed', {
+                'event_category': 'PWA',
+                'event_label': 'App Installed Successfully'
+            });
+        }
+        
+        // Show success message
+        if (typeof showNotification === 'function') {
+            showNotification('🎉 App installed successfully! Find it on your home screen.', 'success');
+        }
+    });
+    
+    // Show install instructions for iOS users (Safari doesn't support beforeinstallprompt)
+    function checkIOSInstallOption() {
+        const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
+        const isInStandaloneMode = ('standalone' in window.navigator) && (window.navigator.standalone);
+        
+        if (isIOS && !isInStandaloneMode) {
+            console.log('📱 iOS device detected - user can manually add to home screen');
+            
+            // You can show iOS-specific install instructions here
+            // For now, we'll just log it
+            
+            // Optional: Show a subtle hint
+            if (floatingBtn) {
+                floatingBtn.innerHTML = '📱 Install App<br><small style="font-size:11px;">Tap Share → Add to Home Screen</small>';
+                floatingBtn.style.display = 'flex';
+                floatingBtn.style.flexDirection = 'column';
+                floatingBtn.style.padding = '12px 20px';
+                floatingBtn.style.textAlign = 'center';
+                
+                // Disable click since iOS doesn't support programmatic install
+                floatingBtn.onclick = () => {
+                    if (typeof showNotification === 'function') {
+                        showNotification('Tap the Share button, then select "Add to Home Screen"', 'info');
+                    }
+                    return false;
+                };
+            }
+        }
+    }
+    
+    // Check for iOS
+    setTimeout(checkIOSInstallOption, 2000);
+    
+    console.log('✅ PWA install functionality loaded');
+})();
+
 // ========================================
 // SERVICE WORKER REGISTRATION
 // ========================================
@@ -1295,57 +1353,5 @@ if ('serviceWorker' in navigator) {
     console.warn('⚠️ Service Workers are not supported in this browser');
 }
 </script>
-
-    <!-- Footer -->
-    <footer style="background: rgba(31, 41, 55, 0.8); backdrop-filter: blur(10px); border-top: 1px solid rgba(139, 92, 246, 0.2); padding: 3rem 0 2rem 0; margin-top: 6rem;">
-        <div class="container">
-            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 3rem; margin-bottom: 2rem;">
-                <!-- Company Info -->
-                <div>
-                    <div class="logo" style="margin-bottom: 1rem;">DMTools.fun</div>
-                    <p style="color: #9ca3af; line-height: 1.6; margin-bottom: 1rem;">
-                        AI-powered universal messaging assistant for all digital communication platforms.
-                    </p>
-                </div>
-
-                <!-- Product Links -->
-                <div>
-                    <h4 style="color: #ffffff; margin-bottom: 1rem; font-size: 1.1rem;">Product</h4>
-                    <div style="display: flex; flex-direction: column; gap: 0.75rem;">
-                        <a href="/" style="color: #9ca3af; text-decoration: none; transition: color 0.3s;">Home</a>
-                        <a href="/pricing.html" style="color: #9ca3af; text-decoration: none; transition: color 0.3s;">Pricing</a>
-                        <a href="/app.html" style="color: #9ca3af; text-decoration: none; transition: color 0.3s;">Dashboard</a>
-                        <a href="/presets.html" style="color: #9ca3af; text-decoration: none; transition: color 0.3s;">Templates</a>
-                    </div>
-                </div>
-
-                <!-- Legal Links -->
-                <div>
-                    <h4 style="color: #ffffff; margin-bottom: 1rem; font-size: 1.1rem;">Legal</h4>
-                    <div style="display: flex; flex-direction: column; gap: 0.75rem;">
-                        <a href="/privacy-policy.html" style="color: #9ca3af; text-decoration: none; transition: color 0.3s;">Privacy Policy</a>
-                        <a href="/terms-of-service.html" style="color: #9ca3af; text-decoration: none; transition: color 0.3s;">Terms of Service</a>
-                        <a href="/refund-policy.html" style="color: #9ca3af; text-decoration: none; transition: color 0.3s;">Refund Policy</a>
-                        <a href="/cookie-policy.html" style="color: #9ca3af; text-decoration: none; transition: color 0.3s;">Cookie Policy</a>
-                    </div>
-                </div>
-
-                <!-- Support Links -->
-                <div>
-                    <h4 style="color: #ffffff; margin-bottom: 1rem; font-size: 1.1rem;">Support</h4>
-                    <div style="display: flex; flex-direction: column; gap: 0.75rem;">
-                        <a href="/contact.html" style="color: #9ca3af; text-decoration: none; transition: color 0.3s;">Contact Us</a>
-                        <a href="/account.html" style="color: #9ca3af; text-decoration: none; transition: color 0.3s;">My Account</a>
-                        <a href="/analytics.html" style="color: #9ca3af; text-decoration: none; transition: color 0.3s;">Analytics</a>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Copyright -->
-            <div style="border-top: 1px solid rgba(139, 92, 246, 0.2); padding-top: 2rem; text-align: center; color: #9ca3af;">
-                <p>© 2025 DMTools.fun. All rights reserved.</p>
-            </div>
-        </div>
-    </footer>
 </body>
 </html>

@@ -1,0 +1,1699 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard - DMTools</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --bg-dark: #0f172a;
+            --bg-card: #1e293b;
+            --bg-hover: #334155;
+            --border: #475569;
+            --text-primary: #f1f5f9;
+            --text-secondary: #94a3b8;
+            --accent: #8b5cf6;
+            --accent-hover: #7c3aed;
+            --success: #10b981;
+            --danger: #ef4444;
+            --warning: #f59e0b;
+            --info: #3b82f6;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: var(--bg-dark);
+            color: var(--text-primary);
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1600px;
+            margin: 0 auto;
+            padding: 1rem;
+        }
+
+        /* Login Screen */
+        .login-screen {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+        }
+
+        .login-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 2.5rem;
+            width: 100%;
+            max-width: 420px;
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.3);
+        }
+
+        .login-header {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .login-header h1 {
+            font-size: 1.75rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .login-header p {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+        }
+
+        .form-group {
+            margin-bottom: 1.25rem;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-size: 0.875rem;
+            font-weight: 500;
+        }
+
+        input[type="email"],
+        input[type="password"],
+        input[type="text"],
+        input[type="number"],
+        select,
+        textarea {
+            width: 100%;
+            padding: 0.75rem;
+            background: var(--bg-dark);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            color: var(--text-primary);
+            font-size: 0.95rem;
+            transition: all 0.2s;
+        }
+
+        input:focus,
+        select:focus,
+        textarea:focus {
+            outline: none;
+            border-color: var(--accent);
+            box-shadow: 0 0 0 3px rgba(139, 92, 246, 0.1);
+        }
+
+        .btn {
+            padding: 0.75rem 1.5rem;
+            border: none;
+            border-radius: 8px;
+            font-size: 0.95rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.2s;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .btn-primary {
+            background: var(--accent);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: var(--accent-hover);
+        }
+
+        .btn-secondary {
+            background: var(--bg-hover);
+            color: var(--text-primary);
+            border: 1px solid var(--border);
+        }
+
+        .btn-secondary:hover {
+            background: var(--border);
+        }
+
+        .btn-success {
+            background: var(--success);
+            color: white;
+        }
+
+        .btn-danger {
+            background: var(--danger);
+            color: white;
+        }
+
+        .btn-sm {
+            padding: 0.5rem 1rem;
+            font-size: 0.85rem;
+        }
+
+        /* Dashboard Layout */
+        .dashboard {
+            display: none;
+        }
+
+        .header {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .header-title {
+            font-size: 1.75rem;
+            font-weight: 600;
+        }
+
+        .header-actions {
+            display: flex;
+            gap: 1rem;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+
+        /* Navigation Tabs */
+        .nav-tabs {
+            display: flex;
+            gap: 0.5rem;
+            margin-bottom: 1.5rem;
+            flex-wrap: wrap;
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 0.75rem;
+        }
+
+        .nav-tab {
+            padding: 0.75rem 1.5rem;
+            background: transparent;
+            border: none;
+            border-radius: 8px;
+            color: var(--text-secondary);
+            cursor: pointer;
+            font-size: 0.95rem;
+            font-weight: 500;
+            transition: all 0.2s;
+        }
+
+        .nav-tab:hover {
+            background: var(--bg-hover);
+            color: var(--text-primary);
+        }
+
+        .nav-tab.active {
+            background: var(--accent);
+            color: white;
+        }
+
+        /* Tab Content */
+        .tab-content {
+            display: none;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        /* Stats Grid */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .stat-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 1.5rem;
+            transition: transform 0.2s;
+        }
+
+        .stat-card:hover {
+            transform: translateY(-2px);
+        }
+
+        .stat-value {
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: 0.25rem;
+        }
+
+        .stat-label {
+            color: var(--text-secondary);
+            font-size: 0.875rem;
+        }
+
+        .stat-change {
+            font-size: 0.8rem;
+            margin-top: 0.5rem;
+            padding: 0.25rem 0.5rem;
+            border-radius: 4px;
+            display: inline-block;
+        }
+
+        .stat-change.positive {
+            background: rgba(16, 185, 129, 0.1);
+            color: var(--success);
+        }
+
+        .stat-change.negative {
+            background: rgba(239, 68, 68, 0.1);
+            color: var(--danger);
+        }
+
+        /* Card */
+        .card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .card-title {
+            font-size: 1.25rem;
+            font-weight: 600;
+        }
+
+        /* Table */
+        .table-container {
+            overflow-x: auto;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        th {
+            text-align: left;
+            padding: 1rem;
+            background: var(--bg-dark);
+            color: var(--text-secondary);
+            font-size: 0.875rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        td {
+            padding: 1rem;
+            border-top: 1px solid var(--border);
+            font-size: 0.9rem;
+        }
+
+        tr:hover {
+            background: var(--bg-hover);
+        }
+
+        /* Badge */
+        .badge {
+            display: inline-block;
+            padding: 0.25rem 0.75rem;
+            border-radius: 9999px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .badge-success {
+            background: rgba(16, 185, 129, 0.1);
+            color: var(--success);
+        }
+
+        .badge-danger {
+            background: rgba(239, 68, 68, 0.1);
+            color: var(--danger);
+        }
+
+        .badge-warning {
+            background: rgba(245, 158, 11, 0.1);
+            color: var(--warning);
+        }
+
+        .badge-info {
+            background: rgba(59, 130, 246, 0.1);
+            color: var(--info);
+        }
+
+        .badge-secondary {
+            background: var(--bg-hover);
+            color: var(--text-secondary);
+        }
+
+        /* Alert */
+        .alert {
+            padding: 1rem;
+            border-radius: 8px;
+            margin-bottom: 1rem;
+            display: none;
+        }
+
+        .alert.show {
+            display: block;
+        }
+
+        .alert-success {
+            background: rgba(16, 185, 129, 0.1);
+            border: 1px solid var(--success);
+            color: var(--success);
+        }
+
+        .alert-danger {
+            background: rgba(239, 68, 68, 0.1);
+            border: 1px solid var(--danger);
+            color: var(--danger);
+        }
+
+        .alert-info {
+            background: rgba(59, 130, 246, 0.1);
+            border: 1px solid var(--info);
+            color: var(--info);
+        }
+
+        /* Loading State */
+        .loading-state {
+            text-align: center;
+            padding: 3rem;
+        }
+
+        .spinner {
+            width: 50px;
+            height: 50px;
+            border: 4px solid var(--border);
+            border-top-color: var(--accent);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 1rem;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        /* Modal */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.7);
+            z-index: 1000;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .modal.show {
+            display: flex;
+        }
+
+        .modal-content {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 2rem;
+            max-width: 600px;
+            width: 90%;
+            max-height: 90vh;
+            overflow-y: auto;
+        }
+
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+        }
+
+        .modal-title {
+            font-size: 1.5rem;
+            font-weight: 600;
+        }
+
+        .modal-close {
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            color: var(--text-secondary);
+            cursor: pointer;
+            padding: 0;
+            width: 30px;
+            height: 30px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 4px;
+        }
+
+        .modal-close:hover {
+            background: var(--bg-hover);
+            color: var(--text-primary);
+        }
+
+        /* Search & Filter Bar */
+        .toolbar {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+            flex-wrap: wrap;
+        }
+
+        .search-box {
+            flex: 1;
+            min-width: 250px;
+        }
+
+        .filter-group {
+            display: flex;
+            gap: 0.5rem;
+            align-items: center;
+        }
+
+        /* Utility Classes */
+        .hidden {
+            display: none !important;
+        }
+
+        .text-success {
+            color: var(--success);
+        }
+
+        .text-danger {
+            color: var(--danger);
+        }
+
+        .text-warning {
+            color: var(--warning);
+        }
+
+        .text-secondary {
+            color: var(--text-secondary);
+        }
+
+        .mt-2 {
+            margin-top: 1rem;
+        }
+
+        .mb-2 {
+            margin-bottom: 1rem;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .container {
+                padding: 0.5rem;
+            }
+
+            .stats-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .header {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .nav-tabs {
+                overflow-x: auto;
+                flex-wrap: nowrap;
+            }
+
+            th, td {
+                padding: 0.75rem 0.5rem;
+                font-size: 0.85rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Login Screen -->
+    <div id="login-screen" class="login-screen">
+        <div class="login-card">
+            <div class="login-header">
+                <h1>🛡️ Admin Dashboard</h1>
+                <p>DMTools.fun Administration</p>
+            </div>
+
+            <div id="login-alert" class="alert alert-danger"></div>
+
+            <form id="login-form">
+                <div class="form-group">
+                    <label for="admin-email">Email Address</label>
+                    <input type="email" id="admin-email" required autocomplete="email" />
+                </div>
+
+                <div class="form-group">
+                    <label for="admin-password">Password</label>
+                    <input type="password" id="admin-password" required autocomplete="current-password" />
+                </div>
+
+                <button type="submit" class="btn btn-primary" style="width: 100%;">
+                    Sign In
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Dashboard -->
+    <div id="dashboard" class="dashboard">
+        <div class="container">
+            <!-- Header -->
+            <div class="header">
+                <h1 class="header-title">🛡️ Admin Dashboard</h1>
+                <div class="header-actions">
+                    <span id="admin-user-email" style="color: var(--text-secondary); font-size: 0.9rem;"></span>
+                    <button class="btn btn-secondary btn-sm" onclick="refreshAllData()">🔄 Refresh</button>
+                    <button class="btn btn-secondary btn-sm" onclick="logout()">Sign Out</button>
+                </div>
+            </div>
+
+            <div id="main-alert" class="alert"></div>
+
+            <!-- Navigation Tabs -->
+            <div class="nav-tabs">
+                <button class="nav-tab active" onclick="switchTab('overview')">📊 Overview</button>
+                <button class="nav-tab" onclick="switchTab('users')">👥 Users</button>
+                <button class="nav-tab" onclick="switchTab('packs')">🎁 Response Packs</button>
+                <button class="nav-tab" onclick="switchTab('extension')">🧩 Extension Usage</button>
+                <button class="nav-tab" onclick="switchTab('revenue')">💰 Revenue</button>
+                <button class="nav-tab" onclick="switchTab('subscriptions')">📋 Subscriptions</button>
+            </div>
+
+            <!-- Tab: Overview -->
+            <div id="tab-overview" class="tab-content active">
+                <div id="loading-overview" class="loading-state">
+                    <div class="spinner"></div>
+                    <p>Loading dashboard statistics...</p>
+                </div>
+
+                <div id="overview-content" style="display: none;">
+                    <!-- Stats Grid -->
+                    <div class="stats-grid">
+                        <div class="stat-card">
+                            <div class="stat-value" id="stat-total-users">0</div>
+                            <div class="stat-label">Total Users</div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-value" id="stat-active-users">0</div>
+                            <div class="stat-label">Active Users (30 days)</div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-value" id="stat-active-subs">0</div>
+                            <div class="stat-label">Active Subscriptions</div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-value" id="stat-mrr">$0</div>
+                            <div class="stat-label">Monthly Recurring Revenue</div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-value" id="stat-api-calls">0</div>
+                            <div class="stat-label">API Calls Today</div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-value" id="stat-new-users">0</div>
+                            <div class="stat-label">New Users Today</div>
+                        </div>
+                    </div>
+
+                    <!-- Quick Actions -->
+                    <div class="card">
+                        <div class="card-header">
+                            <h2 class="card-title">⚡ Quick Actions</h2>
+                        </div>
+                        <div style="display: flex; gap: 1rem; flex-wrap: wrap;">
+                            <button class="btn btn-primary" onclick="openGiftPackModal()">🎁 Gift Response Pack</button>
+                            <button class="btn btn-primary" onclick="openCreatePromoPackModal()">✨ Create Promo Pack</button>
+                            <button class="btn btn-secondary" onclick="switchTab('users')">👥 View All Users</button>
+                            <button class="btn btn-secondary" onclick="switchTab('extension')">🧩 Extension Analytics</button>
+                        </div>
+                    </div>
+
+                    <!-- Recent Activity -->
+                    <div class="card">
+                        <div class="card-header">
+                            <h2 class="card-title">📈 Recent Activity</h2>
+                        </div>
+                        <div id="recent-activity">
+                            <p class="text-secondary">Loading recent activity...</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Tab: Users -->
+            <div id="tab-users" class="tab-content">
+                <div class="toolbar">
+                    <div class="search-box">
+                        <input type="text" id="user-search" placeholder="Search by email, name, or ID..." />
+                    </div>
+                    <div class="filter-group">
+                        <select id="user-filter-plan">
+                            <option value="">All Plans</option>
+                            <option value="free">Free</option>
+                            <option value="starter">Starter</option>
+                            <option value="pro">Pro</option>
+                            <option value="business">Business</option>
+                            <option value="enterprise">Enterprise</option>
+                        </select>
+                    </div>
+                    <div class="filter-group">
+                        <select id="user-filter-status">
+                            <option value="">All Status</option>
+                            <option value="active">Active</option>
+                            <option value="inactive">Inactive</option>
+                            <option value="past_due">Past Due</option>
+                            <option value="cancelled">Cancelled</option>
+                        </select>
+                    </div>
+                    <button class="btn btn-secondary btn-sm" onclick="loadUsers()">🔍 Search</button>
+                </div>
+
+                <div class="card">
+                    <div class="card-header">
+                        <h2 class="card-title">👥 All Users (<span id="user-count">0</span>)</h2>
+                    </div>
+                    <div class="table-container">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>ID</th>
+                                    <th>Email</th>
+                                    <th>Name</th>
+                                    <th>Plan</th>
+                                    <th>Usage</th>
+                                    <th>Status</th>
+                                    <th>Last Login</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody id="users-table-body">
+                                <tr>
+                                    <td colspan="8" style="text-align: center; padding: 2rem;">
+                                        <div class="spinner" style="width: 40px; height: 40px;"></div>
+                                        <p class="text-secondary">Loading users...</p>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Tab: Response Packs -->
+            <div id="tab-packs" class="tab-content">
+                <div class="toolbar">
+                    <div class="search-box">
+                        <input type="text" id="pack-search-email" placeholder="Search by user email..." />
+                    </div>
+                    <div class="filter-group">
+                        <select id="pack-filter-status">
+                            <option value="">All Status</option>
+                            <option value="active">Active</option>
+                            <option value="inactive">Inactive</option>
+                            <option value="used">Used</option>
+                            <option value="expired">Expired</option>
+                        </select>
+                    </div>
+                    <button class="btn btn-secondary btn-sm" onclick="loadResponsePacks()">🔍 Search</button>
+                    <button class="btn btn-primary btn-sm" onclick="openCreatePromoPackModal()">✨ Create Promo Pack</button>
+                </div>
+
+                <div class="card">
+                    <div class="card-header">
+                        <h2 class="card-title">🎁 Response Packs (<span id="pack-count">0</span>)</h2>
+                    </div>
+                    <div class="table-container">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>ID</th>
+                                    <th>User</th>
+                                    <th>Size</th>
+                                    <th>Remaining</th>
+                                    <th>Status</th>
+                                    <th>Promotional</th>
+                                    <th>Purchase Date</th>
+                                    <th>Expiration</th>
+                                </tr>
+                            </thead>
+                            <tbody id="packs-table-body">
+                                <tr>
+                                    <td colspan="8" style="text-align: center; padding: 2rem;">
+                                        <div class="spinner" style="width: 40px; height: 40px;"></div>
+                                        <p class="text-secondary">Loading packs...</p>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Tab: Extension Usage -->
+            <div id="tab-extension" class="tab-content">
+                <div class="toolbar">
+                    <div class="search-box">
+                        <input type="number" id="extension-user-id" placeholder="Filter by User ID..." />
+                    </div>
+                    <div class="filter-group">
+                        <select id="extension-filter-platform">
+                            <option value="">All Platforms</option>
+                            <option value="gmail">Gmail</option>
+                            <option value="linkedin">LinkedIn</option>
+                            <option value="twitter">Twitter/X</option>
+                            <option value="instagram">Instagram</option>
+                            <option value="facebook">Facebook</option>
+                            <option value="other">Other</option>
+                        </select>
+                    </div>
+                    <div class="filter-group">
+                        <select id="extension-filter-source">
+                            <option value="">All Sources</option>
+                            <option value="subscription">Subscription</option>
+                            <option value="pack">Response Pack</option>
+                            <option value="enterprise_unlimited">Enterprise Unlimited</option>
+                        </select>
+                    </div>
+                    <button class="btn btn-secondary btn-sm" onclick="loadExtensionUsage()">🔍 Search</button>
+                </div>
+
+                <!-- Stats Cards -->
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <div class="stat-value" id="ext-stat-total">0</div>
+                        <div class="stat-label">Total Extension Responses</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-value" id="ext-stat-today">0</div>
+                        <div class="stat-label">Responses Today</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-value" id="ext-stat-success-rate">0%</div>
+                        <div class="stat-label">Success Rate</div>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-header">
+                        <h2 class="card-title">🧩 Extension Usage Logs</h2>
+                    </div>
+                    <div id="extension-stats" class="mb-2"></div>
+                    <div class="table-container">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>ID</th>
+                                    <th>User</th>
+                                    <th>Source</th>
+                                    <th>Platform</th>
+                                    <th>Success</th>
+                                    <th>Timestamp</th>
+                                </tr>
+                            </thead>
+                            <tbody id="extension-table-body">
+                                <tr>
+                                    <td colspan="6" style="text-align: center; padding: 2rem;">
+                                        <div class="spinner" style="width: 40px; height: 40px;"></div>
+                                        <p class="text-secondary">Loading extension usage...</p>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Tab: Revenue -->
+            <div id="tab-revenue" class="tab-content">
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <div class="stat-value" id="revenue-mrr">$0</div>
+                        <div class="stat-label">Monthly Recurring Revenue</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-value" id="revenue-arr">$0</div>
+                        <div class="stat-label">Annual Recurring Revenue</div>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-header">
+                        <h2 class="card-title">💰 Revenue Breakdown by Plan</h2>
+                    </div>
+                    <div id="revenue-breakdown"></div>
+                </div>
+            </div>
+
+            <!-- Tab: Subscriptions -->
+            <div id="tab-subscriptions" class="tab-content">
+                <div class="card">
+                    <div class="card-header">
+                        <h2 class="card-title">📋 Active Subscriptions by Plan</h2>
+                    </div>
+                    <div class="table-container">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Plan</th>
+                                    <th>Subscribers</th>
+                                    <th>Monthly Revenue</th>
+                                    <th>Percentage</th>
+                                </tr>
+                            </thead>
+                            <tbody id="subscriptions-table-body">
+                                <tr>
+                                    <td colspan="4" style="text-align: center; padding: 2rem;">
+                                        <div class="spinner" style="width: 40px; height: 40px;"></div>
+                                        <p class="text-secondary">Loading subscription analytics...</p>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-header">
+                        <h2 class="card-title">📊 Active Subscribers</h2>
+                    </div>
+                    <div class="table-container">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>ID</th>
+                                    <th>Email</th>
+                                    <th>Plan</th>
+                                    <th>Usage</th>
+                                    <th>Subscription ID</th>
+                                    <th>Last Login</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody id="active-subs-table-body">
+                                <tr>
+                                    <td colspan="7" style="text-align: center; padding: 2rem;">
+                                        <p class="text-secondary">Loading active subscribers...</p>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal: Gift Pack -->
+    <div id="gift-pack-modal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 class="modal-title">🎁 Gift Response Pack</h2>
+                <button class="modal-close" onclick="closeGiftPackModal()">×</button>
+            </div>
+            <div id="gift-pack-alert" class="alert"></div>
+            <form id="gift-pack-form">
+                <div class="form-group">
+                    <label for="gift-user-id">User ID</label>
+                    <input type="number" id="gift-user-id" required />
+                    <small style="color: var(--text-secondary); font-size: 0.85rem;">Or search by email below</small>
+                </div>
+                <div class="form-group">
+                    <label for="gift-user-search">Search User by Email</label>
+                    <input type="email" id="gift-user-search" placeholder="user@example.com" />
+                    <button type="button" class="btn btn-secondary btn-sm mt-2" onclick="searchUserForGift()">
+                        🔍 Search
+                    </button>
+                    <div id="gift-user-result" style="margin-top: 0.5rem;"></div>
+                </div>
+                <div class="form-group">
+                    <label for="gift-pack-size">Pack Size</label>
+                    <select id="gift-pack-size" required>
+                        <option value="">Select pack size...</option>
+                        <option value="100">100 responses</option>
+                        <option value="250">250 responses</option>
+                        <option value="500">500 responses</option>
+                        <option value="750">750 responses</option>
+                        <option value="1000">1,000 responses</option>
+                        <option value="2500">2,500 responses</option>
+                        <option value="5000">5,000 responses</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="gift-note">Note (Optional)</label>
+                    <textarea id="gift-note" rows="3" placeholder="Reason for gifting this pack..."></textarea>
+                </div>
+                <div style="display: flex; gap: 1rem;">
+                    <button type="submit" class="btn btn-success">✓ Gift Pack</button>
+                    <button type="button" class="btn btn-secondary" onclick="closeGiftPackModal()">Cancel</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Modal: Create Promo Pack -->
+    <div id="create-promo-modal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 class="modal-title">✨ Create Promotional Pack</h2>
+                <button class="modal-close" onclick="closeCreatePromoPackModal()">×</button>
+            </div>
+            <div id="create-promo-alert" class="alert"></div>
+            <form id="create-promo-form">
+                <div class="form-group">
+                    <label for="promo-user-id">User ID</label>
+                    <input type="number" id="promo-user-id" required />
+                </div>
+                <div class="form-group">
+                    <label for="promo-pack-size">Pack Size</label>
+                    <select id="promo-pack-size" required>
+                        <option value="">Select pack size...</option>
+                        <option value="100">100 responses</option>
+                        <option value="250">250 responses</option>
+                        <option value="500">500 responses</option>
+                        <option value="750">750 responses</option>
+                        <option value="1000">1,000 responses</option>
+                        <option value="2500">2,500 responses</option>
+                        <option value="5000">5,000 responses</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="promo-note">Note</label>
+                    <textarea id="promo-note" rows="2" placeholder="Reason for creating this promo pack..."></textarea>
+                </div>
+                <div style="display: flex; gap: 1rem;">
+                    <button type="submit" class="btn btn-primary">✓ Create Pack</button>
+                    <button type="button" class="btn btn-secondary" onclick="closeCreatePromoPackModal()">Cancel</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Modal: Edit User -->
+    <div id="edit-user-modal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 class="modal-title">✏️ Edit User</h2>
+                <button class="modal-close" onclick="closeEditUserModal()">×</button>
+            </div>
+            <div id="edit-user-alert" class="alert"></div>
+            <form id="edit-user-form">
+                <input type="hidden" id="edit-user-id" />
+                <div class="form-group">
+                    <label>Email (Read-only)</label>
+                    <input type="email" id="edit-user-email" readonly style="background: var(--bg-dark); opacity: 0.7;" />
+                </div>
+                <div class="form-group">
+                    <label for="edit-user-plan">Plan</label>
+                    <select id="edit-user-plan">
+                        <option value="free">Free</option>
+                        <option value="starter">Starter</option>
+                        <option value="pro">Pro</option>
+                        <option value="business">Business</option>
+                        <option value="enterprise">Enterprise</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="edit-user-status">Subscription Status</label>
+                    <select id="edit-user-status">
+                        <option value="inactive">Inactive</option>
+                        <option value="active">Active</option>
+                        <option value="past_due">Past Due</option>
+                        <option value="cancelled">Cancelled</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="edit-user-limit">Response Limit</label>
+                    <input type="number" id="edit-user-limit" />
+                </div>
+                <div class="form-group">
+                    <label for="edit-user-usage">Monthly Usage (Reset to 0 or adjust)</label>
+                    <input type="number" id="edit-user-usage" />
+                </div>
+                <div style="display: flex; gap: 1rem;">
+                    <button type="submit" class="btn btn-success">✓ Save Changes</button>
+                    <button type="button" class="btn btn-secondary" onclick="closeEditUserModal()">Cancel</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        const API_BASE = 'https://dmtools-backend-production.up.railway.app';
+        let authToken = localStorage.getItem('adminToken');
+        let currentTab = 'overview';
+        let allUsers = [];
+        let allPacks = [];
+
+        // Check authentication on load
+        if (authToken) {
+            checkAuth();
+        }
+
+        // Login Form
+        document.getElementById('login-form').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            await login();
+        });
+
+        async function login() {
+            const email = document.getElementById('admin-email').value;
+            const password = document.getElementById('admin-password').value;
+
+            try {
+                const response = await fetch(`${API_BASE}/api/admin/login`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ email, password })
+                });
+
+                const data = await response.json();
+
+                if (response.ok && data.token) {
+                    authToken = data.token;
+                    localStorage.setItem('adminToken', authToken);
+                    showDashboard();
+                } else {
+                    showLoginError(data.error || 'Invalid credentials');
+                }
+            } catch (error) {
+                console.error('Login error:', error);
+                showLoginError('Connection failed. Please try again.');
+            }
+        }
+
+        function showLoginError(message) {
+            const alert = document.getElementById('login-alert');
+            alert.textContent = message;
+            alert.classList.add('show');
+            setTimeout(() => alert.classList.remove('show'), 5000);
+        }
+
+        async function checkAuth() {
+            try {
+                const response = await apiCall('/admin/dashboard');
+                if (response.success) {
+                    showDashboard();
+                } else {
+                    logout();
+                }
+            } catch (error) {
+                logout();
+            }
+        }
+
+        function showDashboard() {
+            document.getElementById('login-screen').style.display = 'none';
+            document.getElementById('dashboard').style.display = 'block';
+
+            // Extract email from token
+            try {
+                const payload = JSON.parse(atob(authToken.split('.')[1]));
+                document.getElementById('admin-user-email').textContent = payload.email;
+            } catch (e) {
+                console.error('Token parse error:', e);
+            }
+
+            // Load initial data
+            loadOverviewData();
+        }
+
+        function logout() {
+            authToken = null;
+            localStorage.removeItem('adminToken');
+            document.getElementById('login-screen').style.display = 'flex';
+            document.getElementById('dashboard').style.display = 'none';
+        }
+
+        // API Helper
+        async function apiCall(endpoint, options = {}) {
+            const response = await fetch(`${API_BASE}${endpoint}`, {
+                ...options,
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${authToken}`,
+                    ...options.headers
+                }
+            });
+
+            if (response.status === 401) {
+                logout();
+                throw new Error('Unauthorized');
+            }
+
+            const data = await response.json();
+
+            if (!response.ok) {
+                throw new Error(data.error || 'Request failed');
+            }
+
+            return data;
+        }
+
+        // Tab Switching
+        function switchTab(tab) {
+            currentTab = tab;
+
+            // Update active tab button
+            document.querySelectorAll('.nav-tab').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            event.target.classList.add('active');
+
+            // Hide all tab contents
+            document.querySelectorAll('.tab-content').forEach(content => {
+                content.classList.remove('active');
+            });
+
+            // Show selected tab
+            document.getElementById(`tab-${tab}`).classList.add('active');
+
+            // Load tab-specific data
+            switch(tab) {
+                case 'overview':
+                    loadOverviewData();
+                    break;
+                case 'users':
+                    loadUsers();
+                    break;
+                case 'packs':
+                    loadResponsePacks();
+                    break;
+                case 'extension':
+                    loadExtensionUsage();
+                    break;
+                case 'revenue':
+                    loadRevenueData();
+                    break;
+                case 'subscriptions':
+                    loadSubscriptionData();
+                    break;
+            }
+        }
+
+        async function refreshAllData() {
+            showAlert('Refreshing all data...', 'info');
+            switch(currentTab) {
+                case 'overview':
+                    await loadOverviewData();
+                    break;
+                case 'users':
+                    await loadUsers();
+                    break;
+                case 'packs':
+                    await loadResponsePacks();
+                    break;
+                case 'extension':
+                    await loadExtensionUsage();
+                    break;
+                case 'revenue':
+                    await loadRevenueData();
+                    break;
+                case 'subscriptions':
+                    await loadSubscriptionData();
+                    break;
+            }
+            showAlert('Data refreshed successfully!', 'success');
+        }
+
+        // Overview Data
+        async function loadOverviewData() {
+            try {
+                const [dashboard, revenue] = await Promise.all([
+                    apiCall('/admin/dashboard'),
+                    apiCall('/admin/revenue')
+                ]);
+
+                // Update stats
+                document.getElementById('stat-total-users').textContent = dashboard.dashboard.totalUsers || 0;
+                document.getElementById('stat-active-users').textContent = dashboard.dashboard.activeUsers || 0;
+                document.getElementById('stat-active-subs').textContent = dashboard.dashboard.activeSubscriptions || 0;
+                document.getElementById('stat-mrr').textContent = `$${(revenue.revenue.mrr || 0).toLocaleString()}`;
+                document.getElementById('stat-api-calls').textContent = dashboard.dashboard.apiCallsToday || 0;
+                document.getElementById('stat-new-users').textContent = dashboard.dashboard.newUsersToday || 0;
+
+                // Show content, hide loading
+                document.getElementById('loading-overview').style.display = 'none';
+                document.getElementById('overview-content').style.display = 'block';
+
+            } catch (error) {
+                console.error('Overview data error:', error);
+                showAlert('Failed to load overview data', 'danger');
+            }
+        }
+
+        // Continue in next part...
+    </script>
+</body>
+</html>
+
+        // Users Data
+        async function loadUsers() {
+            try {
+                const data = await apiCall('/admin/users');
+                allUsers = data.users;
+                renderUsersTable(allUsers);
+                document.getElementById('user-count').textContent = allUsers.length;
+            } catch (error) {
+                console.error('Users load error:', error);
+                showAlert('Failed to load users', 'danger');
+            }
+        }
+
+        function renderUsersTable(users) {
+            const tbody = document.getElementById('users-table-body');
+            
+            if (users.length === 0) {
+                tbody.innerHTML = '<tr><td colspan="8" style="text-align: center; color: var(--text-secondary);">No users found</td></tr>';
+                return;
+            }
+
+            tbody.innerHTML = users.map(user => {
+                const statusClass = user.subscription_status === 'active' ? 'badge-success' : 
+                                   user.subscription_status === 'past_due' ? 'badge-danger' : 
+                                   'badge-warning';
+                
+                return `
+                    <tr>
+                        <td>${user.id}</td>
+                        <td>${user.email}</td>
+                        <td>${user.first_name || ''} ${user.last_name || ''}</td>
+                        <td><span class="badge badge-info">${user.plan || 'free'}</span></td>
+                        <td>${user.monthly_usage || 0} / ${user.response_limit || 10}</td>
+                        <td><span class="badge ${statusClass}">${user.subscription_status || 'inactive'}</span></td>
+                        <td style="font-size: 0.85rem;">${user.last_login ? new Date(user.last_login).toLocaleDateString() : 'Never'}</td>
+                        <td>
+                            <button class="btn btn-secondary btn-sm" onclick='openEditUserModal(${JSON.stringify(user)})'>Edit</button>
+                        </td>
+                    </tr>
+                `;
+            }).join('');
+        }
+
+        // Filter users
+        document.getElementById('user-search')?.addEventListener('input', filterUsers);
+        document.getElementById('user-filter-plan')?.addEventListener('change', filterUsers);
+        document.getElementById('user-filter-status')?.addEventListener('change', filterUsers);
+
+        function filterUsers() {
+            const search = document.getElementById('user-search').value.toLowerCase();
+            const planFilter = document.getElementById('user-filter-plan').value;
+            const statusFilter = document.getElementById('user-filter-status').value;
+
+            const filtered = allUsers.filter(user => {
+                const matchesSearch = search === '' || 
+                    user.email.toLowerCase().includes(search) ||
+                    (user.first_name && user.first_name.toLowerCase().includes(search)) ||
+                    (user.last_name && user.last_name.toLowerCase().includes(search)) ||
+                    user.id.toString().includes(search);
+                
+                const matchesPlan = planFilter === '' || user.plan === planFilter;
+                const matchesStatus = statusFilter === '' || user.subscription_status === statusFilter;
+
+                return matchesSearch && matchesPlan && matchesStatus;
+            });
+
+            renderUsersTable(filtered);
+            document.getElementById('user-count').textContent = filtered.length;
+        }
+
+        // Response Packs Data
+        async function loadResponsePacks() {
+            try {
+                const data = await apiCall('/admin/packs?limit=500');
+                allPacks = data.packs;
+                renderPacksTable(allPacks);
+                document.getElementById('pack-count').textContent = allPacks.length;
+            } catch (error) {
+                console.error('Packs load error:', error);
+                showAlert('Failed to load response packs', 'danger');
+            }
+        }
+
+        function renderPacksTable(packs) {
+            const tbody = document.getElementById('packs-table-body');
+            
+            if (packs.length === 0) {
+                tbody.innerHTML = '<tr><td colspan="8" style="text-align: center; color: var(--text-secondary);">No packs found</td></tr>';
+                return;
+            }
+
+            tbody.innerHTML = packs.map(pack => {
+                const statusClass = pack.status === 'active' ? 'badge-success' : 
+                                   pack.status === 'inactive' ? 'badge-info' : 
+                                   pack.status === 'expired' ? 'badge-danger' :
+                                   'badge-secondary';
+                
+                return `
+                    <tr>
+                        <td>${pack.id}</td>
+                        <td>${pack.email}</td>
+                        <td>${pack.pack_size}</td>
+                        <td>${pack.responses_remaining}</td>
+                        <td><span class="badge ${statusClass}">${pack.status}</span></td>
+                        <td><span class="badge ${pack.promotional ? 'badge-warning' : 'badge-secondary'}">${pack.promotional ? 'Yes' : 'No'}</span></td>
+                        <td style="font-size: 0.85rem;">${new Date(pack.purchase_date).toLocaleDateString()}</td>
+                        <td style="font-size: 0.85rem;">${pack.expiration_date ? new Date(pack.expiration_date).toLocaleDateString() : 'N/A'}</td>
+                    </tr>
+                `;
+            }).join('');
+        }
+
+        // Filter packs
+        document.getElementById('pack-filter-status')?.addEventListener('change', filterPacks);
+
+        function filterPacks() {
+            const statusFilter = document.getElementById('pack-filter-status').value;
+            const emailSearch = document.getElementById('pack-search-email').value.toLowerCase();
+
+            const filtered = allPacks.filter(pack => {
+                const matchesStatus = statusFilter === '' || pack.status === statusFilter;
+                const matchesEmail = emailSearch === '' || pack.email.toLowerCase().includes(emailSearch);
+                return matchesStatus && matchesEmail;
+            });
+
+            renderPacksTable(filtered);
+            document.getElementById('pack-count').textContent = filtered.length;
+        }
+
+        // Extension Usage Data
+        async function loadExtensionUsage() {
+            try {
+                const userId = document.getElementById('extension-user-id').value || '';
+                const platform = document.getElementById('extension-filter-platform').value || '';
+                const sourceType = document.getElementById('extension-filter-source').value || '';
+
+                let url = '/admin/extension-usage?limit=100';
+                if (userId) url += `&user_id=${userId}`;
+                if (platform) url += `&platform=${platform}`;
+                if (sourceType) url += `&source_type=${sourceType}`;
+
+                const data = await apiCall(url);
+                
+                renderExtensionTable(data.logs);
+                renderExtensionStats(data.stats);
+
+                // Calculate summary stats
+                const total = data.logs.length;
+                const successful = data.logs.filter(log => log.success).length;
+                const successRate = total > 0 ? ((successful / total) * 100).toFixed(1) : 0;
+
+                document.getElementById('ext-stat-total').textContent = total;
+                document.getElementById('ext-stat-success-rate').textContent = `${successRate}%`;
+
+            } catch (error) {
+                console.error('Extension usage load error:', error);
+                showAlert('Failed to load extension usage', 'danger');
+            }
+        }
+
+        function renderExtensionTable(logs) {
+            const tbody = document.getElementById('extension-table-body');
+            
+            if (logs.length === 0) {
+                tbody.innerHTML = '<tr><td colspan="6" style="text-align: center; color: var(--text-secondary);">No extension usage found</td></tr>';
+                return;
+            }
+
+            tbody.innerHTML = logs.map(log => `
+                <tr>
+                    <td>${log.id}</td>
+                    <td>${log.email}</td>
+                    <td><span class="badge badge-info">${log.source_type}</span></td>
+                    <td><span class="badge badge-secondary">${log.platform}</span></td>
+                    <td><span class="badge ${log.success ? 'badge-success' : 'badge-danger'}">${log.success ? 'Success' : 'Failed'}</span></td>
+                    <td style="font-size: 0.85rem;">${new Date(log.timestamp).toLocaleString()}</td>
+                </tr>
+            `).join('');
+        }
+
+        function renderExtensionStats(stats) {
+            const container = document.getElementById('extension-stats');
+            
+            if (stats.length === 0) {
+                container.innerHTML = '<p class="text-secondary">No statistics available</p>';
+                return;
+            }
+
+            container.innerHTML = `
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem; margin-bottom: 1.5rem;">
+                    ${stats.map(stat => `
+                        <div style="background: var(--bg-dark); padding: 1rem; border-radius: 8px; border: 1px solid var(--border);">
+                            <div style="font-size: 0.75rem; color: var(--text-secondary); text-transform: uppercase; margin-bottom: 0.25rem;">
+                                ${stat.source_type} - ${stat.platform}
+                            </div>
+                            <div style="font-size: 1.5rem; font-weight: 700;">${stat.count}</div>
+                            <div style="font-size: 0.85rem; color: var(--text-secondary); margin-top: 0.25rem;">
+                                ${stat.successful} success, ${stat.failed} failed
+                            </div>
+                        </div>
+                    `).join('')}
+                </div>
+            `;
+        }
+
+        // Revenue Data
+        async function loadRevenueData() {
+            try {
+                const data = await apiCall('/admin/revenue');
+                
+                document.getElementById('revenue-mrr').textContent = `$${data.revenue.mrr.toLocaleString()}`;
+                document.getElementById('revenue-arr').textContent = `$${data.revenue.arr.toLocaleString()}`;
+
+                const breakdown = document.getElementById('revenue-breakdown');
+                breakdown.innerHTML = Object.entries(data.revenue.breakdown).map(([plan, info]) => `
+                    <div style="background: var(--bg-dark); padding: 1.5rem; border-radius: 8px; margin-bottom: 1rem; border: 1px solid var(--border);">
+                        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.5rem;">
+                            <div>
+                                <div style="font-size: 1.25rem; font-weight: 600;">${plan.replace(/_/g, ' ').toUpperCase()}</div>
+                                <div style="color: var(--text-secondary); font-size: 0.9rem;">${info.subscribers} subscribers @ $${info.price_per_user}/mo</div>
+                            </div>
+                            <div style="font-size: 1.5rem; font-weight: 700; color: var(--success);">
+                                $${info.revenue.toFixed(2)}
+                            </div>
+                        </div>
+                    </div>
+                `).join('');
+
+            } catch (error) {
+                console.error('Revenue load error:', error);
+                showAlert('Failed to load revenue data', 'danger');
+            }
+        }
+
+        // Subscription Data
+        async function loadSubscriptionData() {
+            try {
+                const data = await apiCall('/admin/subscriptions');
+                
+                const tbody = document.getElementById('subscriptions-table-body');
+                tbody.innerHTML = Object.entries(data.subscriptions.breakdown).map(([plan, info]) => `
+                    <tr>
+                        <td><span class="badge badge-info">${plan.replace(/_/g, ' ').toUpperCase()}</span></td>
+                        <td>${info.subscribers}</td>
+                        <td style="color: var(--success); font-weight: 600;">$${info.revenue.toFixed(2)}</td>
+                        <td>${info.percentage.toFixed(1)}%</td>
+                    </tr>
+                `).join('');
+
+                // Load active subscribers
+                const activeSubsBody = document.getElementById('active-subs-table-body');
+                activeSubsBody.innerHTML = data.subscriptions.active_users.map(user => `
+                    <tr>
+                        <td>${user.id}</td>
+                        <td>${user.email}</td>
+                        <td><span class="badge badge-info">${user.plan}</span></td>
+                        <td>${user.monthly_usage} / ${user.response_limit}</td>
+                        <td style="font-size: 0.85rem;">${user.subscription_id || 'N/A'}</td>
+                        <td style="font-size: 0.85rem;">${user.last_login ? new Date(user.last_login).toLocaleDateString() : 'Never'}</td>
+                        <td>
+                            <button class="btn btn-secondary btn-sm" onclick='openEditUserModal(${JSON.stringify(user)})'>Edit</button>
+                        </td>
+                    </tr>
+                `).join('');
+
+            } catch (error) {
+                console.error('Subscription load error:', error);
+                showAlert('Failed to load subscription data', 'danger');
+            }
+        }
+
+        // Modals
+        function openGiftPackModal() {
+            document.getElementById('gift-pack-modal').classList.add('show');
+        }
+
+        function closeGiftPackModal() {
+            document.getElementById('gift-pack-modal').classList.remove('show');
+            document.getElementById('gift-pack-form').reset();
+            document.getElementById('gift-user-result').innerHTML = '';
+        }
+
+        function openCreatePromoPackModal() {
+            document.getElementById('create-promo-modal').classList.add('show');
+        }
+
+        function closeCreatePromoPackModal() {
+            document.getElementById('create-promo-modal').classList.remove('show');
+            document.getElementById('create-promo-form').reset();
+        }
+
+        function openEditUserModal(user) {
+            document.getElementById('edit-user-id').value = user.id;
+            document.getElementById('edit-user-email').value = user.email;
+            document.getElementById('edit-user-plan').value = user.plan || 'free';
+            document.getElementById('edit-user-status').value = user.subscription_status || 'inactive';
+            document.getElementById('edit-user-limit').value = user.response_limit || 10;
+            document.getElementById('edit-user-usage').value = user.monthly_usage || 0;
+            document.getElementById('edit-user-modal').classList.add('show');
+        }
+
+        function closeEditUserModal() {
+            document.getElementById('edit-user-modal').classList.remove('show');
+            document.getElementById('edit-user-form').reset();
+        }
+
+        // Search user for gifting
+        async function searchUserForGift() {
+            const email = document.getElementById('gift-user-search').value;
+            const resultDiv = document.getElementById('gift-user-result');
+
+            if (!email) {
+                resultDiv.innerHTML = '<p class="text-danger" style="font-size: 0.85rem;">Please enter an email address</p>';
+                return;
+            }
+
+            try {
+                const data = await apiCall(`/users/search?email=${encodeURIComponent(email)}`);
+                
+                if (data.found) {
+                    document.getElementById('gift-user-id').value = data.user.id || '';
+                    resultDiv.innerHTML = `<p class="text-success" style="font-size: 0.85rem;">✓ Found: ${data.user.first_name || ''} ${data.user.last_name || ''} (${data.user.email})</p>`;
+                } else {
+                    resultDiv.innerHTML = `<p class="text-danger" style="font-size: 0.85rem;">✗ No user found with that email</p>`;
+                }
+            } catch (error) {
+                resultDiv.innerHTML = `<p class="text-danger" style="font-size: 0.85rem;">✗ Error searching user</p>`;
+            }
+        }
+
+        // Form Submissions
+        document.getElementById('gift-pack-form').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            
+            const userId = document.getElementById('gift-user-id').value;
+            const packSize = document.getElementById('gift-pack-size').value;
+            const note = document.getElementById('gift-note').value;
+
+            try {
+                const data = await apiCall('/admin/pack/gift', {
+                    method: 'POST',
+                    body: JSON.stringify({ user_id: parseInt(userId), pack_size: parseInt(packSize), note })
+                });
+
+                showModalAlert('gift-pack-alert', data.message, 'success');
+                setTimeout(() => {
+                    closeGiftPackModal();
+                    if (currentTab === 'packs') loadResponsePacks();
+                }, 2000);
+
+            } catch (error) {
+                showModalAlert('gift-pack-alert', error.message || 'Failed to gift pack', 'danger');
+            }
+        });
+
+        document.getElementById('create-promo-form').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            
+            const userId = document.getElementById('promo-user-id').value;
+            const packSize = document.getElementById('promo-pack-size').value;
+            const note = document.getElementById('promo-note').value;
+
+            try {
+                const data = await apiCall('/admin/pack/create', {
+                    method: 'POST',
+                    body: JSON.stringify({ user_id: parseInt(userId), pack_size: parseInt(packSize), promotional: true, note })
+                });
+
+                showModalAlert('create-promo-alert', data.message, 'success');
+                setTimeout(() => {
+                    closeCreatePromoPackModal();
+                    if (currentTab === 'packs') loadResponsePacks();
+                }, 2000);
+
+            } catch (error) {
+                showModalAlert('create-promo-alert', error.message || 'Failed to create pack', 'danger');
+            }
+        });
+
+        document.getElementById('edit-user-form').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            
+            const userId = document.getElementById('edit-user-id').value;
+            const updates = {
+                plan: document.getElementById('edit-user-plan').value,
+                subscription_status: document.getElementById('edit-user-status').value,
+                response_limit: parseInt(document.getElementById('edit-user-limit').value),
+                monthly_usage: parseInt(document.getElementById('edit-user-usage').value)
+            };
+
+            try {
+                const data = await apiCall('/admin/user/edit', {
+                    method: 'POST',
+                    body: JSON.stringify({ user_id: parseInt(userId), updates })
+                });
+
+                showModalAlert('edit-user-alert', data.message, 'success');
+                setTimeout(() => {
+                    closeEditUserModal();
+                    loadUsers();
+                }, 2000);
+
+            } catch (error) {
+                showModalAlert('edit-user-alert', error.message || 'Failed to update user', 'danger');
+            }
+        });
+
+        // Alert Helpers
+        function showAlert(message, type) {
+            const alert = document.getElementById('main-alert');
+            alert.textContent = message;
+            alert.className = `alert alert-${type} show`;
+            setTimeout(() => alert.classList.remove('show'), 5000);
+        }
+
+        function showModalAlert(id, message, type) {
+            const alert = document.getElementById(id);
+            alert.textContent = message;
+            alert.className = `alert alert-${type} show`;
+            setTimeout(() => alert.classList.remove('show'), 5000);
+        }
+    </script>
+</body>
+</html>

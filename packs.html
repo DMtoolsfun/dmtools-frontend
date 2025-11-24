@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Response Packs - DMTools</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        :root {
+            --bg-dark: #0f172a; --bg-card: #1e293b; --bg-hover: #334155;
+            --border: #475569; --text-primary: #f1f5f9; --text-secondary: #94a3b8;
+            --accent: #8b5cf6; --accent-hover: #7c3aed; --success: #10b981;
+            --danger: #ef4444; --warning: #f59e0b; --info: #3b82f6;
+        }
+        body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; background: var(--bg-dark); color: var(--text-primary); line-height: 1.6; margin: 0; }
+        .container { max-width: 1200px; margin: 0 auto; padding: 2rem; }
+        .header { text-align: center; margin-bottom: 3rem; }
+        .header h1 { font-size: 2.5rem; margin-bottom: 0.5rem; background: linear-gradient(135deg, var(--accent) 0%, #a78bfa 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        .header p { color: var(--text-secondary); font-size: 1.1rem; }
+        .stats-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1.5rem; margin-bottom: 3rem; }
+        .stat-card { background: var(--bg-card); border: 1px solid var(--border); border-radius: 12px; padding: 2rem; text-align: center; transition: transform 0.2s; }
+        .stat-card:hover { transform: translateY(-4px); }
+        .stat-value { font-size: 3rem; font-weight: 700; margin-bottom: 0.5rem; }
+        .stat-value.success { color: var(--success); }
+        .stat-value.warning { color: var(--warning); }
+        .stat-value.info { color: var(--info); }
+        .stat-label { color: var(--text-secondary); font-size: 0.9rem; text-transform: uppercase; letter-spacing: 0.05em; }
+        .card { background: var(--bg-card); border: 1px solid var(--border); border-radius: 12px; padding: 2rem; margin-bottom: 2rem; }
+        .card-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem; padding-bottom: 1rem; border-bottom: 1px solid var(--border); }
+        .card-title { font-size: 1.5rem; font-weight: 600; }
+        .btn { padding: 0.75rem 1.5rem; border: none; border-radius: 8px; font-size: 0.95rem; font-weight: 500; cursor: pointer; transition: all 0.2s; display: inline-flex; align-items: center; gap: 0.5rem; text-decoration: none; }
+        .btn-primary { background: var(--accent); color: white; }
+        .btn-primary:hover { background: var(--accent-hover); }
+        .btn-secondary { background: var(--bg-hover); color: var(--text-primary); border: 1px solid var(--border); }
+        .btn-success { background: var(--success); color: white; }
+        .btn-sm { padding: 0.5rem 1rem; font-size: 0.85rem; }
+        .pack-item { background: var(--bg-dark); border: 1px solid var(--border); border-radius: 8px; padding: 1.5rem; margin-bottom: 1rem; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem; }
+        .pack-item.active { border-color: var(--success); background: rgba(16, 185, 129, 0.05); }
+        .pack-info { flex: 1; }
+        .pack-size { font-size: 1.25rem; font-weight: 600; margin-bottom: 0.25rem; }
+        .pack-remaining { color: var(--text-secondary); font-size: 0.9rem; }
+        .pack-remaining.low { color: var(--warning); }
+        .pack-status { display: inline-block; padding: 0.25rem 0.75rem; border-radius: 9999px; font-size: 0.75rem; font-weight: 600; text-transform: uppercase; }
+        .pack-status.active { background: rgba(16, 185, 129, 0.1); color: var(--success); }
+        .pack-status.inactive { background: rgba(59, 130, 246, 0.1); color: var(--info); }
+        .pack-status.expired { background: rgba(239, 68, 68, 0.1); color: var(--danger); }
+        .pack-status.promo { background: rgba(245, 158, 11, 0.1); color: var(--warning); }
+        .pack-actions { display: flex; gap: 0.5rem; flex-wrap: wrap; }
+        .empty-state { text-align: center; padding: 3rem; color: var(--text-secondary); }
+        .empty-state-icon { font-size: 4rem; margin-bottom: 1rem; }
+        .alert { padding: 1rem; border-radius: 8px; margin-bottom: 1rem; }
+        .alert-success { background: rgba(16, 185, 129, 0.1); border: 1px solid var(--success); color: var(--success); }
+        .alert-danger { background: rgba(239, 68, 68, 0.1); border: 1px solid var(--danger); color: var(--danger); }
+        .alert-info { background: rgba(59, 130, 246, 0.1); border: 1px solid var(--info); color: var(--info); }
+        .alert-warning { background: rgba(245, 158, 11, 0.1); border: 1px solid var(--warning); color: var(--warning); }
+        .loading { text-align: center; padding: 3rem; }
+        .spinner { width: 50px; height: 50px; border: 4px solid var(--border); border-top-color: var(--accent); border-radius: 50%; animation: spin 1s linear infinite; margin: 0 auto 1rem; }
+        @keyframes spin { to { transform: rotate(360deg); } }
+        .modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.7); z-index: 1000; align-items: center; justify-content: center; }
+        .modal.show { display: flex; }
+        .modal-content { background: var(--bg-card); border: 1px solid var(--border); border-radius: 12px; padding: 2rem; max-width: 500px; width: 90%; }
+        .modal-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem; }
+        .modal-title { font-size: 1.5rem; font-weight: 600; }
+        .modal-close { background: none; border: none; font-size: 1.5rem; color: var(--text-secondary); cursor: pointer; }
+        .form-group { margin-bottom: 1.25rem; }
+        label { display: block; margin-bottom: 0.5rem; font-size: 0.875rem; font-weight: 500; }
+        input[type="email"], input[type="text"], textarea { width: 100%; padding: 0.75rem; background: var(--bg-dark); border: 1px solid var(--border); border-radius: 8px; color: var(--text-primary); font-size: 0.95rem; }
+        input:focus, textarea:focus { outline: none; border-color: var(--accent); box-shadow: 0 0 0 3px rgba(139, 92, 246, 0.1); }
+        @media (max-width: 768px) {
+            .container { padding: 1rem; }
+            .stats-grid { grid-template-columns: 1fr; }
+            .pack-item { flex-direction: column; align-items: flex-start; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🎁 My Response Packs</h1>
+            <p>Manage your response pack balance and purchase history</p>
+        </div>
+
+        <div id="alert-container"></div>
+
+        <div id="loading" class="loading">
+            <div class="spinner"></div>
+            <p>Loading your packs...</p>
+        </div>
+
+        <div id="content" style="display: none;">
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-value success" id="active-responses">0</div>
+                    <div class="stat-label">Active Pack Responses</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-value info" id="queued-responses">0</div>
+                    <div class="stat-label">Queued Responses</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-value warning" id="total-available">0</div>
+                    <div class="stat-label">Total Available</div>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-header">
+                    <h2 class="card-title">🟢 Active Pack</h2>
+                    <button class="btn btn-primary btn-sm" onclick="window.location.href='/pricing.html'">💳 Buy More Packs</button>
+                </div>
+                <div id="active-pack-container"></div>
+            </div>
+
+            <div class="card">
+                <div class="card-header">
+                    <h2 class="card-title">📦 Inactive Packs Queue</h2>
+                    <button class="btn btn-secondary btn-sm" onclick="activateNextPack()">▶️ Activate Next</button>
+                </div>
+                <div id="inactive-packs-container"></div>
+            </div>
+
+            <div class="card">
+                <div class="card-header">
+                    <h2 class="card-title">📊 Pack History</h2>
+                </div>
+                <div id="history-container"></div>
+            </div>
+        </div>
+    </div>
+
+    <div id="gift-modal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 class="modal-title">🎁 Gift This Pack</h2>
+                <button class="modal-close" onclick="closeGiftModal()">×</button>
+            </div>
+            <div id="gift-alert"></div>
+            <form id="gift-form">
+                <input type="hidden" id="gift-pack-id" />
+                <div class="form-group">
+                    <label for="recipient-email">Recipient Email</label>
+                    <input type="email" id="recipient-email" required placeholder="friend@example.com" />
+                </div>
+                <div class="form-group">
+                    <label for="gift-message">Message (Optional)</label>
+                    <textarea id="gift-message" rows="3" placeholder="I thought you'd enjoy these extra responses!"></textarea>
+                </div>
+                <div style="display: flex; gap: 1rem;">
+                    <button type="submit" class="btn btn-success">✓ Send Gift</button>
+                    <button type="button" class="btn btn-secondary" onclick="closeGiftModal()">Cancel</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        const API_BASE = 'https://dmtools-backend-production.up.railway.app';
+        let authToken = localStorage.getItem('authToken');
+        let packsData = null;
+
+        if (!authToken) {
+            window.location.href = '/login.html?redirect=packs.html';
+        }
+
+        loadPacks();
+
+        async function loadPacks() {
+            try {
+                const response = await fetch(`${API_BASE}/api/packs/status`, {
+                    headers: { 'Authorization': `Bearer ${authToken}` }
+                });
+
+                if (response.status === 401) {
+                    localStorage.removeItem('authToken');
+                    window.location.href = '/login.html?redirect=packs.html';
+                    return;
+                }
+
+                packsData = await response.json();
+
+                if (packsData.success) {
+                    displayPacks(packsData);
+                    document.getElementById('loading').style.display = 'none';
+                    document.getElementById('content').style.display = 'block';
+                } else {
+                    showAlert('Failed to load packs', 'danger');
+                }
+            } catch (error) {
+                console.error('Load packs error:', error);
+                showAlert('Connection error. Please try again.', 'danger');
+            }
+        }
+
+        function displayPacks(data) {
+            document.getElementById('active-responses').textContent = data.summary.activeResponses;
+            document.getElementById('queued-responses').textContent = data.summary.queuedResponses;
+            document.getElementById('total-available').textContent = data.summary.totalAvailable;
+
+            const activeContainer = document.getElementById('active-pack-container');
+            if (data.activePack) {
+                const pack = data.activePack;
+                const lowWarning = pack.responses_remaining < 50 ? ' low' : '';
+                const expiresDate = new Date(pack.expiration_date).toLocaleDateString();
+                const daysLeft = Math.ceil((new Date(pack.expiration_date) - new Date()) / (1000 * 60 * 60 * 24));
+                const expiryWarning = daysLeft < 7 ? ` (⚠️ Expires in ${daysLeft} days)` : '';
+                
+                activeContainer.innerHTML = `
+                    <div class="pack-item active">
+                        <div class="pack-info">
+                            <div class="pack-size">${pack.pack_size} Response Pack ${pack.promotional ? '🎁' : ''}</div>
+                            <div class="pack-remaining${lowWarning}">
+                                ${pack.responses_remaining} responses remaining
+                                ${pack.responses_remaining < 50 ? ' - ⚠️ Running low!' : ''}
+                            </div>
+                            <div style="font-size: 0.85rem; color: var(--text-secondary); margin-top: 0.5rem;">
+                                Expires: ${expiresDate}${expiryWarning}
+                            </div>
+                        </div>
+                        <div class="pack-actions">
+                            <span class="pack-status active">ACTIVE</span>
+                            ${pack.promotional ? '<span class="pack-status promo">PROMO</span>' : ''}
+                        </div>
+                    </div>
+                `;
+            } else {
+                activeContainer.innerHTML = `
+                    <div class="empty-state">
+                        <div class="empty-state-icon">📭</div>
+                        <p>No active pack. Activate one from your queue or purchase new packs!</p>
+                        <button class="btn btn-primary" style="margin-top: 1rem;" onclick="activateNextPack()">Activate Next Pack</button>
+                    </div>
+                `;
+            }
+
+            const inactiveContainer = document.getElementById('inactive-packs-container');
+            const inactivePacks = data.allPacks.filter(p => p.status === 'inactive');
+            if (inactivePacks.length > 0) {
+                inactiveContainer.innerHTML = inactivePacks.map(pack => `
+                    <div class="pack-item">
+                        <div class="pack-info">
+                            <div class="pack-size">${pack.pack_size} Response Pack ${pack.promotional ? '🎁' : ''}</div>
+                            <div class="pack-remaining">${pack.responses_remaining} responses</div>
+                            <div style="font-size: 0.85rem; color: var(--text-secondary); margin-top: 0.5rem;">
+                                Purchased: ${new Date(pack.purchase_date).toLocaleDateString()}
+                            </div>
+                        </div>
+                        <div class="pack-actions">
+                            <span class="pack-status inactive">INACTIVE</span>
+                            ${pack.promotional ? '<span class="pack-status promo">PROMO</span>' : ''}
+                            <button class="btn btn-secondary btn-sm" onclick="openGiftModal(${pack.id})">🎁 Gift</button>
+                        </div>
+                    </div>
+                `).join('');
+            } else {
+                inactiveContainer.innerHTML = `
+                    <div class="empty-state">
+                        <div class="empty-state-icon">📦</div>
+                        <p>No inactive packs in queue</p>
+                    </div>
+                `;
+            }
+
+            const historyContainer = document.getElementById('history-container');
+            const allPacks = data.allPacks.sort((a, b) => new Date(b.purchase_date) - new Date(a.purchase_date));
+            if (allPacks.length > 0) {
+                historyContainer.innerHTML = allPacks.map(pack => {
+                    const statusClass = pack.status === 'active' ? 'active' : pack.status === 'expired' ? 'expired' : 'inactive';
+                    const used = pack.pack_size - pack.responses_remaining;
+                    return `
+                        <div class="pack-item">
+                            <div class="pack-info">
+                                <div class="pack-size">${pack.pack_size} Response Pack ${pack.promotional ? '🎁' : ''}</div>
+                                <div class="pack-remaining">Used: ${used} / ${pack.pack_size}</div>
+                                <div style="font-size: 0.85rem; color: var(--text-secondary); margin-top: 0.5rem;">
+                                    Purchased: ${new Date(pack.purchase_date).toLocaleDateString()}
+                                    ${pack.activation_date ? ` | Activated: ${new Date(pack.activation_date).toLocaleDateString()}` : ''}
+                                </div>
+                            </div>
+                            <div class="pack-actions">
+                                <span class="pack-status ${statusClass}">${pack.status.toUpperCase()}</span>
+                                ${pack.promotional ? '<span class="pack-status promo">PROMO</span>' : ''}
+                            </div>
+                        </div>
+                    `;
+                }).join('');
+            } else {
+                historyContainer.innerHTML = `
+                    <div class="empty-state">
+                        <div class="empty-state-icon">📋</div>
+                        <p>No pack history yet</p>
+                    </div>
+                `;
+            }
+        }
+
+        async function activateNextPack() {
+            try {
+                const response = await fetch(`${API_BASE}/api/packs/activate`, {
+                    method: 'POST',
+                    headers: {
+                        'Authorization': `Bearer ${authToken}`,
+                        'Content-Type': 'application/json'
+                    }
+                });
+
+                const data = await response.json();
+
+                if (data.success) {
+                    showAlert('Pack activated successfully!', 'success');
+                    setTimeout(() => loadPacks(), 1000);
+                } else {
+                    showAlert(data.message || 'No inactive packs available', 'info');
+                }
+            } catch (error) {
+                console.error('Activate pack error:', error);
+                showAlert('Failed to activate pack', 'danger');
+            }
+        }
+
+        function openGiftModal(packId) {
+            document.getElementById('gift-pack-id').value = packId;
+            document.getElementById('gift-modal').classList.add('show');
+        }
+
+        function closeGiftModal() {
+            document.getElementById('gift-modal').classList.remove('show');
+            document.getElementById('gift-form').reset();
+            document.getElementById('gift-alert').innerHTML = '';
+        }
+
+        document.getElementById('gift-form').addEventListener('submit', async (e) => {
+            e.preventDefault();
+
+            const packId = document.getElementById('gift-pack-id').value;
+            const recipientEmail = document.getElementById('recipient-email').value;
+            const message = document.getElementById('gift-message').value;
+
+            try {
+                const response = await fetch(`${API_BASE}/api/packs/gift`, {
+                    method: 'POST',
+                    headers: {
+                        'Authorization': `Bearer ${authToken}`,
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        pack_id: parseInt(packId),
+                        recipient_email: recipientEmail,
+                        message: message
+                    })
+                });
+
+                const data = await response.json();
+
+                if (data.success) {
+                    showModalAlert('gift-alert', data.message, 'success');
+                    setTimeout(() => {
+                        closeGiftModal();
+                        loadPacks();
+                    }, 2000);
+                } else {
+                    showModalAlert('gift-alert', data.error || data.message || 'Failed to gift pack', 'danger');
+                }
+            } catch (error) {
+                console.error('Gift pack error:', error);
+                showModalAlert('gift-alert', 'Failed to gift pack', 'danger');
+            }
+        });
+
+        function showAlert(message, type) {
+            const alertContainer = document.getElementById('alert-container');
+            const alert = document.createElement('div');
+            alert.className = `alert alert-${type}`;
+            alert.textContent = message;
+            alertContainer.appendChild(alert);
+            setTimeout(() => alert.remove(), 5000);
+        }
+
+        function showModalAlert(id, message, type) {
+            const alertDiv = document.getElementById(id);
+            alertDiv.className = `alert alert-${type}`;
+            alertDiv.textContent = message;
+            setTimeout(() => alertDiv.innerHTML = '', 5000);
+        }
+    </script>
+</body>
+</html>

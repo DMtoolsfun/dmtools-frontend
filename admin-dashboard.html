@@ -584,7 +584,7 @@
             }
             tbody.innerHTML = packs.map(pack => {
                 const statusClass = pack.status === 'active' ? 'badge-success' : pack.status === 'inactive' ? 'badge-info' : pack.status === 'expired' ? 'badge-danger' : 'badge-secondary';
-                return `<tr><td>${pack.id}</td><td>${pack.email}</td><td>${pack.pack_size}</td><td>${pack.responses_remaining}</td><td><span class="badge ${statusClass}">${pack.status}</span></td><td><span class="badge ${pack.promotional ? 'badge-warning' : 'badge-secondary'}">${pack.promotional ? 'Yes' : 'No'}</span></td><td style="font-size: 0.85rem;">${new Date(pack.purchase_date).toLocaleDateString()}</td><td style="font-size: 0.85rem;">${pack.expiration_date ? new Date(pack.expiration_date).toLocaleDateString() : 'N/A'}</td></tr>`;
+                return `<tr><td>${pack.id}</td><td>${pack.email}</td><td>${pack.pack_size}</td><td>${statusClass}">${pack.status}</span></td><td><span class="badge ${pack.promotional ? 'badge-warning' : 'badge-secondary'}">${pack.promotional ? 'Yes' : 'No'}</span></td><td style="font-size: 0.85rem;">${new Date(pack.purchase_date).toLocaleDateString()}</td><td style="font-size: 0.85rem;">${pack.expiration_date ? new Date(pack.expiration_date).toLocaleDateString() : 'N/A'}</td></tr>`;
             }).join('');
         }
         document.getElementById('pack-filter-status')?.addEventListener('change', filterPacks);

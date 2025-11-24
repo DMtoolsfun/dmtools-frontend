@@ -455,7 +455,7 @@
         }
         async function checkAuth() {
             try {
-                const response = await apiCall('/admin/dashboard');
+                const response = await apiCall('/api/admin/dashboard');
                 if (response.success) { showDashboard(); } else { logout(); }
             } catch (error) { logout(); }
         }
@@ -513,7 +513,7 @@
         }
         async function loadOverviewData() {
             try {
-                const [dashboard, revenue] = await Promise.all([apiCall('/admin/dashboard'), apiCall('/admin/revenue')]);
+                const [dashboard, revenue] = await Promise.all([apiCall('/api/admin/dashboard'), apiCall('/api/admin/revenue')]);
                 document.getElementById('stat-total-users').textContent = dashboard.dashboard.totalUsers || 0;
                 document.getElementById('stat-active-users').textContent = dashboard.dashboard.activeUsers || 0;
                 document.getElementById('stat-active-subs').textContent = dashboard.dashboard.activeSubscriptions || 0;
@@ -529,7 +529,7 @@
         }
         async function loadUsers() {
             try {
-                const data = await apiCall('/admin/users');
+                const data = await apiCall('/api/admin/users');
                 allUsers = data.users;
                 renderUsersTable(allUsers);
                 document.getElementById('user-count').textContent = allUsers.length;
@@ -567,7 +567,7 @@
         }
         async function loadResponsePacks() {
             try {
-                const data = await apiCall('/admin/packs?limit=500');
+                const data = await apiCall('/api/admin/packs?limit=500');
                 allPacks = data.packs;
                 renderPacksTable(allPacks);
                 document.getElementById('pack-count').textContent = allPacks.length;
@@ -604,7 +604,7 @@
                 const userId = document.getElementById('extension-user-id').value || '';
                 const platform = document.getElementById('extension-filter-platform').value || '';
                 const sourceType = document.getElementById('extension-filter-source').value || '';
-                let url = '/admin/extension-usage?limit=100';
+                let url = '/api/admin/extension-usage?limit=100';
                 if (userId) url += `&user_id=${userId}`;
                 if (platform) url += `&platform=${platform}`;
                 if (sourceType) url += `&source_type=${sourceType}`;
@@ -639,7 +639,7 @@
         }
         async function loadRevenueData() {
             try {
-                const data = await apiCall('/admin/revenue');
+                const data = await apiCall('/api/admin/revenue');
                 document.getElementById('revenue-mrr').textContent = `$${data.revenue.mrr.toLocaleString()}`;
                 document.getElementById('revenue-arr').textContent = `$${data.revenue.arr.toLocaleString()}`;
                 const breakdown = document.getElementById('revenue-breakdown');
@@ -651,7 +651,7 @@
         }
         async function loadSubscriptionData() {
             try {
-                const data = await apiCall('/admin/subscriptions');
+                const data = await apiCall('/api/admin/subscriptions');
                 const tbody = document.getElementById('subscriptions-table-body');
                 tbody.innerHTML = Object.entries(data.subscriptions.breakdown).map(([plan, info]) => `<tr><td><span class="badge badge-info">${plan.replace(/_/g, ' ').toUpperCase()}</span></td><td>${info.subscribers}</td><td style="color: var(--success); font-weight: 600;">$${info.revenue.toFixed(2)}</td><td>${info.percentage.toFixed(1)}%</td></tr>`).join('');
                 const activeSubsBody = document.getElementById('active-subs-table-body');
@@ -683,7 +683,7 @@
                 return;
             }
             try {
-                const data = await apiCall(`/users/search?email=${encodeURIComponent(email)}`);
+                const data = await apiCall(`/api/users/search?email=${encodeURIComponent(email)}`);
                 if (data.found) {
                     document.getElementById('gift-user-id').value = data.user.id || '';
                     resultDiv.innerHTML = `<p class="text-success" style="font-size: 0.85rem;">✓ Found: ${data.user.first_name || ''} ${data.user.last_name || ''} (${data.user.email})</p>`;
@@ -700,7 +700,7 @@
             const packSize = document.getElementById('gift-pack-size').value;
             const note = document.getElementById('gift-note').value;
             try {
-                const data = await apiCall('/admin/pack/gift', { method: 'POST', body: JSON.stringify({ user_id: parseInt(userId), pack_size: parseInt(packSize), note }) });
+                const data = await apiCall('/api/admin/pack/gift', { method: 'POST', body: JSON.stringify({ user_id: parseInt(userId), pack_size: parseInt(packSize), note }) });
                 showModalAlert('gift-pack-alert', data.message, 'success');
                 setTimeout(() => { closeGiftPackModal(); if (currentTab === 'packs') loadResponsePacks(); }, 2000);
             } catch (error) { showModalAlert('gift-pack-alert', error.message || 'Failed to gift pack', 'danger'); }
@@ -711,7 +711,7 @@
             const packSize = document.getElementById('promo-pack-size').value;
             const note = document.getElementById('promo-note').value;
             try {
-                const data = await apiCall('/admin/pack/create', { method: 'POST', body: JSON.stringify({ user_id: parseInt(userId), pack_size: parseInt(packSize), promotional: true, note }) });
+                const data = await apiCall('/api/admin/pack/create', { method: 'POST', body: JSON.stringify({ user_id: parseInt(userId), pack_size: parseInt(packSize), promotional: true, note }) });
                 showModalAlert('create-promo-alert', data.message, 'success');
                 setTimeout(() => { closeCreatePromoPackModal(); if (currentTab === 'packs') loadResponsePacks(); }, 2000);
             } catch (error) { showModalAlert('create-promo-alert', error.message || 'Failed to create pack', 'danger'); }
@@ -726,7 +726,7 @@
                 monthly_usage: parseInt(document.getElementById('edit-user-usage').value)
             };
             try {
-                const data = await apiCall('/admin/user/edit', { method: 'POST', body: JSON.stringify({ user_id: parseInt(userId), updates }) });
+                const data = await apiCall('/api/admin/user/edit', { method: 'POST', body: JSON.stringify({ user_id: parseInt(userId), updates }) });
                 showModalAlert('edit-user-alert', data.message, 'success');
                 setTimeout(() => { closeEditUserModal(); loadUsers(); }, 2000);
             } catch (error) { showModalAlert('edit-user-alert', error.message || 'Failed to update user', 'danger'); }

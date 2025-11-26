@@ -207,10 +207,38 @@
     <div class="container">
         <a href="/" class="back-link">← Back to Home</a>
         
-        <div class="header">
-            <h1 class="page-title">🎁 My Response Packs</h1>
-            <p class="page-subtitle">Manage your extension responses</p>
+       <header class="header">
+        <div class="nav-container">
+            <div class="logo" onclick="window.location.href='/'">DMTools.fun LLC</div>
+            
+            <!-- PWA Header Install Button -->
+<button id="pwa-header-install" class="pwa-header-install">
+    📱 Install App
+</button>
+
+
+            <nav class="nav-tabs">
+    <a href="/app.html" class="tab-btn">💬 Generator</a>
+    <a href="/presets.html" class="tab-btn">📋 Templates</a>
+    <a href="/packs.html" class="tab-btn">🎁 Packs</a>
+    <a href="/analytics.html" class="tab-btn">📊 Analytics</a>
+    <a href="/contact.html" class="tab-btn">📞 Contact</a>
+    <a href="/pricing.html" class="tab-btn">💎 Pricing</a>
+    <a href="/account.html" class="tab-btn">👤 Account</a>
+</nav>
+
+            <div class="auth-buttons" id="auth-section">
+                <button class="btn btn-secondary" onclick="showAuthModal(true)">Sign In</button>
+                <button class="btn btn-primary" onclick="showAuthModal(false)">Sign Up Free</button>
+            </div>
+
+            <div class="auth-buttons hidden" id="user-section">
+                <span style="color: #9ca3af; margin-right: 1rem;" id="user-email"></span>
+                <button class="btn btn-secondary" onclick="logout()">Logout</button>
+            </div>
         </div>
+    </header>
+
         
         <!-- Loading State -->
         <div id="loading" class="loading">

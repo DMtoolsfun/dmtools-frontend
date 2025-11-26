@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>My Response Packs - DMTools.fun</title>
-    <meta name="description" content="Manage your response packs, view balance, and activate queued packs">
+    <meta name="description" content="Manage your response packs and download the Chrome extension for inline AI replies">
     
     <!-- Google Analytics -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-GFG0RYJNR0"></script>
@@ -39,28 +39,17 @@
             color: var(--text);
         }
         
-        /* Header Styles */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+        
         .header {
             background: var(--darker);
             border-bottom: 2px solid var(--primary);
             padding: 1rem 0;
-            position: sticky;
-            top: 0;
-            z-index: 100;
-        }
-        
-        .container {
-            max-width: 1400px;
-            margin: 0 auto;
-            padding: 0 2rem;
-        }
-        
-        .header-content {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            flex-wrap: wrap;
-            gap: 1rem;
+            margin-bottom: 2rem;
         }
         
         .logo {
@@ -68,16 +57,12 @@
             font-weight: 700;
             color: var(--primary);
             text-decoration: none;
-            transition: all 0.3s ease;
-        }
-        
-        .logo:hover {
-            transform: scale(1.05);
         }
         
         .nav-tabs {
             display: flex;
             gap: 0.5rem;
+            margin-top: 1rem;
             flex-wrap: wrap;
         }
         
@@ -90,34 +75,102 @@
             text-decoration: none;
             font-weight: 500;
             transition: all 0.3s ease;
-            font-size: 0.95rem;
         }
         
-        .tab-btn:hover {
+        .tab-btn:hover, .tab-btn.active {
             background: rgba(139, 92, 246, 0.1);
             color: var(--primary);
             border-color: var(--primary);
         }
         
-        .tab-btn.active {
-            background: var(--primary);
-            color: white;
-            border-color: var(--primary);
+        .page-title {
+            font-size: 2.5rem;
+            font-weight: 800;
+            margin-bottom: 0.5rem;
+            background: linear-gradient(135deg, #ffffff 0%, #e0e7ff 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
         }
         
-        .auth-buttons, .user-section {
+        .page-subtitle {
+            font-size: 1.1rem;
+            color: var(--text-secondary);
+            margin-bottom: 2rem;
+        }
+        
+        /* Status Banner */
+        .status-banner {
+            background: var(--darker);
+            border: 2px solid var(--border);
+            border-radius: 12px;
+            padding: 1rem 1.5rem;
+            margin-bottom: 2rem;
             display: flex;
-            gap: 0.75rem;
+            justify-content: space-between;
             align-items: center;
         }
         
-        .user-email {
+        .status-banner.pro {
+            border-color: var(--primary);
+            background: rgba(139, 92, 246, 0.05);
+        }
+        
+        .status-banner.enterprise {
+            border-color: var(--warning);
+            background: rgba(245, 158, 11, 0.05);
+        }
+        
+        /* Plan-Specific Content Sections */
+        .content-section {
+            display: none;
+        }
+        
+        .content-section.active {
+            display: block;
+        }
+        
+        /* Free User Section */
+        .welcome-section {
+            background: var(--darker);
+            border: 2px solid var(--primary);
+            border-radius: 12px;
+            padding: 2.5rem;
+            margin-bottom: 2rem;
+        }
+        
+        .welcome-section h2 {
+            font-size: 1.75rem;
             color: var(--text);
-            font-size: 0.9rem;
+            margin-bottom: 1.5rem;
+        }
+        
+        .how-it-works {
+            background: rgba(139, 92, 246, 0.05);
+            border: 2px solid var(--primary);
+            border-radius: 8px;
+            padding: 1.5rem;
+            margin: 1.5rem 0;
+        }
+        
+        .how-it-works h3 {
+            color: var(--primary);
+            margin-bottom: 1rem;
+        }
+        
+        .how-it-works ol {
+            margin-left: 1.5rem;
+            color: var(--text-secondary);
+            line-height: 2;
+        }
+        
+        .cta-section {
+            display: flex;
+            gap: 1rem;
+            margin: 2rem 0;
         }
         
         .btn {
-            padding: 0.75rem 1.5rem;
+            padding: 1rem 2rem;
             border: none;
             border-radius: 8px;
             font-weight: 600;
@@ -125,7 +178,7 @@
             transition: all 0.3s ease;
             text-decoration: none;
             display: inline-block;
-            font-size: 0.95rem;
+            font-size: 1rem;
         }
         
         .btn-primary {
@@ -140,407 +193,161 @@
         }
         
         .btn-secondary {
-            background: var(--dark);
+            background: transparent;
             color: var(--text);
-            border: 1px solid var(--border);
+            border: 2px solid var(--border);
         }
         
         .btn-secondary:hover {
             background: var(--border);
-        }
-        
-        .btn-success {
-            background: var(--secondary);
-            color: white;
-        }
-        
-        .btn-sm {
-            padding: 0.5rem 1rem;
-            font-size: 0.85rem;
-        }
-        
-        .hidden {
-            display: none !important;
-        }
-        
-        /* Main Content */
-        .main-content {
-            padding: 3rem 0;
-        }
-        
-        .page-header {
-            text-align: center;
-            margin-bottom: 3rem;
-        }
-        
-        .page-title {
-            font-size: 3rem;
-            font-weight: 800;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            margin-bottom: 1rem;
-        }
-        
-        .page-description {
-            font-size: 1.2rem;
-            color: var(--text);
-            max-width: 600px;
-            margin: 0 auto;
-        }
-        
-        /* Stats Grid */
-        .stats-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 1.5rem;
-            margin-bottom: 3rem;
-        }
-        
-        .stat-card {
-            background: var(--darker);
-            border: 2px solid var(--border);
-            border-radius: 12px;
-            padding: 2rem;
-            text-align: center;
-            transition: all 0.3s ease;
-        }
-        
-        .stat-card:hover {
-            transform: translateY(-4px);
             border-color: var(--primary);
-            box-shadow: 0 8px 24px rgba(139, 92, 246, 0.3);
         }
         
-        .stat-value {
-            font-size: 3rem;
-            font-weight: 800;
-            margin-bottom: 0.5rem;
+        .upgrade-hint {
+            background: rgba(16, 185, 129, 0.05);
+            border: 2px solid var(--secondary);
+            border-radius: 8px;
+            padding: 1rem;
+            color: var(--secondary);
         }
         
-        .stat-value.success { color: var(--secondary); }
-        .stat-value.warning { color: var(--warning); }
-        .stat-value.info { color: var(--primary); }
-        
-        .stat-label {
-            color: var(--text-secondary);
-            font-size: 0.95rem;
-            text-transform: uppercase;
-            letter-spacing: 0.05em;
+        .upgrade-hint a {
+            color: var(--secondary);
+            font-weight: 600;
+            text-decoration: underline;
         }
         
-        /* Card */
-        .card {
+        /* Subscriber Section */
+        .subscriber-section {
             background: var(--darker);
-            border: 2px solid var(--border);
+            border: 2px solid var(--primary);
             border-radius: 12px;
-            padding: 2rem;
+            padding: 2.5rem;
             margin-bottom: 2rem;
         }
         
-        .card-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 2rem;
-            padding-bottom: 1rem;
-            border-bottom: 2px solid var(--border);
-        }
-        
-        .card-title {
-            font-size: 1.5rem;
-            font-weight: 700;
+        .subscriber-section h2 {
+            font-size: 1.75rem;
             color: var(--text);
+            margin-bottom: 1.5rem;
         }
         
-        /* Pack Item */
-        .pack-item {
+        .subscription-info {
+            background: rgba(139, 92, 246, 0.05);
+            border: 2px solid var(--primary);
+            border-radius: 8px;
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+        }
+        
+        .subscription-info ul {
+            margin-left: 1.5rem;
+            color: var(--text-secondary);
+            line-height: 2;
+        }
+        
+        .usage-display {
             background: var(--dark);
             border: 2px solid var(--border);
             border-radius: 8px;
             padding: 1.5rem;
+            margin: 1.5rem 0;
+        }
+        
+        .usage-display strong {
+            color: var(--text);
+            display: block;
             margin-bottom: 1rem;
+        }
+        
+        .progress-bar {
+            background: var(--darker);
+            border-radius: 8px;
+            height: 24px;
+            overflow: hidden;
+            margin: 0.5rem 0;
+        }
+        
+        .progress-fill {
+            background: linear-gradient(90deg, var(--primary), var(--primary-dark));
+            height: 100%;
+            transition: width 0.3s ease;
             display: flex;
-            justify-content: space-between;
             align-items: center;
-            flex-wrap: wrap;
-            gap: 1rem;
-            transition: all 0.3s ease;
+            justify-content: center;
+            color: white;
+            font-weight: 600;
+            font-size: 0.85rem;
         }
         
-        .pack-item:hover {
-            border-color: var(--primary);
-            transform: translateX(4px);
-        }
-        
-        .pack-item.active {
-            border-color: var(--secondary);
-            background: rgba(16, 185, 129, 0.05);
-        }
-        
-        .pack-info { flex: 1; }
-        
-        .pack-size {
-            font-size: 1.25rem;
-            font-weight: 700;
-            margin-bottom: 0.25rem;
-        }
-        
-        .pack-remaining {
+        .usage-display small {
             color: var(--text-secondary);
-            font-size: 0.95rem;
+            display: block;
+            margin-top: 0.5rem;
         }
         
-        .pack-remaining.low { color: var(--warning); font-weight: 600; }
+        /* Enterprise Section */
+        .enterprise-section {
+            background: var(--darker);
+            border: 2px solid var(--warning);
+            border-radius: 12px;
+            padding: 2.5rem;
+            margin-bottom: 2rem;
+        }
         
-        .pack-status {
-            display: inline-block;
-            padding: 0.25rem 0.75rem;
-            border-radius: 9999px;
-            font-size: 0.75rem;
+        .enterprise-section h2 {
+            font-size: 1.75rem;
+            color: var(--text);
+            margin-bottom: 1.5rem;
+        }
+        
+        .unlimited-badge {
+            background: linear-gradient(135deg, #f59e0b, #d97706);
+            border-radius: 8px;
+            padding: 1.5rem;
+            text-align: center;
+            font-size: 1.5rem;
             font-weight: 700;
-            text-transform: uppercase;
+            color: white;
+            margin-bottom: 1.5rem;
         }
         
-        .pack-status.active {
-            background: rgba(16, 185, 129, 0.2);
-            color: var(--secondary);
+        .enterprise-info ul {
+            margin-left: 1.5rem;
+            color: var(--text-secondary);
+            line-height: 2;
         }
         
-        .pack-status.inactive {
-            background: rgba(139, 92, 246, 0.2);
-            color: var(--primary);
+        /* Pack Management (Same for all) */
+        .pack-card {
+            background: var(--darker);
+            border: 2px solid var(--border);
+            border-radius: 12px;
+            padding: 2rem;
+            margin-bottom: 1.5rem;
         }
         
-        .pack-status.expired {
-            background: rgba(239, 68, 68, 0.2);
-            color: var(--danger);
+        .pack-card h3 {
+            color: var(--text);
+            margin-bottom: 1rem;
         }
         
-        .pack-status.promo {
-            background: rgba(245, 158, 11, 0.2);
-            color: var(--warning);
-        }
-        
-        .pack-actions {
-            display: flex;
-            gap: 0.5rem;
-            flex-wrap: wrap;
-        }
-        
-        /* Empty State */
         .empty-state {
             text-align: center;
-            padding: 4rem 2rem;
+            padding: 3rem;
             color: var(--text-secondary);
         }
         
         .empty-state-icon {
-            font-size: 5rem;
+            font-size: 4rem;
             margin-bottom: 1rem;
-        }
-        
-        /* Loading */
-        .loading {
-            text-align: center;
-            padding: 4rem;
-        }
-        
-        .spinner {
-            width: 60px;
-            height: 60px;
-            border: 4px solid var(--border);
-            border-top-color: var(--primary);
-            border-radius: 50%;
-            animation: spin 1s linear infinite;
-            margin: 0 auto 1rem;
-        }
-        
-        @keyframes spin {
-            to { transform: rotate(360deg); }
-        }
-        
-        /* Alert */
-        .alert {
-            padding: 1rem;
-            border-radius: 8px;
-            margin-bottom: 1rem;
-        }
-        
-        .alert-success {
-            background: rgba(16, 185, 129, 0.1);
-            border: 2px solid var(--secondary);
-            color: var(--secondary);
-        }
-        
-        .alert-danger {
-            background: rgba(239, 68, 68, 0.1);
-            border: 2px solid var(--danger);
-            color: var(--danger);
-        }
-        
-        .alert-info {
-            background: rgba(139, 92, 246, 0.1);
-            border: 2px solid var(--primary);
-            color: var(--primary);
-        }
-        
-        /* Modal */
-        .modal {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.8);
-            z-index: 1000;
-            align-items: center;
-            justify-content: center;
-        }
-        
-        .modal.show { display: flex; }
-        
-        .modal-content {
-            background: var(--darker);
-            border: 2px solid var(--primary);
-            border-radius: 12px;
-            padding: 2rem;
-            max-width: 500px;
-            width: 90%;
-        }
-        
-        .modal-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 1.5rem;
-        }
-        
-        .modal-title {
-            font-size: 1.5rem;
-            font-weight: 700;
-        }
-        
-        .modal-close {
-            background: none;
-            border: none;
-            font-size: 1.5rem;
-            color: var(--text-secondary);
-            cursor: pointer;
-            width: 30px;
-            height: 30px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            border-radius: 4px;
-            transition: all 0.3s ease;
-        }
-        
-        .modal-close:hover {
-            background: var(--border);
-            color: var(--text);
-        }
-        
-        /* Form */
-        .form-group {
-            margin-bottom: 1.5rem;
-        }
-        
-        label {
-            display: block;
-            margin-bottom: 0.5rem;
-            font-weight: 600;
-            color: var(--text);
-        }
-        
-        input[type="email"],
-        input[type="text"],
-        textarea {
-            width: 100%;
-            padding: 0.75rem;
-            background: var(--dark);
-            border: 2px solid var(--border);
-            border-radius: 8px;
-            color: var(--text);
-            font-size: 0.95rem;
-            transition: all 0.3s ease;
-        }
-        
-        input:focus,
-        textarea:focus {
-            outline: none;
-            border-color: var(--primary);
-            box-shadow: 0 0 0 4px rgba(139, 92, 246, 0.1);
-        }
-        
-        /* Footer */
-        .footer {
-            background: var(--darker);
-            border-top: 2px solid var(--primary);
-            padding: 3rem 0 1.5rem;
-            margin-top: 4rem;
-        }
-        
-        .footer-content {
-            display: grid;
-            grid-template-columns: 2fr 1fr 1fr 1fr;
-            gap: 3rem;
-            margin-bottom: 2rem;
-        }
-        
-        .footer-brand h3 {
-            font-size: 1.5rem;
-            font-weight: 800;
-            color: var(--primary);
-            margin-bottom: 1rem;
-        }
-        
-        .footer-description {
-            color: var(--text-secondary);
-            line-height: 1.6;
-        }
-        
-        .link-group h4 {
-            color: var(--text);
-            font-weight: 700;
-            margin-bottom: 1rem;
-            font-size: 0.95rem;
-            text-transform: uppercase;
-            letter-spacing: 0.05em;
-        }
-        
-        .link-group a {
-            display: block;
-            color: var(--text-secondary);
-            text-decoration: none;
-            margin-bottom: 0.75rem;
-            transition: color 0.3s ease;
-        }
-        
-        .link-group a:hover {
-            color: var(--primary);
-        }
-        
-        .footer-bottom {
-            padding-top: 2rem;
-            border-top: 1px solid var(--border);
-            text-align: center;
-        }
-        
-        .footer-copyright {
-            color: var(--text-secondary);
-            font-size: 0.875rem;
+            opacity: 0.5;
         }
         
         /* Responsive */
         @media (max-width: 768px) {
-            .container { padding: 0 1rem; }
-            .header-content { flex-direction: column; align-items: flex-start; }
-            .nav-tabs { width: 100%; overflow-x: auto; }
-            .stats-grid { grid-template-columns: 1fr; }
-            .pack-item { flex-direction: column; align-items: flex-start; }
-            .footer-content { grid-template-columns: 1fr; gap: 2rem; }
+            .cta-section { flex-direction: column; }
+            .nav-tabs { flex-direction: column; }
         }
     </style>
 </head>
@@ -548,428 +355,346 @@
     <!-- Header -->
     <header class="header">
         <div class="container">
-            <div class="header-content">
-                <a href="/" class="logo">💬 DMTools.fun</a>
-                
-                <nav class="nav-tabs">
-                    <a href="/app.html" class="tab-btn">💬 Generator</a>
-                    <a href="/presets.html" class="tab-btn">📋 Templates</a>
-                    <a href="/packs.html" class="tab-btn active">🎁 Packs</a>
-                    <a href="/analytics.html" class="tab-btn">📊 Analytics</a>
-                    <a href="/contact.html" class="tab-btn">📞 Contact</a>
-                    <a href="/pricing.html" class="tab-btn">💎 Pricing</a>
-                    <a href="/account.html" class="tab-btn">👤 Account</a>
-                </nav>
-                
-                <div id="auth-section" class="auth-buttons">
-                    <button class="btn btn-secondary" onclick="showLogin()">Sign In</button>
-                    <button class="btn btn-primary" onclick="showSignup()">Sign Up</button>
-                </div>
-                
-                <div id="user-section" class="user-section hidden">
-                    <span class="user-email" id="user-email">Loading...</span>
-                    <button class="btn btn-secondary btn-sm" onclick="logout()">Sign Out</button>
-                </div>
-            </div>
+            <a href="/" class="logo">💬 DMTools.fun</a>
+            <nav class="nav-tabs">
+                <a href="/app.html" class="tab-btn">💬 Generator</a>
+                <a href="/packs.html" class="tab-btn active">🎁 Packs</a>
+                <a href="/pricing.html" class="tab-btn">💎 Pricing</a>
+                <a href="/account.html" class="tab-btn">👤 Account</a>
+            </nav>
         </div>
     </header>
     
     <!-- Main Content -->
-    <main class="main-content">
-        <div class="container">
-            <div class="page-header">
-                <h1 class="page-title">🎁 My Response Packs</h1>
-                <p class="page-description">Manage your response pack balance and purchase history</p>
+    <main class="container">
+        <h1 class="page-title">🎁 My Response Packs</h1>
+        <p class="page-subtitle">Manage your extension responses and download the Chrome extension</p>
+        
+        <!-- Status Banner (Dynamic) -->
+        <div id="status-banner"></div>
+        
+        <!-- Free User Content -->
+        <div id="free-content" class="content-section">
+            <div class="welcome-section">
+                <h2>Get Started with Response Packs</h2>
+                
+                <div class="how-it-works">
+                    <h3>How Extension + Packs Work:</h3>
+                    <ol>
+                        <li>📥 Download the Chrome extension</li>
+                        <li>💳 Buy a response pack ($9.99-$59.99 for 500-4,000 responses)</li>
+                        <li>✨ Generate replies directly in Gmail, LinkedIn, Twitter</li>
+                    </ol>
+                </div>
+                
+                <div class="cta-section">
+                    <a href="/downloads/dmtools-extension-v1.0.zip" class="btn btn-secondary" download>
+                        📥 Download Extension
+                    </a>
+                    <a href="/pricing.html#packs" class="btn btn-primary">
+                        💳 Buy Response Pack
+                    </a>
+                </div>
+                
+                <div class="upgrade-hint">
+                    💡 <strong>Need more volume?</strong> 
+                    <a href="/pricing.html">Upgrade to Pro</a> for unlimited batch generation + 1,000 extension responses/month (shared pool)
+                </div>
             </div>
-            
-            <div id="alert-container"></div>
-            
-            <div id="loading" class="loading">
-                <div class="spinner"></div>
-                <p>Loading your packs...</p>
+        </div>
+        
+        <!-- Subscriber Content (Pro/Business) -->
+        <div id="subscriber-content" class="content-section">
+            <div class="subscriber-section">
+                <h2>✅ Extension Included with Your Subscription!</h2>
+                
+                <div class="subscription-info">
+                    <p><strong>Your <span id="plan-name">Pro</span> plan includes:</strong></p>
+                    <ul>
+                        <li>✓ <span id="plan-limit">1,000</span> responses/month (shared pool)</li>
+                        <li>✓ Use for batch generator AND extension</li>
+                        <li>✓ No extra charges for extension usage</li>
+                    </ul>
+                </div>
+                
+                <div class="usage-display">
+                    <strong>Monthly Usage:</strong>
+                    <div class="progress-bar">
+                        <div class="progress-fill" id="usage-progress"></div>
+                    </div>
+                    <div style="display: flex; justify-content: space-between; margin-top: 0.5rem;">
+                        <span id="usage-text" style="color: var(--text);">Loading...</span>
+                        <span id="usage-percent" style="color: var(--text-secondary);"></span>
+                    </div>
+                    <small>Used by both batch generator and extension</small>
+                </div>
+                
+                <div class="cta-section">
+                    <a href="/downloads/dmtools-extension-v1.0.zip" class="btn btn-primary" download>
+                        📥 Download Extension (Included)
+                    </a>
+                    <a href="/install-extension.html" class="btn btn-secondary">
+                        📖 Installation Guide
+                    </a>
+                </div>
+                
+                <div class="upgrade-hint" style="border-color: var(--primary);">
+                    💡 <strong>Want backup responses?</strong> 
+                    <a href="/pricing.html#packs" style="color: var(--primary);">Buy response packs</a> to ADD to your monthly allowance
+                    <br><small style="color: var(--text-secondary); margin-top: 0.5rem; display: block;">
+                        Example: Pro (1,000) + 500 pack = 1,500 total shared pool
+                    </small>
+                </div>
             </div>
-            
-            <div id="content" style="display: none;">
-                <div class="stats-grid">
-                    <div class="stat-card">
-                        <div class="stat-value success" id="active-responses">0</div>
-                        <div class="stat-label">Active Pack Responses</div>
-                    </div>
-                    <div class="stat-card">
-                        <div class="stat-value info" id="queued-responses">0</div>
-                        <div class="stat-label">Queued Responses</div>
-                    </div>
-                    <div class="stat-card">
-                        <div class="stat-value warning" id="total-available">0</div>
-                        <div class="stat-label">Total Available</div>
-                    </div>
+        </div>
+        
+        <!-- Enterprise Content -->
+        <div id="enterprise-content" class="content-section">
+            <div class="enterprise-section">
+                <h2>🚀 Unlimited Extension Access</h2>
+                
+                <div class="unlimited-badge">
+                    ♾️ Your Enterprise plan includes unlimited extension responses
                 </div>
                 
-                <div class="card">
-                    <div class="card-header">
-                        <h2 class="card-title">🟢 Active Pack</h2>
-                        <a href="/pricing.html" class="btn btn-primary btn-sm">💳 Buy More Packs</a>
-                    </div>
-                    <div id="active-pack-container"></div>
+                <div class="enterprise-info">
+                    <p><strong>Enterprise Benefits:</strong></p>
+                    <ul>
+                        <li>✓ Unlimited extension responses (no tracking!)</li>
+                        <li>✓ 25,000 batch responses/month (separate pool)</li>
+                        <li>✓ No conflicts between extension and batch usage</li>
+                        <li>✓ Priority support</li>
+                    </ul>
                 </div>
                 
-                <div class="card">
-                    <div class="card-header">
-                        <h2 class="card-title">📦 Inactive Packs Queue</h2>
-                        <button class="btn btn-secondary btn-sm" onclick="activateNextPack()">▶️ Activate Next</button>
-                    </div>
-                    <div id="inactive-packs-container"></div>
+                <div class="cta-section">
+                    <a href="/downloads/dmtools-extension-v1.0.zip" class="btn btn-primary" download>
+                        📥 Download Extension
+                    </a>
+                    <a href="/install-extension.html" class="btn btn-secondary">
+                        📖 Installation Guide
+                    </a>
                 </div>
-                
-                <div class="card">
-                    <div class="card-header">
-                        <h2 class="card-title">📊 Pack History</h2>
-                    </div>
-                    <div id="history-container"></div>
+            </div>
+        </div>
+        
+        <!-- Pack Management Section (Shown to all users) -->
+        <div class="pack-card">
+            <h3>📦 Response Pack Management</h3>
+            <div id="pack-list">
+                <div class="empty-state">
+                    <div class="empty-state-icon">📭</div>
+                    <p>Loading your packs...</p>
                 </div>
             </div>
         </div>
     </main>
     
-    <!-- Footer -->
-    <footer class="footer">
-        <div class="container">
-            <div class="footer-content">
-                <div class="footer-brand">
-                    <h3>💬 DMTools.fun</h3>
-                    <p class="footer-description">
-                        Universal AI Response Generator for all your messaging needs.
-                        Generate professional responses for Gmail, LinkedIn, Twitter, and more.
-                    </p>
-                </div>
-                
-                <div class="link-group">
-                    <h4>Product</h4>
-                    <a href="/app.html">Generator</a>
-                    <a href="/presets.html">Templates</a>
-                    <a href="/packs.html">Response Packs</a>
-                    <a href="/analytics.html">Analytics</a>
-                    <a href="/pricing.html">Pricing</a>
-                </div>
-                
-                <div class="link-group">
-                    <h4>Legal</h4>
-                    <a href="/terms-of-service.html">Terms of Service</a>
-                    <a href="/privacy-policy.html">Privacy Policy</a>
-                    <a href="/refund-policy.html">Refund Policy</a>
-                    <a href="/cookie-policy.html">Cookie Policy</a>
-                </div>
-                
-                <div class="link-group">
-                    <h4>Support</h4>
-                    <a href="/contact.html">Contact Us</a>
-                    <a href="mailto:support@dmtools.fun">Email Support</a>
-                    <a href="/help.html">Help Center</a>
-                </div>
-            </div>
-            
-            <div class="footer-bottom">
-                <p class="footer-copyright">© 2025 DMTools.fun. All rights reserved.</p>
-            </div>
-        </div>
-    </footer>
-    
-    <!-- Gift Modal -->
-    <div id="gift-modal" class="modal">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h2 class="modal-title">🎁 Gift This Pack</h2>
-                <button class="modal-close" onclick="closeGiftModal()">×</button>
-            </div>
-            <div id="gift-alert"></div>
-            <form id="gift-form">
-                <input type="hidden" id="gift-pack-id" />
-                <div class="form-group">
-                    <label for="recipient-email">Recipient Email</label>
-                    <input type="email" id="recipient-email" required placeholder="friend@example.com" />
-                </div>
-                <div class="form-group">
-                    <label for="gift-message">Message (Optional)</label>
-                    <textarea id="gift-message" rows="3" placeholder="I thought you'd enjoy these extra responses!"></textarea>
-                </div>
-                <div style="display: flex; gap: 1rem;">
-                    <button type="submit" class="btn btn-success">✓ Send Gift</button>
-                    <button type="button" class="btn btn-secondary" onclick="closeGiftModal()">Cancel</button>
-                </div>
-            </form>
-        </div>
-    </div>
-    
     <script>
-        const API_BASE = 'https://dmtools-backend-production.up.railway.app';
-        let authToken = localStorage.getItem('authToken');
-        let packsData = null;
+        const API_BASE = 'https://dmtools-backend-production.up.railway.app/api';
         
-        // Check auth on load
-        window.addEventListener('DOMContentLoaded', () => {
-            if (authToken) {
-                checkAuth();
-                loadPacks();
-            } else {
-                // Redirect to login with return URL
-                window.location.href = '/login.html?redirect=packs.html';
-            }
-        });
-        
-        function showLogin() {
-            window.location.href = '/login.html?redirect=packs.html';
-        }
-        
-        function showSignup() {
-            window.location.href = '/register.html?redirect=packs.html';
-        }
-        
-        async function checkAuth() {
-            try {
-                const response = await fetch(`${API_BASE}/api/user`, {
-                    headers: { 'Authorization': `Bearer ${authToken}` }
-                });
-                
-                if (response.status === 401) {
-                    logout();
-                    return;
-                }
-                
-                const data = await response.json();
-                if (data.success) {
-                    document.getElementById('auth-section').classList.add('hidden');
-                    document.getElementById('user-section').classList.remove('hidden');
-                    document.getElementById('user-email').textContent = data.user.email;
-                } else {
-                    logout();
-                }
-            } catch (error) {
-                console.error('Auth check error:', error);
-                logout();
-            }
-        }
-        
-        function logout() {
-            localStorage.removeItem('authToken');
-            window.location.href = '/login.html?redirect=packs.html';
-        }
-        
-        async function loadPacks() {
-            try {
-                const response = await fetch(`${API_BASE}/api/packs/status`, {
-                    headers: { 'Authorization': `Bearer ${authToken}` }
-                });
-                
-                if (response.status === 401) {
-                    logout();
-                    return;
-                }
-                
-                packsData = await response.json();
-                
-                if (packsData.success) {
-                    displayPacks(packsData);
-                    document.getElementById('loading').style.display = 'none';
-                    document.getElementById('content').style.display = 'block';
-                } else {
-                    showAlert('Failed to load packs', 'danger');
-                }
-            } catch (error) {
-                console.error('Load packs error:', error);
-                showAlert('Connection error. Please try again.', 'danger');
-            }
-        }
-        
-        function displayPacks(data) {
-            document.getElementById('active-responses').textContent = data.summary.activeResponses;
-            document.getElementById('queued-responses').textContent = data.summary.queuedResponses;
-            document.getElementById('total-available').textContent = data.summary.totalAvailable;
+        async function loadPacksPage() {
+            const token = localStorage.getItem('authToken');
             
-            const activeContainer = document.getElementById('active-pack-container');
-            if (data.activePack) {
-                const pack = data.activePack;
-                const lowWarning = pack.responses_remaining < 50 ? ' low' : '';
-                const expiresDate = new Date(pack.expiration_date).toLocaleDateString();
-                const daysLeft = Math.ceil((new Date(pack.expiration_date) - new Date()) / (1000 * 60 * 60 * 24));
-                const expiryWarning = daysLeft < 7 ? ` (⚠️ Expires in ${daysLeft} days)` : '';
-                
-                activeContainer.innerHTML = `
-                    <div class="pack-item active">
-                        <div class="pack-info">
-                            <div class="pack-size">${pack.pack_size} Response Pack ${pack.promotional ? '🎁' : ''}</div>
-                            <div class="pack-remaining${lowWarning}">
-                                ${pack.responses_remaining} responses remaining
-                                ${pack.responses_remaining < 50 ? ' - ⚠️ Running low!' : ''}
-                            </div>
-                            <div style="font-size: 0.85rem; color: var(--text-secondary); margin-top: 0.5rem;">
-                                Expires: ${expiresDate}${expiryWarning}
-                            </div>
-                        </div>
-                        <div class="pack-actions">
-                            <span class="pack-status active">ACTIVE</span>
-                            ${pack.promotional ? '<span class="pack-status promo">PROMO</span>' : ''}
-                        </div>
-                    </div>
-                `;
-            } else {
-                activeContainer.innerHTML = `
-                    <div class="empty-state">
-                        <div class="empty-state-icon">📭</div>
-                        <p>No active pack. Activate one from your queue or purchase new packs!</p>
-                        <button class="btn btn-primary" style="margin-top: 1rem;" onclick="activateNextPack()">Activate Next Pack</button>
-                    </div>
-                `;
+            if (!token) {
+                window.location.href = '/';
+                return;
             }
             
-            const inactiveContainer = document.getElementById('inactive-packs-container');
-            const inactivePacks = data.allPacks.filter(p => p.status === 'inactive');
-            if (inactivePacks.length > 0) {
-                inactiveContainer.innerHTML = inactivePacks.map(pack => `
-                    <div class="pack-item">
-                        <div class="pack-info">
-                            <div class="pack-size">${pack.pack_size} Response Pack ${pack.promotional ? '🎁' : ''}</div>
-                            <div class="pack-remaining">${pack.responses_remaining} responses</div>
-                            <div style="font-size: 0.85rem; color: var(--text-secondary); margin-top: 0.5rem;">
-                                Purchased: ${new Date(pack.purchase_date).toLocaleDateString()}
-                            </div>
-                        </div>
-                        <div class="pack-actions">
-                            <span class="pack-status inactive">INACTIVE</span>
-                            ${pack.promotional ? '<span class="pack-status promo">PROMO</span>' : ''}
-                            <button class="btn btn-secondary btn-sm" onclick="openGiftModal(${pack.id})">🎁 Gift</button>
-                        </div>
-                    </div>
-                `).join('');
-            } else {
-                inactiveContainer.innerHTML = `
-                    <div class="empty-state">
-                        <div class="empty-state-icon">📦</div>
-                        <p>No inactive packs in queue</p>
-                    </div>
-                `;
-            }
-            
-            const historyContainer = document.getElementById('history-container');
-            const allPacks = data.allPacks.sort((a, b) => new Date(b.purchase_date) - new Date(a.purchase_date));
-            if (allPacks.length > 0) {
-                historyContainer.innerHTML = allPacks.map(pack => {
-                    const statusClass = pack.status === 'active' ? 'active' : pack.status === 'expired' ? 'expired' : 'inactive';
-                    const used = pack.pack_size - pack.responses_remaining;
-                    return `
-                        <div class="pack-item">
-                            <div class="pack-info">
-                                <div class="pack-size">${pack.pack_size} Response Pack ${pack.promotional ? '🎁' : ''}</div>
-                                <div class="pack-remaining">Used: ${used} / ${pack.pack_size}</div>
-                                <div style="font-size: 0.85rem; color: var(--text-secondary); margin-top: 0.5rem;">
-                                    Purchased: ${new Date(pack.purchase_date).toLocaleDateString()}
-                                    ${pack.activation_date ? ` | Activated: ${new Date(pack.activation_date).toLocaleDateString()}` : ''}
-                                </div>
-                            </div>
-                            <div class="pack-actions">
-                                <span class="pack-status ${statusClass}">${pack.status.toUpperCase()}</span>
-                                ${pack.promotional ? '<span class="pack-status promo">PROMO</span>' : ''}
-                            </div>
-                        </div>
-                    `;
-                }).join('');
-            } else {
-                historyContainer.innerHTML = `
-                    <div class="empty-state">
-                        <div class="empty-state-icon">📋</div>
-                        <p>No pack history yet</p>
-                    </div>
-                `;
-            }
-        }
-        
-        async function activateNextPack() {
             try {
-                const response = await fetch(`${API_BASE}/api/packs/activate`, {
-                    method: 'POST',
+                // Get user info
+                const userResponse = await fetch(API_BASE + '/user', {
                     headers: {
-                        'Authorization': `Bearer ${authToken}`,
-                        'Content-Type': 'application/json'
+                        'Authorization': `Bearer ${token}`
                     }
                 });
                 
-                const data = await response.json();
-                
-                if (data.success) {
-                    showAlert('Pack activated successfully!', 'success');
-                    setTimeout(() => loadPacks(), 1000);
-                } else {
-                    showAlert(data.message || 'No inactive packs available', 'info');
+                if (!userResponse.ok) {
+                    throw new Error('Not authenticated');
                 }
+                
+                const userData = await userResponse.json();
+                const user = userData.user;
+                
+                // Show appropriate content based on plan
+                showContentForPlan(user);
+                
+                // Load pack information
+                await loadPackInfo(token);
+                
             } catch (error) {
-                console.error('Activate pack error:', error);
-                showAlert('Failed to activate pack', 'danger');
+                console.error('Error loading page:', error);
+                localStorage.removeItem('authToken');
+                window.location.href = '/';
             }
         }
         
-        function openGiftModal(packId) {
-            document.getElementById('gift-pack-id').value = packId;
-            document.getElementById('gift-modal').classList.add('show');
+        function showContentForPlan(user) {
+            const freeContent = document.getElementById('free-content');
+            const subscriberContent = document.getElementById('subscriber-content');
+            const enterpriseContent = document.getElementById('enterprise-content');
+            const statusBanner = document.getElementById('status-banner');
+            
+            // Hide all sections first
+            freeContent.classList.remove('active');
+            subscriberContent.classList.remove('active');
+            enterpriseContent.classList.remove('active');
+            
+            // Determine plan type
+            const plan = user.plan || 'free';
+            
+            if (plan === 'enterprise') {
+                // Enterprise user
+                enterpriseContent.classList.add('active');
+                statusBanner.innerHTML = `
+                    <div class="status-banner enterprise">
+                        <span style="color: var(--warning); font-weight: 600;">
+                            🚀 Enterprise Plan - Unlimited Extension Access
+                        </span>
+                        <a href="/app.html" class="btn btn-secondary" style="padding: 0.5rem 1rem;">
+                            Go to Batch Generator
+                        </a>
+                    </div>
+                `;
+            } else if (plan !== 'free' && user.subscription_status === 'active') {
+                // Pro or Business subscriber
+                subscriberContent.classList.add('active');
+                
+                // Update plan-specific info
+                const planName = plan.charAt(0).toUpperCase() + plan.slice(1);
+                const planLimit = plan === 'business' ? '5,000' : '1,000';
+                document.getElementById('plan-name').textContent = planName;
+                document.getElementById('plan-limit').textContent = planLimit;
+                
+                // Calculate usage
+                const totalUsage = (user.monthly_usage || 0) + (user.extension_usage || 0);
+                const limit = plan === 'business' ? 5000 : 1000;
+                const percentage = Math.min(Math.round((totalUsage / limit) * 100), 100);
+                
+                const progressFill = document.getElementById('usage-progress');
+                progressFill.style.width = percentage + '%';
+                progressFill.textContent = percentage + '%';
+                
+                document.getElementById('usage-text').textContent = `${totalUsage.toLocaleString()} / ${limit.toLocaleString()} used`;
+                document.getElementById('usage-percent').textContent = `${percentage}%`;
+                
+                statusBanner.innerHTML = `
+                    <div class="status-banner pro">
+                        <span style="color: var(--primary); font-weight: 600;">
+                            💎 ${planName} Subscription Active
+                        </span>
+                        <a href="/app.html" class="btn btn-secondary" style="padding: 0.5rem 1rem;">
+                            Go to Batch Generator
+                        </a>
+                    </div>
+                `;
+            } else {
+                // Free user
+                freeContent.classList.add('active');
+                statusBanner.innerHTML = `
+                    <div class="status-banner">
+                        <span style="color: var(--text-secondary);">
+                            🆓 Free Account - Buy packs to use extension
+                        </span>
+                        <a href="/pricing.html" class="btn btn-primary" style="padding: 0.5rem 1rem;">
+                            View Plans
+                        </a>
+                    </div>
+                `;
+            }
         }
         
-        function closeGiftModal() {
-            document.getElementById('gift-modal').classList.remove('show');
-            document.getElementById('gift-form').reset();
-            document.getElementById('gift-alert').innerHTML = '';
-        }
-        
-        document.getElementById('gift-form').addEventListener('submit', async (e) => {
-            e.preventDefault();
-            
-            const packId = document.getElementById('gift-pack-id').value;
-            const recipientEmail = document.getElementById('recipient-email').value;
-            const message = document.getElementById('gift-message').value;
-            
+        async function loadPackInfo(token) {
             try {
-                const response = await fetch(`${API_BASE}/api/packs/gift`, {
-                    method: 'POST',
+                const response = await fetch(API_BASE + '/packs/status', {
                     headers: {
-                        'Authorization': `Bearer ${authToken}`,
-                        'Content-Type': 'application/json'
-                    },
-                    body: JSON.stringify({
-                        pack_id: parseInt(packId),
-                        recipient_email: recipientEmail,
-                        message: message
-                    })
+                        'Authorization': `Bearer ${token}`
+                    }
                 });
                 
-                const data = await response.json();
-                
-                if (data.success) {
-                    showModalAlert('gift-alert', data.message, 'success');
-                    setTimeout(() => {
-                        closeGiftModal();
-                        loadPacks();
-                    }, 2000);
-                } else {
-                    showModalAlert('gift-alert', data.error || data.message || 'Failed to gift pack', 'danger');
+                if (!response.ok) {
+                    throw new Error('Failed to load packs');
                 }
+                
+                const data = await response.json();
+                const packList = document.getElementById('pack-list');
+                
+                if (data.activePack || data.inactivePacks.length > 0 || data.allPacks.length > 0) {
+                    // Has packs - show them
+                    let html = '';
+                    
+                    if (data.activePack) {
+                        html += `
+                            <div style="background: rgba(16, 185, 129, 0.05); border: 2px solid var(--secondary); border-radius: 8px; padding: 1.5rem; margin-bottom: 1rem;">
+                                <strong style="color: var(--secondary);">✅ Active Pack:</strong>
+                                <div style="font-size: 1.5rem; color: var(--text); margin: 0.5rem 0;">
+                                    ${data.activePack.responses_remaining} responses remaining
+                                </div>
+                                <small style="color: var(--text-secondary);">
+                                    From ${data.activePack.total_responses} response pack
+                                </small>
+                            </div>
+                        `;
+                    }
+                    
+                    if (data.inactivePacks.length > 0) {
+                        html += `
+                            <div style="margin-top: 1.5rem;">
+                                <strong style="color: var(--text);">📦 Queued Packs:</strong>
+                                <small style="color: var(--text-secondary); display: block; margin-bottom: 1rem;">
+                                    These will activate automatically when your current pack runs out
+                                </small>
+                        `;
+                        
+                        data.inactivePacks.forEach(pack => {
+                            html += `
+                                <div style="background: var(--dark); border: 1px solid var(--border); border-radius: 8px; padding: 1rem; margin-bottom: 0.5rem;">
+                                    ${pack.responses_remaining} responses
+                                </div>
+                            `;
+                        });
+                        
+                        html += '</div>';
+                    }
+                    
+                    if (!data.activePack && data.inactivePacks.length === 0) {
+                        html = `
+                            <div class="empty-state">
+                                <div class="empty-state-icon">📭</div>
+                                <p>No response packs yet</p>
+                                <a href="/pricing.html#packs" class="btn btn-primary" style="margin-top: 1rem;">
+                                    Buy Your First Pack
+                                </a>
+                            </div>
+                        `;
+                    }
+                    
+                    packList.innerHTML = html;
+                } else {
+                    packList.innerHTML = `
+                        <div class="empty-state">
+                            <div class="empty-state-icon">📭</div>
+                            <p>No response packs yet</p>
+                            <a href="/pricing.html#packs" class="btn btn-primary" style="margin-top: 1rem;">
+                                Buy Your First Pack
+                            </a>
+                        </div>
+                    `;
+                }
+                
             } catch (error) {
-                console.error('Gift pack error:', error);
-                showModalAlert('gift-alert', 'Failed to gift pack', 'danger');
+                console.error('Error loading packs:', error);
+                document.getElementById('pack-list').innerHTML = `
+                    <div class="empty-state">
+                        <div class="empty-state-icon">⚠️</div>
+                        <p>Unable to load packs</p>
+                    </div>
+                `;
             }
-        });
-        
-        function showAlert(message, type) {
-            const alertContainer = document.getElementById('alert-container');
-            const alert = document.createElement('div');
-            alert.className = `alert alert-${type}`;
-            alert.textContent = message;
-            alertContainer.appendChild(alert);
-            setTimeout(() => alert.remove(), 5000);
         }
         
-        function showModalAlert(id, message, type) {
-            const alertDiv = document.getElementById(id);
-            alertDiv.className = `alert alert-${type}`;
-            alertDiv.textContent = message;
-            setTimeout(() => alertDiv.innerHTML = '', 5000);
-        }
+        // Load on page ready
+        document.addEventListener('DOMContentLoaded', loadPacksPage);
     </script>
 </body>
 </html>

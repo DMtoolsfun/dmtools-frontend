@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>My Response Packs - DMTools.fun</title>
-    <meta name="description" content="Manage your response packs and download the Chrome extension for inline AI replies">
+    <meta name="description" content="Manage your response packs and download the Chrome extension">
     
     <!-- Google Analytics -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-GFG0RYJNR0"></script>
@@ -26,7 +26,6 @@
             --warning: #f59e0b;
             --dark: #1f2937;
             --darker: #111827;
-            --light: #f9fafb;
             --border: #374151;
             --text: #e5e7eb;
             --text-secondary: #9ca3af;
@@ -37,50 +36,17 @@
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             min-height: 100vh;
             color: var(--text);
-        }
-        
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
             padding: 2rem;
         }
         
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+        
         .header {
-            background: var(--darker);
-            border-bottom: 2px solid var(--primary);
-            padding: 1rem 0;
-            margin-bottom: 2rem;
-        }
-        
-        .logo {
-            font-size: 1.5rem;
-            font-weight: 700;
-            color: var(--primary);
-            text-decoration: none;
-        }
-        
-        .nav-tabs {
-            display: flex;
-            gap: 0.5rem;
-            margin-top: 1rem;
-            flex-wrap: wrap;
-        }
-        
-        .tab-btn {
-            padding: 0.75rem 1.25rem;
-            background: transparent;
-            border: 1px solid transparent;
-            border-radius: 8px;
-            color: var(--text-secondary);
-            text-decoration: none;
-            font-weight: 500;
-            transition: all 0.3s ease;
-        }
-        
-        .tab-btn:hover, .tab-btn.active {
-            background: rgba(139, 92, 246, 0.1);
-            color: var(--primary);
-            border-color: var(--primary);
+            text-align: center;
+            margin-bottom: 3rem;
         }
         
         .page-title {
@@ -95,78 +61,37 @@
         .page-subtitle {
             font-size: 1.1rem;
             color: var(--text-secondary);
-            margin-bottom: 2rem;
         }
         
-        /* Status Banner */
-        .status-banner {
+        .back-link {
+            display: inline-block;
+            margin-bottom: 2rem;
+            padding: 0.75rem 1.5rem;
+            background: var(--darker);
+            border: 2px solid var(--border);
+            border-radius: 8px;
+            color: var(--text);
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+        
+        .back-link:hover {
+            border-color: var(--primary);
+            transform: translateX(-4px);
+        }
+        
+        .card {
             background: var(--darker);
             border: 2px solid var(--border);
             border-radius: 12px;
-            padding: 1rem 1.5rem;
-            margin-bottom: 2rem;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-        
-        .status-banner.pro {
-            border-color: var(--primary);
-            background: rgba(139, 92, 246, 0.05);
-        }
-        
-        .status-banner.enterprise {
-            border-color: var(--warning);
-            background: rgba(245, 158, 11, 0.05);
-        }
-        
-        /* Plan-Specific Content Sections */
-        .content-section {
-            display: none;
-        }
-        
-        .content-section.active {
-            display: block;
-        }
-        
-        /* Free User Section */
-        .welcome-section {
-            background: var(--darker);
-            border: 2px solid var(--primary);
-            border-radius: 12px;
-            padding: 2.5rem;
+            padding: 2rem;
             margin-bottom: 2rem;
         }
         
-        .welcome-section h2 {
-            font-size: 1.75rem;
+        .card h2 {
+            font-size: 1.5rem;
             color: var(--text);
             margin-bottom: 1.5rem;
-        }
-        
-        .how-it-works {
-            background: rgba(139, 92, 246, 0.05);
-            border: 2px solid var(--primary);
-            border-radius: 8px;
-            padding: 1.5rem;
-            margin: 1.5rem 0;
-        }
-        
-        .how-it-works h3 {
-            color: var(--primary);
-            margin-bottom: 1rem;
-        }
-        
-        .how-it-works ol {
-            margin-left: 1.5rem;
-            color: var(--text-secondary);
-            line-height: 2;
-        }
-        
-        .cta-section {
-            display: flex;
-            gap: 1rem;
-            margin: 2rem 0;
         }
         
         .btn {
@@ -189,7 +114,6 @@
         .btn-primary:hover {
             background: var(--primary-dark);
             transform: translateY(-2px);
-            box-shadow: 0 4px 12px rgba(139, 92, 246, 0.4);
         }
         
         .btn-secondary {
@@ -200,53 +124,34 @@
         
         .btn-secondary:hover {
             background: var(--border);
-            border-color: var(--primary);
         }
         
-        .upgrade-hint {
-            background: rgba(16, 185, 129, 0.05);
-            border: 2px solid var(--secondary);
-            border-radius: 8px;
-            padding: 1rem;
-            color: var(--secondary);
-        }
-        
-        .upgrade-hint a {
-            color: var(--secondary);
-            font-weight: 600;
-            text-decoration: underline;
-        }
-        
-        /* Subscriber Section */
-        .subscriber-section {
-            background: var(--darker);
-            border: 2px solid var(--primary);
-            border-radius: 12px;
-            padding: 2.5rem;
-            margin-bottom: 2rem;
-        }
-        
-        .subscriber-section h2 {
-            font-size: 1.75rem;
-            color: var(--text);
-            margin-bottom: 1.5rem;
-        }
-        
-        .subscription-info {
-            background: rgba(139, 92, 246, 0.05);
+        .info-box {
+            background: rgba(139, 92, 246, 0.1);
             border: 2px solid var(--primary);
             border-radius: 8px;
             padding: 1.5rem;
-            margin-bottom: 1.5rem;
+            margin: 1rem 0;
         }
         
-        .subscription-info ul {
-            margin-left: 1.5rem;
-            color: var(--text-secondary);
-            line-height: 2;
+        .info-box.success {
+            background: rgba(16, 185, 129, 0.1);
+            border-color: var(--secondary);
         }
         
-        .usage-display {
+        .info-box.warning {
+            background: rgba(245, 158, 11, 0.1);
+            border-color: var(--warning);
+        }
+        
+        .cta-buttons {
+            display: flex;
+            gap: 1rem;
+            margin-top: 1.5rem;
+            flex-wrap: wrap;
+        }
+        
+        .usage-stats {
             background: var(--dark);
             border: 2px solid var(--border);
             border-radius: 8px;
@@ -254,18 +159,12 @@
             margin: 1.5rem 0;
         }
         
-        .usage-display strong {
-            color: var(--text);
-            display: block;
-            margin-bottom: 1rem;
-        }
-        
         .progress-bar {
             background: var(--darker);
             border-radius: 8px;
             height: 24px;
             overflow: hidden;
-            margin: 0.5rem 0;
+            margin: 1rem 0;
         }
         
         .progress-fill {
@@ -280,289 +179,240 @@
             font-size: 0.85rem;
         }
         
-        .usage-display small {
-            color: var(--text-secondary);
-            display: block;
-            margin-top: 0.5rem;
-        }
-        
-        /* Enterprise Section */
-        .enterprise-section {
-            background: var(--darker);
-            border: 2px solid var(--warning);
-            border-radius: 12px;
-            padding: 2.5rem;
-            margin-bottom: 2rem;
-        }
-        
-        .enterprise-section h2 {
-            font-size: 1.75rem;
-            color: var(--text);
-            margin-bottom: 1.5rem;
-        }
-        
-        .unlimited-badge {
-            background: linear-gradient(135deg, #f59e0b, #d97706);
-            border-radius: 8px;
-            padding: 1.5rem;
-            text-align: center;
-            font-size: 1.5rem;
-            font-weight: 700;
-            color: white;
-            margin-bottom: 1.5rem;
-        }
-        
-        .enterprise-info ul {
-            margin-left: 1.5rem;
-            color: var(--text-secondary);
-            line-height: 2;
-        }
-        
-        /* Pack Management (Same for all) */
-        .pack-card {
-            background: var(--darker);
+        .pack-item {
+            background: var(--dark);
             border: 2px solid var(--border);
-            border-radius: 12px;
-            padding: 2rem;
-            margin-bottom: 1.5rem;
-        }
-        
-        .pack-card h3 {
-            color: var(--text);
+            border-radius: 8px;
+            padding: 1rem;
             margin-bottom: 1rem;
         }
         
-        .empty-state {
+        .loading {
             text-align: center;
             padding: 3rem;
             color: var(--text-secondary);
         }
         
-        .empty-state-icon {
-            font-size: 4rem;
-            margin-bottom: 1rem;
-            opacity: 0.5;
+        .hidden {
+            display: none;
         }
         
-        /* Responsive */
-        @media (max-width: 768px) {
-            .cta-section { flex-direction: column; }
-            .nav-tabs { flex-direction: column; }
+        ul {
+            margin-left: 1.5rem;
+            line-height: 2;
         }
     </style>
 </head>
 <body>
-    <!-- Header -->
-    <header class="header">
-        <div class="container">
-            <a href="/" class="logo">💬 DMTools.fun</a>
-            <nav class="nav-tabs">
-                <a href="/app.html" class="tab-btn">💬 Generator</a>
-                <a href="/packs.html" class="tab-btn active">🎁 Packs</a>
-                <a href="/pricing.html" class="tab-btn">💎 Pricing</a>
-                <a href="/account.html" class="tab-btn">👤 Account</a>
-            </nav>
-        </div>
-    </header>
-    
-    <!-- Main Content -->
-    <main class="container">
-        <h1 class="page-title">🎁 My Response Packs</h1>
-        <p class="page-subtitle">Manage your extension responses and download the Chrome extension</p>
+    <div class="container">
+        <a href="/" class="back-link">← Back to Home</a>
         
-        <!-- Status Banner (Dynamic) -->
-        <div id="status-banner"></div>
-        
-        <!-- Free User Content -->
-        <div id="free-content" class="content-section">
-            <div class="welcome-section">
-                <h2>Get Started with Response Packs</h2>
-                
-                <div class="how-it-works">
-                    <h3>How Extension + Packs Work:</h3>
-                    <ol>
-                        <li>📥 Download the Chrome extension</li>
-                        <li>💳 Buy a response pack ($9.99-$59.99 for 500-4,000 responses)</li>
-                        <li>✨ Generate replies directly in Gmail, LinkedIn, Twitter</li>
-                    </ol>
-                </div>
-                
-                <div class="cta-section">
-                    <a href="/downloads/dmtools-extension-v1.0.zip" class="btn btn-secondary" download>
-                        📥 Download Extension
-                    </a>
-                    <a href="/pricing.html#packs" class="btn btn-primary">
-                        💳 Buy Response Pack
-                    </a>
-                </div>
-                
-                <div class="upgrade-hint">
-                    💡 <strong>Need more volume?</strong> 
-                    <a href="/pricing.html">Upgrade to Pro</a> for unlimited batch generation + 1,000 extension responses/month (shared pool)
-                </div>
-            </div>
+        <div class="header">
+            <h1 class="page-title">🎁 My Response Packs</h1>
+            <p class="page-subtitle">Manage your extension responses</p>
         </div>
         
-        <!-- Subscriber Content (Pro/Business) -->
-        <div id="subscriber-content" class="content-section">
-            <div class="subscriber-section">
-                <h2>✅ Extension Included with Your Subscription!</h2>
-                
-                <div class="subscription-info">
-                    <p><strong>Your <span id="plan-name">Pro</span> plan includes:</strong></p>
-                    <ul>
-                        <li>✓ <span id="plan-limit">1,000</span> responses/month (shared pool)</li>
-                        <li>✓ Use for batch generator AND extension</li>
-                        <li>✓ No extra charges for extension usage</li>
-                    </ul>
-                </div>
-                
-                <div class="usage-display">
-                    <strong>Monthly Usage:</strong>
-                    <div class="progress-bar">
-                        <div class="progress-fill" id="usage-progress"></div>
+        <!-- Loading State -->
+        <div id="loading" class="loading">
+            <div style="font-size: 3rem; margin-bottom: 1rem;">⏳</div>
+            <p>Loading your account...</p>
+        </div>
+        
+        <!-- Main Content (Hidden until loaded) -->
+        <div id="content" class="hidden">
+            
+            <!-- Free User Section -->
+            <div id="free-section" class="hidden">
+                <div class="card">
+                    <h2>Get Started with Response Packs</h2>
+                    
+                    <div class="info-box">
+                        <p><strong>How it works:</strong></p>
+                        <ul>
+                            <li>📥 Download the Chrome extension</li>
+                            <li>💳 Buy response packs ($9.99-$59.99)</li>
+                            <li>✨ Generate replies directly in Gmail, LinkedIn, Twitter</li>
+                        </ul>
                     </div>
-                    <div style="display: flex; justify-content: space-between; margin-top: 0.5rem;">
-                        <span id="usage-text" style="color: var(--text);">Loading...</span>
-                        <span id="usage-percent" style="color: var(--text-secondary);"></span>
+                    
+                    <div class="cta-buttons">
+                        <a href="/downloads/dmtools-extension-v1.0.zip" class="btn btn-secondary" download>
+                            📥 Download Extension
+                        </a>
+                        <a href="/pricing.html#packs" class="btn btn-primary">
+                            💳 Buy Response Pack
+                        </a>
                     </div>
-                    <small>Used by both batch generator and extension</small>
-                </div>
-                
-                <div class="cta-section">
-                    <a href="/downloads/dmtools-extension-v1.0.zip" class="btn btn-primary" download>
-                        📥 Download Extension (Included)
-                    </a>
-                    <a href="/install-extension.html" class="btn btn-secondary">
-                        📖 Installation Guide
-                    </a>
-                </div>
-                
-                <div class="upgrade-hint" style="border-color: var(--primary);">
-                    💡 <strong>Want backup responses?</strong> 
-                    <a href="/pricing.html#packs" style="color: var(--primary);">Buy response packs</a> to ADD to your monthly allowance
-                    <br><small style="color: var(--text-secondary); margin-top: 0.5rem; display: block;">
-                        Example: Pro (1,000) + 500 pack = 1,500 total shared pool
-                    </small>
+                    
+                    <div class="info-box success" style="margin-top: 2rem;">
+                        <p>💡 <strong>Need bulk generation?</strong></p>
+                        <p>Upgrade to <a href="/pricing.html" style="color: var(--secondary); font-weight: 600;">Pro subscription</a> for unlimited batch processing + 1,000 extension responses/month</p>
+                    </div>
                 </div>
             </div>
-        </div>
-        
-        <!-- Enterprise Content -->
-        <div id="enterprise-content" class="content-section">
-            <div class="enterprise-section">
-                <h2>🚀 Unlimited Extension Access</h2>
-                
-                <div class="unlimited-badge">
-                    ♾️ Your Enterprise plan includes unlimited extension responses
-                </div>
-                
-                <div class="enterprise-info">
-                    <p><strong>Enterprise Benefits:</strong></p>
-                    <ul>
-                        <li>✓ Unlimited extension responses (no tracking!)</li>
-                        <li>✓ 25,000 batch responses/month (separate pool)</li>
-                        <li>✓ No conflicts between extension and batch usage</li>
-                        <li>✓ Priority support</li>
-                    </ul>
-                </div>
-                
-                <div class="cta-section">
-                    <a href="/downloads/dmtools-extension-v1.0.zip" class="btn btn-primary" download>
-                        📥 Download Extension
-                    </a>
-                    <a href="/install-extension.html" class="btn btn-secondary">
-                        📖 Installation Guide
-                    </a>
+            
+            <!-- Subscriber Section (Pro/Business) -->
+            <div id="subscriber-section" class="hidden">
+                <div class="card">
+                    <h2>✅ Extension Included with Your Subscription!</h2>
+                    
+                    <div class="info-box success">
+                        <p><strong>Your <span id="plan-name">Pro</span> plan includes:</strong></p>
+                        <ul>
+                            <li>✓ <span id="plan-limit">1,000</span> responses/month (shared pool)</li>
+                            <li>✓ Use for batch generator AND extension</li>
+                            <li>✓ No extra charges for extension usage</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="usage-stats">
+                        <strong style="color: var(--text); display: block; margin-bottom: 1rem;">Monthly Usage:</strong>
+                        <div class="progress-bar">
+                            <div class="progress-fill" id="usage-progress">Loading...</div>
+                        </div>
+                        <div style="display: flex; justify-content: space-between; color: var(--text-secondary); font-size: 0.9rem;">
+                            <span id="usage-text">Loading...</span>
+                            <span id="usage-percent">0%</span>
+                        </div>
+                        <small style="color: var(--text-secondary); display: block; margin-top: 0.5rem;">
+                            Used by both batch generator and extension
+                        </small>
+                    </div>
+                    
+                    <div class="cta-buttons">
+                        <a href="/downloads/dmtools-extension-v1.0.zip" class="btn btn-primary" download>
+                            📥 Download Extension (Included)
+                        </a>
+                        <a href="/install-extension.html" class="btn btn-secondary">
+                            📖 Installation Guide
+                        </a>
+                    </div>
+                    
+                    <div class="info-box" style="margin-top: 2rem;">
+                        <p>💡 <strong>Want backup responses?</strong></p>
+                        <p><a href="/pricing.html#packs" style="color: var(--primary); font-weight: 600;">Buy response packs</a> to ADD to your monthly allowance</p>
+                        <small style="color: var(--text-secondary); display: block; margin-top: 0.5rem;">
+                            Example: Pro (1,000) + 500 pack = 1,500 total shared pool
+                        </small>
+                    </div>
                 </div>
             </div>
-        </div>
-        
-        <!-- Pack Management Section (Shown to all users) -->
-        <div class="pack-card">
-            <h3>📦 Response Pack Management</h3>
-            <div id="pack-list">
-                <div class="empty-state">
-                    <div class="empty-state-icon">📭</div>
-                    <p>Loading your packs...</p>
+            
+            <!-- Enterprise Section -->
+            <div id="enterprise-section" class="hidden">
+                <div class="card">
+                    <h2>🚀 Unlimited Extension Access</h2>
+                    
+                    <div class="info-box warning">
+                        <div style="text-align: center; font-size: 1.5rem; font-weight: 700; margin-bottom: 1rem;">
+                            ♾️ Your Enterprise plan includes unlimited extension responses
+                        </div>
+                    </div>
+                    
+                    <div class="info-box success">
+                        <p><strong>Enterprise Benefits:</strong></p>
+                        <ul>
+                            <li>✓ Unlimited extension responses (no tracking!)</li>
+                            <li>✓ 25,000 batch responses/month (separate pool)</li>
+                            <li>✓ No conflicts between extension and batch usage</li>
+                            <li>✓ Priority support</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="cta-buttons">
+                        <a href="/downloads/dmtools-extension-v1.0.zip" class="btn btn-primary" download>
+                            📥 Download Extension
+                        </a>
+                        <a href="/install-extension.html" class="btn btn-secondary">
+                            📖 Installation Guide
+                        </a>
+                    </div>
                 </div>
             </div>
+            
+            <!-- Pack Management (All Users) -->
+            <div class="card">
+                <h2>📦 Your Response Packs</h2>
+                <div id="pack-list">
+                    <div class="loading">
+                        <p>Loading packs...</p>
+                    </div>
+                </div>
+            </div>
+            
         </div>
-    </main>
+    </div>
     
     <script>
         const API_BASE = 'https://dmtools-backend-production.up.railway.app/api';
         
-        async function loadPacksPage() {
+        async function loadPage() {
             const token = localStorage.getItem('authToken');
             
+            // If no token, redirect to homepage
             if (!token) {
+                console.log('No auth token found, redirecting to homepage');
                 window.location.href = '/';
                 return;
             }
             
             try {
                 // Get user info
-                const userResponse = await fetch(API_BASE + '/user', {
+                const response = await fetch(API_BASE + '/user', {
                     headers: {
                         'Authorization': `Bearer ${token}`
                     }
                 });
                 
-                if (!userResponse.ok) {
-                    throw new Error('Not authenticated');
+                if (!response.ok) {
+                    throw new Error('Authentication failed');
                 }
                 
-                const userData = await userResponse.json();
-                const user = userData.user;
+                const data = await response.json();
+                const user = data.user;
                 
-                // Show appropriate content based on plan
+                console.log('User loaded:', user);
+                
+                // Hide loading, show content
+                document.getElementById('loading').classList.add('hidden');
+                document.getElementById('content').classList.remove('hidden');
+                
+                // Show appropriate section based on plan
                 showContentForPlan(user);
                 
                 // Load pack information
-                await loadPackInfo(token);
+                await loadPacks(token);
                 
             } catch (error) {
                 console.error('Error loading page:', error);
+                alert('Session expired. Please login again.');
                 localStorage.removeItem('authToken');
                 window.location.href = '/';
             }
         }
         
         function showContentForPlan(user) {
-            const freeContent = document.getElementById('free-content');
-            const subscriberContent = document.getElementById('subscriber-content');
-            const enterpriseContent = document.getElementById('enterprise-content');
-            const statusBanner = document.getElementById('status-banner');
+            const plan = user.plan || 'free';
+            const freeSection = document.getElementById('free-section');
+            const subscriberSection = document.getElementById('subscriber-section');
+            const enterpriseSection = document.getElementById('enterprise-section');
             
             // Hide all sections first
-            freeContent.classList.remove('active');
-            subscriberContent.classList.remove('active');
-            enterpriseContent.classList.remove('active');
-            
-            // Determine plan type
-            const plan = user.plan || 'free';
+            freeSection.classList.add('hidden');
+            subscriberSection.classList.add('hidden');
+            enterpriseSection.classList.add('hidden');
             
             if (plan === 'enterprise') {
                 // Enterprise user
-                enterpriseContent.classList.add('active');
-                statusBanner.innerHTML = `
-                    <div class="status-banner enterprise">
-                        <span style="color: var(--warning); font-weight: 600;">
-                            🚀 Enterprise Plan - Unlimited Extension Access
-                        </span>
-                        <a href="/app.html" class="btn btn-secondary" style="padding: 0.5rem 1rem;">
-                            Go to Batch Generator
-                        </a>
-                    </div>
-                `;
+                enterpriseSection.classList.remove('hidden');
             } else if (plan !== 'free' && user.subscription_status === 'active') {
                 // Pro or Business subscriber
-                subscriberContent.classList.add('active');
+                subscriberSection.classList.remove('hidden');
                 
                 // Update plan-specific info
                 const planName = plan.charAt(0).toUpperCase() + plan.slice(1);
                 const planLimit = plan === 'business' ? '5,000' : '1,000';
+                
                 document.getElementById('plan-name').textContent = planName;
                 document.getElementById('plan-limit').textContent = planLimit;
                 
@@ -577,34 +427,13 @@
                 
                 document.getElementById('usage-text').textContent = `${totalUsage.toLocaleString()} / ${limit.toLocaleString()} used`;
                 document.getElementById('usage-percent').textContent = `${percentage}%`;
-                
-                statusBanner.innerHTML = `
-                    <div class="status-banner pro">
-                        <span style="color: var(--primary); font-weight: 600;">
-                            💎 ${planName} Subscription Active
-                        </span>
-                        <a href="/app.html" class="btn btn-secondary" style="padding: 0.5rem 1rem;">
-                            Go to Batch Generator
-                        </a>
-                    </div>
-                `;
             } else {
                 // Free user
-                freeContent.classList.add('active');
-                statusBanner.innerHTML = `
-                    <div class="status-banner">
-                        <span style="color: var(--text-secondary);">
-                            🆓 Free Account - Buy packs to use extension
-                        </span>
-                        <a href="/pricing.html" class="btn btn-primary" style="padding: 0.5rem 1rem;">
-                            View Plans
-                        </a>
-                    </div>
-                `;
+                freeSection.classList.remove('hidden');
             }
         }
         
-        async function loadPackInfo(token) {
+        async function loadPacks(token) {
             try {
                 const response = await fetch(API_BASE + '/packs/status', {
                     headers: {
@@ -619,82 +448,77 @@
                 const data = await response.json();
                 const packList = document.getElementById('pack-list');
                 
-                if (data.activePack || data.inactivePacks.length > 0 || data.allPacks.length > 0) {
-                    // Has packs - show them
-                    let html = '';
-                    
-                    if (data.activePack) {
-                        html += `
-                            <div style="background: rgba(16, 185, 129, 0.05); border: 2px solid var(--secondary); border-radius: 8px; padding: 1.5rem; margin-bottom: 1rem;">
-                                <strong style="color: var(--secondary);">✅ Active Pack:</strong>
-                                <div style="font-size: 1.5rem; color: var(--text); margin: 0.5rem 0;">
-                                    ${data.activePack.responses_remaining} responses remaining
-                                </div>
-                                <small style="color: var(--text-secondary);">
-                                    From ${data.activePack.total_responses} response pack
-                                </small>
+                let html = '';
+                
+                // Show active pack
+                if (data.activePack) {
+                    html += `
+                        <div class="info-box success">
+                            <strong style="color: var(--secondary); display: block; margin-bottom: 0.5rem;">
+                                ✅ Active Pack
+                            </strong>
+                            <div style="font-size: 1.5rem; color: var(--text); margin: 0.5rem 0;">
+                                ${data.activePack.responses_remaining} responses remaining
                             </div>
-                        `;
-                    }
-                    
-                    if (data.inactivePacks.length > 0) {
-                        html += `
-                            <div style="margin-top: 1.5rem;">
-                                <strong style="color: var(--text);">📦 Queued Packs:</strong>
-                                <small style="color: var(--text-secondary); display: block; margin-bottom: 1rem;">
-                                    These will activate automatically when your current pack runs out
-                                </small>
-                        `;
-                        
-                        data.inactivePacks.forEach(pack => {
-                            html += `
-                                <div style="background: var(--dark); border: 1px solid var(--border); border-radius: 8px; padding: 1rem; margin-bottom: 0.5rem;">
-                                    ${pack.responses_remaining} responses
-                                </div>
-                            `;
-                        });
-                        
-                        html += '</div>';
-                    }
-                    
-                    if (!data.activePack && data.inactivePacks.length === 0) {
-                        html = `
-                            <div class="empty-state">
-                                <div class="empty-state-icon">📭</div>
-                                <p>No response packs yet</p>
-                                <a href="/pricing.html#packs" class="btn btn-primary" style="margin-top: 1rem;">
-                                    Buy Your First Pack
-                                </a>
-                            </div>
-                        `;
-                    }
-                    
-                    packList.innerHTML = html;
-                } else {
-                    packList.innerHTML = `
-                        <div class="empty-state">
-                            <div class="empty-state-icon">📭</div>
-                            <p>No response packs yet</p>
-                            <a href="/pricing.html#packs" class="btn btn-primary" style="margin-top: 1rem;">
-                                Buy Your First Pack
-                            </a>
+                            <small style="color: var(--text-secondary);">
+                                From ${data.activePack.total_responses} response pack
+                            </small>
                         </div>
                     `;
                 }
                 
+                // Show queued packs
+                if (data.inactivePacks && data.inactivePacks.length > 0) {
+                    html += `
+                        <div style="margin-top: 1.5rem;">
+                            <strong style="color: var(--text); display: block; margin-bottom: 1rem;">
+                                📦 Queued Packs (${data.inactivePacks.length})
+                            </strong>
+                            <small style="color: var(--text-secondary); display: block; margin-bottom: 1rem;">
+                                These will activate automatically when your current pack runs out
+                            </small>
+                    `;
+                    
+                    data.inactivePacks.forEach(pack => {
+                        html += `
+                            <div class="pack-item">
+                                ${pack.responses_remaining} responses
+                            </div>
+                        `;
+                    });
+                    
+                    html += '</div>';
+                }
+                
+                // If no packs at all
+                if (!data.activePack && (!data.inactivePacks || data.inactivePacks.length === 0)) {
+                    html = `
+                        <div class="info-box">
+                            <div style="text-align: center; padding: 2rem;">
+                                <div style="font-size: 3rem; margin-bottom: 1rem; opacity: 0.5;">📭</div>
+                                <p style="color: var(--text); margin-bottom: 1rem;">No response packs yet</p>
+                                <a href="/pricing.html#packs" class="btn btn-primary">
+                                    Buy Your First Pack
+                                </a>
+                            </div>
+                        </div>
+                    `;
+                }
+                
+                packList.innerHTML = html;
+                
             } catch (error) {
                 console.error('Error loading packs:', error);
                 document.getElementById('pack-list').innerHTML = `
-                    <div class="empty-state">
-                        <div class="empty-state-icon">⚠️</div>
-                        <p>Unable to load packs</p>
+                    <div class="info-box warning">
+                        <p>Unable to load packs. Please refresh the page.</p>
                     </div>
                 `;
             }
         }
         
-        // Load on page ready
-        document.addEventListener('DOMContentLoaded', loadPacksPage);
+        // Load page on ready
+        document.addEventListener('DOMContentLoaded', loadPage);
     </script>
 </body>
 </html>

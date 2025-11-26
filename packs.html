@@ -207,10 +207,28 @@
     <div class="container">
         <a href="/" class="back-link">← Back to Home</a>
         
-        <div class="header">
-            <h1 class="page-title">🎁 My Response Packs</h1>
-            <p class="page-subtitle">Manage your extension responses</p>
+    <header class="header">
+        <div class="container">
+            <div class="header-content">
+                <a href="/" class="logo">💬 DMTools.fun</a>
+                
+              <nav class="nav-tabs">
+    <a href="/app.html" class="tab-btn">💬 Generator</a>
+    <a href="/presets.html" class="tab-btn">📋 Templates</a>
+    <a href="/packs.html" class="tab-btn">🎁 Packs</a>
+    <a href="/analytics.html" class="tab-btn">📊 Analytics</a>
+    <a href="/contact.html" class="tab-btn">📞 Contact</a>
+    <a href="/pricing.html" class="tab-btn">💎 Pricing</a>
+    <a href="/account.html" class="tab-btn">👤 Account</a>
+</nav>
+
+                <div class="user-menu">
+                    <span class="user-name" id="user-name">Loading...</span>
+                    <button class="btn btn-secondary" onclick="logout()">Logout</button>
+                </div>
+            </div>
         </div>
+    </header>
         
         <!-- Loading State -->
         <div id="loading" class="loading">

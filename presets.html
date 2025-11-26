@@ -44,23 +44,21 @@
             padding: 0 2rem;
         }
 
-        /* Header */
+       /* HEADER - STATIC WITH SMALLER ICONS */
         .header {
             background: rgba(15, 23, 42, 0.9);
             backdrop-filter: blur(10px);
             border-bottom: 1px solid #334155;
-            position: sticky;
+            position: static; /* Changed from sticky */
             top: 0;
             z-index: 100;
-            padding: 1rem 0;
+            padding: 0.75rem 0; /* Reduced from 1rem */
         }
-
         .header-content {
             display: flex;
             justify-content: space-between;
             align-items: center;
         }
-
         .logo {
             font-size: 1.5rem;
             font-weight: 900;
@@ -71,43 +69,50 @@
             cursor: pointer;
             text-decoration: none;
         }
-
         .nav-tabs {
             display: flex;
-            gap: 1rem;
+            gap: 1.5rem; /* Slightly more space between items */
+            align-items: center;
         }
-
         .tab-btn {
-            padding: 0.5rem 1rem;
+            padding: 0.4rem 0.8rem; /* Slightly smaller */
             text-decoration: none;
             color: #9ca3af;
             border-radius: 8px;
             transition: all 0.3s ease;
             border: 1px solid transparent;
+            font-size: 0.9rem; /* Smaller text */
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 0.25rem;
         }
-
+        /* Make icons/emojis smaller */
+        .tab-btn span:first-child,
+        .tab-btn::before {
+            font-size: 1.125rem; /* Smaller icons (18px) */
+            line-height: 1;
+        }
         .tab-btn:hover, .tab-btn.active {
             color: #8b5cf6;
             border-color: #8b5cf6;
             background: rgba(139, 92, 246, 0.1);
         }
-
         .auth-buttons {
             display: flex;
             gap: 0.5rem;
         }
-
         .user-section {
             display: flex;
             align-items: center;
             gap: 1rem;
         }
-
         .user-email {
             color: #e5e7eb;
             font-weight: 500;
+            font-size: 0.9rem; /* Slightly smaller */
         }
-
+     
         /* Buttons */
         .btn {
             padding: 0.75rem 1.5rem;

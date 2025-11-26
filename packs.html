@@ -349,6 +349,10 @@
         async function loadPage() {
             const token = localStorage.getItem('authToken');
             
+            console.log('Packs page loading...');
+            console.log('Token found:', token ? 'Yes' : 'No');
+            console.log('Token length:', token ? token.length : 0);
+            
             // If no token, redirect to homepage
             if (!token) {
                 console.log('No auth token found, redirecting to homepage');
@@ -357,6 +361,8 @@
             }
             
             try {
+                console.log('Fetching user data...');
+                
                 // Get user info
                 const response = await fetch(API_BASE + '/user', {
                     headers: {
@@ -364,7 +370,11 @@
                     }
                 });
                 
+                console.log('Response status:', response.status);
+                
                 if (!response.ok) {
+                    const errorData = await response.json().catch(() => ({}));
+                    console.error('API error:', errorData);
                     throw new Error('Authentication failed');
                 }
                 
@@ -385,9 +395,26 @@
                 
             } catch (error) {
                 console.error('Error loading page:', error);
-                alert('Session expired. Please login again.');
-                localStorage.removeItem('authToken');
-                window.location.href = '/';
+                
+                // Hide loading
+                document.getElementById('loading').classList.add('hidden');
+                document.getElementById('content').classList.remove('hidden');
+                
+                // Show error in content area instead of alert
+                document.getElementById('content').innerHTML = `
+                    <div class="card">
+                        <div class="info-box warning">
+                            <h2 style="margin-bottom: 1rem;">⚠️ Authentication Error</h2>
+                            <p style="margin-bottom: 1rem;">Your session has expired or is invalid.</p>
+                            <div class="cta-buttons">
+                                <a href="/" class="btn btn-primary">Return to Homepage</a>
+                                <button class="btn btn-secondary" onclick="localStorage.clear(); window.location.href='/'">
+                                    Clear Session & Login Again
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                `;
             }
         }
         

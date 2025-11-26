@@ -1,7 +1,12 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <!-- Google tag (gtag.js) -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DMTools.fun - AI-Powered Response Generation for Gmail, LinkedIn, Twitter & More</title>
+    <meta name="description" content="Generate professional AI responses instantly. Choose pay-per-pack extension or unlimited batch generation. Save 10+ hours weekly.">
+    
+    <!-- Google Analytics -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-GFG0RYJNR0"></script>
     <script>
         window.dataLayer = window.dataLayer || [];
@@ -9,2708 +14,657 @@
         gtag('js', new Date());
         gtag('config', 'G-GFG0RYJNR0');
     </script>
-  
-    <!-- DOMPurify - XSS Protection -->
-    <script src="https://cdn.jsdelivr.net/npm/dompurify@3.0.6/dist/purify.min.js"></script>
-  
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <!-- PWA Manifest and Meta Tags -->
-<link rel="manifest" href="/manifest.json">
-<meta name="theme-color" content="#8b5cf6">
-<meta name="apple-mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-<meta name="apple-mobile-web-app-title" content="DMTools">
-<link rel="apple-touch-icon" href="/icons/icon-180x180.png">
-    <title>DMTools.fun - AI-Powered Universal Unlimited Batch Response Generator | Save 10+ Hours Weekly</title>
-    <meta name="description" content="AI-powered universal unlimited batch response draft generator for any digital messaging service. Process email, SMS, DMs, dating apps, customer service chat simultaneously. Free plan available.">
-    <link rel="icon" href="/favicon.ico" type="image/x-icon">
-    
-  <!-- PWA Manifest -->
-<link rel="manifest" href="/manifest.json">
-<meta name="theme-color" content="#8b5cf6">
-<meta name="apple-mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-<meta name="apple-mobile-web-app-title" content="DMTools">
-<link rel="apple-touch-icon" href="/icons/icon-192x192.png">
-
-    <!-- PayPal SDK -->
-    <script src="https://www.paypal.com/sdk/js?client-id=YOUR-PAYPAL-CLIENT-ID&vault=true&intent=subscription"></script>
     
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        :root {
+            --primary: #8b5cf6;
+            --primary-dark: #7c3aed;
+            --secondary: #10b981;
+            --danger: #ef4444;
+            --warning: #f59e0b;
+            --dark: #1f2937;
+            --darker: #111827;
+            --light: #f9fafb;
+            --border: #374151;
+            --text: #e5e7eb;
+            --text-secondary: #9ca3af;
         }
-
+        
         body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
-            line-height: 1.6;
-            color: #e5e7eb;
-            background: linear-gradient(135deg, #0f172a 0%, #1e293b 50%, #334155 100%);
-            background-attachment: fixed;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             min-height: 100vh;
+            color: var(--text);
         }
-
+        
         /* Header */
         .header {
-            background: rgba(30, 41, 59, 0.95);
-            backdrop-filter: blur(10px);
-            position: sticky;
-            top: 0;
-            z-index: 1000;
-            border-bottom: 1px solid #374151;
-            padding: 0.5rem 0;
+            background: var(--darker);
+            border-bottom: 2px solid var(--primary);
+            padding: 1rem 0;
         }
-
+        
         .container {
             max-width: 1200px;
             margin: 0 auto;
             padding: 0 2rem;
         }
-
+        
         .header-content {
             display: flex;
             justify-content: space-between;
             align-items: center;
             flex-wrap: wrap;
-            gap: 0.5rem;
+            gap: 1rem;
         }
-
+        
         .logo {
-            font-size: 1.25rem;
-            font-weight: 900;
-            background: linear-gradient(135deg, #8b5cf6, #06b6d4);
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--primary);
+            text-decoration: none;
+        }
+        
+        /* Hero Section */
+        .hero {
+            padding: 4rem 0;
+            text-align: center;
+        }
+        
+        .hero-intro {
+            margin-bottom: 3rem;
+        }
+        
+        .hero-title {
+            font-size: 3.5rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, #ffffff 0%, #e0e7ff 100%);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
-            background-clip: text;
-            cursor: pointer;
+            margin-bottom: 1rem;
+        }
+        
+        .hero-subtitle {
+            font-size: 1.5rem;
+            color: var(--text);
+            margin-bottom: 0.5rem;
+        }
+        
+        .hero-tagline {
+            font-size: 1.1rem;
+            color: var(--text-secondary);
+        }
+        
+        /* Two-Card Layout */
+        .hero-options {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+        
+        .hero-card {
+            background: var(--darker);
+            border: 2px solid var(--border);
+            border-radius: 16px;
+            padding: 2.5rem;
             transition: all 0.3s ease;
+            position: relative;
         }
-
-        .logo:hover {
-            transform: scale(1.05);
+        
+        .hero-card:hover {
+            transform: translateY(-8px);
+            border-color: var(--primary);
+            box-shadow: 0 12px 40px rgba(139, 92, 246, 0.3);
         }
-
-        .nav-tabs {
-            display: flex;
-            gap: 1rem;
-            flex-wrap: wrap;
+        
+        .hero-card.featured {
+            border-color: var(--primary);
+            box-shadow: 0 8px 24px rgba(139, 92, 246, 0.2);
         }
-
-        .tab-btn {
-            color: #9ca3af;
-            text-decoration: none;
-            font-weight: 500;
-            padding: 0.4rem 0.75rem;
-            border-radius: 8px;
-            transition: all 0.3s ease;
-        }
-
-        .tab-btn:hover, .tab-btn.active {
-            color: #8b5cf6;
-            background: rgba(139, 92, 246, 0.1);
-        }
-
-        .auth-buttons {
-            display: flex;
-            gap: 0.5rem;
-            flex-wrap: wrap;
-        }
-
-        .btn {
+        
+        .badge {
+            position: absolute;
+            top: -12px;
+            right: 20px;
+            background: linear-gradient(135deg, #f59e0b, #d97706);
+            color: white;
             padding: 0.5rem 1rem;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 700;
+        }
+        
+        .card-icon {
+            font-size: 4rem;
+            margin-bottom: 1rem;
+        }
+        
+        .hero-card h2 {
+            font-size: 1.75rem;
+            color: var(--text);
+            margin-bottom: 0.5rem;
+        }
+        
+        .hero-card h3 {
+            font-size: 1.1rem;
+            color: var(--text-secondary);
+            margin-bottom: 1.5rem;
+            font-weight: 500;
+        }
+        
+        .features {
+            list-style: none;
+            text-align: left;
+            margin-bottom: 1.5rem;
+        }
+        
+        .features li {
+            padding: 0.75rem 0;
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+            line-height: 1.6;
+        }
+        
+        .pricing {
+            background: rgba(139, 92, 246, 0.1);
+            border: 2px solid var(--primary);
+            border-radius: 8px;
+            padding: 1rem;
+            margin-bottom: 1.5rem;
+            color: var(--primary);
+            font-weight: 600;
+            font-size: 1.1rem;
+        }
+        
+        .cta-buttons {
+            display: flex;
+            flex-direction: column;
+            gap: 0.75rem;
+        }
+        
+        .btn {
+            padding: 1rem 1.5rem;
             border: none;
             border-radius: 8px;
-            font-size: 0.875rem;
             font-weight: 600;
             cursor: pointer;
             transition: all 0.3s ease;
             text-decoration: none;
             display: inline-block;
+            font-size: 1rem;
             text-align: center;
         }
-
+        
         .btn-primary {
-            background: linear-gradient(135deg, #8b5cf6, #7c3aed);
+            background: var(--primary);
             color: white;
         }
-
+        
         .btn-primary:hover {
+            background: var(--primary-dark);
             transform: translateY(-2px);
-            box-shadow: 0 8px 25px rgba(139, 92, 246, 0.3);
+            box-shadow: 0 4px 12px rgba(139, 92, 246, 0.4);
         }
-
+        
         .btn-secondary {
             background: transparent;
-            color: #9ca3af;
-            border: 1px solid #4b5563;
+            color: var(--text);
+            border: 2px solid var(--border);
         }
-
+        
         .btn-secondary:hover {
-            border-color: #8b5cf6;
-            color: #8b5cf6;
+            background: var(--border);
+            border-color: var(--primary);
         }
-
-        /* Tutorial Steps */
-        .tutorial-step {
-            background: linear-gradient(135deg, #059669, #10b981);
-            color: white;
-            border-radius: 50%;
-            width: 30px;
-            height: 30px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-weight: bold;
-            font-size: 0.9rem;
-            margin-right: 1rem;
-            flex-shrink: 0;
+        
+        /* Footer */
+        .footer {
+            background: var(--darker);
+            border-top: 2px solid var(--primary);
+            padding: 3rem 0 1.5rem;
+            margin-top: 4rem;
         }
-
-        .tutorial-header {
-            display: flex;
-            align-items: center;
+        
+        .footer-content {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1fr;
+            gap: 3rem;
+            margin-bottom: 2rem;
+        }
+        
+        .footer-brand h3 {
+            font-size: 1.5rem;
+            font-weight: 800;
+            color: var(--primary);
             margin-bottom: 1rem;
         }
-
-        .tutorial-title {
-            color: #10b981;
+        
+        .footer-description {
+            color: var(--text-secondary);
+            line-height: 1.6;
+        }
+        
+        .link-group h4 {
+            color: var(--text);
             font-weight: 700;
-            font-size: 1.2rem;
+            margin-bottom: 1rem;
+            font-size: 0.95rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
         }
-
-        .tutorial-instruction {
-            background: rgba(16, 185, 129, 0.1);
-            border: 1px solid rgba(16, 185, 129, 0.3);
-            border-radius: 12px;
-            padding: 1rem;
-            margin-bottom: 1.5rem;
-            color: #d1d5db;
+        
+        .link-group a {
+            display: block;
+            color: var(--text-secondary);
+            text-decoration: none;
+            margin-bottom: 0.75rem;
+            transition: color 0.3s ease;
         }
-
-        .tutorial-instruction strong {
-            color: #10b981;
+        
+        .link-group a:hover {
+            color: var(--primary);
         }
-
-       /* Drawer Toggle Button */
-        .drawer-toggle {
-            position: fixed;
-            left: 20px;
-            top: 50%;
-            transform: translateY(-50%);
-            background: linear-gradient(135deg, #8b5cf6, #7c3aed);
-            border: 2px solid #ffffff;
-            border-radius: 50%;
-            width: 65px;
-            height: 65px;
-            color: white;
-            font-size: 1.8rem;
-            cursor: pointer;
-            z-index: 1002;
-            transition: all 0.4s ease;
-            box-shadow: 0 6px 25px rgba(139, 92, 246, 0.5);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            animation: pulse 2s infinite;
+        
+        .footer-bottom {
+            padding-top: 2rem;
+            border-top: 1px solid var(--border);
+            text-align: center;
         }
-
-        @keyframes pulse {
-            0% { box-shadow: 0 6px 25px rgba(139, 92, 246, 0.5); }
-            50% { box-shadow: 0 6px 25px rgba(139, 92, 246, 0.8), 0 0 0 10px rgba(139, 92, 246, 0.1); }
-            100% { box-shadow: 0 6px 25px rgba(139, 92, 246, 0.5); }
+        
+        .footer-copyright {
+            color: var(--text-secondary);
+            font-size: 0.875rem;
         }
-
-        .drawer-toggle:hover {
-            transform: translateY(-50%) scale(1.1);
-            box-shadow: 0 8px 30px rgba(139, 92, 246, 0.6);
-        }
-
-        .drawer-toggle.active {
-            left: 320px;
-            background: linear-gradient(135deg, #ef4444, #dc2626);
-            font-size: 1.5rem;
-            animation: none;
-        }
-
-        /* Drawer Overlay */
-        .drawer-overlay {
+        
+        /* Auth Modal */
+        .auth-modal {
+            display: none;
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            background: rgba(0, 0, 0, 0.4);
+            background: rgba(0, 0, 0, 0.8);
             z-index: 1000;
-            opacity: 0;
-            pointer-events: none;
-            transition: opacity 0.4s ease;
-        }
-
-        .drawer-overlay.active {
-            opacity: 1;
-            pointer-events: auto;
-        }
-
-        /* Platform Drawer */
-        .platform-drawer {
-            position: fixed;
-            left: -300px;
-            top: 85px;
-            width: 300px;
-            height: calc(100vh - 85px);
-            background: linear-gradient(180deg, #1e293b 0%, #0f172a 100%);
-            border-right: 1px solid #374151;
-            padding: 2rem;
-            z-index: 1001;
-            transition: left 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-            overflow-y: auto;
-            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
-        }
-
-        .platform-drawer.open {
-            left: 0;
-        }
-
-        .platform-drawer-header {
-            text-align: center;
-            margin-bottom: 2rem;
-        }
-
-        .platform-drawer-title {
-            font-size: 1.5rem;
-            font-weight: 700;
-            color: #8b5cf6;
-            margin-bottom: 0.5rem;
-        }
-
-        .platform-drawer-subtitle {
-            color: #9ca3af;
-            font-size: 0.9rem;
-        }
-
-        .platform-grid {
-            display: grid;
-            gap: 1rem;
-        }
-
-        .platform-item {
-            background: rgba(55, 65, 81, 0.6);
-            border: 1px solid #4b5563;
-            border-radius: 12px;
-            padding: 1rem;
-            cursor: pointer;
-            transition: all 0.3s ease;
-        }
-
-        .platform-item:hover {
-            border-color: #8b5cf6;
-            background: rgba(139, 92, 246, 0.1);
-            transform: translateY(-2px);
-        }
-
-        .platform-header {
-            display: flex;
-            justify-content: space-between;
             align-items: center;
-            margin-bottom: 0.5rem;
+            justify-content: center;
         }
-
-        .platform-name {
-            font-weight: 600;
-            color: #ffffff;
+        
+        .auth-modal.show {
+            display: flex;
         }
-
-        .platform-status {
-            font-size: 0.8rem;
-            padding: 0.25rem 0.5rem;
-            border-radius: 12px;
-            background: #374151;
-            color: #9ca3af;
-        }
-
-        .platform-status.demo {
-            background: #059669;
-            color: white;
-        }
-
-        .sample-messages {
-            margin-top: 0.5rem;
-            font-size: 0.8rem;
-            color: #9ca3af;
-        }
-
-        /* Usage Counter */
-        .usage-counter {
-            background: rgba(30, 41, 59, 0.8);
-            border: 1px solid #374151;
+        
+        .auth-modal-content {
+            background: var(--darker);
+            border: 2px solid var(--primary);
             border-radius: 16px;
-            padding: 1.5rem;
-            margin-bottom: 2rem;
-            text-align: center;
+            padding: 2.5rem;
+            max-width: 450px;
+            width: 90%;
+            max-height: 90vh;
+            overflow-y: auto;
         }
-
-        .usage-text {
-            font-size: 1.1rem;
-            color: #ffffff;
+        
+        .auth-modal h2 {
+            color: var(--text);
             margin-bottom: 0.5rem;
         }
-
-        .usage-bar {
-            background: #374151;
-            height: 8px;
-            border-radius: 4px;
-            overflow: hidden;
-            margin-bottom: 0.5rem;
-        }
-
-        .usage-fill {
-            background: linear-gradient(90deg, #8b5cf6, #06b6d4);
-            height: 100%;
-            width: 0%;
-            transition: width 0.3s ease;
-        }
-
-        /* Upload Methods */
-        .upload-section {
-            background: rgba(30, 41, 59, 0.8);
-            border: 1px solid #374151;
-            border-radius: 16px;
-            padding: 2rem;
+        
+        .auth-modal p {
+            color: var(--text-secondary);
             margin-bottom: 2rem;
         }
-
-        .upload-methods {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 1rem;
-            margin-bottom: 2rem;
-        }
-
-        .upload-method {
-            background: #374151;
-            border: 2px solid #4b5563;
-            border-radius: 12px;
-            padding: 1.5rem;
-            text-align: center;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            position: relative;
-        }
-
-        .upload-method:hover, .upload-method.active {
-            border-color: #8b5cf6;
-            background: rgba(139, 92, 246, 0.1);
-        }
-
-        .upload-method.demo-active {
-            border-color: #10b981;
-            background: rgba(16, 185, 129, 0.1);
-        }
-
-        .upload-method h3 {
-            color: #8b5cf6;
-            font-size: 1.2rem;
-            margin-bottom: 0.5rem;
-        }
-
-        .upload-method.demo-active h3 {
-            color: #10b981;
-        }
-
-        .upload-method .icon {
-            font-size: 2rem;
-            margin-bottom: 1rem;
-        }
-
-        .demo-badge {
-            position: absolute;
-            top: -8px;
-            right: -8px;
-            background: #10b981;
-            color: white;
-            font-size: 0.7rem;
-            padding: 0.2rem 0.5rem;
-            border-radius: 12px;
-            font-weight: bold;
-        }
-
-        .file-input {
-            display: none;
-        }
-
-        .bulk-textarea {
-            width: 100%;
-            min-height: 120px;
-            background: #374151;
-            border: 1px solid #4b5563;
-            border-radius: 8px;
-            color: #ffffff;
-            padding: 1rem;
-            font-size: 1rem;
-            resize: vertical;
-            display: none;
-            margin-top: 1rem;
-        }
-
-        .bulk-textarea:focus {
-            outline: none;
-            border-color: #8b5cf6;
-            box-shadow: 0 0 0 3px rgba(139, 92, 246, 0.1);
-        }
-
-        .bulk-textarea.show {
-            display: block;
-        }
-
-        /* Settings Section */
-        .settings-section {
-            background: rgba(30, 41, 59, 0.8);
-            border: 1px solid #374151;
-            border-radius: 16px;
-            padding: 2rem;
-            margin-bottom: 2rem;
-        }
-
-        .settings-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 1.5rem;
-            margin-bottom: 2rem;
-        }
-
-        .setting-group {
-            background: #374151;
-            border-radius: 12px;
-            padding: 1.5rem;
-        }
-
-        .setting-group h3 {
-            color: #8b5cf6;
-            font-size: 1.1rem;
-            margin-bottom: 1rem;
-        }
-
+        
         .form-group {
-            margin-bottom: 1rem;
+            margin-bottom: 1.5rem;
         }
-
-        .form-label {
+        
+        .form-group label {
             display: block;
-            color: #d1d5db;
-            font-weight: 500;
+            color: var(--text);
             margin-bottom: 0.5rem;
+            font-weight: 500;
         }
-
-        .form-select, .form-input, .form-textarea {
+        
+        .form-input {
             width: 100%;
-            background: #1f2937;
-            border: 1px solid #4b5563;
-            border-radius: 8px;
-            color: #ffffff;
             padding: 0.75rem;
+            background: var(--dark);
+            border: 2px solid var(--border);
+            border-radius: 8px;
+            color: var(--text);
             font-size: 1rem;
         }
-
-        .form-select:focus, .form-input:focus, .form-textarea:focus {
+        
+        .form-input:focus {
             outline: none;
-            border-color: #8b5cf6;
-            box-shadow: 0 0 0 3px rgba(139, 92, 246, 0.1);
+            border-color: var(--primary);
         }
-
-        .form-textarea {
-            min-height: 80px;
-            resize: vertical;
-        }
-
-        .checkbox-group {
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-            margin-bottom: 1rem;
-        }
-
-        .checkbox {
-            width: 18px;
-            height: 18px;
-            accent-color: #8b5cf6;
-        }
-
-        /* Messages Section */
-        .messages-section {
-            background: rgba(30, 41, 59, 0.8);
-            border: 1px solid #374151;
-            border-radius: 16px;
-            padding: 2rem;
-            margin-bottom: 2rem;
-        }
-
-        .messages-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 2rem;
-        }
-
-        .messages-header h2 {
-            color: #ffffff;
-            font-size: 1.8rem;
-        }
-
-        .batch-counter {
-            background: #374151;
-            color: #8b5cf6;
-            padding: 0.5rem 1rem;
-            border-radius: 20px;
-            font-weight: 600;
-        }
-
-        .message-pair {
-            background: #374151;
-            border: 1px solid #4b5563;
-            border-radius: 12px;
-            padding: 1.5rem;
-            margin-bottom: 1rem;
-            position: relative;
-        }
-
-        .message-pair-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 1rem;
-        }
-
-        .message-number {
-            color: #8b5cf6;
-            font-weight: 600;
-        }
-
-        .delete-message {
-            background: #ef4444;
-            color: white;
-            border: none;
-            border-radius: 6px;
-            padding: 0.25rem 0.5rem;
-            cursor: pointer;
-            font-size: 0.8rem;
-        }
-
-        .delete-message:hover {
-            background: #dc2626;
-        }
-
-        .message-input-group {
-            margin-bottom: 1rem;
-        }
-
-        .message-label {
-            display: block;
-            color: #d1d5db;
-            font-weight: 500;
-            margin-bottom: 0.5rem;
-        }
-
-        .message-input, .message-output {
-            width: 100%;
-            background: #1f2937;
-            border: 1px solid #4b5563;
-            border-radius: 8px;
-            color: #ffffff;
-            padding: 0.75rem;
-            font-size: 1rem;
-            min-height: 60px;
-            resize: vertical;
-        }
-
-        .message-input:focus {
-            outline: none;
-            border-color: #8b5cf6;
-            box-shadow: 0 0 0 3px rgba(139, 92, 246, 0.1);
-        }
-
-        .message-output {
-            background: #0f2027;
-            border-color: #10b981;
-            color: #a7f3d0;
-        }
-
-        /* Progress Section */
-        .progress-section {
-            background: rgba(30, 41, 59, 0.8);
-            border: 1px solid #374151;
-            border-radius: 16px;
-            padding: 2rem;
-            margin-bottom: 2rem;
-            display: none;
-        }
-
-        .progress-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 1rem;
-        }
-
-        .progress-bar {
-            background: #374151;
-            height: 12px;
-            border-radius: 6px;
-            overflow: hidden;
-            margin-bottom: 1rem;
-        }
-
-        .progress-fill {
-            background: linear-gradient(90deg, #8b5cf6, #06b6d4);
-            height: 100%;
-            width: 0%;
-            transition: width 0.3s ease;
-        }
-
-        .progress-stats {
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 1rem;
-            text-align: center;
-        }
-
-        .progress-stats > div {
-            background: #374151;
-            padding: 0.75rem;
-            border-radius: 8px;
-            font-size: 0.9rem;
-        }
-
-        /* Notifications */
-        .notification {
-            position: fixed;
-            top: 100px;
-            right: 20px;
-            background: #1f2937;
-            border: 1px solid #374151;
-            border-radius: 12px;
-            padding: 1rem 1.5rem;
-            color: #ffffff;
-            z-index: 10000;
-            max-width: 400px;
-            animation: slideIn 0.4s ease;
-            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
-        }
-
-        .notification.success {
-            border-color: #22c55e;
-            background: rgba(34, 197, 94, 0.1);
-        }
-
-        .notification.error {
-            border-color: #ef4444;
+        
+        .auth-error {
             background: rgba(239, 68, 68, 0.1);
-        }
-
-        .notification.info {
-            border-color: #3b82f6;
-            background: rgba(59, 130, 246, 0.1);
-        }
-
-        @keyframes slideIn {
-            from { transform: translateX(100%); opacity: 0; }
-            to { transform: translateX(0); opacity: 1; }
-        }
-
-        @keyframes slideOut {
-            from { transform: translateX(0); opacity: 1; }
-            to { transform: translateX(100%); opacity: 0; }
-        }
-
-        /* Footer */
-        .footer {
-            background: rgba(15, 23, 42, 0.95);
-            border-top: 1px solid #374151;
-            padding: 3rem 0;
-            text-align: center;
-        }
-
-        .footer-content {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            gap: 2rem;
-            flex-wrap: wrap;
-        }
-
-        .footer-links {
-            display: flex;
-            gap: 2rem;
-            flex-wrap: wrap;
-        }
-
-        .footer-links a {
-            color: #9ca3af;
-            text-decoration: none;
-            font-size: 0.875rem;
-            transition: color 0.3s ease;
-        }
-
-        .footer-links a:hover {
-            color: #8b5cf6;
-        }
-
-        .footer-copyright {
-            color: #6b7280;
-            font-size: 0.875rem;
-        }
-
-        /* Responsive Design */
-        @media (max-width: 768px) {
-            .container {
-                padding: 0 1rem;
-            }
-            
-            .nav-tabs {
-                display: none;
-            }
-            
-            .pricing-grid {
-                grid-template-columns: 1fr;
-                max-width: 400px;
-                margin: 0 auto;
-            }
-            
-            .tutorial-header {
-                flex-direction: column;
-                align-items: flex-start;
-            }
-            
-            .tutorial-step {
-                margin-bottom: 0.5rem;
-            }
-        }
-
-        /* Platform Windows */
-        .platform-window {
-            position: fixed;
-            width: 400px;
-            height: 600px;
-            background: rgba(30, 41, 59, 0.95);
-            border: 1px solid #374151;
-            border-radius: 16px;
-            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
-            z-index: 2000;
-            display: none;
-            backdrop-filter: blur(20px);
-        }
-
-        .platform-window.show {
-            display: block;
-        }
-
-        .platform-window-header {
-            background: rgba(139, 92, 246, 0.1);
-            border-bottom: 1px solid #374151;
-            padding: 1rem;
-            border-radius: 16px 16px 0 0;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            cursor: move;
-        }
-
-        .platform-window-title {
-            color: #8b5cf6;
-            font-weight: 700;
-        }
-
-        .platform-window-close {
-            background: #ef4444;
-            color: white;
-            border: none;
-            border-radius: 50%;
-            width: 24px;
-            height: 24px;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .platform-window-content {
-            padding: 1.5rem;
-            height: calc(100% - 60px);
-            overflow-y: auto;
-        }
-
-        .demo-message {
-            background: #374151;
-            border-radius: 12px;
+            border: 2px solid var(--danger);
+            border-radius: 8px;
             padding: 1rem;
             margin-bottom: 1rem;
-            border-left: 4px solid #8b5cf6;
+            color: var(--danger);
+            display: none;
         }
-
-        .demo-message-header {
-            display: flex;
-            justify-content: between;
-            align-items: center;
-            margin-bottom: 0.5rem;
+        
+        .auth-error.show {
+            display: block;
         }
-
-        .demo-username {
-            font-weight: 600;
-            color: #8b5cf6;
+        
+        .auth-switch {
+            text-align: center;
+            margin-top: 1.5rem;
+            color: var(--text-secondary);
         }
-
-        .demo-time {
-            color: #9ca3af;
-            font-size: 0.8rem;
-        }
-
-        .demo-message-text {
-            color: #e5e7eb;
-            line-height: 1.5;
-        }
-
-        .copy-message-btn {
-            background: #10b981;
-            color: white;
+        
+        .auth-switch button {
+            background: none;
             border: none;
-            border-radius: 6px;
-            padding: 0.5rem 1rem;
+            color: var(--primary);
             cursor: pointer;
-            font-size: 0.8rem;
-            margin-top: 0.5rem;
-            transition: all 0.3s ease;
+            font-weight: 600;
+            text-decoration: underline;
         }
-
-        .copy-message-btn:hover {
-            background: #059669;
-            transform: translateY(-1px);
+        
+        .hidden {
+            display: none;
         }
-      
-      /* Auth Modal Styles - Add this to your existing <style> section */
-.auth-modal {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(0, 0, 0, 0.8);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    z-index: 9999;
-    opacity: 0;
-    visibility: hidden;
-    transition: all 0.3s ease;
-}
-
-.auth-modal.show {
-    opacity: 1;
-    visibility: visible;
-}
-
-.auth-modal-content {
-    background: #1f2937;
-    border-radius: 20px;
-    padding: 3rem;
-    max-width: 450px;
-    width: 90%;
-    border: 1px solid #374151;
-    position: relative;
-}
-
-.modal-close {
-    position: absolute;
-    top: 1.5rem;
-    right: 1.5rem;
-    background: none;
-    border: none;
-    color: #9ca3af;
-    font-size: 1.5rem;
-    cursor: pointer;
-}
-
-.form-group {
-    margin-bottom: 1rem;
-}
-
-.form-label {
-    color: #e5e7eb;
-    font-weight: 600;
-    margin-bottom: 0.5rem;
-    display: block;
-}
-
-.form-input {
-    width: 100%;
-    padding: 0.75rem;
-    background: #374151;
-    border: 1px solid #4b5563;
-    border-radius: 8px;
-    color: white;
-}
-
-.name-fields {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 1rem;
-}
-
-.error-message, .success-message {
-    padding: 0.75rem;
-    border-radius: 8px;
-    margin-bottom: 1rem;
-    text-align: center;
-}
-
-.error-message {
-    background: rgba(239, 68, 68, 0.1);
-    border: 1px solid #ef4444;
-    color: #ef4444;
-}
-
-.success-message {
-    background: rgba(16, 185, 129, 0.1);
-    border: 1px solid #10b981;
-    color: #10b981;
-}
-
-.hidden {
-    display: none !important;
-}
-      
-      /* Add this to your existing CSS */
-.spinner {
-    width: 16px;
-    height: 16px;
-    border: 2px solid #ffffff33;
-    border-top: 2px solid #ffffff;
-    border-radius: 50%;
-    animation: spin 1s linear infinite;
-    display: inline-block;
-    margin-right: 8px;
-}
-
-@keyframes spin {
-    0% { transform: rotate(0deg); }
-    100% { transform: rotate(360deg); }
-}
-      
-      
+        
+        /* Responsive */
+        @media (max-width: 768px) {
+            .hero-title { font-size: 2rem; }
+            .hero-options { grid-template-columns: 1fr; }
+            .footer-content { grid-template-columns: 1fr; }
+        }
     </style>
 </head>
 <body>
-  <!-- PWA Floating Install Button -->
-<button id="pwa-floating-install" class="pwa-floating-install">
-    📱 Install App
-</button>
-    <!-- Drawer Toggle Button -->
-    <button class="drawer-toggle" id="drawer-toggle" onclick="toggleDrawer()" title="Click here to start the tutorial!" aria-label="Toggle Platform Drawer">
-        🌐
-    </button>
-
-    <!-- Drawer Overlay -->
-    <div class="drawer-overlay" id="drawer-overlay" onclick="closeDrawer()"></div>
-
-    <!-- Platform Drawer -->
-    <div class="platform-drawer" id="platform-drawer">
-        <div class="platform-drawer-header">
-            <div class="platform-drawer-title">🎯 Tutorial Demo</div>
-            <div class="platform-drawer-subtitle">Sample messages from each platform</div>
-        </div>
-        
-        <div class="tutorial-instruction">
-            <strong>Step 1:</strong> Click any platform below to see sample DMs that need responses. Copy messages and paste them into the generator below to see how it works!
-        </div>
-        
-        <div class="platform-grid">
-            <div class="platform-item" onclick="launchPlatform('instagram')">
-                <div class="platform-header">
-                    <div class="platform-name">📸 Instagram</div>
-                    <div class="platform-status demo" id="instagram-status">DEMO</div>
-                </div>
-                <div class="sample-messages">3 sample collaboration DMs</div>
-            </div>
-            
-            <div class="platform-item" onclick="launchPlatform('twitter')">
-                <div class="platform-header">
-                    <div class="platform-name">🐦 Twitter</div>
-                    <div class="platform-status demo" id="twitter-status">DEMO</div>
-                </div>
-                <div class="sample-messages">4 sample engagement messages</div>
-            </div>
-            
-            <div class="platform-item" onclick="launchPlatform('tiktok')">
-                <div class="platform-header">
-                    <div class="platform-name">🎵 TikTok</div>
-                    <div class="platform-status demo" id="tiktok-status">DEMO</div>
-                </div>
-                <div class="sample-messages">3 sample creator outreach DMs</div>
-            </div>
-            
-            <div class="platform-item" onclick="launchPlatform('facebook')">
-                <div class="platform-header">
-                    <div class="platform-name">👥 Facebook</div>
-                    <div class="platform-status demo" id="facebook-status">DEMO</div>
-                </div>
-                <div class="sample-messages">3 sample business inquiries</div>
-            </div>
-            
-            <div class="platform-item" onclick="launchPlatform('linkedin')">
-                <div class="platform-header">
-                    <div class="platform-name">💼 LinkedIn</div>
-                    <div class="platform-status demo" id="linkedin-status">DEMO</div>
-                </div>
-                <div class="sample-messages">4 sample professional messages</div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Platform Windows -->
-    <div id="instagram-window" class="platform-window">
-        <div class="platform-window-header">
-            <div class="platform-window-title">📸 Instagram DMs - Demo</div>
-            <button class="platform-window-close" onclick="closePlatformWindow('instagram')">×</button>
-        </div>
-        <div class="platform-window-content">
-            <div class="demo-message">
-                <div class="demo-message-header">
-                    <div class="demo-username">@fashionblogger_sarah</div>
-                    <div class="demo-time">2 hours ago</div>
-                </div>
-                <div class="demo-message-text">Hey! I love your content and I think we'd be a great fit for a collaboration. I have 50k followers who would love to see your products. Let me know if you're interested in working together!</div>
-                <button class="copy-message-btn" onclick="copyToGenerator('Hey! I love your content and I think we\'d be a great fit for a collaboration. I have 50k followers who would love to see your products. Let me know if you\'re interested in working together!')">Copy to Generator</button>
-            </div>
-            
-            <div class="demo-message">
-                <div class="demo-message-header">
-                    <div class="demo-username">@lifestyle_mike</div>
-                    <div class="demo-time">5 hours ago</div>
-                </div>
-                <div class="demo-message-text">Hi there! Your recent post about sustainable living really resonated with me. I'm working on a similar project and would love to connect. Are you open to collaborating on content?</div>
-                <button class="copy-message-btn" onclick="copyToGenerator('Hi there! Your recent post about sustainable living really resonated with me. I\'m working on a similar project and would love to connect. Are you open to collaborating on content?')">Copy to Generator</button>
-            </div>
-            
-            <div class="demo-message">
-                <div class="demo-message-header">
-                    <div class="demo-username">@brandpartner_co</div>
-                    <div class="demo-time">1 day ago</div>
-                </div>
-                <div class="demo-message-text">Hello! We represent several major brands and think you'd be perfect for our upcoming campaign. The compensation would be $500 plus free products. Interested in learning more?</div>
-                <button class="copy-message-btn" onclick="copyToGenerator('Hello! We represent several major brands and think you\'d be perfect for our upcoming campaign. The compensation would be $500 plus free products. Interested in learning more?')">Copy to Generator</button>
-            </div>
-        </div>
-    </div>
-
-    <div id="twitter-window" class="platform-window">
-        <div class="platform-window-header">
-            <div class="platform-window-title">🐦 Twitter DMs - Demo</div>
-            <button class="platform-window-close" onclick="closePlatformWindow('twitter')">×</button>
-        </div>
-        <div class="platform-window-content">
-            <div class="demo-message">
-                <div class="demo-message-header">
-                    <div class="demo-username">@techwriter_jane</div>
-                    <div class="demo-time">1 hour ago</div>
-                </div>
-                <div class="demo-message-text">Your thread about AI tools was incredibly insightful! I'm writing an article on this topic and would love to quote you. Would you be open to a quick interview?</div>
-                <button class="copy-message-btn" onclick="copyToGenerator('Your thread about AI tools was incredibly insightful! I\'m writing an article on this topic and would love to quote you. Would you be open to a quick interview?')">Copy to Generator</button>
-            </div>
-            
-            <div class="demo-message">
-                <div class="demo-message-header">
-                    <div class="demo-username">@startup_founder</div>
-                    <div class="demo-time">3 hours ago</div>
-                </div>
-                <div class="demo-message-text">Hey! I saw your expertise in social media marketing. We're a startup looking for advisors and would love to discuss a potential partnership. Are you available for a call this week?</div>
-                <button class="copy-message-btn" onclick="copyToGenerator('Hey! I saw your expertise in social media marketing. We\'re a startup looking for advisors and would love to discuss a potential partnership. Are you available for a call this week?')">Copy to Generator</button>
-            </div>
-            
-            <div class="demo-message">
-                <div class="demo-message-header">
-                    <div class="demo-username">@conference_org</div>
-                    <div class="demo-time">6 hours ago</div>
-                </div>
-                <div class="demo-message-text">We're organizing a tech conference next month and would love to have you as a keynote speaker. The event will have 500+ attendees and we can offer travel + accommodation. Interested?</div>
-                <button class="copy-message-btn" onclick="copyToGenerator('We\'re organizing a tech conference next month and would love to have you as a keynote speaker. The event will have 500+ attendees and we can offer travel + accommodation. Interested?')">Copy to Generator</button>
-            </div>
-            
-            <div class="demo-message">
-                <div class="demo-message-header">
-                    <div class="demo-username">@media_outlet</div>
-                    <div class="demo-time">1 day ago</div>
-                </div>
-                <div class="demo-message-text">Hi! We're running a feature on social media influencers and their impact on small businesses. Your story would be perfect. Could we schedule a 30-minute interview?</div>
-                <button class="copy-message-btn" onclick="copyToGenerator('Hi! We\'re running a feature on social media influencers and their impact on small businesses. Your story would be perfect. Could we schedule a 30-minute interview?')">Copy to Generator</button>
-            </div>
-        </div>
-    </div>
-
-    <div id="tiktok-window" class="platform-window">
-        <div class="platform-window-header">
-            <div class="platform-window-title">🎵 TikTok DMs - Demo</div>
-            <button class="platform-window-close" onclick="closePlatformWindow('tiktok')">×</button>
-        </div>
-        <div class="platform-window-content">
-            <div class="demo-message">
-                <div class="demo-message-header">
-                    <div class="demo-username">@dance_creator_zoe</div>
-                    <div class="demo-time">30 mins ago</div>
-                </div>
-                <div class="demo-message-text">OMG your dance moves are amazing! Want to do a collab duet? I think our styles would mesh really well and we could create something viral together! 💃</div>
-                <button class="copy-message-btn" onclick="copyToGenerator('OMG your dance moves are amazing! Want to do a collab duet? I think our styles would mesh really well and we could create something viral together!')">Copy to Generator</button>
-            </div>
-            
-            <div class="demo-message">
-                <div class="demo-message-header">
-                    <div class="demo-username">@brand_tiktok</div>
-                    <div class="demo-time">2 hours ago</div>
-                </div>
-                <div class="demo-message-text">Hi! We're a skincare brand launching on TikTok and love your aesthetic. We'd like to send you our new product line for honest reviews. No strings attached - just genuine feedback!</div>
-                <button class="copy-message-btn" onclick="copyToGenerator('Hi! We\'re a skincare brand launching on TikTok and love your aesthetic. We\'d like to send you our new product line for honest reviews. No strings attached - just genuine feedback!')">Copy to Generator</button>
-            </div>
-            
-            <div class="demo-message">
-                <div class="demo-message-header">
-                    <div class="demo-username">@music_producer_alex</div>
-                    <div class="demo-time">4 hours ago</div>
-                </div>
-                <div class="demo-message-text">Hey! I've been following your content and love your vibe. I just dropped a new track and think it would be perfect for your videos. Want to be one of the first to use it?</div>
-                <button class="copy-message-btn" onclick="copyToGenerator('Hey! I\'ve been following your content and love your vibe. I just dropped a new track and think it would be perfect for your videos. Want to be one of the first to use it?')">Copy to Generator</button>
-            </div>
-        </div>
-    </div>
-
-    <div id="facebook-window" class="platform-window">
-        <div class="platform-window-header">
-            <div class="platform-window-title">👥 Facebook DMs - Demo</div>
-            <button class="platform-window-close" onclick="closePlatformWindow('facebook')">×</button>
-        </div>
-        <div class="platform-window-content">
-            <div class="demo-message">
-                <div class="demo-message-header">
-                    <div class="demo-username">Local Restaurant Owner</div>
-                    <div class="demo-time">1 hour ago</div>
-                </div>
-                <div class="demo-message-text">Hi! I run a family restaurant downtown and saw your food reviews. We're opening a new location next month and would love to invite you for a complimentary tasting. Interested?</div>
-                <button class="copy-message-btn" onclick="copyToGenerator('Hi! I run a family restaurant downtown and saw your food reviews. We\'re opening a new location next month and would love to invite you for a complimentary tasting. Interested?')">Copy to Generator</button>
-            </div>
-            
-            <div class="demo-message">
-                <div class="demo-message-header">
-                    <div class="demo-username">Event Organizer</div>
-                    <div class="demo-time">3 hours ago</div>
-                </div>
-                <div class="demo-message-text">Hello! We're organizing a charity gala for local animal shelters and would love your help promoting it. We can offer recognition as a community partner. Would you be interested in supporting our cause?</div>
-                <button class="copy-message-btn" onclick="copyToGenerator('Hello! We\'re organizing a charity gala for local animal shelters and would love your help promoting it. We can offer recognition as a community partner. Would you be interested in supporting our cause?')">Copy to Generator</button>
-            </div>
-            
-            <div class="demo-message">
-                <div class="demo-message-header">
-                    <div class="demo-username">Small Business Owner</div>
-                    <div class="demo-time">1 day ago</div>
-                </div>
-                <div class="demo-message-text">Hi there! I saw your post about supporting local businesses. I just launched a handmade jewelry line and would love to send you a piece to try. No expectations, just hoping to share my passion with fellow supporters of small business!</div>
-                <button class="copy-message-btn" onclick="copyToGenerator('Hi there! I saw your post about supporting local businesses. I just launched a handmade jewelry line and would love to send you a piece to try. No expectations, just hoping to share my passion with fellow supporters of small business!')">Copy to Generator</button>
-            </div>
-        </div>
-    </div>
-
-    <div id="linkedin-window" class="platform-window">
-        <div class="platform-window-header">
-            <div class="platform-window-title">💼 LinkedIn DMs - Demo</div>
-            <button class="platform-window-close" onclick="closePlatformWindow('linkedin')">×</button>
-        </div>
-        <div class="platform-window-content">
-            <div class="demo-message">
-                <div class="demo-message-header">
-                    <div class="demo-username">HR Director at Tech Co</div>
-                    <div class="demo-time">2 hours ago</div>
-                </div>
-                <div class="demo-message-text">Hello! I came across your profile and was impressed by your experience in digital marketing. We have an exciting opportunity for a Senior Marketing Manager role. Would you be open to a brief conversation about your career goals?</div>
-                <button class="copy-message-btn" onclick="copyToGenerator('Hello! I came across your profile and was impressed by your experience in digital marketing. We have an exciting opportunity for a Senior Marketing Manager role. Would you be open to a brief conversation about your career goals?')">Copy to Generator</button>
-            </div>
-            
-            <div class="demo-message">
-                <div class="demo-message-header">
-                    <div class="demo-username">Industry Conference Speaker</div>
-                    <div class="demo-time">5 hours ago</div>
-                </div>
-                <div class="demo-message-text">Hi! I'm speaking at the Digital Marketing Summit next month and noticed we're both passionate about social media strategy. Would you be interested in co-presenting a session on emerging trends?</div>
-                <button class="copy-message-btn" onclick="copyToGenerator('Hi! I\'m speaking at the Digital Marketing Summit next month and noticed we\'re both passionate about social media strategy. Would you be interested in co-presenting a session on emerging trends?')">Copy to Generator</button>
-            </div>
-            
-            <div class="demo-message">
-                <div class="demo-message-header">
-                    <div class="demo-username">Startup Founder</div>
-                    <div class="demo-time">8 hours ago</div>
-                </div>
-                <div class="demo-message-text">Your insights on content marketing really resonated with me. I'm launching a B2B SaaS platform and could really use someone with your expertise as an advisor. Would you be open to discussing a potential advisory role?</div>
-                <button class="copy-message-btn" onclick="copyToGenerator('Your insights on content marketing really resonated with me. I\'m launching a B2B SaaS platform and could really use someone with your expertise as an advisor. Would you be open to discussing a potential advisory role?')">Copy to Generator</button>
-            </div>
-            
-            <div class="demo-message">
-                <div class="demo-message-header">
-                    <div class="demo-username">Industry Publication Editor</div>
-                    <div class="demo-time">1 day ago</div>
-                </div>
-                <div class="demo-message-text">Hello! I edit a leading marketing publication and would love to feature your expertise in an upcoming article about AI in social media. Would you be available for a 20-minute interview this week?</div>
-                <button class="copy-message-btn" onclick="copyToGenerator('Hello! I edit a leading marketing publication and would love to feature your expertise in an upcoming article about AI in social media. Would you be available for a 20-minute interview this week?')">Copy to Generator</button>
-            </div>
-        </div>
-    </div>
-
     <!-- Header -->
     <header class="header">
         <div class="container">
             <div class="header-content">
-                <div class="logo" onclick="window.location.href = '/'">DMTools.fun</div>
-                
-             <nav class="nav-tabs">
-    <a href="/app.html" class="tab-btn">💬 Generator</a>
-    <a href="/presets.html" class="tab-btn">📋 Templates</a>
-    <a href="/packs.html" class="tab-btn">🎁 Packs</a>
-    <a href="/analytics.html" class="tab-btn">📊 Analytics</a>
-    <a href="/contact.html" class="tab-btn">📞 Contact</a>
-    <a href="/pricing.html" class="tab-btn">💎 Pricing</a>
-    <a href="/account.html" class="tab-btn">👤 Account</a>
-</nav>
-                 <!-- PWA Header Install Button -->
-<button id="pwa-header-install" class="pwa-header-install">
-    📱 Get App
-</button>
-
-<script>
-  // Show install button when prompt is available
-  window.addEventListener('beforeinstallprompt', (e) => {
-    e.preventDefault();
-    deferredPrompt = e;
-    document.getElementById('pwa-install-btn').style.display = 'block';
-  });
-
-  // Handle install button click
-  document.getElementById('pwa-install-btn').addEventListener('click', async () => {
-    if (deferredPrompt) {
-      deferredPrompt.prompt();
-      const { outcome } = await deferredPrompt.userChoice;
-      
-      if (outcome === 'accepted') {
-        console.log('✅ User accepted PWA installation');
-        document.getElementById('pwa-install-btn').style.display = 'none';
-      }
-      deferredPrompt = null;
-    }
-  });
-
-  // Hide button if already installed
-  window.addEventListener('appinstalled', () => {
-    document.getElementById('pwa-install-btn').style.display = 'none';
-  });
-</script>
-</nav>
-                
-                <div class="auth-buttons">
-                    <div id="auth-section">
-                        <button class="btn btn-secondary" onclick="showAuthModal(true)">Sign In</button>
-                        <button class="btn btn-primary" onclick="showAuthModal(false)">Sign Up</button>
-                    </div>
-                    
-                    <div id="user-section" class="hidden">
-                        <span id="user-email" style="color: #9ca3af; margin-right: 1rem; font-size: 0.9rem;"></span>
-                        <button class="btn btn-secondary" onclick="logout()">Logout</button>
-                    </div>
-                </div>
+                <a href="/" class="logo">💬 DMTools.fun</a>
             </div>
         </div>
     </header>
-
-    <!-- Main Content -->
-    <main class="main-content">
+    
+    <!-- Hero Section -->
+    <main class="hero">
         <div class="container">
+            <div class="hero-intro">
+                <h1 class="hero-title">AI-Powered Response Generation</h1>
+                <p class="hero-subtitle">Choose Your Workflow</p>
+                <p class="hero-tagline">Save 10+ hours weekly with instant professional responses</p>
+            </div>
             
-            <!-- Generator Tab -->
-            <div id="generator" class="tab-content active">
-                <!-- Tutorial Header -->
-                <div class="tutorial-instruction" style="text-align: center; margin-bottom: 1rem; padding: 0.75rem;">
-                    <h2 style="color: #10b981; margin-bottom: 0.5rem; font-size: 1.4rem;">🎯 Interactive Tutorial: See DMTools.fun in Action!</h2>
-                    <p style="font-size: 0.95rem; margin-bottom: 0.5rem;">Follow the steps below to experience how our AI-powered universal unlimited batch response draft generator works.</p>
-                    <p style="color: #9ca3af; font-size: 0.9rem;">👆 Start by clicking the large 🌐 button on the left to explore sample messages!</p>
-                  <!-- PWA Inline Install CTA -->
-<div style="text-align: center; margin: 1rem 0 0.5rem 0;">
-    <button id="pwa-inline-install" class="pwa-inline-install">
-        <span style="font-size: 20px;">📱</span>
-        <div>
-            <div style="font-size: 0.95rem;">Install DMTools App</div>
-            <div style="font-size: 12px; opacity: 0.9; font-weight: 400;">Get instant access on your home screen</div>
-        </div>
-    </button>
-</div>
-                </div>
-
-                <!-- Usage Counter -->
-                <div class="usage-counter" id="usage-counter">
-                    <div class="tutorial-header">
-                        <div class="tutorial-step">1</div>
-                        <div class="tutorial-title">Usage Tracking Demo</div>
+            <div class="hero-options">
+                <!-- Extension + Packs -->
+                <div class="hero-card">
+                    <div class="card-icon">🎁</div>
+                    <h2>Extension + Packs</h2>
+                    <h3>Quick Inline Replies</h3>
+                    <ul class="features">
+                        <li>✓ Reply directly in Gmail, LinkedIn, Twitter</li>
+                        <li>✓ Chrome extension included</li>
+                        <li>✓ No monthly commitment</li>
+                        <li>✓ Pay only for what you use</li>
+                    </ul>
+                    <div class="pricing">
+                        Packs: $9.99 - $59.99 (500-4,000 responses)
                     </div>
-                    <div class="usage-text">
-                        <span id="usage-count">0</span> / <span id="usage-limit">100</span> demo responses generated
-                    </div>
-                    <div class="usage-bar">
-                        <div class="usage-fill" id="usage-fill" style="width: 0%;"></div>
-                    </div>
-                    <p style="color: #9ca3af; font-size: 0.9rem;" id="usage-plan-text">Tutorial mode - see how usage tracking works in the real app</p>
-                </div>
-
-                <!-- Upload Section -->
-                <div class="upload-section">
-                    <div class="tutorial-header">
-                        <div class="tutorial-step">2</div>
-                        <div class="tutorial-title">Add Messages to Process</div>
-                    </div>
-                    
-                    <div class="tutorial-instruction">
-                        <strong>Try it:</strong> Click "Manual Entry" below, then copy sample messages from the platform drawer (🌐 button) and paste them into the message pairs that appear.
-                    </div>
-                    
-                    <div class="upload-methods">
-                        <div class="upload-method demo-active" onclick="selectUploadMethod('manual')">
-                            <div class="demo-badge">ACTIVE</div>
-                            <div class="icon">✍️</div>
-                            <h3>Manual Entry</h3>
-                            <p style="color: #9ca3af; font-size: 0.9rem;">Add messages one by one</p>
-                        </div>
-                        
-                        <div class="upload-method" onclick="selectUploadMethod('bulk')">
-                            <div class="icon">📝</div>
-                            <h3>Bulk Text</h3>
-                            <p style="color: #9ca3af; font-size: 0.9rem;">Paste multiple messages</p>
-                        </div>
-                        
-                        <div class="upload-method" onclick="selectUploadMethod('csv')">
-                            <div class="icon">📊</div>
-                            <h3>CSV Upload</h3>
-                            <p style="color: #9ca3af; font-size: 0.9rem;">Import from spreadsheet</p>
-                        </div>
-                    </div>
-
-                    <input type="file" id="csv-upload" class="file-input" accept=".csv" onchange="handleCSVUpload(this)">
-                    
-                    <textarea 
-                        id="bulk-messages" 
-                        class="bulk-textarea" 
-                        placeholder="Paste your messages here, one per line...&#10;&#10;Example:&#10;Hey, love your content!&#10;Are you open to collaborations?&#10;Check out my latest post!"
-                    ></textarea>
-                </div>
-
-                <!-- Settings Section -->
-                <div class="settings-section">
-                    <div class="tutorial-header">
-                        <div class="tutorial-step">3</div>
-                        <div class="tutorial-title">Customize Response Settings</div>
-                    </div>
-                    
-                    <div class="tutorial-instruction">
-                        <strong>Try it:</strong> Change the tone to "Enthusiastic" and add some context about your brand. See how it affects the AI responses!
-                    </div>
-                    
-                    <div class="settings-grid">
-                        <div class="setting-group">
-                            <h3>🎭 Response Tone</h3>
-                            <div class="form-group">
-                                <select id="batch-tone" class="form-select">
-                                    <option value="professional">Professional</option>
-                                    <option value="friendly" selected>Friendly</option>
-                                    <option value="casual">Casual</option>
-                                    <option value="enthusiastic">Enthusiastic</option>
-                                    <option value="polite">Polite</option>
-                                    <option value="creative">Creative</option>
-                                </select>
-                            </div>
-                        </div>
-
-                        <div class="setting-group">
-                            <h3>📝 Context (Optional)</h3>
-                            <div class="form-group">
-                                <textarea 
-                                    id="batch-context" 
-                                    class="form-textarea" 
-                                    placeholder="Example: I'm a lifestyle blogger focused on sustainable living. I often collaborate with eco-friendly brands..."
-                                ></textarea>
-                            </div>
-                        </div>
-                        
-                        <div class="setting-group">
-                            <h3>🧠 Smart Features</h3>
-                            <div class="checkbox-group">
-                                <input type="checkbox" id="smart-categorization" class="checkbox" checked>
-                                <label for="smart-categorization">Auto-categorize messages</label>
-                            </div>
-                            <div class="checkbox-group">
-                                <input type="checkbox" id="context-aware" class="checkbox" checked>
-                                <label for="context-aware">Context-aware responses</label>
-                            </div>
-                            <div class="checkbox-group">
-                                <input type="checkbox" id="personalization" class="checkbox">
-                                <label for="personalization">Personalized responses</label>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Messages Section -->
-                <div class="messages-section">
-                    <div class="tutorial-header">
-                        <div class="tutorial-step">4</div>
-                        <div class="tutorial-title">Message Pairs - Input & Output</div>
-                    </div>
-                    
-                    <div class="tutorial-instruction">
-                        <strong>How it works:</strong> Paste messages from the platform drawer into the "Incoming Message" field. When you click "Process All Messages", AI-generated responses will appear in the "AI Response" field.
-                    </div>
-
-                    <div class="messages-header">
-                        <h2>💬 Demo Message Pairs</h2>
-                        <div class="batch-counter">
-                            <span id="message-count">2</span> Messages
-                        </div>
-                    </div>
-
-                    <div id="messages-container">
-                        <!-- Pre-populated demo message pairs -->
-                        <div class="message-pair">
-                            <div class="message-pair-header">
-                                <div class="message-number">Message #1</div>
-                                <button class="delete-message" onclick="deleteMessagePair(this)">🗑️</button>
-                            </div>
-                            <div class="message-input-group">
-                                <label class="message-label">Incoming Message:</label>
-                                <textarea class="message-input" placeholder="Paste a message from the platform drawer here...">Hey! I love your content and I think we'd be a great fit for a collaboration. I have 50k followers who would love to see your products. Let me know if you're interested in working together!</textarea>
-                            </div>
-                            <div class="message-input-group">
-                                <label class="message-label">AI Response:</label>
-                                <textarea class="message-output" readonly placeholder="AI-generated response will appear here after processing...">Thank you so much for reaching out! I really appreciate you taking the time to connect. I'd love to learn more about the collaboration you have in mind. Your follower count sounds great! Could you share a bit more about what type of collaboration you're thinking? I'm always excited to work with fellow creators who align with my values. Feel free to send over some examples of your previous work or partnerships. Looking forward to hearing from you! 😊</textarea>
-                            </div>
-                        </div>
-
-                        <div class="message-pair">
-                            <div class="message-pair-header">
-                                <div class="message-number">Message #2</div>
-                                <button class="delete-message" onclick="deleteMessagePair(this)">🗑️</button>
-                            </div>
-                            <div class="message-input-group">
-                                <label class="message-label">Incoming Message:</label>
-                                <textarea class="message-input" placeholder="Paste a message from the platform drawer here...">Your thread about AI tools was incredibly insightful! I'm writing an article on this topic and would love to quote you. Would you be open to a quick interview?</textarea>
-                            </div>
-                            <div class="message-input-group">
-                                <label class="message-label">AI Response:</label>
-                                <textarea class="message-output" readonly placeholder="AI-generated response will appear here after processing...">Hi! Thank you so much for the kind words about my AI tools thread! I'm thrilled it was helpful. I'd be happy to contribute to your article - it sounds like a great topic. A quick interview would be perfect! I'm generally available for a 15-20 minute call this week or next. Would that work for you? Feel free to send over a few sample questions beforehand so I can prepare thoughtful responses. Looking forward to collaborating! Best regards 📝</textarea>
-                            </div>
-                        </div>
-                    </div>
-
-                    <button class="btn btn-secondary" style="width: 100%; margin-top: 1rem;" onclick="addMessagePair()">
-                        ➕ Add Another Message
-                    </button>
-                </div>
-
-                <!-- Action Buttons -->
-                <div style="margin-top: 2rem;">
-                    <div class="tutorial-header" style="margin-bottom: 1rem;">
-                        <div class="tutorial-step">5</div>
-                        <div class="tutorial-title">Process & Export</div>
-                    </div>
-                    
-                    <div class="tutorial-instruction">
-                        <strong>Final step:</strong> Click "Process All Messages" to generate AI responses for any empty message pairs. Then export your results!
-                    </div>
-                    
-                    <div style="display: flex; gap: 1rem; flex-wrap: wrap;">
-                        <button class="btn btn-primary" id="process-all-btn" onclick="processAllMessages()" style="flex: 1; min-width: 200px;">
-                            🚀 Process All Messages
+                    <div class="cta-buttons">
+                        <button class="btn btn-primary" onclick="showAuthModal('/packs.html', false)">
+                            Login to Packs
                         </button>
-                        
-                        <button class="btn btn-secondary" onclick="clearAllMessages()" style="min-width: 150px;">
-                            🗑️ Clear All
-                        </button>
-                        
-                        <button class="btn btn-secondary" onclick="exportResults()" style="min-width: 150px;">
-                            📥 Export Results
+                        <button class="btn btn-secondary" onclick="showAuthModal('/packs.html', true)">
+                            Get Started Free
                         </button>
                     </div>
                 </div>
-
-                <!-- Call to Action -->
-                <div style="background: linear-gradient(135deg, #8b5cf6, #06b6d4); border-radius: 16px; padding: 2rem; margin-top: 3rem; text-align: center;">
-                    <h3 style="color: white; margin-bottom: 1rem; font-size: 1.5rem;">🎉 Ready to save 10+ hours per week?</h3>
-                    <p style="color: rgba(255,255,255,0.9); margin-bottom: 1.5rem;">You've seen how DMTools.fun works! Sign up now to process real messages from your social media accounts.</p>
-                    <div style="display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap;">
-                        <button class="btn" style="background: white; color: #8b5cf6;" onclick="window.location.href='#pricing'">
-                            🚀 Choose Your Plan
-                      </button>
-                      
-                        <button class="btn" style="background: transparent; color: white; border: 2px solid white;" onclick="window.location.href='/account.html'">
-                            👤 Create Account
+                
+                <!-- Batch Generator -->
+                <div class="hero-card featured">
+                    <div class="badge">Most Popular</div>
+                    <div class="card-icon">💼</div>
+                    <h2>Batch Generator</h2>
+                    <h3>Bulk Response Processing</h3>
+                    <ul class="features">
+                        <li>✓ Generate 100+ responses at once</li>
+                        <li>✓ Unlimited usage within plan</li>
+                        <li>✓ Extension included (shared pool)</li>
+                        <li>✓ Advanced templates & analytics</li>
+                    </ul>
+                    <div class="pricing">
+                        Starting at $19/month
+                    </div>
+                    <div class="cta-buttons">
+                        <button class="btn btn-primary" onclick="showAuthModal('/app.html', false)">
+                            Login to App
+                        </button>
+                        <button class="btn btn-secondary" onclick="showAuthModal('/app.html', true)">
+                            Start Free Trial
                         </button>
                     </div>
                 </div>
             </div>
         </div>
-  
-  </main>
-
-   
+    </main>
+    
+    <!-- Auth Modal -->
+    <div class="auth-modal" id="auth-modal">
+        <div class="auth-modal-content">
+            <h2 id="auth-title">Welcome Back</h2>
+            <p id="auth-subtitle">Sign in to your account</p>
+            
+            <div class="auth-error" id="auth-error"></div>
+            
+            <form id="auth-form" onsubmit="handleAuth(event)">
+                <div id="name-fields" class="hidden">
+                    <div class="form-group">
+                        <label>First Name</label>
+                        <input type="text" id="first-name" class="form-input" placeholder="Enter your first name">
+                    </div>
+                    <div class="form-group">
+                        <label>Last Name</label>
+                        <input type="text" id="last-name" class="form-input" placeholder="Enter your last name">
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label>Email</label>
+                    <input type="email" id="auth-email" class="form-input" placeholder="Enter your email" required>
+                </div>
+                
+                <div class="form-group">
+                    <label>Password</label>
+                    <input type="password" id="auth-password" class="form-input" placeholder="Enter your password" required>
+                </div>
+                
+                <button type="submit" class="btn btn-primary" id="auth-submit" style="width: 100%;">
+                    Sign In
+                </button>
+            </form>
+            
+            <div class="auth-switch">
+                <span id="switch-text">Don't have an account?</span>
+                <button type="button" onclick="toggleAuthMode()">Sign Up</button>
+            </div>
+            
+            <div style="text-align: center; margin-top: 1rem;">
+                <button type="button" onclick="hideAuthModal()" style="background: none; border: none; color: var(--text-secondary); cursor: pointer;">
+                    Close
+                </button>
+            </div>
+        </div>
+    </div>
+    
     <!-- Footer -->
     <footer class="footer">
         <div class="container">
             <div class="footer-content">
-                <div class="footer-links">
-                    <a href="/privacy-policy.html">Privacy Policy</a>
+                <div class="footer-brand">
+                    <h3>💬 DMTools.fun</h3>
+                    <p class="footer-description">
+                        Universal AI Response Generator for all your messaging needs.
+                        Generate professional responses for Gmail, LinkedIn, Twitter, and more.
+                    </p>
+                </div>
+                
+                <div class="link-group">
+                    <h4>Product</h4>
+                    <a href="/app.html">Batch Generator</a>
+                    <a href="/packs.html">Response Packs</a>
+                    <a href="/install-extension.html">Extension</a>
+                    <a href="/pricing.html">Pricing</a>
+                </div>
+                
+                <div class="link-group">
+                    <h4>Legal</h4>
                     <a href="/terms-of-service.html">Terms of Service</a>
+                    <a href="/privacy-policy.html">Privacy Policy</a>
                     <a href="/refund-policy.html">Refund Policy</a>
-                    <a href="/cookie-policy.html">Cookie Policy</a>
-                    <a href="/contact.html">Contact</a>
-                    <a href="mailto:admin@dmtools.fun">Support</a>
-                 
-                  
                 </div>
-                <div class="footer-copyright">
-                    © 2025 DMTools.fun. The world's first Universal Digital Messaging Response Command Center.
+                
+                <div class="link-group">
+                    <h4>Support</h4>
+                    <a href="/contact.html">Contact Us</a>
+                    <a href="/cdn-cgi/l/email-protection#62111712120d101622060f160d0d0e114c04170c">Email Support</a>
+                    <a href="/install-extension.html">Extension Setup</a>
                 </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <p class="footer-copyright">© 2025 DMTools.fun. All rights reserved.</p>
             </div>
         </div>
     </footer>
-  
-  <!-- Auth Modal -->
-<div id="auth-modal" class="auth-modal">
-    <div class="auth-modal-content">
-        <button class="modal-close" onclick="hideAuthModal()">×</button>
-        <div class="auth-modal-header">
-            <h2 class="auth-modal-title" id="auth-modal-title">Sign In</h2>
-            <p class="auth-modal-subtitle" id="auth-modal-subtitle">Access your account</p>
-        </div>
-
-        <div id="auth-error" class="error-message hidden"></div>
-        <div id="auth-success" class="success-message hidden"></div>
-
-        <div id="name-fields" class="name-fields hidden">
-            <div class="form-group">
-                <label class="form-label">First Name</label>
-                <input type="text" id="first-name" class="form-input" placeholder="First name" />
-            </div>
-            <div class="form-group">
-                <label class="form-label">Last Name</label>
-                <input type="text" id="last-name" class="form-input" placeholder="Last name" />
-            </div>
-        </div>
+    
+    <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+        const API_BASE = 'https://dmtools-backend-production.up.railway.app/api';
+        let authDestination = '/packs.html';
+        let isSignupMode = false;
         
-        <div class="form-group">
-            <label class="form-label">Email</label>
-            <input type="email" id="auth-email" class="form-input" placeholder="Enter your email" />
-        </div>
-        
-        <div class="form-group">
-            <label class="form-label">Password</label>
-            <input type="password" id="auth-password" class="form-input" placeholder="Enter your password" />
-        </div>
-        
-        <button class="btn btn-primary" id="auth-submit-btn" onclick="handleAuth()" style="width: 100%;">
-            Sign In
-        </button>
-        
-        <div style="text-align: center; margin-top: 1rem;">
-            <p>
-                <span id="auth-switch-text">Don't have an account?</span>
-                <button id="auth-switch-btn" onclick="toggleAuthMode()" style="background: none; border: none; color: #8b5cf6; text-decoration: underline; cursor: pointer;">Sign Up</button>
-            </p>
-        </div>
-    </div>
-</div>
-
-    <script>
-      // Add this to your index.html JavaScript section (around where other variables are declared)
-const API_BASE = 'https://dmtools-backend-production.up.railway.app/api';
-     
-      let currentUser = null;
-let isAuthenticated = false;
-let isLoginMode = true;
-      
-        // Tutorial state
-        let tutorialState = {
-            currentStep: 1,
-            messagesGenerated: 2,
-            platformsOpened: 0
-        };
-
-        // Platform window positions
-        let windowPositions = {};
-
-        // Sample AI responses for different tones
-        const sampleResponses = {
-            professional: [
-                "Thank you for reaching out. I appreciate your interest in collaboration. I would be happy to discuss this opportunity further. Please feel free to share more details about your proposal.",
-                "I appreciate you taking the time to contact me. Your proposal sounds intriguing. I would be pleased to explore this collaboration opportunity. Could you provide additional information about the partnership?",
-                "Thank you for your message. I'm interested in learning more about this opportunity. Please share additional details about the collaboration you have in mind."
-            ],
-            friendly: [
-                "Thanks so much for reaching out! I'd love to hear more about this collaboration. It sounds really exciting! Feel free to send over more details whenever you have a chance. 😊",
-                "Hey! Thanks for the message - this sounds like a great opportunity! I'm definitely interested in learning more. Would love to see what you have in mind!",
-                "Hi there! Really appreciate you thinking of me for this. I'm excited to hear more about what you're planning. Let's chat!"
-            ],
-            enthusiastic: [
-                "WOW! This sounds absolutely AMAZING! I'm so excited you reached out! I would LOVE to collaborate with you - this is exactly the kind of opportunity I've been looking for! 🎉✨",
-                "OH MY GOSH! YES! This sounds incredible! I'm beyond excited about this collaboration opportunity! Let's make something amazing together! 🚀💫",
-                "This is SO exciting! I'm absolutely thrilled you thought of me! I can't wait to dive into this collaboration - it sounds perfect! ⭐🎊"
-            ],
-            casual: [
-                "Hey! Thanks for hitting me up! This sounds pretty cool - I'm definitely down to hear more about it. Just shoot me the details whenever!",
-                "What's up! This sounds awesome, I'm totally interested. Just let me know what you're thinking and we can go from there!",
-                "Hey there! This looks like it could be fun - I'm in! Just send me the deets and we can figure it out."
-            ]
-        };
-
-        // Initialize tutorial
-        document.addEventListener('DOMContentLoaded', function() {
-            console.log('🎯 DMTools Tutorial Mode Activated');
-            initializeTutorial();
-            updateMessageCount();
-        });
-
-        function initializeTutorial() {
-            // Set initial state
-            selectUploadMethod('manual');
+        function showAuthModal(destination, signup = false) {
+            authDestination = destination;
+            isSignupMode = signup;
             
-            // Update usage display
-            document.getElementById('usage-count').textContent = tutorialState.messagesGenerated;
-            document.getElementById('usage-fill').style.width = (tutorialState.messagesGenerated / 100) * 100 + '%';
-        }
-
-        // Drawer functionality
-        function toggleDrawer() {
-            const drawer = document.getElementById('platform-drawer');
-            const overlay = document.getElementById('drawer-overlay');
-            const toggleBtn = document.getElementById('drawer-toggle');
+            const modal = document.getElementById('auth-modal');
+            const title = document.getElementById('auth-title');
+            const subtitle = document.getElementById('auth-subtitle');
+            const nameFields = document.getElementById('name-fields');
+            const submitBtn = document.getElementById('auth-submit');
+            const switchText = document.getElementById('switch-text');
             
-            drawer.classList.toggle('open');
-            overlay.classList.toggle('active');
-            toggleBtn.classList.toggle('active');
-            
-            // Update tutorial state
-            if (drawer.classList.contains('open') && tutorialState.platformsOpened === 0) {
-                tutorialState.platformsOpened = 1;
-                showNotification('Great! Now click any platform to see sample messages.', 'success');
-            }
-            
-            // Change icon and position
-            if (drawer.classList.contains('open')) {
-                toggleBtn.textContent = '✕';
+            if (signup) {
+                title.textContent = 'Create Account';
+                subtitle.textContent = 'Start generating responses today';
+                nameFields.classList.remove('hidden');
+                submitBtn.textContent = 'Create Account';
+                switchText.textContent = 'Already have an account?';
             } else {
-                toggleBtn.textContent = '🌐';
+                title.textContent = 'Welcome Back';
+                subtitle.textContent = 'Sign in to your account';
+                nameFields.classList.add('hidden');
+                submitBtn.textContent = 'Sign In';
+                switchText.textContent = "Don't have an account?";
             }
+            
+            modal.classList.add('show');
+            document.getElementById('auth-error').classList.remove('show');
         }
-
-        function closeDrawer() {
-            const drawer = document.getElementById('platform-drawer');
-            const overlay = document.getElementById('drawer-overlay');
-            const toggleBtn = document.getElementById('drawer-toggle');
-            
-            drawer.classList.remove('open');
-            overlay.classList.remove('active');
-            toggleBtn.classList.remove('active');
-            toggleBtn.textContent = '🌐';
+        
+        function hideAuthModal() {
+            document.getElementById('auth-modal').classList.remove('show');
+            document.getElementById('auth-form').reset();
+            document.getElementById('auth-error').classList.remove('show');
         }
-
-        // Platform window functionality
-        function launchPlatform(platform) {
-            const window = document.getElementById(`${platform}-window`);
-            if (!window) return;
-            
-            window.classList.add('show');
-            
-            // Position window randomly but visible
-            const x = Math.min(Math.random() * (window.innerWidth - 420), window.innerWidth - 420);
-            const y = Math.min(Math.random() * (window.innerHeight - 620), window.innerHeight - 620);
-            
-            window.style.left = Math.max(20, x) + 'px';
-            window.style.top = Math.max(100, y) + 'px';
-            
-            // Make window draggable
-            makeDraggable(window);
-            
-            // Update tutorial state
-            tutorialState.platformsOpened++;
-            showNotification(`${platform.charAt(0).toUpperCase() + platform.slice(1)} demo opened! Copy messages to the generator below.`, 'info');
+        
+        function toggleAuthMode() {
+            isSignupMode = !isSignupMode;
+            showAuthModal(authDestination, isSignupMode);
         }
-
-        function closePlatformWindow(platform) {
-            const window = document.getElementById(`${platform}-window`);
-            if (window) {
-                window.classList.remove('show');
-            }
-        }
-
-        function makeDraggable(element) {
-            let pos1 = 0, pos2 = 0, pos3 = 0, pos4 = 0;
-            const header = element.querySelector('.platform-window-header');
+        
+        async function handleAuth(event) {
+            event.preventDefault();
             
-            header.onmousedown = dragMouseDown;
+            const email = document.getElementById('auth-email').value.trim();
+            const password = document.getElementById('auth-password').value.trim();
+            const errorDiv = document.getElementById('auth-error');
+            const submitBtn = document.getElementById('auth-submit');
             
-            function dragMouseDown(e) {
-                e = e || window.event;
-                e.preventDefault();
-                pos3 = e.clientX;
-                pos4 = e.clientY;
-                document.onmouseup = closeDragElement;
-                document.onmousemove = elementDrag;
-            }
+            errorDiv.classList.remove('show');
             
-            function elementDrag(e) {
-                e = e || window.event;
-                e.preventDefault();
-                pos1 = pos3 - e.clientX;
-                pos2 = pos4 - e.clientY;
-                pos3 = e.clientX;
-                pos4 = e.clientY;
-                element.style.top = (element.offsetTop - pos2) + "px";
-                element.style.left = (element.offsetLeft - pos1) + "px";
-            }
-            
-            function closeDragElement() {
-                document.onmouseup = null;
-                document.onmousemove = null;
-            }
-        }
-
-        // Copy message to generator with enhanced platform tracking
-        function copyToGenerator(message) {
-            // Find first empty message input
-            const messageInputs = document.querySelectorAll('.message-input');
-            let targetInput = null;
-            
-            for (let input of messageInputs) {
-                if (!input.value.trim() || input.value.includes('Paste a message')) {
-                    targetInput = input;
-                    break;
-                }
-            }
-            
-            // If no empty input, add new message pair
-            if (!targetInput) {
-                addMessagePair();
-                const newInputs = document.querySelectorAll('.message-input');
-                targetInput = newInputs[newInputs.length - 1];
-            }
-            
-            if (targetInput) {
-                targetInput.value = message;
-                targetInput.focus();
-                
-                // Update the message pair header to show platform
-                const messagePair = targetInput.closest('.message-pair');
-                const messageNumber = messagePair.querySelector('.message-number');
-                
-                // Determine platform from the message content (rough guess for demo)
-                let platformIcon = '💬';
-                if (message.includes('collaboration') || message.includes('followers')) platformIcon = '📸';
-                else if (message.includes('article') || message.includes('thread')) platformIcon = '🐦';
-                else if (message.includes('duet') || message.includes('viral')) platformIcon = '🎵';
-                else if (message.includes('restaurant') || message.includes('local')) platformIcon = '👥';
-                else if (message.includes('marketing') || message.includes('advisor')) platformIcon = '💼';
-                
-                const messageCount = Array.from(document.querySelectorAll('.message-pair')).indexOf(messagePair) + 1;
-                messageNumber.textContent = `${platformIcon} Cross-Platform Message #${messageCount}`;
-                
-                // Scroll to the input
-                targetInput.scrollIntoView({ behavior: 'smooth', block: 'center' });
-                
-                showNotification('Message copied! Collect more from different platforms to see the cross-platform power in action.', 'success');
-                
-                // Update tutorial state
-                tutorialState.platformsOpened++;
-                if (tutorialState.platformsOpened >= 3) {
-                    showNotification('Great! You\'re experiencing the cross-platform workflow. Now try Step 3: Process All Messages!', 'info');
-                }
-            }
-        }
-
-        // Enhanced message processing with more realistic AI responses
-        function processAllMessages() {
-            const messageInputs = document.querySelectorAll('.message-input');
-            const messageOutputs = document.querySelectorAll('.message-output');
-            const tone = document.getElementById('batch-tone').value;
-            const context = document.getElementById('batch-context').value;
-            
-            let processedCount = 0;
-            let emptyInputs = 0;
-            
-            // Show processing message
-            if (messageInputs.length > 0) {
-                showNotification('Processing cross-platform messages with AI...', 'info');
-            }
-            
-            messageInputs.forEach((input, index) => {
-                const output = messageOutputs[index];
-                const inputText = input.value.trim();
-                
-                if (!inputText || inputText.includes('Paste a message')) {
-                    emptyInputs++;
-                    return;
-                }
-                
-                // Only process if input has content and output is empty
-                if (inputText && (!output.value || output.placeholder.includes('AI-generated'))) {
-                    // Get appropriate sample response based on tone
-                    const responses = sampleResponses[tone] || sampleResponses.friendly;
-                    let selectedResponse = responses[Math.floor(Math.random() * responses.length)];
-                    
-                    // Add context influence if provided
-                    if (context && context.trim()) {
-                        if (context.toLowerCase().includes('sustainable') || context.toLowerCase().includes('eco')) {
-                            selectedResponse = selectedResponse.replace(/collaboration/g, 'sustainable collaboration');
-                        }
-                        if (context.toLowerCase().includes('brand') || context.toLowerCase().includes('business')) {
-                            selectedResponse += " I'd love to learn more about how this aligns with my brand values.";
-                        }
-                    }
-                    
-                    // Simulate processing delay with realistic timing
-                    setTimeout(() => {
-                        output.value = selectedResponse;
-                        output.style.background = '#0f2027';
-                        output.style.borderColor = '#10b981';
-                        output.style.color = '#a7f3d0';
-                        
-                        // Add copy response button functionality
-                        const messagePair = output.closest('.message-pair');
-                        let copyResponseBtn = messagePair.querySelector('.copy-response-btn');
-                        if (!copyResponseBtn) {
-                            copyResponseBtn = document.createElement('button');
-                            copyResponseBtn.className = 'copy-response-btn';
-                            copyResponseBtn.textContent = '📋 Copy Response';
-                            copyResponseBtn.style.cssText = `
-                                background: #06b6d4;
-                                color: white;
-                                border: none;
-                                border-radius: 6px;
-                                padding: 0.5rem 1rem;
-                                cursor: pointer;
-                                font-size: 0.8rem;
-                                margin-top: 0.5rem;
-                                transition: all 0.3s ease;
-                            `;
-                            copyResponseBtn.onclick = () => copyResponse(selectedResponse);
-                            copyResponseBtn.onmouseover = () => copyResponseBtn.style.background = '#0891b2';
-                            copyResponseBtn.onmouseout = () => copyResponseBtn.style.background = '#06b6d4';
-                            
-                            const outputGroup = output.closest('.message-input-group');
-                            outputGroup.appendChild(copyResponseBtn);
-                        }
-                        
-                        processedCount++;
-                        tutorialState.messagesGenerated++;
-                        
-                        // Update usage counter
-                        document.getElementById('usage-count').textContent = tutorialState.messagesGenerated;
-                        document.getElementById('usage-fill').style.width = Math.min((tutorialState.messagesGenerated / 100) * 100, 100) + '%';
-                        
-                        if (processedCount === 1) {
-                            showNotification('🎉 AI responses generated! This is how the real app processes messages from ALL platforms simultaneously.', 'success');
-                        }
-                        
-                        // After all processing is complete
-                        if (index === messageInputs.length - 1) {
-                            setTimeout(() => {
-                                showNotification('Step 4: Try regenerating any response or copy them back to platform windows!', 'info');
-                            }, 1000);
-                        }
-                    }, (index * 800) + Math.random() * 400); // More realistic staggered timing
-                }
-            });
-            
-            if (processedCount === 0) {
-                if (emptyInputs === messageInputs.length) {
-                    showNotification('Add some messages first! Click the 🌐 button and copy messages from ALL platforms to see the cross-platform power.', 'info');
-                } else {
-                    showNotification('All messages already processed! Try the regenerate buttons or add more messages.', 'info');
-                }
-            }
-        }
-
-        // Enhanced add message pair function with better platform integration
-        function addMessagePair() {
-            const container = document.getElementById('messages-container');
-            const messageCount = container.children.length + 1;
-            
-            const messageHtml = `
-                <div class="message-pair">
-                    <div class="message-pair-header">
-                        <div class="message-number">💬 Cross-Platform Message #${messageCount}</div>
-                        <button class="delete-message" onclick="deleteMessagePair(this)">🗑️</button>
-                    </div>
-                    <div class="message-input-group">
-                        <label class="message-label">Incoming Message:</label>
-                        <textarea class="message-input" placeholder="Copy a message from any platform drawer (🌐 button) here..."></textarea>
-                    </div>
-                    <div class="message-input-group">
-                        <label class="message-label">AI Response:</label>
-                        <textarea class="message-output" readonly placeholder="AI-generated response will appear here after processing..."></textarea>
-                    </div>
-                </div>
-            `;
-            
-            container.insertAdjacentHTML('beforeend', messageHtml);
-            updateMessageCount();
-            
-            // Scroll to new message
-            container.lastElementChild.scrollIntoView({ behavior: 'smooth' });
-            
-            showNotification('New message pair added! Copy more messages from different platforms to demonstrate cross-platform processing.', 'info');
-        }
-
-        function clearAllMessages() {
-            if (confirm('Clear all messages? This will reset the tutorial.')) {
-                document.getElementById('messages-container').innerHTML = '';
-                updateMessageCount();
-                showNotification('Messages cleared! Add new ones from the platform drawer.', 'info');
-            }
-        }
-
-        function exportResults() {
-            const messageInputs = document.querySelectorAll('.message-input');
-            const messageOutputs = document.querySelectorAll('.message-output');
-            
-            let csvContent = "Input Message,AI Response\n";
-            
-            messageInputs.forEach((input, index) => {
-                const output = messageOutputs[index];
-                if (input.value.trim() && output.value.trim()) {
-                    csvContent += `"${input.value.replace(/"/g, '""')}","${output.value.replace(/"/g, '""')}"\n`;
-                }
-            });
-            
-            if (csvContent === "Input Message,AI Response\n") {
-                showNotification('No completed message pairs to export!', 'error');
+            if (!email || !password) {
+                errorDiv.textContent = 'Email and password are required';
+                errorDiv.classList.add('show');
                 return;
             }
             
-            // Create and download file
-            const blob = new Blob([csvContent], { type: 'text/csv' });
-            const url = window.URL.createObjectURL(blob);
-            const a = document.createElement('a');
-            a.href = url;
-            a.download = 'dmtools-tutorial-export.csv';
-            a.click();
-            window.URL.revokeObjectURL(url);
-            
-            showNotification('🎉 Demo results exported! In the real app, you can export your actual message responses.', 'success');
-        }
-
-        // Notifications
-        function showNotification(message, type = 'info') {
-            const notification = document.createElement('div');
-            notification.className = `notification ${type}`;
-            // Sanitize message to prevent XSS attacks
-            notification.innerHTML = DOMPurify.sanitize(message);
-            
-            document.body.appendChild(notification);
-            
-            // Auto remove after 4 seconds
-            setTimeout(() => {
-                notification.style.animation = 'slideOut 0.4s ease forwards';
-                setTimeout(() => {
-                    document.body.removeChild(notification);
-                }, 400);
-            }, 4000);
-        }
-      
-      // Add this NEW function right before your existing togglePricing() function
-      function goToApp(targetPage = '/app.html') {
-        console.log('🔍 User wants to go to:', targetPage);
-    
-        const token = localStorage.getItem('authToken');
-    
-        if (!token) {
-            console.log('🚫 No auth token found - showing sign-up modal');
-            localStorage.setItem('redirectAfterAuth', targetPage);
-            showAuthModal(false); // false = sign-up mode
-            return;
-           }
-    
-         console.log('✅ User has token - redirecting to:', targetPage);
-         window.location.href = targetPage;
-    }
-
-        // Pricing toggle
-        function togglePricing() {
-            const toggle = document.getElementById('pricingToggle');
-            const monthlyPlans = document.getElementById('monthlyPlans');
-            const annualPlans = document.getElementById('annualPlans');
-            
-            toggle.classList.toggle('active');
-            
-            if (toggle.classList.contains('active')) {
-                monthlyPlans.style.display = 'none';
-                annualPlans.style.display = 'grid';
-            } else {
-                monthlyPlans.style.display = 'grid';
-                annualPlans.style.display = 'none';
+            if (password.length < 6) {
+                errorDiv.textContent = 'Password must be at least 6 characters';
+                errorDiv.classList.add('show');
+                return;
             }
-        }
-
-       // ===========================================
-       // AUTH MODAL FUNCTIONS
-       // ===========================================
-
-       function showAuthModal(loginMode) {
-           isLoginMode = loginMode;
-           updateAuthModalUI();
-           const modal = document.getElementById('auth-modal');
-           if (modal) {
-               modal.classList.add('show');
-        
-               // Focus first input
-               setTimeout(() => {
-                   const firstInput = isLoginMode ? 
-                       document.getElementById('auth-email') : 
-                       document.getElementById('first-name');
-          		  if (firstInput) firstInput.focus();
-     		   }, 300);
-   		 }
-		 }
-
-		 function hideAuthModal() {
-		     const modal = document.getElementById('auth-modal');
-  		   if (modal) {
-   		      modal.classList.remove('show');
-    		     clearAuthForm();
-      	}
-		}
-
-		function toggleAuthMode() {
-   	       isLoginMode = !isLoginMode;
-  		   updateAuthModalUI();
-   		   clearAuthMessages();
-		}
-
-		function updateAuthModalUI() {
-   		  const title = document.getElementById('auth-modal-title');
-  		  const subtitle = document.getElementById('auth-modal-subtitle');
-  		  const nameFields = document.getElementById('name-fields');
-  		  const submitBtn = document.getElementById('auth-submit-btn');
-   		  const switchText = document.getElementById('auth-switch-text');
-          const switchBtn = document.getElementById('auth-switch-btn');
-
-   		  if (title && subtitle && nameFields && submitBtn && switchText && switchBtn) {
-     		    if (isLoginMode) {
-      		       title.textContent = 'Welcome Back';
-        	       subtitle.textContent = 'Sign in to your account';
-                   nameFields.classList.add('hidden');
-            	   submitBtn.textContent = 'Sign In';
-            	   switchText.textContent = "Don't have an account?";
-           	       switchBtn.textContent = 'Sign Up';
-              } else {
-                   title.textContent = 'Create Account';
-                   subtitle.textContent = 'Start generating your message responses';
-                   nameFields.classList.remove('hidden');
-                   submitBtn.textContent = 'Create Account';
-                   switchText.textContent = 'Already have an account?';
-                   switchBtn.textContent = 'Sign In';
-              }
-          }
-     }
-
-       function clearAuthMessages() {
-           const errorDiv = document.getElementById('auth-error');
-           const successDiv = document.getElementById('auth-success');
-           if (errorDiv) errorDiv.classList.add('hidden');
-           if (successDiv) successDiv.classList.add('hidden');
-     }
-
-       function clearAuthForm() {
-           document.getElementById('auth-email').value = '';
-           document.getElementById('auth-password').value = '';
-           document.getElementById('first-name').value = '';
-           document.getElementById('last-name').value = '';
-           clearAuthMessages();
-      }
-
-      // ===========================================
-// STEP 4: WORKING AUTHENTICATION HANDLER
-// ===========================================
-
-async function handleAuth() {
-    const email = document.getElementById('auth-email').value.trim();
-    const password = document.getElementById('auth-password').value.trim();
-    const firstName = document.getElementById('first-name').value.trim();
-    const lastName = document.getElementById('last-name').value.trim();
-    
-    // Clear any existing messages
-    clearAuthMessages();
-    
-    // Validation
-    if (!email || !password) {
-        showAuthError('Email and password are required');
-        return;
-    }
-    
-    if (password.length < 6) {
-        showAuthError('Password must be at least 6 characters');
-        return;
-    }
-    
-    if (!isLoginMode && (!firstName || !lastName)) {
-        showAuthError('First name and last name are required');
-        return;
-    }
-
-    const submitBtn = document.getElementById('auth-submit-btn');
-    const originalText = submitBtn.textContent;
-    
-    try {
-        console.log(`🔄 ${isLoginMode ? 'Signing in' : 'Creating account'}...`);
-        
-        // Show loading state
-        submitBtn.innerHTML = '<div class="spinner"></div> Processing...';
-        submitBtn.disabled = true;
-
-        let response;
-        if (isLoginMode) {
-            response = await apiCall('/user/login', {
-                method: 'POST',
-                body: JSON.stringify({ email, password })
-            });
-        } else {
-            response = await apiCall('/user/register', {
-                method: 'POST',
-                body: JSON.stringify({
-                    email,
-                    password,
-                    first_name: firstName,
-                    last_name: lastName
-                })
-            });
-        }
-
-        if (response.token) {
-            // Save authentication
-            localStorage.setItem('authToken', response.token);
-            currentUser = response.user;
-            isAuthenticated = true;
             
-            console.log('✅ Authentication successful!');
-            showAuthSuccess(`Welcome${isLoginMode ? ' back' : ''}, ${response.user.first_name}!`);
+            submitBtn.disabled = true;
+            submitBtn.textContent = 'Processing...';
             
-            // Step 5: Redirect to intended destination
-            setTimeout(() => {
-                hideAuthModal();
-                
-                const targetPage = localStorage.getItem('redirectAfterAuth') || '/app.html';
-                localStorage.removeItem('redirectAfterAuth');
-                
-                console.log(`🔄 Redirecting to: ${targetPage}`);
-                window.location.href = targetPage;
-            }, 1500);
-        } else {
-            throw new Error('No token received from server');
-        }
-
-    } catch (error) {
-        console.error('❌ Authentication failed:', error);
-        showAuthError(error.message || 'Authentication failed. Please try again.');
-    } finally {
-        // Reset button state
-        submitBtn.innerHTML = originalText;
-        submitBtn.disabled = false;
-    }
-}
-
-// Helper functions for the auth process
-async function apiCall(endpoint, options = {}) {
-    const token = localStorage.getItem('authToken');
-    const url = API_BASE + endpoint;
-    
-    const config = {
-        headers: {
-            'Content-Type': 'application/json',
-            ...(token ? { 'Authorization': `Bearer ${token}` } : {})
-        },
-        ...options,
-    };
-
-    try {
-        console.log(`🌐 API Call: ${options.method || 'GET'} ${url}`);
-        const response = await fetch(url, config);
-        const data = await response.json();
-
-        if (!response.ok) {
-            // Handle specific error cases
-            if (response.status === 400 && data.error) {
-                throw new Error(data.error);
-            } else if (response.status === 401) {
-                throw new Error('Invalid email or password');
-            } else if (response.status === 429) {
-                throw new Error('Too many attempts. Please wait and try again.');
-            } else if (response.status === 500) {
-                throw new Error('Server error. Please try again later.');
-            } else {
-                throw new Error(data.error || data.message || `Server error (${response.status})`);
-            }
-        }
-
-        return data;
-        
-    } catch (error) {
-        if (error.name === 'TypeError' && error.message.includes('fetch')) {
-            throw new Error('Cannot connect to server. Please check your internet connection.');
-        }
-        throw error;
-    }
-}
-
-function showAuthError(message) {
-    const errorDiv = document.getElementById('auth-error');
-    if (errorDiv) {
-        errorDiv.textContent = message;
-        errorDiv.classList.remove('hidden');
-    }
-    
-    // Hide success message
-    const successDiv = document.getElementById('auth-success');
-    if (successDiv) {
-        successDiv.classList.add('hidden');
-    }
-}
-
-function showAuthSuccess(message) {
-    const successDiv = document.getElementById('auth-success');
-    if (successDiv) {
-        successDiv.textContent = message;
-        successDiv.classList.remove('hidden');
-    }
-    
-    // Hide error message
-    const errorDiv = document.getElementById('auth-error');
-    if (errorDiv) {
-        errorDiv.classList.add('hidden');
-    }
-}
-
-        function logout() {
-            console.log('Logout clicked');
-        }
-
-        // CSV upload handler
-        function handleCSVUpload(input) {
-            if (input.files && input.files[0]) {
-                showNotification('CSV upload is available in the full version! For now, try the manual entry method.', 'info');
-                // Reset the file input
-                input.value = '';
-            }
-        }
-
-        console.log('🎯 DMTools Tutorial System Loaded Successfully!');
-    </script>
-  <!-- PWA Service Worker Registration -->
-<script>
-  // Register Service Worker for PWA functionality
-  if ('serviceWorker' in navigator) {
-    window.addEventListener('load', () => {
-      navigator.serviceWorker.register('/service-worker.js')
-        .then(registration => {
-          console.log('✅ PWA Service Worker registered successfully:', registration.scope);
-          
-          // Check for updates every hour
-          setInterval(() => {
-            registration.update();
-          }, 60 * 60 * 1000);
-        })
-        .catch(error => {
-          console.error('❌ PWA Service Worker registration failed:', error);
-        });
-    });
-
-    // Handle service worker updates
-    let refreshing = false;
-    navigator.serviceWorker.addEventListener('controllerchange', () => {
-      if (!refreshing) {
-        refreshing = true;
-        window.location.reload();
-      }
-    });
-  }
-
-  // Prompt user to install PWA
-  let deferredPrompt;
-  window.addEventListener('beforeinstallprompt', (e) => {
-    // Prevent the mini-infobar from appearing on mobile
-    e.preventDefault();
-    // Stash the event so it can be triggered later
-    deferredPrompt = e;
-    
-    // Show custom install button (optional - add this to your UI if you want)
-    console.log('💡 PWA install prompt available');
-    
-    // You can show a custom "Install App" button here
-    // Example: document.getElementById('install-button').style.display = 'block';
-  });
-
-  // Handle PWA installation
-  window.addEventListener('appinstalled', (evt) => {
-    console.log('🎉 DMTools.fun PWA was installed!');
-    // Track installation analytics here if needed
-  });
-
-  // Detect if app is running as installed PWA
-  function isRunningAsPWA() {
-    return window.matchMedia('(display-mode: standalone)').matches || 
-           window.navigator.standalone === true;
-  }
-
-  if (isRunningAsPWA()) {
-    console.log('📱 Running as installed PWA');
-    // Add any PWA-specific styling or features here
-  }
-</script>
-
-  <script>
-// ========================================
-// PWA INSTALL FUNCTIONALITY - ERROR-SAFE
-// ========================================
-
-(function() {
-    'use strict';
-    
-    console.log('🔧 Initializing PWA install functionality...');
-    
-    let deferredPrompt = null;
-    
-    // Get all button elements (may or may not exist)
-    const floatingBtn = document.getElementById('pwa-floating-install');
-    const headerBtn = document.getElementById('pwa-header-install');
-    const inlineBtn = document.getElementById('pwa-inline-install');
-    const stickyBanner = document.getElementById('pwa-sticky-banner');
-    const stickyBannerBtn = document.getElementById('pwa-sticky-banner-btn');
-    const stickyBannerClose = document.getElementById('pwa-sticky-banner-close');
-    
-    // Log which buttons were found
-    console.log('📱 PWA Buttons found:', {
-        floating: !!floatingBtn,
-        header: !!headerBtn,
-        inline: !!inlineBtn,
-        stickyBanner: !!stickyBanner
-    });
-    
-    // Check if already running as installed PWA
-    function isRunningAsPWA() {
-        return window.matchMedia('(display-mode: standalone)').matches || 
-               window.navigator.standalone === true;
-    }
-    
-    // Hide all install prompts if running as PWA
-    if (isRunningAsPWA()) {
-        console.log('📱 Running as installed PWA - hiding install buttons');
-        document.body.classList.add('running-as-pwa');
-        return; // Exit early, no need to set up install prompts
-    }
-    
-    // Listen for beforeinstallprompt event
-    window.addEventListener('beforeinstallprompt', (e) => {
-        console.log('💡 PWA install prompt available');
-        
-        // Prevent Chrome 76+ from automatically showing the prompt
-        e.preventDefault();
-        
-        // Save the event for later use
-        deferredPrompt = e;
-        
-        // Show install buttons
-        showInstallButtons();
-        
-        // Track that install prompt is available
-        try {
-            if (typeof gtag !== 'undefined') {
-                gtag('event', 'pwa_install_prompt_shown', {
-                    'event_category': 'PWA',
-                    'event_label': 'Install Prompt Available'
-                });
-            }
-        } catch (err) {
-            console.log('Analytics tracking not available');
-        }
-    });
-    
-    // Show appropriate install buttons based on page
-    function showInstallButtons() {
-        let buttonsShown = 0;
-        
-        // Show floating button on all pages
-        if (floatingBtn) {
-            floatingBtn.style.display = 'flex';
-            buttonsShown++;
-            // Add pulse animation for first 5 seconds
-            floatingBtn.classList.add('pulse');
-            setTimeout(() => {
-                floatingBtn.classList.remove('pulse');
-            }, 5000);
-            console.log('✅ Floating button shown');
-        }
-        
-        // Show header button
-        if (headerBtn) {
-            headerBtn.style.display = 'flex';
-            buttonsShown++;
-            console.log('✅ Header button shown');
-        }
-        
-        // Show inline button (on index.html)
-        if (inlineBtn) {
-            inlineBtn.style.display = 'flex';
-            buttonsShown++;
-            console.log('✅ Inline button shown');
-        }
-        
-        // Show sticky banner (on app.html) after 3 seconds
-        if (stickyBanner) {
-            setTimeout(() => {
-                // Check if banner was dismissed in this session
-                if (!sessionStorage.getItem('pwa_banner_dismissed')) {
-                    stickyBanner.style.display = 'flex';
-                    buttonsShown++;
-                    console.log('✅ Sticky banner shown');
-                }
-            }, 3000);
-        }
-        
-        console.log(`📱 Total PWA buttons shown: ${buttonsShown}`);
-    }
-    
-    // Handle install button clicks
-    async function handleInstallClick(source) {
-        console.log(`🎯 Install button clicked from: ${source}`);
-        
-        if (!deferredPrompt) {
-            console.log('❌ No install prompt available');
-            alert('PWA installation is not available in this browser. Try Chrome on Android or Desktop.');
-            return;
-        }
-        
-        try {
-            // Show the install prompt
-            deferredPrompt.prompt();
-            
-            // Wait for the user to respond to the prompt
-            const { outcome } = await deferredPrompt.userChoice;
-            
-            console.log(`👤 User response: ${outcome}`);
-            
-            // Track the outcome
             try {
-                if (typeof gtag !== 'undefined') {
-                    gtag('event', 'pwa_install_attempt', {
-                        'event_category': 'PWA',
-                        'event_label': source,
-                        'value': outcome === 'accepted' ? 1 : 0
-                    });
+                const endpoint = isSignupMode ? '/user/register' : '/user/login';
+                const body = { email, password };
+                
+                if (isSignupMode) {
+                    const firstName = document.getElementById('first-name').value.trim();
+                    const lastName = document.getElementById('last-name').value.trim();
+                    
+                    if (!firstName || !lastName) {
+                        errorDiv.textContent = 'First name and last name are required';
+                        errorDiv.classList.add('show');
+                        submitBtn.disabled = false;
+                        submitBtn.textContent = isSignupMode ? 'Create Account' : 'Sign In';
+                        return;
+                    }
+                    
+                    body.first_name = firstName;
+                    body.last_name = lastName;
                 }
-            } catch (err) {
-                console.log('Analytics tracking not available');
-            }
-            
-            if (outcome === 'accepted') {
-                console.log('✅ User accepted PWA installation');
-                hideAllInstallButtons();
-            } else {
-                console.log('❌ User dismissed PWA installation');
-            }
-            
-            // Clear the deferred prompt
-            deferredPrompt = null;
-        } catch (error) {
-            console.error('Error during install:', error);
-        }
-    }
-    
-    // Hide all install buttons
-    function hideAllInstallButtons() {
-        if (floatingBtn) floatingBtn.style.display = 'none';
-        if (headerBtn) headerBtn.style.display = 'none';
-        if (inlineBtn) inlineBtn.style.display = 'none';
-        if (stickyBanner) stickyBanner.style.display = 'none';
-        console.log('🙈 All install buttons hidden');
-    }
-    
-    // Attach click handlers ONLY if elements exist
-    if (floatingBtn) {
-        floatingBtn.addEventListener('click', () => handleInstallClick('floating_button'));
-        console.log('✅ Floating button click handler attached');
-    }
-    
-    if (headerBtn) {
-        headerBtn.addEventListener('click', () => handleInstallClick('header_button'));
-        console.log('✅ Header button click handler attached');
-    }
-    
-    if (inlineBtn) {
-        inlineBtn.addEventListener('click', () => handleInstallClick('inline_button'));
-        console.log('✅ Inline button click handler attached');
-    }
-    
-    if (stickyBannerBtn) {
-        stickyBannerBtn.addEventListener('click', () => handleInstallClick('sticky_banner'));
-        console.log('✅ Sticky banner button click handler attached');
-    }
-    
-    // Handle sticky banner close
-    if (stickyBannerClose) {
-        stickyBannerClose.addEventListener('click', () => {
-            stickyBanner.style.display = 'none';
-            // Remember that user dismissed banner for this session
-            sessionStorage.setItem('pwa_banner_dismissed', 'true');
-            console.log('🙈 Sticky banner dismissed');
-            
-            // Track dismissal
-            try {
-                if (typeof gtag !== 'undefined') {
-                    gtag('event', 'pwa_banner_dismissed', {
-                        'event_category': 'PWA',
-                        'event_label': 'Sticky Banner Closed'
-                    });
-                }
-            } catch (err) {
-                console.log('Analytics tracking not available');
-            }
-        });
-        console.log('✅ Sticky banner close handler attached');
-    }
-    
-    // Listen for successful app installation
-    window.addEventListener('appinstalled', (evt) => {
-        console.log('🎉 PWA was successfully installed!');
-        
-        // Hide all install buttons
-        hideAllInstallButtons();
-        
-        // Track successful installation
-        try {
-            if (typeof gtag !== 'undefined') {
-                gtag('event', 'pwa_installed', {
-                    'event_category': 'PWA',
-                    'event_label': 'App Installed Successfully'
+                
+                const response = await fetch(API_BASE + endpoint, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(body)
                 });
+                
+                const data = await response.json();
+                
+                if (!response.ok) {
+                    throw new Error(data.error || 'Authentication failed');
+                }
+                
+                // Save token
+                localStorage.setItem('authToken', data.token);
+                
+                // Redirect to intended destination
+                window.location.href = authDestination;
+                
+            } catch (error) {
+                console.error('Auth error:', error);
+                errorDiv.textContent = error.message || 'Authentication failed. Please try again.';
+                errorDiv.classList.add('show');
+                submitBtn.disabled = false;
+                submitBtn.textContent = isSignupMode ? 'Create Account' : 'Sign In';
             }
-        } catch (err) {
-            console.log('Analytics tracking not available');
         }
         
-        // Show success message if showNotification function exists
-        try {
-            if (typeof showNotification === 'function') {
-                showNotification('🎉 App installed successfully! Find it on your home screen.', 'success');
-            }
-        } catch (err) {
-            console.log('Notification function not available');
-        }
-    });
-    
-    // Show install instructions for iOS users (Safari doesn't support beforeinstallprompt)
-    function checkIOSInstallOption() {
-        const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
-        const isInStandaloneMode = ('standalone' in window.navigator) && (window.navigator.standalone);
-        
-        if (isIOS && !isInStandaloneMode) {
-            console.log('📱 iOS device detected - user can manually add to home screen');
-            
-            // Show iOS-specific instructions on floating button
-            if (floatingBtn) {
-                floatingBtn.innerHTML = '📱 Install App<br><small style="font-size:11px;">Tap Share → Add to Home Screen</small>';
-                floatingBtn.style.display = 'flex';
-                floatingBtn.style.flexDirection = 'column';
-                floatingBtn.style.padding = '12px 20px';
-                floatingBtn.style.textAlign = 'center';
-                floatingBtn.style.lineHeight = '1.3';
-                
-                // Disable click since iOS doesn't support programmatic install
-                floatingBtn.onclick = (e) => {
-                    e.preventDefault();
-                    alert('To install on iOS:\n1. Tap the Share button (square with arrow)\n2. Scroll down and tap "Add to Home Screen"\n3. Tap "Add" to confirm');
-                    return false;
-                };
-                
-                console.log('✅ iOS install instructions shown');
-            }
-        }
-    }
-    
-    // Check for iOS after a delay
-    setTimeout(checkIOSInstallOption, 2000);
-    
-    console.log('✅ PWA install functionality loaded successfully');
-})();
-
-// ========================================
-// SERVICE WORKER REGISTRATION
-// ========================================
-
-if ('serviceWorker' in navigator) {
-    window.addEventListener('load', () => {
-        navigator.serviceWorker.register('/service-worker.js')
-            .then(registration => {
-                console.log('✅ Service Worker registered successfully:', registration.scope);
-                
-                // Check for updates every hour
-                setInterval(() => {
-                    registration.update();
-                }, 60 * 60 * 1000);
-                
-                // Track service worker registration
-                try {
-                    if (typeof gtag !== 'undefined') {
-                        gtag('event', 'service_worker_registered', {
-                            'event_category': 'PWA',
-                            'event_label': 'Service Worker Active'
-                        });
-                    }
-                } catch (err) {
-                    console.log('Analytics tracking not available');
-                }
-            })
-            .catch(error => {
-                console.error('❌ Service Worker registration failed:', error);
-                
-                // Track service worker errors
-                try {
-                    if (typeof gtag !== 'undefined') {
-                        gtag('event', 'service_worker_error', {
-                            'event_category': 'PWA',
-                            'event_label': error.message
-                        });
-                    }
-                } catch (err) {
-                    console.log('Analytics tracking not available');
-                }
-            });
-    });
-    
-    // Handle service worker updates
-    let refreshing = false;
-    navigator.serviceWorker.addEventListener('controllerchange', () => {
-        if (!refreshing) {
-            refreshing = true;
-            console.log('🔄 Service Worker updated - reloading page');
-            window.location.reload();
-        }
-    });
-} else {
-    console.warn('⚠️ Service Workers are not supported in this browser');
-}
-</script>
-
-
-
-
-
-
-
-</body>
-</html>
+        // Close modal on outside click
+        document.getElementById('auth-modal').addEventListener

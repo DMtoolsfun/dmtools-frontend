@@ -783,6 +783,127 @@
             font-size: 0.875rem;
         }
 
+      /* Paywall Modal */
+        .paywall-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.9);
+            z-index: 10000;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .paywall-modal.show {
+            display: flex;
+        }
+
+        .paywall-content {
+            background: var(--darker);
+            border: 3px solid var(--primary);
+            border-radius: 16px;
+            padding: 3rem;
+            max-width: 600px;
+            width: 90%;
+            text-align: center;
+            animation: slideUp 0.3s ease;
+        }
+
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .paywall-icon {
+            font-size: 5rem;
+            margin-bottom: 1.5rem;
+            opacity: 0.7;
+        }
+
+        .paywall-content h2 {
+            font-size: 2rem;
+            color: var(--text);
+            margin-bottom: 1rem;
+        }
+
+        .paywall-content p {
+            font-size: 1.1rem;
+            color: var(--text-secondary);
+            margin-bottom: 2rem;
+            line-height: 1.6;
+        }
+
+        .paywall-benefits {
+            background: rgba(139, 92, 246, 0.1);
+            border: 2px solid var(--primary);
+            border-radius: 12px;
+            padding: 2rem;
+            margin: 2rem 0;
+            text-align: left;
+        }
+
+        .paywall-benefits h3 {
+            color: var(--primary);
+            margin-bottom: 1rem;
+            text-align: center;
+        }
+
+        .paywall-benefits ul {
+            list-style: none;
+            color: var(--text);
+        }
+
+        .paywall-benefits li {
+            padding: 0.75rem 0;
+            font-size: 1rem;
+            line-height: 1.6;
+        }
+
+        .paywall-buttons {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            margin-top: 2rem;
+            flex-wrap: wrap;
+        }
+
+        .paywall-buttons .btn {
+            padding: 1rem 2rem;
+            font-size: 1.1rem;
+        }
+
+        .paywall-alt-link {
+            margin-top: 1.5rem;
+            color: var(--text-secondary);
+        }
+
+        .paywall-alt-link a {
+            color: var(--secondary);
+            text-decoration: underline;
+        }
+
+        .paywall-close {
+            background: none;
+            border: none;
+            color: var(--text-secondary);
+            cursor: pointer;
+            margin-top: 1rem;
+            font-size: 0.95rem;
+        }
+
+        .paywall-close:hover {
+            color: var(--text);
+        }
+      
         /* Response Actions */
         .response-actions {
             display: flex;
@@ -1311,6 +1432,41 @@ Can you check your DM?"
         </div>
     </div>
 
+    
+    <!-- Paywall Modal -->
+    <div class="paywall-modal" id="paywall-modal">
+        <div class="paywall-content">
+            <div class="paywall-icon">🔒</div>
+            <h2>Batch Processing Requires Pro</h2>
+            <p>Process multiple messages at once with a Pro subscription</p>
+            
+            <div class="paywall-benefits">
+                <h3>✨ Pro Plan Includes:</h3>
+                <ul>
+                    <li>✓ Generate 100+ responses at once</li>
+                    <li>✓ 1,000 responses/month (shared pool)</li>
+                    <li>✓ THE-RIGHT-CLICK extension included</li>
+                    <li>✓ Save unlimited custom templates</li>
+                    <li>✓ Usage analytics dashboard</li>
+                </ul>
+            </div>
+            
+            <div class="paywall-buttons">
+                <a href="/pricing.html" class="btn btn-primary">
+                    View Pro Plans - Starting at $19/mo
+                </a>
+            </div>
+            
+            <div class="paywall-alt-link">
+                Or try <a href="/store.html">response packs</a> for the extension (no commitment)
+            </div>
+            
+            <button class="paywall-close" onclick="hidePaywall()">
+                Close
+            </button>
+        </div>
+    </div>
+
     <script>
         // ===== GLOBAL CONFIGURATION =====
         const API_BASE = 'https://dmtools-backend-production.up.railway.app/api';
@@ -1607,6 +1763,22 @@ Can you check your DM?"
                 showNotification('Error regenerating response: ' + error.message, 'error');
             }
         }
+
+      // Paywall Functions
+        function showPaywall() {
+            document.getElementById('paywall-modal').classList.add('show');
+        }
+
+        function hidePaywall() {
+            document.getElementById('paywall-modal').classList.remove('show');
+        }
+
+        // Close paywall on outside click
+        document.getElementById('paywall-modal')?.addEventListener('click', function(e) {
+            if (e.target === this) {
+                hidePaywall();
+            }
+        });
 
         // ===== BATCH PROCESSING =====
         async function processAllMessages() {

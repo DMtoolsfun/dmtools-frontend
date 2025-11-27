@@ -1818,6 +1818,12 @@ Can you check your DM?"
                 showAuthModal(false);
                 return;
             }
+          
+           // Check if free user trying to batch process (PAYWALL CHECK)
+            if (isAuthenticated && currentUser && currentUser.plan === 'free') {
+                showPaywall();
+                return;
+            }
 
             const processBtn = document.getElementById('process-all-btn');
             
@@ -2571,12 +2577,5 @@ if ('serviceWorker' in navigator) {
     console.warn('⚠️ Service Workers are not supported in this browser');
 }
 </script>
-
-
-
-
-
-
-
 </body>
 </html>

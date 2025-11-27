@@ -37,94 +37,107 @@
             min-height: 100vh;
             color: var(--text);
         }
-
-           /* HEADER */
-       .header {
-            background: rgba(30, 41, 59, 0.95);
+        
+        /* HEADER */
+        .header {
+            background: rgba(15, 23, 42, 0.9);
             backdrop-filter: blur(10px);
-            border-bottom: 1px solid #374151;
-            padding: 1rem 0;
-            position: sticky;
-            top: 0;
-            z-index: 999;
+            border-bottom: 1px solid #334155;
+            position: static;
+            padding: 0.75rem 0;
         }
-
-        .nav-container {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            max-width: 1400px;
+        
+        .container {
+            max-width: 1200px;
             margin: 0 auto;
             padding: 0 2rem;
         }
-
+        
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
         .logo {
-            font-size: 1.8rem;
+            font-size: 1.5rem;
             font-weight: 900;
             background: linear-gradient(135deg, #8b5cf6, #06b6d4);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
-            background-clip: text;
             cursor: pointer;
+            text-decoration: none;
         }
-
+        
         .nav-tabs {
             display: flex;
-            gap: 1rem;
+            gap: 1.5rem;
+            align-items: center;
         }
-
+        
         .tab-btn {
-            padding: 0.75rem 1.5rem;
-            background: transparent;
-            border: 1px solid #4b5563;
+            padding: 0.4rem 0.8rem;
+            text-decoration: none;
             color: #9ca3af;
             border-radius: 8px;
-            cursor: pointer;
             transition: all 0.3s ease;
-            text-decoration: none;
-            font-weight: 500;
+            border: 1px solid transparent;
+            font-size: 0.9rem;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 0.25rem;
         }
-
+        
+        .tab-btn span:first-child {
+            font-size: 1.125rem;
+            line-height: 1;
+        }
+        
         .tab-btn:hover, .tab-btn.active {
-            color: white;
+            color: #8b5cf6;
             border-color: #8b5cf6;
             background: rgba(139, 92, 246, 0.1);
         }
-
+        
         .auth-buttons {
+            display: flex;
+            gap: 0.5rem;
+        }
+        
+        .user-section {
             display: flex;
             align-items: center;
             gap: 1rem;
         }
-
-        .btn {
-            padding: 0.75rem 1.5rem;
-            border: none;
-            border-radius: 8px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            font-size: 1rem;
+        
+        .user-email {
+            color: #e5e7eb;
+            font-weight: 500;
+            font-size: 0.9rem;
         }
-
-        .btn-primary {
-            background: linear-gradient(135deg, #8b5cf6, #06b6d4);
+        
+        .btn-header {
+            padding: 0.5rem 1rem;
+            border: 2px solid var(--primary);
+            background: transparent;
+            color: var(--primary);
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+        }
+        
+        .btn-header:hover {
+            background: var(--primary);
             color: white;
         }
-
-        .btn-primary:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 4px 12px rgba(139, 92, 246, 0.4);
-        }
-
-        .btn-secondary {
-            background: #374151;
-            color: #ffffff;
-            border: 1px solid #4b5563;
-        }
-
-        .btn-secondary:hover {
-            background: #4b5563;
+        
+        .btn-header.primary {
+            background: var(--primary);
+            color: white;
         }
         /* END HEADER */
         
@@ -389,42 +402,97 @@
             background: var(--primary);
             color: white;
         }
-        
         /* END CTA SECTION */
         
+        /* FOOTER */
+        .footer {
+            background: var(--darker);
+            border-top: 2px solid var(--border);
+            padding: 3rem 0 1rem;
+            margin-top: 4rem;
+        }
+        
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+        
+        .link-group h4 {
+            color: var(--primary);
+            font-size: 1rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+        }
+        
+        .link-group a {
+            display: block;
+            color: var(--text-secondary);
+            text-decoration: none;
+            margin-bottom: 0.75rem;
+            transition: color 0.3s ease;
+        }
+        
+        .link-group a:hover {
+            color: var(--primary);
+        }
+        
+        .footer-bottom {
+            padding-top: 2rem;
+            border-top: 1px solid var(--border);
+            text-align: center;
+        }
+        
+        .footer-copyright {
+            color: var(--text-secondary);
+            font-size: 0.875rem;
+        }
+        /* END FOOTER */
     </style>
 </head>
 <body>
-    
-   <!-- Header -->
+    <!-- HEADER WITH NAVIGATION -->
     <header class="header">
-        <div class="nav-container">
-            <div class="logo" onclick="window.location.href='/'">DMTools.fun LLC</div>
-            
-            <!-- PWA Header Install Button -->
-<button id="pwa-header-install" class="pwa-header-install">
-    📱 Install App
-</button>
-
-
-            <nav class="nav-tabs">
-    <a href="/app.html" class="tab-btn">💬 Generator</a>
-    <a href="/presets.html" class="tab-btn">📋 Templates</a>
-    <a href="/packs.html" class="tab-btn">🎁 Packs</a>
-    <a href="/analytics.html" class="tab-btn">📊 Analytics</a>
-    <a href="/contact.html" class="tab-btn">📞 Contact</a>
-    <a href="/pricing.html" class="tab-btn">💎 Pricing</a>
-    <a href="/account.html" class="tab-btn">👤 Account</a>
-</nav>
-
-            <div class="auth-buttons" id="auth-section">
-                <button class="btn btn-secondary" onclick="showAuthModal(true)">Sign In</button>
-                <button class="btn btn-primary" onclick="showAuthModal(false)">Sign Up Free</button>
-            </div>
-
-            <div class="auth-buttons hidden" id="user-section">
-                <span style="color: #9ca3af; margin-right: 1rem;" id="user-email"></span>
-                <button class="btn btn-secondary" onclick="logout()">Logout</button>
+        <div class="container">
+            <div class="header-content">
+                <a href="/" class="logo">DMTools.fun</a>
+                
+                <nav class="nav-tabs">
+                    <a href="/app.html" class="tab-btn">
+                        <span>🎨</span>
+                        <span>Generator</span>
+                    </a>
+                    <a href="/presets.html" class="tab-btn">
+                        <span>📝</span>
+                        <span>Templates</span>
+                    </a>
+                    <a href="/packs.html" class="tab-btn">
+                        <span>🎁</span>
+                        <span>Packs</span>
+                    </a>
+                    <a href="/analytics.html" class="tab-btn">
+                        <span>📊</span>
+                        <span>Analytics</span>
+                    </a>
+                    <a href="/contact.html" class="tab-btn">
+                        <span>📞</span>
+                        <span>Contact</span>
+                    </a>
+                    <a href="/pricing.html" class="tab-btn active">
+                        <span>💎</span>
+                        <span>Pricing</span>
+                    </a>
+                    <a href="/account.html" class="tab-btn">
+                        <span>👤</span>
+                        <span>Account</span>
+                    </a>
+                </nav>
+                
+                <div class="auth-buttons" id="auth-section">
+                    <a href="/app.html" class="btn-header">Login</a>
+                    <a href="/app.html" class="btn-header primary">Sign Up</a>
+                </div>
             </div>
         </div>
     </header>
@@ -496,7 +564,7 @@
                 <li>Unlimited batch processing</li>
                 <li>THE-RIGHT-CLICK extension included</li>
                 <li>All Pro features</li>
-             
+                <li>Priority support</li>
             </ul>
             
             <button class="btn btn-primary" onclick="handleSubscribe('business', 59)">
@@ -516,8 +584,8 @@
                 <li>25,000 batch responses/month</li>
                 <li>Separate pools (no conflicts)</li>
                 <li>All Business features</li>
-                <li>team seats options/pricing coming soon!</li>
-              
+                <li>Dedicated support</li>
+                <li>Custom integrations</li>
             </ul>
             
             <button class="btn btn-primary" onclick="handleSubscribe('enterprise', 399)">
@@ -634,6 +702,127 @@
                 window.location.href = '/contact.html?subject=' + plan + '%20Plan';
             }
         }
+    </script>
+    
+    <!-- FOOTER -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="link-group">
+                    <h4>Product</h4>
+                    <a href="/app.html">Batch Generator</a>
+                    <a href="/store.html">Response Packs</a>
+                    <a href="/install-extension.html">Extension</a>
+                    <a href="/pricing.html">Pricing</a>
+                </div>
+                
+                <div class="link-group">
+                    <h4>Legal</h4>
+                    <a href="/terms-of-service.html">Terms of Service</a>
+                    <a href="/privacy-policy.html">Privacy Policy</a>
+                    <a href="/refund-policy.html">Refund Policy</a>
+                    <a href="/cookie-policy.html">Cookie Policy</a>
+                </div>
+                
+                <div class="link-group">
+                    <h4>Support</h4>
+                    <a href="/contact.html">Contact Us</a>
+                    <a href="mailto:support@dmtools.fun">Email Support</a>
+                    <a href="/install-extension.html">Extension Setup</a>
+                </div>
+                
+                <div class="link-group">
+                    <h4>Company</h4>
+                    <a href="/">Home</a>
+                    <a href="/about.html">About Us</a>
+                    <a href="/contact.html">Get in Touch</a>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <p class="footer-copyright">© 2025 DMTools.fun. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+    <!-- END FOOTER -->
+    
+    <script>
+        const API_BASE = 'https://dmtools-backend-production.up.railway.app/api';
+        
+        // Check authentication and update header
+        async function updateAuthSection() {
+            const token = localStorage.getItem('authToken');
+            const authSection = document.getElementById('auth-section');
+            
+            if (!authSection) return;
+            
+            if (!token) {
+                // Not logged in
+                authSection.innerHTML = `
+                    <a href="/app.html" class="auth-btn">Login</a>
+                    <a href="/app.html" class="auth-btn primary">Sign Up</a>
+                `;
+            } else {
+                // Logged in - get user info
+                try {
+                    const response = await fetch(API_BASE + '/user/profile', {
+                        headers: {
+                            'Authorization': `Bearer ${token}`
+                        }
+                    });
+                    
+                    if (response.ok) {
+                        const data = await response.json();
+                        const user = data.user;
+                        
+                        authSection.innerHTML = `
+                            <div class="user-section">
+                                <span class="user-email">${user.email}</span>
+                                <a href="/account.html" class="auth-btn">Account</a>
+                                <button class="auth-btn" onclick="handleLogout()">Logout</button>
+                            </div>
+                        `;
+                    } else {
+                        // Token invalid
+                        localStorage.removeItem('authToken');
+                        updateAuthSection();
+                    }
+                } catch (error) {
+                    console.error('Auth check failed:', error);
+                    authSection.innerHTML = `
+                        <a href="/app.html" class="auth-btn">Login</a>
+                        <a href="/app.html" class="auth-btn primary">Sign Up</a>
+                    `;
+                }
+            }
+        }
+        
+        function handleLogout() {
+            localStorage.removeItem('authToken');
+            window.location.href = '/';
+        }
+        
+        function handleSubscribe(plan, price) {
+            // Check if user is logged in
+            const token = localStorage.getItem('authToken');
+            
+            if (!token) {
+                // Redirect to app.html where they can sign up
+                window.location.href = '/app.html?plan=' + plan;
+                return;
+            }
+            
+            // For now, redirect to contact or show coming soon
+            if (plan === 'enterprise') {
+                window.location.href = '/contact.html?subject=Enterprise%20Plan';
+            } else {
+                alert('Subscription checkout coming soon! For now, please contact us to upgrade.');
+                window.location.href = '/contact.html?subject=' + plan + '%20Plan';
+            }
+        }
+        
+        // Run on page load
+        document.addEventListener('DOMContentLoaded', updateAuthSection);
     </script>
 </body>
 </html>

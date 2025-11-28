@@ -956,332 +956,202 @@
 }
 
 
-/* download ext BUTTON STYLES */
-/* ========================================================================== */
+/* DOWNLOAD BUTTON STYLES */
+/* These use your existing CSS variables and match your design */
 
-.dmtools-download-btn {
-  display: inline-block;
-  text-decoration: none;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
-  font-weight: 600;
-  text-align: center;
-  border: none;
-  cursor: pointer;
-  transition: all 0.3s ease;
-  line-height: 1.5;
+.extension-download-btn {
+    display: inline-block;
+    padding: 1.25rem 2.5rem;
+    background: linear-gradient(135deg, var(--primary, #8b5cf6), var(--primary-dark, #7c3aed));
+    color: white;
+    border-radius: 12px;
+    font-size: 1.1rem;
+    font-weight: 700;
+    text-decoration: none;
+    border: none;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 15px rgba(139, 92, 246, 0.4);
+    text-align: center;
 }
 
-.dmtools-download-btn:hover {
-  transform: translateY(-2px);
+.extension-download-btn:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 25px rgba(139, 92, 246, 0.6);
 }
 
-/* STYLE 1: LARGE HERO BUTTON (Primary CTA) */
-/* ========================================================================== */
-/* Best for: Home page hero, main call-to-action areas */
-
-.dmtools-btn-hero {
-  background: linear-gradient(135deg, #8b5cf6 0%, #7c3aed 100%);
-  color: white;
-  padding: 20px 40px;
-  border-radius: 12px;
-  font-size: 18px;
-  font-weight: bold;
-  box-shadow: 0 4px 15px rgba(139, 92, 246, 0.4);
+/* Secondary download button (outline style) */
+.extension-download-btn-secondary {
+    display: inline-block;
+    padding: 1.25rem 2.5rem;
+    background: transparent;
+    color: white;
+    border: 2px solid white;
+    border-radius: 12px;
+    font-size: 1.1rem;
+    font-weight: 700;
+    text-decoration: none;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-align: center;
 }
 
-.dmtools-btn-hero:hover {
-  box-shadow: 0 8px 25px rgba(139, 92, 246, 0.6);
-  transform: translateY(-3px);
+.extension-download-btn-secondary:hover {
+    background: rgba(255, 255, 255, 0.1);
+    transform: translateY(-2px);
 }
 
-/* STYLE 2: MEDIUM BUTTON (Standard) */
-/* ========================================================================== */
-/* Best for: Pricing page, feature sections, general use */
-
-.dmtools-btn-medium {
-  background: #8b5cf6;
-  color: white;
-  padding: 14px 28px;
-  border-radius: 8px;
-  font-size: 16px;
-  box-shadow: 0 2px 8px rgba(139, 92, 246, 0.3);
+/* Download button container for spacing */
+.extension-download-container {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+    margin: 2rem 0;
+    flex-wrap: wrap;
 }
 
-.dmtools-btn-medium:hover {
-  background: #7c3aed;
-  box-shadow: 0 4px 12px rgba(139, 92, 246, 0.5);
+/* Download info text */
+.extension-download-info {
+    text-align: center;
+    color: var(--text-secondary, #9ca3af);
+    font-size: 0.95rem;
+    margin-top: 1rem;
 }
 
-/* STYLE 3: COMPACT BUTTON (Small) */
-/* ========================================================================== */
-/* Best for: Inline placement, navigation, footer */
-
-.dmtools-btn-compact {
-  background: #8b5cf6;
-  color: white;
-  padding: 10px 20px;
-  border-radius: 6px;
-  font-size: 14px;
-  box-shadow: 0 2px 6px rgba(139, 92, 246, 0.25);
+/* Download section (for dedicated download areas) */
+.extension-download-section {
+    background: rgba(30, 41, 59, 0.95);
+    backdrop-filter: blur(10px);
+    border: 2px solid var(--primary, #8b5cf6);
+    border-radius: 16px;
+    padding: 3rem 2rem;
+    text-align: center;
+    margin: 3rem 0;
+    max-width: 800px;
+    margin-left: auto;
+    margin-right: auto;
 }
 
-.dmtools-btn-compact:hover {
-  background: #7c3aed;
+.extension-download-section h2 {
+    font-size: 2rem;
+    font-weight: 800;
+    background: linear-gradient(135deg, #ffffff 0%, #e0e7ff 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    margin-bottom: 1rem;
 }
 
-/* STYLE 4: OUTLINE BUTTON (Secondary) */
-/* ========================================================================== */
-/* Best for: Secondary CTAs, less prominent placement */
-
-.dmtools-btn-outline {
-  background: transparent;
-  color: #8b5cf6;
-  padding: 14px 28px;
-  border-radius: 8px;
-  font-size: 16px;
-  border: 2px solid #8b5cf6;
+.extension-download-section p {
+    color: var(--text-secondary, #9ca3af);
+    font-size: 1.1rem;
+    margin-bottom: 2rem;
+    line-height: 1.6;
 }
 
-.dmtools-btn-outline:hover {
-  background: #8b5cf6;
-  color: white;
+/* Platform badges */
+.extension-platforms {
+    display: flex;
+    justify-content: center;
+    gap: 1.5rem;
+    flex-wrap: wrap;
+    margin-top: 1.5rem;
+    color: var(--text, #e5e7eb);
+    font-size: 0.9rem;
 }
 
-/* STYLE 5: TEXT LINK (Minimal) */
-/* ========================================================================== */
-/* Best for: Blog posts, inline mentions, subtle placement */
-
-.dmtools-link {
-  color: #8b5cf6;
-  font-weight: 600;
-  text-decoration: underline;
-  transition: color 0.2s ease;
+.extension-platforms span {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
 }
 
-.dmtools-link:hover {
-  color: #7c3aed;
-  text-decoration: none;
+/* Download icon/emoji */
+.download-icon {
+    font-size: 3rem;
+    margin-bottom: 1rem;
 }
 
-/* DOWNLOAD CARD SECTION */
-/* ========================================================================== */
-/* Best for: Dedicated download sections, pricing page */
-
-.dmtools-download-card {
-  background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
-  border: 2px solid #8b5cf6;
-  border-radius: 16px;
-  padding: 30px;
-  max-width: 600px;
-  margin: 40px auto;
-  text-align: center;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+/* Compact button for navigation/footer */
+.extension-download-btn-compact {
+    display: inline-block;
+    padding: 0.75rem 1.5rem;
+    background: var(--primary, #8b5cf6);
+    color: white;
+    border-radius: 8px;
+    font-size: 0.9rem;
+    font-weight: 600;
+    text-decoration: none;
+    transition: all 0.3s ease;
 }
 
-.dmtools-download-card h3 {
-  color: #1e293b;
-  font-size: 24px;
-  margin-bottom: 15px;
-  font-weight: 700;
+.extension-download-btn-compact:hover {
+    background: var(--primary-dark, #7c3aed);
+    transform: translateY(-2px);
 }
 
-.dmtools-download-card p {
-  color: #64748b;
-  font-size: 16px;
-  margin-bottom: 25px;
-  line-height: 1.6;
+/* Download badge (NEW, FREE, etc) */
+.download-badge {
+    display: inline-block;
+    background: var(--secondary, #10b981);
+    color: white;
+    padding: 0.4rem 0.8rem;
+    border-radius: 20px;
+    font-size: 0.8rem;
+    font-weight: 700;
+    margin-left: 0.5rem;
+    vertical-align: middle;
 }
 
-.dmtools-download-card .platforms {
-  margin-top: 20px;
-  display: flex;
-  justify-content: center;
-  gap: 20px;
-  color: #64748b;
-  font-size: 14px;
-  flex-wrap: wrap;
+.download-badge.badge-new {
+    background: var(--warning, #f59e0b);
 }
 
-.dmtools-download-card .platforms span {
-  white-space: nowrap;
-}
-
-/* HERO SECTION */
-/* ========================================================================== */
-/* Best for: Home page main hero area */
-
-.dmtools-hero-section {
-  background: linear-gradient(180deg, #0f172a 0%, #1e293b 100%);
-  padding: 80px 20px;
-  text-align: center;
-}
-
-.dmtools-hero-section h1 {
-  color: white;
-  font-size: 48px;
-  margin-bottom: 20px;
-  font-weight: 800;
-  line-height: 1.2;
-}
-
-.dmtools-hero-section p {
-  color: #94a3b8;
-  font-size: 20px;
-  margin-bottom: 40px;
-  line-height: 1.5;
-  max-width: 700px;
-  margin-left: auto;
-  margin-right: auto;
-}
-
-.dmtools-hero-section .features {
-  color: #94a3b8;
-  font-size: 14px;
-  margin-top: 30px;
-}
-
-.dmtools-hero-section .features p {
-  margin: 10px 0;
-  font-size: 14px;
-}
-
-/* BUTTON CONTAINER */
-/* ========================================================================== */
-/* For spacing and alignment */
-
-.dmtools-btn-container {
-  text-align: center;
-  margin: 40px 0;
-}
-
-.dmtools-btn-container p {
-  margin-top: 15px;
-  color: #64748b;
-  font-size: 14px;
-}
-
-/* ICON STYLES */
-/* ========================================================================== */
-/* Optional: Add icons to buttons */
-
-.dmtools-btn-icon {
-  margin-right: 8px;
-  font-size: 1.1em;
+/* File size indicator */
+.file-size {
+    color: var(--text-secondary, #9ca3af);
+    font-size: 0.85rem;
+    margin-left: 0.5rem;
 }
 
 /* RESPONSIVE STYLES */
-/* ========================================================================== */
-
 @media (max-width: 768px) {
-  .dmtools-btn-hero {
-    padding: 16px 32px;
-    font-size: 16px;
-  }
-  
-  .dmtools-hero-section h1 {
-    font-size: 32px;
-  }
-  
-  .dmtools-hero-section p {
-    font-size: 18px;
-  }
-  
-  .dmtools-download-card {
-    padding: 20px;
-    margin: 20px 15px;
-  }
-  
-  .dmtools-download-card .platforms {
-    flex-direction: column;
-    gap: 10px;
-  }
-}
-
-/* DARK MODE SUPPORT (Optional) */
-/* ========================================================================== */
-
-@media (prefers-color-scheme: dark) {
-  .dmtools-download-card {
-    background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
-    border-color: #8b5cf6;
-  }
-  
-  .dmtools-download-card h3 {
-    color: #f1f5f9;
-  }
-  
-  .dmtools-download-card p,
-  .dmtools-download-card .platforms {
-    color: #94a3b8;
-  }
+    .extension-download-btn,
+    .extension-download-btn-secondary {
+        padding: 1rem 2rem;
+        font-size: 1rem;
+        width: 100%;
+    }
+    
+    .extension-download-container {
+        flex-direction: column;
+        align-items: stretch;
+    }
+    
+    .extension-download-section {
+        padding: 2rem 1.5rem;
+    }
+    
+    .extension-download-section h2 {
+        font-size: 1.5rem;
+    }
+    
+    .extension-platforms {
+        flex-direction: column;
+        gap: 0.75rem;
+        align-items: center;
+    }
 }
 
 /* ACCESSIBILITY */
-/* ========================================================================== */
-
-.dmtools-download-btn:focus,
-.dmtools-link:focus {
-  outline: 2px solid #8b5cf6;
-  outline-offset: 2px;
-}
-
-/* LOADING STATE (Optional) */
-/* ========================================================================== */
-
-.dmtools-download-btn.loading {
-  opacity: 0.7;
-  pointer-events: none;
-  position: relative;
-}
-
-.dmtools-download-btn.loading::after {
-  content: "...";
-  position: absolute;
-  right: 10px;
-}
-
-/* SUCCESS STATE (Optional) */
-/* ========================================================================== */
-
-.dmtools-download-btn.success {
-  background: #10b981 !important;
-}
-
-/* BADGE/LABEL STYLES */
-/* ========================================================================== */
-
-.dmtools-badge {
-  display: inline-block;
-  background: #8b5cf6;
-  color: white;
-  padding: 4px 10px;
-  border-radius: 12px;
-  font-size: 12px;
-  font-weight: 600;
-  margin-left: 10px;
-  vertical-align: middle;
-}
-
-.dmtools-badge-free {
-  background: #10b981;
-}
-
-.dmtools-badge-new {
-  background: #f59e0b;
-}
-
-/* FILE SIZE LABEL */
-/* ========================================================================== */
-
-.dmtools-file-size {
-  color: #94a3b8;
-  font-size: 12px;
-  margin-left: 8px;
-  font-weight: normal;
+.extension-download-btn:focus,
+.extension-download-btn-secondary:focus,
+.extension-download-btn-compact:focus {
+    outline: 2px solid var(--primary, #8b5cf6);
+    outline-offset: 2px;
 }
 
 /* ============================================================================
-   END OF STYLES
+   END OF EXTENSION DOWNLOAD STYLES
    ============================================================================ */
         
     </style>
@@ -1358,15 +1228,18 @@
         </div>
     </main>
 
-    <div class="dmtools-btn-container">
-  <a href="/downloads/DMTools-Extension-Installer.zip" 
-     download="DMTools-Extension-Installer.zip"
-     class="dmtools-download-btn dmtools-btn-hero">
-    <span class="dmtools-btn-icon">⬇️</span>
-    Download Chrome Extension
-  </a>
-  <p>Windows, Mac & Linux | 27KB | Free for Pro+ users</p>
+   <!-- Option A: Single Large Download Button -->
+<div class="extension-download-container">
+    <a href="/downloads/DMTools-Extension-Installer.zip" 
+       download="DMTools-Extension-Installer.zip"
+       class="extension-download-btn">
+        ⬇️ Download Chrome Extension
+    </a>
 </div>
+<p class="extension-download-info">
+    Windows, Mac & Linux | 27KB | Free for Pro+ users
+</p>
+
     
     
     <!-- SECTION 1: ROI CALCULATOR (Add after hero) -->
@@ -1438,6 +1311,19 @@
         </div>
     </div>
 </section>
+
+    <!-- Option A: Single Large Download Button -->
+<div class="extension-download-container">
+    <a href="/downloads/DMTools-Extension-Installer.zip" 
+       download="DMTools-Extension-Installer.zip"
+       class="extension-download-btn">
+        ⬇️ Download Chrome Extension
+    </a>
+</div>
+<p class="extension-download-info">
+    Windows, Mac & Linux | 27KB | Free for Pro+ users
+</p>
+
 
 <!-- SECTION 2: VS COMPETITORS (Comparison Table) -->
 <section class="comparison-section">
@@ -1544,6 +1430,19 @@
         </div>
     </div>
 </section>
+
+    <!-- Option A: Single Large Download Button -->
+<div class="extension-download-container">
+    <a href="/downloads/DMTools-Extension-Installer.zip" 
+       download="DMTools-Extension-Installer.zip"
+       class="extension-download-btn">
+        ⬇️ Download Chrome Extension
+    </a>
+</div>
+<p class="extension-download-info">
+    Windows, Mac & Linux | 27KB | Free for Pro+ users
+</p>
+
 
 <!-- SECTION 3: VALUE PROPOSITION (Why It's Worth It) -->
 <section class="value-section">
@@ -1655,6 +1554,19 @@
     </div>
 </section>
 
+    <!-- Option A: Single Large Download Button -->
+<div class="extension-download-container">
+    <a href="/downloads/DMTools-Extension-Installer.zip" 
+       download="DMTools-Extension-Installer.zip"
+       class="extension-download-btn">
+        ⬇️ Download Chrome Extension
+    </a>
+</div>
+<p class="extension-download-info">
+    Windows, Mac & Linux | 27KB | Free for Pro+ users
+</p>
+
+
 <!-- SECTION 4: SOCIAL PROOF (Testimonials/Stats) -->
 <section class="social-proof-section">
     <div class="container">
@@ -1709,6 +1621,19 @@
         </div>
     </div>
 </section>
+
+    <!-- Option A: Single Large Download Button -->
+<div class="extension-download-container">
+    <a href="/downloads/DMTools-Extension-Installer.zip" 
+       download="DMTools-Extension-Installer.zip"
+       class="extension-download-btn">
+        ⬇️ Download Chrome Extension
+    </a>
+</div>
+<p class="extension-download-info">
+    Windows, Mac & Linux | 27KB | Free for Pro+ users
+</p>
+
 
 <!-- SECTION 5: USE CASES (Visual Grid) -->
 <section class="use-cases-section">
@@ -1804,6 +1729,19 @@
     </div>
 </section>
 
+    <!-- Option A: Single Large Download Button -->
+<div class="extension-download-container">
+    <a href="/downloads/DMTools-Extension-Installer.zip" 
+       download="DMTools-Extension-Installer.zip"
+       class="extension-download-btn">
+        ⬇️ Download Chrome Extension
+    </a>
+</div>
+<p class="extension-download-info">
+    Windows, Mac & Linux | 27KB | Free for Pro+ users
+</p>
+
+
 <!-- SECTION 6: FINAL CTA (Urgency + Value) -->
 <section class="final-cta-section">
     <div class="container">
@@ -1845,6 +1783,23 @@
         </div>
     </div>
 </section>
+
+    !-- Option B: Two Buttons (Download + Learn More) -->
+<div class="extension-download-container">
+    <a href="/downloads/DMTools-Extension-Installer.zip" 
+       download="DMTools-Extension-Installer.zip"
+       class="extension-download-btn">
+        ⬇️ Download Extension
+    </a>
+    <a href="/install-extension.html" 
+       class="extension-download-btn-secondary">
+        📖 Installation Guide
+    </a>
+</div>
+<p class="extension-download-info">
+    2-minute install | Works on Gmail, LinkedIn, Twitter & more
+</p>
+
 
     <!-- Auth Modal -->
     <div class="auth-modal" id="auth-modal">

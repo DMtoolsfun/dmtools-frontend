@@ -688,21 +688,24 @@
         }
         
         try {
-            // Get user ID from JWT token
-            const tokenPayload = JSON.parse(atob(token.split('.')[1]));
-            const userId = tokenPayload.id || tokenPayload.userId;
+            // Decode JWT token to get user info (no API call needed!)
+            const tokenParts = token.split('.');
+            const payload = JSON.parse(atob(tokenParts[1]));
             
-            // Use Lemon Squeezy's library to open checkout with custom data
+            const userId = payload.id || payload.userId;
+            const userEmail = payload.email;
+            
+            console.log('User ID:', userId);
+            console.log('User Email:', userEmail);
+            console.log('Variant ID:', variantId);
+            
+            // Use Lemon Squeezy's built-in library
             if (typeof LemonSqueezy !== 'undefined' && LemonSqueezy.Url) {
-                // Create checkout configuration with user data
-                const checkoutConfig = {
-                    custom: {
-                        user_id: userId
-                    }
-                };
+                // Open checkout with user data embedded
+                const checkoutUrl = `https://dmtools.lemonsqueezy.com/checkout/buy/${variantId}?checkout[custom][user_id]=${userId}&checkout[email]=${userEmail}`;
                 
-                // Open checkout using Lemon Squeezy library
-                LemonSqueezy.Url.Open(variantId, checkoutConfig);
+                console.log('Opening checkout:', checkoutUrl);
+                window.open(checkoutUrl, '_blank');
                 
                 // Track analytics
                 if (typeof gtag !== 'undefined') {
@@ -713,13 +716,12 @@
                     });
                 }
             } else {
-                console.error('Lemon Squeezy library not loaded');
-                alert('Checkout system not ready. Please refresh the page and try again.');
+                alert('Lemon Squeezy checkout not ready. Please refresh the page.');
             }
             
         } catch (error) {
             console.error('Checkout error:', error);
-            alert('Error creating checkout. Please try logging in again.');
+            alert('Error starting checkout. Please log in again.');
             window.location.href = '/app.html';
         }
     }
@@ -731,6 +733,6 @@
             page_location: window.location.href
         });
     }
-    </script>
+</script>
 </body>
 </html>

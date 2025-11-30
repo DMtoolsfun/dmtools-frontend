@@ -661,12 +661,12 @@
     </footer>
     <!-- END FOOTER -->
     
-    <script>
+   <script>
     // Lemon Squeezy variant IDs
     const PACK_VARIANTS = {
         starter: '1097731',
         pro: '1097732',
-        business: '1098385',
+        business: '1098358',  // FIXED
         elite: '1097735'
     };
     
@@ -674,7 +674,7 @@
         const variantId = PACK_VARIANTS[packName];
         
         if (!variantId || variantId.startsWith('YOUR_')) {
-            alert('Pack purchase coming soon! For now, please contact us at support@dmtools.fun');
+            alert('Pack purchase coming soon!');
             window.location.href = '/contact.html?subject=Pack%20Purchase%20-%20' + packName;
             return;
         }
@@ -688,41 +688,38 @@
         }
         
         try {
-            // Decode JWT token to get user info (no API call needed!)
+            // Decode JWT to get user info
             const tokenParts = token.split('.');
             const payload = JSON.parse(atob(tokenParts[1]));
-            
             const userId = payload.id || payload.userId;
-            const userEmail = payload.email;
             
-            console.log('User ID:', userId);
-            console.log('User Email:', userEmail);
-            console.log('Variant ID:', variantId);
+            // Use LemonSqueezy library's built-in method
+            window.createLemonSqueezy();
             
-            // Use Lemon Squeezy's built-in library
-            if (typeof LemonSqueezy !== 'undefined' && LemonSqueezy.Url) {
-                // Open checkout with user data embedded
-                const checkoutUrl = `https://dmtools.lemonsqueezy.com/checkout/buy/${variantId}?checkout[custom][user_id]=${userId}&checkout[email]=${userEmail}`;
-                
-                console.log('Opening checkout:', checkoutUrl);
-                window.open(checkoutUrl, '_blank');
-                
-                // Track analytics
-                if (typeof gtag !== 'undefined') {
-                    gtag('event', 'begin_checkout', {
-                        pack_name: packName,
-                        value: price,
-                        currency: 'USD'
-                    });
+            // Open checkout with custom data
+            LemonSqueezy.Setup({
+                eventHandler: (event) => {
+                    if (event === 'Checkout.Success') {
+                        alert('Purchase successful! Your pack will be available shortly.');
+                        window.location.reload();
+                    }
                 }
-            } else {
-                alert('Lemon Squeezy checkout not ready. Please refresh the page.');
+            });
+            
+            LemonSqueezy.Url.Open(variantId + '?checkout[custom][user_id]=' + userId);
+            
+            // Track analytics
+            if (typeof gtag !== 'undefined') {
+                gtag('event', 'begin_checkout', {
+                    pack_name: packName,
+                    value: price,
+                    currency: 'USD'
+                });
             }
             
         } catch (error) {
             console.error('Checkout error:', error);
-            alert('Error starting checkout. Please log in again.');
-            window.location.href = '/app.html';
+            alert('Error starting checkout. Please try again.');
         }
     }
     

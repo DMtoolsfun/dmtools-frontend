@@ -459,7 +459,7 @@
     
     <!-- HEADER WITH NAVIGATION -->
     
-   <header class="header">
+  <header class="header">
     <div class="nav-container">
         <a href="/" class="logo">DMTools.fun</a>
         <a href="/app.html" class="nav-back">← Back to App</a>
@@ -470,12 +470,25 @@
         <a href="/analytics.html" class="tab-btn">Analytics</a>
         <a href="/packs.html" class="tab-btn">Response Packs</a>
         <a href="/pricing.html" class="tab-btn">Pricing</a>
-        <a href="/store.html" class="tab-btn Active">Packs Store</a>
+        <a href="/store.html" class="tab-btn">Packs Store</a>
         <a href="/account.html" class="tab-btn">Account</a>
     </nav>
-</header>
-    <!-- END HEADER -->
     
+    <!-- Auth Section - Shows when logged OUT -->
+    <div id="auth-section" class="auth-buttons">
+        <button class="btn btn-secondary" onclick="showAuthModal(true)">Sign In</button>
+        <button class="btn btn-primary" onclick="showAuthModal(false)">Sign Up</button>
+    </div>
+    
+    <!-- User Section - Shows when logged IN -->
+    <div id="user-section" class="user-section hidden">
+        <span class="user-email" id="user-email">user@example.com</span>
+        <button class="btn btn-secondary" onclick="logout()">Sign Out</button>
+    </div>
+</header>
+    
+    <!-- END HEADER -->
+    <!-------------------------------
     <!-- HERO SECTION -->
     <section class="hero">
         <h1 class="hero-title">🎁 Response Packs Store</h1>
@@ -491,7 +504,7 @@
         </div>
     </section>
     <!-- END HERO SECTION -->
-    
+    <!----------------------------
     <!-- PACK CARDS -->
     <section class="packs-grid">
         
@@ -546,7 +559,7 @@
         
     </section>
     <!-- END PACK CARDS -->
-    
+    <!---------------------------------------
     <!-- INFO SECTION -->
     <section class="info-section">
         
@@ -584,7 +597,7 @@
         
     </section>
     <!-- END INFO SECTION -->
-    
+    <!-------------------------------------------
     <!-- CTA SECTION -->
     <section class="cta-section">
         <div class="cta-card">
@@ -597,7 +610,7 @@
         </div>
     </section>
     <!-- END CTA SECTION -->
-    
+    <!-----------------------------------------
     <!-- FOOTER -->
     <footer class="footer">
         <div class="container">

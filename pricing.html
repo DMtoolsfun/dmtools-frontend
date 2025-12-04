@@ -694,11 +694,14 @@
         const API_BASE = 'https://dmtools-backend-production.up.railway.app/api';
 
         // LemonSqueezy subscription variant IDs
+        // Maps frontend plan names to backend variant IDs by price:
+        // - Pro ($19) → starter_monthly variant on backend
+        // - Business ($59) → pro_monthly variant on backend
+        // - Enterprise ($399) → enterprise_monthly variant on backend
         const SUBSCRIPTION_VARIANTS = {
-            starter: '1034521',
-            pro: '1034539',
-            business: '1034540',
-            enterprise: '1034541'
+            pro: '1034521',        // $19/month (backend: starter_monthly)
+            business: '1034539',   // $59/month (backend: pro_monthly)
+            enterprise: '1034541'  // $399/month (backend: enterprise_monthly)
         };
 
         function handleSubscribe(plan, price) {

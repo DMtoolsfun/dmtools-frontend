@@ -692,23 +692,70 @@
     
     <script>
         const API_BASE = 'https://dmtools-backend-production.up.railway.app/api';
-        
+
+        // LemonSqueezy subscription variant IDs
+        const SUBSCRIPTION_VARIANTS = {
+            starter: '1034521',
+            pro: '1034539',
+            business: '1034540',
+            enterprise: '1034541'
+        };
+
         function handleSubscribe(plan, price) {
+            const variantId = SUBSCRIPTION_VARIANTS[plan];
+
+            if (!variantId) {
+                alert('Invalid plan selected. Please try again.');
+                return;
+            }
+
             // Check if user is logged in
             const token = localStorage.getItem('authToken');
-            
+
             if (!token) {
                 // Redirect to app.html where they can sign up
                 window.location.href = '/app.html?plan=' + plan;
                 return;
             }
-            
-            // For now, redirect to contact or show coming soon
-            if (plan === 'enterprise') {
-                window.location.href = '/contact.html?subject=Enterprise%20Plan';
-            } else {
-                alert('Subscription checkout coming soon! For now, please contact us to upgrade.');
-                window.location.href = '/contact.html?subject=' + plan + '%20Plan';
+
+            try {
+                // Decode JWT to get user info
+                const tokenParts = token.split('.');
+                const payload = JSON.parse(atob(tokenParts[1]));
+                const userId = payload.id || payload.userId;
+
+                // Use LemonSqueezy library's built-in method
+                window.createLemonSqueezy();
+
+                // Open checkout with custom data
+                LemonSqueezy.Setup({
+                    eventHandler: (event) => {
+                        if (event === 'Checkout.Success') {
+                            alert('Subscription successful! Welcome to DMTools ' + plan.charAt(0).toUpperCase() + plan.slice(1) + '!');
+                            window.location.reload();
+                        }
+                    }
+                });
+
+                LemonSqueezy.Url.Open(variantId + '?checkout[custom][user_id]=' + userId);
+
+                // Track analytics
+                if (typeof gtag !== 'undefined') {
+                    gtag('event', 'begin_checkout', {
+                        plan_name: plan,
+                        value: price,
+                        currency: 'USD',
+                        items: [{
+                            item_id: variantId,
+                            item_name: plan + ' subscription',
+                            price: price
+                        }]
+                    });
+                }
+
+            } catch (error) {
+                console.error('Checkout error:', error);
+                alert('Error starting checkout. Please try again or contact support.');
             }
         }
     </script>
@@ -810,26 +857,9 @@
             localStorage.removeItem('authToken');
             window.location.href = '/';
         }
-        
-        function handleSubscribe(plan, price) {
-            // Check if user is logged in
-            const token = localStorage.getItem('authToken');
-            
-            if (!token) {
-                // Redirect to app.html where they can sign up
-                window.location.href = '/app.html?plan=' + plan;
-                return;
-            }
-            
-            // For now, redirect to contact or show coming soon
-            if (plan === 'enterprise') {
-                window.location.href = '/contact.html?subject=Enterprise%20Plan';
-            } else {
-                alert('Subscription checkout coming soon! For now, please contact us to upgrade.');
-                window.location.href = '/contact.html?subject=' + plan + '%20Plan';
-            }
-        }
-        
+
+        // handleSubscribe() function is defined earlier in the first <script> block
+
         // Run on page load
         document.addEventListener('DOMContentLoaded', updateAuthSection);
     </script>

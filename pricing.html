@@ -47,107 +47,83 @@
             color: var(--text);
         }
         
-        /* HEADER */
-        .header {
-            background: rgba(15, 23, 42, 0.9);
-            backdrop-filter: blur(10px);
-            border-bottom: 1px solid #334155;
-            position: static;
-            padding: 0.75rem 0;
-        }
+        /*---header-----*/
         
-        .container {
+         .header {
+            background: rgba(15, 23, 42, 0.95);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid #1e293b;
+            padding: 1rem 0;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
             max-width: 1200px;
             margin: 0 auto;
             padding: 0 2rem;
         }
-        
-        .header-content {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-        
+
         .logo {
-            font-size: 1.5rem;
+            font-size: 1.8rem;
             font-weight: 900;
             background: linear-gradient(135deg, #8b5cf6, #06b6d4);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
+            background-clip: text;
             cursor: pointer;
             text-decoration: none;
         }
-        
-        .nav-tabs {
-            display: flex;
-            gap: 1.5rem;
-            align-items: center;
-        }
-        
-        .tab-btn {
-            padding: 0.4rem 0.8rem;
-            text-decoration: none;
-            color: #9ca3af;
-            border-radius: 8px;
-            transition: all 0.3s ease;
-            border: 1px solid transparent;
-            font-size: 0.9rem;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 0.25rem;
-        }
-        
-        .tab-btn span:first-child {
-            font-size: 1.125rem;
-            line-height: 1;
-        }
-        
-        .tab-btn:hover, .tab-btn.active {
-            color: #8b5cf6;
-            border-color: #8b5cf6;
-            background: rgba(139, 92, 246, 0.1);
-        }
-        
-        .auth-buttons {
-            display: flex;
-            gap: 0.5rem;
-        }
-        
-        .user-section {
-            display: flex;
-            align-items: center;
-            gap: 1rem;
-        }
-        
-        .user-email {
-            color: #e5e7eb;
-            font-weight: 500;
-            font-size: 0.9rem;
-        }
-        
-        .btn-header {
+
+        .nav-back {
+            background: #374151;
+            color: #ffffff;
             padding: 0.5rem 1rem;
-            border: 2px solid var(--primary);
-            background: transparent;
-            color: var(--primary);
             border-radius: 8px;
-            cursor: pointer;
-            font-weight: 600;
-            transition: all 0.3s ease;
             text-decoration: none;
-            display: inline-block;
+            border: 1px solid #4b5563;
+            transition: all 0.3s ease;
         }
-        
-        .btn-header:hover {
-            background: var(--primary);
-            color: white;
+
+        .nav-back:hover {
+            border-color: #8b5cf6;
+            color: #8b5cf6;
         }
-        
-        .btn-header.primary {
-            background: var(--primary);
-            color: white;
+
+        /* Container */
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 1rem;
         }
+
+        /* Page Title */
+        .page-title {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .page-title h1 {
+            font-size: 3rem;
+            font-weight: 900;
+            background: linear-gradient(135deg, #8b5cf6, #06b6d4);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 1rem;
+        }
+
+        .page-title p {
+            color: #9ca3af;
+            font-size: 1.2rem;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+    
         /* END HEADER */
         
         /* HERO SECTION */

@@ -165,6 +165,7 @@
             cursor: pointer;
             font-weight: 600;
             transition: all 0.3s ease;
+            text-decoration: none;
         }
         
         .toggle-btn.active {
@@ -498,21 +499,21 @@
     <!-- PRICING CARDS -->
     <section class="pricing-grid">
         
-        <!-- Free Plan -->
+        <!-- Starter Plan -->
         <div class="price-card">
-            <div class="plan-name">Free Forever</div>
-            <div class="plan-price">$0<span>/month</span></div>
-            <div class="plan-description">Perfect for trying out DMTools</div>
+            <div class="plan-name">Starter</div>
+            <div class="plan-price">$19<span>/month</span></div>
+            <div class="plan-description">Perfect for getting started with DMTools</div>
             
             <ul class="features-list">
-                <li>10 responses/month</li>
+                <li>100 responses/month</li>
                 <li>Basic batch processing</li>
-                <li>Standard tones</li>
-                <li>5 templates</li>
+                <li>5 custom templates</li>
+                <li>Email support</li>
             </ul>
             
-            <button class="btn btn-secondary" onclick="window.location.href='/app.html'">
-                Start Free
+            <button class="btn btn-secondary" onclick="handleSubscriptionPurchase('starter', 'monthly')">
+                Choose Starter
             </button>
         </div>
         
@@ -520,7 +521,7 @@
         <div class="price-card featured">
             <div class="badge">⭐ Most Popular</div>
             <div class="plan-name">Pro</div>
-            <div class="plan-price">$19<span>/month</span></div>
+            <div class="plan-price">$59<span>/month</span></div>
             <div class="plan-description">Best for individuals and freelancers</div>
             
             <ul class="features-list">
@@ -528,19 +529,19 @@
                 <li>Shared between batch + extension</li>
                 <li>Unlimited batch processing</li>
                 <li>THE-RIGHT-CLICK extension included</li>
-                <li>All tones & templates</li>
+                <li>20 custom templates</li>
                 <li>Analytics dashboard</li>
             </ul>
             
-            <button class="btn btn-primary" onclick="handleSubscribe('pro', 19)">
-                Start Free Trial
+            <button class="btn btn-primary" onclick="handleSubscriptionPurchase('pro', 'monthly')">
+                Choose Pro
             </button>
         </div>
         
         <!-- Business Plan -->
         <div class="price-card">
             <div class="plan-name">Business</div>
-            <div class="plan-price">$59<span>/month</span></div>
+            <div class="plan-price">$149<span>/month</span></div>
             <div class="plan-description">For teams and agencies</div>
             
             <ul class="features-list">
@@ -548,12 +549,13 @@
                 <li>Shared between batch + extension</li>
                 <li>Unlimited batch processing</li>
                 <li>THE-RIGHT-CLICK extension included</li>
-                <li>All Pro features</li>
+                <li>200 custom templates</li>
                 <li>Priority support</li>
+                <li>Advanced analytics</li>
             </ul>
             
-            <button class="btn btn-primary" onclick="handleSubscribe('business', 59)">
-                Start Free Trial
+            <button class="btn btn-primary" onclick="handleSubscriptionPurchase('business', 'monthly')">
+                Choose Business
             </button>
         </div>
         
@@ -565,16 +567,17 @@
             <div class="plan-description">For power users and large teams</div>
             
             <ul class="features-list">
+                <li>25,000+ responses/month</li>
                 <li>♾️ Unlimited extension responses</li>
-                <li>25,000 batch responses/month</li>
-                <li>Separate pools (no conflicts)</li>
-                <li>All Business features</li>
+                <li>Unlimited batch processing</li>
+                <li>Unlimited custom templates</li>
                 <li>Dedicated support</li>
+                <li>White-label options</li>
                 <li>Custom integrations</li>
             </ul>
             
-            <button class="btn btn-primary" onclick="handleSubscribe('enterprise', 399)">
-                Contact Sales
+            <button class="btn btn-primary" onclick="handleSubscriptionPurchase('enterprise', 'monthly')">
+                Choose Enterprise
             </button>
         </div>
         
@@ -590,7 +593,7 @@
                 <thead>
                     <tr>
                         <th>Feature</th>
-                        <th>Free</th>
+                        <th>Starter</th>
                         <th>Pro</th>
                         <th>Business</th>
                         <th>Enterprise</th>
@@ -599,10 +602,10 @@
                 <tbody>
                     <tr>
                         <td>Monthly Responses</td>
-                        <td>10</td>
+                        <td>100</td>
                         <td>1,000</td>
                         <td>5,000</td>
-                        <td>♾️ Extension<br>25k Batch</td>
+                        <td>25,000+</td>
                     </tr>
                     <tr>
                         <td>Batch Generator</td>
@@ -621,8 +624,8 @@
                     <tr>
                         <td>Custom Templates</td>
                         <td>5</td>
-                        <td><span class="checkmark">✓</span> Unlimited</td>
-                        <td><span class="checkmark">✓</span> Unlimited</td>
+                        <td>20</td>
+                        <td>200</td>
                         <td><span class="checkmark">✓</span> Unlimited</td>
                     </tr>
                     <tr>
@@ -665,29 +668,6 @@
         </div>
     </section>
     <!-- END CTA SECTION -->
-    
-    <script>
-        const API_BASE = 'https://dmtools-backend-production.up.railway.app/api';
-        
-        function handleSubscribe(plan, price) {
-            // Check if user is logged in
-            const token = localStorage.getItem('authToken');
-            
-            if (!token) {
-                // Redirect to app.html where they can sign up
-                window.location.href = '/app.html?plan=' + plan;
-                return;
-            }
-            
-            // For now, redirect to contact or show coming soon
-            if (plan === 'enterprise') {
-                window.location.href = '/contact.html?subject=Enterprise%20Plan';
-            } else {
-                alert('Subscription checkout coming soon! For now, please contact us to upgrade.');
-                window.location.href = '/contact.html?subject=' + plan + '%20Plan';
-            }
-        }
-    </script>
     
     <!-- FOOTER -->
     <footer class="footer">
@@ -732,8 +712,138 @@
     <!-- END FOOTER -->
     
     <script>
-        // API_BASE already declared in previous script block
-
+        // =============================================
+        // SUBSCRIPTION CHECKOUT - WORKING VERSION
+        // Updated: December 4, 2025
+        // =============================================
+        
+        const API_BASE = 'https://dmtools-backend-production.up.railway.app/api';
+        
+        // Product Checkout UUIDs (from Lemon Squeezy)
+        const SUBSCRIPTION_PRODUCTS = {
+            starter: 'd8258a23-e538-4bd6-baf3-15a58cea80bf',
+            pro: 'c6f7c828-dd29-4ef7-b4d7-9270f390a41c',
+            business: '0bb6e756-ab23-4db0-8359-f06f7f621d1c',
+            enterprise: '899c3c4c-2f92-489c-a8c4-11914cd89692'
+        };
+        
+        // Variant IDs for each plan/interval combination
+        const SUBSCRIPTION_VARIANTS = {
+            // Starter
+            starter_weekly: '1038685',
+            starter_monthly: '1038672',
+            
+            // Pro
+            pro_weekly: '1038701',
+            pro_monthly: '1038690',
+            pro_annual: '1038704',
+            
+            // Business
+            business_weekly: '1038714',
+            business_monthly: '1038709',
+            business_annual: '1038716',
+            
+            // Enterprise
+            enterprise_monthly: '1038726',
+            enterprise_annual: '1038727'
+        };
+        
+        /**
+         * Handle subscription purchase - WORKING CHECKOUT
+         */
+        function handleSubscriptionPurchase(plan, interval) {
+            const productUUID = SUBSCRIPTION_PRODUCTS[plan.toLowerCase()];
+            const variantKey = `${plan.toLowerCase()}_${interval.toLowerCase()}`;
+            const variantId = SUBSCRIPTION_VARIANTS[variantKey];
+            
+            // Validate
+            if (!productUUID) {
+                alert('Invalid plan selected. Please try again.');
+                console.error('Invalid plan:', plan);
+                return;
+            }
+            
+            if (!variantId) {
+                alert(`${interval} billing is not available for ${plan} plan.`);
+                console.error('Invalid variant:', variantKey);
+                return;
+            }
+            
+            // Check if user is logged in
+            const token = localStorage.getItem('authToken');
+            if (!token) {
+                // Save intended purchase for after login
+                localStorage.setItem('pendingPurchase', JSON.stringify({ plan, interval }));
+                alert('Please sign in to subscribe');
+                window.location.href = '/app.html?redirect=pricing';
+                return;
+            }
+            
+            try {
+                // Decode JWT to get user info
+                const tokenParts = token.split('.');
+                const payload = JSON.parse(atob(tokenParts[1]));
+                const userId = payload.id || payload.userId;
+                const userEmail = payload.email || '';
+                
+                if (!userId) {
+                    alert('Session expired. Please log in again.');
+                    localStorage.removeItem('authToken');
+                    window.location.href = '/app.html';
+                    return;
+                }
+                
+                // Build checkout URL with user_id for webhook tracking
+                let checkoutUrl = `https://dmtoolsfun-llc.lemonsqueezy.com/buy/${productUUID}`;
+                checkoutUrl += `?checkout[custom][user_id]=${userId}`;
+                checkoutUrl += `&checkout[variant]=${variantId}`;
+                
+                // Pre-fill email if available
+                if (userEmail) {
+                    checkoutUrl += `&checkout[email]=${encodeURIComponent(userEmail)}`;
+                }
+                
+                console.log('Opening checkout:', checkoutUrl);
+                console.log('Plan:', plan, 'Interval:', interval, 'Variant:', variantId);
+                
+                // Track analytics
+                if (typeof gtag !== 'undefined') {
+                    gtag('event', 'begin_checkout', {
+                        plan_name: plan,
+                        interval: interval,
+                        currency: 'USD'
+                    });
+                }
+                
+                // Open checkout - try overlay first, fallback to new tab
+                if (window.LemonSqueezy && window.LemonSqueezy.Url) {
+                    window.LemonSqueezy.Url.Open(checkoutUrl);
+                } else {
+                    window.open(checkoutUrl, '_blank');
+                }
+                
+            } catch (error) {
+                console.error('Checkout error:', error);
+                alert('Error starting checkout. Please try again.');
+            }
+        }
+        
+        // Check for pending purchase after login
+        function checkPendingPurchase() {
+            const pending = localStorage.getItem('pendingPurchase');
+            if (pending) {
+                try {
+                    const { plan, interval } = JSON.parse(pending);
+                    localStorage.removeItem('pendingPurchase');
+                    setTimeout(() => {
+                        handleSubscriptionPurchase(plan, interval);
+                    }, 500);
+                } catch (e) {
+                    localStorage.removeItem('pendingPurchase');
+                }
+            }
+        }
+        
         // Check authentication and update header
         async function updateAuthSection() {
             const token = localStorage.getItem('authToken');
@@ -742,18 +852,14 @@
             if (!authSection) return;
             
             if (!token) {
-                // Not logged in
                 authSection.innerHTML = `
                     <a href="/app.html" class="auth-btn">Login</a>
                     <a href="/app.html" class="auth-btn primary">Sign Up</a>
                 `;
             } else {
-                // Logged in - get user info
                 try {
                     const response = await fetch(API_BASE + '/user/profile', {
-                        headers: {
-                            'Authorization': `Bearer ${token}`
-                        }
+                        headers: { 'Authorization': `Bearer ${token}` }
                     });
                     
                     if (response.ok) {
@@ -767,8 +873,10 @@
                                 <button class="auth-btn" onclick="handleLogout()">Logout</button>
                             </div>
                         `;
+                        
+                        // Check for pending purchase now that user is logged in
+                        checkPendingPurchase();
                     } else {
-                        // Token invalid
                         localStorage.removeItem('authToken');
                         updateAuthSection();
                     }
@@ -787,27 +895,16 @@
             window.location.href = '/';
         }
         
-        function handleSubscribe(plan, price) {
-            // Check if user is logged in
-            const token = localStorage.getItem('authToken');
-            
-            if (!token) {
-                // Redirect to app.html where they can sign up
-                window.location.href = '/app.html?plan=' + plan;
-                return;
+        // Initialize on page load
+        document.addEventListener('DOMContentLoaded', function() {
+            // Initialize LemonSqueezy overlay
+            if (window.createLemonSqueezy) {
+                window.createLemonSqueezy();
             }
             
-            // For now, redirect to contact or show coming soon
-            if (plan === 'enterprise') {
-                window.location.href = '/contact.html?subject=Enterprise%20Plan';
-            } else {
-                alert('Subscription checkout coming soon! For now, please contact us to upgrade.');
-                window.location.href = '/contact.html?subject=' + plan + '%20Plan';
-            }
-        }
-        
-        // Run on page load
-        document.addEventListener('DOMContentLoaded', updateAuthSection);
+            // Update auth section
+            updateAuthSection();
+        });
     </script>
 </body>
 </html>

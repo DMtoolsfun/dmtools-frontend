@@ -812,125 +812,218 @@
         }
 
       /* Paywall Modal */
-        .paywall-modal {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.9);
-            z-index: 10000;
-            align-items: center;
-            justify-content: center;
-        }
+      .paywall-modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.85);
+    z-index: 10000;
+    justify-content: center;
+    align-items: center;
+    padding: 1rem;
+}
 
-        .paywall-modal.show {
-            display: flex;
-        }
+.paywall-modal.active {
+    display: flex;
+}
 
-        .paywall-content {
-            background: var(--darker);
-            border: 3px solid var(--primary);
-            border-radius: 16px;
-            padding: 3rem;
-            max-width: 600px;
-            width: 90%;
-            text-align: center;
-            animation: slideUp 0.3s ease;
-        }
+.paywall-content {
+    background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
+    border: 2px solid #8b5cf6;
+    border-radius: 20px;
+    padding: 2.5rem;
+    max-width: 800px;
+    width: 100%;
+    text-align: center;
+    animation: slideUp 0.3s ease;
+    max-height: 90vh;
+    overflow-y: auto;
+}
 
-        @keyframes slideUp {
-            from {
-                opacity: 0;
-                transform: translateY(20px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
+@keyframes slideUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
 
-        .paywall-icon {
-            font-size: 5rem;
-            margin-bottom: 1.5rem;
-            opacity: 0.7;
-        }
+.paywall-icon {
+    font-size: 4rem;
+    margin-bottom: 1rem;
+}
 
-        .paywall-content h2 {
-            font-size: 2rem;
-            color: var(--text);
-            margin-bottom: 1rem;
-        }
+.paywall-content h2 {
+    font-size: 1.75rem;
+    color: #ffffff;
+    margin-bottom: 0.5rem;
+}
 
-        .paywall-content p {
-            font-size: 1.1rem;
-            color: var(--text-secondary);
-            margin-bottom: 2rem;
-            line-height: 1.6;
-        }
+.paywall-content > p {
+    font-size: 1rem;
+    color: #9ca3af;
+    margin-bottom: 2rem;
+}
 
-        .paywall-benefits {
-            background: rgba(139, 92, 246, 0.1);
-            border: 2px solid var(--primary);
-            border-radius: 12px;
-            padding: 2rem;
-            margin: 2rem 0;
-            text-align: left;
-        }
+/* Two-column options layout */
+.paywall-options {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.5rem;
+    margin-bottom: 1.5rem;
+}
 
-        .paywall-benefits h3 {
-            color: var(--primary);
-            margin-bottom: 1rem;
-            text-align: center;
-        }
+.paywall-option {
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid #374151;
+    border-radius: 16px;
+    padding: 1.5rem;
+    text-align: left;
+    transition: all 0.3s ease;
+    position: relative;
+}
 
-        .paywall-benefits ul {
-            list-style: none;
-            color: var(--text);
-        }
+.paywall-option:hover {
+    border-color: #8b5cf6;
+    transform: translateY(-2px);
+}
 
-        .paywall-benefits li {
-            padding: 0.75rem 0;
-            font-size: 1rem;
-            line-height: 1.6;
-        }
+.option-badge {
+    position: absolute;
+    top: -10px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: linear-gradient(135deg, #8b5cf6, #7c3aed);
+    color: white;
+    padding: 4px 12px;
+    border-radius: 20px;
+    font-size: 0.7rem;
+    font-weight: 700;
+    white-space: nowrap;
+}
 
-        .paywall-buttons {
-            display: flex;
-            gap: 1rem;
-            justify-content: center;
-            margin-top: 2rem;
-            flex-wrap: wrap;
-        }
+.paywall-option:last-child .option-badge {
+    background: linear-gradient(135deg, #10b981, #059669);
+}
 
-        .paywall-buttons .btn {
-            padding: 1rem 2rem;
-            font-size: 1.1rem;
-        }
+.paywall-option h3 {
+    color: #ffffff;
+    font-size: 1.25rem;
+    margin: 0.5rem 0;
+}
 
-        .paywall-alt-link {
-            margin-top: 1.5rem;
-            color: var(--text-secondary);
-        }
+.option-price {
+    font-size: 2rem;
+    font-weight: 800;
+    color: #8b5cf6;
+    margin-bottom: 1rem;
+}
 
-        .paywall-alt-link a {
-            color: var(--secondary);
-            text-decoration: underline;
-        }
+.option-price span {
+    font-size: 0.9rem;
+    font-weight: 400;
+    color: #9ca3af;
+}
 
-        .paywall-close {
-            background: none;
-            border: none;
-            color: var(--text-secondary);
-            cursor: pointer;
-            margin-top: 1rem;
-            font-size: 0.95rem;
-        }
+.paywall-option:last-child .option-price {
+    color: #10b981;
+}
 
-        .paywall-close:hover {
-            color: var(--text);
-        }
+.paywall-option ul {
+    list-style: none;
+    padding: 0;
+    margin: 0 0 1.5rem 0;
+}
+
+.paywall-option li {
+    color: #e5e7eb;
+    padding: 0.4rem 0;
+    font-size: 0.9rem;
+}
+
+.paywall-option .btn {
+    width: 100%;
+    padding: 0.875rem 1.5rem;
+    font-size: 0.95rem;
+    font-weight: 600;
+    border-radius: 10px;
+    text-decoration: none;
+    display: block;
+    text-align: center;
+    transition: all 0.3s ease;
+}
+
+.paywall-option .btn-primary {
+    background: linear-gradient(135deg, #8b5cf6, #7c3aed);
+    color: white;
+    border: none;
+}
+
+.paywall-option .btn-primary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(139, 92, 246, 0.4);
+}
+
+.paywall-option .btn-secondary {
+    background: transparent;
+    color: #10b981;
+    border: 2px solid #10b981;
+}
+
+.paywall-option .btn-secondary:hover {
+    background: #10b981;
+    color: white;
+}
+
+.paywall-footer {
+    color: #6b7280;
+    font-size: 0.85rem;
+    margin-bottom: 1rem;
+}
+
+.paywall-footer a {
+    color: #8b5cf6;
+    text-decoration: underline;
+}
+
+.paywall-close {
+    background: none;
+    border: none;
+    color: #6b7280;
+    cursor: pointer;
+    font-size: 0.9rem;
+    padding: 0.5rem 1rem;
+    transition: color 0.3s ease;
+}
+
+.paywall-close:hover {
+    color: #ffffff;
+}
+
+/* Mobile responsive */
+@media (max-width: 640px) {
+    .paywall-options {
+        grid-template-columns: 1fr;
+    }
+    
+    .paywall-content {
+        padding: 1.5rem;
+    }
+    
+    .paywall-content h2 {
+        font-size: 1.4rem;
+    }
+    
+    .option-price {
+        font-size: 1.75rem;
+    }
+}
       
         /* Response Actions */
         .response-actions {
@@ -1078,56 +1171,56 @@
             }
         }
       /* PWA Install Button */
-.pwa-install-btn {
-    position: fixed;
-    bottom: 20px;
-    right: 20px;
-    background: linear-gradient(135deg, #8b5cf6, #7c3aed);
-    color: white;
-    border: none;
-    border-radius: 12px;
-    padding: 12px 24px;
-    font-size: 16px;
-    font-weight: 600;
-    cursor: pointer;
-    box-shadow: 0 8px 25px rgba(139, 92, 246, 0.4);
-    z-index: 9999;
-    display: none; /* Hidden by default */
-    align-items: center;
-    gap: 8px;
-    transition: all 0.3s ease;
-    animation: slideInUp 0.5s ease;
-}
+            .pwa-install-btn {
+                position: fixed;
+                bottom: 20px;
+                right: 20px;
+                background: linear-gradient(135deg, #8b5cf6, #7c3aed);
+                color: white;
+                border: none;
+                border-radius: 12px;
+                padding: 12px 24px;
+                font-size: 16px;
+                font-weight: 600;
+                cursor: pointer;
+                box-shadow: 0 8px 25px rgba(139, 92, 246, 0.4);
+                z-index: 9999;
+                display: none; /* Hidden by default */
+                align-items: center;
+                gap: 8px;
+                transition: all 0.3s ease;
+                animation: slideInUp 0.5s ease;
+            }
+ 
+            .pwa-install-btn:hover {
+                transform: translateY(-3px);
+                box-shadow: 0 12px 35px rgba(139, 92, 246, 0.6);
+            }
 
-.pwa-install-btn:hover {
-    transform: translateY(-3px);
-    box-shadow: 0 12px 35px rgba(139, 92, 246, 0.6);
-}
+            .pwa-install-btn:active {
+                transform: translateY(-1px);
+            }
 
-.pwa-install-btn:active {
-    transform: translateY(-1px);
-}
-
-@keyframes slideInUp {
-    from {
-        transform: translateY(100px);
-        opacity: 0;
-    }
-    to {
-        transform: translateY(0);
-        opacity: 1;
-    }
-}
-
-/* Hide on mobile to avoid blocking content */
-@media (max-width: 768px) {
-    .pwa-install-btn {
-        bottom: 80px; /* Move up to avoid nav elements */
-        right: 15px;
-        padding: 10px 20px;
-        font-size: 14px;
-    }
-}
+            @keyframes slideInUp {
+                from {
+                transform: translateY(100px);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+      
+     /* Hide on mobile to avoid blocking content */
+            @media (max-width: 768px) {
+            .pwa-install-btn {
+                 bottom: 80px; /* Move up to avoid nav elements */
+                 right: 15px;
+                 padding: 10px 20px;
+                 font-size: 14px;
+             }
+         }
       
     </style>
 </head>
@@ -1140,9 +1233,9 @@
        
 
 
-        <header class="header">
-    <div class="nav-container">
-        <a href="/" class="logo">DMTools.fun</a>
+    <header class="header">
+        <div class="nav-container">
+            <a href="/" class="logo">DMTools.fun</a>
         
         <div id="auth-section" class="auth-buttons">
             <button class="btn btn-secondary" onclick="showAuthModal(true)">Sign In</button>
@@ -1248,10 +1341,10 @@
                             class="bulk-textarea" 
                             placeholder="Paste messages here (one per line):
 
-Example:
-Hey! Love your content
-Thanks for the follow
-Can you check your DM?"
+                                 Example:
+                                   Hey! Love your content
+                                   Thanks for the follow 
+                                   Can you check your DM?"
                         ></textarea>
 
                         <input 
@@ -1449,35 +1542,53 @@ Can you check your DM?"
     <div class="paywall-modal" id="paywall-modal">
         <div class="paywall-content">
             <div class="paywall-icon">🔒</div>
-            <h2>Batch Processing Requires Pro</h2>
-            <p>Process multiple messages at once with a Pro subscription</p>
-            
-            <div class="paywall-benefits">
-                <h3>✨ Pro Plan Includes:</h3>
-                <ul>
-                    <li>✓ Generate 100+ responses at once</li>
-                    <li>✓ 1,000 responses/month (shared pool)</li>
-                    <li>✓ THE-RIGHT-CLICK extension included</li>
-                    <li>✓ Save unlimited custom templates</li>
-                    <li>✓ Usage analytics dashboard</li>
-                </ul>
+            <h2>You've Used Your 10 Free Responses</h2>
+            <p>Unlock unlimited batch processing with a subscription or grab a response pack!</p>
+        
+            <div class="paywall-options">
+                <!-- Option 1: Starter Subscription -->
+                <div class="paywall-option">
+                    <div class="option-badge">💎 BEST VALUE</div>
+                    <h3>Starter Plan</h3>
+                    <div class="option-price">$19<span>/month</span></div>
+                    <ul>
+                        <li>✓ 100 responses/month</li>
+                        <li>✓ Unlimited batch processing</li>
+                        <li>✓ THE-RIGHT-CLICK extension</li>
+                        <li>✓ 5 custom templates</li>
+                    </ul>
+                    <a href="/pricing.html" class="btn btn-primary">
+                         Start with Starter →
+                    </a>
             </div>
             
-            <div class="paywall-buttons">
-                <a href="/pricing.html" class="btn btn-primary">
-                    View Pro Plans - Starting at $19/mo
-                </a>
+                <!-- Option 2: Response Packs -->
+                <div class="paywall-option">
+                    <div class="option-badge">🎁 NO COMMITMENT</div>
+                    <h3>Response Packs</h3>
+                    <div class="option-price">$9.99<span> one-time</span></div>
+                    <ul>
+                    <li>✓ 500 responses to start</li>
+                        <li>✓ THE-RIGHT-CLICK extension</li>
+                        <li>✓ Never expires (12mo after first use)</li>
+                        <li>✓ No subscription required</li>
+                    </ul>
+                        <a href="/store.html" class="btn btn-secondary">
+                        Buy Response Pack →
+                    </a>
+                </div>
             </div>
-            
-            <div class="paywall-alt-link">
-                Or try <a href="/store.html">response packs</a> for the extension (no commitment)
+        
+            <div class="paywall-footer">
+                 <p>Need more power? <a href="/pricing.html#pro">View Pro ($59/mo)</a> or <a href="/pricing.html#enterprise">Enterprise plans</a></p>
             </div>
-            
+        
             <button class="paywall-close" onclick="hidePaywall()">
-                Close
+                 ✕ Close
             </button>
         </div>
-    </div>
+     </div>
+
           <!--end paywall modal-->
 
     <script>
@@ -1790,7 +1901,20 @@ Can you check your DM?"
         document.getElementById('paywall-modal')?.addEventListener('click', function(e) {
             if (e.target === this) {
                 hidePaywall();
-            }
+        }
+          // Close on background click
+        document.getElementById('paywall-modal')?.addEventListener('click', function(e) {
+            if (e.target === this) {
+                hidePaywall();
+        }
+    });
+
+         // Close on Escape key
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') {
+                hidePaywall();
+         }
+})
         });
 
         // ===== BATCH PROCESSING =====

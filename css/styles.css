@@ -276,7 +276,6 @@ p {
     max-width: var(--container-lg);
     margin: 0 auto;
     padding: 0 var(--spacing-xl);
-    margin-bottom: var(--spacing-md);
 }
 
 /* Alias for pages using header-content */
@@ -305,22 +304,16 @@ p {
     transform: scale(1.05);
 }
 
-/* Navigation Tabs - Second row, left-aligned under logo */
+/* Navigation Tabs - ALWAYS HIDDEN, use hamburger menu instead */
 .nav-tabs {
-    display: flex;
-    justify-content: flex-start;
-    gap: 0.5rem;
-    flex-wrap: nowrap;
-    max-width: var(--container-lg);
-    margin: 0 auto;
-    padding: 0 var(--spacing-xl);
+    display: none;
 }
 
-/* Nav Tab Buttons - All same size, centered text */
+/* Nav Tab Buttons - Used in dropdown menu */
 .tab-btn {
-    width: 115px;
-    height: 32px;
-    padding: 0 0.5rem;
+    width: 100%;
+    height: 36px;
+    padding: 0 1rem;
     background: transparent;
     border: 1px solid var(--border-light);
     color: var(--text-muted);
@@ -329,11 +322,10 @@ p {
     transition: all var(--transition-normal);
     text-decoration: none;
     font-weight: 500;
-    font-size: 0.7rem;
-    text-align: center;
-    display: inline-flex;
+    font-size: 0.8rem;
+    text-align: left;
+    display: flex;
     align-items: center;
-    justify-content: center;
     white-space: nowrap;
 }
 
@@ -348,9 +340,9 @@ p {
     background: rgba(139, 92, 246, 0.15);
 }
 
-/* Mobile Menu Button (hamburger) */
+/* Mobile Menu Button (hamburger) - ALWAYS VISIBLE */
 .mobile-menu-btn {
-    display: none;
+    display: inline-flex;
     width: 40px;
     height: 32px;
     background: transparent;
@@ -361,6 +353,7 @@ p {
     align-items: center;
     justify-content: center;
     font-size: 1.2rem;
+    transition: all var(--transition-normal);
 }
 
 .mobile-menu-btn:hover {
@@ -368,7 +361,7 @@ p {
     border-color: var(--primary);
 }
 
-/* Mobile Dropdown Menu */
+/* Dropdown Menu */
 .mobile-nav {
     display: none;
     flex-direction: column;
@@ -380,12 +373,6 @@ p {
 
 .mobile-nav.show {
     display: flex;
-}
-
-.mobile-nav .tab-btn {
-    width: 100%;
-    justify-content: flex-start;
-    padding-left: 1rem;
 }
 
 /* Nav Links (alternate style used on some pages) */
@@ -1061,26 +1048,6 @@ p {
 /* ============================================
    14. RESPONSIVE BREAKPOINTS
    ============================================ */
-/* Tablet - Show hamburger menu */
-@media (max-width: 900px) {
-    /* Hide desktop nav, show hamburger */
-    .nav-tabs {
-        display: none;
-    }
-    
-    .mobile-menu-btn {
-        display: inline-flex;
-    }
-    
-    .mobile-nav {
-        display: none;
-    }
-    
-    .mobile-nav.show {
-        display: flex;
-    }
-}
-
 @media (max-width: 1024px) {
     .footer-links {
         grid-template-columns: repeat(2, 1fr);

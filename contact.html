@@ -239,40 +239,37 @@
     
     </style>
 </head>
+	
 <body>
-    <!-- Header -->
-    <header class="header">
-        <div class="nav-container">
-            <a href="/" class="logo">DMTools.fun</a>
-            <a href="/app.html" class="nav-back">← Back to App</a>
-        </div>
-      <nav class="nav-tabs">
-    <a href="/app.html" class="tab-btn"> Generator</a>
-    <a href="/presets.html" class="tab-btn"> Templates</a>
-    <a href="/analytics.html" class="tab-btn active">Analytics</a>
-    <a href="/packs.html" class="tab-btn active">Response Packs</a>
-    <a href="/pricing.html" class="tab-btn">Pricing</a>
-    <a href="/account.html" class="tab-btn">Account</a>
-    <a href="/store.html" class="tab-btn">Packs Store</a>
-        </nav>
-
-      
     
-                
-                <!-- Authentication Section -->
-                <div id="auth-section" class="auth-buttons">
-                    <button class="btn btn-secondary" onclick="showAuthModal(true)">Sign In</button>
-                    <button class="btn btn-primary" onclick="showAuthModal(false)">Sign Up</button>
-                </div>
-
-                <div id="user-section" class="user-section hidden">
-                    <span class="user-email" id="user-email">user@example.com</span>
-                    <button class="btn btn-secondary" onclick="logout()">Sign Out</button>
-                </div>
+	<!-- Header -->
+	<header class="header">        
+		
+		<!-- Logo left, Hamburger + Auth right -->
+        <div class="nav-container">          
+	            <a href="/" class="logo">DMTools.fun</a>
+            <div class="auth-buttons">
+                <button class="mobile-menu-btn" onclick="toggleMobileMenu()" aria-label="Menu">☰</button>
+                <a href="/login.html" class="btn btn-secondary">Sign In</a>
+                <a href="/register.html" class="btn btn-primary">Sign Up</a>
             </div>
-        </div>
-    </header>
 
+        
+		</div>
+       
+		<!-- Dropdown menu -->
+        <nav class="mobile-nav" id="mobileNav">
+           <a href="/app.html" class="tab-btn">Generator</a>           
+            <a href="/presets.html" class="tab-btn">Templates</a>
+            <a href="/analytics.html" class="tab-btn">Analytics</a>
+            <a href="/packs.html" class="tab-btn">Response Packs</a>
+            <a href="/pricing.html" class="tab-btn">Pricing</a>
+            <a href="/store.html" class="tab-btn">Packs Store</a>
+            <a href="/account.html" class="tab-btn active">Account</a>
+         </nav>
+		
+    </header>
+        
     <!-- Main Content -->
     <main class="main-content">
         <div class="container">
@@ -437,6 +434,7 @@
             </div>
         </div>
     </main>
+    
   <!-- Footer -->
 <footer class="footer">
     <div class="container">

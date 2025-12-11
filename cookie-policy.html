@@ -26,7 +26,7 @@
     <link rel="stylesheet" href="styles.css">
     
   <style>
-        * {
+  
         .legal-header {
             text-align: center;
             margin-bottom: 4rem;
@@ -148,25 +148,34 @@
   
 </head>
   <body>
-    <!-- Header -->
-    <header class="header">
-        <div class="container">
-            <div class="header-content">
-                <div class="logo" onclick="window.location.href = '/'">DMTools.fun</div>
-              
-                <nav class="nav-tabs">
-                    <a href="/app.html" class="tab-btn">💬 Generator</a>
-                    <a href="/presets.html" class="tab-btn">📋 Templates</a>
-                    <a href="/packs.html" class="tab-btn">🎁 Packs</a>
-                    <a href="/analytics.html" class="tab-btn">📊 Analytics</a>
-                    <a href="/contact.html" class="tab-btn">📞 Contact</a>
-                    <a href="/pricing.html" class="tab-btn">💎 Pricing</a>
-                    <a href="/account.html" class="tab-btn">👤 Account</a>
-                </nav>
-            </div>
+  
+   <!-- Header -->
+<header class="header">
+    <div class="nav-container">
+        <a href="/" class="logo">DMTools.fun</a>
+        <div class="auth-buttons" id="authButtons">
+            <button class="mobile-menu-btn" onclick="toggleMobileMenu()" aria-label="Menu">☰</button>
+            <a href="/login.html" class="btn btn-secondary">Sign In</a>
+            <a href="/register.html" class="btn btn-primary">Sign Up</a>
         </div>
+    </div>
     
-    </header>
+    <nav class="mobile-nav" id="mobileNav">
+        <a href="/app.html" class="tab-btn">Generator</a>
+        <a href="/presets.html" class="tab-btn">Templates</a>
+        <a href="/analytics.html" class="tab-btn">Analytics</a>
+        <a href="/packs.html" class="tab-btn">Response Packs</a>
+        <a href="/pricing.html" class="tab-btn">Pricing</a>
+        <a href="/store.html" class="tab-btn">Packs Store</a>
+        <a href="/account.html" class="tab-btn">Account</a>
+    </nav>
+</header>
+
+<script>
+    function toggleMobileMenu() {
+        document.getElementById('mobileNav').classList.toggle('show');
+    }
+</script>
 
     <!-- Main Content -->
     <main class="main-content">
@@ -492,24 +501,23 @@
         </div>
     </main>
 
-    <!-- Footer -->
-    <footer class="footer">
-        <div class="container">
-            <div class="footer-content">
-                <div class="footer-brand">
-                    <h3>💬 DMTools.fun</h3>
-                    <p class="footer-description">
-                        Universal AI Response Generator for all your messaging needs.
-                        Generate professional responses for Gmail, LinkedIn, Twitter, and more.
-                    </p>
-                </div>
-                
+<footer class="footer">
+    <div class="container">
+        <div class="footer-content">
+            <div class="footer-brand">
+                <h3 class="footer-logo">DMTools.fun</h3>
+                <p class="footer-description">
+                    AI-powered universal messaging response generator.
+                </p>
+            </div>
+            
+            <div class="footer-links">
                 <div class="link-group">
                     <h4>Product</h4>
-                    <a href="/app.html">Batch Generator</a>
-                    <a href="/packs.html">Response Packs</a>
-                    <a href="/install-extension.html">Extension</a>
+                    <a href="/app.html">Generator</a>
+                    <a href="/presets.html">Templates</a>
                     <a href="/pricing.html">Pricing</a>
+                    <a href="/store.html">Packs Store</a>
                 </div>
                 
                 <div class="link-group">
@@ -517,20 +525,21 @@
                     <a href="/terms-of-service.html">Terms of Service</a>
                     <a href="/privacy-policy.html">Privacy Policy</a>
                     <a href="/refund-policy.html">Refund Policy</a>
+                    <a href="/cookie-policy.html">Cookie Policy</a>
                 </div>
                 
                 <div class="link-group">
                     <h4>Support</h4>
                     <a href="/contact.html">Contact Us</a>
                     <a href="mailto:support@dmtools.fun">Email Support</a>
-                    <a href="/install-extension.html">Extension Setup</a>
                 </div>
             </div>
-            
-            <div class="footer-bottom">
-                <p class="footer-copyright">© 2025 DMTools.fun. All rights reserved.</p>
-            </div>
         </div>
-    </footer>
+        
+        <div class="footer-bottom">
+            <p class="footer-copyright">© 2025 DMTools.fun LLC. All rights reserved.</p>
+        </div>
+    </div>
+</footer>
 </body>
 </html>

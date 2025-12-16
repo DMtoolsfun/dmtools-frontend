@@ -7,6 +7,9 @@
 <meta name="theme-color" content="#8b5cf6">
 <meta name="apple-mobile-web-app-capable" content="yes">
 
+ <!--stylesheet-->
+ <link rel="stylesheet" href="styles.css">
+ 
  <!-- Google tag (gtag.js) -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-GFG0RYJNR0"></script>
     <script>
@@ -23,284 +26,167 @@
     <meta name="description" content="Terms of Service for DMTools.fun -With two right clicks you cant go wrong AI-powered universal unlimited batch response draft generator assistant">
     <link rel="icon" href="/favicon.ico" type="image/x-icon">
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+    /* PAGE-SPECIFIC: Legal Document (Terms of Service) */
+    
+    .legal-header {
+        text-align: center;
+        margin-bottom: 4rem;
+    }
 
-        body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
-            line-height: 1.6;
-            color: #e5e7eb;
-            background: linear-gradient(135deg, #0f172a 0%, #1e293b 50%, #334155 100%);
-            min-height: 100vh;
-        }
+    .legal-title {
+        font-size: 3rem;
+        font-weight: 900;
+        margin-bottom: 1rem;
+        background: linear-gradient(135deg, #8b5cf6, #06b6d4);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+    }
 
-        .header {
-            background: rgba(30, 41, 59, 0.95);
-            border-bottom: 1px solid #374151;
-            backdrop-filter: blur(10px);
-            position: sticky;
-            top: 0;
-            z-index: 100;
-            padding: 1rem 0;
-        }
+    .legal-subtitle {
+        font-size: 1.2rem;
+        color: var(--text-muted);
+        margin-bottom: 1rem;
+    }
 
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 2rem;
-        }
+    .effective-date {
+        background: rgba(139, 92, 246, 0.1);
+        border: 1px solid var(--primary);
+        border-radius: 12px;
+        padding: 1rem;
+        text-align: center;
+        margin-bottom: 2rem;
+        font-weight: 600;
+    }
 
-        .header-content {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            flex-wrap: wrap;
-            gap: 1rem;
-        }
+    .content-card {
+        background: rgba(30, 41, 59, 0.6);
+        backdrop-filter: blur(10px);
+        border: 1px solid var(--border-medium);
+        border-radius: 24px;
+        padding: 3rem;
+        margin-bottom: 2rem;
+        box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+    }
 
-        .logo {
-            font-size: 1.5rem;
-            font-weight: 900;
-            background: linear-gradient(135deg, #8b5cf6, #06b6d4);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            cursor: pointer;
-            transition: all 0.3s ease;
-        }
+    .content-card h2 {
+        color: var(--primary);
+        font-size: 1.5rem;
+        font-weight: 700;
+        margin: 2rem 0 1rem 0;
+        padding-bottom: 0.5rem;
+        border-bottom: 2px solid var(--border-medium);
+    }
 
-        .logo:hover {
-            transform: scale(1.05);
-        }
+    .content-card h3 {
+        color: var(--accent);
+        font-size: 1.2rem;
+        font-weight: 600;
+        margin: 1.5rem 0 1rem 0;
+    }
 
-        .nav-link {
-            color: #9ca3af;
-            text-decoration: none;
-            font-weight: 500;
-            transition: color 0.3s ease;
-        }
+    .content-card p {
+        margin-bottom: 1rem;
+        color: var(--text-secondary);
+    }
 
-        .nav-link:hover {
-            color: #8b5cf6;
-        }
+    .content-card ul, .content-card ol {
+        margin-bottom: 1rem;
+        padding-left: 2rem;
+    }
 
-        .main-content {
-            padding: 4rem 0;
-        }
+    .content-card li {
+        margin-bottom: 0.5rem;
+        color: var(--text-secondary);
+    }
 
-        .legal-header {
-            text-align: center;
-            margin-bottom: 4rem;
-        }
+    .highlight-box {
+        background: var(--success-bg);
+        border-left: 4px solid var(--success);
+        padding: 1.5rem;
+        margin: 1.5rem 0;
+        border-radius: 0 8px 8px 0;
+    }
 
+    .warning-box {
+        background: var(--warning-bg);
+        border-left: 4px solid var(--warning);
+        padding: 1.5rem;
+        margin: 1.5rem 0;
+        border-radius: 0 8px 8px 0;
+    }
+
+    .pricing-table {
+        width: 100%;
+        border-collapse: collapse;
+        margin: 1.5rem 0;
+        background: rgba(30, 41, 59, 0.8);
+        border-radius: 12px;
+        overflow: hidden;
+        border: 1px solid var(--border-medium);
+    }
+
+    .pricing-table th {
+        background: rgba(139, 92, 246, 0.2);
+        color: var(--primary);
+        padding: 1rem;
+        text-align: left;
+        font-weight: 600;
+    }
+
+    .pricing-table td {
+        padding: 1rem;
+        border-bottom: 1px solid var(--border-medium);
+    }
+
+    .pricing-table tr:last-child td {
+        border-bottom: none;
+    }
+
+    .contact-info {
+        background: rgba(30, 41, 59, 0.8);
+        border: 1px solid var(--border-medium);
+        border-radius: 12px;
+        padding: 1.5rem;
+        margin: 1.5rem 0;
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
         .legal-title {
-            font-size: 3rem;
-            font-weight: 900;
-            margin-bottom: 1rem;
-            background: linear-gradient(135deg, #8b5cf6, #06b6d4);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
+            font-size: 2rem;
         }
-
-        .legal-subtitle {
-            font-size: 1.2rem;
-            color: #9ca3af;
-            margin-bottom: 1rem;
-        }
-
-        .effective-date {
-            background: rgba(139, 92, 246, 0.1);
-            border: 1px solid #8b5cf6;
-            border-radius: 12px;
-            padding: 1rem;
-            text-align: center;
-            margin-bottom: 2rem;
-            font-weight: 600;
-        }
-
+        
         .content-card {
-            background: rgba(30, 41, 59, 0.6);
-            backdrop-filter: blur(10px);
-            border: 1px solid #374151;
-            border-radius: 24px;
-            padding: 3rem;
-            margin-bottom: 2rem;
-            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            padding: 2rem;
         }
-
-        .content-card h2 {
-            color: #8b5cf6;
-            font-size: 1.5rem;
-            font-weight: 700;
-            margin: 2rem 0 1rem 0;
-            padding-bottom: 0.5rem;
-            border-bottom: 2px solid #374151;
-        }
-
-        .content-card h3 {
-            color: #06b6d4;
-            font-size: 1.2rem;
-            font-weight: 600;
-            margin: 1.5rem 0 1rem 0;
-        }
-
-        .content-card p {
-            margin-bottom: 1rem;
-            color: #d1d5db;
-        }
-
-        .content-card ul, .content-card ol {
-            margin-bottom: 1rem;
-            padding-left: 2rem;
-        }
-
-        .content-card li {
-            margin-bottom: 0.5rem;
-            color: #d1d5db;
-        }
-
-        .highlight-box {
-            background: rgba(16, 185, 129, 0.1);
-            border-left: 4px solid #10b981;
-            padding: 1.5rem;
-            margin: 1.5rem 0;
-            border-radius: 0 8px 8px 0;
-        }
-
-        .warning-box {
-            background: rgba(245, 158, 11, 0.1);
-            border-left: 4px solid #f59e0b;
-            padding: 1.5rem;
-            margin: 1.5rem 0;
-            border-radius: 0 8px 8px 0;
-        }
-
-        .pricing-table {
-            width: 100%;
-            border-collapse: collapse;
-            margin: 1.5rem 0;
-            background: rgba(30, 41, 59, 0.8);
-            border-radius: 12px;
-            overflow: hidden;
-            border: 1px solid #374151;
-        }
-
-        .pricing-table th {
-            background: rgba(139, 92, 246, 0.2);
-            color: #8b5cf6;
-            padding: 1rem;
-            text-align: left;
-            font-weight: 600;
-        }
-
-        .pricing-table td {
-            padding: 1rem;
-            border-bottom: 1px solid #374151;
-        }
-
-        .pricing-table tr:last-child td {
-            border-bottom: none;
-        }
-
-        .contact-info {
-            background: rgba(30, 41, 59, 0.8);
-            border: 1px solid #374151;
-            border-radius: 12px;
-            padding: 1.5rem;
-            margin: 1.5rem 0;
-        }
-
-        .footer {
-            background: rgba(15, 23, 42, 0.95);
-            border-top: 1px solid #374151;
-            padding: 3rem 0;
-            text-align: center;
-        }
-
-        .footer-content {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 2rem;
-        }
-
-        .footer-links {
-            display: flex;
-            justify-content: center;
-            flex-wrap: wrap;
-            gap: 2rem;
-            margin-bottom: 2rem;
-        }
-
-        .footer-links a {
-            color: #9ca3af;
-            text-decoration: none;
-            transition: color 0.3s ease;
-        }
-
-        .footer-links a:hover {
-            color: #8b5cf6;
-        }
-
-        .footer-copyright {
-            color: #6b7280;
-            font-size: 0.875rem;
-        }
-
-        a {
-            color: #8b5cf6;
-            text-decoration: none;
-            transition: color 0.3s ease;
-        }
-
-        a:hover {
-            color: #06b6d4;
-        }
-
-        @media (max-width: 768px) {
-            .container {
-                padding: 0 1rem;
-            }
-            
-            .content-card {
-                padding: 2rem;
-            }
-            
-            .legal-title {
-                font-size: 2rem;
-            }
-            
-            .header-content {
-                flex-direction: column;
-                text-align: center;
-            }
-        }
-    </style>
+    }
+</style>
 </head>
 <body>
-    <!-- Header -->
-    <header class="header">
-        <div class="container">
-            <div class="header-content">
-                <div class="logo" onclick="window.location.href = '/'">DMTools.fun</div>
-             
-                <nav class="nav-tabs">
-    <a href="/app.html" class="tab-btn">💬 Generator</a>
-    <a href="/presets.html" class="tab-btn">📋 Templates</a>
-    <a href="/packs.html" class="tab-btn">🎁 Packs</a>
-    <a href="/analytics.html" class="tab-btn">📊 Analytics</a>
-    <a href="/contact.html" class="tab-btn">📞 Contact</a>
-    <a href="/pricing.html" class="tab-btn">💎 Pricing</a>
-    <a href="/account.html" class="tab-btn">👤 Account</a>
-</nav>
-             
-            </div>
+ 
+   <!-- Header -->
+<header class="header">
+    <div class="nav-container">
+        <a href="/" class="logo">DMTools.fun</a>
+        <div class="auth-buttons" id="authButtons">
+            <button class="mobile-menu-btn" onclick="toggleMobileMenu()" aria-label="Menu">☰</button>
+            <a href="/login.html" class="btn btn-secondary">Sign In</a>
+            <a href="/register.html" class="btn btn-primary">Sign Up</a>
         </div>
-    </header>
-
+    </div>
+    
+    <nav class="mobile-nav" id="mobileNav">
+        <a href="/app.html" class="tab-btn">Generator</a>
+        <a href="/presets.html" class="tab-btn">Templates</a>
+        <a href="/analytics.html" class="tab-btn">Analytics</a>
+        <a href="/packs.html" class="tab-btn">Response Packs</a>
+        <a href="/pricing.html" class="tab-btn">Pricing</a>
+        <a href="/store.html" class="tab-btn">Packs Store</a>
+        <a href="/account.html" class="tab-btn">Account</a>
+    </nav>
+</header>
+ 
     <!-- Main Content -->
     <main class="main-content">
         <div class="container">
@@ -694,10 +580,55 @@
         </div>
     </main>
 
-    <!-- Footer -->
-    <footer class="footer">
+ <!-- Footer -->
+<footer class="footer">
+    <div class="container">
         <div class="footer-content">
+            <div class="footer-brand">
+                <h3 class="footer-logo">DMTools.fun</h3>
+                <p class="footer-description">
+                    AI-powered universal messaging response generator.
+                </p>
+            </div>
+            
             <div class="footer-links">
-                <a href="/">Home</a>
-                <a href="/">Pricing</a>
-                <a href="/privacy-policy.html">Priv
+                <div class="link-group">
+                    <h4>Product</h4>
+                    <a href="/app.html">Generator</a>
+                    <a href="/presets.html">Templates</a>
+                    <a href="/pricing.html">Pricing</a>
+                    <a href="/store.html">Packs Store</a>
+                </div>
+                
+                <div class="link-group">
+                    <h4>Legal</h4>
+                    <a href="/terms-of-service.html">Terms of Service</a>
+                    <a href="/privacy-policy.html">Privacy Policy</a>
+                    <a href="/refund-policy.html">Refund Policy</a>
+                    <a href="/cookie-policy.html">Cookie Policy</a>
+                </div>
+                
+                <div class="link-group">
+                    <h4>Support</h4>
+                    <a href="/contact.html">Contact Us</a>
+                    <a href="mailto:support@dmtools.fun">Email Support</a>
+                </div>
+            </div>
+        </div>
+        
+        <div class="footer-bottom">
+            <p class="footer-copyright">© 2025 DMTools.fun LLC. All rights reserved.</p>
+        </div>
+    </div>
+</footer>
+
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script>
+<script>
+    // Mobile menu toggle
+    function toggleMobileMenu() {
+        document.getElementById('mobileNav').classList.toggle('show');
+    }
+</script>
+
+</body>
+</html>

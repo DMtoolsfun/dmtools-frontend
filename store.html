@@ -19,208 +19,285 @@
     <script src="https://assets.lemonsqueezy.com/lemon.js" defer></script>
     
     <style>
-        /* GLOBAL STYLES */
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        
-      
-        /* PACK CARDS */
-        .packs-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 2rem;
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 2rem;
+    /* HERO SECTION */
+    .hero {
+        text-align: center;
+        padding: 3rem 2rem;
+        max-width: 900px;
+        margin: 0 auto;
+    }
+    
+    .hero-title {
+        font-size: 3rem;
+        font-weight: 900;
+        margin-bottom: 1rem;
+        background: linear-gradient(135deg, #8b5cf6, #06b6d4);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+    }
+    
+    .hero-subtitle {
+        font-size: 1.5rem;
+        color: #06b6d4;
+        margin-bottom: 0.5rem;
+        font-weight: 600;
+    }
+    
+    .hero-tagline {
+        font-size: 1.1rem;
+        color: #9ca3af;
+        margin-bottom: 1.5rem;
+    }
+    
+    .hero-highlight {
+        display: inline-block;
+        background: rgba(139, 92, 246, 0.1);
+        border: 1px solid #8b5cf6;
+        border-radius: 12px;
+        padding: 0.75rem 1.5rem;
+        color: #8b5cf6;
+        font-weight: 600;
+        margin-bottom: 2rem;
+    }
+    
+    /* TOGGLE VIEW */
+    .toggle-view {
+        display: flex;
+        gap: 1rem;
+        justify-content: center;
+        margin: 2rem 0;
+    }
+    
+    .toggle-btn {
+        padding: 0.75rem 1.5rem;
+        background: transparent;
+        border: 2px solid #374151;
+        border-radius: 8px;
+        color: #9ca3af;
+        font-weight: 600;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        text-decoration: none;
+    }
+    
+    .toggle-btn:hover {
+        border-color: #8b5cf6;
+        color: #8b5cf6;
+    }
+    
+    .toggle-btn.active {
+        background: #8b5cf6;
+        border-color: #8b5cf6;
+        color: white;
+    }
+    
+    /* PACK CARDS */
+    .packs-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+        gap: 2rem;
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 2rem;
+    }
+    
+    .pack-card {
+        background: rgba(30, 41, 59, 0.8);
+        border: 2px solid #374151;
+        border-radius: 16px;
+        padding: 2rem;
+        text-align: center;
+        transition: all 0.3s ease;
+        position: relative;
+    }
+    
+    .pack-card:hover {
+        transform: translateY(-8px);
+        border-color: #06b6d4;
+    }
+    
+    .pack-card.featured {
+        border-color: #10b981;
+        transform: scale(1.05);
+    }
+    
+    .pack-card.featured:hover {
+        transform: scale(1.05) translateY(-8px);
+    }
+    
+    .badge {
+        position: absolute;
+        top: -12px;
+        left: 50%;
+        transform: translateX(-50%);
+        background: #10b981;
+        color: white;
+        padding: 0.25rem 1rem;
+        border-radius: 20px;
+        font-size: 0.875rem;
+        font-weight: 700;
+    }
+    
+    .pack-icon {
+        font-size: 3rem;
+        margin-bottom: 1rem;
+    }
+    
+    .pack-name {
+        font-size: 1.5rem;
+        font-weight: 700;
+        color: #ffffff;
+        margin-bottom: 0.5rem;
+    }
+    
+    .pack-price {
+        font-size: 2.5rem;
+        font-weight: 800;
+        color: #06b6d4;
+        margin: 1rem 0;
+    }
+    
+    .pack-responses {
+        color: #e5e7eb;
+        font-size: 1.2rem;
+        margin-bottom: 0.5rem;
+    }
+    
+    .pack-value {
+        color: #9ca3af;
+        font-size: 0.9rem;
+        margin-bottom: 2rem;
+    }
+    
+    .btn-buy {
+        background: #06b6d4;
+        color: white;
+    }
+    
+    .btn-buy:hover {
+        background: #0891b2;
+        transform: translateY(-2px);
+    }
+    
+    .btn-buy.featured {
+        background: #10b981;
+    }
+    
+    .btn-buy.featured:hover {
+        background: #059669;
+    }
+    
+    /* INFO SECTION */
+    .info-section {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        gap: 2rem;
+        max-width: 1200px;
+        margin: 3rem auto;
+        padding: 2rem;
+    }
+    
+    .info-card {
+        background: rgba(30, 41, 59, 0.8);
+        border: 1px solid #374151;
+        border-radius: 16px;
+        padding: 2rem;
+    }
+    
+    .info-title {
+        font-size: 1.5rem;
+        font-weight: 700;
+        color: #8b5cf6;
+        margin-bottom: 1rem;
+    }
+    
+    .info-list {
+        list-style: none;
+        padding: 0;
+    }
+    
+    .info-list li {
+        color: #d1d5db;
+        padding: 0.5rem 0;
+        padding-left: 1.5rem;
+        position: relative;
+    }
+    
+    .info-list li:before {
+        content: "✓";
+        position: absolute;
+        left: 0;
+        color: #10b981;
+        font-weight: bold;
+    }
+    
+    /* CTA SECTION */
+    .cta-section {
+        text-align: center;
+        padding: 4rem 2rem;
+        max-width: 800px;
+        margin: 0 auto;
+    }
+    
+    .cta-card {
+        background: rgba(30, 41, 59, 0.8);
+        border: 2px solid #8b5cf6;
+        border-radius: 16px;
+        padding: 3rem;
+    }
+    
+    .cta-title {
+        font-size: 2rem;
+        font-weight: 700;
+        color: #ffffff;
+        margin-bottom: 1rem;
+    }
+    
+    .cta-text {
+        color: #9ca3af;
+        margin-bottom: 2rem;
+        font-size: 1.1rem;
+    }
+    
+    .cta-link {
+        display: inline-block;
+        padding: 1rem 2rem;
+        background: transparent;
+        border: 2px solid #8b5cf6;
+        border-radius: 8px;
+        color: #8b5cf6;
+        text-decoration: none;
+        font-weight: 600;
+        transition: all 0.3s ease;
+    }
+    
+    .cta-link:hover {
+        background: #8b5cf6;
+        color: white;
+    }
+    
+    /* RESPONSIVE */
+    @media (max-width: 768px) {
+        .hero-title {
+            font-size: 2rem;
         }
         
-        .pack-card {
-            background: var(--darker);
-            border: 2px solid var(--border);
-            border-radius: 16px;
-            padding: 2rem;
-            text-align: center;
-            transition: all 0.3s ease;
-            position: relative;
-        }
-        
-        .pack-card:hover {
-            transform: translateY(-8px);
-            border-color: var(--accent);
+        .packs-grid,
+        .info-section {
+            grid-template-columns: 1fr;
+            padding: 1rem;
         }
         
         .pack-card.featured {
-            border-color: var(--secondary);
-            transform: scale(1.05);
+            transform: scale(1);
         }
         
-        .badge {
-            position: absolute;
-            top: -12px;
-            left: 50%;
-            transform: translateX(-50%);
-            background: var(--secondary);
-            color: white;
-            padding: 0.25rem 1rem;
-            border-radius: 20px;
-            font-size: 0.875rem;
-            font-weight: 700;
+        .toggle-view {
+            flex-direction: column;
         }
-        
-        .pack-icon {
-            font-size: 3rem;
-            margin-bottom: 1rem;
-        }
-        
-        .pack-name {
-            font-size: 1.5rem;
-            font-weight: 700;
-            color: var(--text);
-            margin-bottom: 0.5rem;
-        }
-        
-        .pack-price {
-            font-size: 2.5rem;
-            font-weight: 800;
-            color: var(--accent);
-            margin: 1rem 0;
-        }
-        
-        .pack-responses {
-            color: var(--text);
-            font-size: 1.2rem;
-            margin-bottom: 0.5rem;
-        }
-        
-        .pack-value {
-            color: var(--text-secondary);
-            font-size: 0.9rem;
-            margin-bottom: 2rem;
-        }
-        
-        .btn {
-            width: 100%;
-            padding: 1rem;
-            border: none;
-            border-radius: 8px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            font-size: 1rem;
-        }
-        
-        .btn-buy {
-            background: var(--accent);
-            color: white;
-        }
-        
-        .btn-buy:hover {
-            background: #0891b2;
-            transform: translateY(-2px);
-        }
-        
-        .btn-buy.featured {
-            background: var(--secondary);
-        }
-        
-        .btn-buy.featured:hover {
-            background: #059669;
-        }
-        /* END PACK CARDS */
-         /* CTA SECTION */
-        .cta-section {
-            text-align: center;
-            padding: 4rem 2rem;
-            max-width: 800px;
-            margin: 0 auto;
-        }
-        
-        .cta-card {
-            background: var(--darker);
-            border: 2px solid var(--primary);
-            border-radius: 16px;
-            padding: 3rem;
-        }
-        
-        .cta-title {
-            font-size: 2rem;
-            font-weight: 700;
-            color: var(--text);
-            margin-bottom: 1rem;
-        }
-        
-        .cta-text {
-            color: var(--text-secondary);
-            margin-bottom: 2rem;
-            font-size: 1.1rem;
-        }
-        
-        .cta-link {
-            display: inline-block;
-            padding: 1rem 2rem;
-            background: transparent;
-            border: 2px solid var(--primary);
-            border-radius: 8px;
-            color: var(--primary);
-            text-decoration: none;
-            font-weight: 600;
-            transition: all 0.3s ease;
-        }
-        
-        .cta-link:hover {
-            background: var(--primary);
-            color: white;
-        }
-      
-        
-        /* CTA SECTION */
-        .cta-section {
-            text-align: center;
-            padding: 4rem 2rem;
-            max-width: 800px;
-            margin: 0 auto;
-        }
-        
-        .cta-card {
-            background: var(--darker);
-            border: 2px solid var(--primary);
-            border-radius: 16px;
-            padding: 3rem;
-        }
-        
-        .cta-title {
-            font-size: 2rem;
-            font-weight: 700;
-            color: var(--text);
-            margin-bottom: 1rem;
-        }
-        
-        .cta-text {
-            color: var(--text-secondary);
-            margin-bottom: 2rem;
-            font-size: 1.1rem;
-        }
-        
-        .cta-link {
-            display: inline-block;
-            padding: 1rem 2rem;
-            background: transparent;
-            border: 2px solid var(--primary);
-            border-radius: 8px;
-            color: var(--primary);
-            text-decoration: none;
-            font-weight: 600;
-            transition: all 0.3s ease;
-        }
-        
-        .cta-link:hover {
-            background: var(--primary);
-            color: white;
-        }
-        /* END CTA SECTION */
-        
-      
-        
-    </style>
+    }
+</style>
 </head>
 <body>
     

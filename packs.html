@@ -23,35 +23,157 @@
     <!-- Lemon Squeezy -->
     <script src="https://assets.lemonsqueezy.com/lemon.js" defer></script>
 
-    <style>
-       
-        
-        :root {
-            --primary: #8b5cf6;
-            --primary-dark: #7c3aed;
-            --secondary: #10b981;
-            --danger: #ef4444;
-            --warning: #f59e0b;
-            --dark: #1f2937;
-            --darker: #111827;
-            --border: #374151;
-            --text: #e5e7eb;
-            --text-secondary: #9ca3af;
+   <style>
+    /* PAGE-SPECIFIC: Response Packs Management */
+    
+    /* Loading State */
+    .loading {
+        text-align: center;
+        padding: 4rem 2rem;
+        color: var(--text-secondary);
+    }
+    
+    /* Info Boxes */
+    .info-box {
+        background: rgba(55, 65, 81, 0.3);
+        border: 1px solid var(--border-medium);
+        border-radius: var(--radius-lg);
+        padding: 1.5rem;
+        margin-bottom: 1.5rem;
+    }
+    
+    .info-box.success {
+        background: rgba(16, 185, 129, 0.1);
+        border-color: var(--success);
+    }
+    
+    .info-box.warning {
+        background: rgba(245, 158, 11, 0.1);
+        border-color: var(--warning);
+    }
+    
+    .info-box ul {
+        margin: 1rem 0 0 0;
+        padding-left: 1.5rem;
+    }
+    
+    .info-box li {
+        margin-bottom: 0.5rem;
+        color: var(--text-secondary);
+    }
+    
+    /* CTA Buttons Container */
+    .cta-buttons {
+        display: flex;
+        gap: 1rem;
+        margin: 1.5rem 0;
+        flex-wrap: wrap;
+    }
+    
+    .cta-buttons .btn {
+        flex: 1;
+        min-width: 200px;
+    }
+    
+    /* Progress Bar */
+    .progress-bar {
+        background: var(--bg-input);
+        border-radius: var(--radius-full);
+        height: 32px;
+        overflow: hidden;
+        position: relative;
+    }
+    
+    .progress-fill {
+        background: linear-gradient(135deg, var(--primary), var(--accent));
+        height: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 0 1rem;
+        transition: width 0.6s ease;
+        font-weight: 600;
+        font-size: 0.9rem;
+    }
+    
+    /* Pack Item */
+    .pack-item {
+        background: var(--bg-card);
+        border: 2px solid var(--border-medium);
+        border-radius: var(--radius-md);
+        padding: 1rem;
+        margin-bottom: 1rem;
+        transition: border-color var(--transition-normal);
+    }
+    
+    .pack-item:hover {
+        border-color: var(--primary);
+    }
+    
+    /* Footer Grid (override default for this page) */
+    .footer-grid {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 2rem;
+        margin-bottom: 2rem;
+    }
+    
+    .footer-section h3 {
+        font-size: 1.2rem;
+        margin-bottom: 1rem;
+        color: var(--primary);
+    }
+    
+    .footer-section h4 {
+        font-size: 0.9rem;
+        margin-bottom: 1rem;
+        color: var(--text-primary);
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+    }
+    
+    .footer-section p {
+        color: var(--text-muted);
+        line-height: 1.6;
+        font-size: 0.9rem;
+    }
+    
+    .footer-section ul {
+        list-style: none;
+        padding: 0;
+    }
+    
+    .footer-section li {
+        margin-bottom: 0.5rem;
+    }
+    
+    .footer-section a {
+        color: var(--text-muted);
+        text-decoration: none;
+        font-size: 0.9rem;
+        transition: color var(--transition-normal);
+    }
+    
+    .footer-section a:hover {
+        color: var(--primary);
+    }
+    
+    /* Responsive */
+    @media (max-width: 768px) {
+        .cta-buttons {
+            flex-direction: column;
         }
         
-        .pack-item {
-            background: var(--dark);
-            border: 2px solid var(--border);
-            border-radius: 8px;
-            padding: 1rem;
-            margin-bottom: 1rem;
+        .cta-buttons .btn {
+            width: 100%;
         }
         
-
-        
-              
-                   
-    </style>
+        .footer-grid {
+            grid-template-columns: 1fr;
+            gap: 1.5rem;
+        }
+    }
+</style>
 </head>
 <body>
    <header class="header">
@@ -261,144 +383,149 @@
     </footer>
     <!-- END FOOTER -->
     
-    <script>
-        const API_BASE = 'https://dmtools-backend-production.up.railway.app/api';
+   <script>
+    const API_BASE = 'https://dmtools-backend-production.up.railway.app/api';
+    
+    // Mobile menu toggle
+    function toggleMobileMenu() {
+        document.getElementById('mobileNav').classList.toggle('show');
+    }
+    
+    // Check authentication and update header
+    async function updateAuthSection() {
+        const token = localStorage.getItem('authToken');
+        const authButtons = document.getElementById('authButtons');
         
-        // Check authentication and update header
-        async function updateAuthSection() {
-            const token = localStorage.getItem('authToken');
-            const authSection = document.getElementById('auth-section');
-            
-            if (!authSection) return;
-            
-            if (!token) {
-                // Not logged in
-                authSection.innerHTML = `
-                    <a href="/app.html" class="auth-btn">Login</a>
-                    <a href="/app.html" class="auth-btn primary">Sign Up</a>
-                `;
-            } else {
-                // Logged in - get user info
-                try {
-                    const response = await fetch(API_BASE + '/user/profile', {
-                        headers: {
-                            'Authorization': `Bearer ${token}`
-                        }
-                    });
-                    
-                    if (response.ok) {
-                        const data = await response.json();
-                        const user = data.user;
-                        
-                        authSection.innerHTML = `
-                            <div class="user-section">
-                                <span class="user-email">${user.email}</span>
-                                <a href="/account.html" class="auth-btn">Account</a>
-                                <button class="auth-btn" onclick="handleLogout()">Logout</button>
-                            </div>
-                        `;
-                    } else {
-                        // Token invalid
-                        localStorage.removeItem('authToken');
-                        updateAuthSection();
-                    }
-                } catch (error) {
-                    console.error('Auth check failed:', error);
-                    authSection.innerHTML = `
-                        <a href="/app.html" class="auth-btn">Login</a>
-                        <a href="/app.html" class="auth-btn primary">Sign Up</a>
-                    `;
-                }
-            }
-        }
+        if (!authButtons) return;
         
-        function handleLogout() {
-            localStorage.removeItem('authToken');
-            window.location.href = '/';
-        }
-        
-        async function loadPage() {
-            const token = localStorage.getItem('authToken');
-            const loading = document.getElementById('loading');
-            const content = document.getElementById('content');
-            const freeSection = document.getElementById('free-section');
-            const subscriberSection = document.getElementById('subscriber-section');
-            const enterpriseSection = document.getElementById('enterprise-section');
-            
-            console.log('Token found:', token ? 'YES' : 'NO');
-            
-            if (!token) {
-                // Not logged in - show free section
-                loading.classList.add('hidden');
-                content.classList.remove('hidden');
-                freeSection.classList.remove('hidden');
-                return;
-            }
-            
+        if (!token) {
+            // Not logged in - show sign in/up buttons
+            authButtons.innerHTML = `
+                <button class="mobile-menu-btn" onclick="toggleMobileMenu()" aria-label="Menu">☰</button>
+                <a href="/login.html" class="btn btn-secondary">Sign In</a>
+                <a href="/register.html" class="btn btn-primary">Sign Up</a>
+            `;
+        } else {
+            // Logged in - get user info
             try {
-                // Fetch user profile
                 const response = await fetch(API_BASE + '/user/profile', {
                     headers: {
                         'Authorization': `Bearer ${token}`
                     }
                 });
                 
-                console.log('API Response status:', response.status);
-                
-                if (!response.ok) {
-                    throw new Error('Failed to fetch user data');
-                }
-                
-                const data = await response.json();
-                console.log('User data:', data);
-                const user = data.user;
-                
-                loading.classList.add('hidden');
-                content.classList.remove('hidden');
-                
-                // Determine which section to show
-                if (user.subscription_tier === 'enterprise') {
-                    enterpriseSection.classList.remove('hidden');
-                } else if (user.subscription_tier === 'pro' || user.subscription_tier === 'business') {
-                    subscriberSection.classList.remove('hidden');
+                if (response.ok) {
+                    const data = await response.json();
+                    const user = data.user;
                     
-                    // Update subscriber info
-                    document.getElementById('plan-name').textContent = 
-                        user.subscription_tier.charAt(0).toUpperCase() + user.subscription_tier.slice(1);
-                    document.getElementById('monthly-limit').textContent = user.monthly_limit || 1000;
-                    document.getElementById('responses-remaining').textContent = user.responses_remaining || 0;
-                    
-                    // Calculate usage percentage
-                    const used = (user.monthly_limit || 1000) - (user.responses_remaining || 0);
-                    const percent = Math.round((used / (user.monthly_limit || 1000)) * 100);
-                    
-                    document.getElementById('usage-bar').style.width = percent + '%';
-                    document.getElementById('usage-text').textContent = used + ' used';
-                    document.getElementById('usage-percent').textContent = percent + '%';
-                    
+                    authButtons.innerHTML = `
+                        <button class="mobile-menu-btn" onclick="toggleMobileMenu()" aria-label="Menu">☰</button>
+                        <span class="user-email">${user.email}</span>
+                        <button class="btn btn-secondary" onclick="handleLogout()">Logout</button>
+                    `;
                 } else {
-                    // Free user
-                    freeSection.classList.remove('hidden');
+                    // Token invalid
+                    localStorage.removeItem('authToken');
+                    updateAuthSection();
                 }
-                
             } catch (error) {
-                console.error('Error loading page:', error);
-                loading.innerHTML = `
-                    <div style="color: var(--danger); max-width: 500px; margin: 0 auto;">
-                        <h2 style="margin-bottom: 1rem;">⚠️ Error Loading Page</h2>
-                        <p style="margin-bottom: 1rem;">Could not load your account data. Please try again.</p>
-                        <button onclick="location.reload()" class="btn btn-primary">Retry</button>
-                        <a href="/app.html" class="btn btn-secondary" style="margin-left: 1rem;">Back to App</a>
-                    </div>
+                console.error('Auth check failed:', error);
+                authButtons.innerHTML = `
+                    <button class="mobile-menu-btn" onclick="toggleMobileMenu()" aria-label="Menu">☰</button>
+                    <a href="/login.html" class="btn btn-secondary">Sign In</a>
+                    <a href="/register.html" class="btn btn-primary">Sign Up</a>
                 `;
             }
         }
+    }
+    
+    function handleLogout() {
+        localStorage.removeItem('authToken');
+        window.location.href = '/';
+    }
+    
+    async function loadPage() {
+        const token = localStorage.getItem('authToken');
+        const loading = document.getElementById('loading');
+        const content = document.getElementById('content');
+        const freeSection = document.getElementById('free-section');
+        const subscriberSection = document.getElementById('subscriber-section');
+        const enterpriseSection = document.getElementById('enterprise-section');
         
-        // Run on page load
-        document.addEventListener('DOMContentLoaded', () => {
-            updateAuthSection();
-            loadPage();
-        });
-    </script>
+        console.log('Token found:', token ? 'YES' : 'NO');
+        
+        if (!token) {
+            // Not logged in - show free section
+            loading.classList.add('hidden');
+            content.classList.remove('hidden');
+            freeSection.classList.remove('hidden');
+            return;
+        }
+        
+        try {
+            // Fetch user profile
+            const response = await fetch(API_BASE + '/user/profile', {
+                headers: {
+                    'Authorization': `Bearer ${token}`
+                }
+            });
+            
+            console.log('API Response status:', response.status);
+            
+            if (!response.ok) {
+                throw new Error('Failed to fetch user data');
+            }
+            
+            const data = await response.json();
+            console.log('User data:', data);
+            const user = data.user;
+            
+            loading.classList.add('hidden');
+            content.classList.remove('hidden');
+            
+            // Determine which section to show
+            if (user.subscription_tier === 'enterprise') {
+                enterpriseSection.classList.remove('hidden');
+            } else if (user.subscription_tier === 'pro' || user.subscription_tier === 'business') {
+                subscriberSection.classList.remove('hidden');
+                
+                // Update subscriber info
+                document.getElementById('plan-name').textContent = 
+                    user.subscription_tier.charAt(0).toUpperCase() + user.subscription_tier.slice(1);
+                document.getElementById('monthly-limit').textContent = user.monthly_limit || 1000;
+                document.getElementById('responses-remaining').textContent = user.responses_remaining || 0;
+                
+                // Calculate usage percentage
+                const used = (user.monthly_limit || 1000) - (user.responses_remaining || 0);
+                const percent = Math.round((used / (user.monthly_limit || 1000)) * 100);
+                
+                document.getElementById('usage-bar').style.width = percent + '%';
+                document.getElementById('usage-text').textContent = used + ' used';
+                document.getElementById('usage-percent').textContent = percent + '%';
+                
+            } else {
+                // Free user
+                freeSection.classList.remove('hidden');
+            }
+            
+        } catch (error) {
+            console.error('Error loading page:', error);
+            loading.innerHTML = `
+                <div style="color: var(--error); max-width: 500px; margin: 0 auto;">
+                    <h2 style="margin-bottom: 1rem;">⚠️ Error Loading Page</h2>
+                    <p style="margin-bottom: 1rem;">Could not load your account data. Please try again.</p>
+                    <button onclick="location.reload()" class="btn btn-primary">Retry</button>
+                    <a href="/app.html" class="btn btn-secondary" style="margin-left: 1rem;">Back to App</a>
+                </div>
+            `;
+        }
+    }
+    
+    // Run on page load
+    document.addEventListener('DOMContentLoaded', () => {
+        updateAuthSection();
+        loadPage();
+    });
+</script>
 </body>
 </html>

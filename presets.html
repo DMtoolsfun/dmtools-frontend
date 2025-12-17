@@ -5,6 +5,8 @@
 <link rel="manifest" href="/manifest.json">
 <meta name="theme-color" content="#8b5cf6">
 <meta name="apple-mobile-web-app-capable" content="yes">
+
+ <link rel="stylesheet" href="styles.css">
  
  <!-- Google tag (gtag.js) -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-GFG0RYJNR0"></script>
@@ -24,19 +26,7 @@
     <meta name="description" content="Create and manage custom response templates for any digital messaging platform. Save time with pre-built responses.">
     
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-            background: linear-gradient(135deg, #0f172a 0%, #1e293b 50%, #334155 100%);
-            color: #ffffff;
-            line-height: 1.6;
-            min-height: 100vh;
-        }
+        
 
         .container {
             max-width: 1200px;
@@ -44,88 +34,13 @@
             padding: 0 2rem;
         }
 
-     /* Header Container */
-.header {
-    background: rgba(15, 23, 42, 0.95);
-    backdrop-filter: blur(10px);
-    border-bottom: 1px solid #1e293b;
-    padding: 1rem 0;
-    position: sticky;
-    top: 0;
-    z-index: 100;
-}
+ 
 
-/* Nav Container - Logo, Back Button, Auth */
-.nav-container {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 0 2rem;
-}
 
-/* Logo */
-.logo {
-    font-size: 1.8rem;
-    font-weight: 900;
-    background: linear-gradient(135deg, #8b5cf6, #06b6d4);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
-    cursor: pointer;
-    text-decoration: none;
-}
 
-/* Back to App Button */
-.nav-back {
-    background: #374151;
-    color: #ffffff;
-    padding: 0.5rem 1rem;
-    border-radius: 8px;
-    text-decoration: none;
-    border: 1px solid #4b5563;
-    transition: all 0.3s ease;
-}
 
-.nav-back:hover {
-    border-color: #8b5cf6;
-    color: #8b5cf6;
-}
 
-/* Navigation Tabs */
-.nav-tabs {
-    display: flex;
-    justify-content: center;
-    gap: 1rem;
-    padding: 1rem 2rem;
-    border-top: 1px solid #1e293b;
-}
 
-/* Tab Buttons */
-.tab-btn {
-    background: transparent;
-    border: 1px solid #374151;
-    color: #9ca3af;
-    padding: 0.5rem 1.5rem;
-    border-radius: 6px;
-    text-decoration: none;
-    font-weight: 600;
-    transition: all 0.3s ease;
-    cursor: pointer;
-    font-size: 0.7rem;
-}
-
-.tab-btn:hover,
-.tab-btn.active {
-    border-color: #8b5cf6;
-    color: #8b5cf6;
-    background: rgba(139, 92, 246, 0.1);
-}
-
-.tab-btn.active {
-    background: rgba(139, 92, 246, 0.2);
-}
 
 /* ========================================
    AUTH BUTTONS STYLES
@@ -149,83 +64,6 @@
     font-size: 0.9rem;
 }
 
-/* Buttons */
-.btn {
-    padding: 0.5rem 1rem;
-    border: none;
-    border-radius: 8px;
-    font-weight: 600;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    font-size: 0.85rem;
-    text-decoration: none;
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-}
-
-.btn-primary {
-    background: linear-gradient(135deg, #8b5cf6, #7c3aed);
-    color: white;
-    border: none;
-}
-
-.btn-primary:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 8px 25px rgba(139, 92, 246, 0.3);
-}
-
-.btn-secondary {
-    background: #374151;
-    color: #ffffff;
-    border: 1px solid #4b5563;
-}
-
-.btn-secondary:hover {
-    border-color: #8b5cf6;
-    color: #8b5cf6;
-}
-
-/* Hidden utility class */
-.hidden {
-    display: none !important;
-}
-
-/* ========================================
-   MOBILE RESPONSIVE
-   ======================================== */
-
-@media (max-width: 768px) {
-    .nav-container {
-        flex-wrap: wrap;
-        gap: 1rem;
-        padding: 0 1rem;
-    }
-    
-    .nav-tabs {
-        flex-wrap: wrap;
-        gap: 0.5rem;
-        padding: 1rem;
-    }
-    
-    .tab-btn {
-        padding: 0.5rem 1rem;
-        font-size: 0.65rem;
-    }
-    
-    .auth-buttons {
-        gap: 0.5rem;
-    }
-    
-    .btn {
-        padding: 0.4rem 0.75rem;
-        font-size: 0.8rem;
-    }
-    
-    .user-email {
-        display: none; /* Hide email on mobile, just show logout */
-    }
-}
 
       
         /* Template Usage Tracker */
@@ -740,166 +578,8 @@
                 grid-template-columns: 1fr;
             }
         }
-     /* ========================================
-   HEADER FIX - Static with Smaller Icons
-   ======================================== */
+   
 
-/* Remove sticky/fixed positioning - make header static */
-.header,
-header,
-.site-header,
-.main-header {
-    position: static !important; /* Not sticky or fixed */
-    top: auto !important;
-    z-index: 100;
-}
-
-/* Make header compact with reasonable height */
-.header,
-header,
-.site-header,
-.main-header {
-    padding: 0.75rem 0 !important; /* Reduced from likely 1.5rem or more */
-    min-height: auto !important;
-    height: auto !important;
-}
-
-/* Navigation container */
-.header nav,
-.header-nav,
-.main-nav,
-header nav {
-    display: flex;
-    align-items: center;
-    gap: 1.5rem; /* Space between nav items */
-}
-
-/* Navigation links - make icons smaller */
-.header nav a,
-.header-nav a,
-.main-nav a,
-header nav a,
-.nav-link {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 0.25rem;
-    text-decoration: none;
-    font-size: 0.9rem; /* Slightly smaller text */
-    transition: all 0.3s ease;
-}
-
-/* Icons/Emoji in navigation - reduce size */
-.header nav a::before,
-.header-nav a::before,
-.main-nav a::before,
-header nav a span:first-child,
-.nav-icon {
-    font-size: 1.25rem !important; /* Smaller icons - was probably 2rem+ */
-    line-height: 1;
-    display: block;
-}
-
-/* If icons are actual elements with class */
-.header .icon,
-.nav-item .icon,
-header .icon {
-    width: 24px !important; /* Fixed icon size */
-    height: 24px !important;
-    font-size: 1.25rem !important;
-}
-
-/* Adjust header content container */
-.header-content,
-.header .container {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 0 2rem;
-    max-width: 1400px;
-    margin: 0 auto;
-}
-
-/* Logo area */
-.logo {
-    font-size: 1.5rem !important;
-    font-weight: 700;
-}
-
-/* Right side buttons (Welcome, Open App) */
-.header-actions,
-.header-right,
-.user-menu {
-    display: flex;
-    align-items: center;
-    gap: 1rem;
-}
-
-/* Compact button styling */
-.header-actions button,
-.header-actions a,
-.btn-header {
-    padding: 0.5rem 1rem !important; /* Smaller padding */
-    font-size: 0.9rem !important;
-    white-space: nowrap;
-}
-
-/* PWA Install prompt - make it less intrusive */
-.pwa-prompt,
-.install-prompt {
-    position: fixed !important; /* Keep this fixed */
-    top: 80px !important; /* Below header */
-    right: 20px;
-    z-index: 999;
-    max-width: 280px;
-}
-
-/* Mobile responsive */
-@media (max-width: 768px) {
-    .header nav {
-        gap: 1rem; /* Less space on mobile */
-    }
-    
-    .header nav a {
-        font-size: 0.75rem;
-    }
-    
-    .header nav a::before,
-    .header nav a span:first-child {
-        font-size: 1rem !important; /* Even smaller icons on mobile */
-    }
-}
-
-/* ========================================
-   SPECIFIC FIX FOR YOUR SCREENSHOT
-   ======================================== */
-
-/* The navigation items: Generator, Templates, Packs, Analytics, Contact, Pricing, Account */
-nav a,
-.nav-item {
-    font-size: 0.875rem !important; /* 14px */
-}
-
-/* The emoji/icons before text */
-nav a > span:first-child,
-.nav-item-icon {
-    font-size: 1.125rem !important; /* 18px - much smaller than before */
-    margin-bottom: 2px;
-}
-
-/* Ensure header doesn't grow */
-.header {
-    max-height: 70px !important;
-    overflow: visible;
-}
-
-/* Fix any padding issues */
-.header,
-header {
-    padding-top: 0.5rem !important;
-    padding-bottom: 0.5rem !important;
-}
-     
     </style>
 </head>
 <body>

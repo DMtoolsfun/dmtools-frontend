@@ -6,8 +6,6 @@
 <meta name="theme-color" content="#8b5cf6">
 <meta name="apple-mobile-web-app-capable" content="yes">
 
-	<link rel="stylesheet" href="styles.css">
-
     <!-- Google tag (gtag.js) -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-GFG0RYJNR0"></script>
     <script>
@@ -28,130 +26,211 @@
     <!-- stylesheet -->
     <link rel="stylesheet" href="styles.css">
     
-   <style>
-   
-    
-    /* Contact Content */
-    .contact-grid {
-        display: grid;
-        grid-template-columns: 1fr 1fr;
-        gap: 3rem;
-        margin-bottom: 3rem;
-    }
+    <style>
+        /* PAGE-SPECIFIC: Contact Page */
+        
+        /* Contact Content */
+        .contact-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+            margin-bottom: 3rem;
+        }
 
-    .contact-card {
-        background: var(--bg-input);
-        border-radius: 16px;
-        padding: 2rem;
-        border: 1px solid var(--border-medium);
-        box-shadow: var(--shadow-md);
-    }
+        .contact-card {
+            background: var(--bg-input);
+            border-radius: 16px;
+            padding: 2rem;
+            border: 1px solid var(--border-medium);
+            box-shadow: var(--shadow-md);
+        }
 
-    .card-header {
-        margin-bottom: 1.5rem;
-    }
+        .card-header {
+            margin-bottom: 1.5rem;
+        }
 
-    .card-title {
-        font-size: 1.5rem;
-        font-weight: 700;
-        color: var(--text-primary);
-        margin-bottom: 0.5rem;
-    }
+        .card-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--text-primary);
+            margin-bottom: 0.5rem;
+        }
 
-    .card-subtitle {
-        color: var(--text-muted);
-    }
+        .card-subtitle {
+            color: var(--text-muted);
+        }
 
-    /* Contact Methods */
-    .contact-method {
-        display: flex;
-        align-items: center;
-        gap: 1rem;
-        padding: 1rem;
-        background: var(--bg-card);
-        border-radius: 12px;
-        margin-bottom: 1rem;
-        transition: all 0.3s ease;
-    }
+        /* Contact Methods */
+        .contact-method {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            padding: 1rem;
+            background: var(--bg-card);
+            border-radius: 12px;
+            margin-bottom: 1rem;
+            transition: all 0.3s ease;
+        }
 
-    .contact-method:hover {
-        background: var(--bg-light);
-        transform: translateY(-2px);
-    }
+        .contact-method:hover {
+            background: var(--bg-light);
+            transform: translateY(-2px);
+        }
 
-    .contact-icon {
-        font-size: 1.5rem;
-        width: 50px;
-        height: 50px;
-        background: linear-gradient(135deg, var(--primary), var(--primary-dark));
-        border-radius: 50%;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-    }
+        .contact-icon {
+            font-size: 1.5rem;
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
 
-    .contact-info h3 {
-        color: var(--text-primary);
-        font-weight: 600;
-        margin-bottom: 0.25rem;
-    }
+        .contact-info h3 {
+            color: var(--text-primary);
+            font-weight: 600;
+            margin-bottom: 0.25rem;
+        }
 
-    .contact-info p {
-        color: var(--text-muted);
-        margin: 0;
-    }
+        .contact-info p {
+            color: var(--text-muted);
+            margin: 0;
+        }
 
-    .contact-info a {
-        color: var(--primary);
-        text-decoration: none;
-    }
+        .contact-info a {
+            color: var(--primary);
+            text-decoration: none;
+        }
 
-    .contact-info a:hover {
-        text-decorat
-	}
-	   </style>
+        .contact-info a:hover {
+            text-decoration: underline;
+        }
+
+        /* FAQ Section */
+        .faq-section {
+            margin-top: 4rem;
+        }
+
+        .faq-title {
+            text-align: center;
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--text-primary);
+            margin-bottom: 2rem;
+        }
+
+        .faq-item {
+            background: var(--bg-input);
+            border-radius: 12px;
+            margin-bottom: 1rem;
+            border: 1px solid var(--border-medium);
+            overflow: hidden;
+        }
+
+        .faq-question {
+            padding: 1.5rem;
+            background: none;
+            border: none;
+            color: var(--text-primary);
+            font-weight: 600;
+            font-size: 1rem;
+            cursor: pointer;
+            width: 100%;
+            text-align: left;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: background-color 0.3s ease;
+        }
+
+        .faq-question:hover {
+            background: var(--bg-card);
+        }
+
+        .faq-answer {
+            padding: 0 1.5rem 1.5rem;
+            color: var(--text-muted);
+            line-height: 1.6;
+            display: none;
+        }
+
+        .faq-item.active .faq-answer {
+            display: block;
+        }
+
+        .faq-icon {
+            transition: transform 0.3s ease;
+        }
+
+        .faq-item.active .faq-icon {
+            transform: rotate(180deg);
+        }
+
+        /* Success/Error Messages */
+        .success-message {
+            background: var(--success-bg);
+            border: 1px solid var(--success);
+            color: var(--success);
+            padding: 1rem;
+            border-radius: var(--radius-md);
+            margin-bottom: 1rem;
+            display: none;
+        }
+
+        .error-message {
+            background: var(--error-bg);
+            border: 1px solid var(--error);
+            color: var(--error);
+            padding: 1rem;
+            border-radius: var(--radius-md);
+            margin-bottom: 1rem;
+            display: none;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .contact-grid {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+            
+            .contact-method {
+                flex-direction: column;
+                text-align: center;
+            }
+        }
+    </style>
 </head>
 	
 <body>
-    
-	<!-- Header -->
-<header class="header">
-    <div class="nav-container">
-        <a href="/" class="logo">DMTools.fun</a>
-        <div class="auth-buttons" id="authButtons">
-            <button class="mobile-menu-btn" onclick="toggleMobileMenu()" aria-label="Menu">☰</button>
-            <a href="/app.html" class="btn btn-secondary">← Back to App</a>
+    <!-- Header -->
+    <header class="header">
+        <div class="nav-container">
+            <a href="/" class="logo">DMTools.fun</a>
+            <div class="auth-buttons" id="authButtons">
+                <button class="mobile-menu-btn" onclick="toggleMobileMenu()" aria-label="Menu">☰</button>
+                <a href="/login.html" class="btn btn-secondary">Sign In</a>
+                <a href="/register.html" class="btn btn-primary">Sign Up</a>
+            </div>
         </div>
-    </div>
-    
-    <nav class="mobile-nav" id="mobileNav">
-        <a href="/app.html" class="tab-btn">Generator</a>
-        <a href="/presets.html" class="tab-btn">Templates</a>
-        <a href="/analytics.html" class="tab-btn active">Analytics</a>
-        <a href="/packs.html" class="tab-btn">Response Packs</a>
-        <a href="/pricing.html" class="tab-btn">Pricing</a>
-        <a href="/store.html" class="tab-btn">Packs Store</a>
-        <a href="/account.html" class="tab-btn">Account</a>
-    </nav>
-    
-    <!-- Desktop Nav Tabs -->
-    <nav class="nav-tabs">
-        <a href="/app.html" class="tab-btn">Generator</a>
-        <a href="/presets.html" class="tab-btn">Templates</a>
-        <a href="/analytics.html" class="tab-btn active">Analytics</a>
-        <a href="/packs.html" class="tab-btn">Response Packs</a>
-        <a href="/pricing.html" class="tab-btn">Pricing</a>
-        <a href="/store.html" class="tab-btn">Packs Store</a>
-        <a href="/account.html" class="tab-btn">Account</a>
-    </nav>
-</header>
+        
+        <nav class="mobile-nav" id="mobileNav">
+            <a href="/app.html" class="tab-btn">Generator</a>
+            <a href="/presets.html" class="tab-btn">Templates</a>
+            <a href="/analytics.html" class="tab-btn">Analytics</a>
+            <a href="/packs.html" class="tab-btn">Response Packs</a>
+            <a href="/pricing.html" class="tab-btn">Pricing</a>
+            <a href="/store.html" class="tab-btn">Packs Store</a>
+            <a href="/account.html" class="tab-btn">Account</a>
+        </nav>
+    </header>
 
-	<!-- Main Content -->
+    <!-- Main Content -->
     <main class="main-content">
         <div class="container">
-			
             <!-- Page Header -->
-			
             <div class="page-header">
                 <h1 class="page-title">📞 Contact Us</h1>
                 <p class="page-description">
@@ -184,242 +263,4 @@
 
                         <div class="form-group">
                             <label class="form-label" for="email">Email</label>
-                            <input type="email" id="email" name="email" class="form-input" required>
-                        </div>
-
-                        <div class="form-group">
-                            <label class="form-label" for="subject">Subject</label>
-                            <select id="subject" name="subject" class="form-input" required>
-                                <option value="">Select a topic...</option>
-                                <option value="support">Technical Support</option>
-                                <option value="billing">Billing Question</option>
-                                <option value="feature">Feature Request</option>
-                                <option value="bug">Bug Report</option>
-                                <option value="other">Other</option>
-                            </select>
-                        </div>
-
-                        <div class="form-group">
-                            <label class="form-label" for="message">Message</label>
-                            <textarea id="message" name="message" class="form-textarea" placeholder="Tell us how we can help..." required></textarea>
-                        </div>
-
-                        <button type="submit" class="btn btn-primary" style="width: 100%;">
-                            Send Message
-                        </button>
-                    </form>
-                </div>
-			</div>
-		</div>
-		
-            <!-- FAQ Section -->
-            <div class="faq-section">
-                <h2 class="faq-title">Frequently Asked Questions</h2>
-                
-                <div class="faq-item">
-                    <button class="faq-question" onclick="toggleFAQ(this)">
-                        How does DMTools.fun work?
-                        <span class="faq-icon">▼</span>
-                    </button>
-                    <div class="faq-answer">
-                        DMTools.fun uses AI to generate personalized responses for any digital messaging service with a web client. Process messages from social media DMs (Instagram, Twitter, TikTok, Facebook, LinkedIn), email, SMS, dating apps, and customer service chat. Simply drag and drop your messages, choose your tone, and get perfect responses simultaneously for all messages.
-                    </div>
-                </div>
-
-                <div class="faq-item">
-                    <button class="faq-question" onclick="toggleFAQ(this)">
-                        Is there a free plan?
-                        <span class="faq-icon">▼</span>
-                    </button>
-                    <div class="faq-answer">
-                        Yes! Our free plan includes 10 AI-generated responses per month. Perfect for trying out the service before upgrading to a paid plan.
-                    </div>
-                </div>
-
-                <div class="faq-item">
-                    <button class="faq-question" onclick="toggleFAQ(this)">
-                        Which platforms are supported?
-                        <span class="faq-icon">▼</span>
-                    </button>
-                    <div class="faq-answer">
-                        We support Instagram, Twitter/X, TikTok, Facebook, LinkedIn, and more. Our AI adapts responses to match each platform's tone and style.
-                    </div>
-                </div>
-
-                <div class="faq-item">
-                    <button class="faq-question" onclick="toggleFAQ(this)">
-                        Can I cancel my subscription anytime?
-                        <span class="faq-icon">▼</span>
-                    </button>
-                    <div class="faq-answer">
-                        Absolutely! You can cancel your subscription at any time from your account settings. You'll continue to have access until the end of your billing period.
-                    </div>
-                </div>
-
-                <div class="faq-item">
-                    <button class="faq-question" onclick="toggleFAQ(this)">
-                        How secure is my data?
-                        <span class="faq-icon">▼</span>
-                    </button>
-                    <div class="faq-answer">
-                        We take security seriously. All data is encrypted in transit and at rest. We never store your actual social media messages - only the AI-generated responses you choose to save.
-                    </div>
-                </div>
-    
-            </div>
-        </div>
-    </main>
-    
- <!-- Footer -->
-<footer class="footer">
-    <div class="container">
-        <div class="footer-content">
-            <div class="footer-brand">
-                <h3 class="footer-logo">DMTools.fun</h3>
-                <p class="footer-description">
-                    The world's first Universal Digital Messaging Response Command Center. 
-                    Generate perfect responses for any digital messaging service.
-                </p>
-            </div>
-            
-            <div class="footer-links">
-                <div class="link-group">
-                    <h4>Product</h4>
-                    <a href="/app.html">Generator</a>
-                    <a href="/presets.html">Templates</a>
-                    <a href="/packs.html">Response Packs</a>
-                    <a href="/analytics.html">Analytics</a>
-                    <a href="/pricing.html">Pricing</a>
-                </div>
-                
-                <div class="link-group">
-                    <h4>Legal</h4>
-                    <a href="/terms-of-service.html">Terms of Service</a>
-                    <a href="/privacy-policy.html">Privacy Policy</a>
-                    <a href="/refund-policy.html">Refund Policy</a>
-                    <a href="/cookie-policy.html">Cookie Policy</a>
-                </div>
-                
-                <div class="link-group">
-                    <h4>Support</h4>
-                    <a href="/contact.html">Contact Support</a>
-                    <a href="/account.html">My Account</a>
-                    <a href="mailto:support@dmtools.fun">Email Support</a>
-                    <a href="/">Back to Home</a>
-                </div>
-            </div>
-        </div>
-        
-        <div class="footer-bottom">
-            <p class="footer-copyright">© 2025 DMTools.fun. All rights reserved.</p>
-        </div>
-    </div>
-</footer>
-  
-
-    <script>
-        // Global variables
-        let currentUser = null;
-        let isAuthenticated = false;
-
-        // Check authentication status
-        document.addEventListener('DOMContentLoaded', function() {
-            checkAuthStatus();
-        });
-        // Mobile menu toggle
-        function toggleMobileMenu() {
-        document.getElementById('mobileNav').classList.toggle('show');
-}
-        function checkAuthStatus() {
-            const token = localStorage.getItem('authToken');
-            if (token) {
-                // Simulate checking auth with backend
-                currentUser = { email: 'user@example.com' };
-                isAuthenticated = true;
-                updateAuthUI();
-            }
-        }
-
-		    
-
-        function updateAuthUI() {
-            const authSection = document.getElementById('auth-section');
-            const userSection = document.getElementById('user-section');
-            
-            if (isAuthenticated && currentUser) {
-                authSection.classList.add('hidden');
-                userSection.classList.remove('hidden');
-                document.getElementById('user-email').textContent = currentUser.email;
-            } else {
-                authSection.classList.remove('hidden');
-                userSection.classList.add('hidden');
-            }
-        }
-
-        function showAuthModal(isLogin) {
-            // For now, just redirect to account page
-            window.location.href = '/account.html';
-        }
-
-        function logout() {
-            localStorage.removeItem('authToken');
-            currentUser = null;
-            isAuthenticated = false;
-            updateAuthUI();
-            window.location.href = '/';
-        }
-
-        // Contact form submission
-        function submitContactForm(event) {
-            event.preventDefault();
-            
-            const form = event.target;
-            const formData = new FormData(form);
-            const data = Object.fromEntries(formData);
-            
-            // Show loading state
-            const submitBtn = form.querySelector('button[type="submit"]');
-            const originalText = submitBtn.textContent;
-            submitBtn.textContent = 'Sending...';
-            submitBtn.disabled = true;
-            
-            // Simulate API call
-            setTimeout(() => {
-                // Show success message
-                document.getElementById('success-message').style.display = 'block';
-                document.getElementById('error-message').style.display = 'none';
-                
-                // Reset form
-                form.reset();
-                
-                // Reset button
-                submitBtn.textContent = originalText;
-                submitBtn.disabled = false;
-                
-                // Hide success message after 5 seconds
-                setTimeout(() => {
-                    document.getElementById('success-message').style.display = 'none';
-                }, 5000);
-            }, 1000);
-        }
-
-        // FAQ toggle functionality
-        function toggleFAQ(button) {
-            const faqItem = button.parentElement;
-            const isActive = faqItem.classList.contains('active');
-            
-            // Close all other FAQ items
-            document.querySelectorAll('.faq-item').forEach(item => {
-                item.classList.remove('active');
-            });
-            
-            // Toggle current item
-            if (!isActive) {
-                faqItem.classList.add('active');
-            }
-        }
-
-        console.log('✅ Contact page loaded successfully');
-    </script>
-</body>
-</html>
+                            <input type="email" id="

@@ -34,35 +34,6 @@
             padding: 0 2rem;
         }
 
- 
-
-
-
-
-
-
-
-/* ========================================
-   AUTH BUTTONS STYLES
-   ======================================== */
-
-.auth-buttons {
-    display: flex;
-    align-items: center;
-    gap: 0.75rem;
-}
-
-.user-section {
-    display: flex;
-    align-items: center;
-    gap: 1rem;
-}
-
-.user-email {
-    color: #e5e7eb;
-    font-weight: 500;
-    font-size: 0.9rem;
-}
 
 
       
@@ -584,32 +555,33 @@
 </head>
 <body>
     <!-- Header -->
-    <header class="header">
-        <div class="nav-container">
-            <a href="/" class="logo">DMTools.fun</a>
-            <a href="/app.html" class="nav-back">← Back to App</a>
+<header class="header">
+    <div class="nav-container">
+        <a href="/" class="logo">DMTools.fun</a>
+        <div class="auth-buttons" id="authButtons">
+            <button class="mobile-menu-btn" onclick="toggleMobileMenu()" aria-label="Menu">☰</button>
+            
+            <div id="auth-section" class="auth-buttons">
+                <button class="btn btn-secondary" onclick="showAuthModal(true)">Sign In</button>
+                <button class="btn btn-primary" onclick="showAuthModal(false)">Sign Up Free</button>
+            </div>
+            
+            <div id="user-section" class="auth-buttons hidden">
+                <span class="user-email" id="user-email"></span>
+                <button class="btn btn-secondary" onclick="logout()">Logout</button>
+            </div>
         </div>
-        <nav class="nav-tabs">
-            <a href="/app.html" class="tab-btn">Generator</a>
-            <a href="/presets.html" class="tab-btn">Templates</a>
-            <a href="/analytics.html" class="tab-btn">Analytics</a>
-            <a href="/packs.html" class="tab-btn">Response Packs</a>
-            <a href="/pricing.html" class="tab-btn">Pricing</a>
-            <a href="/store.html" class="tab-btn">Packs Store</a>
-            <a href="/account.html" class="tab-btn">Account</a>
-        </nav>
+    </div>
     
-        <!-- Auth Section - Shows Sign In/Up when logged out -->
-        <div id="auth-section" class="auth-buttons">
-            <button class="btn btn-secondary" onclick="showAuthModal(true)">Sign In</button>
-            <button class="btn btn-primary" onclick="showAuthModal(false)">Sign Up</button>
-        </div>
-    
-        <!-- User Section - Shows when logged in -->
-        <div id="user-section" class="user-section hidden">
-            <span class="user-email" id="user-email">user@example.com</span>
-            <button class="btn btn-secondary" onclick="logout()">Sign Out</button>
-        </div>
+    <nav class="mobile-nav" id="mobileNav">
+        <a href="/app.html" class="tab-btn active">Generator</a>
+        <a href="/presets.html" class="tab-btn">Templates</a>
+        <a href="/analytics.html" class="tab-btn">Analytics</a>
+        <a href="/packs.html" class="tab-btn">Response Packs</a>
+        <a href="/pricing.html" class="tab-btn">Pricing</a>
+        <a href="/store.html" class="tab-btn">Packs Store</a>
+        <a href="/account.html" class="tab-btn">Account</a>
+    </nav>
     </header>
 
     <!-- Main Content -->

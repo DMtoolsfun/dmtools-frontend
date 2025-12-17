@@ -6,6 +6,8 @@
 <meta name="theme-color" content="#8b5cf6">
 <meta name="apple-mobile-web-app-capable" content="yes">
 
+	<link rel="stylesheet" href="styles.css">
+
     <!-- Google tag (gtag.js) -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-GFG0RYJNR0"></script>
     <script>
@@ -26,248 +28,121 @@
     <!-- stylesheet -->
     <link rel="stylesheet" href="styles.css">
     
-    <style>
-        *{ 
-      /* Contact Content */
-        .contact-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 3rem;
-            margin-bottom: 3rem;
-        }
-
-        .contact-card {
-            background: #1f2937;
-            border-radius: 16px;
-            padding: 2rem;
-            border: 1px solid #374151;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-        }
-
-        .card-header {
-            margin-bottom: 1.5rem;
-        }
-
-        .card-title {
-            font-size: 1.5rem;
-            font-weight: 700;
-            color: #ffffff;
-            margin-bottom: 0.5rem;
-        }
-
-        .card-subtitle {
-            color: #9ca3af;
-        }
-
-        .form-group {
-            margin-bottom: 1.5rem;
-        }
-
-        .form-label {
-            display: block;
-            color: #e5e7eb;
-            font-weight: 600;
-            margin-bottom: 0.5rem;
-        }
-
-        .form-input, .form-textarea {
-            width: 100%;
-            padding: 0.75rem;
-            background: #374151;
-            border: 1px solid #4b5563;
-            border-radius: 8px;
-            color: #ffffff;
-            font-size: 1rem;
-            transition: border-color 0.3s ease;
-        }
-
-        .form-input:focus, .form-textarea:focus {
-            outline: none;
-            border-color: #8b5cf6;
-            box-shadow: 0 0 0 3px rgba(139, 92, 246, 0.1);
-        }
-
-        .form-textarea {
-            resize: vertical;
-            min-height: 120px;
-        }
-
-        /* Contact Methods */
-        .contact-method {
-            display: flex;
-            align-items: center;
-            gap: 1rem;
-            padding: 1rem;
-            background: #374151;
-            border-radius: 12px;
-            margin-bottom: 1rem;
-            transition: all 0.3s ease;
-        }
-
-        .contact-method:hover {
-            background: #4b5563;
-            transform: translateY(-2px);
-        }
-
-        .contact-icon {
-            font-size: 1.5rem;
-            width: 50px;
-            height: 50px;
-            background: linear-gradient(135deg, #8b5cf6, #7c3aed);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .contact-info h3 {
-            color: #ffffff;
-            font-weight: 600;
-            margin-bottom: 0.25rem;
-        }
-
-        .contact-info p {
-            color: #9ca3af;
-            margin: 0;
-        }
-
-        .contact-info a {
-            color: #8b5cf6;
-            text-decoration: none;
-        }
-
-        .contact-info a:hover {
-            text-decoration: underline;
-        }
-
-        /* FAQ Section */
-        .faq-section {
-            margin-top: 4rem;
-        }
-
-        .faq-title {
-            text-align: center;
-            font-size: 2rem;
-            font-weight: 700;
-            color: #ffffff;
-            margin-bottom: 2rem;
-        }
-
-        .faq-item {
-            background: #1f2937;
-            border-radius: 12px;
-            margin-bottom: 1rem;
-            border: 1px solid #374151;
-            overflow: hidden;
-        }
-
-        .faq-question {
-            padding: 1.5rem;
-            background: none;
-            border: none;
-            color: #ffffff;
-            font-weight: 600;
-            font-size: 1rem;
-            cursor: pointer;
-            width: 100%;
-            text-align: left;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            transition: background-color 0.3s ease;
-        }
-
-        .faq-question:hover {
-            background: #374151;
-        }
-
-        .faq-answer {
-            padding: 0 1.5rem 1.5rem;
-            color: #9ca3af;
-            line-height: 1.6;
-            display: none;
-        }
-
-        .faq-item.active .faq-answer {
-            display: block;
-        }
-
-        .faq-icon {
-            transition: transform 0.3s ease;
-        }
-
-        .faq-item.active .faq-icon {
-            transform: rotate(180deg);
-        }
+   <style>
+    /* PAGE-SPECIFIC: Contact Page */
     
+    /* Contact Content */
+    .contact-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 3rem;
+        margin-bottom: 3rem;
+    }
 
+    .contact-card {
+        background: var(--bg-input);
+        border-radius: 16px;
+        padding: 2rem;
+        border: 1px solid var(--border-medium);
+        box-shadow: var(--shadow-md);
+    }
 
+    .card-header {
+        margin-bottom: 1.5rem;
+    }
 
+    .card-title {
+        font-size: 1.5rem;
+        font-weight: 700;
+        color: var(--text-primary);
+        margin-bottom: 0.5rem;
+    }
 
-        /* Success Message */
-        .success-message {
-            background: rgba(16, 185, 129, 0.1);
-            border: 1px solid #10b981;
-            color: #10b981;
-            padding: 1rem;
-            border-radius: 8px;
-            margin-bottom: 1rem;
-            display: none;
-        }
+    .card-subtitle {
+        color: var(--text-muted);
+    }
 
-        .error-message {
-            background: rgba(239, 68, 68, 0.1);
-            border: 1px solid #ef4444;
-            color: #ef4444;
-            padding: 1rem;
-            border-radius: 8px;
-            margin-bottom: 1rem;
-            display: none;
-        }
+    /* Contact Methods */
+    .contact-method {
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+        padding: 1rem;
+        background: var(--bg-card);
+        border-radius: 12px;
+        margin-bottom: 1rem;
+        transition: all 0.3s ease;
+    }
 
-            .contact-grid {
-                grid-template-columns: 1fr;
-                gap: 2rem;
-            }
-            
-            .contact-method {
-                flex-direction: column;
-                text-align: center;
-            }
-        }
-            
-    
-    </style>
+    .contact-method:hover {
+        background: var(--bg-light);
+        transform: translateY(-2px);
+    }
+
+    .contact-icon {
+        font-size: 1.5rem;
+        width: 50px;
+        height: 50px;
+        background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .contact-info h3 {
+        color: var(--text-primary);
+        font-weight: 600;
+        margin-bottom: 0.25rem;
+    }
+
+    .contact-info p {
+        color: var(--text-muted);
+        margin: 0;
+    }
+
+    .contact-info a {
+        color: var(--primary);
+        text-decoration: none;
+    }
+
+    .contact-info a:hover {
+        text-decorat
 </head>
 	
 <body>
     
 	<!-- Header -->
-	<header class="header">        
-	<!-- Logo left, Hamburger + Auth right -->
-    <div class="nav-container">          
-            <a href="/" class="logo">DMTools.fun</a>
-		<div class="auth-buttons">
+<header class="header">
+    <div class="nav-container">
+        <a href="/" class="logo">DMTools.fun</a>
+        <div class="auth-buttons" id="authButtons">
             <button class="mobile-menu-btn" onclick="toggleMobileMenu()" aria-label="Menu">☰</button>
-            <a href="/login.html" class="btn btn-secondary">Sign In</a>
-            <a href="/register.html" class="btn btn-primary">Sign Up</a>
+            <a href="/app.html" class="btn btn-secondary">← Back to App</a>
         </div>
-        
-		</div>
-	</div>
-		
-		<!-- Dropdown menu -->
+    </div>
+    
     <nav class="mobile-nav" id="mobileNav">
-        <a href="/app.html" class="tab-btn">Generator</a>           
-		<a href="/presets.html" class="tab-btn">Templates</a>
-        <a href="/analytics.html" class="tab-btn">Analytics</a>
+        <a href="/app.html" class="tab-btn">Generator</a>
+        <a href="/presets.html" class="tab-btn">Templates</a>
+        <a href="/analytics.html" class="tab-btn active">Analytics</a>
         <a href="/packs.html" class="tab-btn">Response Packs</a>
         <a href="/pricing.html" class="tab-btn">Pricing</a>
         <a href="/store.html" class="tab-btn">Packs Store</a>
-        <a href="/account.html" class="tab-btn active">Account</a>
+        <a href="/account.html" class="tab-btn">Account</a>
     </nav>
-		
-    </header>
+    
+    <!-- Desktop Nav Tabs -->
+    <nav class="nav-tabs">
+        <a href="/app.html" class="tab-btn">Generator</a>
+        <a href="/presets.html" class="tab-btn">Templates</a>
+        <a href="/analytics.html" class="tab-btn active">Analytics</a>
+        <a href="/packs.html" class="tab-btn">Response Packs</a>
+        <a href="/pricing.html" class="tab-btn">Pricing</a>
+        <a href="/store.html" class="tab-btn">Packs Store</a>
+        <a href="/account.html" class="tab-btn">Account</a>
+    </nav>
+</header>
 
 	<!-- Main Content -->
     <main class="main-content">
@@ -393,30 +268,34 @@
         </div>
     </main>
     
-  <!-- Footer -->
+ <!-- Footer -->
 <footer class="footer">
     <div class="container">
         <div class="footer-content">
-            <div class="footer-description">
+            <div class="footer-brand">
                 <h3 class="footer-logo">DMTools.fun</h3>
-                <p>The world's first Universal Digital Messaging Response Command Center. Generate perfect responses for any digital messaging service including social media DMs, email, SMS, dating apps, and customer service chat. Save 10+ hours weekly with our AI-powered universal unlimited batch response draft generator.</p>
+                <p class="footer-description">
+                    The world's first Universal Digital Messaging Response Command Center. 
+                    Generate perfect responses for any digital messaging service.
+                </p>
             </div>
             
             <div class="footer-links">
+                <div class="link-group">
+                    <h4>Product</h4>
+                    <a href="/app.html">Generator</a>
+                    <a href="/presets.html">Templates</a>
+                    <a href="/packs.html">Response Packs</a>
+                    <a href="/analytics.html">Analytics</a>
+                    <a href="/pricing.html">Pricing</a>
+                </div>
+                
                 <div class="link-group">
                     <h4>Legal</h4>
                     <a href="/terms-of-service.html">Terms of Service</a>
                     <a href="/privacy-policy.html">Privacy Policy</a>
                     <a href="/refund-policy.html">Refund Policy</a>
                     <a href="/cookie-policy.html">Cookie Policy</a>
-                </div>
-                
-                <div class="link-group">
-                    <h4>Product</h4>
-                    <a href="/pricing.html">Pricing</a>
-                    <a href="/analytics.html">Analytics</a>
-                    <a href="/presets.html">Templates</a>
-                    <a href="/app.html">Generator</a>
                 </div>
                 
                 <div class="link-group">
@@ -430,9 +309,7 @@
         </div>
         
         <div class="footer-bottom">
-            <div class="footer-copyright">
-                © 2025 DMTools.fun. All rights reserved.
-            </div>
+            <p class="footer-copyright">© 2025 DMTools.fun. All rights reserved.</p>
         </div>
     </div>
 </footer>
@@ -447,7 +324,10 @@
         document.addEventListener('DOMContentLoaded', function() {
             checkAuthStatus();
         });
-
+        // Mobile menu toggle
+        function toggleMobileMenu() {
+        document.getElementById('mobileNav').classList.toggle('show');
+}
         function checkAuthStatus() {
             const token = localStorage.getItem('authToken');
             if (token) {

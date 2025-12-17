@@ -30,306 +30,418 @@
     
 
     
-    <style>
-       
-        .account-header {
-            text-align: center;
-            margin-bottom: 3rem;
-            padding: 2rem 0;
-        }
+  <style>
+    /* PAGE-SPECIFIC: Account Management */
+    
+    .account-header {
+        text-align: center;
+        margin-bottom: 3rem;
+        padding: 2rem 0;
+    }
 
-        .account-header h1 {
-            font-size: 2.5rem;
-            font-weight: 800;
-            margin-bottom: 0.5rem;
-            background: linear-gradient(135deg, #ffffff, #8b5cf6);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-        }
+    .account-header h1 {
+        font-size: 2.5rem;
+        font-weight: 800;
+        margin-bottom: 0.5rem;
+        background: linear-gradient(135deg, #ffffff, #8b5cf6);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+    }
 
-        .account-header p {
-            color: #9ca3af;
-            font-size: 1.1rem;
-        }
+    .account-header p {
+        color: var(--text-muted);
+        font-size: 1.1rem;
+    }
 
-        /* Account Grid */
+    /* Account Grid */
+    .account-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 2rem;
+        margin-bottom: 3rem;
+    }
+
+    .account-card {
+        background: var(--bg-input);
+        border-radius: 16px;
+        padding: 2rem;
+        border: 1px solid var(--border-medium);
+        box-shadow: var(--shadow-md);
+    }
+
+    .card-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 1.5rem;
+    }
+
+    .card-title {
+        font-size: 1.5rem;
+        font-weight: 700;
+        color: var(--text-primary);
+    }
+
+    .card-action {
+        background: none;
+        border: none;
+        color: var(--primary);
+        cursor: pointer;
+        font-size: 0.9rem;
+        text-decoration: underline;
+    }
+
+    .card-action:hover {
+        color: var(--primary-light);
+    }
+
+    /* Profile Section */
+    .profile-info {
+        display: grid;
+        gap: 1rem;
+    }
+
+    .info-item {
+        display: flex;
+        justify-content: space-between;
+        padding: 0.75rem 0;
+        border-bottom: 1px solid var(--border-medium);
+    }
+
+    .info-item:last-child {
+        border-bottom: none;
+    }
+
+    .info-label {
+        color: var(--text-muted);
+        font-weight: 500;
+    }
+
+    .info-value {
+        color: var(--text-primary);
+        font-weight: 600;
+    }
+
+    /* Profile Edit Form */
+    .profile-edit-form {
+        display: grid;
+        gap: 1rem;
+    }
+
+    .form-actions {
+        display: flex;
+        gap: 1rem;
+        margin-top: 1rem;
+    }
+
+    /* Plan Section */
+    .current-plan {
+        text-align: center;
+        margin-bottom: 2rem;
+    }
+
+    .plan-badge {
+        background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+        color: white;
+        padding: 0.5rem 1rem;
+        border-radius: 50px;
+        font-size: 0.9rem;
+        font-weight: 700;
+        display: inline-block;
+        margin-bottom: 1rem;
+    }
+
+    .plan-price {
+        font-size: 2rem;
+        font-weight: 800;
+        color: var(--primary);
+        margin-bottom: 0.5rem;
+    }
+
+    .plan-features {
+        list-style: none;
+        padding: 0;
+        margin: 1rem 0;
+    }
+
+    .plan-features li {
+        padding: 0.5rem 0;
+        color: var(--text-secondary);
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+    }
+
+    .plan-features li::before {
+        content: '✓';
+        color: var(--success);
+        font-weight: bold;
+    }
+
+    /* Usage Statistics */
+    .usage-stats {
+        display: grid;
+        gap: 1.5rem;
+    }
+
+    .stat-item {
+        background: var(--bg-card);
+        border-radius: 12px;
+        padding: 1.5rem;
+        border: 1px solid var(--bg-light);
+    }
+
+    .stat-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 1rem;
+    }
+
+    .stat-title {
+        font-weight: 600;
+        color: var(--text-primary);
+    }
+
+    .stat-value {
+        font-size: 1.5rem;
+        font-weight: 800;
+        color: var(--primary);
+    }
+
+    .progress-bar {
+        width: 100%;
+        height: 8px;
+        background: var(--bg-input);
+        border-radius: 4px;
+        overflow: hidden;
+    }
+
+    .progress-fill {
+        height: 100%;
+        background: linear-gradient(135deg, var(--primary), var(--accent));
+        transition: width 0.3s ease;
+        border-radius: 4px;
+    }
+
+    /* Billing History */
+    .billing-table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-top: 1rem;
+    }
+
+    .billing-table th,
+    .billing-table td {
+        padding: 1rem;
+        text-align: left;
+        border-bottom: 1px solid var(--border-medium);
+    }
+
+    .billing-table th {
+        color: var(--text-muted);
+        font-weight: 600;
+        font-size: 0.9rem;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+    }
+
+    .billing-table td {
+        color: var(--text-primary);
+    }
+
+    .status-badge {
+        padding: 0.25rem 0.75rem;
+        border-radius: 50px;
+        font-size: 0.8rem;
+        font-weight: 600;
+        text-transform: uppercase;
+    }
+
+    .status-paid {
+        background: var(--success-bg);
+        color: var(--success);
+        border: 1px solid var(--success);
+    }
+
+    .status-pending {
+        background: var(--warning-bg);
+        color: var(--warning);
+        border: 1px solid var(--warning);
+    }
+
+    /* Upgrade Section */
+    .upgrade-section {
+        margin-top: 2rem;
+        padding-top: 2rem;
+        border-top: 1px solid var(--border-medium);
+    }
+
+    .plans-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+        gap: 1.5rem;
+        margin-top: 2rem;
+    }
+
+    .plan-card {
+        background: var(--bg-card);
+        border-radius: 16px;
+        padding: 2rem;
+        border: 2px solid var(--bg-light);
+        text-align: center;
+        position: relative;
+        transition: all 0.3s ease;
+    }
+
+    .plan-card:hover {
+        transform: translateY(-4px);
+        box-shadow: var(--shadow-lg);
+    }
+
+    .plan-card.featured {
+        border-color: var(--primary);
+        background: linear-gradient(135deg, rgba(139, 92, 246, 0.1), var(--bg-input));
+    }
+
+    .plan-card.current-plan-card {
+        border-color: var(--success);
+        background: linear-gradient(135deg, var(--success-bg), var(--bg-input));
+    }
+
+    .plan-name {
+        font-size: 1.5rem;
+        font-weight: 700;
+        margin-bottom: 0.5rem;
+        color: var(--text-primary);
+    }
+
+    .plan-card-price {
+        font-size: 2.5rem;
+        font-weight: 800;
+        color: var(--primary);
+        margin-bottom: 1rem;
+    }
+
+    .plan-card.current-plan-card .plan-card-price {
+        color: var(--success);
+    }
+
+    /* Loading State */
+    .loading {
+        text-align: center;
+        padding: 3rem;
+        color: var(--text-muted);
+    }
+
+    /* Auth Modal Overrides */
+    .auth-modal {
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.8);
+        z-index: var(--z-modal);
+        justify-content: center;
+        align-items: center;
+        backdrop-filter: blur(4px);
+    }
+
+    .auth-modal.show {
+        display: flex;
+    }
+
+    .auth-modal-content {
+        background: linear-gradient(135deg, var(--bg-input), var(--bg-footer));
+        border-radius: var(--radius-xl);
+        padding: 2rem;
+        max-width: 450px;
+        width: 90%;
+        border: 1px solid var(--border-medium);
+        position: relative;
+    }
+
+    .auth-modal-header {
+        margin-bottom: 1.5rem;
+    }
+
+    .auth-modal-title {
+        font-size: 1.5rem;
+        font-weight: 700;
+        color: var(--text-primary);
+        margin-bottom: 0.5rem;
+    }
+
+    .auth-modal-subtitle {
+        color: var(--text-muted);
+    }
+
+    .name-fields {
+        display: grid;
+        gap: 1rem;
+    }
+
+    .error-message {
+        background: var(--error-bg);
+        border: 1px solid var(--error);
+        color: var(--error);
+        padding: 0.75rem;
+        border-radius: var(--radius-md);
+        margin-bottom: 1rem;
+    }
+
+    /* Notification */
+    .notification {
+        position: fixed;
+        top: 100px;
+        right: 20px;
+        background: var(--bg-input);
+        border: 1px solid var(--border-medium);
+        border-radius: var(--radius-lg);
+        padding: 1rem 1.5rem;
+        color: var(--text-primary);
+        z-index: var(--z-notification);
+        max-width: 400px;
+        opacity: 0;
+        transform: translateX(100%);
+        transition: all 0.3s ease;
+    }
+
+    .notification.show {
+        opacity: 1;
+        transform: translateX(0);
+    }
+
+    .notification.success {
+        border-color: var(--success);
+        background: var(--success-bg);
+        color: var(--success);
+    }
+
+    .notification.error {
+        border-color: var(--error);
+        background: var(--error-bg);
+        color: var(--error);
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
         .account-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 2rem;
-            margin-bottom: 3rem;
-        }
-
-        .account-card {
-            background: #1f2937;
-            border-radius: 16px;
-            padding: 2rem;
-            border: 1px solid #374151;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-        }
-
-        .card-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 1.5rem;
-        }
-
-        .card-title {
-            font-size: 1.5rem;
-            font-weight: 700;
-            color: #ffffff;
-        }
-
-        .card-action {
-            background: none;
-            border: none;
-            color: #8b5cf6;
-            cursor: pointer;
-            font-size: 0.9rem;
-            text-decoration: underline;
-        }
-
-        .card-action:hover {
-            color: #a855f7;
-        }
-
-        /* Profile Section */
-        .profile-info {
-            display: grid;
-            gap: 1rem;
-        }
-
-        .info-item {
-            display: flex;
-            justify-content: space-between;
-            padding: 0.75rem 0;
-            border-bottom: 1px solid #374151;
-        }
-
-        .info-item:last-child {
-            border-bottom: none;
-        }
-
-        .info-label {
-            color: #9ca3af;
-            font-weight: 500;
-        }
-
-        .info-value {
-            color: #ffffff;
-            font-weight: 600;
-        }
-
-        /* Profile Edit Form */
-        .profile-edit-form {
-            display: grid;
-            gap: 1rem;
+            grid-template-columns: 1fr;
         }
 
         .form-actions {
-            display: flex;
-            gap: 1rem;
-            margin-top: 1rem;
+            flex-direction: column;
         }
 
-        /* Plan Section */
-        .current-plan {
-            text-align: center;
-            margin-bottom: 2rem;
-        }
-
-        .plan-badge {
-            background: linear-gradient(135deg, #8b5cf6, #7c3aed);
-            color: white;
-            padding: 0.5rem 1rem;
-            border-radius: 50px;
-            font-size: 0.9rem;
-            font-weight: 700;
-            display: inline-block;
-            margin-bottom: 1rem;
-        }
-
-        .plan-price {
-            font-size: 2rem;
-            font-weight: 800;
-            color: #8b5cf6;
-            margin-bottom: 0.5rem;
-        }
-
-        .plan-features {
-            list-style: none;
-            padding: 0;
-            margin: 1rem 0;
-        }
-
-        .plan-features li {
-            padding: 0.5rem 0;
-            color: #e5e7eb;
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-        }
-
-        .plan-features li::before {
-            content: '✓';
-            color: #10b981;
-            font-weight: bold;
-        }
-
-        /* Usage Statistics */
-        .usage-stats {
-            display: grid;
-            gap: 1.5rem;
-        }
-
-        .stat-item {
-            background: #374151;
-            border-radius: 12px;
-            padding: 1.5rem;
-            border: 1px solid #4b5563;
-        }
-
-        .stat-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 1rem;
-        }
-
-        .stat-title {
-            font-weight: 600;
-            color: #ffffff;
-        }
-
-        .stat-value {
-            font-size: 1.5rem;
-            font-weight: 800;
-            color: #8b5cf6;
-        }
-
-        .progress-bar {
+        .form-actions .btn {
             width: 100%;
-            height: 8px;
-            background: #1f2937;
-            border-radius: 4px;
-            overflow: hidden;
         }
-
-        .progress-fill {
-            height: 100%;
-            background: linear-gradient(135deg, #8b5cf6, #06b6d4);
-            transition: width 0.3s ease;
-            border-radius: 4px;
-        }
-
-        /* Billing History */
-        .billing-table {
-            width: 100%;
-            border-collapse: collapse;
-            margin-top: 1rem;
-        }
-
-        .billing-table th,
-        .billing-table td {
-            padding: 1rem;
-            text-align: left;
-            border-bottom: 1px solid #374151;
-        }
-
-        .billing-table th {
-            color: #9ca3af;
-            font-weight: 600;
-            font-size: 0.9rem;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-        }
-
-        .billing-table td {
-            color: #ffffff;
-        }
-
-        .status-badge {
-            padding: 0.25rem 0.75rem;
-            border-radius: 50px;
-            font-size: 0.8rem;
-            font-weight: 600;
-            text-transform: uppercase;
-        }
-
-        .status-paid {
-            background: rgba(16, 185, 129, 0.2);
-            color: #10b981;
-            border: 1px solid #10b981;
-        }
-
-        .status-pending {
-            background: rgba(251, 191, 36, 0.2);
-            color: #fbbf24;
-            border: 1px solid #fbbf24;
-        }
-
-        /* Upgrade Options */
-        .upgrade-section {
-            margin-top: 2rem;
-            padding-top: 2rem;
-            border-top: 1px solid #374151;
-        }
-
-        .plans-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 1.5rem;
-            margin-top: 2rem;
-        }
-
-        .plan-card {
-            background: #374151;
-            border-radius: 16px;
-            padding: 2rem;
-            border: 2px solid #4b5563;
-            text-align: center;
-            position: relative;
-            transition: all 0.3s ease;
-        }
-
-        .plan-card:hover {
-            transform: translateY(-4px);
-            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
-        }
-
-        .plan-card.featured {
-            border-color: #8b5cf6;
-            background: linear-gradient(135deg, rgba(139, 92, 246, 0.1), rgba(31, 41, 55, 1));
-        }
-
-        .plan-card.current-plan-card {
-            border-color: #10b981;
-            background: linear-gradient(135deg, rgba(16, 185, 129, 0.1), rgba(31, 41, 55, 1));
-        }
-
-        .plan-name {
-            font-size: 1.5rem;
-            font-weight: 700;
-            margin-bottom: 0.5rem;
-            color: #ffffff;
-        }
-
-        .plan-card-price {
-            font-size: 2.5rem;
-            font-weight: 800;
-            color: #8b5cf6;
-            margin-bottom: 1rem;
-        }
-
-        .plan-card.current-plan-card .plan-card-price {
-            color: #10b981;
-        }
-
-       
-      
-    </style>
+    }
+</style>
 </head>
 <body>
    <!-- Header -->

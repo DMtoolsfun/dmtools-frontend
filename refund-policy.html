@@ -7,6 +7,8 @@
 <meta name="theme-color" content="#8b5cf6">
 <meta name="apple-mobile-web-app-capable" content="yes">
 
+ <link rel="stylesheet" href="styles.css">
+
  <!-- Google tag (gtag.js) -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-GFG0RYJNR0"></script>
     <script>
@@ -23,73 +25,9 @@
     <meta name="description" content="Refund Policy for DMTools.fun - Fair and transparent refund terms">
     <link rel="icon" href="/favicon.ico" type="image/x-icon">
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+             
 
-        body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
-            line-height: 1.6;
-            color: #e5e7eb;
-            background: linear-gradient(135deg, #0f172a 0%, #1e293b 50%, #334155 100%);
-            min-height: 100vh;
-        }
-
-        .header {
-            background: rgba(30, 41, 59, 0.95);
-            border-bottom: 1px solid #374151;
-            backdrop-filter: blur(10px);
-            position: sticky;
-            top: 0;
-            z-index: 100;
-            padding: 1rem 0;
-        }
-
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 2rem;
-        }
-
-        .header-content {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            flex-wrap: wrap;
-            gap: 1rem;
-        }
-
-        .logo {
-            font-size: 1.5rem;
-            font-weight: 900;
-            background: linear-gradient(135deg, #8b5cf6, #06b6d4);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            cursor: pointer;
-            transition: all 0.3s ease;
-        }
-
-        .logo:hover {
-            transform: scale(1.05);
-        }
-
-        .nav-link {
-            color: #9ca3af;
-            text-decoration: none;
-            font-weight: 500;
-            transition: color 0.3s ease;
-        }
-
-        .nav-link:hover {
-            color: #8b5cf6;
-        }
-
-        .main-content {
-            padding: 4rem 0;
-        }
+       
 
         .legal-header {
             text-align: center;
@@ -214,90 +152,32 @@
             margin: 1.5rem 0;
         }
 
-        .footer {
-            background: rgba(15, 23, 42, 0.95);
-            border-top: 1px solid #374151;
-            padding: 3rem 0;
-            text-align: center;
-        }
-
-        .footer-content {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 2rem;
-        }
-
-        .footer-links {
-            display: flex;
-            justify-content: center;
-            flex-wrap: wrap;
-            gap: 2rem;
-            margin-bottom: 2rem;
-        }
-
-        .footer-links a {
-            color: #9ca3af;
-            text-decoration: none;
-            transition: color 0.3s ease;
-        }
-
-        .footer-links a:hover {
-            color: #8b5cf6;
-        }
-
-        .footer-copyright {
-            color: #6b7280;
-            font-size: 0.875rem;
-        }
-
-        a {
-            color: #8b5cf6;
-            text-decoration: none;
-            transition: color 0.3s ease;
-        }
-
-        a:hover {
-            color: #06b6d4;
-        }
-
-        @media (max-width: 768px) {
-            .container {
-                padding: 0 1rem;
-            }
-            
-            .content-card {
-                padding: 2rem;
-            }
-            
-            .legal-title {
-                font-size: 2rem;
-            }
-            
-            .header-content {
-                flex-direction: column;
-                text-align: center;
-            }
+       
         }
     </style>
 </head>
 <body>
-    <!-- Header -->
-    <header class="header">
-        <div class="container">
-            <div class="header-content">
-                <div class="logo" onclick="window.location.href = '/'">DMTools.fun</div>
-               <nav class="nav-tabs">
-    <a href="/app.html" class="tab-btn">💬 Generator</a>
-    <a href="/presets.html" class="tab-btn">📋 Templates</a>
-    <a href="/packs.html" class="tab-btn">🎁 Packs</a>
-    <a href="/analytics.html" class="tab-btn">📊 Analytics</a>
-    <a href="/contact.html" class="tab-btn">📞 Contact</a>
-    <a href="/pricing.html" class="tab-btn">💎 Pricing</a>
-    <a href="/account.html" class="tab-btn">👤 Account</a>
-</nav>
-            </div>
+  <!-- Header -->
+<header class="header">
+    <div class="nav-container">
+        <a href="/" class="logo">DMTools.fun</a>
+        <div class="auth-buttons" id="authButtons">
+            <button class="mobile-menu-btn" onclick="toggleMobileMenu()" aria-label="Menu">☰</button>
+            <a href="/login.html" class="btn btn-secondary">Sign In</a>
+            <a href="/register.html" class="btn btn-primary">Sign Up</a>
         </div>
-    </header>
+    </div>
+    
+    <nav class="mobile-nav" id="mobileNav">
+        <a href="/app.html" class="tab-btn">Generator</a>
+        <a href="/presets.html" class="tab-btn">Templates</a>
+        <a href="/analytics.html" class="tab-btn">Analytics</a>
+        <a href="/packs.html" class="tab-btn">Response Packs</a>
+        <a href="/pricing.html" class="tab-btn">Pricing</a>
+        <a href="/store.html" class="tab-btn">Packs Store</a>
+        <a href="/account.html" class="tab-btn">Account</a>
+    </nav>
+</header>
 
     <!-- Main Content -->
     <main class="main-content">
@@ -585,21 +465,51 @@
     </main>
 
     <!-- Footer -->
-    <footer class="footer">
+<footer class="footer">
+    <div class="container">
         <div class="footer-content">
-            <div class="footer-links">
-                <a href="/">Home</a>
-                <a href="/pricing.html">Pricing</a>
-                <a href="/terms-of-service.html">Terms of Service</a>
-                <a href="/privacy-policy.html">Privacy Policy</a>
-                <a href="/cookie-policy.html">Cookie Policy</a>
-                <a href="/contact.html">Contact</a>
-                <a href="mailto:admin@dmtools.fun">Support</a>
+            <div class="footer-brand">
+                <h3 class="footer-logo">DMTools.fun</h3>
+                <p class="footer-description">
+                    AI-powered universal messaging response generator.
+                </p>
             </div>
-            <div class="footer-copyright">
-                © 2025 DMTools.fun. The world's first Universal Digital Messaging Response Command Center.
+            
+            <div class="footer-links">
+                <div class="link-group">
+                    <h4>Product</h4>
+                    <a href="/app.html">Generator</a>
+                    <a href="/presets.html">Templates</a>
+                    <a href="/pricing.html">Pricing</a>
+                    <a href="/store.html">Packs Store</a>
+                </div>
+                
+                <div class="link-group">
+                    <h4>Legal</h4>
+                    <a href="/terms-of-service.html">Terms of Service</a>
+                    <a href="/privacy-policy.html">Privacy Policy</a>
+                    <a href="/refund-policy.html">Refund Policy</a>
+                    <a href="/cookie-policy.html">Cookie Policy</a>
+                </div>
+                
+                <div class="link-group">
+                    <h4>Support</h4>
+                    <a href="/contact.html">Contact Us</a>
+                    <a href="mailto:support@dmtools.fun">Email Support</a>
+                </div>
             </div>
         </div>
-    </footer>
+        
+        <div class="footer-bottom">
+            <p class="footer-copyright">© 2025 DMTools.fun LLC. All rights reserved.</p>
+        </div>
+    </div>
+</footer>
+ <script>
+    // Mobile menu toggle
+    function toggleMobileMenu() {
+        document.getElementById('mobileNav').classList.toggle('show');
+    }
+</script>
 </body>
 </html>

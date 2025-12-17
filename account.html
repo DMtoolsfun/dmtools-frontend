@@ -6,6 +6,8 @@
 <meta name="theme-color" content="#8b5cf6">
 <meta name="apple-mobile-web-app-capable" content="yes">
 
+    <link rel="stylesheet" href="styles.css">
+    
     <!-- Google tag (gtag.js) -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-GFG0RYJNR0"></script>
     <script>
@@ -29,128 +31,13 @@
 
     
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+       
 
-        body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
-            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
-            color: #ffffff;
-            line-height: 1.6;
-            min-height: 100vh;
-        }
+    
 
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 20px;
-        }
+        
 
-        /* Header */
-        .header {
-            background: rgba(31, 41, 55, 0.95);
-            backdrop-filter: blur(10px);
-            padding: 1rem 0;
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            z-index: 1000;
-            border-bottom: 1px solid #374151;
-        }
-
-        .header-content {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .logo {
-            font-size: 1.8rem;
-            font-weight: 800;
-            background: linear-gradient(135deg, #8b5cf6, #06b6d4);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            text-decoration: none;
-        }
-
-        .nav-links {
-            display: flex;
-            gap: 2rem;
-            align-items: center;
-        }
-
-        .nav-links a {
-            color: #9ca3af;
-            text-decoration: none;
-            font-weight: 500;
-            transition: color 0.3s ease;
-        }
-
-        .nav-links a:hover,
-        .nav-links a.active {
-            color: #8b5cf6;
-        }
-
-        .user-menu {
-            display: flex;
-            align-items: center;
-            gap: 1rem;
-        }
-
-        .user-name {
-            color: #9ca3af;
-        }
-
-        .btn {
-            padding: 0.75rem 1.5rem;
-            border: none;
-            border-radius: 8px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            font-size: 1rem;
-            text-decoration: none;
-            display: inline-block;
-            text-align: center;
-        }
-
-        .btn-primary {
-            background: linear-gradient(135deg, #8b5cf6, #7c3aed);
-            color: white;
-            box-shadow: 0 4px 15px rgba(139, 92, 246, 0.3);
-        }
-
-        .btn-primary:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 8px 25px rgba(139, 92, 246, 0.4);
-        }
-
-        .btn-secondary {
-            background: transparent;
-            color: #9ca3af;
-            border: 1px solid #374151;
-        }
-
-        .btn-secondary:hover {
-            border-color: #8b5cf6;
-            color: #8b5cf6;
-        }
-
-        .btn-danger {
-            background: linear-gradient(135deg, #ef4444, #dc2626);
-            color: white;
-        }
-
-        .btn-success {
-            background: linear-gradient(135deg, #10b981, #059669);
-            color: white;
-        }
-
+       
         /* Main Content */
         .main-content {
             margin-top: 80px;
@@ -480,303 +367,32 @@
         }
 
         /* Loading and Error States */
-        .loading {
-            text-align: center;
-            padding: 2rem;
-            color: #9ca3af;
-        }
-
-        .spinner {
-            display: inline-block;
-            width: 20px;
-            height: 20px;
-            border: 3px solid rgba(156, 163, 175, 0.3);
-            border-radius: 50%;
-            border-top-color: #8b5cf6;
-            animation: spin 1s ease-in-out infinite;
-            margin-right: 0.5rem;
-        }
-
-        @keyframes spin {
-            to { transform: rotate(360deg); }
-        }
-
-        .error-message {
-            background: rgba(239, 68, 68, 0.1);
-            border: 1px solid #ef4444;
-            color: #ef4444;
-            padding: 1rem;
-            border-radius: 8px;
-            margin-bottom: 1rem;
-        }
-
-        .success-message {
-            background: rgba(16, 185, 129, 0.1);
-            border: 1px solid #10b981;
-            color: #10b981;
-            padding: 1rem;
-            border-radius: 8px;
-            margin-bottom: 1rem;
-        }
-
-        .notification {
-            position: fixed;
-            top: 100px;
-            right: 20px;
-            padding: 1rem 1.5rem;
-            border-radius: 8px;
-            font-weight: 600;
-            z-index: 1000;
-            max-width: 300px;
-            opacity: 0;
-            transform: translateX(100%);
-            transition: all 0.3s ease;
-        }
-
-        .notification.show {
-            opacity: 1;
-            transform: translateX(0);
-        }
-
-        .notification.success {
-            background: rgba(16, 185, 129, 0.9);
-            border: 1px solid #10b981;
-            color: white;
-        }
-
-        .notification.error {
-            background: rgba(239, 68, 68, 0.9);
-            border: 1px solid #ef4444;
-            color: white;
-        }
-
-        /* Hidden Class */
-        .hidden {
-            display: none !important;
-        }
-
-        /* Authentication Modal (reused from main page) */
-        .auth-modal {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.8);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            z-index: 9999;
-            opacity: 0;
-            visibility: hidden;
-            transition: all 0.3s ease;
-        }
-
-        .auth-modal.show {
-            opacity: 1;
-            visibility: visible;
-        }
-
-        .auth-modal-content {
-            background: #1f2937;
-            border-radius: 20px;
-            padding: 3rem;
-            max-width: 450px;
-            width: 90%;
-            border: 1px solid #374151;
-            position: relative;
-        }
-
-        .modal-close {
-            position: absolute;
-            top: 1.5rem;
-            right: 1.5rem;
-            background: none;
-            border: none;
-            color: #9ca3af;
-            font-size: 1.5rem;
-            cursor: pointer;
-            width: 40px;
-            height: 40px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            border-radius: 50%;
-            transition: all 0.3s ease;
-        }
-
-        .modal-close:hover {
-            background: #374151;
-            color: #ffffff;
-        }
-
-        .auth-modal-header {
-            text-align: center;
-            margin-bottom: 2rem;
-        }
-
-        .auth-modal-title {
-            font-size: 2rem;
-            font-weight: 700;
-            margin-bottom: 0.5rem;
-            color: #ffffff;
-        }
-
-        .auth-modal-subtitle {
-            color: #9ca3af;
-            font-size: 1rem;
-        }
-
-        .name-fields {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 1rem;
-        }
-
-        /* Responsive Design */
-        @media (max-width: 768px) {
-            .account-grid {
-                grid-template-columns: 1fr;
-            }
-
-            .nav-links {
-                display: none;
-            }
-
-            .user-menu {
-                flex-direction: column;
-                gap: 0.5rem;
-                align-items: flex-end;
-            }
-
-            .plans-grid {
-                grid-template-columns: 1fr;
-            }
-
-            .billing-table {
-                font-size: 0.9rem;
-            }
-
-            .billing-table th,
-            .billing-table td {
-                padding: 0.5rem;
-            }
-
-            .name-fields {
-                grid-template-columns: 1fr;
-            }
-
-            .form-actions {
-                flex-direction: column;
-            }
-        }
-      /* =============================================== */
-/* FOOTER STYLES */
-/* =============================================== */
-
-.footer {
-    background: #111827;
-    border-top: 1px solid #374151;
-    padding: 3rem 0 2rem;
-    margin-top: 4rem;
-}
-
-.footer-content {
-    display: grid;
-    grid-template-columns: 1fr 2fr;
-    gap: 3rem;
-    margin-bottom: 2rem;
-}
-
-.footer-logo {
-    font-size: 1.5rem;
-    font-weight: 900;
-    color: #8b5cf6;
-    margin-bottom: 1rem;
-}
-
-.footer-description {
-    color: #9ca3af;
-    line-height: 1.6;
-}
-
-.footer-links {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 2rem;
-}
-
-.link-group h4 {
-    color: #ffffff;
-    font-weight: 600;
-    margin-bottom: 1rem;
-    font-size: 0.9rem;
-    text-transform: uppercase;
-    letter-spacing: 0.5px;
-}
-
-.link-group a {
-    display: block;
-    color: #9ca3af;
-    text-decoration: none;
-    margin-bottom: 0.5rem;
-    transition: color 0.3s ease;
-}
-
-.link-group a:hover {
-    color: #8b5cf6;
-}
-
-.footer-bottom {
-    padding-top: 2rem;
-    border-top: 1px solid #374151;
-    text-align: center;
-}
-
-.footer-copyright {
-    color: #6b7280;
-    font-size: 0.875rem;
-}
-
-/* Mobile Responsive Footer */
-@media (max-width: 768px) {
-    .footer-content {
-        grid-template-columns: 1fr;
-        gap: 2rem;
-    }
-    
-    .footer-links {
-        grid-template-columns: 1fr;
-        gap: 1.5rem;
-    }
-}
+       
       
     </style>
 </head>
 <body>
-    <!-- Header -->
-    <header class="header">
-        <div class="container">
-            <div class="header-content">
-                <a href="/" class="logo">💬 DMTools.fun</a>
-                
-              <nav class="nav-tabs">
-    <a href="/app.html" class="tab-btn">💬 Generator</a>
-    <a href="/presets.html" class="tab-btn">📋 Templates</a>
-    <a href="/packs.html" class="tab-btn">🎁 Packs</a>
-    <a href="/analytics.html" class="tab-btn">📊 Analytics</a>
-    <a href="/contact.html" class="tab-btn">📞 Contact</a>
-    <a href="/pricing.html" class="tab-btn">💎 Pricing</a>
-    <a href="/account.html" class="tab-btn">👤 Account</a>
-</nav>
-
-                <div class="user-menu">
-                    <span class="user-name" id="user-name">Loading...</span>
-                    <button class="btn btn-secondary" onclick="logout()">Logout</button>
-                </div>
-            </div>
+   <!-- Header -->
+<header class="header">
+    <div class="nav-container">
+        <a href="/" class="logo">DMTools.fun</a>
+        <div class="auth-buttons" id="authButtons">
+            <button class="mobile-menu-btn" onclick="toggleMobileMenu()" aria-label="Menu">☰</button>
+            <a href="/login.html" class="btn btn-secondary">Sign In</a>
+            <a href="/register.html" class="btn btn-primary">Sign Up</a>
         </div>
-    </header>
+    </div>
+    
+    <nav class="mobile-nav" id="mobileNav">
+        <a href="/app.html" class="tab-btn">Generator</a>
+        <a href="/presets.html" class="tab-btn">Templates</a>
+        <a href="/analytics.html" class="tab-btn">Analytics</a>
+        <a href="/packs.html" class="tab-btn">Response Packs</a>
+        <a href="/pricing.html" class="tab-btn">Pricing</a>
+        <a href="/store.html" class="tab-btn">Packs Store</a>
+        <a href="/account.html" class="tab-btn">Account</a>
+    </nav>
+</header>
 
     <!-- Main Content -->
     <main class="main-content">
@@ -1006,12 +622,22 @@
 <footer class="footer">
     <div class="container">
         <div class="footer-content">
-            <div class="footer-description">
+            <div class="footer-brand">
                 <h3 class="footer-logo">DMTools.fun</h3>
-                <p>The world's first Universal Digital Messaging Response Command Center. Generate perfect responses for any digital messaging service including social media DMs, email, SMS, dating apps, and customer service chat. Save 10+ hours weekly with our AI-powered universal unlimited batch response draft generator. the only tool that generates contextually aware responses to any selected text, directly into any textarea on the web. </p>
+                <p class="footer-description">
+                    AI-powered universal messaging response generator.
+                </p>
             </div>
             
             <div class="footer-links">
+                <div class="link-group">
+                    <h4>Product</h4>
+                    <a href="/app.html">Generator</a>
+                    <a href="/presets.html">Templates</a>
+                    <a href="/pricing.html">Pricing</a>
+                    <a href="/store.html">Packs Store</a>
+                </div>
+                
                 <div class="link-group">
                     <h4>Legal</h4>
                     <a href="/terms-of-service.html">Terms of Service</a>
@@ -1020,29 +646,16 @@
                     <a href="/cookie-policy.html">Cookie Policy</a>
                 </div>
                 
-               <div class="link-group">
-    <h4>Product</h4>
-    <a href="/app.html">Generator</a>
-    <a href="/presets.html">Templates</a>
-    <a href="/packs.html">Response Packs</a>
-    <a href="/analytics.html">Analytics</a>
-    <a href="/pricing.html">Pricing</a>
-</div>
-                
                 <div class="link-group">
                     <h4>Support</h4>
-                    <a href="/contact.html">Contact Support</a>
-                    <a href="/account.html">My Account</a>
+                    <a href="/contact.html">Contact Us</a>
                     <a href="mailto:support@dmtools.fun">Email Support</a>
-                    <a href="/">Back to Home</a>
                 </div>
             </div>
         </div>
         
         <div class="footer-bottom">
-            <div class="footer-copyright">
-                © 2025 DMTools.fun. All rights reserved.
-            </div>
+            <p class="footer-copyright">© 2025 DMTools.fun LLC. All rights reserved.</p>
         </div>
     </div>
 </footer>
@@ -1058,8 +671,10 @@
         // FIXED API Configuration - Added /api to the base URL
         const API_BASE = 'https://dmtools-backend-production.up.railway.app/api';
 
-       
-
+    // Mobile menu toggle
+    function toggleMobileMenu() {
+        document.getElementById('mobileNav').classList.toggle('show');
+    }
         // Initialize App
         document.addEventListener('DOMContentLoaded', initializeApp);
 

@@ -116,7 +116,14 @@ CONTENTS:
     --container-sm: 800px;
     --container-md: 1200px;
     --container-lg: 1400px;
+    --border: var(--border-medium);
+    --darker: var(--bg-input);
+    --dark: var(--bg-dark);
+    --text: var(--text-primary);
+    --text-secondary: var(--text-muted);
 }
+
+
 
 
 /* ============================================

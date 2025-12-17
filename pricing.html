@@ -12,6 +12,8 @@
     <meta name="mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-capable" content="yes">
 
+    <link rel="stylesheet" href="styles.css">
+    
     <!-- Google Analytics -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-GFG0RYJNR0"></script>
     <script>
@@ -438,51 +440,19 @@
     </style>
 </head>
 <body>
-    <!-- HEADER WITH NAVIGATION -->
-    <header class="header">
-        <div class="container">
-            <div class="header-content">
-                <a href="/" class="logo">DMTools.fun</a>
-                
-                <nav class="nav-tabs">
-                    <a href="/app.html" class="tab-btn">
-                        <span>🎨</span>
-                        <span>Generator</span>
-                    </a>
-                    <a href="/presets.html" class="tab-btn">
-                        <span>📝</span>
-                        <span>Templates</span>
-                    </a>
-                    <a href="/packs.html" class="tab-btn">
-                        <span>🎁</span>
-                        <span>Packs</span>
-                    </a>
-                    <a href="/analytics.html" class="tab-btn">
-                        <span>📊</span>
-                        <span>Analytics</span>
-                    </a>
-                    <a href="/contact.html" class="tab-btn">
-                        <span>📞</span>
-                        <span>Contact</span>
-                    </a>
-                    <a href="/pricing.html" class="tab-btn active">
-                        <span>💎</span>
-                        <span>Pricing</span>
-                    </a>
-                    <a href="/account.html" class="tab-btn">
-                        <span>👤</span>
-                        <span>Account</span>
-                    </a>
-                </nav>
-                
-                <div class="auth-buttons" id="auth-section">
-                    <a href="/app.html" class="btn-header">Login</a>
-                    <a href="/app.html" class="btn-header primary">Sign Up</a>
-                </div>
-            </div>
+    <!-- Header -->
+<header class="header">
+    <div class="nav-container">
+        <a href="/" class="logo">DMTools.fun</a>
+        <div class="auth-buttons" id="authButtons">
+            <button class="mobile-menu-btn" onclick="toggleMobileMenu()" aria-label="Menu">☰</button>
+            <a href="/login.html" class="btn btn-secondary">Sign In</a>
+            <a href="/register.html" class="btn btn-primary">Sign Up</a>
         </div>
-    </header>
-    <!-- END HEADER -->
+    </div>
+    
+
+</header>
     
     <!-- HERO SECTION -->
     <section class="hero">

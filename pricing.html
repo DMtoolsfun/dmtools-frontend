@@ -640,15 +640,24 @@
     <!-- END CTA SECTION -->
     
     <!-- FOOTER -->
-    <footer class="footer">
-        <div class="container">
-            <div class="footer-content">
+   <!-- Footer -->
+<footer class="footer">
+    <div class="container">
+        <div class="footer-content">
+            <div class="footer-brand">
+                <h3 class="footer-logo">DMTools.fun</h3>
+                <p class="footer-description">
+                    AI-powered universal messaging response generator.
+                </p>
+            </div>
+            
+            <div class="footer-links">
                 <div class="link-group">
                     <h4>Product</h4>
-                    <a href="/app.html">Batch Generator</a>
-                    <a href="/store.html">Response Packs</a>
-                    <a href="/install-extension.html">Extension</a>
+                    <a href="/app.html">Generator</a>
+                    <a href="/presets.html">Templates</a>
                     <a href="/pricing.html">Pricing</a>
+                    <a href="/store.html">Packs Store</a>
                 </div>
                 
                 <div class="link-group">
@@ -663,22 +672,15 @@
                     <h4>Support</h4>
                     <a href="/contact.html">Contact Us</a>
                     <a href="mailto:support@dmtools.fun">Email Support</a>
-                    <a href="/install-extension.html">Extension Setup</a>
                 </div>
-                
-                <div class="link-group">
-                    <h4>Company</h4>
-                    <a href="/">Home</a>
-                    <a href="/about.html">About Us</a>
-                    <a href="/contact.html">Get in Touch</a>
-                </div>
-            </div>
-            
-            <div class="footer-bottom">
-                <p class="footer-copyright">© 2025 DMTools.fun. All rights reserved.</p>
             </div>
         </div>
-    </footer>
+        
+        <div class="footer-bottom">
+            <p class="footer-copyright">© 2025 DMTools.fun LLC. All rights reserved.</p>
+        </div>
+    </div>
+</footer>
     <!-- END FOOTER -->
     
     <script>
@@ -686,7 +688,11 @@
         // SUBSCRIPTION CHECKOUT - WORKING VERSION
         // Updated: December 4, 2025
         // =============================================
-        
+        <script>
+    // Mobile menu toggle
+    function toggleMobileMenu() {
+        document.getElementById('mobileNav').classList.toggle('show');
+    }
         const API_BASE = 'https://dmtools-backend-production.up.railway.app/api';
         
         // Product Checkout UUIDs (from Lemon Squeezy)

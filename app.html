@@ -719,7 +719,39 @@
         <div class="content-wrapper" id="content-wrapper">
             <div class="container">
                 <div id="generator" class="tab-content active">
-                    <!-- Usage Counter -->
+                   <!-- Messages Section -->
+                    <div class="messages-section">
+                        <div class="messages-header">
+                            <h2>💬 Multi-Platform Messages</h2>
+                            <div class="batch-counter">
+                                <span id="message-count">0</span> Messages
+                            </div>
+                        </div>
+
+                        <div id="messages-container">
+                            <!-- Message pairs will be dynamically generated here -->
+                        </div>
+
+                        <button class="btn btn-secondary" style="width: 100%; margin-top: 1rem;" onclick="addMessagePair()">
+                            ➕ Add Message
+                        </button>
+                    </div>
+
+                    <!-- Action Buttons -->
+                    <div style="display: flex; gap: 1rem; margin-top: 2rem; flex-wrap: wrap;">
+                        <button class="btn btn-primary" id="process-all-btn" onclick="processAllMessages()" style="flex: 1; min-width: 200px;">
+                            🚀 Process All Responses
+                        </button>
+                        
+                        <button class="btn btn-secondary" onclick="clearAllMessages()" style="min-width: 150px;">
+                            🗑️ Clear All
+                        </button>
+                        
+                        <button class="btn btn-secondary" onclick="exportResults()" style="min-width: 150px;">
+                            📥 Export Results
+                        </button>
+                    </div>
+                  <!-- Usage Counter -->
                     <div class="usage-counter" id="usage-counter">
                         <div class="usage-text">
                             <span id="usage-count">0</span> / <span id="usage-limit">10</span> responses used this month
@@ -839,39 +871,6 @@
                                 </div>
                             </div>
                         </div>
-                    </div>
-
-                    <!-- Messages Section -->
-                    <div class="messages-section">
-                        <div class="messages-header">
-                            <h2>💬 Multi-Platform Messages</h2>
-                            <div class="batch-counter">
-                                <span id="message-count">0</span> Messages
-                            </div>
-                        </div>
-
-                        <div id="messages-container">
-                            <!-- Message pairs will be dynamically generated here -->
-                        </div>
-
-                        <button class="btn btn-secondary" style="width: 100%; margin-top: 1rem;" onclick="addMessagePair()">
-                            ➕ Add Message
-                        </button>
-                    </div>
-
-                    <!-- Action Buttons -->
-                    <div style="display: flex; gap: 1rem; margin-top: 2rem; flex-wrap: wrap;">
-                        <button class="btn btn-primary" id="process-all-btn" onclick="processAllMessages()" style="flex: 1; min-width: 200px;">
-                            🚀 Process All Responses
-                        </button>
-                        
-                        <button class="btn btn-secondary" onclick="clearAllMessages()" style="min-width: 150px;">
-                            🗑️ Clear All
-                        </button>
-                        
-                        <button class="btn btn-secondary" onclick="exportResults()" style="min-width: 150px;">
-                            📥 Export Results
-                        </button>
                     </div>
                 </div>
             </div>

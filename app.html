@@ -1771,16 +1771,53 @@
             clearAuthMessages();
         }
 
-        // ===== INITIALIZATION =====
-        document.addEventListener('DOMContentLoaded', function() {
-            console.log('🚀 DMTools app initializing...');
-            
-            checkAuthStatus();
-            selectUploadMethod('manual', null);
-            initializeMessagePairs();
-            
-            console.log('✅ DMTools app initialized successfully');
-        });
+        // ================================
+// AUTHENTICATION WALL
+// ================================
+document.addEventListener('DOMContentLoaded', function() {
+    console.log('🚀 DMTools app initializing...');
+    
+    // Check authentication FIRST
+    const token = localStorage.getItem('authToken');
+    
+    if (!token) {
+        // No token = redirect to landing page
+        console.log('❌ No auth token - redirecting to landing page');
+        window.location.href = '/?auth=required';
+        return; // Stop initialization
+    }
+    
+    // Token exists - verify it's valid
+    checkAuthStatus();
+    selectUploadMethod('manual', null);
+    initializeMessagePairs();
+    
+    console.log('✅ DMTools app initialized successfully');
+});
+
+// Update checkAuthStatus to handle invalid tokens
+async function checkAuthStatus() {
+    const token = localStorage.getItem('authToken');
+    if (!token) {
+        window.location.href = '/?auth=required';
+        return;
+    }
+    
+    try {
+        const response = await apiCall('/user/profile');
+        if (response.user) {
+            currentUser = response.user;
+            isAuthenticated = true;
+            updateAuthUI();
+            updateUsageDisplay();
+        }
+    } catch (error) {
+        // Invalid token - clear and redirect
+        console.error('❌ Auth validation failed:', error);
+        localStorage.removeItem('authToken');
+        window.location.href = '/?auth=expired';
+    }
+}
         
     </script>
     <script>

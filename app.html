@@ -150,6 +150,40 @@
         margin-left: 300px;
     }
 
+    .floating-nav {
+       display: flex;
+       align-items: center;
+       gap: 6px;
+       background: #0f0f0f;
+       padding: 6px 10px;
+       border-bottom: 1px solid #2b2b2b;
+    }
+
+    .floating-nav button {
+       background: #1f1f1f;
+       border: none;
+       color: #e0e0e0;
+       padding: 4px 10px;
+       border-radius: 6px;
+       cursor: pointer;
+       font-size: 0.9rem;
+       transition: background 0.2s;
+    }
+
+    .floating-nav button:hover {
+       background: #2c2c2c;
+    }
+
+    #nav-address {
+       flex: 1;
+       padding: 5px 8px;
+       border-radius: 6px;
+       border: 1px solid #2d2d2d;
+       background: #121212;
+       color: #bbb;
+       font-size: 0.85rem;
+    }
+
     /* Tab Content */
     .tab-content {
         display: none;
@@ -702,6 +736,13 @@
           
     <div class="platform-drawer" id="platform-drawer">
         <h3>🌐 Browser Window</h3>
+    
+<div id="floating-nav" class="floating-nav">
+  <button id="nav-back" title="Go Back">⟨</button>
+  <button id="nav-forward" title="Go Forward">⟩</button>
+  <input id="nav-address" type="text" readonly value="about:blank" />
+</div>
+
         <div class="platform-item" onclick="openPlatform('browser')">
             <div style="font-size: 1.5rem; margin-bottom: 0.5rem;">🌐</div>
             <strong>Open Browser</strong>
@@ -1090,6 +1131,68 @@
             }
         }
 
+		// ===============
+// Floating Browser History Manager
+// ===============
+const floatingNav = {
+  history: [],
+  index: -1,
+  addressBar: document.getElementById("nav-address"),
+  backBtn: document.getElementById("nav-back"),
+  forwardBtn: document.getElementById("nav-forward"),
+  
+  // Push new page to stack
+  visit(pageId) {
+    // If user navigated from middle of stack, drop "forward" items
+    this.history = this.history.slice(0, this.index + 1);
+    this.history.push(pageId);
+    this.index++;
+    this.updateUI();
+    this.loadPage(pageId);
+  },
+
+  // Load the specified page content
+  loadPage(pageId) {
+    // Replace this with your content rendering logic
+    const container = document.querySelector(".floating-window-content") || document.body;
+    container.innerHTML = `<h2>${pageId}</h2><p>Simulated page content for ${pageId}</p>`;
+  },
+
+  // Navigate back
+  back() {
+    if (this.index > 0) {
+      this.index--;
+      this.updateUI();
+      this.loadPage(this.history[this.index]);
+    }
+  },
+
+  // Navigate forward
+  forward() {
+    if (this.index < this.history.length - 1) {
+      this.index++;
+      this.updateUI();
+      this.loadPage(this.history[this.index]);
+    }
+  },
+
+  // Update address bar and button states
+  updateUI() {
+    const page = this.history[this.index];
+    this.addressBar.value = `dmtools://${page}`;
+    this.backBtn.disabled = this.index <= 0;
+    this.forwardBtn.disabled = this.index >= this.history.length - 1;
+  }
+};
+
+// Attach event listeners
+document.getElementById("nav-back").addEventListener("click", () => floatingNav.back());
+document.getElementById("nav-forward").addEventListener("click", () => floatingNav.forward());
+
+// Initialize
+floatingNav.visit("home");
+        
+
         function openPlatform(platform) {
             const config = platformConfigs[platform];
             if (!config) return;
@@ -1110,12 +1213,25 @@
                 const windowLeft = 0;
                 const windowTop = 0;
                 
-                // Features string
-                const enhancedFeatures = `width=${windowWidth},height=${windowHeight},left=${windowLeft},top=${windowTop},scrollbars=yes,resizable=yes,location=yes,toolbar=yes`;
+               // Features string
+const enhancedFeatures = [
+  `width=${windowWidth}`,
+  `height=${windowHeight}`,
+  `left=${windowLeft}`,
+  `top=${windowTop}`,
+  'scrollbars=yes',
+  'resizable=yes',
+  'location=yes',   // shows the address bar
+  'toolbar=yes',    // enables back/forward/reload buttons
+  'menubar=yes'     // adds full menu bar (optional)
+].join(',');
 
-                // Open the window
-                platformWindows[platform] = window.open(config.url, `dmtools_${platform}`, enhancedFeatures);
-
+// Open the window
+platformWindows[platform] = window.open(
+  config.url,
+  `dmtools_${platform}`,
+  enhancedFeatures
+);
                 // Check if popup was blocked
                 if (!platformWindows[platform] || platformWindows[platform].closed || typeof platformWindows[platform].closed === 'undefined') {
                     throw new Error('Popup blocked! Please allow popups and try again');

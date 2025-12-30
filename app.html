@@ -1130,67 +1130,6 @@
                 content.classList.remove('drawer-open');
             }
         }
-
-		// ===============
-// Floating Browser History Manager
-// ===============
-const floatingNav = {
-  history: [],
-  index: -1,
-  addressBar: document.getElementById("nav-address"),
-  backBtn: document.getElementById("nav-back"),
-  forwardBtn: document.getElementById("nav-forward"),
-  
-  // Push new page to stack
-  visit(pageId) {
-    // If user navigated from middle of stack, drop "forward" items
-    this.history = this.history.slice(0, this.index + 1);
-    this.history.push(pageId);
-    this.index++;
-    this.updateUI();
-    this.loadPage(pageId);
-  },
-
-  // Load the specified page content
-  loadPage(pageId) {
-    // Replace this with your content rendering logic
-    const container = document.querySelector(".floating-window-content") || document.body;
-    container.innerHTML = `<h2>${pageId}</h2><p>Simulated page content for ${pageId}</p>`;
-  },
-
-  // Navigate back
-  back() {
-    if (this.index > 0) {
-      this.index--;
-      this.updateUI();
-      this.loadPage(this.history[this.index]);
-    }
-  },
-
-  // Navigate forward
-  forward() {
-    if (this.index < this.history.length - 1) {
-      this.index++;
-      this.updateUI();
-      this.loadPage(this.history[this.index]);
-    }
-  },
-
-  // Update address bar and button states
-  updateUI() {
-    const page = this.history[this.index];
-    this.addressBar.value = `dmtools://${page}`;
-    this.backBtn.disabled = this.index <= 0;
-    this.forwardBtn.disabled = this.index >= this.history.length - 1;
-  }
-};
-
-// Attach event listeners
-document.getElementById("nav-back").addEventListener("click", () => floatingNav.back());
-document.getElementById("nav-forward").addEventListener("click", () => floatingNav.forward());
-
-// Initialize
-floatingNav.visit("home");
         
 
         function openPlatform(platform) {

@@ -1146,7 +1146,7 @@ platformWindows[platform] = window.open(
                 try {
                     setTimeout(() => {
                         const rightHalfLeft = Math.floor(screenWidth * 0.50);
-                        window.moveTo(rightHalfLeft, windowTop);
+                        window.moveTo(rightHalf, windowTop);
                         window.resizeTo(Math.floor(screenWidth * 0.50), windowHeight);
                     }, 300);
                 } catch (moveError) {

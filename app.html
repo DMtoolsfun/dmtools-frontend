@@ -714,7 +714,7 @@
         </div>
     </div>
 
-    </div>
+  
           
     <!--end platform drawer------->
     <!--------------------------------------
@@ -1344,34 +1344,34 @@ platformWindows[platform] = window.open(
             }
         }
 
-      // Paywall Functions
-        function showPaywall() {
-            document.getElementById('paywall-modal').classList.add('show');
-        }
+    // ==============================
+    // Paywall Functions
+    // ==============================
+    function showPaywall() {
+        const modal = document.getElementById('paywall-modal');
+        if (modal) modal.classList.add('show');
+    }
 
-        function hidePaywall() {
-            document.getElementById('paywall-modal').classList.remove('show');
-        }
+    function hidePaywall() {
+        const modal = document.getElementById('paywall-modal');
+        if (modal) modal.classList.remove('show');
+    }
 
-        // Close paywall on outside click
-        document.getElementById('paywall-modal')?.addEventListener('click', function(e) {
-            if (e.target === this) {
-                hidePaywall();
-        }
-          // Close on background click
-        document.getElementById('paywall-modal')?.addEventListener('click', function(e) {
-            if (e.target === this) {
-                hidePaywall();
+    // Close paywall when clicking outside the modal content
+    document.getElementById('paywall-modal')?.addEventListener('click', function(e) {
+        if (e.target === this) {
+            hidePaywall();
         }
     });
 
-         // Close on Escape key
-        document.addEventListener('keydown', function(e) {
-            if (e.key === 'Escape') {
-                hidePaywall();
-         }
-})
-        });
+    // Close paywall when pressing the Escape key
+    document.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape') {
+            hidePaywall();
+        }
+    });
+   
+  
 
         // ===== BATCH PROCESSING =====
         async function processAllMessages() {

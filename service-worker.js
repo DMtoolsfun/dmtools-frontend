@@ -4,7 +4,9 @@ const urlsToCache = [
   '/',
   '/index.html',
   '/app.html',
-  '/pricing.html'
+  '/pricing.html',
+  '/store.html',
+  '/packs.html'
 ];
 
 // Install event - cache files with error handling
@@ -14,7 +16,8 @@ self.addEventListener('install', (event) => {
     caches.open(CACHE_NAME)
       .then((cache) => {
         console.log('[Service Worker] Caching app shell');
-        // Cache files individually to avoid failing on 404s
+        
+// Cache files individually to avoid failing on 404s
         return Promise.all(
           urlsToCache.map(url => {
             return cache.add(url).catch(err => {
@@ -57,28 +60,28 @@ self.addEventListener('activate', (event) => {
 // Fetch event - serve from cache, fallback to network
 self.addEventListener('fetch', (event) => {
   const requestUrl = new URL(event.request.url);
-  
-  // Skip non-GET requests
+
+// Skip non-GET requests
   if (event.request.method !== 'GET') {
     return;
   }
 
-  // Skip chrome-extension URLs (browser extensions)
+// Skip chrome-extension URLs (browser extensions)
   if (requestUrl.protocol === 'chrome-extension:') {
     return;
   }
 
-  // Skip chrome:// URLs
+// Skip chrome:// URLs
   if (requestUrl.protocol === 'chrome:') {
     return;
   }
 
-  // Skip other browser-specific protocols
+// Skip other browser-specific protocols
   if (requestUrl.protocol !== 'http:' && requestUrl.protocol !== 'https:') {
     return;
   }
 
-  // Skip API calls - always use network
+// Skip API calls - always use network
   if (requestUrl.pathname.includes('/api/')) {
     event.respondWith(
       fetch(event.request).catch(() => {
@@ -94,27 +97,27 @@ self.addEventListener('fetch', (event) => {
     return;
   }
 
-  // Network first, fallback to cache strategy
+// Network first, fallback to cache strategy
   event.respondWith(
     fetch(event.request)
       .then((response) => {
-        // Don't cache non-successful responses
+// Don't cache non-successful responses
         if (!response || response.status !== 200) {
           return response;
         }
 
-        // Don't cache opaque responses (CORS)
+// Don't cache opaque responses (CORS)
         if (response.type === 'opaque') {
           return response;
         }
 
-        // Clone the response
+// Clone the response
         const responseToCache = response.clone();
 
-        // Cache the fetched response (with error handling)
+// Cache the fetched response (with error handling)
         caches.open(CACHE_NAME)
           .then((cache) => {
-            // Double-check URL protocol before caching
+// Double-check URL protocol before caching
             const cacheUrl = new URL(event.request.url);
             if (cacheUrl.protocol === 'http:' || cacheUrl.protocol === 'https:') {
               cache.put(event.request, responseToCache).catch(err => {
@@ -129,13 +132,13 @@ self.addEventListener('fetch', (event) => {
         return response;
       })
       .catch(() => {
-        // Network failed, try cache
+// Network failed, try cache
         return caches.match(event.request)
           .then((cachedResponse) => {
             if (cachedResponse) {
               return cachedResponse;
             }
-            // No cache available, return offline page
+// No cache available, return offline page
             return caches.match('/index.html');
           });
       })

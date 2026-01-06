@@ -1094,28 +1094,49 @@
         }
 
         // Subscription Analytics
-       // Subscription Analytics
+       // Subscription Analytics// Subscription Analytics
 async function loadSubscriptionAnalytics() {
     try {
-        // We prefer a dedicated subscriptions analytics endpoint if it exists,
-        // but we MUST not crash if it doesn't.
-        let subsData = null;
-        let failedData = { failed_payments: [] };
+        const [subsDataRaw, failedDataRaw] = await Promise.all([
+            apiCall('/admin/subscriptions'),
+            apiCall('/admin/failed-payments')
+        ]);
 
-        // Try the endpoints your UI currently calls
-        try {
-            const results = await Promise.allSettled([
-                apiCall('/admin/subscriptions'),
-                apiCall('/admin/failed-payments')
-            ]);
+        const subsData = subsDataRaw || {};
+        const failedData = failedDataRaw || {};
 
-            if (results[0].status === 'fulfilled') subsData = results[0].value;
-            if (results[1].status === 'fulfilled') failedData = results[1].value;
-        } catch (_) {
-            // Ignore — we'll fallback below
+        // ---- Normalize analytics shape defensively ----
+        const analytics =
+            subsData.analytics ||
+            subsData.subscription_analytics ||
+            (subsData.data && subsData.data.analytics) ||
+            null;
+
+        let byPlan =
+            (analytics && (analytics.by_plan || analytics.byPlan)) ||
+            subsData.by_plan ||
+            subsData.byPlan ||
+            null;
+
+        // If analytics isn't present, try computing from a subscriptions list if it exists
+        const subsList =
+            subsData.subscriptions ||
+            subsData.items ||
+            (subsData.data && (subsData.data.subscriptions || subsData.data.items || subsData.data.rows)) ||
+            null;
+
+        if (!Array.isArray(byPlan) && Array.isArray(subsList)) {
+            const planCounts = {};
+            subsList.forEach((s) => {
+                const plan = (s.plan || s.subscription_plan || s.variant || 'unknown').toString();
+                planCounts[plan] = (planCounts[plan] || 0) + 1;
+            });
+            byPlan = Object.entries(planCounts).map(([plan, count]) => ({ plan, count }));
         }
 
-        // ---------- Plan breakdown table ----------
+        byPlan = Array.isArray(byPlan) ? byPlan : [];
+
+        // ---- Render: plan breakdown table (YOUR EXISTING ID) ----
         const planTable = document.getElementById('plan-breakdown-table');
         planTable.innerHTML = '';
 
@@ -1127,76 +1148,41 @@ async function loadSubscriptionAnalytics() {
             enterprise: 349
         };
 
-        // If subsData has the shape we expect, use it
-        const byPlan =
-            subsData &&
-            subsData.analytics &&
-            Array.isArray(subsData.analytics.by_plan)
-                ? subsData.analytics.by_plan
-                : null;
-
-        if (byPlan) {
-            byPlan.forEach(row => {
-                const mrr = parseInt(row.count || 0, 10) * (planPricing[row.plan] || 0);
-                planTable.innerHTML += `
-                    <tr>
-                        <td><span class="badge badge-info">${String(row.plan || '').replace(/_/g, ' ').toUpperCase()}</span></td>
-                        <td>${row.count || 0}</td>
-                        <td>$${mrr.toFixed(2)}</td>
-                    </tr>
-                `;
-            });
+        if (byPlan.length === 0) {
+            planTable.innerHTML =
+                '<tr><td colspan="3" style="text-align:center; color:#9ca3af;">No subscription analytics yet.</td></tr>';
         } else {
-            // Fallback: compute plan counts from /admin/users (this endpoint exists in your backend zip)
-            const usersData = await apiCall('/admin/users');
-            const users = Array.isArray(usersData.users) ? usersData.users : [];
+            byPlan.forEach((row) => {
+                const planKey = (row.plan || row.name || 'unknown').toString();
+                const count = Number(row.count || row.total || 0);
+                const mrr = count * (planPricing[planKey] || 0);
 
-            const counts = new Map();
-            for (const u of users) {
-                const plan = (u.plan || 'free').toString();
-                counts.set(plan, (counts.get(plan) || 0) + 1);
-            }
-
-            // Render in a stable order
-            const orderedPlans = ['free','starter','starter_weekly','pro','pro_weekly','business','business_weekly','enterprise'];
-            for (const plan of orderedPlans) {
-                const count = counts.get(plan) || 0;
-                const mrr = count * (planPricing[plan] || 0);
                 planTable.innerHTML += `
                     <tr>
-                        <td><span class="badge badge-info">${plan.replace(/_/g, ' ').toUpperCase()}</span></td>
+                        <td><span class="badge badge-info">${planKey.replace(/_/g, ' ').toUpperCase()}</span></td>
                         <td>${count}</td>
                         <td>$${mrr.toFixed(2)}</td>
                     </tr>
                 `;
-            }
-
-            // If there are any unknown plans, show them too (so nothing is hidden)
-            for (const [plan, count] of counts.entries()) {
-                if (!orderedPlans.includes(plan)) {
-                    const mrr = count * (planPricing[plan] || 0);
-                    planTable.innerHTML += `
-                        <tr>
-                            <td><span class="badge badge-warning">${plan.replace(/_/g, ' ').toUpperCase()}</span></td>
-                            <td>${count}</td>
-                            <td>$${mrr.toFixed(2)}</td>
-                        </tr>
-                    `;
-                }
-            }
+            });
         }
 
-        // ---------- Failed payments table ----------
+        // ---- Normalize failed payments (defensive) ----
+        const failedPayments =
+            failedData.failed_payments ||
+            failedData.failedPayments ||
+            (failedData.data && (failedData.data.failed_payments || failedData.data.failedPayments)) ||
+            [];
+
+        // ---- Render: failed payments table (YOUR EXISTING ID) ----
         const failedTable = document.getElementById('failed-payments-table');
         failedTable.innerHTML = '';
 
-        const failed = Array.isArray(failedData.failed_payments) ? failedData.failed_payments : [];
-
-        if (failed.length === 0) {
+        if (!Array.isArray(failedPayments) || failedPayments.length === 0) {
             failedTable.innerHTML =
                 '<tr><td colspan="4" style="text-align:center;color:#10b981;">✅ No failed payments (or endpoint not enabled yet)</td></tr>';
         } else {
-            failed.forEach(user => {
+            failedPayments.forEach((user) => {
                 const badgeClass =
                     user.subscription_status === 'active' ? 'badge-success' :
                     user.subscription_status === 'past_due' ? 'badge-warning' :
@@ -1219,10 +1205,12 @@ async function loadSubscriptionAnalytics() {
         // Fail closed: never crash the dashboard UI
         const planTable = document.getElementById('plan-breakdown-table');
         if (planTable && !planTable.innerHTML.trim()) {
-            planTable.innerHTML = '<tr><td colspan="3" style="text-align:center;color:#f59e0b;">⚠️ Subscription analytics unavailable</td></tr>';
+            planTable.innerHTML =
+                '<tr><td colspan="3" style="text-align:center;color:#f59e0b;">⚠️ Subscription analytics unavailable</td></tr>';
         }
     }
 }
+
 
         // Users
         async function loadUsers() {

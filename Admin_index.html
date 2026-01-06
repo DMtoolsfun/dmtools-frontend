@@ -1294,15 +1294,16 @@ async function loadSubscriptionAnalytics() {
             e.preventDefault();
 
             const userId = document.getElementById('edit-user-id').value;
-            const updates = {
-                email: document.getElementById('edit-user-email').value,
-                first_name: document.getElementById('edit-user-firstname').value,
-                last_name: document.getElementById('edit-user-lastname').value,
-                plan: document.getElementById('edit-user-plan').value,
-                monthly_usage: parseInt(document.getElementById('edit-user-usage').value),
-                subscription_status: document.getElementById('edit-user-substatus').value,
-                subscription_id: document.getElementById('edit-user-subid').value || null
-            };
+          const updates = {
+            email: document.getElementById('edit-user-email').value,
+            first_name: document.getElementById('edit-user-firstname').value,
+            last_name: document.getElementById('edit-user-lastname').value,
+            plan: document.getElementById('edit-user-plan').value,
+            monthly_usage: parseInt(document.getElementById('edit-user-usage').value, 10) || 0,
+            subscription_status: document.getElementById('edit-user-substatus').value
+    // NOTE: do not send subscription_id (can 500 if column doesn't exist in DB)
+        };
+
 
             try {
                 await apiCall(`/admin/users/${userId}`, {

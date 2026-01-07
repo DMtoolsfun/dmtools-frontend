@@ -2,130 +2,39 @@
 <html lang="en">
 <head>
   <!-- ===========================================================
-       DMTools Portal (Phase 1)
-       Purpose: One landing page that removes Packs vs Subscription confusion.
-       Model:
-         - Credits (packs + free monthly) unlock CORE usage (generate + batch + account).
-         - Subscription unlocks PRO FEATURES (tone/context, presets/templates, analytics).
-         - Credits are required for generation regardless of subscription.
+       DMTools Portal (Phase 1 – Styled to match site)
+       - Uses existing header/nav classes from your app.html
+       - Uses existing container/card/btn styles from styles.css
        =========================================================== -->
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>DMTools Portal</title>
-  <meta name="description" content="DMTools portal: core tools (credits) + pro features (subscription)." />
 
-  <!-- Keep your existing UI system -->
+  <!-- IMPORTANT:
+       Your site is inconsistent: some pages link "styles.css", some "/css/styles.css".
+       This tries to load BOTH safely. -->
   <link rel="stylesheet" href="styles.css" />
+  <link rel="stylesheet" href="/css/styles.css" />
 
   <style>
-    /* -----------------------------------------------------------
-       Portal page-only styling (minimal, uses your global styles.css)
-       ----------------------------------------------------------- */
-    .portal-wrap{
-      max-width: 1100px;
-      margin: 0 auto;
-      padding: 24px 16px 40px;
-    }
-
-    .portal-hero{
-      display:flex;
-      align-items:flex-start;
-      justify-content:space-between;
-      gap:16px;
-      margin-bottom: 18px;
-    }
-
-    .portal-title{
-      margin: 0;
-      font-size: 28px;
-      line-height: 1.15;
-    }
-
-    .portal-sub{
-      margin: 8px 0 0;
-      opacity: .85;
-      max-width: 72ch;
-    }
-
-    .portal-actions{
-      display:flex;
-      gap:10px;
-      flex-wrap:wrap;
-      justify-content:flex-end;
-      align-items:center;
-    }
-
-    .portal-btn{
-      border: 1px solid rgba(255,255,255,.14);
-      background: rgba(255,255,255,.06);
-      color: rgba(255,255,255,.92);
-      padding: 10px 14px;
-      border-radius: 12px;
-      font-weight: 700;
-      cursor:pointer;
-      text-decoration:none;
-      display:inline-flex;
-      align-items:center;
-      gap:8px;
-      transition: transform .08s ease, background .15s ease, border-color .15s ease;
-    }
-    .portal-btn:hover{ background: rgba(255,255,255,.10); }
-    .portal-btn:active{ transform: translateY(1px); }
-
-    .portal-btn-primary{
-      background: linear-gradient(135deg, rgba(139,92,246,.95), rgba(167,139,250,.95));
-      border-color: rgba(255,255,255,.18);
-      color: #120b24;
-    }
-    .portal-btn-primary:hover{ filter: brightness(1.03); }
-
-    .portal-grid{
-      display:grid;
+    /* Minimal page-specific styles ONLY */
+    .portal-grid {
+      display: grid;
       grid-template-columns: 1fr 1fr;
-      gap: 14px;
-      margin-top: 14px;
+      gap: 16px;
+      margin-top: 16px;
     }
     @media (max-width: 980px){
-      .portal-grid{ grid-template-columns: 1fr; }
-      .portal-actions{ justify-content:flex-start; }
+      .portal-grid { grid-template-columns: 1fr; }
     }
-
-    .portal-card{
-      border: 1px solid rgba(255,255,255,.12);
-      border-radius: 18px;
-      background: rgba(0,0,0,.14);
-      padding: 16px;
-      overflow:hidden;
-      position:relative;
-    }
-
-    .portal-card h2{
-      margin: 0;
-      font-size: 18px;
-      line-height: 1.25;
-    }
-
-    .portal-card p{
-      margin: 8px 0 0;
-      opacity: .88;
-    }
-
-    .portal-bullets{
-      margin: 12px 0 0;
-      padding-left: 18px;
-      line-height: 1.6;
-      opacity: .92;
-    }
-
-    .portal-meta{
+    .portal-meta {
       display:flex;
-      gap:10px;
       flex-wrap:wrap;
-      align-items:center;
+      gap:10px;
       margin-top: 12px;
+      align-items:center;
     }
-
-    .pill{
+    .pill {
       font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono","Courier New", monospace;
       font-size: 12px;
       padding: 6px 10px;
@@ -138,33 +47,23 @@
     .pill.warn{ border-color: rgba(245,158,11,.35); background: rgba(245,158,11,.10); }
     .pill.bad{ border-color: rgba(239,68,68,.35); background: rgba(239,68,68,.10); }
 
-    .portal-divider{
-      height:1px;
-      background: rgba(255,255,255,.10);
-      margin: 14px 0;
-    }
-
-    .portal-row{
+    .portal-actions {
       display:flex;
-      gap:10px;
       flex-wrap:wrap;
+      gap:10px;
       margin-top: 14px;
     }
-
-    .locked{
-      opacity: .55;
-      filter: saturate(.85);
-    }
-
-    .portal-foot{
-      margin-top: 16px;
-      opacity: .75;
-      font-size: 13px;
+    .muted {
+      opacity: .82;
       line-height: 1.5;
-      max-width: 90ch;
+    }
+    .locked {
+      opacity: .58;
+      filter: saturate(.9);
     }
 
-    .toast{
+    /* Toast using your overall aesthetic */
+    .toast {
       position: fixed;
       top: 16px;
       right: 16px;
@@ -188,86 +87,106 @@
 </head>
 
 <body>
-  <div class="portal-wrap">
-    <!-- ===========================================================
-         Hero
-         =========================================================== -->
-    <div class="portal-hero">
-      <div>
-        <h1 class="portal-title">Your DMTools Portal</h1>
-        <p class="portal-sub">
-          Clear rule: <b>Credits</b> power reply generation (extension + batch). A <b>subscription</b> unlocks advanced features (tone, context, presets, analytics).
-          <br />
-          <b>Credits are required to generate replies regardless of subscription status.</b>
-        </p>
-      </div>
+  <!-- ===========================================================
+       Header/Nav (matches your app.html structure)
+       =========================================================== -->
+  <header class="header">
+    <div class="nav-container">
+      <a class="logo" href="/">DMTools.fun</a>
 
-      <div class="portal-actions">
-        <a class="portal-btn" href="account.html">Account</a>
-        <button class="portal-btn" id="btnLogout" type="button">Logout</button>
+      <div class="auth-buttons" id="authButtons">
+        <button aria-label="Menu" class="mobile-menu-btn" onclick="toggleMobileMenu()">☰</button>
+
+        <!-- logged-in only (portal requires auth) -->
+        <div class="auth-buttons" id="user-section">
+          <span class="user-email" id="user-email"></span>
+          <button class="btn btn-secondary" id="btnLogout">Logout</button>
+        </div>
       </div>
     </div>
 
-    <!-- ===========================================================
-         Two-lane Portal: Core vs Pro
-         =========================================================== -->
+    <nav class="mobile-nav" id="mobileNav">
+      <a class="tab-btn" href="/app.html">Generator</a>
+      <a class="tab-btn" href="/presets.html">Templates</a>
+      <a class="tab-btn" href="/analytics.html">Analytics</a>
+      <a class="tab-btn" href="/packs.html">Response Packs</a>
+      <a class="tab-btn" href="/pricing.html">Pricing</a>
+      <a class="tab-btn" href="/store.html">Packs Store</a>
+      <a class="tab-btn" href="/account.html">Account</a>
+      <a class="tab-btn active" href="/portal.html">Portal</a>
+    </nav>
+  </header>
+
+  <!-- ===========================================================
+       Main
+       =========================================================== -->
+  <main class="container" style="padding-top: 18px;">
+    <div class="card">
+      <h1 style="margin-top:0;">Portal</h1>
+      <p class="muted" style="margin-bottom:0;">
+        One rule: <b>Credits</b> power reply generation (extension + batch). A <b>subscription</b> unlocks advanced features (tone, context, presets, analytics).
+        <br />
+        <b>Credits are required to generate replies regardless of subscription status.</b>
+      </p>
+    </div>
+
     <div class="portal-grid">
       <!-- CORE -->
-      <section class="portal-card" id="coreCard">
-        <h2>Core Tools (Credits)</h2>
-        <p>Use DMTools anywhere. Credits are used each time you generate a response.</p>
+      <section class="card" id="coreCard">
+        <h2 style="margin-top:0;">Core Tools (Credits)</h2>
+        <p class="muted">Use DMTools anywhere. Credits are used each time you generate a response.</p>
 
-        <ul class="portal-bullets">
+        <ul class="muted" style="line-height:1.6; margin-top:10px;">
           <li>Extension reply generation</li>
           <li>Batch generation</li>
           <li>Account + billing management</li>
         </ul>
 
-        <div class="portal-meta" id="coreMeta">
+        <div class="portal-meta">
           <span class="pill" id="pillCredits">Credits: …</span>
           <span class="pill" id="pillFree">Free this month: …</span>
         </div>
 
-        <div class="portal-divider"></div>
-
-        <div class="portal-row">
-          <a class="portal-btn portal-btn-primary" id="btnOpenCore" href="app.html">Open Core Tools</a>
-          <a class="portal-btn" href="packs.html">Buy Credits (Packs)</a>
-          <a class="portal-btn" href="install-extension.html">Install / Open Extension</a>
+        <div class="portal-actions">
+          <a class="btn btn-primary" href="/app.html">Open Core Tools</a>
+          <a class="btn btn-secondary" href="/packs.html">Buy Credits (Packs)</a>
+          <a class="btn btn-secondary" href="/install-extension.html">Install / Open Extension</a>
+          <a class="btn btn-secondary" href="/account.html">Account</a>
         </div>
       </section>
 
       <!-- PRO -->
-      <section class="portal-card" id="proCard">
-        <h2>Pro Features (Subscription)</h2>
-        <p>Unlock customization and insights. Generation still consumes credits.</p>
+      <section class="card" id="proCard">
+        <h2 style="margin-top:0;">Pro Features (Subscription)</h2>
+        <p class="muted">Unlock customization and insights. Generation still consumes credits.</p>
 
-        <ul class="portal-bullets">
+        <ul class="muted" style="line-height:1.6; margin-top:10px;">
           <li>Tone + context settings</li>
           <li>Custom presets / templates</li>
           <li>Analytics pages</li>
         </ul>
 
-        <div class="portal-meta" id="proMeta">
+        <div class="portal-meta">
           <span class="pill" id="pillSub">Subscription: …</span>
           <span class="pill" id="pillPlan">Plan: …</span>
         </div>
 
-        <div class="portal-divider"></div>
-
-        <div class="portal-row" id="proButtons">
-          <a class="portal-btn portal-btn-primary" href="presets.html">Open Tone / Presets</a>
-          <a class="portal-btn" href="analytics.html">Open Analytics</a>
-          <a class="portal-btn" href="pricing.html">Manage Subscription</a>
+        <div class="portal-actions" id="proButtons">
+          <a class="btn btn-primary" href="/presets.html">Open Tone / Presets</a>
+          <a class="btn btn-secondary" href="/analytics.html">Open Analytics</a>
+          <a class="btn btn-secondary" href="/pricing.html">Manage Subscription</a>
         </div>
       </section>
     </div>
 
-    <p class="portal-foot" id="footNote">
-      Tip: If you ever see “No responses available”, it means you’re out of credits (or your free monthly allowance is used). Grab a pack and keep going.
-    </p>
-  </div>
+    <div class="card" style="margin-top:16px;">
+      <p class="muted" style="margin:0;">
+        Tip: If you see “No responses available”, you’re out of credits (or your free monthly allowance is used). Grab a pack and keep going.
+      </p>
+    </div>
+  </main>
 
+  <!-- Toast -->
   <div class="toast" id="toast" aria-live="polite" aria-atomic="true">
     <strong id="toastTitle">Loading…</strong>
     <span id="toastMsg">Checking your access.</span>
@@ -275,24 +194,25 @@
 
   <script>
     // ===========================================================
-    // Portal Logic (self-contained, Phase 1)
-    // Uses existing auth token key: localStorage 'authToken'
+    // Mobile menu (matches app.html pattern)
     // ===========================================================
+    function toggleMobileMenu() {
+      const nav = document.getElementById('mobileNav');
+      if (!nav) return;
+      nav.classList.toggle('open');
+    }
 
-    // ----------------------------
-    // Config
-    // ----------------------------
+    // ===========================================================
+    // Portal logic (same as Phase 1)
+    // =================================================	host: keeps your existing authToken key
     const API_BASE = 'https://dmtools-backend-production.up.railway.app/api';
     const TOKEN_KEY = 'authToken';
 
-    // ----------------------------
-    // Elements
-    // ----------------------------
     const btnLogout = document.getElementById('btnLogout');
+    const userEmailEl = document.getElementById('user-email');
 
     const pillCredits = document.getElementById('pillCredits');
     const pillFree = document.getElementById('pillFree');
-
     const pillSub = document.getElementById('pillSub');
     const pillPlan = document.getElementById('pillPlan');
 
@@ -303,9 +223,6 @@
     const toastTitle = document.getElementById('toastTitle');
     const toastMsg = document.getElementById('toastMsg');
 
-    // ----------------------------
-    // Toast
-    // ----------------------------
     let toastTimer = null;
     function showToast(title, msg, ms = 2600) {
       toastTitle.textContent = title;
@@ -315,19 +232,13 @@
       toastTimer = setTimeout(() => toast.classList.remove('show'), ms);
     }
 
-    // ----------------------------
-    // Auth helpers
-    // ----------------------------
-    function getToken() {
-      return localStorage.getItem(TOKEN_KEY);
-    }
+    function getToken() { return localStorage.getItem(TOKEN_KEY); }
 
     function requireAuth() {
       const token = getToken();
       if (!token) {
-        // Preserve return path
-        const returnTo = encodeURIComponent('portal.html');
-        window.location.href = `login.html?returnTo=${returnTo}`;
+        const returnTo = encodeURIComponent('/portal.html');
+        window.location.href = `/login.html?returnTo=${returnTo}`;
         return false;
       }
       return true;
@@ -335,12 +246,9 @@
 
     function logout() {
       localStorage.removeItem(TOKEN_KEY);
-      window.location.href = 'login.html';
+      window.location.href = '/login.html';
     }
 
-    // ----------------------------
-    // API helper
-    // ----------------------------
     async function apiCall(path, opts = {}) {
       const token = getToken();
       const res = await fetch(`${API_BASE}${path}`, {
@@ -363,62 +271,50 @@
       return data;
     }
 
-    // ----------------------------
-    // Access model (Phase 1)
-    // - Credits unlock core usage.
-    // - Subscription unlocks pro features.
-    // Note: Free monthly allowance display assumes: free plan = 10/month.
-    // ----------------------------
-    function computeFreeRemaining(subscriptionStatusResp) {
-      // subscription status response shape (from your backend snippet):
-      // { success, subscription: { plan, status, monthly_usage, limit } }
-      const sub = subscriptionStatusResp?.subscription || {};
-      const plan = (sub.plan || 'free').toLowerCase();
-
-      // Only show free monthly allowance for free plan
-      if (plan !== 'free') return null;
-
-      const used = Number(sub.monthly_usage || 0);
-      const FREE_LIMIT = 10;
-      return Math.max(0, FREE_LIMIT - used);
-    }
-
     function setPill(el, text, kind = null) {
       el.classList.remove('good', 'warn', 'bad');
       if (kind) el.classList.add(kind);
       el.textContent = text;
     }
 
+    function computeFreeRemaining(subResp) {
+      const sub = subResp?.subscription || {};
+      const plan = (sub.plan || 'free').toLowerCase();
+      if (plan !== 'free') return null;
+      const used = Number(sub.monthly_usage || 0);
+      const FREE_LIMIT = 10;
+      return Math.max(0, FREE_LIMIT - used);
+    }
+
     function setProLocked(locked) {
       if (locked) {
         proCard.classList.add('locked');
-
-        // Replace pro buttons with one clear CTA
         proButtons.innerHTML = `
-          <a class="portal-btn portal-btn-primary" href="pricing.html">Unlock Pro Features (Subscribe)</a>
-          <a class="portal-btn" href="packs.html">Buy Credits (Packs)</a>
+          <a class="btn btn-primary" href="/pricing.html">Unlock Pro Features (Subscribe)</a>
+          <a class="btn btn-secondary" href="/packs.html">Buy Credits (Packs)</a>
         `;
       } else {
         proCard.classList.remove('locked');
         proButtons.innerHTML = `
-          <a class="portal-btn portal-btn-primary" href="presets.html">Open Tone / Presets</a>
-          <a class="portal-btn" href="analytics.html">Open Analytics</a>
-          <a class="portal-btn" href="pricing.html">Manage Subscription</a>
+          <a class="btn btn-primary" href="/presets.html">Open Tone / Presets</a>
+          <a class="btn btn-secondary" href="/analytics.html">Open Analytics</a>
+          <a class="btn btn-secondary" href="/pricing.html">Manage Subscription</a>
         `;
       }
     }
 
-    // ----------------------------
-    // Load access state
-    // ----------------------------
     async function loadPortal() {
       showToast('Loading…', 'Checking your access.');
 
-      // Call both endpoints in parallel
-      const [subResp, packResp] = await Promise.all([
+      const [subResp, packResp, profileResp] = await Promise.all([
         apiCall('/subscription/status'),
-        apiCall('/packs/status')
+        apiCall('/packs/status'),
+        apiCall('/user/profile')
       ]);
+
+      // Show email in header
+      const email = profileResp?.user?.email || '';
+      if (email) userEmailEl.textContent = email;
 
       // Subscription state
       const sub = subResp?.subscription || {};
@@ -430,51 +326,30 @@
       setPill(pillSub, `Subscription: ${hasSubscription ? 'Active' : 'Not Active'}`, hasSubscription ? 'good' : 'warn');
 
       // Credits state
-      // packs/status response shape (from your backend snippet):
-      // { success, credits_remaining, active_pack, message? }
       const credits = Number(packResp?.credits_remaining || 0);
-
-      // Show credits pill
-      if (credits > 0) {
-        setPill(pillCredits, `Credits: ${credits}`, 'good');
-      } else {
-        setPill(pillCredits, `Credits: 0`, 'bad');
-      }
+      setPill(pillCredits, `Credits: ${credits}`, credits > 0 ? 'good' : 'bad');
 
       // Free allowance pill (only for free plan)
       const freeRemaining = computeFreeRemaining(subResp);
       if (freeRemaining === null) {
-        // Hide or soften when not applicable
         setPill(pillFree, 'Free this month: —');
       } else {
         const kind = freeRemaining >= 6 ? 'good' : (freeRemaining >= 1 ? 'warn' : 'bad');
         setPill(pillFree, `Free this month: ${freeRemaining}`, kind);
       }
 
-      // Pro gating UI
       setProLocked(!hasSubscription);
 
-      // Final toast
       showToast('Ready ✅', hasSubscription ? 'Pro features unlocked. Credits still required for generation.' : 'Core tools available. Subscribe to unlock Pro features.');
     }
 
-    // ----------------------------
-    // Wire up events
-    // ----------------------------
     btnLogout.addEventListener('click', logout);
 
-    // ----------------------------
-    // Boot
-    // ----------------------------
     (function init() {
       if (!requireAuth()) return;
       loadPortal().catch((err) => {
         console.error('Portal load failed:', err);
-        showToast('Error', err?.message || 'Failed to load access status.', 5200);
-
-        // Common failure: expired token
-        // If backend returns auth errors, user can just re-login.
-        // We keep this simple (Phase 1).
+        showToast('Error', err?.message || 'Failed to load access.', 5200);
       });
     })();
   </script>

@@ -265,132 +265,77 @@
             </div>
         </footer>
 
-        <script>
-        const API_BASE = 'https://dmtools-backend-production.up.railway.app/api';
-// Mobile menu toggle
+       <script src="/js/app-core.js"></script>
+<script src="/js/access.js"></script>
+<script>
+  // ===========================================================
+  // Register Page Script (Phase 2)
+  // Redirects successful register -> portal.html (or returnTo)
+  // ===========================================================
 
-        function toggleMobileMenu() {   
-            document.getElementById('mobileNav').classList.toggle('show');
-}
-        // Check if already logged in
-       
-            document.addEventListener('DOMContentLoaded', () => {
-                const token = localStorage.getItem('authToken');
-                if (token) {
-                    verifyToken(token);
-            }
-        });
+  const API_BASE = DMTOOLS.API_BASE; // optional compatibility
 
-            async function verifyToken(token) {
-                try {
-                    const response = await fetch(`${API_BASE}/user/profile`, {
-                    headers: { 'Authorization': `Bearer ${token}` }
-                });
-                
-                if (response.ok) {
-                    // Already logged in, redirect to app
-                    window.location.href = '/app.html';
-                }
-            } catch (error) {
-                localStorage.removeItem('authToken');
-            }
-        }
+  // If already logged in, go to portal
+  document.addEventListener('DOMContentLoaded', () => {
+    DMTOOLS.redirectIfLoggedIn();
+  });
 
-        // Handle register form submission
-            document.getElementById('register-form').addEventListener('submit', async (e) => {
-                e.preventDefault();
-            
-            const email = document.getElementById('email').value.trim();
-            const password = document.getElementById('password').value;
-            const confirmPassword = document.getElementById('confirm-password').value;
-            const terms = document.getElementById('terms').checked;
-            const registerBtn = document.getElementById('register-btn');
-            const errorMsg = document.getElementById('error-message');
-            const successMsg = document.getElementById('success-message');
+  // Handle registration form submission
+  document.getElementById('register-form').addEventListener('submit', async (e) => {
+    e.preventDefault();
 
-            // Reset messages
-            errorMsg.classList.remove('show');
-            successMsg.classList.remove('show');
+    const firstName = document.getElementById('first-name').value.trim();
+    const lastName = document.getElementById('last-name').value.trim();
+    const email = document.getElementById('email').value.trim();
+    const password = document.getElementById('password').value;
 
-            // Validate
-            if (!email || !password || !confirmPassword) {
-                showError('Please fill in all fields');
-                return;
-            }
+    const registerBtn = document.getElementById('register-btn');
+    const errorMsg = document.getElementById('error-message');
+    const successMsg = document.getElementById('success-message');
 
-            if (password !== confirmPassword) {
-                showError('Passwords do not match');
-                return;
-            }
+    // Reset UI
+    errorMsg.classList.remove('show');
+    successMsg.classList.remove('show');
 
-            if (password.length < 8) {
-                showError('Password must be at least 8 characters');
-                return;
-            }
+    registerBtn.disabled = true;
+    registerBtn.innerHTML = 'Creating account...';
 
-            if (!terms) {
-                showError('Please agree to the Terms of Service');
-                return;
-            }
+    try {
+      const response = await fetch(`${API_BASE}/auth/register`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          first_name: firstName,
+          last_name: lastName,
+          email,
+          password
+        })
+      });
 
-            // Show loading state
-            registerBtn.disabled = true;
-            registerBtn.innerHTML = '<span class="spinner"></span> Creating account...';
+      const data = await response.json();
 
-            try {
-                const response = await fetch(`${API_BASE}/auth/register`, {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json'
-                    },
-                    body: JSON.stringify({ email, password })
-                });
+      if (!response.ok) {
+        throw new Error(data?.error || data?.message || 'Registration failed');
+      }
 
-                const data = await response.json();
+      // Store token (your backend returns token)
+      if (data?.token) DMTOOLS.setToken(data.token);
 
-                if (response.ok && data.token) {
-                    // Success - store token
-                    localStorage.setItem('authToken', data.token);
-                    
-                    // Show success message
-                    showSuccess('Account created! Redirecting to app...');
-                    
-                    // Track signup event
-                    if (typeof gtag === 'function') {
-                        gtag('event', 'sign_up', {
-                            method: 'email'
-                        });
-                    }
-                    
-                    // Redirect after brief delay
-                    setTimeout(() => {
-                        window.location.href = '/app.html';
-                    }, 1500);
-                } else {
-                    // Error
-                    showError(data.error || data.message || 'Registration failed. Please try again.');
-                    registerBtn.disabled = false;
-                    registerBtn.innerHTML = 'Create Free Account';
-                }
-            } catch (error) {
-                console.error('Registration error:', error);
-                showError('Connection error. Please try again.');
-                registerBtn.disabled = false;
-                registerBtn.innerHTML = 'Create Free Account';
-            }
-        });
+      successMsg.textContent = 'Account created. Redirecting...';
+      successMsg.classList.add('show');
 
-        function showError(message) {
-            const errorMsg = document.getElementById('error-message');
-            errorMsg.textContent = message;
-            errorMsg.classList.add('show');
-        }
+      const returnTo = DMTOOLS.getReturnTo('/portal.html');
+      setTimeout(() => DMTOOLS.redirectTo(returnTo), 250);
 
-        function showSuccess(message) {
-            const successMsg = document.getElementById('success-message');
-            successMsg.textContent = message;
-            successMsg.classList.add('show');
-        }
-    </script>
+    } catch (error) {
+      errorMsg.textContent = error.message || 'Connection error. Please try again.';
+      errorMsg.classList.add('show');
+
+      registerBtn.disabled = false;
+      registerBtn.innerHTML = 'Create Account';
+    }
+  });
+</script>
+
 </body>
 </html>

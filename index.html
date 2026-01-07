@@ -808,68 +808,72 @@
         </div>
     </header>
     
-    <!-- Hero Section -->
-    <main class="hero">
-        <div class="container">
-            <div class="hero-intro">
-                <h1 class="hero-title">AI replies anywhere — right-click to generate.</h1>
-                <p class="hero-subtitle">One tool. Two ways to use it.</p>
-                <p class="hero-tagline">Subscriptions include monthly responses + advanced features.
-Response packs add extra replies — or unlock core usage without a subscription</p>
-            </div>
-            
-            <div class="hero-options">
-                <!-- Extension + Packs -->
-                <div class="hero-card">
-                    <div class="card-icon">🎁</div>
-                    <h2>Extension Packs</h2>
-                    <h3>Quick Inline Replies</h3>
-                    <ul class="features">
-                        <li>✓ Reply directly in any textbox</li>
-                        <li>✓ Chrome extension included</li>
-                        <li>✓ No monthly commitment</li>
-                        <li>✓ Pay only for what you use</li>
-                    </ul>
-                    <div class="pricing">
-                        Packs: $9.99 - $59.99 (500-4,000 responses)
-                    </div>
-                    <div class="cta-buttons">
-                        <button class="btn btn-primary" onclick="showAuthModal('/packs.html', false)">
-                            Login to Packs
-                        </button>
-                        <button class="btn btn-secondary" onclick="showAuthModal('/packs.html', true)">
-                            Get Started Free
-                        </button>
-                    </div>
-                </div>
-                
-                <!-- Batch Generator -->
-                <div class="hero-card featured">
-                    <div class="badge">Most Popular</div>
-                    <div class="card-icon">💼</div>
-                    <h2>Batch Generator</h2>
-                    <h3>Bulk Response Processing</h3>
-                    <ul class="features">
-                        <li>✓ Generate 100+ responses at once</li>
-                        <li>✓ Unlimited usage within plan</li>
-                        <li>✓ Extension included (shared pool)</li>
-                        <li>✓ Advanced templates & analytics</li>
-                    </ul>
-                    <div class="pricing">
-                        Starting at $19/month
-                    </div>
-                    <div class="cta-buttons">
-                        <button class="btn btn-primary" onclick="showAuthModal('/app.html', false)">
-                            Login to App
-                        </button>
-                        <button class="btn btn-secondary" onclick="showAuthModal('/app.html', true)">
-                            Start Free Trial
-                        </button>
-                    </div>
-                </div>
-            </div>
+   <!-- Hero Section -->
+<main class="hero">
+  <div class="container">
+    <div class="hero-intro">
+      <h1 class="hero-title">AI replies anywhere — right-click to generate.</h1>
+      <p class="hero-subtitle">One tool. Two ways to use it.</p>
+      <p class="hero-tagline">
+        <b>Subscriptions</b> unlock Pro features and include monthly responses.
+        <br />
+        <b>Response Packs</b> add extra responses — or unlock core usage without a subscription.
+      </p>
+    </div>
+
+    <div class="hero-options">
+      <!-- Pay-as-you-go (Packs) -->
+      <div class="hero-card">
+        <div class="card-icon">🎁</div>
+        <h2>Pay-As-You-Go Responses</h2>
+        <h3>Core reply generation (no subscription required)</h3>
+        <ul class="features">
+          <li>✓ Reply directly in any textbox (extension)</li>
+          <li>✓ Batch generation included</li>
+          <li>✓ Works without a subscription</li>
+          <li>✓ Perfect for topping up or occasional use</li>
+        </ul>
+        <div class="pricing">
+          Packs: $9.99 - $59.99 (500-4,000 responses)
         </div>
-    </main>
+        <div class="cta-buttons">
+          <button class="btn btn-primary" onclick="showAuthModal('/packs.html', false)">
+            Buy Response Packs
+          </button>
+          <button class="btn btn-secondary" onclick="showAuthModal('/packs.html', true)">
+            Start Free (10/month)
+          </button>
+        </div>
+      </div>
+
+      <!-- Subscription (Pro Features + Monthly Responses) -->
+      <div class="hero-card featured">
+        <div class="badge">Most Popular</div>
+        <div class="card-icon">💼</div>
+        <h2>Pro Subscription</h2>
+        <h3>Features + monthly responses included</h3>
+        <ul class="features">
+          <li>✓ Tone & context controls</li>
+          <li>✓ Custom presets / templates</li>
+          <li>✓ Analytics pages</li>
+          <li>✓ Monthly responses included (packs can be added anytime)</li>
+        </ul>
+        <div class="pricing">
+          Plans from $19/month (add packs anytime)
+        </div>
+        <div class="cta-buttons">
+          <button class="btn btn-primary" onclick="showAuthModal('/pricing.html', false)">
+            View Plans
+          </button>
+          <button class="btn btn-secondary" onclick="showAuthModal('/portal.html', false)">
+            Login / Open Portal
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</main>
+
     
     <!-- SECTION 1: ROI CALCULATOR (Add after hero) -->
 <section class="roi-section">
@@ -1096,6 +1100,10 @@ Response packs add extra replies — or unlock core usage without a subscription
                     <div class="math-result highlight">
                         = 45x ROI
                     </div>
+                    <p class="billing-note">
+  Responses are deducted from your subscription allowance first (if active), then from response packs — packs can also be used without a subscription.
+</p>
+
                 </div>
             </div>
             

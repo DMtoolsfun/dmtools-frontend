@@ -559,113 +559,72 @@
         </div>
     </footer>
 
-    <script>
-        const API_BASE = 'https://dmtools-backend-production.up.railway.app/api';
+  <script src="/js/app-core.js"></script>
+<script src="/js/access.js"></script>
+<script>
+  // ===========================================================
+  // Login Page Script (Phase 2)
+  // Redirects successful login -> portal.html (or returnTo)
+  // ===========================================================
 
-        // Check if already logged in
-        document.addEventListener('DOMContentLoaded', () => {
-            const token = localStorage.getItem('authToken');
-            if (token) {
-                // Verify token is still valid
-                verifyToken(token);
-            }
-        });
+  const API_BASE = DMTOOLS.API_BASE; // optional compatibility
 
-        async function verifyToken(token) {
-            try {
-                const response = await fetch(`${API_BASE}/user/profile`, {
-                    headers: { 'Authorization': `Bearer ${token}` }
-                });
-                
-                if (response.ok) {
-                    // Already logged in, redirect to app
-                    window.location.href = '/app.html';
-                }
-            } catch (error) {
-                // Token invalid, stay on login page
-                localStorage.removeItem('authToken');
-            }
-        }
+  // If already logged in, go to portal
+  document.addEventListener('DOMContentLoaded', () => {
+    DMTOOLS.redirectIfLoggedIn();
+  });
 
-        // Handle login form submission
-        document.getElementById('login-form').addEventListener('submit', async (e) => {
-            e.preventDefault();
-            
-            const email = document.getElementById('email').value.trim();
-            const password = document.getElementById('password').value;
-            const loginBtn = document.getElementById('login-btn');
-            const errorMsg = document.getElementById('error-message');
-            const successMsg = document.getElementById('success-message');
+  // Handle login form submission
+  document.getElementById('login-form').addEventListener('submit', async (e) => {
+    e.preventDefault();
 
-            // Reset messages
-            errorMsg.classList.remove('show');
-            successMsg.classList.remove('show');
+    const email = document.getElementById('email').value.trim();
+    const password = document.getElementById('password').value;
 
-            // Validate
-            if (!email || !password) {
-                showError('Please enter both email and password');
-                return;
-            }
+    const loginBtn = document.getElementById('login-btn');
+    const errorMsg = document.getElementById('error-message');
+    const successMsg = document.getElementById('success-message');
 
-            // Show loading state
-            loginBtn.disabled = true;
-            loginBtn.innerHTML = '<span class="spinner"></span> Signing in...';
+    // Reset UI
+    errorMsg.classList.remove('show');
+    successMsg.classList.remove('show');
 
-            try {
-                const response = await fetch(`${API_BASE}/auth/login`, {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json'
-                    },
-                    body: JSON.stringify({ email, password })
-                });
+    loginBtn.disabled = true;
+    loginBtn.innerHTML = 'Signing in...';
 
-                const data = await response.json();
+    try {
+      const response = await fetch(`${API_BASE}/auth/login`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email, password })
+      });
 
-                if (response.ok && data.token) {
-                    // Success - store token
-                    localStorage.setItem('authToken', data.token);
-                    
-                    // Show success message
-                    showSuccess('Login successful! Redirecting...');
-                    
-                    // Check for redirect URL in query params
-                    const urlParams = new URLSearchParams(window.location.search);
-                    const redirect = urlParams.get('redirect') || '/app.html';
-                    
-                    // Redirect after brief delay
-                    setTimeout(() => {
-                        window.location.href = redirect;
-                    }, 1000);
-                } else {
-                    // Error
-                    showError(data.error || data.message || 'Invalid email or password');
-                    loginBtn.disabled = false;
-                    loginBtn.innerHTML = 'Sign In';
-                }
-            } catch (error) {
-                console.error('Login error:', error);
-                showError('Connection error. Please try again.');
-                loginBtn.disabled = false;
-                loginBtn.innerHTML = 'Sign In';
-            }
-        });
+      const data = await response.json();
 
-        function showError(message) {
-            const errorMsg = document.getElementById('error-message');
-            errorMsg.textContent = message;
-            errorMsg.classList.add('show');
-        }
+      if (!response.ok) {
+        throw new Error(data?.error || data?.message || 'Login failed');
+      }
 
-        function showSuccess(message) {
-            const successMsg = document.getElementById('success-message');
-            successMsg.textContent = message;
-            successMsg.classList.add('show');
-        }
-        
-        function toggleMobileMenu() {
-            document.getElementById('mobileNav').classList.toggle('show');
+      // Store token
+      if (data?.token) DMTOOLS.setToken(data.token);
+
+      // Success
+      successMsg.textContent = 'Signed in. Redirecting...';
+      successMsg.classList.add('show');
+
+      // Redirect
+      const returnTo = DMTOOLS.getReturnTo('/portal.html');
+      setTimeout(() => DMTOOLS.redirectTo(returnTo), 250);
+
+    } catch (error) {
+      errorMsg.textContent = error.message || 'Connection error. Please try again.';
+      errorMsg.classList.add('show');
+
+      loginBtn.disabled = false;
+      loginBtn.innerHTML = 'Sign In';
     }
-    </script>
+  });
+</script>
+
 </body>
 </html>

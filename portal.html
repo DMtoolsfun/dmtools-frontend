@@ -2,17 +2,18 @@
 <html lang="en">
 <head>
   <!-- ===========================================================
-       DMTools Portal (Phase 1 – Styled to match site)
-       - Uses existing header/nav classes from your app.html
-       - Uses existing container/card/btn styles from styles.css
+       DMTools Portal (Clean + Correct Messaging)
+       CURRENT TRUTH (matches your system today):
+         - Subscriptions unlock Pro Features AND include monthly responses.
+         - Response Packs add extra responses for subscribers,
+           OR unlock core reply generation for non-subscribers.
        =========================================================== -->
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>DMTools Portal</title>
+  <meta name="description" content="DMTools portal: core tools (responses) + pro features (subscription)." />
 
-  <!-- IMPORTANT:
-       Your site is inconsistent: some pages link "styles.css", some "/css/styles.css".
-       This tries to load BOTH safely. -->
+  <!-- Your existing site styling -->
   <link rel="stylesheet" href="styles.css" />
   <link rel="stylesheet" href="/css/styles.css" />
 
@@ -53,16 +54,10 @@
       gap:10px;
       margin-top: 14px;
     }
-    .muted {
-      opacity: .82;
-      line-height: 1.5;
-    }
-    .locked {
-      opacity: .58;
-      filter: saturate(.9);
-    }
+    .muted { opacity: .82; line-height: 1.5; }
+    .locked { opacity: .58; filter: saturate(.9); }
 
-    /* Toast using your overall aesthetic */
+    /* Toast */
     .toast {
       position: fixed;
       top: 16px;
@@ -88,7 +83,7 @@
 
 <body>
   <!-- ===========================================================
-       Header/Nav (matches your app.html structure)
+       Header/Nav (matches app.html-style structure)
        =========================================================== -->
   <header class="header">
     <div class="nav-container">
@@ -97,7 +92,6 @@
       <div class="auth-buttons" id="authButtons">
         <button aria-label="Menu" class="mobile-menu-btn" onclick="toggleMobileMenu()">☰</button>
 
-        <!-- logged-in only (portal requires auth) -->
         <div class="auth-buttons" id="user-section">
           <span class="user-email" id="user-email"></span>
           <button class="btn btn-secondary" id="btnLogout">Logout</button>
@@ -111,7 +105,7 @@
       <a class="tab-btn" href="/analytics.html">Analytics</a>
       <a class="tab-btn" href="/packs.html">Response Packs</a>
       <a class="tab-btn" href="/pricing.html">Pricing</a>
-      <a class="tab-btn" href="/store.html">Packs Store</a>
+      <a class="tab-btn" href="/store.html">Store</a>
       <a class="tab-btn" href="/account.html">Account</a>
       <a class="tab-btn active" href="/portal.html">Portal</a>
     </nav>
@@ -124,17 +118,23 @@
     <div class="card">
       <h1 style="margin-top:0;">Portal</h1>
       <p class="muted" style="margin-bottom:0;">
-         Subscriptions include monthly responses and unlock advanced features.
+        <b>Subscriptions</b> unlock Pro Features and include monthly responses.
         <br />
-        <b>Credits are required to generate replies without a subscription, or as addon if you run out of your monthly responses early.</b>
+        <b>Response Packs</b> add extra responses — or unlock core reply generation without a subscription.
+      </p>
+      <p class="muted" style="margin:10px 0 0;">
+        In short: responses are deducted from your <b>subscription allowance</b> first (if active), otherwise from your <b>packs</b>.
       </p>
     </div>
 
     <div class="portal-grid">
       <!-- CORE -->
       <section class="card" id="coreCard">
-        <h2 style="margin-top:0;">Core Tools (Credits)</h2>
-        <p class="muted">Use DMTools anywhere. Credits are used each time you generate a response.</p>
+        <h2 style="margin-top:0;">Core Tools (Reply Generation)</h2>
+        <p class="muted">
+          Generate replies anywhere using the extension and batch tools.
+          Responses are deducted from your subscription allowance or response packs.
+        </p>
 
         <ul class="muted" style="line-height:1.6; margin-top:10px;">
           <li>Extension reply generation</li>
@@ -143,13 +143,13 @@
         </ul>
 
         <div class="portal-meta">
-          <span class="pill" id="pillCredits">Credits: …</span>
+          <span class="pill" id="pillCredits">Pack credits: …</span>
           <span class="pill" id="pillFree">Free this month: …</span>
         </div>
 
         <div class="portal-actions">
           <a class="btn btn-primary" href="/app.html">Open Core Tools</a>
-          <a class="btn btn-secondary" href="/packs.html">Buy Credits (Packs)</a>
+          <a class="btn btn-secondary" href="/packs.html">Buy Response Packs</a>
           <a class="btn btn-secondary" href="/install-extension.html">Install / Open Extension</a>
           <a class="btn btn-secondary" href="/account.html">Account</a>
         </div>
@@ -158,7 +158,9 @@
       <!-- PRO -->
       <section class="card" id="proCard">
         <h2 style="margin-top:0;">Pro Features (Subscription)</h2>
-        <p class="muted">Unlock customization and insights. Generation still consumes credits.</p>
+        <p class="muted">
+          Customize your voice and unlock insights. Subscribers receive monthly responses; packs can be added for extra usage.
+        </p>
 
         <ul class="muted" style="line-height:1.6; margin-top:10px;">
           <li>Tone + context settings</li>
@@ -181,7 +183,7 @@
 
     <div class="card" style="margin-top:16px;">
       <p class="muted" style="margin:0;">
-        Tip: If you see “No responses available”, you’re out of credits (or your free monthly allowance is used). Grab a pack and keep going.
+        Tip: If you run out of subscription responses, you can add response packs to keep generating — even without upgrading your plan.
       </p>
     </div>
   </main>
@@ -203,8 +205,10 @@
     }
 
     // ===========================================================
-    // Portal logic (same as Phase 1)
-    // =================================================	host: keeps your existing authToken key
+    // Portal logic (Phase 1 behavior)
+    // - Reads existing backend status endpoints to display state
+    // - Does not change billing logic
+    // ===========================================================
     const API_BASE = 'https://dmtools-backend-production.up.railway.app/api';
     const TOKEN_KEY = 'authToken';
 
@@ -280,7 +284,10 @@
     function computeFreeRemaining(subResp) {
       const sub = subResp?.subscription || {};
       const plan = (sub.plan || 'free').toLowerCase();
+
+      // Show free monthly allowance only if plan is free (your current free policy)
       if (plan !== 'free') return null;
+
       const used = Number(sub.monthly_usage || 0);
       const FREE_LIMIT = 10;
       return Math.max(0, FREE_LIMIT - used);
@@ -291,7 +298,7 @@
         proCard.classList.add('locked');
         proButtons.innerHTML = `
           <a class="btn btn-primary" href="/pricing.html">Unlock Pro Features (Subscribe)</a>
-          <a class="btn btn-secondary" href="/packs.html">Buy Credits (Packs)</a>
+          <a class="btn btn-secondary" href="/packs.html">Buy Response Packs</a>
         `;
       } else {
         proCard.classList.remove('locked');
@@ -312,7 +319,7 @@
         apiCall('/user/profile')
       ]);
 
-      // Show email in header
+      // Header email
       const email = profileResp?.user?.email || '';
       if (email) userEmailEl.textContent = email;
 
@@ -325,11 +332,11 @@
       setPill(pillPlan, `Plan: ${plan}`);
       setPill(pillSub, `Subscription: ${hasSubscription ? 'Active' : 'Not Active'}`, hasSubscription ? 'good' : 'warn');
 
-      // Credits state
+      // Pack credits state
       const credits = Number(packResp?.credits_remaining || 0);
-      setPill(pillCredits, `Credits: ${credits}`, credits > 0 ? 'good' : 'bad');
+      setPill(pillCredits, `Pack credits: ${credits}`, credits > 0 ? 'good' : 'bad');
 
-      // Free allowance pill (only for free plan)
+      // Free allowance (only if free plan)
       const freeRemaining = computeFreeRemaining(subResp);
       if (freeRemaining === null) {
         setPill(pillFree, 'Free this month: —');
@@ -338,9 +345,15 @@
         setPill(pillFree, `Free this month: ${freeRemaining}`, kind);
       }
 
+      // Pro gating
       setProLocked(!hasSubscription);
 
-      showToast('Ready ✅', hasSubscription ? 'Pro features unlocked. Credits still required for generation.' : 'Core tools available. Subscribe to unlock Pro features.');
+      // Toast summary
+      if (hasSubscription) {
+        showToast('Ready ✅', 'Subscription active. Packs can extend usage if you run out of monthly responses.');
+      } else {
+        showToast('Ready ✅', 'No subscription. Use packs (or free monthly allowance) for core reply generation.');
+      }
     }
 
     btnLogout.addEventListener('click', logout);

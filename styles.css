@@ -1221,3 +1221,23 @@ p {
         font-size: 0.9rem;
     }
 }
+
+/* ============================================
+   GLOBAL CARD CTA ALIGNMENT (Landing/Pricing)
+   Forces CTA button stacks to align across cards
+   ============================================ */
+
+.hero-card,
+.price-card {
+    display: flex;
+    flex-direction: column;
+}
+
+.hero-card .cta-buttons,
+.price-card .plan-cta,
+.price-card .card-cta,
+.hero-card .card-cta {
+    margin-top: auto;
+    padding-top: var(--spacing-lg);
+}
+

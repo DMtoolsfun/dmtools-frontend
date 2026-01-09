@@ -120,7 +120,8 @@ CONTENTS:
     --darker: var(--bg-input);
     --dark: var(--bg-dark);
     --text: var(--text-primary);
-    --text-secondary: var(--text-muted);
+    --text-secondary: #e5e7eb;
+
 }
 
 

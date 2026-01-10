@@ -262,6 +262,37 @@ p {
     margin: 0 auto;
 }
 
+/* ============================================
+   PRICING CARD CTA ALIGNMENT FIX
+   ============================================ */
+
+/* Pricing grid (if not already flex/grid) */
+.pricing-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: var(--spacing-xl);
+}
+
+/* Each pricing card becomes a vertical flex container */
+.pricing-card {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+
+/* Content area expands equally */
+.pricing-card .pricing-content {
+    flex: 1;
+}
+
+/* CTA area is pinned to the bottom */
+.pricing-card .pricing-cta {
+    margin-top: var(--spacing-lg);
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-sm);
+}
+
 
 /* ============================================
    5. HEADER & NAVIGATION

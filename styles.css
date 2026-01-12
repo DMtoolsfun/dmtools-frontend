@@ -1091,6 +1091,22 @@ p {
     color: var(--text-muted);
 }
 
+/* Make auth modals usable when content is taller than the viewport */
+.auth-modal,
+.modal {
+    overflow-y: auto;              /* allow scrolling */
+    align-items: flex-start;       /* stop vertical centring from hiding the bottom */
+    padding: var(--spacing-xl) 0;  /* breathing room top/bottom */
+}
+
+/* Keep the modal content inside the viewport and scroll internally if needed */
+.auth-modal-content,
+.modal-content {
+    max-height: calc(100vh - (var(--spacing-xl) * 2));
+    overflow-y: auto;
+}
+
+
 
 /* ============================================
    12. UTILITIES

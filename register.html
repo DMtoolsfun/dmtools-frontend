@@ -268,9 +268,14 @@
        <script src="/js/app-core.js"></script>
 <script src="/js/access.js"></script>
 <script>
+ <script>
   // ===========================================================
   // Register Page Script (Phase 2)
   // Redirects successful register -> portal.html (or returnTo)
+  //
+  // IMPORTANT:
+  // Backend /api/user/register does NOT return a token.
+  // So we register, then immediately log in to get the token.
   // ===========================================================
 
   const API_BASE = DMTOOLS.API_BASE; // optional compatibility
@@ -301,7 +306,8 @@
     registerBtn.innerHTML = 'Creating account...';
 
     try {
-      const response = await fetch(`${API_BASE}/auth/register`, {
+      // 1) Register (no token returned by backend)
+      const registerRes = await fetch(`${API_BASE}/user/register`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
@@ -312,14 +318,28 @@
         })
       });
 
-      const data = await response.json();
+      const registerData = await registerRes.json();
 
-      if (!response.ok) {
-        throw new Error(data?.error || data?.message || 'Registration failed');
+      if (!registerRes.ok) {
+        throw new Error(registerData?.error || registerData?.message || 'Registration failed');
       }
 
-      // Store token (your backend returns token)
-      if (data?.token) DMTOOLS.setToken(data.token);
+      // 2) Immediately log in to get token (required for portal auth)
+      registerBtn.innerHTML = 'Signing in...';
+
+      const loginRes = await fetch(`${API_BASE}/user/login`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email, password })
+      });
+
+      const loginData = await loginRes.json();
+
+      if (!loginRes.ok) {
+        throw new Error(loginData?.error || loginData?.message || 'Login after registration failed');
+      }
+
+      if (loginData?.token) DMTOOLS.setToken(loginData.token);
 
       successMsg.textContent = 'Account created. Redirecting...';
       successMsg.classList.add('show');
@@ -336,6 +356,7 @@
     }
   });
 </script>
+
 
 </body>
 </html>

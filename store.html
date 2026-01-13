@@ -3,17 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Pricing & Packs - DMTools.fun</title>
-    <meta name="description" content="Compare subscription plans and one-time response packs. Clear pricing for DMTools.fun.">
-
-    <!-- PWA Manifest -->
-    <link rel="manifest" href="/manifest.json">
-    <meta name="theme-color" content="#8b5cf6">
-    <meta name="mobile-web-app-capable" content="yes">
-    <meta name="apple-mobile-web-app-capable" content="yes">
-
+    <title>Response Packs Store - DMTools.fun</title>
+    <meta name="description" content="Buy response packs for THE-RIGHT-CLICK SIDE-KICK extension. Two right-clicks can't go wrong. Pay once, use anytime.">
     <link rel="stylesheet" href="styles.css">
-
     <!-- Google Analytics -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-K0G9YRD39L"></script>
     <script>
@@ -22,281 +14,294 @@
         gtag('js', new Date());
         gtag('config', 'G-K0G9YRD39L');
     </script>
-
+    
     <!-- Lemon Squeezy -->
     <script src="https://assets.lemonsqueezy.com/lemon.js" defer></script>
-
+    
     <style>
-        /* =========================
-           HERO (from pricing.html vibe)
-           ========================= */
-        .hero {
-            text-align: center;
-            padding: 4rem 2rem 2rem;
-        }
-
+    /* HERO SECTION */
+    .hero {
+        text-align: center;
+        padding: 3rem 2rem;
+        max-width: 900px;
+        margin: 0 auto;
+    }
+    
+    .hero-title {
+        font-size: 3rem;
+        font-weight: 900;
+        margin-bottom: 1rem;
+        background: linear-gradient(135deg, #8b5cf6, #06b6d4);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+    }
+    
+    .hero-subtitle {
+        font-size: 1.5rem;
+        color: #06b6d4;
+        margin-bottom: 0.5rem;
+        font-weight: 600;
+    }
+    
+    .hero-tagline {
+        font-size: 1.1rem;
+        color: #9ca3af;
+        margin-bottom: 1.5rem;
+    }
+    
+    .hero-highlight {
+        display: inline-block;
+        background: rgba(139, 92, 246, 0.1);
+        border: 1px solid #8b5cf6;
+        border-radius: 12px;
+        padding: 0.75rem 1.5rem;
+        color: #8b5cf6;
+        font-weight: 600;
+        margin-bottom: 2rem;
+    }
+    
+    /* TOGGLE VIEW */
+    .toggle-view {
+        display: flex;
+        gap: 1rem;
+        justify-content: center;
+        margin: 2rem 0;
+    }
+    
+    .toggle-btn {
+        padding: 0.75rem 1.5rem;
+        background: transparent;
+        border: 2px solid #374151;
+        border-radius: 8px;
+        color: #9ca3af;
+        font-weight: 600;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        text-decoration: none;
+    }
+    
+    .toggle-btn:hover {
+        border-color: #8b5cf6;
+        color: #8b5cf6;
+    }
+    
+    .toggle-btn.active {
+        background: #8b5cf6;
+        border-color: #8b5cf6;
+        color: white;
+    }
+    
+    /* PACK CARDS */
+    .packs-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+        gap: 2rem;
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 2rem;
+    }
+    
+    .pack-card {
+        background: rgba(30, 41, 59, 0.8);
+        border: 2px solid #374151;
+        border-radius: 16px;
+        padding: 2rem;
+        text-align: center;
+        transition: all 0.3s ease;
+        position: relative;
+    }
+    
+    .pack-card:hover {
+        transform: translateY(-8px);
+        border-color: #06b6d4;
+    }
+    
+    .pack-card.featured {
+        border-color: #10b981;
+        transform: scale(1.05);
+    }
+    
+    .pack-card.featured:hover {
+        transform: scale(1.05) translateY(-8px);
+    }
+    
+    .badge {
+        position: absolute;
+        top: -12px;
+        left: 50%;
+        transform: translateX(-50%);
+        background: #10b981;
+        color: white;
+        padding: 0.25rem 1rem;
+        border-radius: 20px;
+        font-size: 0.875rem;
+        font-weight: 700;
+    }
+    
+    .pack-icon {
+        font-size: 3rem;
+        margin-bottom: 1rem;
+    }
+    
+    .pack-name {
+        font-size: 1.5rem;
+        font-weight: 700;
+        color: #ffffff;
+        margin-bottom: 0.5rem;
+    }
+    
+    .pack-price {
+        font-size: 2.5rem;
+        font-weight: 800;
+        color: #06b6d4;
+        margin: 1rem 0;
+    }
+    
+    .pack-responses {
+        color: #e5e7eb;
+        font-size: 1.2rem;
+        margin-bottom: 0.5rem;
+    }
+    
+    .pack-value {
+        color: #9ca3af;
+        font-size: 0.9rem;
+        margin-bottom: 2rem;
+    }
+    
+    .btn-buy {
+        background: #06b6d4;
+        color: white;
+    }
+    
+    .btn-buy:hover {
+        background: #0891b2;
+        transform: translateY(-2px);
+    }
+    
+    .btn-buy.featured {
+        background: #10b981;
+    }
+    
+    .btn-buy.featured:hover {
+        background: #059669;
+    }
+    
+    /* INFO SECTION */
+    .info-section {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        gap: 2rem;
+        max-width: 1200px;
+        margin: 3rem auto;
+        padding: 2rem;
+    }
+    
+    .info-card {
+        background: rgba(30, 41, 59, 0.8);
+        border: 1px solid #374151;
+        border-radius: 16px;
+        padding: 2rem;
+    }
+    
+    .info-title {
+        font-size: 1.5rem;
+        font-weight: 700;
+        color: #8b5cf6;
+        margin-bottom: 1rem;
+    }
+    
+    .info-list {
+        list-style: none;
+        padding: 0;
+    }
+    
+    .info-list li {
+        color: #d1d5db;
+        padding: 0.5rem 0;
+        padding-left: 1.5rem;
+        position: relative;
+    }
+    
+    .info-list li:before {
+        content: "✓";
+        position: absolute;
+        left: 0;
+        color: #10b981;
+        font-weight: bold;
+    }
+    
+    /* CTA SECTION */
+    .cta-section {
+        text-align: center;
+        padding: 4rem 2rem;
+        max-width: 800px;
+        margin: 0 auto;
+    }
+    
+    .cta-card {
+        background: rgba(30, 41, 59, 0.8);
+        border: 2px solid #8b5cf6;
+        border-radius: 16px;
+        padding: 3rem;
+    }
+    
+    .cta-title {
+        font-size: 2rem;
+        font-weight: 700;
+        color: #ffffff;
+        margin-bottom: 1rem;
+    }
+    
+    .cta-text {
+        color: #9ca3af;
+        margin-bottom: 2rem;
+        font-size: 1.1rem;
+    }
+    
+    .cta-link {
+        display: inline-block;
+        padding: 1rem 2rem;
+        background: transparent;
+        border: 2px solid #8b5cf6;
+        border-radius: 8px;
+        color: #8b5cf6;
+        text-decoration: none;
+        font-weight: 600;
+        transition: all 0.3s ease;
+    }
+    
+    .cta-link:hover {
+        background: #8b5cf6;
+        color: white;
+    }
+    
+    /* RESPONSIVE */
+    @media (max-width: 768px) {
         .hero-title {
-            font-size: 3rem;
-            font-weight: 800;
-            background: linear-gradient(135deg, #ffffff 0%, #e0e7ff 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            margin-bottom: 1rem;
-        }
-
-        .hero-subtitle {
-            font-size: 1.1rem;
-            color: var(--text-secondary);
-            margin-bottom: 2rem;
-            line-height: 1.45;
-        }
-
-        .jump-links {
-            display: inline-flex;
-            gap: 0.75rem;
-            background: var(--darker);
-            padding: 0.5rem;
-            border-radius: 12px;
-            margin-bottom: 1rem;
-            flex-wrap: wrap;
-            justify-content: center;
-        }
-
-        .jump-link {
-            padding: 0.75rem 1.25rem;
-            border: none;
-            border-radius: 8px;
-            background: transparent;
-            color: var(--text-secondary);
-            cursor: pointer;
-            font-weight: 600;
-            transition: all 0.3s ease;
-            text-decoration: none;
-        }
-
-        .jump-link:hover {
-            color: white;
-            background: rgba(139, 92, 246, 0.15);
-        }
-
-        .jump-link.primary {
-            background: var(--primary);
-            color: white;
-        }
-
-        /* =========================
-           CARDS (reuse pricing.html classes)
-           ========================= */
-        .pricing-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 2rem;
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 2rem;
-        }
-
-        .price-card {
-            background: var(--darker);
-            border: 2px solid var(--border);
-            border-radius: 16px;
-            padding: 2rem;
-            transition: all 0.3s ease;
-            position: relative;
-        }
-
-        .price-card:hover {
-            transform: translateY(-8px);
-            border-color: var(--primary);
-        }
-
-        .price-card.featured {
-            border-color: var(--primary);
-            transform: scale(1.03);
-        }
-
-        .price-card.featured:hover {
-            transform: scale(1.03) translateY(-8px);
-        }
-
-        .badge {
-            position: absolute;
-            top: -12px;
-            left: 50%;
-            transform: translateX(-50%);
-            background: var(--primary);
-            color: white;
-            padding: 0.25rem 1rem;
-            border-radius: 20px;
-            font-size: 0.875rem;
-            font-weight: 700;
-        }
-
-        .plan-name {
-            font-size: 1.5rem;
-            font-weight: 700;
-            color: var(--text);
-            margin-bottom: 0.5rem;
-        }
-
-        .plan-price {
-            font-size: 2.6rem;
-            font-weight: 800;
-            color: var(--primary);
-            margin: 1rem 0 0.5rem;
-        }
-
-        .plan-price span {
-            font-size: 1rem;
-            color: var(--text-secondary);
-            font-weight: 400;
-        }
-
-        .plan-description {
-            color: var(--text-secondary);
-            margin-bottom: 1.25rem;
-            line-height: 1.45;
-        }
-
-        .mini-rows {
-            margin: 1rem 0 1.5rem;
-            padding: 1rem;
-            background: var(--dark);
-            border: 1px solid var(--border);
-            border-radius: 12px;
-        }
-
-        .mini-row {
-            display: flex;
-            justify-content: space-between;
-            gap: 1rem;
-            padding: 0.5rem 0;
-            border-bottom: 1px solid rgba(255,255,255,0.07);
-        }
-
-        .mini-row:last-child { border-bottom: none; }
-
-        .mini-row .label {
-            color: var(--text-secondary);
-            font-weight: 600;
-            font-size: 0.95rem;
-        }
-
-        .mini-row .value {
-            color: var(--text);
-            font-weight: 700;
-            font-size: 0.95rem;
-            text-align: right;
-        }
-
-        .mini-row .na {
-            color: rgba(255,255,255,0.45);
-            font-weight: 600;
-        }
-
-        .full-width-btn {
-            width: 100%;
-            margin-top: 0.25rem;
-        }
-
-        /* =========================
-           TABLE (reuse pricing.html table styles)
-           ========================= */
-        .comparison-section {
-            max-width: 1200px;
-            margin: 2rem auto 1rem;
-            padding: 2rem;
-        }
-
-        .section-title {
-            text-align: center;
             font-size: 2rem;
-            font-weight: 700;
-            color: var(--text);
-            margin-bottom: 0.75rem;
         }
-
-        .section-subtitle {
-            text-align: center;
-            color: var(--text-secondary);
-            margin-bottom: 2rem;
-            line-height: 1.45;
-        }
-
-        .comparison-table {
-            background: var(--darker);
-            border: 2px solid var(--border);
-            border-radius: 16px;
-            overflow: auto;
-        }
-
-        .comparison-table table {
-            width: 100%;
-            border-collapse: collapse;
-            min-width: 980px;
-        }
-
-        .comparison-table th,
-        .comparison-table td {
-            padding: 1rem;
-            text-align: left;
-            border-bottom: 1px solid var(--border);
-            vertical-align: top;
-        }
-
-        .comparison-table th {
-            background: var(--dark);
-            color: var(--primary);
-            font-weight: 700;
-            font-size: 0.95rem;
-        }
-
-        .comparison-table td {
-            color: var(--text);
-            font-size: 0.98rem;
-        }
-
-        .muted { color: var(--text-secondary); }
-
-        /* =========================
-           INFO STRIP (simple, consistent)
-           ========================= */
+        
+        .packs-grid,
         .info-section {
-            max-width: 1200px;
-            margin: 1rem auto 2rem;
-            padding: 0 2rem 2rem;
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 1.5rem;
+            grid-template-columns: 1fr;
+            padding: 1rem;
         }
-
-        .info-card {
-            background: var(--darker);
-            border: 2px solid var(--border);
-            border-radius: 16px;
-            padding: 1.75rem;
+        
+        .pack-card.featured {
+            transform: scale(1);
         }
-
-        .info-title {
-            font-size: 1.25rem;
-            font-weight: 800;
-            color: var(--primary);
-            margin-bottom: 0.75rem;
+        
+        .toggle-view {
+            flex-direction: column;
         }
-
-        .info-text {
-            color: var(--text-secondary);
-            line-height: 1.5;
-        }
-
-        /* Anchor offset for header */
-        .anchor { scroll-margin-top: 90px; }
-    </style>
+    }
+</style>
 </head>
-
 <body>
-<!-- Header (copied from pricing.html for consistent look) -->
-<header class="header">
+    
+    <header class="header">
     <div class="nav-container">
         <a href="/" class="logo">DMTools.fun</a>
         <div class="auth-buttons" id="authButtons">
@@ -305,545 +310,494 @@
             <a href="/register.html" class="btn btn-primary">Sign Up</a>
         </div>
     </div>
-
+    
     <nav class="mobile-nav" id="mobileNav">
         <a href="/app.html" class="tab-btn">Generator</a>
         <a href="/presets.html" class="tab-btn">Templates</a>
-        <a href="/analytics.html" class="tab-btn">Analytics</a>
         <a href="/packs.html" class="tab-btn">Response Packs</a>
         <a href="/pricing.html" class="tab-btn">Pricing</a>
         <a href="/store.html" class="tab-btn">Packs Store</a>
         <a href="/account.html" class="tab-btn">Account</a>
     </nav>
 </header>
+    
+    <!-- END HEADER -->
 
-<!-- HERO -->
-<section class="hero">
-    <h1 class="hero-title">Pricing & Packs</h1>
-    <p class="hero-subtitle">
-        One clean page: compare <strong>one-time Packs</strong> and <strong>Subscriptions</strong> top-to-bottom.
-        Variant selection happens in checkout (weekly / monthly / annual where available).
-    </p>
-
-    <div class="jump-links">
-        <a class="jump-link primary" href="#pricingTable">View Pricing Table</a>
-        <a class="jump-link" href="#packs">Packs</a>
-        <a class="jump-link" href="#subs">Subscriptions</a>
-    </div>
-
-    <div class="jump-links" style="margin-top:10px;">
-        <a class="jump-link" href="/install-extension.html">Extension Setup</a>
-        <a class="jump-link" href="/portal.html">Portal</a>
-    </div>
-</section>
-
-<!-- =========================
-     (1) TOP PRICING TABLE
-     ========================= -->
-<section id="pricingTable" class="comparison-section anchor">
-    <h2 class="section-title">At-a-glance pricing</h2>
-    <p class="section-subtitle">
-        Replace placeholders with your real prices/limits. This section is intentionally pricing-only (no feature claims).
-    </p>
-
-    <div class="comparison-table">
-        <table>
-            <thead>
-                <tr>
-                    <th>Tier</th>
-                    <th>Pack Price (one-time)</th>
-                    <th>Pack Credits</th>
-                    <th>Sub Weekly</th>
-                    <th>Sub Monthly</th>
-                    <th>Sub Annual</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td><strong>Starter</strong></td>
-                    <td><strong>[PACK_PRICE_STARTER]</strong></td>
-                    <td><strong>[PACK_CREDITS_STARTER]</strong></td>
-                    <td><strong>[SUB_PRICE_STARTER_WEEKLY]</strong></td>
-                    <td><strong>[SUB_PRICE_STARTER_MONTHLY]</strong></td>
-                    <td class="muted">N/A</td>
-                </tr>
-
-                <tr>
-                    <td><strong>Pro</strong></td>
-                    <td><strong>[PACK_PRICE_PRO]</strong></td>
-                    <td><strong>[PACK_CREDITS_PRO]</strong></td>
-                    <td><strong>[SUB_PRICE_PRO_WEEKLY]</strong></td>
-                    <td><strong>[SUB_PRICE_PRO_MONTHLY]</strong></td>
-                    <td><strong>[SUB_PRICE_PRO_ANNUAL]</strong></td>
-                </tr>
-
-                <tr>
-                    <td><strong>Business</strong></td>
-                    <td><strong>[PACK_PRICE_BUSINESS]</strong></td>
-                    <td><strong>[PACK_CREDITS_BUSINESS]</strong></td>
-                    <td><strong>[SUB_PRICE_BUSINESS_WEEKLY]</strong></td>
-                    <td><strong>[SUB_PRICE_BUSINESS_MONTHLY]</strong></td>
-                    <td><strong>[SUB_PRICE_BUSINESS_ANNUAL]</strong></td>
-                </tr>
-
-                <tr>
-                    <td><strong>Enterprise</strong></td>
-                    <td><strong>[PACK_PRICE_ENTERPRISE]</strong></td>
-                    <td><strong>[PACK_CREDITS_ENTERPRISE]</strong></td>
-                    <td class="muted">N/A</td>
-                    <td><strong>[SUB_PRICE_ENTERPRISE_MONTHLY]</strong></td>
-                    <td><strong>[SUB_PRICE_ENTERPRISE_ANNUAL]</strong></td>
-                </tr>
-
-                <tr>
-                    <td><strong>Elite</strong> <span class="muted">(packs only)</span></td>
-                    <td><strong>[PACK_PRICE_ELITE]</strong></td>
-                    <td><strong>[PACK_CREDITS_ELITE]</strong></td>
-                    <td class="muted">N/A</td>
-                    <td class="muted">N/A</td>
-                    <td class="muted">N/A</td>
-                </tr>
-            </tbody>
-        </table>
-    </div>
-</section>
-
-<!-- =========================
-     (2) PACKS
-     ========================= -->
-<section id="packs" class="pricing-grid anchor">
-    <!-- Starter Pack -->
-    <div class="price-card">
-        <div class="plan-name">Starter Pack</div>
-        <div class="plan-price">[PACK_PRICE_STARTER]<span> one-time</span></div>
-        <div class="plan-description">One-time credits (pack). Replace placeholders before going live.</div>
-
-        <div class="mini-rows">
-            <div class="mini-row">
-                <div class="label">Credits</div>
-                <div class="value">[PACK_CREDITS_STARTER]</div>
-            </div>
-            <div class="mini-row">
-                <div class="label">Notes</div>
-                <div class="value">[PACK_NOTE_STARTER]</div>
-            </div>
+    <!-- HERO SECTION -->
+    <section class="hero">
+        <h1 class="hero-title">🎁 Response Packs Store</h1>
+        <p class="hero-subtitle">"Two right-clicks can't go wrong™"</p>
+        <p class="hero-tagline">Pay once, use anytime. No monthly commitment.</p>
+        <div class="hero-highlight">
+            ✨ Use with THE-RIGHT-CLICK Extension • Never expires until activated
         </div>
-
-        <button class="btn btn-secondary full-width-btn" onclick="handlePackPurchase('starter')">
-            Buy Starter Pack
-        </button>
-    </div>
-
-    <!-- Pro Pack -->
-    <div class="price-card featured">
-        <div class="badge">Most Chosen</div>
-        <div class="plan-name">Pro Pack</div>
-        <div class="plan-price">[PACK_PRICE_PRO]<span> one-time</span></div>
-        <div class="plan-description">One-time credits (pack). Replace placeholders before going live.</div>
-
-        <div class="mini-rows">
-            <div class="mini-row">
-                <div class="label">Credits</div>
-                <div class="value">[PACK_CREDITS_PRO]</div>
-            </div>
-            <div class="mini-row">
-                <div class="label">Notes</div>
-                <div class="value">[PACK_NOTE_PRO]</div>
-            </div>
+        
+        <div class="toggle-view">
+            <a href="/pricing.html" class="toggle-btn">← Monthly Subscriptions</a>
+            <button class="toggle-btn active">Response Packs</button>
         </div>
+    </section>
+    <!-- END HERO SECTION -->
 
-        <button class="btn btn-primary full-width-btn" onclick="handlePackPurchase('pro')">
-            Buy Pro Pack
-        </button>
-    </div>
-
-    <!-- Business Pack -->
-    <div class="price-card">
-        <div class="plan-name">Business Pack</div>
-        <div class="plan-price">[PACK_PRICE_BUSINESS]<span> one-time</span></div>
-        <div class="plan-description">One-time credits (pack). Replace placeholders before going live.</div>
-
-        <div class="mini-rows">
-            <div class="mini-row">
-                <div class="label">Credits</div>
-                <div class="value">[PACK_CREDITS_BUSINESS]</div>
-            </div>
-            <div class="mini-row">
-                <div class="label">Notes</div>
-                <div class="value">[PACK_NOTE_BUSINESS]</div>
-            </div>
-        </div>
-
-        <button class="btn btn-primary full-width-btn" onclick="handlePackPurchase('business')">
-            Buy Business Pack
-        </button>
-    </div>
-
-    <!-- Enterprise Pack -->
-    <div class="price-card">
-        <div class="plan-name">Enterprise Pack</div>
-        <div class="plan-price">[PACK_PRICE_ENTERPRISE]<span> one-time</span></div>
-        <div class="plan-description">One-time credits (pack). Replace placeholders before going live.</div>
-
-        <div class="mini-rows">
-            <div class="mini-row">
-                <div class="label">Credits</div>
-                <div class="value">[PACK_CREDITS_ENTERPRISE]</div>
-            </div>
-            <div class="mini-row">
-                <div class="label">Notes</div>
-                <div class="value">[PACK_NOTE_ENTERPRISE]</div>
-            </div>
-        </div>
-
-        <button class="btn btn-primary full-width-btn" onclick="handlePackPurchase('enterprise')">
-            Buy Enterprise Pack
-        </button>
-    </div>
-
-    <!-- Elite Pack -->
-    <div class="price-card">
-        <div class="badge">Largest Pack</div>
-        <div class="plan-name">Elite Pack</div>
-        <div class="plan-price">[PACK_PRICE_ELITE]<span> one-time</span></div>
-        <div class="plan-description">One-time credits (pack). Replace placeholders before going live.</div>
-
-        <div class="mini-rows">
-            <div class="mini-row">
-                <div class="label">Credits</div>
-                <div class="value">[PACK_CREDITS_ELITE]</div>
-            </div>
-            <div class="mini-row">
-                <div class="label">Notes</div>
-                <div class="value">[PACK_NOTE_ELITE]</div>
-            </div>
-        </div>
-
-        <button class="btn btn-primary full-width-btn" onclick="handlePackPurchase('elite')">
-            Buy Elite Pack
-        </button>
-    </div>
-</section>
-
-<!-- =========================
-     (3) SHORT INFO AREA
-     ========================= -->
-<section class="info-section">
-    <div class="info-card">
-        <div class="info-title">Packs vs Subscriptions</div>
-        <p class="info-text">
-            <strong>Packs</strong> are one-time credits. <strong>Subscriptions</strong> renew automatically.
-            Weekly / monthly / annual options are selected during checkout where available.
+    <!-- ============================
+     Decision Explainer (above pricing)
+     ============================ -->
+<section class="pricing-explainer">
+  <div class="pricing-explainer__inner card">
+    <div class="pricing-explainer__top">
+      <div>
+        <h2 class="pricing-explainer__title">
+          Simple: <span class="text-gradient">Responses = Credits</span>
+        </h2>
+        <p class="pricing-explainer__subtitle">
+          DMTools uses a prepaid credit system for generation. Subscriptions unlock advanced features.
+          <strong>Packs are required to generate responses</strong> — regardless of subscription status.
         </p>
+      </div>
+
+      <div class="pricing-explainer__badge">
+        <div class="pricing-explainer__badge-title">Fast decision</div>
+        <div class="pricing-explainer__badge-text">Pick your path ↓</div>
+      </div>
     </div>
 
-    <div class="info-card">
-        <div class="info-title">Variant availability</div>
-        <p class="info-text">
-            Starter: weekly + monthly<br>
-            Pro/Business: weekly + monthly + annual<br>
-            Enterprise: monthly + annual
-        </p>
+    <div class="pricing-explainer__grid">
+      <!-- Column 1 -->
+      <div class="pricing-explainer__col">
+        <div class="pricing-explainer__col-head">
+          <div class="pricing-explainer__col-kicker">Most people start here</div>
+          <h3 class="pricing-explainer__col-title">Just want to use the core tools?</h3>
+          <p class="pricing-explainer__col-desc">
+            Buy a pack and you’re good to go.
+          </p>
+        </div>
+
+        <ul class="pricing-explainer__list">
+          <li><span class="pricing-explainer__check">✓</span> Inline extension generation (Right-Click Sidekick)</li>
+          <li><span class="pricing-explainer__check">✓</span> Batch generation</li>
+          <li><span class="pricing-explainer__check">✓</span> Account + billing access</li>
+          <li><span class="pricing-explainer__check">✓</span> Works with or without a subscription</li>
+        </ul>
+
+        <div class="pricing-explainer__cta">
+          <a href="/packs.html" class="btn btn-primary btn-full">Buy Response Packs</a>
+          <a href="/store.html" class="btn btn-secondary btn-full">See Packs & Examples</a>
+        </div>
+      </div>
+
+      <!-- Column 2 -->
+      <div class="pricing-explainer__col pricing-explainer__col--highlight">
+        <div class="pricing-explainer__col-head">
+          <div class="pricing-explainer__col-kicker">Unlock the “power features”</div>
+          <h3 class="pricing-explainer__col-title">Want advanced control & automation?</h3>
+          <p class="pricing-explainer__col-desc">
+            Add a subscription for features — then use packs for generation.
+          </p>
+        </div>
+
+        <ul class="pricing-explainer__list">
+          <li><span class="pricing-explainer__check">✓</span> Tone + context settings</li>
+          <li><span class="pricing-explainer__check">✓</span> Custom presets / templates</li>
+          <li><span class="pricing-explainer__check">✓</span> Advanced workflows & upcoming analytics</li>
+          <li><span class="pricing-explainer__check">✓</span> Packs still power response generation</li>
+        </ul>
+
+        <div class="pricing-explainer__cta">
+          <a href="#plans" class="btn btn-primary btn-full">View Subscription Plans</a>
+          <a href="/portal.html" class="btn btn-secondary btn-full">Login / Open Portal</a>
+        </div>
+      </div>
     </div>
+
+    <div class="pricing-explainer__footer">
+      <div class="pricing-explainer__note">
+        <strong>Quick rule:</strong> Packs = usage (credits). Subscriptions = premium features.
+      </div>
+      <div class="pricing-explainer__micro">
+        You can add packs anytime. Subscriptions can be upgraded/downgraded.
+      </div>
+    </div>
+  </div>
 </section>
 
-<!-- =========================
-     (4) SUBSCRIPTIONS
-     ========================= -->
-<section id="subs" class="pricing-grid anchor">
-    <!-- Starter Sub -->
-    <div class="price-card">
-        <div class="plan-name">Starter</div>
-        <div class="plan-price">[SUB_PRICE_STARTER_MONTHLY]<span> /mo (example)</span></div>
-        <div class="plan-description">Subscription pricing (variants shown below). Checkout handles selection.</div>
-
-        <div class="mini-rows">
-            <div class="mini-row">
-                <div class="label">Weekly</div>
-                <div class="value">[SUB_PRICE_STARTER_WEEKLY]</div>
-            </div>
-            <div class="mini-row">
-                <div class="label">Monthly</div>
-                <div class="value">[SUB_PRICE_STARTER_MONTHLY]</div>
-            </div>
-            <div class="mini-row">
-                <div class="label">Annual</div>
-                <div class="value na">N/A</div>
-            </div>
+    <!-- PACK CARDS -->
+    <section class="packs-grid">
+        
+        <!-- Starter Pack -->
+        <div class="pack-card">
+            <div class="pack-icon">🎯</div>
+            <div class="pack-name">Starter Pack</div>
+            <div class="pack-price">$9.99</div>
+            <div class="pack-responses">500 responses</div>
+            <div class="pack-value">$0.020 per response</div>
+            <button class="btn btn-buy" onclick="handlePackPurchase('starter', 9.99, 500)">
+                🖱️ Make THE-RIGHT-CLICK
+            </button>
         </div>
-
-        <button class="btn btn-secondary full-width-btn" onclick="handleSubscriptionCheckout('starter')">
-            Start Starter Subscription
-        </button>
-    </div>
-
-    <!-- Pro Sub -->
-    <div class="price-card featured">
-        <div class="badge">Most Popular</div>
-        <div class="plan-name">Pro</div>
-        <div class="plan-price">[SUB_PRICE_PRO_MONTHLY]<span> /mo (example)</span></div>
-        <div class="plan-description">Subscription pricing (variants shown below). Checkout handles selection.</div>
-
-        <div class="mini-rows">
-            <div class="mini-row">
-                <div class="label">Weekly</div>
-                <div class="value">[SUB_PRICE_PRO_WEEKLY]</div>
-            </div>
-            <div class="mini-row">
-                <div class="label">Monthly</div>
-                <div class="value">[SUB_PRICE_PRO_MONTHLY]</div>
-            </div>
-            <div class="mini-row">
-                <div class="label">Annual</div>
-                <div class="value">[SUB_PRICE_PRO_ANNUAL]</div>
-            </div>
+        
+        <!-- Pro Pack -->
+        <div class="pack-card featured">
+            <div class="badge">⭐ Best Value</div>
+            <div class="pack-icon">💎</div>
+            <div class="pack-name">Pro Pack</div>
+            <div class="pack-price">$16.99</div>
+            <div class="pack-responses">1,000 responses</div>
+            <div class="pack-value">$0.017 per response</div>
+            <button class="btn btn-buy featured" onclick="handlePackPurchase('pro', 16.99, 1000)">
+                🖱️ Right-click Sidekick
+            </button>
         </div>
-
-        <button class="btn btn-primary full-width-btn" onclick="handleSubscriptionCheckout('pro')">
-            Start Pro Subscription
-        </button>
-    </div>
-
-    <!-- Business Sub -->
-    <div class="price-card">
-        <div class="plan-name">Business</div>
-        <div class="plan-price">[SUB_PRICE_BUSINESS_MONTHLY]<span> /mo (example)</span></div>
-        <div class="plan-description">Subscription pricing (variants shown below). Checkout handles selection.</div>
-
-        <div class="mini-rows">
-            <div class="mini-row">
-                <div class="label">Weekly</div>
-                <div class="value">[SUB_PRICE_BUSINESS_WEEKLY]</div>
-            </div>
-            <div class="mini-row">
-                <div class="label">Monthly</div>
-                <div class="value">[SUB_PRICE_BUSINESS_MONTHLY]</div>
-            </div>
-            <div class="mini-row">
-                <div class="label">Annual</div>
-                <div class="value">[SUB_PRICE_BUSINESS_ANNUAL]</div>
-            </div>
+        
+        <!-- Business Pack -->
+        <div class="pack-card">
+            <div class="pack-icon">🚀</div>
+            <div class="pack-name">Business Pack</div>
+            <div class="pack-price">$34.99</div>
+            <div class="pack-responses">2,500 responses</div>
+            <div class="pack-value">$0.014 per response</div>
+            <button class="btn btn-buy" onclick="handlePackPurchase('business', 34.99, 2500)">
+                🖱️  Right-click Sidekick
+            </button>
         </div>
-
-        <button class="btn btn-primary full-width-btn" onclick="handleSubscriptionCheckout('business')">
-            Start Business Subscription
-        </button>
-    </div>
-
-    <!-- Enterprise Sub -->
-    <div class="price-card">
-        <div class="badge">Top Tier</div>
-        <div class="plan-name">Enterprise</div>
-        <div class="plan-price">[SUB_PRICE_ENTERPRISE_MONTHLY]<span> /mo (example)</span></div>
-        <div class="plan-description">Subscription pricing (variants shown below). Checkout handles selection.</div>
-
-        <div class="mini-rows">
-            <div class="mini-row">
-                <div class="label">Weekly</div>
-                <div class="value na">N/A</div>
-            </div>
-            <div class="mini-row">
-                <div class="label">Monthly</div>
-                <div class="value">[SUB_PRICE_ENTERPRISE_MONTHLY]</div>
-            </div>
-            <div class="mini-row">
-                <div class="label">Annual</div>
-                <div class="value">[SUB_PRICE_ENTERPRISE_ANNUAL]</div>
-            </div>
+        
+        <!-- Elite Pack -->
+        <div class="pack-card">
+            <div class="pack-icon">👑</div>
+            <div class="pack-name">Elite Pack</div>
+            <div class="pack-price">$59.99</div>
+            <div class="pack-responses">4,000 responses</div>
+            <div class="pack-value">$0.015 per response</div>
+            <button class="btn btn-buy" onclick="handlePackPurchase('elite', 59.99, 4000)">
+                🖱️ Right-click Sidekick
+            </button>
         </div>
+        
+    </section>
+    <!-- END PACK CARDS -->
 
-        <button class="btn btn-primary full-width-btn" onclick="handleSubscriptionCheckout('enterprise')">
-            Start Enterprise Subscription
-        </button>
-    </div>
-</section>
+    <!-- INFO SECTION -->
+    <section class="info-section">
+        
+        <div class="info-card">
+            <h2 class="info-title">🖱️ How THE-RIGHT-CLICK Works</h2>
+            <ul class="info-list">
+                <li>Download THE Right-click Sidekick Chrome extension</li>
+                <li>Buy a pack (starts at just $9.99)</li>
+                <li>Right-click once to capture incoming message</li>
+                <li>Right-click again to generate perfect reply in any textbox</li>
+                <li>Works in Gmail, LinkedIn, Twitter, Any Reply/Compose Box On The Web!</li>
+            </ul>
+        </div>
+        
+        <div class="info-card">
+            <h2 class="info-title">✨ Pack Benefits</h2>
+            <ul class="info-list">
+                <li>Responses never expire until you activate them</li>
+                <li>Once activated, use within 12 months</li>
+                <li>No monthly commitment required</li>
+                <li>Perfect for occasional users</li>
+            </ul>
+        </div>
+        
+        <div class="info-card">
+            <h2 class="info-title">💡 Perfect For</h2>
+            <ul class="info-list">
+                <li>Busy seasons with extra messaging volume</li>
+                <li>Freelancers and solopreneurs</li>
+                <li>Anyone who replies to 10 or more messages</li>
+            </ul>
+        </div>
+        
+    </section>
+    <!-- END INFO SECTION -->
 
-<!-- Footer (copied from pricing.html for consistent look) -->
-<footer class="footer">
-    <div class="container">
-        <div class="footer-content">
-            <div class="footer-brand">
-                <h3 class="footer-logo">DMTools.fun</h3>
-                <p class="footer-description">
-                    AI-powered universal messaging response generator.
-                </p>
-            </div>
+    <!-- CTA SECTION -->
+    <section class="cta-section">
+        <div class="cta-card">
+            <h2 class="cta-title">💼 Need Bulk Processing?</h2>
+            <p class="cta-text">
+                check out our subscription plans starting at just $19/month. features and monthly responses included, packs can be used as addon responses if needed.
+            </p>
+            <a href="/pricing.html" class="cta-link">View Subscription Plans →</a>
+        </div>
+    </section>
+    <!-- END CTA SECTION -->
 
-            <div class="footer-links">
-                <div class="link-group">
-                    <h4>Product</h4>
-                    <a href="/app.html">Generator</a>
-                    <a href="/presets.html">Templates</a>
-                    <a href="/pricing.html">Pricing</a>
-                    <a href="/store.html">Packs Store</a>
+    <!-- FOOTER -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-brand">
+                    <h3 class="footer-logo">DMTools.fun</h3>
+                    <p class="footer-description">
+                        AI-powered universal messaging response generator.<br>
+                        "Two right-clicks can't go wrong™"
+                    </p>
                 </div>
-
-                <div class="link-group">
-                    <h4>Legal</h4>
-                    <a href="/terms-of-service.html">Terms of Service</a>
-                    <a href="/privacy-policy.html">Privacy Policy</a>
-                    <a href="/refund-policy.html">Refund Policy</a>
-                    <a href="/cookie-policy.html">Cookie Policy</a>
-                </div>
-
-                <div class="link-group">
-                    <h4>Support</h4>
-                    <a href="/contact.html">Contact Us</a>
-                    <a href="mailto:support@dmtools.fun">Email Support</a>
+            
+                <div class="footer-links">
+                    <div class="link-group">
+                        <h4>Product</h4>
+                        <a href="/app.html">Batch Generator</a>
+                        <a href="/presets.html">Templates</a>
+                        <a href="/pricing.html">Pricing</a>
+                        <a href="/store.html">Packs Store</a>
+                       
+                    </div>
+                
+                    <div class="link-group">
+                        <h4>Legal</h4>
+                        <a href="/terms-of-service.html">Terms of Service</a>
+                        <a href="/privacy-policy.html">Privacy Policy</a>
+                        <a href="/refund-policy.html">Refund Policy</a>
+                        <a href="/cookie-policy.html">Cookie Policy</a>
+                    </div>
+                
+                    <div class="link-group">
+                        <h4>Support</h4>
+                        <a href="/contact.html">Contact Us</a>
+                        <a href="mailto:admin@dmtools.fun">Email Support</a>
+                        <a href="/install-extension.html">Extension Setup</a>
+                    </div>
                 </div>
             </div>
+        
+            <div class="footer-bottom">
+                <p class="footer-copyright">© 2025 DMTools.fun LLC. All rights reserved.</p>
+            </div>
         </div>
-
-        <div class="footer-bottom">
-            <p class="footer-copyright">© 2025 DMTools.fun LLC. All rights reserved.</p>
-        </div>
-    </div>
-</footer>
-
-<script>
-    // Mobile menu toggle (same as pricing.html)
-    function toggleMobileMenu() {
-        document.getElementById('mobileNav').classList.toggle('show');
-    }
-
-    // =============================================
-    // Checkout helpers (packs + subscriptions)
-    // - Packs: choose variant per pack (starter/pro/business/enterprise/elite)
-    // - Subs: open product checkout (Lemon handles weekly/monthly/annual selection)
-    // =============================================
-
-    const API_BASE = 'https://dmtools-backend-production.up.railway.app/api';
-
-    // Subscriptions: product UUIDs (from your pricing.html)
-    const SUBSCRIPTION_PRODUCTS = {
-        starter: 'd8258a23-e538-4bd6-baf3-15a58cea80bf',
-        pro: 'c6f7c828-dd29-4ef7-b4d7-9270f390a41c',
-        business: '0bb6e756-ab23-4db0-8359-f06f7f621d1c',
-        enterprise: '899c3c4c-2f92-489c-a8c4-11914cd89692'
-    };
-
-    // Packs: single product with variants (from your store.html)
-    const PACKS_PRODUCT_UUID = '65aa1de7-1f4f-4864-a7fd-ea37fc378103';
-
-    // Use real IDs where you already have them; placeholders can be replaced later.
-    const PACK_VARIANTS = {
-        starter: '1097731',
-        pro: '1097732',
-        business: '1098385',
-        enterprise: '[PACK_VARIANT_ENTERPRISE]',
-        elite: '1097735'
-    };
-
-    function isPlaceholder(v) {
-        return !v || (typeof v === 'string' && v.includes('['));
-    }
-
-    function requireLoginOrRedirect(redirectKey) {
-        const token = localStorage.getItem('authToken');
-        if (!token) {
-            alert('Please sign in to continue');
-            localStorage.setItem('pendingCheckoutRedirect', redirectKey);
-            window.location.href = '/app.html?redirect=store';
-            return null;
-        }
-        return token;
-    }
-
-    function decodeJwt(token) {
-        const parts = token.split('.');
-        const payload = JSON.parse(atob(parts[1]));
-        return {
-            userId: payload.id || payload.userId,
-            email: payload.email || ''
+    </footer> 
+    <!-- END FOOTER -->>
+    
+    <script>
+        // =============================================
+        // RESPONSE PACKS CHECKOUT - WORKING VERSION
+        // Updated: December 4, 2025
+        // =============================================
+        
+        // Response Packs Product UUID (single product with variants)
+        const PACKS_PRODUCT_UUID = '65aa1de7-1f4f-4864-a7fd-ea37fc378103';
+        
+        // Pack Variant IDs - CORRECTED
+        const PACK_VARIANTS = {
+            starter: '1097731',   // 500 responses - $9.99
+            pro: '1097732',       // 1000 responses - $16.99
+            business: '1098385',  // 2500 responses - $34.99 (FIXED from 1098358)
+            elite: '1097735'      // 4000 responses - $59.99
         };
-    }
+        
+        // Pack details for tracking
+        const PACK_DETAILS = {
+            starter: { responses: 500, price: 9.99, name: 'Starter Pack' },
+            pro: { responses: 1000, price: 16.99, name: 'Pro Pack' },
+            business: { responses: 2500, price: 34.99, name: 'Business Pack' },
+            elite: { responses: 4000, price: 59.99, name: 'Elite Pack' }
+        };
+        
+        /**
+         * Handle response pack purchase - WORKING CHECKOUT
+         */
+        function handlePackPurchase(packName, price, responses) {
+            const variantId = PACK_VARIANTS[packName.toLowerCase()];
+            const packInfo = PACK_DETAILS[packName.toLowerCase()];
+            
+            if (!variantId) {
+                alert('Invalid pack selected. Please try again.');
+                console.error('Invalid pack:', packName);
+                return;
+            }
+            
+            // Check if user is logged in
+            const token = localStorage.getItem('authToken');
+            if (!token) {
+                alert('Please sign in to purchase response packs');
+                localStorage.setItem('pendingPackPurchase', packName);
+                window.location.href = '/app.html?redirect=store';
+                return;
+            }
+            
+            try {
+                // Decode JWT to get user info
+                const tokenParts = token.split('.');
+                const payload = JSON.parse(atob(tokenParts[1]));
+                const userId = payload.id || payload.userId;
+                const userEmail = payload.email || '';
+                
+                if (!userId) {
+                    alert('Session expired. Please log in again.');
+                    localStorage.removeItem('authToken');
+                    window.location.href = '/app.html';
+                    return;
+                }
+                
+                // Build CORRECT checkout URL with product UUID, user_id, and variant
+                let checkoutUrl = `https://dmtoolsfun-llc.lemonsqueezy.com/buy/${PACKS_PRODUCT_UUID}`;
+                checkoutUrl += `?checkout[custom][user_id]=${userId}`;
+                checkoutUrl += `&checkout[variant]=${variantId}`;
+                
+                // Pre-fill email if available
+                if (userEmail) {
+                    checkoutUrl += `&checkout[email]=${encodeURIComponent(userEmail)}`;
+                }
+                
+                console.log('Opening pack checkout:', checkoutUrl);
+                console.log('Pack:', packName, 'Variant:', variantId, 'User:', userId);
+                
+                // Track analytics
+                if (typeof gtag !== 'undefined') {
+                    gtag('event', 'begin_checkout', {
+                        pack_name: packInfo?.name || packName,
+                        value: packInfo?.price || price,
+                        currency: 'USD',
+                        items: [{
+                            item_name: packInfo?.name || packName + ' Pack',
+                            quantity: 1,
+                            price: packInfo?.price || price
+                        }]
+                    });
+                }
+                
+                // Open checkout - try LemonSqueezy overlay first, fallback to new tab
+                if (window.LemonSqueezy && window.LemonSqueezy.Url) {
+                    window.LemonSqueezy.Url.Open(checkoutUrl);
+                } else {
+                    window.open(checkoutUrl, '_blank');
+                }
+                
+            } catch (error) {
+                console.error('Checkout error:', error);
+                alert('Error starting checkout. Please try again.');
+            }
+        }
+        
+        // Check for pending pack purchase after login
+        function checkPendingPackPurchase() {
+            const pendingPack = localStorage.getItem('pendingPackPurchase');
+            if (pendingPack) {
+                localStorage.removeItem('pendingPackPurchase');
+                const packInfo = PACK_DETAILS[pendingPack.toLowerCase()];
+                if (packInfo) {
+                    setTimeout(() => {
+                        handlePackPurchase(pendingPack, packInfo.price, packInfo.responses);
+                    }, 500);
+                }
+            }
+        }
+        
+        // Logout function
+        function logout() {
+            localStorage.removeItem('authToken');
+            window.location.href = '/';
+        }
+        
+        // Initialize on page load
+        document.addEventListener('DOMContentLoaded', function() {
+            // Initialize LemonSqueezy overlay
+            if (window.createLemonSqueezy) {
+                window.createLemonSqueezy();
+            }
+            
+            // Check if user is logged in and update UI
+            const token = localStorage.getItem('authToken');
+            const authSection = document.getElementById('auth-section');
+            const userSection = document.getElementById('user-section');
+            
+            if (token) {
+                try {
+                    const payload = JSON.parse(atob(token.split('.')[1]));
+                    const userEmail = payload.email || 'User';
+                    
+                    if (authSection) authSection.style.display = 'none';
+                    if (userSection) {
+                        userSection.classList.remove('hidden');
+                        const emailSpan = document.getElementById('user-email');
+                        if (emailSpan) emailSpan.textContent = userEmail;
+                    }
+                    
+                    // Check for pending purchase
+                    checkPendingPackPurchase();
+                } catch (e) {
+                    console.error('Token decode error:', e);
+                }
+            }
+            
+            // Track page view
+            if (typeof gtag !== 'undefined') {
+                gtag('event', 'page_view', {
+                    page_title: 'Response Packs Store',
+                    page_location: window.location.href
+                });
+            }
+        });
+        const API_BASE = 'https://dmtools-backend-production.up.railway.app/api';
 
-    function openLemonCheckout(checkoutUrl) {
-        if (window.LemonSqueezy && window.LemonSqueezy.Url) {
-            window.LemonSqueezy.Url.Open(checkoutUrl);
+// Check auth status on page load
+document.addEventListener('DOMContentLoaded', checkAuthStatus);
+
+async function checkAuthStatus() {
+    const token = localStorage.getItem('authToken');
+    
+    if (!token) {
+        showLoggedOutState();
+        return;
+    }
+    
+    try {
+        const response = await fetch(`${API_BASE}/user/profile`, {
+            headers: { 'Authorization': `Bearer ${token}` }
+        });
+        
+        if (response.ok) {
+            const data = await response.json();
+            showLoggedInState(data.user.email);
         } else {
-            window.open(checkoutUrl, '_blank');
+            localStorage.removeItem('authToken');
+            showLoggedOutState();
         }
+    } catch (error) {
+        console.error('Auth check failed:', error);
+        showLoggedOutState();
     }
+}
 
-    // Packs: require variant (pack selection)
-    function handlePackPurchase(packName) {
-        const token = requireLoginOrRedirect('pack:' + packName);
-        if (!token) return;
+function showLoggedInState(email) {
+    const authSection = document.getElementById('auth-section');
+    const userSection = document.getElementById('user-section');
+    const userEmail = document.getElementById('user-email');
+    
+    if (authSection) authSection.classList.add('hidden');
+    if (userSection) userSection.classList.remove('hidden');
+    if (userEmail) userEmail.textContent = email;
+}
 
-        const variantId = PACK_VARIANTS[packName.toLowerCase()];
-        if (isPlaceholder(variantId)) {
-            alert('This pack is not configured yet. Please set its Lemon variant ID first.');
-            console.error('Pack variant not configured:', packName, variantId);
-            return;
-        }
+function showLoggedOutState() {
+    const authSection = document.getElementById('auth-section');
+    const userSection = document.getElementById('user-section');
+    
+    if (authSection) authSection.classList.remove('hidden');
+    if (userSection) userSection.classList.add('hidden');
+}
 
-        try {
-            const { userId, email } = decodeJwt(token);
-            if (!userId) {
-                alert('Session expired. Please log in again.');
-                localStorage.removeItem('authToken');
-                window.location.href = '/app.html';
-                return;
-            }
+function logout() {
+    localStorage.removeItem('authToken');
+    showLoggedOutState();
+    window.location.href = '/';
+}
 
-            let checkoutUrl = `https://dmtoolsfun-llc.lemonsqueezy.com/buy/${PACKS_PRODUCT_UUID}`;
-            checkoutUrl += `?checkout[custom][user_id]=${userId}`;
-            checkoutUrl += `&checkout[variant]=${variantId}`;
-            if (email) checkoutUrl += `&checkout[email]=${encodeURIComponent(email)}`;
-
-            if (typeof gtag !== 'undefined') {
-                gtag('event', 'begin_checkout', { type: 'pack', pack_name: packName, currency: 'USD' });
-            }
-
-            openLemonCheckout(checkoutUrl);
-        } catch (err) {
-            console.error('Pack checkout error:', err);
-            alert('Error starting checkout. Please try again.');
-        }
+// Show auth modal (if page has one)
+function showAuthModal(isLogin) {
+    const modal = document.getElementById('auth-modal');
+    if (modal) {
+        modal.classList.add('show');
+        // Toggle between login/signup forms if needed
+    } else {
+        // Redirect to login page if no modal
+        window.location.href = isLogin ? '/login.html' : '/register.html';
     }
-
-    // Subscriptions: open product checkout (variant selection handled in checkout)
-    function handleSubscriptionCheckout(planName) {
-        const token = requireLoginOrRedirect('sub:' + planName);
-        if (!token) return;
-
-        const productUUID = SUBSCRIPTION_PRODUCTS[planName.toLowerCase()];
-        if (!productUUID) {
-            alert('Invalid plan selected. Please try again.');
-            console.error('Invalid subscription plan:', planName);
-            return;
-        }
-
-        try {
-            const { userId, email } = decodeJwt(token);
-            if (!userId) {
-                alert('Session expired. Please log in again.');
-                localStorage.removeItem('authToken');
-                window.location.href = '/app.html';
-                return;
-            }
-
-            let checkoutUrl = `https://dmtoolsfun-llc.lemonsqueezy.com/buy/${productUUID}`;
-            checkoutUrl += `?checkout[custom][user_id]=${userId}`;
-            if (email) checkoutUrl += `&checkout[email]=${encodeURIComponent(email)}`;
-
-            if (typeof gtag !== 'undefined') {
-                gtag('event', 'begin_checkout', { type: 'subscription', plan_name: planName, currency: 'USD' });
-            }
-
-            openLemonCheckout(checkoutUrl);
-        } catch (err) {
-            console.error('Subscription checkout error:', err);
-            alert('Error starting checkout. Please try again.');
-        }
-    }
-
-    // Initialize Lemon overlay
-    document.addEventListener('DOMContentLoaded', function () {
-        if (window.createLemonSqueezy) window.createLemonSqueezy();
-    });
+}
+        function toggleMobileMenu() {
+    document.getElementById('mobileNav').classList.toggle('show');
+}
 </script>
-
 </body>
 </html>

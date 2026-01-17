@@ -348,17 +348,24 @@
     <!-- HERO SECTION -->
     <section class="hero">
         <h1 class="hero-title">💎 Choose Your Plan</h1>
-        <p class="hero-subtitle">Unlimited batch processing + monthly extension responses</p>
+        <p class="hero-subtitle">batch processing + monthly extension responses</p>
         
-        <div class="toggle-view">
-            <button class="toggle-btn active">Monthly Subscriptions</button>
-            <a href="/store.html" class="toggle-btn">Response Packs →</a>
-        </div>
-    </section>
+       <div class="toggle-view">
+  <button class="toggle-btn active" type="button" id="btnShowSubs" onclick="showPricingView('subs')">
+    Monthly Subscriptions
+  </button>
+  <button class="toggle-btn" type="button" id="btnShowPacks" onclick="showPricingView('packs')">
+    Response Packs →
+  </button>
+</div>
+
+        </section>
+
     <!-- END HERO SECTION -->
     
     <!-- PRICING CARDS -->
-    <section class="pricing-grid">
+   <section class="pricing-grid" id="subsSection">
+
         
         <!-- Starter Plan -->
         <div class="price-card">
@@ -367,8 +374,8 @@
             <div class="plan-description">Perfect for getting started with DMTools</div>
             
             <ul class="features-list">
-                <li>100 responses/month</li>
-                <li>batch processing</li>
+                <li>500 responses/month</li>
+                <li>tone and context settings</li>
                 <li>5 custom templates</li>
                 <li>Email support</li>
             </ul>
@@ -387,17 +394,15 @@
             <div class="plan-description">Best for individuals and freelancers</div>
             
             <ul class="features-list">
-                <li>1,000 responses/month</li>
-                <li>Shared between batch + extension</li>
-                <li>Batch Processing</li>
-                <li>THE-RIGHT-CLICK SIDEKICK extension included</li>
-                <li>20 custom templates</li>
+                <li>free 2,000 response pack monthly</li>
+                <li>tone and context settings</li>
+                <li>THE-RIGHT-CLICK SIDEKICK (generate responses directly in the reply box you send from)</li>
+                <li>20 custom user preset templates</li>
                 
             </ul>
             
             <button class="btn btn-primary" onclick="handleSubscriptionPurchase('pro', 'monthly')">
-                Choose 
-                Pro
+                Choose Pro
             </button>
         </div>
         
@@ -408,17 +413,15 @@
             <div class="plan-description">For power users teams and agencies</div>
             
             <ul class="features-list">
-                <li>5,000 responses/month</li>
-                <li>Shared between batch + extension</li>
-                <li>Unlimited batch processing</li>
+                <li>free buisness 8,000 response pack monthly</li>
+                <li>tone and context settings</li>
                 <li>THE-RIGHT-CLICK SIDE-KICK extension included</li>
                 <li>200 custom templates</li>
            
             </ul>
             
             <button class="btn btn-primary" onclick="handleSubscriptionPurchase('business', 'monthly')">
-                Choose
-                Business
+                Choose Business
             </button>
         </div>
         
@@ -430,22 +433,86 @@
             <div class="plan-description">For power users and large teams</div>
             
             <ul class="features-list">
-                <li>25,000+ responses/month</li>
-                <li>♾️ Unlimited extension responses</li>
-                <li>Unlimited batch processing</li>
+                <li>unlimited response generation (truely unlimited response generation no need for response packs)</li>
+                <li>unlimited right-click sidekick responses</li>
+                <li>unlimited batch processing</li>
                 <li>Unlimited custom templates</li>
+                <li>pay one monthly price for unlimited responses, batch processing or with the Right-Click SideKick</li>
            
             </ul>
             
             <button class="btn btn-primary" onclick="handleSubscriptionPurchase('enterprise', 'monthly')">
-                Choose 
-                Enterprise
+                Choose Enterprise
             </button>
         </div>
         
     </section>
     <!-- END PRICING CARDS -->
-    
+
+
+        <!-- PACKS SECTION (Unified page) -->
+<section class="hero" id="packsHero" style="display:none;">
+  <h1 class="hero-title">🧰 Response Packs</h1>
+  <p class="hero-subtitle">one-time packs — responses roll over (expire 6 months after activation)</p>
+</section>
+
+<section class="pricing-grid" id="packsSection" style="display:none;">
+
+  <!-- Starter Pack -->
+  <div class="price-card">
+    <div class="plan-name">Starter Pack</div>
+    <div class="plan-price">$9.99</div>
+    <div class="plan-description">Perfect for light usage and trying packs</div>
+
+    <ul class="features-list">
+      <li>500 responses</li>
+      <li>Responses roll over</li>
+      <li>Expires 6 months after activation</li>
+    </ul>
+
+    <button class="btn btn-primary" onclick="handlePackPurchase('starter')">
+      Buy Starter Pack
+    </button>
+  </div>
+
+  <!-- Pro Pack -->
+  <div class="price-card featured">
+    <div class="badge">⭐ Best Value</div>
+    <div class="plan-name">Pro Pack</div>
+    <div class="plan-price">$16.99</div>
+    <div class="plan-description">Most popular pack size</div>
+
+    <ul class="features-list">
+      <li>2,000 responses</li>
+      <li>Responses roll over</li>
+      <li>Expires 6 months after activation</li>
+    </ul>
+
+    <button class="btn btn-primary" onclick="handlePackPurchase('pro')">
+      Buy Pro Pack
+    </button>
+  </div>
+
+  <!-- Business Pack -->
+  <div class="price-card">
+    <div class="plan-name">Business Pack</div>
+    <div class="plan-price">$34.99</div>
+    <div class="plan-description">High volume packs for power users</div>
+
+    <ul class="features-list">
+      <li>8,000 responses</li>
+      <li>Responses roll over</li>
+      <li>Expires 6 months after activation</li>
+    </ul>
+
+    <button class="btn btn-primary" onclick="handlePackPurchase('business')">
+      Buy Business Pack
+    </button>
+  </div>
+
+</section>
+<!-- END PACKS SECTION -->
+
    
     
     <!-- CTA SECTION -->
@@ -457,7 +524,8 @@
                 <em>"Two right-clicks can't go wrong™"</em><br>
                 Packs from $9.99 for 500 responses.
             </p>
-            <a href="/store.html" class="cta-link">View Response Packs →</a>
+           <a href="javascript:void(0)" class="cta-link" onclick="showPricingView('packs')">View Response Packs →</a>
+
         </div>
     </section>
     <!-- END CTA SECTION -->
@@ -626,7 +694,141 @@
                 alert('Error starting checkout. Please try again.');
             }
         }
-        
+
+        // =============================================
+// UNIFIED PAGE VIEW TOGGLE (Subs <-> Packs)
+// =============================================
+function showPricingView(view) {
+  const subs = document.getElementById('subsSection');
+  const packs = document.getElementById('packsSection');
+  const packsHero = document.getElementById('packsHero');
+
+  const btnSubs = document.getElementById('btnShowSubs');
+  const btnPacks = document.getElementById('btnShowPacks');
+
+  if (!subs || !packs || !btnSubs || !btnPacks) return;
+
+  if (view === 'packs') {
+    subs.style.display = 'none';
+    packs.style.display = '';
+    if (packsHero) packsHero.style.display = '';
+    btnSubs.classList.remove('active');
+    btnPacks.classList.add('active');
+    packs.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  } else {
+    subs.style.display = '';
+    packs.style.display = 'none';
+    if (packsHero) packsHero.style.display = 'none';
+    btnPacks.classList.remove('active');
+    btnSubs.classList.add('active');
+    subs.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }
+}
+
+// =============================================
+// RESPONSE PACKS CHECKOUT (ported from store.html)
+// Elite removed + new pack sizes
+// =============================================
+
+// Response Packs Product UUID (single product with variants)
+const PACKS_PRODUCT_UUID = '65aa1de7-1f4f-4864-a7fd-ea37fc378103';
+
+// IMPORTANT:
+// If you keep the same Lemon variants, leave these IDs.
+// Backend can grant the NEW response amounts based on pack name.
+const PACK_VARIANTS = {
+  starter: '1097731',   // $9.99
+  pro: '1097732',       // $16.99
+  business: '1098385'   // $34.99
+  // elite removed
+};
+
+const PACK_DETAILS = {
+  starter: { responses: 500, price: 9.99, name: 'Starter Pack' },
+  pro: { responses: 2000, price: 16.99, name: 'Pro Pack' },
+  business: { responses: 8000, price: 34.99, name: 'Business Pack' }
+};
+
+function handlePackPurchase(packName) {
+  const key = String(packName || '').toLowerCase();
+  const variantId = PACK_VARIANTS[key];
+  const packInfo = PACK_DETAILS[key];
+
+  if (!variantId || !packInfo) {
+    alert('Invalid pack selected. Please try again.');
+    console.error('Invalid pack:', packName);
+    return;
+  }
+
+  const token = localStorage.getItem('authToken');
+  if (!token) {
+    alert('Please sign in to purchase response packs');
+    localStorage.setItem('pendingPackPurchase', key);
+    // Keep user on this page; after login they can come back here
+    window.location.href = '/login.html?redirect=pricing';
+    return;
+  }
+
+  try {
+    const tokenParts = token.split('.');
+    const payload = JSON.parse(atob(tokenParts[1]));
+    const userId = payload.id || payload.userId;
+    const userEmail = payload.email || '';
+
+    if (!userId) {
+      alert('Session expired. Please log in again.');
+      localStorage.removeItem('authToken');
+      window.location.href = '/login.html';
+      return;
+    }
+
+    let checkoutUrl = `https://dmtoolsfun-llc.lemonsqueezy.com/buy/${PACKS_PRODUCT_UUID}`;
+    checkoutUrl += `?checkout[custom][user_id]=${userId}`;
+    checkoutUrl += `&checkout[variant]=${variantId}`;
+
+    if (userEmail) {
+      checkoutUrl += `&checkout[email]=${encodeURIComponent(userEmail)}`;
+    }
+
+    // Optional tracking (GA4)
+    if (typeof gtag !== 'undefined') {
+      gtag('event', 'begin_checkout', {
+        pack_name: packInfo.name,
+        value: packInfo.price,
+        currency: 'USD',
+        items: [{
+          item_name: packInfo.name,
+          quantity: 1,
+          price: packInfo.price
+        }]
+      });
+    }
+
+    if (window.LemonSqueezy && window.LemonSqueezy.Url) {
+      window.LemonSqueezy.Url.Open(checkoutUrl);
+    } else {
+      window.open(checkoutUrl, '_blank');
+    }
+  } catch (error) {
+    console.error('Pack checkout error:', error);
+    alert('Error starting checkout. Please try again.');
+  }
+}
+
+function checkPendingPackPurchase() {
+  const pending = localStorage.getItem('pendingPackPurchase');
+  if (!pending) return;
+
+  localStorage.removeItem('pendingPackPurchase');
+  // show packs view and trigger purchase
+  showPricingView('packs');
+
+  const packInfo = PACK_DETAILS[pending];
+  if (packInfo) {
+    setTimeout(() => handlePackPurchase(pending), 500);
+  }
+}
+
         // Check for pending purchase after login
         function checkPendingPurchase() {
             const pending = localStorage.getItem('pendingPurchase');
@@ -643,64 +845,79 @@
             }
         }
         
-        // Check authentication and update header
-        async function updateAuthSection() {
-            const token = localStorage.getItem('authToken');
-            const authSection = document.getElementById('auth-section');
-            
-            if (!authSection) return;
-            
-            if (!token) {
-                authSection.innerHTML = `
-                    <a href="/app.html" class="auth-btn">Login</a>
-                    <a href="/app.html" class="auth-btn primary">Sign Up</a>
-                `;
-            } else {
-                try {
-                    const response = await fetch(API_BASE + '/user/profile', {
-                        headers: { 'Authorization': `Bearer ${token}` }
-                    });
-                    
-                    if (response.ok) {
-                        const data = await response.json();
-                        const user = data.user;
-                        
-                        authSection.innerHTML = `
-    <div class="user-section">
-        <span class="user-email">${user.email}</span>
-        <a href="/account.html" class="auth-btn">Account</a>
-        <button class="auth-btn" onclick="handleLogout()">Logout</button>
-    </div>
-`;
+       // Check authentication and update header
+async function updateAuthSection() {
+  const token = localStorage.getItem('authToken');
+  const authSection = document.getElementById('authButtons'); // ✅ fix: correct element id
 
-                        
-                        // Check for pending purchase now that user is logged in
-                        checkPendingPurchase();
-                    } else {
-                        localStorage.removeItem('authToken');
-                        updateAuthSection();
-                    }
-                } catch (error) {
-                    console.error('Auth check failed:', error);
-                    authSection.innerHTML = `
-                        <a href="/app.html" class="auth-btn">Login</a>
-                        <a href="/app.html" class="auth-btn primary">Sign Up</a>
-                    `;
-                }
-            }
-        }
+  if (!authSection) return;
+
+  const menuBtnHtml = `<button class="mobile-menu-btn" onclick="toggleMobileMenu()" aria-label="Menu">☰</button>`;
+
+  if (!token) {
+    authSection.innerHTML = `
+      ${menuBtnHtml}
+      <a href="/login.html" class="btn btn-secondary">Sign In</a>
+      <a href="/register.html" class="btn btn-primary">Sign Up</a>
+    `;
+    return;
+  }
+
+  try {
+    const response = await fetch(API_BASE + '/user/profile', {
+      headers: { 'Authorization': `Bearer ${token}` }
+    });
+
+    if (!response.ok) {
+      localStorage.removeItem('authToken');
+      authSection.innerHTML = `
+        ${menuBtnHtml}
+        <a href="/login.html" class="btn btn-secondary">Sign In</a>
+        <a href="/register.html" class="btn btn-primary">Sign Up</a>
+      `;
+      return;
+    }
+
+    const data = await response.json();
+    const user = data.user;
+
+    authSection.innerHTML = `
+      ${menuBtnHtml}
+      <div class="user-section">
+        <span class="user-email">${user.email}</span>
+        <a href="/account.html" class="btn btn-secondary">Account</a>
+        <button class="btn btn-primary" onclick="handleLogout()">Logout</button>
+      </div>
+    `;
+
+    checkPendingPurchase();
+  } catch (error) {
+    console.error('Auth check failed:', error);
+    authSection.innerHTML = `
+      ${menuBtnHtml}
+      <a href="/login.html" class="btn btn-secondary">Sign In</a>
+      <a href="/register.html" class="btn btn-primary">Sign Up</a>
+    `;
+  }
+}
+
         
         function handleLogout() {
             localStorage.removeItem('authToken');
             window.location.href = '/';
         }
         
-        // Initialize on page load
-        document.addEventListener('DOMContentLoaded', function() {
-            // Initialize LemonSqueezy overlay
-            if (window.createLemonSqueezy) {
-                window.createLemonSqueezy();
-            }
+      document.addEventListener('DOMContentLoaded', function() {
+  if (window.createLemonSqueezy) {
+    window.createLemonSqueezy();
+  }
+
+  // Always run pending pack logic (it has its own fallback)
+  checkPendingPackPurchase();
+
+  updateAuthSection();
+});
+
             
             // Update auth section
             updateAuthSection();

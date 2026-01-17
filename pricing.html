@@ -368,7 +368,7 @@
             
             <ul class="features-list">
                 <li>100 responses/month</li>
-                <li>Basic batch processing</li>
+                <li>batch processing</li>
                 <li>5 custom templates</li>
                 <li>Email support</li>
             </ul>
@@ -389,10 +389,10 @@
             <ul class="features-list">
                 <li>1,000 responses/month</li>
                 <li>Shared between batch + extension</li>
-                <li>Unlimited batch processing</li>
-                <li>THE-RIGHT-CLICK extension included</li>
+                <li>Batch Processing</li>
+                <li>THE-RIGHT-CLICK SIDEKICK extension included</li>
                 <li>20 custom templates</li>
-                <li>Analytics dashboard (COMING SOON)</li>
+                
             </ul>
             
             <button class="btn btn-primary" onclick="handleSubscriptionPurchase('pro', 'monthly')">
@@ -405,7 +405,7 @@
         <div class="price-card">
             <div class="plan-name">Business</div>
             <div class="plan-price">$149<span>/month</span></div>
-            <div class="plan-description">For teams and agencies</div>
+            <div class="plan-description">For power users teams and agencies</div>
             
             <ul class="features-list">
                 <li>5,000 responses/month</li>
@@ -462,7 +462,7 @@
     </section>
     <!-- END CTA SECTION -->
     
-    <!-- FOOTER -->
+
    <!-- Footer -->
 <footer class="footer">
     <div class="container">
@@ -494,7 +494,7 @@
                 <div class="link-group">
                     <h4>Support</h4>
                     <a href="/contact.html">Contact Us</a>
-                    <a href="mailto:support@dmtools.fun">Email Support</a>
+                    <a href="mailto:admin@dmtools.fun">Email Support</a>
                 </div>
             </div>
         </div>
@@ -666,12 +666,13 @@
                         const user = data.user;
                         
                         authSection.innerHTML = `
-                            <div class="user-section">
-                                <span class="user-email">${user.email}</span>
-                                <a href="/account.html" class="auth-btn">Account</a>
-                                <button class="auth-btn" onclick="handleLogout()">Logout</button>
-                            </div>
-                        `;
+    <div class="user-section">
+        <span class="user-email">${user.email}</span>
+        <a href="/account.html" class="auth-btn">Account</a>
+        <button class="auth-btn" onclick="handleLogout()">Logout</button>
+    </div>
+`;
+
                         
                         // Check for pending purchase now that user is logged in
                         checkPendingPurchase();

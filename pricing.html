@@ -74,7 +74,89 @@
             color: white;
         }
         /* END HERO SECTION */
-        
+        /* ================================
+   PRICING PAGE: CTA BUTTON FIX
+   Makes CTAs look like buttons + pins them to bottom of cards
+   ================================ */
+
+/* Ensure pricing cards behave like stacked layouts */
+.pricing-card,
+.plan-card,
+.tier-card {
+  display: flex;
+  flex-direction: column;
+}
+
+/* If you have a body/content wrapper inside the card, let it take space */
+.pricing-card .card-body,
+.plan-card .card-body,
+.tier-card .card-body {
+  flex: 1;
+}
+
+/* Target common CTA selectors used in pricing cards */
+.pricing-card a,
+.pricing-card button,
+.plan-card a,
+.plan-card button,
+.tier-card a,
+.tier-card button {
+  /* Only apply if it's meant to be a CTA */
+}
+
+/* Strong CTA selector (preferred if your markup uses .btn or .btn-primary) */
+.pricing-card .btn,
+.plan-card .btn,
+.tier-card .btn,
+.pricing-card .btn-primary,
+.plan-card .btn-primary,
+.tier-card .btn-primary,
+.pricing-card .cta-btn,
+.plan-card .cta-btn,
+.tier-card .cta-btn {
+  margin-top: auto;              /* pushes button to bottom */
+  width: 100%;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+
+  padding: 0.9rem 1rem;
+  border-radius: 14px;
+  font-weight: 800;
+  text-decoration: none;
+  cursor: pointer;
+
+  color: #fff;
+  background: var(--gradient-primary);
+  border: 1px solid var(--border-medium);
+  box-shadow: var(--shadow-sm);
+  transition: transform 0.15s ease, box-shadow 0.15s ease, opacity 0.15s ease;
+}
+
+.pricing-card .btn:hover,
+.plan-card .btn:hover,
+.tier-card .btn:hover,
+.pricing-card .btn-primary:hover,
+.plan-card .btn-primary:hover,
+.tier-card .btn-primary:hover,
+.pricing-card .cta-btn:hover,
+.plan-card .cta-btn:hover,
+.tier-card .cta-btn:hover {
+  transform: translateY(-1px);
+  box-shadow: var(--shadow-md);
+  opacity: 0.98;
+}
+
+/* Secondary CTA (if you have a "Learn more" type link) */
+.pricing-card .btn-secondary,
+.plan-card .btn-secondary,
+.tier-card .btn-secondary {
+  background: transparent;
+  color: var(--text);
+  border: 1px solid var(--border-medium);
+}
+
         /* PRICING CARDS */
         .pricing-grid {
             display: grid;

@@ -349,7 +349,6 @@
     <section class="hero">
         <h1 class="hero-title">💎 Choose Your Plan</h1>
         <p class="hero-subtitle">batch processing + monthly extension responses</p>
-        
        <div class="toggle-view">
   <button class="toggle-btn active" type="button" id="btnShowSubs" onclick="showPricingView('subs')">
     Monthly Subscriptions
@@ -358,8 +357,8 @@
     Response Packs →
   </button>
 </div>
-
-        </section>
+   </section>
+        
 
     <!-- END HERO SECTION -->
     
@@ -907,21 +906,24 @@ async function updateAuthSection() {
             window.location.href = '/';
         }
         
-      document.addEventListener('DOMContentLoaded', function() {
+  document.addEventListener('DOMContentLoaded', function() {
   if (window.createLemonSqueezy) {
     window.createLemonSqueezy();
+  }
+
+  if (window.location.hash === '#packs') {
+    showPricingView('packs');
   }
 
   // Always run pending pack logic (it has its own fallback)
   checkPendingPackPurchase();
 
+  // Update auth section
   updateAuthSection();
 });
 
             
-            // Update auth section
-            updateAuthSection();
-        });
+         
     </script>
 </body>
 </html>

@@ -27,328 +27,300 @@
     <script src="https://assets.lemonsqueezy.com/lemon.js" defer></script>
 
     <style>
-     
-        .hero {
-            text-align: center;
-            padding: 4rem 2rem 2rem;
-        }
-        
-        .hero-title {
-            font-size: 3rem;
-            font-weight: 800;
-            background: linear-gradient(135deg, #ffffff 0%, #e0e7ff 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            margin-bottom: 1rem;
-        }
-        
-        .hero-subtitle {
-            font-size: 1.25rem;
-            color: var(--text-secondary);
-            margin-bottom: 2rem;
-        }
-        
-        .toggle-view {
-            display: inline-flex;
-            gap: 1rem;
-            background: var(--darker);
-            padding: 0.5rem;
-            border-radius: 12px;
-            margin-bottom: 3rem;
-        }
-        
-        .toggle-btn {
-            padding: 0.75rem 1.5rem;
-            border: none;
-            border-radius: 8px;
-            background: transparent;
-            color: var(--text-secondary);
-            cursor: pointer;
-            font-weight: 600;
-            transition: all 0.3s ease;
-            text-decoration: none;
-        }
-        
-        .toggle-btn.active {
-            background: var(--primary);
-            color: white;
-        }
-        /* END HERO SECTION */
-        /* ================================
-   PRICING PAGE: CTA BUTTON FIX
-   Makes CTAs look like buttons + pins them to bottom of cards
-   ================================ */
+  /* ================================
+     HERO SECTION
+     ================================ */
+  .hero {
+    text-align: center;
+    padding: 4rem 2rem 2rem;
+  }
 
-/* Ensure pricing cards behave like stacked layouts */
-.pricing-card,
-.plan-card,
-.tier-card {
-  display: flex;
-  flex-direction: column;
-}
+  .hero-title {
+    font-size: 3rem;
+    font-weight: 800;
+    background: linear-gradient(135deg, #ffffff 0%, #e0e7ff 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    margin-bottom: 1rem;
+  }
 
-/* If you have a body/content wrapper inside the card, let it take space */
-.pricing-card .card-body,
-.plan-card .card-body,
-.tier-card .card-body {
-  flex: 1;
-}
+  .hero-subtitle {
+    font-size: 1.25rem;
+    color: var(--text-secondary);
+    margin-bottom: 2rem;
+  }
 
-/* Target common CTA selectors used in pricing cards */
-.pricing-card a,
-.pricing-card button,
-.plan-card a,
-.plan-card button,
-.tier-card a,
-.tier-card button {
-  /* Only apply if it's meant to be a CTA */
-}
+  .toggle-view {
+    display: inline-flex;
+    gap: 1rem;
+    background: var(--darker);
+    padding: 0.5rem;
+    border-radius: 12px;
+    margin-bottom: 3rem;
+  }
 
-/* Strong CTA selector (preferred if your markup uses .btn or .btn-primary) */
-.pricing-card .btn,
-.plan-card .btn,
-.tier-card .btn,
-.pricing-card .btn-primary,
-.plan-card .btn-primary,
-.tier-card .btn-primary,
-.pricing-card .cta-btn,
-.plan-card .cta-btn,
-.tier-card .cta-btn {
-  margin-top: auto;              /* pushes button to bottom */
-  width: 100%;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  gap: 0.5rem;
+  .toggle-btn {
+    padding: 0.75rem 1.5rem;
+    border: none;
+    border-radius: 8px;
+    background: transparent;
+    color: var(--text-secondary);
+    cursor: pointer;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    text-decoration: none;
+  }
 
-  padding: 0.9rem 1rem;
-  border-radius: 14px;
-  font-weight: 800;
-  text-decoration: none;
-  cursor: pointer;
+  .toggle-btn.active {
+    background: var(--primary);
+    color: white;
+  }
+  /* END HERO SECTION */
 
-  color: #fff;
-  background: var(--gradient-primary);
-  border: 1px solid var(--border-medium);
-  box-shadow: var(--shadow-sm);
-  transition: transform 0.15s ease, box-shadow 0.15s ease, opacity 0.15s ease;
-}
 
-.pricing-card .btn:hover,
-.plan-card .btn:hover,
-.tier-card .btn:hover,
-.pricing-card .btn-primary:hover,
-.plan-card .btn-primary:hover,
-.tier-card .btn-primary:hover,
-.pricing-card .cta-btn:hover,
-.plan-card .cta-btn:hover,
-.tier-card .cta-btn:hover {
-  transform: translateY(-1px);
-  box-shadow: var(--shadow-md);
-  opacity: 0.98;
-}
+  /* ================================
+     PRICING CARDS
+     ================================ */
+  .pricing-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 2rem;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 2rem;
+  }
 
-/* Secondary CTA (if you have a "Learn more" type link) */
-.pricing-card .btn-secondary,
-.plan-card .btn-secondary,
-.tier-card .btn-secondary {
-  background: transparent;
-  color: var(--text);
-  border: 1px solid var(--border-medium);
-}
+  .price-card {
+    background: var(--darker);
+    border: 2px solid var(--border);
+    border-radius: 16px;
+    padding: 2rem;
+    transition: all 0.3s ease;
+    position: relative;
 
-        /* PRICING CARDS */
-        .pricing-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 2rem;
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 2rem;
-        }
-        
-        .price-card {
-            background: var(--darker);
-            border: 2px solid var(--border);
-            border-radius: 16px;
-            padding: 2rem;
-            transition: all 0.3s ease;
-            position: relative;
-        }
-        
-        .price-card:hover {
-            transform: translateY(-8px);
-            border-color: var(--primary);
-        }
-        
-        .price-card.featured {
-            border-color: var(--primary);
-            transform: scale(1.05);
-        }
-        
-        .badge {
-            position: absolute;
-            top: -12px;
-            left: 50%;
-            transform: translateX(-50%);
-            background: var(--primary);
-            color: white;
-            padding: 0.25rem 1rem;
-            border-radius: 20px;
-            font-size: 0.875rem;
-            font-weight: 700;
-        }
-        
-        .plan-name {
-            font-size: 1.5rem;
-            font-weight: 700;
-            color: var(--text);
-            margin-bottom: 0.5rem;
-        }
-        
-        .plan-price {
-            font-size: 3rem;
-            font-weight: 800;
-            color: var(--primary);
-            margin: 1rem 0;
-        }
-        
-        .plan-price span {
-            font-size: 1rem;
-            color: var(--text-secondary);
-            font-weight: 400;
-        }
-        
-        .plan-description {
-            color: var(--text-secondary);
-            margin-bottom: 2rem;
-            min-height: 3rem;
-        }
-        
-        .features-list {
-            list-style: none;
-            margin: 2rem 0;
-        }
-        
-        .features-list li {
-            padding: 0.75rem 0;
-            color: var(--text);
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-        }
-        
-        .features-list li::before {
-            content: '✓';
-            color: var(--secondary);
-            font-weight: bold;
-            font-size: 1.25rem;
-        }
-        
-      
-        
-        /* COMPARISON TABLE */
-        .comparison-section {
-            max-width: 1200px;
-            margin: 4rem auto;
-            padding: 2rem;
-        }
-        
-        .section-title {
-            text-align: center;
-            font-size: 2rem;
-            font-weight: 700;
-            color: var(--text);
-            margin-bottom: 2rem;
-        }
-        
-        .comparison-table {
-            background: var(--darker);
-            border: 2px solid var(--border);
-            border-radius: 16px;
-            overflow: hidden;
-        }
-        
-        .comparison-table table {
-            width: 100%;
-            border-collapse: collapse;
-        }
-        
-        .comparison-table th,
-        .comparison-table td {
-            padding: 1rem;
-            text-align: left;
-            border-bottom: 1px solid var(--border);
-        }
-        
-        .comparison-table th {
-            background: var(--dark);
-            color: var(--primary);
-            font-weight: 600;
-        }
-        
-        .comparison-table td {
-            color: var(--text);
-        }
-        
-        .checkmark {
-            color: var(--secondary);
-            font-weight: bold;
-        }
-        /* END COMPARISON TABLE */
-        
-        /* CTA SECTION */
-        .cta-section {
-            text-align: center;
-            padding: 4rem 2rem;
-            max-width: 800px;
-            margin: 0 auto;
-        }
+    /* ✅ Fix: make the card a flex column so the button can sit at the bottom */
+    display: flex;
+    flex-direction: column;
+  }
 
-           margin-top: auto;
-        padding-top: 1.5rem;
-    }
-        
-        .cta-card {
-            background: var(--darker);
-            border: 2px solid var(--primary);
-            border-radius: 16px;
-            padding: 3rem;
-        }
-        
-        .cta-title {
-            font-size: 2rem;
-            font-weight: 700;
-            color: var(--text);
-            margin-bottom: 1rem;
-        }
-        
-        .cta-text {
-            color: var(--text-secondary);
-            margin-bottom: 2rem;
-            font-size: 1.1rem;
-        }
-        
-        .cta-link {
-            display: inline-block;
-            padding: 1rem 2rem;
-            background: transparent;
-            border: 2px solid var(--primary);
-            border-radius: 8px;
-            color: var(--primary);
-            text-decoration: none;
-            font-weight: 600;
-            transition: all 0.3s ease;
-        }
-        
-        .cta-link:hover {
-            background: var(--primary);
-            color: white;
-        }
-        /* END CTA SECTION */
-        
-     
-    </style>
+  .price-card:hover {
+    transform: translateY(-8px);
+    border-color: var(--primary);
+  }
+
+  .price-card.featured {
+    border-color: var(--primary);
+    transform: scale(1.05);
+  }
+
+  .badge {
+    position: absolute;
+    top: -12px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: var(--primary);
+    color: white;
+    padding: 0.25rem 1rem;
+    border-radius: 20px;
+    font-size: 0.875rem;
+    font-weight: 700;
+  }
+
+  .plan-name {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--text);
+    margin-bottom: 0.5rem;
+  }
+
+  .plan-price {
+    font-size: 3rem;
+    font-weight: 800;
+    color: var(--primary);
+    margin: 1rem 0;
+  }
+
+  .plan-price span {
+    font-size: 1rem;
+    color: var(--text-secondary);
+    font-weight: 400;
+  }
+
+  .plan-description {
+    color: var(--text-secondary);
+    margin-bottom: 2rem;
+    min-height: 3rem;
+  }
+
+  .features-list {
+    list-style: none;
+    margin: 2rem 0;
+
+    /* ✅ Gives the list room so CTA can anchor at bottom */
+    flex: 1;
+  }
+
+  .features-list li {
+    padding: 0.75rem 0;
+    color: var(--text);
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  .features-list li::before {
+    content: '✓';
+    color: var(--secondary);
+    font-weight: bold;
+    font-size: 1.25rem;
+  }
+
+
+  /* ================================
+     CTA BUTTON FIX (Pricing Page)
+     - makes buttons obvious
+     - pins button to bottom of card
+     ================================ */
+  .price-card .btn {
+    margin-top: auto;       /* ✅ push CTA to bottom */
+    width: 100%;            /* ✅ full-width CTA */
+  }
+
+  .price-card .btn.btn-primary {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+
+    padding: 0.95rem 1rem;
+    border-radius: 14px;
+    font-weight: 800;
+    letter-spacing: 0.2px;
+
+    color: #fff;
+    background: var(--gradient-primary);
+    border: 1px solid var(--border-medium);
+    box-shadow: var(--shadow-sm);
+
+    cursor: pointer;
+    text-decoration: none;
+    transition: transform 0.15s ease, box-shadow 0.15s ease, opacity 0.15s ease;
+  }
+
+  .price-card .btn.btn-primary:hover {
+    transform: translateY(-1px);
+    box-shadow: var(--shadow-md);
+    opacity: 0.98;
+  }
+
+  .price-card .btn.btn-primary:active {
+    transform: translateY(0px);
+    box-shadow: var(--shadow-sm);
+  }
+
+
+  /* ================================
+     COMPARISON TABLE
+     ================================ */
+  .comparison-section {
+    max-width: 1200px;
+    margin: 4rem auto;
+    padding: 2rem;
+  }
+
+  .section-title {
+    text-align: center;
+    font-size: 2rem;
+    font-weight: 700;
+    color: var(--text);
+    margin-bottom: 2rem;
+  }
+
+  .comparison-table {
+    background: var(--darker);
+    border: 2px solid var(--border);
+    border-radius: 16px;
+    overflow: hidden;
+  }
+
+  .comparison-table table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+
+  .comparison-table th,
+  .comparison-table td {
+    padding: 1rem;
+    text-align: left;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .comparison-table th {
+    background: var(--dark);
+    color: var(--primary);
+    font-weight: 600;
+  }
+
+  .comparison-table td {
+    color: var(--text);
+  }
+
+  .checkmark {
+    color: var(--secondary);
+    font-weight: bold;
+  }
+  /* END COMPARISON TABLE */
+
+
+  /* ================================
+     CTA SECTION
+     ================================ */
+  .cta-section {
+    text-align: center;
+    padding: 4rem 2rem;
+    max-width: 800px;
+    margin: 0 auto;
+  }
+
+  .cta-card {
+    background: var(--darker);
+    border: 2px solid var(--primary);
+    border-radius: 16px;
+    padding: 3rem;
+  }
+
+  .cta-title {
+    font-size: 2rem;
+    font-weight: 700;
+    color: var(--text);
+    margin-bottom: 1rem;
+  }
+
+  .cta-text {
+    color: var(--text-secondary);
+    margin-bottom: 2rem;
+    font-size: 1.1rem;
+  }
+
+  .cta-link {
+    display: inline-block;
+    padding: 1rem 2rem;
+    background: transparent;
+    border: 2px solid var(--primary);
+    border-radius: 8px;
+    color: var(--primary);
+    text-decoration: none;
+    font-weight: 600;
+    transition: all 0.3s ease;
+  }
+
+  .cta-link:hover {
+    background: var(--primary);
+    color: white;
+  }
+  /* END CTA SECTION */
+</style>
+
 </head>
 <body>
 <!-- Header -->

@@ -1533,6 +1533,18 @@
     function showAuthModal(destination, signup = false) {
         authDestination = destination;
         isSignupMode = signup;
+
+                // ----------------------------
+        // GA4: Auth modal opened
+        try {
+            if (typeof gtag === 'function') {
+                gtag('event', 'auth_modal_open', {
+                    destination: destination || '',
+                    mode: signup ? 'signup' : 'login'
+                });
+            }
+        } catch (e) {}
+
         
         const modal = document.getElementById('auth-modal');
         const title = document.getElementById('auth-title');
@@ -1594,6 +1606,17 @@
         
         submitBtn.disabled = true;
         submitBtn.textContent = 'Processing...';
+
+                // ----------------------------
+        // GA4: Auth attempt
+        try {
+            if (typeof gtag === 'function') {
+                gtag('event', isSignupMode ? 'sign_up_attempt' : 'login_attempt', {
+                    destination: authDestination || ''
+                });
+            }
+        } catch (e) {}
+
         
         try {
             const endpoint = isSignupMode ? '/user/register' : '/user/login';
@@ -1631,6 +1654,17 @@
             
             // Save token
             localStorage.setItem('authToken', data.token);
+
+                        // ----------------------------
+            // GA4: Auth success
+            try {
+                if (typeof gtag === 'function') {
+                    gtag('event', isSignupMode ? 'sign_up_success' : 'login_success', {
+                        destination: authDestination || ''
+                    });
+                }
+            } catch (e) {}
+
             
             // Small delay to ensure storage completes
             setTimeout(() => {
@@ -1639,6 +1673,19 @@
             
         } catch (error) {
             console.error('Auth error:', error);
+
+                        // ----------------------------
+            // GA4: Auth failure
+            try {
+                if (typeof gtag === 'function') {
+                    gtag('event', 'auth_error', {
+                        mode: isSignupMode ? 'signup' : 'login',
+                        message: (error && error.message) ? String(error.message).slice(0, 120) : 'unknown'
+                    });
+                }
+            } catch (e) {}
+
+            
             errorDiv.textContent = error.message || 'Authentication failed. Please try again.';
             errorDiv.classList.add('show');
             submitBtn.disabled = false;
@@ -1695,6 +1742,58 @@
             if (element) {
                 element.addEventListener('input', updateROICalculator);
             }
+
+                    // ----------------------------
+        // GA4: CTA click tracking (index.html)
+
+        function trackCta(eventName, params) {
+            try {
+                if (typeof gtag === 'function') gtag('event', eventName, params || {});
+            } catch (e) {}
+        }
+
+        // Track buttons that open auth modal (they all call showAuthModal)
+        document.querySelectorAll('button[onclick*="showAuthModal"]').forEach(btn => {
+            btn.addEventListener('click', () => {
+                const onclick = btn.getAttribute('onclick') || '';
+                // Extract destination if possible: showAuthModal('/packs.html', false)
+                const match = onclick.match(/showAuthModal\('([^']+)'/);
+                const destination = match ? match[1] : '';
+
+                trackCta('cta_click', {
+                    cta_text: (btn.textContent || '').trim().slice(0, 60),
+                    destination: destination,
+                    location: 'index_hero'
+                });
+            }, { passive: true });
+        });
+
+        // Track key link clicks (pricing/store/portal/etc.)
+        document.querySelectorAll('a[href]').forEach(a => {
+            a.addEventListener('click', () => {
+                const href = a.getAttribute('href') || '';
+                const text = (a.textContent || '').trim().slice(0, 60);
+
+                // Chrome Web Store install clicks
+                if (href.includes('chromewebstore.google.com')) {
+                    trackCta('cws_install_click', { link_text: text, href });
+                    return;
+                }
+
+                // Internal nav CTAs you care about
+                if (
+                    href.includes('/pricing.html') ||
+                    href.includes('/store.html') ||
+                    href.includes('/packs.html') ||
+                    href.includes('/portal.html') ||
+                    href.includes('/install-extension.html')
+                ) {
+                    trackCta('nav_click', { link_text: text, href });
+                }
+            }, { passive: true });
+        });
+
+            
         });
         
         // Initial calculation

@@ -584,6 +584,24 @@
         document.getElementById('mobileNav').classList.toggle('show');
     }
         const API_BASE = 'https://dmtools-backend-production.up.railway.app/api';
+
+        // ----------------------------
+// GA4 helpers (safe wrappers)
+function gaEvent(name, params) {
+  try {
+    if (typeof gtag === 'function') gtag('event', name, params || {});
+  } catch (e) {}
+}
+
+// Current displayed monthly prices on this page (used for GA value)
+// (Only monthly is shown in UI right now)
+const SUB_PRICE_USD = {
+  starter: 19,
+  pro: 59,
+  business: 149,
+  enterprise: 399
+};
+
         
         // Product Checkout UUIDs (from Lemon Squeezy)
         const SUBSCRIPTION_PRODUCTS = {
@@ -673,12 +691,28 @@
                 console.log('Plan:', plan, 'Interval:', interval, 'Variant:', variantId);
                 
                 // Track analytics
-                if (typeof gtag !== 'undefined') {
-                    gtag('event', 'begin_checkout', {
-                        plan_name: plan,
-                        interval: interval,
-                        currency: 'USD'
-                    });
+              // ----------------------------
+// GA4: begin_checkout (subscription)
+const planKey = String(plan || '').toLowerCase();
+const price = (interval === 'monthly') ? (SUB_PRICE_USD[planKey] || 0) : 0;
+
+// If interval is not monthly, we still fire the event but value may be unknown here.
+gaEvent('begin_checkout', {
+  currency: 'USD',
+  value: price || undefined,
+  items: [{
+    item_name: `${plan} Subscription`,
+    item_id: `sub_${planKey}_${interval}`,
+    item_category: 'subscription',
+    price: price || undefined,
+    quantity: 1
+  }],
+  plan_name: plan,
+  interval: interval,
+  variant_id: variantId,
+  user_id: userId
+});
+
                 }
                 
                 // Open checkout - try overlay first, fallback to new tab
@@ -722,6 +756,12 @@ function showPricingView(view) {
     btnSubs.classList.add('active');
     subs.scrollIntoView({ behavior: 'smooth', block: 'start' });
   }
+
+  // GA4: pricing view switch
+  if (typeof gtag === 'function') {
+    gtag('event', 'pricing_view_switch', { view: view });
+  }
+
 }
 
 // =============================================

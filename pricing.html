@@ -593,6 +593,79 @@ function gaEvent(name, params) {
   } catch (e) {}
 }
 
+        // ----------------------------
+// GA4: LemonSqueezy Checkout.Success => purchase
+(function initLemonGaPurchaseTracker() {
+  if (window.__dm_ls_ga_purchase_init) return;
+  window.__dm_ls_ga_purchase_init = true;
+
+  function getOrderField(order, key) {
+    if (!order) return undefined;
+    if (order[key] != null) return order[key];
+    if (order.data && order.data.attributes && order.data.attributes[key] != null) return order.data.attributes[key];
+    if (order.attributes && order.attributes[key] != null) return order.attributes[key];
+    return undefined;
+  }
+
+  function wasOrderSeen(id) {
+    try { return sessionStorage.getItem('dm_last_order_id') === String(id || ''); } catch (_) { return false; }
+  }
+
+  function markOrderSeen(id) {
+    try { sessionStorage.setItem('dm_last_order_id', String(id || '')); } catch (_) {}
+  }
+
+  function readCheckoutContext() {
+    try {
+      const raw = sessionStorage.getItem('dm_last_checkout');
+      return raw ? JSON.parse(raw) : null;
+    } catch (_) { return null; }
+  }
+
+  function firePurchase(order) {
+    if (typeof gtag !== 'function') return;
+
+    const identifier =
+      getOrderField(order, 'identifier') ||
+      getOrderField(order, 'order_number') ||
+      getOrderField(order, 'id');
+
+    if (!identifier || wasOrderSeen(identifier)) return;
+
+    const currency = getOrderField(order, 'currency') || 'USD';
+    const totalCents = getOrderField(order, 'total');
+
+    const ctx = readCheckoutContext() || {};
+    const value = (typeof totalCents === 'number') ? (totalCents / 100) : ctx.value;
+
+    gtag('event', 'purchase', {
+      transaction_id: String(identifier),
+      currency: currency,
+      value: value,
+      items: ctx.items
+    });
+
+    markOrderSeen(identifier);
+  }
+
+  function setupWhenReady() {
+    if (window.LemonSqueezy && typeof window.LemonSqueezy.Setup === 'function') {
+      window.LemonSqueezy.Setup({
+        eventHandler: (evt) => {
+          if (evt && evt.event === 'Checkout.Success') {
+            firePurchase(evt.data);
+          }
+        }
+      });
+      return;
+    }
+    setTimeout(setupWhenReady, 250);
+  }
+
+  setupWhenReady();
+})();
+
+
 // Current displayed monthly prices on this page (used for GA value)
 // (Only monthly is shown in UI right now)
 const SUB_PRICE_USD = {
@@ -713,8 +786,31 @@ gaEvent('begin_checkout', {
   user_id: userId
 });
 
-                }
                 
+                // ----------------------------
+// GA4: store checkout context for purchase event
+try {
+  const planKey = String(plan || '').toLowerCase();
+  const price = (interval === 'monthly') ? (SUB_PRICE_USD[planKey] || 0) : 0;
+
+  sessionStorage.setItem('dm_last_checkout', JSON.stringify({
+    item_name: `${plan} Subscription`,
+    item_id: `sub_${planKey}_${interval}`,
+    item_category: 'subscription',
+    value: price || undefined,
+    price: price || undefined,
+    items: [{
+      item_name: `${plan} Subscription`,
+      item_id: `sub_${planKey}_${interval}`,
+      item_category: 'subscription',
+      price: price || undefined,
+      quantity: 1
+    }]
+  }));
+} catch (e) {}
+
+            
+
                 // Open checkout - try overlay first, fallback to new tab
                 if (window.LemonSqueezy && window.LemonSqueezy.Url) {
                     window.LemonSqueezy.Url.Open(checkoutUrl);
@@ -731,38 +827,38 @@ gaEvent('begin_checkout', {
         // =============================================
 // UNIFIED PAGE VIEW TOGGLE (Subs <-> Packs)
 // =============================================
-function showPricingView(view) {
-  const subs = document.getElementById('subsSection');
-  const packs = document.getElementById('packsSection');
-  const packsHero = document.getElementById('packsHero');
+    function showPricingView(view) {
+      const subs = document.getElementById('subsSection');
+      const packs = document.getElementById('packsSection');
+      const packsHero = document.getElementById('packsHero');
 
-  const btnSubs = document.getElementById('btnShowSubs');
-  const btnPacks = document.getElementById('btnShowPacks');
+      const btnSubs = document.getElementById('btnShowSubs');
+      const btnPacks = document.getElementById('btnShowPacks');
 
-  if (!subs || !packs || !btnSubs || !btnPacks) return;
+      if (!subs || !packs || !btnSubs || !btnPacks) return;
 
-  if (view === 'packs') {
-    subs.style.display = 'none';
-    packs.style.display = '';
-    if (packsHero) packsHero.style.display = '';
-    btnSubs.classList.remove('active');
-    btnPacks.classList.add('active');
-    packs.scrollIntoView({ behavior: 'smooth', block: 'start' });
-  } else {
-    subs.style.display = '';
-    packs.style.display = 'none';
-    if (packsHero) packsHero.style.display = 'none';
-    btnPacks.classList.remove('active');
-    btnSubs.classList.add('active');
-    subs.scrollIntoView({ behavior: 'smooth', block: 'start' });
-  }
+      if (view === 'packs') {
+        subs.style.display = 'none';
+        packs.style.display = '';
+        if (packsHero) packsHero.style.display = '';
+        btnSubs.classList.remove('active');
+        btnPacks.classList.add('active');
+        packs.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      } else {
+        subs.style.display = '';
+        packs.style.display = 'none';
+        if (packsHero) packsHero.style.display = 'none';
+        btnPacks.classList.remove('active');
+        btnSubs.classList.add('active');
+        subs.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
 
   // GA4: pricing view switch
-  if (typeof gtag === 'function') {
-    gtag('event', 'pricing_view_switch', { view: view });
-  }
+      if (typeof gtag === 'function') {
+        gtag('event', 'pricing_view_switch', { view: view });
+      }
 
-}
+      }
 
 // =============================================
 // RESPONSE PACKS CHECKOUT (ported from store.html)
@@ -770,103 +866,127 @@ function showPricingView(view) {
 // =============================================
 
 // Response Packs Product UUID (single product with variants)
-const PACKS_PRODUCT_UUID = '65aa1de7-1f4f-4864-a7fd-ea37fc378103';
+    const PACKS_PRODUCT_UUID = '65aa1de7-1f4f-4864-a7fd-ea37fc378103';
 
 // IMPORTANT:
 // If you keep the same Lemon variants, leave these IDs.
 // Backend can grant the NEW response amounts based on pack name.
-const PACK_VARIANTS = {
-  starter: '1097731',   // $9.99
-  pro: '1097732',       // $16.99
-  business: '1098385'   // $34.99
-  // elite removed
-};
+    const PACK_VARIANTS = {
+      starter: '1097731',   // $9.99
+      pro: '1097732',       // $16.99
+      business: '1098385'   // $34.99
+    // elite removed
+  };
 
-const PACK_DETAILS = {
-  starter: { responses: 500, price: 9.99, name: 'Starter Pack' },
-  pro: { responses: 2000, price: 16.99, name: 'Pro Pack' },
-  business: { responses: 8000, price: 34.99, name: 'Business Pack' }
-};
+    const PACK_DETAILS = {
+      starter: { responses: 500, price: 9.99, name: 'Starter Pack' },
+      pro: { responses: 2000, price: 16.99, name: 'Pro Pack' },
+      business: { responses: 8000, price: 34.99, name: 'Business Pack' }
+    };
+ 
+    function handlePackPurchase(packName) {
+      const key = String(packName || '').toLowerCase();
+      const variantId = PACK_VARIANTS[key];
+      const packInfo = PACK_DETAILS[key];
 
-function handlePackPurchase(packName) {
-  const key = String(packName || '').toLowerCase();
-  const variantId = PACK_VARIANTS[key];
-  const packInfo = PACK_DETAILS[key];
-
-  if (!variantId || !packInfo) {
-    alert('Invalid pack selected. Please try again.');
-    console.error('Invalid pack:', packName);
-    return;
+      if (!variantId || !packInfo) {
+        alert('Invalid pack selected. Please try again.');
+        console.error('Invalid pack:', packName);
+        return;
   }
 
-  const token = localStorage.getItem('authToken');
-  if (!token) {
-    alert('Please sign in to purchase response packs');
-    localStorage.setItem('pendingPackPurchase', key);
+      const token = localStorage.getItem('authToken');
+      if (!token) {
+        alert('Please sign in to purchase response packs');
+        localStorage.setItem('pendingPackPurchase', key);
     // Keep user on this page; after login they can come back here
-    window.location.href = '/login.html?redirect=pricing';
-    return;
-  }
+        window.location.href = '/login.html?redirect=pricing';
+        return;
+      }
 
-  try {
-    const tokenParts = token.split('.');
-    const payload = JSON.parse(atob(tokenParts[1]));
-    const userId = payload.id || payload.userId;
-    const userEmail = payload.email || '';
+      try {
+        const tokenParts = token.split('.');
+        const payload = JSON.parse(atob(tokenParts[1]));
+        const userId = payload.id || payload.userId;
+        const userEmail = payload.email || '';
 
-    if (!userId) {
-      alert('Session expired. Please log in again.');
-      localStorage.removeItem('authToken');
-      window.location.href = '/login.html';
-      return;
-    }
+        if (!userId) {
+          alert('Session expired. Please log in again.');
+          localStorage.removeItem('authToken');
+          window.location.href = '/login.html';
+          return;
+        }
 
-    let checkoutUrl = `https://dmtoolsfun-llc.lemonsqueezy.com/buy/${PACKS_PRODUCT_UUID}`;
-    checkoutUrl += `?checkout[custom][user_id]=${userId}`;
-    checkoutUrl += `&checkout[variant]=${variantId}`;
+        let checkoutUrl = `https://dmtoolsfun-llc.lemonsqueezy.com/buy/${PACKS_PRODUCT_UUID}`;
+        checkoutUrl += `?checkout[custom][user_id]=${userId}`;
+        checkoutUrl += `&checkout[variant]=${variantId}`;
 
-    if (userEmail) {
-      checkoutUrl += `&checkout[email]=${encodeURIComponent(userEmail)}`;
-    }
+        if (userEmail) {
+          checkoutUrl += `&checkout[email]=${encodeURIComponent(userEmail)}`;
+        }
 
-    // Optional tracking (GA4)
-    if (typeof gtag !== 'undefined') {
+      // Optional tracking (GA4)
+    if (typeof gtag === 'function') {
       gtag('event', 'begin_checkout', {
-        pack_name: packInfo.name,
-        value: packInfo.price,
         currency: 'USD',
+        value: packInfo.price,
+        pack_name: packInfo.name,
+        pack_key: key,
         items: [{
           item_name: packInfo.name,
-          quantity: 1,
-          price: packInfo.price
+          item_id: `pack_${key}`,
+          item_category: 'pack',
+          price: packInfo.price,
+          quantity: 1
         }]
       });
     }
 
-    if (window.LemonSqueezy && window.LemonSqueezy.Url) {
-      window.LemonSqueezy.Url.Open(checkoutUrl);
-    } else {
-      window.open(checkoutUrl, '_blank');
+      // -----------------------------------------------------
+      // GA4: store checkout context for purchase event (pack)
+      // -----------------------------------------------------
+        try {
+          sessionStorage.setItem('dm_last_checkout', JSON.stringify({
+            item_name: packInfo.name,
+            item_id: `pack_${key}`,
+            item_category: 'pack',
+            value: packInfo.price,
+            price: packInfo.price,
+            items: [{
+              item_name: packInfo.name,
+              item_id: `pack_${key}`,
+              item_category: 'pack',
+              price: packInfo.price,
+              quantity: 1
+            }]
+          }));
+      } catch (e) {}
+
+
+        if (window.LemonSqueezy && window.LemonSqueezy.Url) {
+          window.LemonSqueezy.Url.Open(checkoutUrl);
+        } else {
+          window.open(checkoutUrl, '_blank');
+      }
+        } catch (error) {
+          console.error('Pack checkout error:', error);
+          alert('Error starting checkout. Please try again.');
+      }
     }
-  } catch (error) {
-    console.error('Pack checkout error:', error);
-    alert('Error starting checkout. Please try again.');
-  }
-}
 
-function checkPendingPackPurchase() {
-  const pending = localStorage.getItem('pendingPackPurchase');
-  if (!pending) return;
+        function checkPendingPackPurchase() {
+          const pending = localStorage.getItem('pendingPackPurchase');
+          if (!pending) return;
 
-  localStorage.removeItem('pendingPackPurchase');
+          localStorage.removeItem('pendingPackPurchase');
   // show packs view and trigger purchase
-  showPricingView('packs');
+          showPricingView('packs');
 
-  const packInfo = PACK_DETAILS[pending];
-  if (packInfo) {
-    setTimeout(() => handlePackPurchase(pending), 500);
-  }
-}
+        const packInfo = PACK_DETAILS[pending];
+        if (packInfo) {
+          setTimeout(() => handlePackPurchase(pending), 500);
+      }
+    }
 
         // Check for pending purchase after login
         function checkPendingPurchase() {

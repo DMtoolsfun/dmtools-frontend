@@ -467,6 +467,25 @@
 
 <section class="pricing-grid" id="packsSection" style="display:none;">
 
+    <!-- Founder Special Pack -->
+<div class="price-card founder">
+  <div class="badge">🔥 Founder Special</div>
+  <div class="plan-name">First Users Pack</div>
+  <div class="plan-price">$3.99</div>
+  <div class="plan-description">Founders special price for early adopters</div>
+
+  <ul class="features-list">
+    <li>300 responses</li>
+    <li>Responses roll over</li>
+    <li>Expires 6 months after activation</li>
+  </ul>
+
+  <button class="btn btn-primary" onclick="handlePackPurchase('founder')">
+    Buy First Users Pack
+  </button>
+</div>
+
+
   <!-- Starter Pack -->
   <div class="price-card">
     <div class="plan-name">Starter Pack</div>
@@ -521,22 +540,6 @@
 
 </section>
     <!-- END PACKS SECTION -->
-    <!-- CTA SECTION -->
-    <section class="cta-section">
-        <div class="cta-card">
-            <h2 class="cta-title">🖱️ Just Need THE-RIGHT-CLICK Extension?</h2>
-            <p class="cta-text">
-                No monthly commitment? Buy response packs instead.<br>
-                <em>"Two right-clicks can't go wrong™"</em><br>
-                Packs from $9.99 for 500 responses.
-                </p>
-           <a href="javascript:void(0)" class="cta-link" onclick="showPricingView('packs')">View Response Packs →</a>
-
-        </div>
-    </section>
-    <!-- END CTA SECTION -->
-    
-
    <!-- Footer -->
 <footer class="footer">
     <div class="container">
@@ -794,7 +797,7 @@ gaEvent('begin_checkout', {
 });
 
                 
-                // ----------------------------
+// ----------------------------
 // GA4: store checkout context for purchase event
 try {
   const planKey = String(plan || '').toLowerCase();
@@ -831,7 +834,7 @@ try {
             }
         }
 
-        // =============================================
+// =============================================
 // UNIFIED PAGE VIEW TOGGLE (Subs <-> Packs)
 // =============================================
     function showPricingView(view) {
@@ -881,14 +884,15 @@ try {
     const PACK_VARIANTS = {
       starter: '1097731',   // $9.99
       pro: '1097732',       // $16.99
-      business: '1098385'   // $34.99
-    // elite removed
+      business: '1098385',   // $34.99
+      founder: '1111840'    // $3.99
   };
 
     const PACK_DETAILS = {
       starter: { responses: 500, price: 9.99, name: 'Starter Pack' },
       pro: { responses: 2000, price: 16.99, name: 'Pro Pack' },
-      business: { responses: 8000, price: 34.99, name: 'Business Pack' }
+      business: { responses: 8000, price: 34.99, name: 'Business Pack' },
+        founder: { responses: 300, price: 3.99 , name: 'first users pack' }
     };
  
     function handlePackPurchase(packName) {

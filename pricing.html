@@ -1093,6 +1093,16 @@ async function updateAuthSection() {
   updateAuthSection();
 });
 
+        // ----------------------------
+// Make sure inline onclick handlers can always find these
+try {
+  window.toggleMobileMenu = toggleMobileMenu;
+  window.handleSubscriptionPurchase = handleSubscriptionPurchase;
+  window.showPricingView = showPricingView;
+  window.handlePackPurchase = handlePackPurchase;
+} catch (e) {}
+
+
             
          
     </script>

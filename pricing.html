@@ -716,123 +716,137 @@ const SUB_PRICE_USD = {
         };
         
         /**
-         * Handle subscription purchase - WORKING CHECKOUT
-         */
-        function handleSubscriptionPurchase(plan, interval) {
-            const productUUID = SUBSCRIPTION_PRODUCTS[plan.toLowerCase()];
-            const variantKey = `${plan.toLowerCase()}_${interval.toLowerCase()}`;
-            const variantId = SUBSCRIPTION_VARIANTS[variantKey];
-            
-            // Validate
-            if (!productUUID) {
-                alert('Invalid plan selected. Please try again.');
-                console.error('Invalid plan:', plan);
-                return;
-            }
-            
-            if (!variantId) {
-                alert(`${interval} billing is not available for ${plan} plan.`);
-                console.error('Invalid variant:', variantKey);
-                return;
-            }
-            
-            // Check if user is logged in
-            const token = localStorage.getItem('authToken');
-            if (!token) {
-                // Save intended purchase for after login
-                localStorage.setItem('pendingPurchase', JSON.stringify({ plan, interval }));
-                alert('Please sign in to subscribe');
-                window.location.href = '/app.html?redirect=pricing';
-                return;
-            }
-            
-            try {
-                // Decode JWT to get user info
-                const tokenParts = token.split('.');
-                const payload = JSON.parse(atob(tokenParts[1]));
-                const userId = payload.id || payload.userId;
-                const userEmail = payload.email || '';
-                
-                if (!userId) {
-                    alert('Session expired. Please log in again.');
-                    localStorage.removeItem('authToken');
-                    window.location.href = '/app.html';
-                    return;
-                }
-                
-                // Build checkout URL with user_id for webhook tracking
-                let checkoutUrl = `https://dmtoolsfun-llc.lemonsqueezy.com/buy/${productUUID}`;
-                checkoutUrl += `?checkout[custom][user_id]=${userId}`;
-                checkoutUrl += `&checkout[variant]=${variantId}`;
-                
-                // Pre-fill email if available
-                if (userEmail) {
-                    checkoutUrl += `&checkout[email]=${encodeURIComponent(userEmail)}`;
-                }
-                
-                console.log('Opening checkout:', checkoutUrl);
-                console.log('Plan:', plan, 'Interval:', interval, 'Variant:', variantId);
-                
-                // Track analytics
-              // ----------------------------
-// GA4: begin_checkout (subscription)
-const planKey = String(plan || '').toLowerCase();
-const price = (interval === 'monthly') ? (SUB_PRICE_USD[planKey] || 0) : 0;
+        // ----------------------------
+// Guest checkout helper (email capture for webhook mapping)
+function promptCheckoutEmailOrNull() {
+  const raw = prompt('Enter your email to receive your receipt and to claim your responses after purchase:', '');
+  if (raw === null) return null; // user canceled
+  const email = String(raw).trim().toLowerCase();
+  const ok = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+  if (!ok) return null;
+  return email;
+}
 
-// If interval is not monthly, we still fire the event but value may be unknown here.
-gaEvent('begin_checkout', {
-  currency: 'USD',
-  value: price || undefined,
-  items: [{
-    item_name: `${plan} Subscription`,
-    item_id: `sub_${planKey}_${interval}`,
-    item_category: 'subscription',
-    price: price || undefined,
-    quantity: 1
-  }],
-  plan_name: plan,
-  interval: interval,
-  variant_id: variantId,
-  user_id: userId
-});
+/**
+ * Handle subscription purchase - GUEST CHECKOUT ENABLED
+ */
+function handleSubscriptionPurchase(plan, interval) {
+  const productUUID = SUBSCRIPTION_PRODUCTS[String(plan || '').toLowerCase()];
+  const variantKey = `${String(plan || '').toLowerCase()}_${String(interval || '').toLowerCase()}`;
+  const variantId = SUBSCRIPTION_VARIANTS[variantKey];
 
-                
-// ----------------------------
-// GA4: store checkout context for purchase event
-try {
+  // Validate
+  if (!productUUID) {
+    alert('Invalid plan selected. Please try again.');
+    console.error('Invalid plan:', plan);
+    return;
+  }
+  if (!variantId) {
+    alert(`${interval} billing is not available for ${plan} plan.`);
+    console.error('Invalid variant:', variantKey);
+    return;
+  }
+
+  const token = localStorage.getItem('authToken');
+
+  // If logged in -> use user_id + email from JWT
+  // If NOT logged in -> prompt for email and proceed anyway (no user_id)
+  let userId = null;
+  let checkoutEmail = '';
+
+  if (token) {
+    try {
+      const tokenParts = token.split('.');
+      const payload = JSON.parse(atob(tokenParts[1]));
+      userId = payload.id || payload.userId || null;
+      checkoutEmail = payload.email || '';
+      if (!userId) userId = null;
+    } catch (e) {
+      userId = null;
+      checkoutEmail = '';
+    }
+  }
+
+  if (!checkoutEmail) {
+    const guestEmail = promptCheckoutEmailOrNull();
+    if (!guestEmail) {
+      alert('Email is required to continue checkout.');
+      return;
+    }
+    checkoutEmail = guestEmail;
+
+    // Save so you can optionally prefill register later
+    try { localStorage.setItem('dm_guest_checkout_email', checkoutEmail); } catch (_) {}
+  }
+
+  // Build checkout URL
+  let checkoutUrl = `https://dmtoolsfun-llc.lemonsqueezy.com/buy/${productUUID}`;
+  const qp = [];
+
+  // Only include user_id when we actually have it
+  if (userId) qp.push(`checkout[custom][user_id]=${encodeURIComponent(userId)}`);
+
+  // Always include email (this is what enables “buy first, create account later”)
+  qp.push(`checkout[email]=${encodeURIComponent(checkoutEmail)}`);
+
+  // ALSO include email in custom fields so your webhook can read it consistently
+  qp.push(`checkout[custom][email]=${encodeURIComponent(checkoutEmail)}`);
+
+  // Variant
+  qp.push(`checkout[variant]=${encodeURIComponent(variantId)}`);
+
+  checkoutUrl += `?${qp.join('&')}`;
+
+  console.log('Opening subscription checkout:', checkoutUrl);
+
+  // ----------------------------
+  // GA4: begin_checkout (subscription)
   const planKey = String(plan || '').toLowerCase();
   const price = (interval === 'monthly') ? (SUB_PRICE_USD[planKey] || 0) : 0;
 
-  sessionStorage.setItem('dm_last_checkout', JSON.stringify({
-    item_name: `${plan} Subscription`,
-    item_id: `sub_${planKey}_${interval}`,
-    item_category: 'subscription',
+  gaEvent('begin_checkout', {
+    currency: 'USD',
     value: price || undefined,
-    price: price || undefined,
     items: [{
       item_name: `${plan} Subscription`,
       item_id: `sub_${planKey}_${interval}`,
       item_category: 'subscription',
       price: price || undefined,
       quantity: 1
-    }]
-  }));
-} catch (e) {}
+    }],
+    plan_name: plan,
+    interval: interval,
+    variant_id: variantId,
+    user_id: userId || undefined,
+    email: checkoutEmail || undefined
+  });
 
-            
+  // ----------------------------
+  // GA4: store checkout context for purchase event
+  try {
+    sessionStorage.setItem('dm_last_checkout', JSON.stringify({
+      item_name: `${plan} Subscription`,
+      item_id: `sub_${planKey}_${interval}`,
+      item_category: 'subscription',
+      value: price || undefined,
+      price: price || undefined,
+      items: [{
+        item_name: `${plan} Subscription`,
+        item_id: `sub_${planKey}_${interval}`,
+        item_category: 'subscription',
+        price: price || undefined,
+        quantity: 1
+      }]
+    }));
+  } catch (e) {}
 
-                // Open checkout - try overlay first, fallback to new tab
-                if (window.LemonSqueezy && window.LemonSqueezy.Url) {
-                    window.LemonSqueezy.Url.Open(checkoutUrl);
-                } else {
-                    window.open(checkoutUrl, '_blank');
-                }
-                
-            } catch (error) {
-                console.error('Checkout error:', error);
-                alert('Error starting checkout. Please try again.');
-            }
-        }
+  // Open checkout (overlay first, fallback to new tab)
+  if (window.LemonSqueezy && window.LemonSqueezy.Url) {
+    window.LemonSqueezy.Url.Open(checkoutUrl);
+  } else {
+    window.open(checkoutUrl, '_blank');
+  }
+}
 
 // =============================================
 // UNIFIED PAGE VIEW TOGGLE (Subs <-> Packs)

@@ -114,8 +114,8 @@ CONTENTS:
     
     /* Container Widths */
     --container-sm: 800px;
-    --container-md: 1150px;
-    --container-lg: 1350px;
+    --container-md: 1200px;
+    --container-lg: 1400px;
     --border: var(--border-medium);
     --darker: var(--bg-input);
     --dark: var(--bg-dark);
@@ -218,31 +218,31 @@ p {
 .container {
     max-width: var(--container-md);
     margin: 0 auto;
-    padding: 0 var(--spacing-lg);
+    padding: 0 var(--spacing-xl);
 }
 
 .container-sm {
     max-width: var(--container-sm);
     margin: 0 auto;
-    padding: 0 var(--spacing-lg);
+    padding: 0 var(--spacing-xl);
 }
 
 .container-lg {
-    max-width: var(--container-lg);
+    max-width: var(--container-xl);
     margin: 0 auto;
-    padding: 0 var(--spacing-lg);
+    padding: 0 var(--spacing-xl);
 }
 
 .main-content {
-    padding: var(--spacing-lg) 0;
+    padding: var(--spacing-xl) 0;
     min-height: calc(100vh - 200px);
 }
 
 /* Page Header */
 .page-header {
     text-align: center;
-    padding: var(--spacing-lg) 0;
-    margin-bottom: var(--spacing-lg);
+    padding: var(--spacing-xl) 0;
+    margin-bottom: var(--spacing-xl);
 }
 
 .page-title {
@@ -270,7 +270,7 @@ p {
 .pricing-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-    gap: var(--spacing-lg);
+    gap: var(--spacing-xl);
 }
 
 /* Each pricing card becomes a vertical flex container */
@@ -287,7 +287,7 @@ p {
 
 /* CTA area is pinned to the bottom */
 .pricing-card .pricing-cta {
-    margin-top: var(--spacing-lg);
+    margin-top: var(--spacing-xl);
     display: flex;
     flex-direction: column;
     gap: var(--spacing-sm);
@@ -314,7 +314,7 @@ p {
     align-items: center;
     max-width: var(--container-lg);
     margin: 0 auto;
-    padding: 0 var(--spacing-lg);
+    padding: 0 var(--spacing-xl);
 }
 
 /* Alias for pages using header-content */
@@ -405,7 +405,7 @@ p {
     display: none;
     flex-direction: column;
     gap: 0.25rem;
-    padding: var(--spacing-md) var(--spacing-lg);
+    padding: var(--spacing-md) var(--spacing-xl);
     max-width: var(--container-lg);
     margin: 0 auto;
 }
@@ -417,7 +417,7 @@ p {
 /* Nav Links (alternate style used on some pages) */
 .nav-links {
     display: flex;
-    gap: var(--spacing-lg);
+    gap: var(--spacing-xl);
     align-items: center;
 }
 
@@ -476,12 +476,12 @@ p {
    Decision Explainer
    ============================ */
 .pricing-explainer {
-  padding: var(--spacing-lg) 0 var(--spacing-md);
+  padding: var(--spacing-xl) 0 var(--spacing-lg);
 }
 
 .pricing-explainer__inner {
   border-radius: var(--radius-xl);
-  padding: var(--spacing-lg);
+  padding: var(--spacing-xl);
   position: relative;
 }
 
@@ -489,8 +489,8 @@ p {
   display: flex;
   align-items: flex-start;
   justify-content: space-between;
-  gap: var(--spacing-lg);
-  margin-bottom: var(--spacing-lg);
+  gap: var(--spacing-xl);
+  margin-bottom: var(--spacing-xl);
 }
 
 .pricing-explainer__title {
@@ -510,7 +510,7 @@ p {
   border: 1px solid var(--border-medium);
   background: rgba(15, 23, 42, 0.35);
   border-radius: var(--radius-lg);
-  padding: var(--spacing-md) var(--spacing-lg);
+  padding: var(--spacing-md) var(--spacing-xl);
   min-width: 170px;
   text-align: center;
 }
@@ -529,14 +529,14 @@ p {
 .pricing-explainer__grid {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: var(--spacing-lg);
+  gap: var(--spacing-xl);
 }
 
 .pricing-explainer__col {
   border: 1px solid var(--border-medium);
   background: rgba(30, 41, 59, 0.55);
   border-radius: var(--radius-xl);
-  padding: var(--spacing-lg);
+  padding: var(--spacing-xl);
   display: flex;
   flex-direction: column;
   min-height: 100%;
@@ -548,7 +548,7 @@ p {
 }
 
 .pricing-explainer__col-head {
-  margin-bottom: var(--spacing-lg);
+  margin-bottom: var(--spacing-xl);
 }
 
 .pricing-explainer__col-kicker {

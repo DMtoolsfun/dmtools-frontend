@@ -210,10 +210,10 @@
                 <p style="color: #9ca3af; margin-bottom: 2rem;">
                     Track your message response generation, usage patterns, and productivity insights.
                 </p>
-                <a href="/login.html" class="btn btn-primary">Sign In</a>
+                <a href="/login.html" data-auth="login" class="btn btn-primary">Sign In</a>
                 <div style="margin-top: 1rem;">
                     <p style="color: #9ca3af;">
-                        Don't have an account? <a href="/register.html" style="color: #8b5cf6; text-decoration: none;">Sign up free</a>
+                        Don't have an account? <a href="/register.html" data-auth="register" style="color: #8b5cf6; text-decoration: none;">Sign up free</a>
                     </p>
                 </div>
             </div>
@@ -579,5 +579,7 @@ function createRealCharts(dailyUsage, platformData, toneData) {
   <div id="auth-modal-root"></div>
 <script src="js/modal.js" defer></script>
 
+<script src="js/app-core.js"></script>
+<script src="js/auth-modal.js"></script>
 </body>
 </html>

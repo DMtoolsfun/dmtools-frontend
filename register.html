@@ -266,16 +266,14 @@
         </footer>
 
        <script src="/js/app-core.js"></script>
-<script src="/js/access.js"></script>
+       <script src="/js/access.js"></script>
+       <script src="/js/auth-modal.js"></script>
 <script>
- <script>
   // ===========================================================
   // Register Page Script (Phase 2)
   // Redirects successful register -> portal.html (or returnTo)
   //
-  // IMPORTANT:
-  // Backend /api/user/register does NOT return a token.
-  // So we register, then immediately log in to get the token.
+  // Backend /api/user/register returns a token (same shape as login).
   // ===========================================================
 
   const API_BASE = DMTOOLS.API_BASE; // optional compatibility
@@ -289,8 +287,12 @@
   document.getElementById('register-form').addEventListener('submit', async (e) => {
     e.preventDefault();
 
-    const firstName = document.getElementById('first-name').value.trim();
-    const lastName = document.getElementById('last-name').value.trim();
+    // Register page currently does not collect names.
+    // Keep these optional (backend accepts nulls).
+    const firstNameEl = document.getElementById('first-name');
+    const lastNameEl = document.getElementById('last-name');
+    const firstName = firstNameEl ? firstNameEl.value.trim() : '';
+    const lastName = lastNameEl ? lastNameEl.value.trim() : '';
     const email = document.getElementById('email').value.trim();
     const password = document.getElementById('password').value;
 
@@ -306,7 +308,7 @@
     registerBtn.innerHTML = 'Creating account...';
 
     try {
-      // 1) Register (no token returned by backend)
+      // Register
       const registerRes = await fetch(`${API_BASE}/user/register`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -324,22 +326,8 @@
         throw new Error(registerData?.error || registerData?.message || 'Registration failed');
       }
 
-      // 2) Immediately log in to get token (required for portal auth)
-      registerBtn.innerHTML = 'Signing in...';
-
-      const loginRes = await fetch(`${API_BASE}/user/login`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ email, password })
-      });
-
-      const loginData = await loginRes.json();
-
-      if (!loginRes.ok) {
-        throw new Error(loginData?.error || loginData?.message || 'Login after registration failed');
-      }
-
-      if (loginData?.token) DMTOOLS.setToken(loginData.token);
+      // Store token and continue
+      if (registerData?.token) DMTOOLS.setToken(registerData.token);
 
       successMsg.textContent = 'Account created. Redirecting...';
       successMsg.classList.add('show');
@@ -352,7 +340,7 @@
       errorMsg.classList.add('show');
 
       registerBtn.disabled = false;
-      registerBtn.innerHTML = 'Create Account';
+      registerBtn.innerHTML = 'Create Free Account';
     }
   });
 </script>

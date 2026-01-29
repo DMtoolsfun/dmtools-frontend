@@ -635,7 +635,7 @@
                     <p style="color: #9ca3af; margin-bottom: 2rem;">
                         Please sign in to access your account management page.
                     </p>
-                    <button class="btn btn-primary" onclick="showAuthModal(true)">Sign In</button>
+                    <button class="btn btn-primary" data-auth="login">Sign In</button>
                 </div>
             </div>
         </div>
@@ -1192,5 +1192,7 @@ function updatePlanDisplay() {
             window.location.href = '/';
         }
     </script>
+<script src="js/app-core.js"></script>
+<script src="js/auth-modal.js"></script>
 </body>
 </html>

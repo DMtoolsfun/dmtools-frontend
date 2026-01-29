@@ -251,7 +251,7 @@
       const token = getToken();
       if (!token) {
         const returnTo = encodeURIComponent('/portal.html');
-        window.location.href = `/login.html?returnTo=${returnTo}`;
+        if (window.DMTOOLS && typeof DMTOOLS.openAuthModal==='function') { DMTOOLS.openAuthModal('login', { returnTo }); } else { window.location.href = `/login.html?returnTo=${returnTo}`; }
         return false;
       }
       return true;
@@ -259,7 +259,7 @@
 
     function logout() {
       localStorage.removeItem(TOKEN_KEY);
-      window.location.href = '/login.html';
+      if (window.DMTOOLS && typeof DMTOOLS.openAuthModal==='function') { DMTOOLS.openAuthModal('login', { returnTo: window.location.pathname + window.location.search }); } else { window.location.href = '/login.html'; }
     }
 
     async function apiCall(path, opts = {}) {
@@ -375,5 +375,7 @@
       });
     })();
   </script>
+<script src="js/app-core.js"></script>
+<script src="js/auth-modal.js"></script>
 </body>
 </html>

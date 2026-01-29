@@ -560,9 +560,16 @@
     </footer>
 
   <script src="/js/app-core.js"></script>
-<script src="/js/access.js"></script>
+  <script src="/js/access.js"></script>
+  <script src="/js/auth-modal.js"></script>
 <script>
   // ===========================================================
+  // Mobile menu toggle (safe on pages that have #mobileNav)
+  function toggleMobileMenu() {
+    const nav = document.getElementById('mobileNav');
+    if (nav) nav.classList.toggle('show');
+  }
+
   // Login Page Script (Phase 2)
   // Redirects successful login -> portal.html (or returnTo)
   // ===========================================================

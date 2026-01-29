@@ -510,8 +510,8 @@
             <button class="mobile-menu-btn" onclick="toggleMobileMenu()" aria-label="Menu">☰</button>
             
             <div id="auth-section" class="auth-buttons">
-                <button class="btn btn-secondary" onclick="showAuthModal(true)">Sign In</button>
-                <button class="btn btn-primary" onclick="showAuthModal(false)">Sign Up Free</button>
+                <button class="btn btn-secondary" data-auth="login">Sign In</button>
+                <button class="btn btn-primary" data-auth="register">Sign Up Free</button>
             </div>
             
             <div id="user-section" class="auth-buttons hidden">
@@ -1142,7 +1142,7 @@ function toggleMobileMenu() {
                             }
                         </div>
                         ${!isAuthenticated ? `
-                            <button class="btn btn-primary" onclick="showAuthModal(false)" style="margin-top: 1rem;">
+                            <button class="btn btn-primary" data-auth="register" style="margin-top: 1rem;">
                                 Get Started Free
                             </button>
                         ` : ''}
@@ -1206,6 +1206,12 @@ function toggleMobileMenu() {
 
         // Authentication Functions
         function showAuthModal(loginMode) {
+            // Prefer shared modal
+            if (window.DMTOOLS && typeof DMTOOLS.openAuthModal === 'function') {
+                const returnTo = window.location.pathname + window.location.search;
+                DMTOOLS.openAuthModal(loginMode ? 'login' : 'register', { returnTo });
+                return;
+            }
             isLoginMode = loginMode;
             updateAuthModalUI();
             document.getElementById('auth-modal').classList.add('show');
@@ -1384,5 +1390,7 @@ function toggleMobileMenu() {
 
         console.log('✅ DMTools Templates page fully loaded and optimized');
     </script>
+<script src="js/app-core.js"></script>
+<script src="js/auth-modal.js"></script>
 </body>
 </html>

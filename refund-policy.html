@@ -163,8 +163,8 @@
         <a href="/" class="logo">DMTools.fun</a>
         <div class="auth-buttons" id="authButtons">
             <button class="mobile-menu-btn" onclick="toggleMobileMenu()" aria-label="Menu">☰</button>
-            <a href="/login.html" class="btn btn-secondary">Sign In</a>
-            <a href="/register.html" class="btn btn-primary">Sign Up</a>
+            <a href="/login.html" data-auth="login" class="btn btn-secondary">Sign In</a>
+            <a href="/register.html" data-auth="register" class="btn btn-primary">Sign Up</a>
         </div>
     </div>
     
@@ -511,5 +511,7 @@
         document.getElementById('mobileNav').classList.toggle('show');
     }
 </script>
+<script src="js/app-core.js"></script>
+<script src="js/auth-modal.js"></script>
 </body>
 </html>

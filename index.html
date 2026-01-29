@@ -1531,6 +1531,11 @@
     
     // Auth Modal Functions
     function showAuthModal(destination, signup = false) {
+        // Prefer shared modal
+        if (window.DMTOOLS && typeof DMTOOLS.openAuthModal === 'function') {
+            DMTOOLS.openAuthModal(signup ? 'register' : 'login', { returnTo: destination || '/portal.html' });
+            return;
+        }
         authDestination = destination;
         isSignupMode = signup;
 
@@ -1800,5 +1805,7 @@
         updateROICalculator();
     });
 </script>
+<script src="js/app-core.js"></script>
+<script src="js/auth-modal.js"></script>
 </body>
 </html>

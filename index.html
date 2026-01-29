@@ -1495,6 +1495,12 @@
     const API_BASE = 'https://dmtools-backend-production.up.railway.app/api';
     let authDestination = '/packs.html';
     let isSignupMode = false;
+
+          // Mobile menu toggle (safe on pages that have #mobileNav)
+  function toggleMobileMenu() {
+    const nav = document.getElementById('mobileNav');
+    if (nav) nav.classList.toggle('show');
+  }
     
     // Auth Modal Functions
     function showAuthModal(destination, signup = false) {

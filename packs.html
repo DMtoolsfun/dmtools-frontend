@@ -183,7 +183,7 @@
                     </div>
                     
                     <div class="cta-buttons">
-                        <a href="/store.html" class="btn btn-primary">
+                        <a href="/pricing.html" class="btn btn-primary">
                             🛒 Buy Response Packs
                         </a>
                     </div>
@@ -241,7 +241,7 @@
             </div>
             
             <!-- Enterprise Section -->
-            <div id="enterprise-section" class="hidden">
+         <div class="hidden" id="enterprise-section" style="display:none;">
                 <div class="card">
                     <h2>🚀 Unlimited Extension Access</h2>
                     
@@ -380,6 +380,22 @@
         const freeSection = document.getElementById('free-section');
         const subscriberSection = document.getElementById('subscriber-section');
         const enterpriseSection = document.getElementById('enterprise-section');
+
+        // ----------------------------
+        // Enterprise section visibility
+        // ----------------------------
+        (function () {
+          const enterpriseEl = document.getElementById('enterprise-section');
+          if (!enterpriseEl) return;
+
+          const planTextEl = document.getElementById('plan-name');
+          const planText = (planTextEl?.textContent || "").toLowerCase();
+
+          const isEnterprise = planText.includes("enterprise");
+
+          enterpriseEl.style.display = isEnterprise ? "block" : "none";
+        })();
+
         
         console.log('Token found:', token ? 'YES' : 'NO');
         

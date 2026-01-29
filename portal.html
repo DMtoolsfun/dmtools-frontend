@@ -91,34 +91,28 @@
 </head>
 
 <body>
-  <!-- ===========================================================
-       Header/Nav (matches app.html-style structure)
-       =========================================================== -->
-  <header class="header">
+ 
+ <header class="header">
     <div class="nav-container">
-      <a class="logo" href="/">DMTools.fun</a>
+        <a href="/" class="logo">DMTools.fun</a>
+        <div class="auth-buttons" id="authButtons">
+            <button class="mobile-menu-btn" onclick="toggleMobileMenu()" aria-label="Menu">☰</button>
+        <button data-auth="login">Sign In</button>
+          <button data-auth="register">Sign Up</button>
 
-      <div class="auth-buttons" id="authButtons">
-        <button aria-label="Menu" class="mobile-menu-btn" onclick="toggleMobileMenu()">☰</button>
-
-        <div class="auth-buttons" id="user-section">
-          <span class="user-email" id="user-email"></span>
-          <button class="btn btn-secondary" id="btnLogout">Logout</button>
         </div>
-      </div>
     </div>
-
+    
     <nav class="mobile-nav" id="mobileNav">
-      <a class="tab-btn" href="/app.html">Generator</a>
-      <a class="tab-btn" href="/presets.html">Templates</a>
-      <a class="tab-btn" href="/analytics.html">Analytics</a>
-      <a class="tab-btn" href="/packs.html">Response Packs</a>
-      <a class="tab-btn" href="/pricing.html">Pricing</a>
-      <a class="tab-btn" href="/store.html">Store</a>
-      <a class="tab-btn" href="/account.html">Account</a>
-      <a class="tab-btn active" href="/portal.html">Portal</a>
+        <a href="/app.html" class="tab-btn">Generator</a>
+        <a href="/presets.html" class="tab-btn">Templates</a>
+        <a href="/packs.html" class="tab-btn">Response Packs</a>
+        <a href="/pricing.html" class="tab-btn">Pricing</a>
+        <a href="/store.html" class="tab-btn">Packs Store</a>
+        <a href="/account.html" class="tab-btn">Account</a>
     </nav>
-  </header>
+</header>
+    <!-- END HEADER WITH NAVIGATION -->
 
   <!-- ===========================================================
        Main

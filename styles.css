@@ -241,8 +241,8 @@ p {
 /* Page Header */
 .page-header {
     text-align: center;
-    padding: var(--spacing-xl) 0;
-    margin-bottom: var(--spacing-xl);
+    padding: var(--spacing-lg) 0;
+    margin-bottom: var(--spacing-lg);
 }
 
 .page-title {

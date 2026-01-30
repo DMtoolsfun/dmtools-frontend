@@ -224,7 +224,7 @@ p {
 .container-sm {
     max-width: var(--container-sm);
     margin: 0 auto;
-    padding: 0 var(--spacing-xl);
+    padding: 0 var(--spacing-lg);
 }
 
 .container-lg {
@@ -234,19 +234,19 @@ p {
 }
 
 .main-content {
-    padding: var(--spacing-xl) 0;
+    padding: var(--spacing-lg) 0;
     min-height: calc(100vh - 200px);
 }
 
 /* Page Header */
 .page-header {
-    text-align: center;
+    text-align: right;
     padding: var(--spacing-lg) 0;
     margin-bottom: var(--spacing-lg);
 }
 
 .page-title {
-    font-size: 2.5rem;
+    font-size: 2.0rem;
     font-weight: 900;
     margin-bottom: var(--spacing-md);
     background: var(--gradient-primary);
@@ -256,7 +256,7 @@ p {
 }
 
 .page-description {
-    font-size: 1.1rem;
+    font-size: 1.0rem;
     color: var(--text-muted);
     max-width: 600px;
     margin: 0 auto;
@@ -270,7 +270,7 @@ p {
 .pricing-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-    gap: var(--spacing-xl);
+    gap: var(--spacing-lg);
 }
 
 /* Each pricing card becomes a vertical flex container */
@@ -287,7 +287,7 @@ p {
 
 /* CTA area is pinned to the bottom */
 .pricing-card .pricing-cta {
-    margin-top: var(--spacing-xl);
+    margin-top: var(--spacing-lg);
     display: flex;
     flex-direction: column;
     gap: var(--spacing-sm);

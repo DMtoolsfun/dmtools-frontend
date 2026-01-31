@@ -805,27 +805,14 @@
 
 </head>
 <body>
-   <!-- Header -->
-<header class="header">
-    <div class="nav-container">
-        <a href="/" class="logo">DMTools.fun</a>
-        <div class="auth-buttons" id="authButtons">
-            <button class="mobile-menu-btn" onclick="toggleMobileMenu()" aria-label="Menu">☰</button>
-            <a href="/login.html" class="btn btn-secondary">Sign In</a>
-            <a href="/register.html" class="btn btn-primary">Sign Up</a>
+    <!-- Header -->
+    <header class="header">
+        <div class="container">
+            <div class="header-content">
+                <a href="/" class="logo">💬 DMTools.fun</a>
+            </div>
         </div>
-    </div>
-    
-    <nav class="mobile-nav" id="mobileNav">
-        <a href="/app.html" class="tab-btn">Generator</a>
-        <a href="/presets.html" class="tab-btn">Templates</a>
-        <a href="/analytics.html" class="tab-btn">Analytics</a>
-        <a href="/packs.html" class="tab-btn">Response Packs</a>
-        <a href="/pricing.html" class="tab-btn">Pricing</a>
-        <a href="/store.html" class="tab-btn">Packs Store</a>
-        <a href="/account.html" class="tab-btn">Account</a>
-    </nav>
-</header>
+    </header>
     
    <!-- Hero Section -->
 <main class="hero">
@@ -1494,13 +1481,7 @@
     const API_BASE = 'https://dmtools-backend-production.up.railway.app/api';
     let authDestination = '/packs.html';
     let isSignupMode = false;
-
-     // Mobile menu toggle (safe on pages that have #mobileNav)
-  function toggleMobileMenu() {
-    const nav = document.getElementById('mobileNav');
-    if (nav) nav.classList.toggle('show');
-  }
-  
+    
     // Auth Modal Functions
     function showAuthModal(destination, signup = false) {
         // Prefer shared modal

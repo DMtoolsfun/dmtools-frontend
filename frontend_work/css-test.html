@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CSS Test Page - DMTools.fun</title>
+    
+    <!-- EXTERNAL CSS FILE -->
+    <link rel="stylesheet" href="styles.css">
+    
+    <style>
+        .test-section {
+            margin-bottom: 3rem;
+            padding-bottom: 2rem;
+            border-bottom: 1px solid var(--border-medium, #374151);
+        }
+        .test-section h2 {
+            margin-bottom: 1.5rem;
+            color: var(--primary, #8b5cf6);
+        }
+        .component-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+        }
+        .color-swatch {
+            padding: 1rem;
+            border-radius: 8px;
+            text-align: center;
+            font-size: 0.8rem;
+        }
+        .demo-box {
+            background: var(--bg-card, #374151);
+            padding: 1.5rem;
+            border-radius: 12px;
+            margin-bottom: 1rem;
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="nav-container">
+            <a href="/" class="logo">DMTools.fun</a>
+            <div class="auth-buttons" id="authButtons">
+                <button class="mobile-menu-btn" onclick="toggleMobileMenu()" aria-label="Menu">☰</button>
+                <a href="/login.html" class="btn btn-secondary">Sign In</a>
+                <a href="/register.html" class="btn btn-primary">Sign Up</a>
+            </div>
+        </div>
+        
+        <nav class="mobile-nav" id="mobileNav">
+            <a href="/app.html" class="tab-btn">Generator</a>
+            <a href="/presets.html" class="tab-btn">Templates</a>
+<a href="/packs.html" class="tab-btn">Response Packs</a>
+            <a href="/pricing.html" class="tab-btn">Pricing</a>
+            <a href="/store.html" class="tab-btn">Packs Store</a>
+</nav>
+    </header>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <div class="container">
+            <div class="page-header">
+                <h1 class="page-title">CSS Test Page</h1>
+                <p class="page-description">
+                    This page tests the external styles.css file.
+                </p>
+            </div>
+
+            <!-- CSS Load Check -->
+            <section class="test-section">
+                <h2>1. CSS Load Status</h2>
+                <div id="cssStatus" class="message info">Checking...</div>
+            </section>
+
+            <!-- Color Variables Test -->
+            <section class="test-section">
+                <h2>2. Color Variables</h2>
+                <div class="component-grid">
+                    <div class="color-swatch" style="background: var(--primary, #ccc); color: white;">--primary</div>
+                    <div class="color-swatch" style="background: var(--accent, #ccc); color: white;">--accent</div>
+                    <div class="color-swatch" style="background: var(--success, #ccc); color: white;">--success</div>
+                    <div class="color-swatch" style="background: var(--error, #ccc); color: white;">--error</div>
+                </div>
+            </section>
+
+            <!-- Button Test -->
+            <section class="test-section">
+                <h2>3. Buttons</h2>
+                <div class="demo-box">
+                    <button class="btn btn-primary">Primary</button>
+                    <button class="btn btn-secondary">Secondary</button>
+                    <button class="btn btn-success">Success</button>
+                    <button class="btn btn-outline">Outline</button>
+                </div>
+            </section>
+
+            <!-- Form Test -->
+            <section class="test-section">
+                <h2>4. Form Elements</h2>
+                <div class="demo-box" style="max-width: 400px;">
+                    <div class="form-group">
+                        <label class="form-label">Text Input</label>
+                        <input type="text" class="form-input" placeholder="Enter text...">
+                    </div>
+                    <button class="btn btn-primary">Submit</button>
+                </div>
+            </section>
+
+            <!-- Card Test -->
+            <section class="test-section">
+                <h2>5. Cards</h2>
+                <div class="card">
+                    <div class="card-header">
+                        <h3 class="card-title">Card Title</h3>
+                    </div>
+                    <p>This is card content.</p>
+                </div>
+            </section>
+
+            <!-- Messages Test -->
+            <section class="test-section">
+                <h2>6. Messages</h2>
+                <div class="message success">Success message</div>
+                <div class="message error">Error message</div>
+                <div class="message warning">Warning message</div>
+                <div class="message info">Info message</div>
+            </section>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-bottom">
+                <p class="footer-copyright">© 2025 DMTools.fun LLC</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        function toggleMobileMenu() {
+            document.getElementById('mobileNav').classList.toggle('show');
+        }
+        
+        window.addEventListener('load', function() {
+            var statusEl = document.getElementById('cssStatus');
+            var primaryColor = getComputedStyle(document.documentElement).getPropertyValue('--primary').trim();
+            
+            if (primaryColor && primaryColor !== '') {
+                statusEl.className = 'message success';
+                statusEl.textContent = 'SUCCESS: styles.css loaded! CSS variables working.';
+            } else {
+                statusEl.className = 'message error';
+                statusEl.textContent = 'FAILED: styles.css NOT loaded. Check that the file exists.';
+            }
+        });
+    </script>
+</body>
+</html>
+

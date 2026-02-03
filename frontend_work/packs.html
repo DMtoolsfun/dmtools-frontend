@@ -1,0 +1,485 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Response Packs - DMTools.fun</title>
+    <meta name="description" content="Manage your response packs and download THE-RIGHT-CLICK Chrome extension">
+<link rel="stylesheet" href="styles.css">
+    <!-- PWA Manifest -->
+<link rel="manifest" href="/manifest.json">
+<meta name="theme-color" content="#8b5cf6">
+<meta name="apple-mobile-web-app-capable" content="yes">
+    
+    <!-- Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-K0G9YRD39L"></script>
+    <script>
+// ----------------------------
+// [BANNERS] HIGH-RISK BOUNDARIES (drop-in replacement anchors)
+// ----------------------------
+
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'G-K0G9YRD39L');
+    </script>
+
+    <!-- Lemon Squeezy -->
+    <script src="https://assets.lemonsqueezy.com/lemon.js" defer></script>
+
+   <style>
+    /* PAGE-SPECIFIC: Response Packs Management */
+    
+    /* Loading State */
+    .loading {
+        text-align: center;
+        padding: 4rem 2rem;
+        color: var(--text-secondary);
+    }
+    
+    /* Info Boxes */
+    .info-box {
+        background: rgba(55, 65, 81, 0.3);
+        border: 1px solid var(--border-medium);
+        border-radius: var(--radius-lg);
+        padding: 1.5rem;
+        margin-bottom: 1.5rem;
+    }
+    
+    .info-box.success {
+        background: rgba(16, 185, 129, 0.1);
+        border-color: var(--success);
+    }
+    
+    .info-box.warning {
+        background: rgba(245, 158, 11, 0.1);
+        border-color: var(--warning);
+    }
+    
+    .info-box ul {
+        margin: 1rem 0 0 0;
+        padding-left: 1.5rem;
+    }
+    
+    .info-box li {
+        margin-bottom: 0.5rem;
+        color: var(--text-secondary);
+    }
+    
+    /* CTA Buttons Container */
+    .cta-buttons {
+        display: flex;
+        gap: 1rem;
+        margin: 1.5rem 0;
+        flex-wrap: wrap;
+    }
+    
+    .cta-buttons .btn {
+        flex: 1;
+        min-width: 200px;
+    }
+    
+    /* Progress Bar */
+    .progress-bar {
+        background: var(--bg-input);
+        border-radius: var(--radius-full);
+        height: 32px;
+        overflow: hidden;
+        position: relative;
+    }
+    
+    .progress-fill {
+        background: linear-gradient(135deg, var(--primary), var(--accent));
+        height: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 0 1rem;
+        transition: width 0.6s ease;
+        font-weight: 550;
+        font-size: 0.6rem;
+    }
+    
+    /* Pack Item */
+    .pack-item {
+        background: var(--bg-card);
+        border: 2px solid var(--border-medium);
+        border-radius: var(--radius-md);
+        padding: 1rem;
+        margin-bottom: 1rem;
+        transition: border-color var(--transition-normal);
+    }
+    
+    .pack-item:hover {
+        border-color: var(--primary);
+    }
+    
+    
+    /* Responsive */
+    @media (max-width: 768px) {
+        .cta-buttons {
+            flex-direction: column;
+        }
+        
+        .cta-buttons .btn {
+            width: 100%;
+        }
+        
+        .footer-grid {
+            grid-template-columns: 1fr;
+            gap: 1.5rem;
+        }
+    }
+</style>
+</head>
+<body>
+   <header class="header">
+    <div class="nav-container">
+        <a href="/" class="logo">DMTools.fun</a>
+        <div class="auth-buttons" id="authButtons">
+            <button class="mobile-menu-btn" onclick="toggleMobileMenu()" aria-label="Menu">☰</button>
+        <button data-auth="login">Sign In</button>
+          <button data-auth="register">Sign Up</button>
+
+        </div>
+    </div>
+    
+    <nav class="mobile-nav" id="mobileNav">
+        <a href="/app.html" class="tab-btn">Generator</a>
+        <a href="/presets.html" class="tab-btn">Templates</a>
+        <a href="/packs.html" class="tab-btn">Response Packs</a>
+        <a href="/pricing.html" class="tab-btn">Pricing</a>
+        <a href="/store.html" class="tab-btn">Packs Store</a>
+</nav>
+</header>
+    <!-- END HEADER WITH NAVIGATION -->
+    
+    <div class="container">
+        <div class="page-header">
+            <h2 class="page-title">🎁 My Response Packs</h2>
+            <p class="page-subtitle"> Purchase and manage your response packs</p>
+        </div>
+        
+        <!-- Loading State -->
+        <div id="loading" class="loading">
+            <div style="font-size: 3rem; margin-bottom: 1rem;">⏳</div>
+            <p>Loading your account...</p>
+        </div>
+        
+        <!-- Main Content (Hidden until loaded) -->
+        <div id="content" class="hidden">
+            
+            <!-- Free User Section -->
+            <div id="free-section" class="hidden">
+                <div class="card">
+                    <h2>Get Started with Response Packs</h2>
+                    
+                    <div class="info-box">
+                        <p><strong>How THE-RIGHT-CLICK SIDE-KICK works:</strong></p>
+                        <ul>
+                            <li>📥 Download the Chrome extension</li>
+                            <li>    (sign up for a free account and get 10 responses/month free)
+                            <li>💳 Buy response packs ($9.99-$59.99)</li>
+                            <li>✨ Generate AI replies instantly</li>
+                            <li>🎯 Works anywhere, if you can type a response to send, so can the RIGHT-CLICK SIDEKICK!</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="cta-buttons">
+                        <a href="/pricing.html" class="btn btn-primary">
+                            🛒 Buy Response Packs
+                        </a>
+                    </div>
+                    
+                    <div class="info-box">
+                        <p>💡 <strong>Want monthly responses instead?</strong></p>
+                        <p><a href="/pricing.html" style="color: var(--primary); font-weight: 600;">View subscription plans</a> subscribe now to take advantage of monthly responses</p>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Subscriber Section (Pro/Business) -->
+            <div id="subscriber-section" class="hidden">
+                <div class="card">
+                    <h2>📊 Your Subscription</h2>
+                    
+                    <div class="info-box success">
+                        <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem;">
+                            <div>
+                                <div style="font-size: 1.5rem; font-weight: 700; margin-bottom: 0.5rem;">
+                                    <span id="plan-name">Pro</span> Plan
+                                </div>
+                                <div style="color: var(--text-secondary);">
+                                    <span id="monthly-limit">1,000</span> responses/month
+                                </div>
+                            </div>
+                            <div style="text-align: right;">
+                                <div style="font-size: 2rem; font-weight: 800; color: var(--secondary);">
+                                    <span id="responses-remaining">850</span>
+                                </div>
+                                <div style="color: var(--text-secondary); font-size: 0.9rem;">remaining</div>
+                            </div>
+                        </div>
+                        
+                        <div class="progress-bar" style="margin-top: 1rem;">
+                            <div class="progress-fill" id="usage-bar" style="width: 15%;">
+                                <span id="usage-text">Loading...</span>
+                                <span id="usage-percent">0%</span>
+                            </div>
+                        </div>
+                        <small style="color: var(--text-secondary); display: block; margin-top: 0.5rem;">
+                            Shared between batch generator and THE-RIGHT-CLICK SIDEKICK extension
+                        </small>
+                    </div>
+                    
+                                  
+                    <div class="info-box" style="margin-top: 2rem;">
+                        <p>💡 <strong>Want backup responses?</strong></p>
+                        <p><a href="/store.html" style="color: var(--primary); font-weight: 600;">Buy response packs</a> to ADD to your monthly allowance</p>
+                        <small style="color: var(--text-secondary); display: block; margin-top: 0.5rem;">
+                            Example: Pro (1,000) + 500 pack = 1,500 total shared pool
+                        </small>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Enterprise Section -->
+         <div class="hidden" id="enterprise-section" style="display:none;">
+                <div class="card">
+                    <h2>🚀 Unlimited Extension Access</h2>
+                    
+                    <div class="info-box warning">
+                        <div style="text-align: center; font-size: 1.5rem; font-weight: 700; margin-bottom: 1rem;">
+                            ♾️ Your Enterprise plan includes unlimited RIGHT-CLICK SIDEKICK access
+                        </div>
+                    </div>
+                    
+                    <div class="info-box success">
+                        <p><strong>Enterprise Benefits:</strong></p>
+                        <ul>
+                            <li>✓ Unlimited RIGHT-CLICK SIDE-KICK extension responses</li>
+                            <li>✓ 25,000 batch generator responses/month</li>
+                            <li>✓ Truly unlimited inline AI response generation that works everywhere on the internet</li>
+                        </ul>
+                    </div>
+                    
+                  
+                </div>
+            </div>
+            
+        </div>
+    </div>
+    
+   <!-- FOOTER -->
+<footer class="footer">
+    <div class="container">
+        <div class="footer-content">
+            <div class="footer-brand">
+                <h3 class="footer-logo">DMTools.fun</h3>
+                <p class="footer-description">
+                    AI-powered universal messaging response generator.<br>
+                    "With Two right-clicks You Wont go wrong™"
+                </p>
+            </div>
+            
+            <div class="footer-links">
+                <div class="link-group">
+                    <h4>Product</h4>
+                    <a href="/app.html">Batch Generator</a>
+                    <a href="/presets.html">Templates</a>
+                    <a href="/pricing.html">Pricing</a>
+                    <a href="/store.html">Packs Store</a>
+</div>
+                
+                <div class="link-group">
+                    <h4>Legal</h4>
+                    <a href="/terms-of-service.html">Terms of Service</a>
+                    <a href="/privacy-policy.html">Privacy Policy</a>
+                    <a href="/refund-policy.html">Refund Policy</a>
+                    <a href="/cookie-policy.html">Cookie Policy</a>
+                </div>
+                
+                <div class="link-group">
+                    <h4>Support</h4>
+                    <a href="/contact.html">Contact Us</a>
+                    <a href="mailto:support@dmtools.fun">Email Support</a>
+                </div>
+            </div>
+        </div>
+        
+        <div class="footer-bottom">
+            <p class="footer-copyright">© 2025 DMTools.fun LLC. All rights reserved.</p>
+        </div>
+    </div>
+</footer>
+<!-- END FOOTER -->
+    
+   <script>
+// ----------------------------
+// [BANNER-PACK-001] RESPONSE PACKS (purchase/activate/status)
+// ----------------------------
+
+    const API_BASE = 'https://dmtools-backend-production.up.railway.app/api';
+    
+    // Mobile menu toggle
+    function toggleMobileMenu() {
+        document.getElementById('mobileNav').classList.toggle('show');
+    }
+    
+    // Check authentication and update header
+    async function updateAuthSection() {
+        const token = localStorage.getItem('authToken');
+        const authButtons = document.getElementById('authButtons');
+        
+        if (!authButtons) return;
+        
+        if (!token) {
+            // Not logged in - show sign in/up buttons
+            authButtons.innerHTML = `
+                <button class="mobile-menu-btn" onclick="toggleMobileMenu()" aria-label="Menu">☰</button>
+                <a href="/login.html" data-auth="login" class="btn btn-secondary">Sign In</a>
+                <a href="/register.html" data-auth="register" class="btn btn-primary">Sign Up</a>
+            `;
+        } else {
+            // Logged in - get user info
+            try {
+                const response = await fetch(API_BASE + '/user/profile', {
+                    headers: {
+                        'Authorization': `Bearer ${token}`
+                    }
+                });
+                
+                if (response.ok) {
+                    const data = await response.json();
+                    const user = data.user;
+                    
+                    authButtons.innerHTML = `
+                        <button class="mobile-menu-btn" onclick="toggleMobileMenu()" aria-label="Menu">☰</button>
+                        <span class="user-email">${user.email}</span>
+                        <button class="btn btn-secondary" onclick="handleLogout()">Logout</button>
+                    `;
+                } else {
+                    // Token invalid
+                    localStorage.removeItem('authToken');
+                    updateAuthSection();
+                }
+            } catch (error) {
+                console.error('Auth check failed:', error);
+                authButtons.innerHTML = `
+                    <button class="mobile-menu-btn" onclick="toggleMobileMenu()" aria-label="Menu">☰</button>
+                    <a href="/packs.html" data-auth="login" class="btn btn-secondary">Sign In</a>
+                    <a href="/packs.html" data-auth="register" class="btn btn-primary">Sign Up</a>
+                `;
+            }
+        }
+    }
+    
+    function handleLogout() {
+        localStorage.removeItem('authToken');
+        window.location.href = '/';
+    }
+    
+    async function loadPage() {
+        const token = localStorage.getItem('authToken');
+        const loading = document.getElementById('loading');
+        const content = document.getElementById('content');
+        const freeSection = document.getElementById('free-section');
+        const subscriberSection = document.getElementById('subscriber-section');
+        const enterpriseSection = document.getElementById('enterprise-section');
+
+        // ----------------------------
+        // Enterprise section visibility
+        // ----------------------------
+        (function () {
+          const enterpriseEl = document.getElementById('enterprise-section');
+          if (!enterpriseEl) return;
+
+          const planTextEl = document.getElementById('plan-name');
+          const planText = (planTextEl?.textContent || "").toLowerCase();
+
+          const isEnterprise = planText.includes("enterprise");
+
+          enterpriseEl.style.display = isEnterprise ? "block" : "none";
+        })();
+
+        
+        console.log('Token found:', token ? 'YES' : 'NO');
+        
+        if (!token) {
+            // Not logged in - show free section
+            loading.classList.add('hidden');
+            content.classList.remove('hidden');
+            freeSection.classList.remove('hidden');
+            return;
+        }
+        
+        try {
+            // Fetch user profile
+            const response = await fetch(API_BASE + '/user/profile', {
+                headers: {
+                    'Authorization': `Bearer ${token}`
+                }
+            });
+            
+            console.log('API Response status:', response.status);
+            
+            if (!response.ok) {
+                throw new Error('Failed to fetch user data');
+            }
+            
+            const data = await response.json();
+            console.log('User data:', data);
+            const user = data.user;
+            
+            loading.classList.add('hidden');
+            content.classList.remove('hidden');
+            
+            // Determine which section to show
+            if (user.subscription_tier === 'enterprise') {
+                enterpriseSection.classList.remove('hidden');
+            } else if (user.subscription_tier === 'pro' || user.subscription_tier === 'business') {
+                subscriberSection.classList.remove('hidden');
+                
+                // Update subscriber info
+                document.getElementById('plan-name').textContent = 
+                    user.subscription_tier.charAt(0).toUpperCase() + user.subscription_tier.slice(1);
+                document.getElementById('monthly-limit').textContent = user.monthly_limit || 1000;
+                document.getElementById('responses-remaining').textContent = user.responses_remaining || 0;
+                
+                // Calculate usage percentage
+                const used = (user.monthly_limit || 1000) - (user.responses_remaining || 0);
+                const percent = Math.round((used / (user.monthly_limit || 1000)) * 100);
+                
+                document.getElementById('usage-bar').style.width = percent + '%';
+                document.getElementById('usage-text').textContent = used + ' used';
+                document.getElementById('usage-percent').textContent = percent + '%';
+                
+            } else {
+                // Free user
+                freeSection.classList.remove('hidden');
+            }
+            
+        } catch (error) {
+            console.error('Error loading page:', error);
+            loading.innerHTML = `
+                <div style="color: var(--error); max-width: 500px; margin: 0 auto;">
+                    <h2 style="margin-bottom: 1rem;">⚠️ Error Loading Page</h2>
+                    <p style="margin-bottom: 1rem;">Could not load your account data. Please try again.</p>
+                    <button onclick="location.reload()" class="btn btn-primary">Retry</button>
+                    <a href="/app.html" class="btn btn-secondary" style="margin-left: 1rem;">Back to App</a>
+                </div>
+            `;
+        }
+    }
+    
+    // Run on page load
+    document.addEventListener('DOMContentLoaded', () => {
+        updateAuthSection();
+        loadPage();
+    });
+</script>
+<script src="js/app-core.js"></script>
+<script src="js/auth-modal.js"></script>
+</body>
+</html>
+

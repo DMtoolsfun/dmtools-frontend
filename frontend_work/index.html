@@ -1,0 +1,1764 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DMTools.fun - AI-Powered Response Generation for Gmail, LinkedIn, Twitter & More</title>
+    <meta name="description" content="Generate professional AI responses instantly. Choose pay-per-pack extension or unlimited batch generation. Save 10+ hours weekly.">
+
+    <!--css stylesheet-->
+    <link rel="stylesheet" href="/styles.css">
+   
+    <!-- Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-K0G9YRD39L"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'G-K0G9YRD39L');
+    </script>
+    
+  <style>
+    /* PAGE-SPECIFIC: Landing Page */
+    
+    /* Hero Section */
+    .hero {
+        padding: 4rem 0;
+        text-align: center;
+    }
+    
+    .hero-intro {
+        margin-bottom: 3rem;
+    }
+    
+    .hero-title {
+        font-size: 3.5rem;
+        font-weight: 800;
+        background: linear-gradient(135deg, #ffffff 0%, #e0e7ff 100%);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        margin-bottom: 1rem;
+    }
+    
+    .hero-subtitle {
+        font-size: 1.5rem;
+        color: var(--text-secondary);
+        margin-bottom: 0.5rem;
+    }
+    
+    .hero-tagline {
+        font-size: 1.1rem;
+        color: var(--text-muted);
+    }
+    
+    /* Two-Card Layout */
+    .hero-options {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 2rem;
+        max-width: 1000px;
+        margin: 0 auto;
+    }
+    
+    .hero-card {
+        background: var(--bg-card);
+        border: 2px solid var(--border-medium);
+        border-radius: 16px;
+        padding: 2.5rem;
+        transition: all 0.3s ease;
+        position: relative;
+    }
+    
+    .hero-card:hover {
+        transform: translateY(-8px);
+        border-color: var(--primary);
+        box-shadow: 0 12px 40px rgba(139, 92, 246, 0.3);
+    }
+    
+    .hero-card.featured {
+        border-color: var(--primary);
+        box-shadow: 0 8px 24px rgba(139, 92, 246, 0.2);
+    }
+    
+    .badge {
+        position: absolute;
+        top: -12px;
+        right: 20px;
+        background: linear-gradient(135deg, #f59e0b, #d97706);
+        color: white;
+        padding: 0.5rem 1rem;
+        border-radius: 20px;
+        font-size: 0.85rem;
+        font-weight: 700;
+    }
+    
+    .card-icon {
+        font-size: 4rem;
+        margin-bottom: 1rem;
+    }
+    
+    .hero-card h2 {
+        font-size: 1.5rem;
+        color: var(--text-primary);
+        margin-bottom: 0.5rem;
+    }
+    
+    .hero-card h3 {
+        font-size: 1.1rem;
+        color: var(--text-muted);
+        margin-bottom: 1.5rem;
+        font-weight: 500;
+    }
+    
+    .features {
+        list-style: none;
+        text-align: left;
+        margin-bottom: 1.5rem;
+    }
+    
+    .features li {
+        padding: 0.75rem 0;
+        color: var(--text-muted);
+        font-size: 0.95rem;
+        line-height: 1.6;
+    }
+    
+    .pricing {
+        background: rgba(139, 92, 246, 0.1);
+        border: 2px solid var(--primary);
+        border-radius: 8px;
+        padding: 1rem;
+        margin-bottom: 1.5rem;
+        color: var(--primary);
+        font-weight: 600;
+        font-size: 1.1rem;
+    }
+    
+   .cta-buttons {
+        display: flex;
+        gap: 1rem;
+        flex-direction: column;
+
+        /* ✅ NEW: pushes buttons to bottom of card so both cards align */
+        margin-top: auto;
+        padding-top: 1.5rem;
+    }
+    
+    /* ROI Calculator Section */
+    .roi-section {
+        padding: 6rem 0;
+        background: linear-gradient(135deg, rgba(139, 92, 246, 0.1), rgba(6, 182, 212, 0.1));
+    }
+    
+    .section-title {
+        font-size: 2.5rem;
+        font-weight: 800;
+        text-align: center;
+        margin-bottom: 1rem;
+        background: linear-gradient(135deg, #ffffff, #8b5cf6);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+    }
+    
+    .section-subtitle {
+        text-align: center;
+        color: var(--text-muted);
+        font-size: 0.7rem;
+        margin-bottom: 3rem;
+    }
+    
+    .roi-calculator {
+        background: rgba(31, 41, 59, 0.8);
+        border: 2px solid var(--border-medium);
+        border-radius: 24px;
+        padding: 3rem;
+        max-width: 1000px;
+        margin: 0 auto;
+    }
+    
+    .calculator-inputs {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        gap: 2rem;
+        margin-bottom: 3rem;
+    }
+    
+    .input-group label {
+        display: block;
+        color: var(--text-muted);
+        margin-bottom: 0.5rem;
+        font-weight: 600;
+    }
+    
+    .input-group input {
+        width: 100%;
+        padding: 1rem;
+        background: var(--bg-input);
+        border: 2px solid var(--border-medium);
+        border-radius: 12px;
+        color: var(--text-primary);
+        font-size: 1.0rem;
+        font-weight: 600;
+        text-align: center;
+    }
+    
+    .input-group input:focus {
+        outline: none;
+        border-color: var(--primary);
+    }
+    
+    .calculator-results {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        gap: 2rem;
+        margin-bottom: 3rem;
+    }
+    
+    .result-card {
+        padding: 2rem;
+        border-radius: 16px;
+        text-align: center;
+        border: 3px solid;
+    }
+    
+    .result-card.primary {
+        background: rgba(139, 92, 246, 0.1);
+        border-color: var(--primary);
+    }
+    
+    .result-card.secondary {
+        background: var(--success-bg);
+        border-color: var(--success);
+    }
+    
+    .result-card.success {
+        background: rgba(6, 182, 212, 0.1);
+        border-color: var(--accent);
+    }
+    
+    .result-icon {
+        font-size: 2.0rem;
+        margin-bottom: 1rem;
+    }
+    
+    .result-value {
+        font-size: 2.5rem;
+        font-weight: 700;
+        color: var(--text-primary);
+        margin-bottom: 0.5rem;
+    }
+    
+    .result-label {
+        color: var(--text-muted);
+        font-weight: 600;
+    }
+    
+    .roi-breakdown {
+        background: rgba(139, 92, 246, 0.1);
+        border: 2px solid var(--primary);
+        border-radius: 16px;
+        padding: 2rem;
+        text-align: center;
+    }
+    
+    .roi-breakdown h4 {
+        margin-bottom: 1.5rem;
+        color: var(--primary);
+    }
+    
+    .breakdown-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+        gap: 1.5rem;
+    }
+    
+    .breakdown-item {
+        display: flex;
+        flex-direction: column;
+        gap: 0.5rem;
+    }
+    
+    .breakdown-item strong {
+        font-size: 1.8rem;
+        color: var(--primary);
+    }
+    
+    .breakdown-item span {
+        color: var(--text-muted);
+    }
+    
+    /* Comparison Table */
+    .comparison-section {
+        padding: 6rem 0;
+        background: rgba(17, 24, 39, 0.5);
+    }
+    
+    .comparison-table-wrapper {
+        overflow-x: auto;
+        margin-bottom: 3rem;
+    }
+    
+    .comparison-table {
+        width: 100%;
+        border-collapse: collapse;
+        background: rgba(31, 41, 59, 0.8);
+        border-radius: 16px;
+        overflow: hidden;
+    }
+    
+    .comparison-table th,
+    .comparison-table td {
+        padding: 1.5rem;
+        text-align: center;
+        border-bottom: 1px solid var(--border-medium);
+    }
+    
+    .comparison-table th {
+        background: rgba(139, 92, 246, 0.2);
+        font-weight: 700;
+        color: var(--text-primary);
+    }
+    
+    .comparison-table td:first-child {
+        text-align: left;
+        font-weight: 600;
+    }
+    
+    .highlight-col {
+        background: rgba(139, 92, 246, 0.1) !important;
+        border-left: 3px solid var(--primary);
+        border-right: 3px solid var(--primary);
+    }
+    
+    .brand-header {
+        display: flex;
+        flex-direction: column;
+        gap: 0.5rem;
+        align-items: center;
+    }
+    
+    .feature-badge {
+        background: var(--primary);
+        color: white;
+        padding: 0.25rem 0.5rem;
+        border-radius: 6px;
+        font-size: 0.9rem;
+        margin-left: 0.5rem;
+    }
+    
+    .check {
+        color: var(--success);
+        font-weight: 700;
+    }
+    
+    .cross {
+        color: var(--error);
+    }
+    
+    .partial {
+        color: var(--warning);
+    }
+    
+    .price {
+        font-size: 1.2rem;
+        font-weight: 700;
+        color: var(--primary);
+    }
+    
+    .comparison-cta {
+        text-align: center;
+    }
+    
+    .comparison-highlight {
+        font-size: 1.2rem;
+        margin-bottom: 2rem;
+        color: var(--primary);
+    }
+    
+    /* Value Proposition Grid */
+    .value-section {
+        padding: 6rem 0;
+    }
+    
+    .value-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+        gap: 2rem;
+    }
+    
+    .value-card {
+        background: rgba(31, 41, 59, 0.8);
+        border: 2px solid var(--border-medium);
+        border-radius: 16px;
+        padding: 2.5rem;
+        transition: all 0.3s ease;
+    }
+    
+    .value-card:hover {
+        border-color: var(--primary);
+        transform: translateY(-8px);
+        box-shadow: 0 12px 32px rgba(139, 92, 246, 0.3);
+    }
+    
+    .value-icon {
+        font-size: 3rem;
+        margin-bottom: 1rem;
+    }
+    
+    .value-card h3 {
+        font-size: 1.5rem;
+        margin-bottom: 0.5rem;
+    }
+    
+    .value-stat {
+        color: var(--primary);
+        font-weight: 700;
+        margin-bottom: 1rem;
+    }
+    
+    .value-math {
+        background: rgba(139, 92, 246, 0.1);
+        border: 2px solid var(--primary);
+        border-radius: 12px;
+        padding: 1.5rem;
+        margin-top: 1.5rem;
+    }
+    
+    .math-row {
+        display: flex;
+        justify-content: space-between;
+        padding: 0.5rem 0;
+    }
+    
+    .math-row.highlight {
+        color: var(--success);
+    }
+    
+    .math-result {
+        text-align: center;
+        padding-top: 1rem;
+        margin-top: 1rem;
+        border-top: 2px solid var(--primary);
+        font-size: 1.2rem;
+        font-weight: 700;
+        color: var(--primary);
+    }
+    
+    .platform-list,
+    .security-list {
+        list-style: none;
+        margin-top: 1rem;
+    }
+    
+    .platform-list li,
+    .security-list li {
+        padding: 0.5rem 0;
+    }
+    
+    .value-steps {
+        display: flex;
+        gap: 0.5rem;
+        margin-top: 1rem;
+    }
+    
+    .step-mini {
+        flex: 1;
+        background: rgba(139, 92, 246, 0.2);
+        padding: 0.75rem;
+        border-radius: 8px;
+        text-align: center;
+        font-size: 0.9rem;
+    }
+    
+    .analytics-preview .stat-bar {
+        display: flex;
+        justify-content: space-between;
+        padding: 0.75rem 0;
+        border-bottom: 1px solid var(--border-medium);
+    }
+    
+    /* Social Proof Section */
+    .social-proof-section {
+        padding: 6rem 0;
+        background: linear-gradient(135deg, rgba(139, 92, 246, 0.1), rgba(6, 182, 212, 0.1));
+    }
+    
+    .stats-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        gap: 2rem;
+        margin-bottom: 4rem;
+    }
+    
+    .stat-card {
+        text-align: center;
+        padding: 2rem;
+        background: rgba(31, 41, 59, 0.8);
+        border: 2px solid var(--primary);
+        border-radius: 16px;
+    }
+    
+    .stat-number {
+        font-size: 3rem;
+        font-weight: 900;
+        color: var(--primary);
+        margin-bottom: 0.5rem;
+    }
+    
+    .stat-label {
+        color: var(--text-muted);
+        font-weight: 600;
+    }
+    
+    .testimonials-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        gap: 2rem;
+    }
+    
+    .testimonial-card {
+        background: rgba(31, 41, 59, 0.8);
+        border: 2px solid var(--border-medium);
+        border-radius: 16px;
+        padding: 2rem;
+    }
+    
+    .testimonial-stars {
+        font-size: 1.2rem;
+        margin-bottom: 1rem;
+    }
+    
+    .testimonial-text {
+        color: var(--text-muted);
+        line-height: 1.6;
+        margin-bottom: 1.5rem;
+    }
+    
+    .testimonial-author strong {
+        display: block;
+        color: var(--text-primary);
+        margin-bottom: 0.25rem;
+    }
+    
+    .testimonial-author span {
+        color: var(--primary);
+        font-size: 0.9rem;
+    }
+    
+    /* Use Cases Section */
+    .use-cases-section {
+        padding: 6rem 0;
+        background: rgba(17, 24, 39, 0.5);
+    }
+    
+    .use-cases-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+        gap: 2rem;
+    }
+    
+    .use-case-card {
+        background: rgba(31, 41, 59, 0.8);
+        border: 2px solid var(--border-medium);
+        border-radius: 16px;
+        padding: 2rem;
+        transition: all 0.3s ease;
+    }
+    
+    .use-case-card:hover {
+        border-color: var(--primary);
+        transform: translateY(-4px);
+    }
+    
+    .use-case-icon {
+        font-size: 2.5rem;
+        margin-bottom: 1rem;
+    }
+    
+    .use-case-card h3 {
+        margin-bottom: 1rem;
+    }
+    
+    .use-case-card ul {
+        list-style: none;
+        margin-bottom: 1.5rem;
+    }
+    
+    .use-case-card li {
+        padding: 0.5rem 0;
+        color: var(--text-muted);
+    }
+    
+    .use-case-stat {
+        background: rgba(139, 92, 246, 0.2);
+        border: 2px solid var(--primary);
+        border-radius: 8px;
+        padding: 1rem;
+        text-align: center;
+    }
+    
+    .use-case-stat strong {
+        color: var(--primary);
+    }
+    
+    /* Final CTA Section */
+    .final-cta-section {
+        padding: 6rem 0;
+        background: linear-gradient(135deg, var(--primary), var(--accent));
+    }
+    
+    .final-cta-content {
+        text-align: center;
+        max-width: 800px;
+        margin: 0 auto;
+    }
+    
+    .final-cta-content h2 {
+        font-size: 2.5rem;
+        font-weight: 900;
+        margin-bottom: 1rem;
+        color: #ffffff;
+    }
+    
+    .cta-subtitle {
+        font-size: 1.2rem;
+        color: rgba(255, 255, 255, 0.9);
+        margin-bottom: 3rem;
+    }
+    
+    .cta-value-props {
+        display: flex;
+        justify-content: center;
+        gap: 2rem;
+        flex-wrap: wrap;
+        margin-bottom: 3rem;
+    }
+    
+    .value-prop-mini {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        color: rgba(255, 255, 255, 0.9);
+        font-weight: 600;
+    }
+    
+    .value-prop-mini .icon {
+        font-size: 1.5rem;
+    }
+    
+    .cta-buttons-large {
+        display: flex;
+        justify-content: center;
+        gap: 1rem;
+        margin-bottom: 2rem;
+        flex-wrap: wrap;
+    }
+    
+    .btn-xl {
+        padding: 1.25rem 3rem;
+        font-size: 1.2rem;
+        font-weight: 700;
+        border-radius: 12px;
+    }
+    
+    .cta-guarantee {
+        color: rgba(255, 255, 255, 0.9);
+        font-size: 0.95rem;
+    }
+    
+    /* Extension Download Buttons */
+    .extension-download-btn {
+        display: inline-block;
+        padding: 1.25rem 2.5rem;
+        background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+        color: white;
+        border-radius: 12px;
+        font-size: 1.1rem;
+        font-weight: 700;
+        text-decoration: none;
+        border: none;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        box-shadow: var(--shadow-primary);
+        text-align: center;
+    }
+    
+    .extension-download-btn:hover {
+        transform: translateY(-3px);
+        box-shadow: var(--shadow-primary-lg);
+    }
+    
+    .extension-download-btn-secondary {
+        display: inline-block;
+        padding: 1.25rem 2.5rem;
+        background: transparent;
+        color: white;
+        border: 2px solid white;
+        border-radius: 12px;
+        font-size: 1.1rem;
+        font-weight: 700;
+        text-decoration: none;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        text-align: center;
+    }
+    
+    .extension-download-btn-secondary:hover {
+        background: rgba(255, 255, 255, 0.1);
+        transform: translateY(-2px);
+    }
+    
+    .extension-download-container {
+        display: flex;
+        justify-content: center;
+        gap: 1rem;
+        margin: 2rem 0;
+        flex-wrap: wrap;
+    }
+    
+    .extension-download-info {
+        text-align: center;
+        color: var(--text-muted);
+        font-size: 0.95rem;
+        margin-top: 1rem;
+    }
+    
+    /* Auth Modal Overrides */
+    .auth-switch {
+        text-align: center;
+        margin-top: 1.5rem;
+    }
+    
+    .auth-switch button {
+        background: none;
+        border: none;
+        color: var(--primary);
+        cursor: pointer;
+        font-weight: 600;
+        margin-left: 0.5rem;
+    }
+    
+    .auth-switch button:hover {
+        text-decoration: underline;
+    }
+    
+    /* Responsive */
+    @media (max-width: 768px) {
+        .hero-title {
+            font-size: 2rem;
+        }
+        
+        .hero-options {
+            grid-template-columns: 1fr;
+        }
+        
+        .section-title {
+            font-size: 2rem;
+        }
+        
+        .calculator-inputs,
+        .calculator-results,
+        .breakdown-grid,
+        .value-grid,
+        .use-cases-grid,
+        .testimonials-grid,
+        .stats-grid {
+            grid-template-columns: 1fr;
+        }
+        
+        .comparison-table {
+            font-size: 0.85rem;
+        }
+        
+        .comparison-table th,
+        .comparison-table td {
+            padding: 1rem 0.5rem;
+        }
+        
+        .cta-value-props {
+            flex-direction: column;
+            gap: 1rem;
+        }
+        
+        .cta-buttons-large {
+            flex-direction: column;
+        }
+        
+        .btn-xl {
+            width: 100%;
+        }
+        
+        .extension-download-btn,
+        .extension-download-btn-secondary {
+            padding: 1rem 2rem;
+            font-size: 1rem;
+            width: 100%;
+        }
+        
+        .extension-download-container {
+            flex-direction: column;
+            align-items: stretch;
+        }
+    }
+</style>
+
+
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="container">
+            <div class="header-content">
+                <a href="/" class="logo">💬 DMTools.fun</a>
+            </div>
+        </div>
+    </header>
+    
+   <!-- Hero Section -->
+<main class="hero">
+  <div class="container">
+    <div class="hero-intro">
+      <h1 class="hero-title">AI replies anywhere — right-click to generate.</h1>
+      <p class="hero-subtitle">One tool. Two ways to use it.</p>
+      <p class="hero-tagline">
+        <b>Subscriptions</b> unlock Pro features and include monthly responses.
+        <br />
+        <b>Response Packs</b> add extra responses — or unlock core usage without a subscription.
+      </p>
+    </div>
+
+    <div class="hero-options">
+      <!-- Pay-as-you-go (Packs) -->
+      <div class="hero-card">
+        <div class="card-icon">🎁</div>
+        <h2>Pay-As-You-Go Responses</h2>
+        <h3>Core reply generation (no subscription required)</h3>
+        <ul class="features">
+          <li>✓ Reply directly in any textbox (extension)</li>
+          <li>✓ Batch generation included</li>
+          <li>✓ Works without a subscription</li>
+          <li>✓ Perfect for topping up or occasional use</li>
+        </ul>
+        <div class="pricing">
+          Packs: $9.99 - $59.99 (500-4,000 responses)
+        </div>
+        <div class="cta-buttons">
+          <button class="btn btn-primary" onclick="showAuthModal('/packs.html', false)">
+            Buy Response Packs
+          </button>
+          <button class="btn btn-secondary" onclick="showAuthModal('/packs.html', true)">
+            Start Free (10/month)
+          </button>
+        </div>
+      </div>
+
+      <!-- Subscription (Pro Features + Monthly Responses) -->
+      <div class="hero-card featured">
+        <div class="badge">Most Popular</div>
+        <div class="card-icon">💼</div>
+        <h2>Pro Features Subscriptions</h2>
+        <h3>Features + choose your monthly included responses (during launch promotion ending 1/31/2026)</h3>
+        <ul class="features">
+          <li>✓ Tone & context controls</li>
+          <li>✓ Custom presets / templates</li>
+          <li>✓ Analytics pages</li>
+          <li>✓ Monthly responses included</li>
+        </ul>
+        <div class="pricing">
+          Plans from $19/month (packs work as add-on responses if needed)
+        </div>
+        <div class="cta-buttons">
+          <button class="btn btn-primary" onclick="showAuthModal('/pricing.html', false)">
+            View Plans
+          </button>
+          <button class="btn btn-secondary" onclick="showAuthModal('/portal.html', false)">
+            Login / Open Portal
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</main>
+
+    
+    <!-- SECTION 1: ROI CALCULATOR (Add after hero) -->
+<section class="roi-section">
+    <div class="container">
+        <h2 class="section-title">Calculate Your Time Savings</h2>
+        <p class="section-subtitle">See exactly how much time DMTools saves you every month</p>
+        
+        <div class="roi-calculator">
+            <div class="calculator-inputs">
+                <div class="input-group">
+                    <label>Avrage Daily Messages recieved</label>
+                    <input type="number" id="messages-per-day" value="50" min="1" max="500">
+                </div>
+                
+                <div class="input-group">
+                    <label>Average time per response</label>
+                    <input type="number" id="time-per-message" value="5" min="1" max="30">
+                </div>
+                
+                <div class="input-group">
+                    <label>Working days per month              </label>
+                    <input type="number" id="days-per-month" value="22" min="1" max="31">
+                </div>
+            </div>
+            
+            <div class="calculator-results">
+                <div class="result-card primary">
+                    <div class="result-icon">⏰</div>
+                    <div class="result-value" id="hours-saved">17.3</div>
+                    <div class="result-label">Hours Saved Per Month</div>
+                </div>
+                
+                <div class="result-card secondary">
+                    <div class="result-icon">💰</div>
+                    <div class="result-value" id="money-saved">$865</div>
+                    <div class="result-label">Value of Time Saved*</div>
+                    <small>*Based on $50/hour average</small>
+                </div>
+                
+                <div class="result-card success">
+                    <div class="result-icon">📈</div>
+                    <div class="result-value" id="roi-multiple">45x</div>
+                    <div class="result-label">ROI on Pro Plan</div>
+                </div>
+            </div>
+            
+            <div class="roi-breakdown">
+                <h4>With DMTools, you'll save:</h4>
+                <div class="breakdown-grid">
+                    <div class="breakdown-item">
+                        <strong id="daily-savings">47 min</strong>
+                        <span>Every Day</span>
+                    </div>
+                    <div class="breakdown-item">
+                        <strong id="weekly-savings">3.9 hrs</strong>
+                        <span>Every Week</span>
+                    </div>
+                    <div class="breakdown-item">
+                        <strong id="monthly-savings">17.3 hrs</strong>
+                        <span>Every Month</span>
+                    </div>
+                    <div class="breakdown-item">
+                        <strong id="yearly-savings">208 hrs</strong>
+                        <span>Every Year</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+
+<!-- SECTION 2: VS COMPETITORS (Comparison Table) -->
+<section class="comparison-section">
+    <div class="container">
+        <h2 class="section-title">Why Choose DMTools?</h2>
+        <p class="section-subtitle">The only AI assistant with true inline reply generation</p>
+        
+        <div class="comparison-table-wrapper">
+            <table class="comparison-table">
+                <thead>
+                    <tr>
+                        <th>Feature</th>
+                        <th class="highlight-col">
+                            <div class="brand-header">
+                                <strong>DMTools</strong>
+                                <span class="badge">Best Value</span>
+                            </div>
+                        </th>
+                        <th>ChatGPT</th>
+                        <th>Jasper AI</th>
+                        <th>Copy.ai</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>Inline Reply Generation</strong></td>
+                        <td class="highlight-col check">✅ <span class="feature-badge">UNIQUE</span></td>
+                        <td class="cross">❌</td>
+                        <td class="cross">❌</td>
+                        <td class="cross">❌</td>
+                    </tr>
+                    <tr>
+                        <td><strong>THE-RIGHT-CLICK™ Extension</strong></td>
+                        <td class="highlight-col check">✅</td>
+                        <td class="cross">❌</td>
+                        <td class="cross">❌</td>
+                        <td class="cross">❌</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Batch Processing (100+ at once)</strong></td>
+                        <td class="highlight-col check">✅</td>
+                        <td class="cross">❌</td>
+                        <td class="partial">⚠️ Limited</td>
+                        <td class="partial">⚠️ Limited</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Time Saved vs Copy/Paste</strong></td>
+                        <td class="highlight-col check"><strong>70-85%</strong></td>
+                        <td class="cross">0% (manual)</td>
+                        <td class="cross">10-20%</td>
+                        <td class="cross">10-20%</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Works on Gmail/LinkedIn/Twitter</strong></td>
+                        <td class="highlight-col check">✅ All platforms</td>
+                        <td class="partial">⚠️ Separate tabs</td>
+                        <td class="partial">⚠️ Separate tabs</td>
+                        <td class="partial">⚠️ Separate tabs</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Custom Templates</strong></td>
+                        <td class="highlight-col check">✅ Unlimited</td>
+                        <td class="cross">❌</td>
+                        <td class="check">✅</td>
+                        <td class="check">✅</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Starting Price (Monthly)</strong></td>
+                        <td class="highlight-col price"><strong>$19/mo</strong></td>
+                        <td class="price">$20/mo</td>
+                        <td class="price">$39/mo</td>
+                        <td class="price">$36/mo</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Pay-As-You-Go Option</strong></td>
+                        <td class="highlight-col check">✅ From $9.99</td>
+                        <td class="cross">❌</td>
+                        <td class="cross">❌</td>
+                        <td class="cross">❌</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Free Forever Plan</strong></td>
+                        <td class="highlight-col check">✅ 10 responses/mo</td>
+                        <td class="cross">❌</td>
+                        <td class="cross">❌</td>
+                        <td class="partial">⚠️ 7-day trial</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        
+        <div class="comparison-cta">
+            <p class="comparison-highlight">
+                🎯 <strong>THE-RIGHT-CLICK™ is exclusive to DMTools.</strong> No other AI assistant offers true inline reply generation.
+            </p>
+            <div class="cta-buttons">
+                <a href="/pricing.html" class="btn btn-primary btn-large">
+                    Get Started - From $19/mo
+                </a>
+                <a href="/store.html" class="btn btn-secondary btn-large">
+                    Or Buy Response Packs
+                </a>
+            </div>
+        </div>
+    </div>
+</section>
+
+ 
+
+
+<!-- SECTION 3: VALUE PROPOSITION (Why It's Worth It) -->
+<section class="value-section">
+    <div class="container">
+        <h2 class="section-title">Your Best Investment This Year</h2>
+        <p class="section-subtitle">Here's why DMTools pays for itself in the first week</p>
+        
+        <div class="value-grid">
+            <div class="value-card">
+                <div class="value-icon">⚡</div>
+                <h3>Lightning Fast</h3>
+                <p class="value-stat">2 clicks vs 6+ actions</p>
+                <p>Generate perfect replies without leaving your compose window. No more copy/paste. No more tab switching.</p>
+                <div class="value-math">
+                    <div class="math-row">
+                        <span>Traditional way:</span>
+                        <strong>~5 minutes per reply</strong>
+                    </div>
+                    <div class="math-row highlight">
+                        <span>With DMTools:</span>
+                        <strong>~45 seconds per reply</strong>
+                    </div>
+                    <div class="math-result">
+                        = 85% time savings
+                    </div>
+                </div>
+            </div>
+            
+            <div class="value-card">
+                <div class="value-icon">💰</div>
+                <h3>Insane ROI</h3>
+                <p class="value-stat">$19/mo → $865/mo value</p>
+                <p>If you respond to 20 messages daily, DMTools saves 17+ hours monthly. That's worth $865 at $50/hour.</p>
+                <div class="value-math">
+                    <div class="math-row">
+                        <span>Pro Plan Cost:</span>
+                        <strong>$19/month</strong>
+                    </div>
+                    <div class="math-row">
+                        <span>Time Value Saved:</span>
+                        <strong>$865/month</strong>
+                    </div>
+                    <div class="math-result highlight">
+                        = 45x ROI
+                    </div>
+                    <p class="billing-note">
+  Responses are deducted from your subscription allowance first (if active), then from response packs — packs can also be used without a subscription.
+</p>
+
+                </div>
+            </div>
+            
+            <div class="value-card">
+                <div class="value-icon">🎯</div>
+                <h3>Universal Platform</h3>
+                <p class="value-stat">Works everywhere, instantly</p>
+                <p>Gmail, LinkedIn, Twitter, Instagram, Facebook, dating apps, customer support - ONE tool for ALL platforms.</p>
+                <ul class="platform-list">
+                    <li>✅ Email (Gmail, Outlook, Yahoo)</li>
+                    <li>✅ Social Media (All major platforms)</li>
+                    <li>✅ Dating Apps (Tinder, Bumble, Hinge)</li>
+                    <li>✅ Customer Support (Zendesk, Intercom)</li>
+                    <li>✅ Any text field on the web</li>
+                </ul>
+            </div>
+            
+            <div class="value-card">
+                <div class="value-icon">🚀</div>
+                <h3>Zero Learning Curve</h3>
+                <p class="value-stat">Start saving time in 60 seconds</p>
+                <p>No complex setup. No training. Just install the extension and right-click. That's it.</p>
+                <div class="value-steps">
+                    <div class="step-mini">1️⃣ Install extension</div>
+                    <div class="step-mini">2️⃣ Right-click message</div>
+                    <div class="step-mini">3️⃣ Get perfect reply</div>
+                </div>
+            </div>
+            
+            <div class="value-card">
+                <div class="value-icon">📊</div>
+                <h3>Built-In Analytics</h3>
+                <p class="value-stat">Track your productivity gains</p>
+                <p>See exactly how much time you're saving. Watch your efficiency soar with real-time dashboards.</p>
+                <div class="analytics-preview">
+                    <div class="stat-bar">
+                        <span>Responses Generated</span>
+                        <strong>2,847</strong>
+                    </div>
+                    <div class="stat-bar">
+                        <span>Time Saved This Month</span>
+                        <strong>23.4 hrs</strong>
+                    </div>
+                    <div class="stat-bar">
+                        <span>Most Used Platform</span>
+                        <strong>Gmail (58%)</strong>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="value-card">
+                <div class="value-icon">🔒</div>
+                <h3>Privacy First</h3>
+                <p class="value-stat">Your data stays yours</p>
+                <p>Enterprise-grade security. End-to-end encryption. No data sharing. No tracking. No BS.</p>
+                <ul class="security-list">
+                    <li>🔐 AES-256 encryption</li>
+                    <li>🔐 No data retention</li>
+                    <li>🔐 GDPR compliant</li>
+                    <li>🔐 SOC 2 certified</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</section>
+
+   <!-- Chrome Web Store Install -->
+<div class="extension-download-container">
+    <a href="https://chromewebstore.google.com/detail/dmtools-%E2%80%93-inline-reply-as/joheialcdpmcfgehhcpfjnppficonfih"
+       class="extension-download-btn"
+       target="_blank"
+       rel="noopener noreferrer">
+        🧩 Install from Chrome Web Store
+    </a>
+</div>
+<p class="extension-download-info">
+    Official listing • One-click install • Auto-updates
+</p>
+
+
+
+<!-- SECTION 4: SOCIAL PROOF (Testimonials/Stats) -->
+<section class="social-proof-section">
+    <div class="container">
+        <h2 class="section-title">Trusted by Professionals Worldwide</h2>
+        
+        <div class="stats-grid">
+            <div class="stat-card">
+                <div class="stat-number">938+</div>
+                <div class="stat-label">Active Users</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number">150K+</div>
+                <div class="stat-label">Responses Generated</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number">2,500+</div>
+                <div class="stat-label">Hours Saved</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number">4.9/5</div>
+                <div class="stat-label">User Rating</div>
+            </div>
+        </div>
+        
+        <div class="testimonials-grid">
+            <div class="testimonial-card">
+                <div class="testimonial-stars">⭐⭐⭐⭐⭐</div>
+                <p class="testimonial-text">"DMTools cut my email response time by 80%. I used to spend 2+ hours daily on email - now it's 25 minutes. Game changer for busy professionals."</p>
+                <div class="testimonial-author">
+                    <strong>Sarah M.</strong>
+                    <span>Marketing Director</span>
+                </div>
+            </div>
+            
+            <div class="testimonial-card">
+                <div class="testimonial-stars">⭐⭐⭐⭐⭐</div>
+                <p class="testimonial-text">"The inline reply feature is genius. I can respond to LinkedIn messages without losing my place. No more switching tabs 50 times a day!"</p>
+                <div class="testimonial-author">
+                    <strong>James K.</strong>
+                    <span>Sales Manager</span>
+                </div>
+            </div>
+            
+            <div class="testimonial-card">
+                <div class="testimonial-stars">⭐⭐⭐⭐⭐</div>
+                <p class="testimonial-text">"I process 100+ customer support tickets daily. DMTools batch processing saves me 3+ hours every single day. ROI is insane."</p>
+                <div class="testimonial-author">
+                    <strong>Michael R.</strong>
+                    <span>Customer Support Lead</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+ <!-- Chrome Web Store Install -->
+<div class="extension-download-container">
+    <a href="https://chromewebstore.google.com/detail/dmtools-%E2%80%93-inline-reply-as/joheialcdpmcfgehhcpfjnppficonfih"
+       class="extension-download-btn"
+       target="_blank"
+       rel="noopener noreferrer">
+        🧩 Install from Chrome Web Store
+    </a>
+</div>
+<p class="extension-download-info">
+    Official listing • One-click install • Auto-updates
+</p>
+
+
+
+<!-- SECTION 5: USE CASES (Visual Grid) -->
+<section class="use-cases-section">
+    <div class="container">
+        <h2 class="section-title">Perfect For Every Professional</h2>
+        <p class="section-subtitle">No matter your industry, DMTools saves you hours every week</p>
+        
+        <div class="use-cases-grid">
+            <div class="use-case-card">
+                <div class="use-case-icon">💼</div>
+                <h3>Sales Teams</h3>
+                <ul>
+                    <li>✓ Follow-up emails in seconds</li>
+                    <li>✓ LinkedIn outreach at scale</li>
+                    <li>✓ Personalized responses instantly</li>
+                    <li>✓ Close deals faster</li>
+                </ul>
+                <div class="use-case-stat">
+                    <strong>3-5 hours saved daily</strong>
+                </div>
+            </div>
+            
+            <div class="use-case-card">
+                <div class="use-case-icon">📞</div>
+                <h3>Customer Support</h3>
+                <ul>
+                    <li>✓ Handle 2x more tickets</li>
+                    <li>✓ Consistent quality responses</li>
+                    <li>✓ Reduce response time by 80%</li>
+                    <li>✓ Never miss a ticket</li>
+                </ul>
+                <div class="use-case-stat">
+                    <strong>100+ tickets/day possible</strong>
+                </div>
+            </div>
+            
+            <div class="use-case-card">
+                <div class="use-case-icon">📱</div>
+                <h3>Social Media Managers</h3>
+                <ul>
+                    <li>✓ Reply to comments instantly</li>
+                    <li>✓ Manage multiple accounts</li>
+                    <li>✓ Engage more followers</li>
+                    <li>✓ Never fall behind</li>
+                </ul>
+                <div class="use-case-stat">
+                    <strong>50+ daily responses easy</strong>
+                </div>
+            </div>
+            
+            <div class="use-case-card">
+                <div class="use-case-icon">💻</div>
+                <h3>Recruiters</h3>
+                <ul>
+                    <li>✓ Candidate outreach at scale</li>
+                    <li>✓ Personalized LinkedIn messages</li>
+                    <li>✓ Fast interview scheduling</li>
+                    <li>✓ Fill positions faster</li>
+                </ul>
+                <div class="use-case-stat">
+                    <strong>200+ outreach messages/day</strong>
+                </div>
+            </div>
+            
+            <div class="use-case-card">
+                <div class="use-case-icon">🎓</div>
+                <h3>Educators</h3>
+                <ul>
+                    <li>✓ Student email responses</li>
+                    <li>✓ Assignment feedback faster</li>
+                    <li>✓ Parent communication</li>
+                    <li>✓ More time for teaching</li>
+                </ul>
+                <div class="use-case-stat">
+                    <strong>10+ hours saved weekly</strong>
+                </div>
+            </div>
+            
+            <div class="use-case-card">
+                <div class="use-case-icon">💰</div>
+                <h3>Freelancers</h3>
+                <ul>
+                    <li>✓ Client proposals instantly</li>
+                    <li>✓ Project updates at scale</li>
+                    <li>✓ Invoice follow-ups</li>
+                    <li>✓ More time for billable work</li>
+                </ul>
+                <div class="use-case-stat">
+                    <strong>5+ billable hours reclaimed</strong>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+    <!-- Chrome Web Store Install -->
+<div class="extension-download-container">
+    <a href="https://chromewebstore.google.com/detail/dmtools-%E2%80%93-inline-reply-as/joheialcdpmcfgehhcpfjnppficonfih"
+       class="extension-download-btn"
+       target="_blank"
+       rel="noopener noreferrer">
+        🧩 Install from Chrome Web Store
+    </a>
+</div>
+<p class="extension-download-info">
+    Official listing • One-click install • Auto-updates
+</p>
+
+
+<!-- SECTION 6: FINAL CTA (Urgency + Value) -->
+<section class="final-cta-section">
+    <div class="container">
+        <div class="final-cta-content">
+            <h2>Start Saving 17+ Hours Every Month</h2>
+            <p class="cta-subtitle">Join 938+ professionals who've already transformed their productivity</p>
+            
+            <div class="cta-value-props">
+                <div class="value-prop-mini">
+                    <span class="icon">⚡</span>
+                    <span>Setup in 60 seconds</span>
+                </div>
+                <div class="value-prop-mini">
+                    <span class="icon">🎯</span>
+                    <span>70-85% time savings</span>
+                </div>
+                <div class="value-prop-mini">
+                    <span class="icon">💰</span>
+                    <span>45x ROI guaranteed</span>
+                </div>
+                <div class="value-prop-mini">
+                    <span class="icon">🔒</span>
+                    <span>Cancel anytime</span>
+                </div>
+            </div>
+            
+            <div class="cta-buttons-large">
+                <a href="/pricing.html" class="btn btn-primary btn-xl">
+                    Get Started Free →
+                </a>
+                <a href="/store.html" class="btn btn-secondary btn-xl">
+                    View Response Packs
+                </a>
+            </div>
+            
+            <p class="cta-guarantee">
+                ✅ Free forever plan available | ✅ No credit card required | ✅ Instant setup
+            </p>
+        </div>
+    </div>
+</section>
+
+<!-- Chrome Web Store Install + Quick Start -->
+<div class="extension-download-container">
+    <a href="https://chromewebstore.google.com/detail/joheialcdpmcfgehhcpfjnppficonfih?utm_source=item-share-cb"
+       class="extension-download-btn"
+       target="_blank"
+       rel="noopener noreferrer">
+        🧩 Install from Chrome Web Store
+    </a>
+    <a href="https://chromewebstore.google.com/detail/joheialcdpmcfgehhcpfjnppficonfih?utm_source=item-share-cb"
+       class="extension-download-btn-secondary">
+        ⚡ Quick Start (2 clicks)
+    </a>
+</div>
+<p class="extension-download-info">
+    Official listing • Auto-updates • Works anywhere you can reply
+</p>
+
+         
+    
+     <!-- FOOTER -->
+<footer class="footer">
+    <div class="container">
+        <div class="footer-content">
+            <div class="footer-brand">
+                <h3 class="footer-logo">DMTools.fun</h3>
+                <p class="footer-description">
+                    AI-powered universal messaging response generator.<br>
+                    "Two right-clicks can't go wrong™"
+                </p>
+            </div>
+            
+            <div class="footer-links">
+                <div class="link-group">
+                    <h4>Product</h4>
+                    <a href="/app.html">Batch Generator</a>
+                    <a href="/presets.html">Templates</a>
+                    <a href="/pricing.html">Pricing</a>
+                    <a href="/store.html">Packs Store</a>
+</div>
+                
+                <div class="link-group">
+                    <h4>Legal</h4>
+                    <a href="/terms-of-service.html">Terms of Service</a>
+                    <a href="/privacy-policy.html">Privacy Policy</a>
+                    <a href="/refund-policy.html">Refund Policy</a>
+                    <a href="/cookie-policy.html">Cookie Policy</a>
+                </div>
+                
+                <div class="link-group">
+                    <h4>Support</h4>
+                    <a href="/contact.html">Contact Us</a>
+                    <a href="mailto:support@dmtools.fun">Email Support</a>
+                  <a href="/install-extension.html">Extension Quick Start</a>
+
+                </div>
+            </div>
+        </div>
+        
+        <div class="footer-bottom">
+            <p class="footer-copyright">© 2025 DMTools.fun LLC. All rights reserved.</p>
+        </div>
+    </div>
+</footer>
+<!-- END FOOTER -->
+    
+    <script>
+    const API_BASE = 'https://dmtools-backend-production.up.railway.app/api';
+    let authDestination = '/packs.html';
+    let isSignupMode = false;
+    
+    // Auth Modal Functions
+    function showAuthModal(destination, signup = false) {
+        // Prefer shared modal
+        if (window.DMTOOLS && typeof DMTOOLS.openAuthModal === 'function') {
+            DMTOOLS.openAuthModal(signup ? 'register' : 'login', { returnTo: destination || '/portal.html' });
+            return;
+        }
+        authDestination = destination;
+        isSignupMode = signup;
+
+                // ----------------------------
+        // GA4: Auth modal opened
+        try {
+            if (typeof gtag === 'function') {
+                gtag('event', 'auth_modal_open', {
+                    destination: destination || '',
+                    mode: signup ? 'signup' : 'login'
+                });
+            }
+        } catch (e) {}
+
+        
+        const modal = document.getElementById('auth-modal');
+        const title = document.getElementById('auth-title');
+        const subtitle = document.getElementById('auth-subtitle');
+        const nameFields = document.getElementById('name-fields');
+        const submitBtn = document.getElementById('auth-submit');
+        const switchText = document.getElementById('switch-text');
+        
+        if (signup) {
+            title.textContent = 'Create Account';
+            subtitle.textContent = 'Start generating responses today';
+            nameFields.classList.remove('hidden');
+            submitBtn.textContent = 'Create Account';
+            switchText.textContent = 'Already have an account?';
+        } else {
+            title.textContent = 'Welcome Back';
+            subtitle.textContent = 'Sign in to your account';
+            nameFields.classList.add('hidden');
+            submitBtn.textContent = 'Sign In';
+            switchText.textContent = "Don't have an account?";
+        }
+        
+        modal.classList.add('show');
+        document.getElementById('auth-error').classList.remove('show');
+    }
+    
+    function hideAuthModal() {
+        document.getElementById('auth-modal').classList.remove('show');
+        document.getElementById('auth-form').reset();
+        document.getElementById('auth-error').classList.remove('show');
+    }
+    
+    function toggleAuthMode() {
+        isSignupMode = !isSignupMode;
+        showAuthModal(authDestination, isSignupMode);
+    }
+    
+    async function handleAuth(event) {
+        event.preventDefault();
+        
+        const email = document.getElementById('auth-email').value.trim();
+        const password = document.getElementById('auth-password').value.trim();
+        const errorDiv = document.getElementById('auth-error');
+        const submitBtn = document.getElementById('auth-submit');
+        
+        errorDiv.classList.remove('show');
+        
+        if (!email || !password) {
+            errorDiv.textContent = 'Email and password are required';
+            errorDiv.classList.add('show');
+            return;
+        }
+        
+        if (password.length < 6) {
+            errorDiv.textContent = 'Password must be at least 6 characters';
+            errorDiv.classList.add('show');
+            return;
+        }
+        
+        submitBtn.disabled = true;
+        submitBtn.textContent = 'Processing...';
+
+                // ----------------------------
+        // GA4: Auth attempt
+        try {
+            if (typeof gtag === 'function') {
+                gtag('event', isSignupMode ? 'sign_up_attempt' : 'login_attempt', {
+                    destination: authDestination || ''
+                });
+            }
+        } catch (e) {}
+
+        
+        try {
+            const endpoint = isSignupMode ? '/user/register' : '/user/login';
+            const body = { email, password };
+            
+            if (isSignupMode) {
+                const firstName = document.getElementById('first-name').value.trim();
+                const lastName = document.getElementById('last-name').value.trim();
+                
+                if (!firstName || !lastName) {
+                    errorDiv.textContent = 'First name and last name are required';
+                    errorDiv.classList.add('show');
+                    submitBtn.disabled = false;
+                    submitBtn.textContent = isSignupMode ? 'Create Account' : 'Sign In';
+                    return;
+                }
+                
+                body.first_name = firstName;
+                body.last_name = lastName;
+            }
+            
+            const response = await fetch(API_BASE + endpoint, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(body)
+            });
+            
+            const data = await response.json();
+            
+            if (!response.ok) {
+                throw new Error(data.error || 'Authentication failed');
+            }
+            
+            // Save token
+            localStorage.setItem('authToken', data.token);
+
+                        // ----------------------------
+            // GA4: Auth success
+            try {
+                if (typeof gtag === 'function') {
+                    gtag('event', isSignupMode ? 'sign_up_success' : 'login_success', {
+                        destination: authDestination || ''
+                    });
+                }
+            } catch (e) {}
+
+            
+            // Small delay to ensure storage completes
+            setTimeout(() => {
+                window.location.href = authDestination;
+            }, 100);
+            
+        } catch (error) {
+            console.error('Auth error:', error);
+
+                        // ----------------------------
+            // GA4: Auth failure
+            try {
+                if (typeof gtag === 'function') {
+                    gtag('event', 'auth_error', {
+                        mode: isSignupMode ? 'signup' : 'login',
+                        message: (error && error.message) ? String(error.message).slice(0, 120) : 'unknown'
+                    });
+                }
+            } catch (e) {}
+
+            
+            errorDiv.textContent = error.message || 'Authentication failed. Please try again.';
+            errorDiv.classList.add('show');
+            submitBtn.disabled = false;
+            submitBtn.textContent = isSignupMode ? 'Create Account' : 'Sign In';
+        }
+    }
+    
+    // ROI Calculator
+    function updateROICalculator() {
+        const messagesPerDay = parseFloat(document.getElementById('messages-per-day').value) || 20;
+        const timePerMessage = parseFloat(document.getElementById('time-per-message').value) || 5;
+        const daysPerMonth = parseFloat(document.getElementById('days-per-month').value) || 22;
+        
+        // Calculate time savings (assuming 85% reduction)
+        const minutesPerDayOld = messagesPerDay * timePerMessage;
+        const minutesPerDayNew = messagesPerDay * (timePerMessage * 0.15); // 85% reduction
+        const minutesSavedPerDay = minutesPerDayOld - minutesPerDayNew;
+        
+        const hoursSavedPerDay = minutesSavedPerDay / 60;
+        const hoursSavedPerWeek = hoursSavedPerDay * 5;
+        const hoursSavedPerMonth = hoursSavedPerDay * daysPerMonth;
+        const hoursSavedPerYear = hoursSavedPerMonth * 12;
+        
+        // Calculate monetary value (assuming $50/hour)
+        const moneySavedPerMonth = hoursSavedPerMonth * 50;
+        
+        // Calculate ROI (Pro plan is $19/month)
+        const roiMultiple = moneySavedPerMonth / 19;
+        
+        // Update display
+        document.getElementById('hours-saved').textContent = hoursSavedPerMonth.toFixed(1);
+        document.getElementById('money-saved').textContent = '$' + Math.round(moneySavedPerMonth);
+        document.getElementById('roi-multiple').textContent = Math.round(roiMultiple) + 'x';
+        
+        document.getElementById('daily-savings').textContent = Math.round(minutesSavedPerDay) + ' min';
+        document.getElementById('weekly-savings').textContent = hoursSavedPerWeek.toFixed(1) + ' hrs';
+        document.getElementById('monthly-savings').textContent = hoursSavedPerMonth.toFixed(1) + ' hrs';
+        document.getElementById('yearly-savings').textContent = Math.round(hoursSavedPerYear) + ' hrs';
+    }
+    
+    // Initialize on page load
+    document.addEventListener('DOMContentLoaded', function() {
+        // Close modal on outside click
+        document.getElementById('auth-modal').addEventListener('click', function(e) {
+            if (e.target === this) {
+                hideAuthModal();
+            }
+        });
+        
+        // Update calculator on input change
+        const calcInputs = ['messages-per-day', 'time-per-message', 'days-per-month'];
+        calcInputs.forEach(id => {
+            const element = document.getElementById(id);
+            if (element) {
+                element.addEventListener('input', updateROICalculator);
+            }
+
+                    // ----------------------------
+        // GA4: CTA click tracking (index.html)
+
+        function trackCta(eventName, params) {
+            try {
+                if (typeof gtag === 'function') gtag('event', eventName, params || {});
+            } catch (e) {}
+        }
+
+        // Track buttons that open auth modal (they all call showAuthModal)
+        document.querySelectorAll('button[onclick*="showAuthModal"]').forEach(btn => {
+            btn.addEventListener('click', () => {
+                const onclick = btn.getAttribute('onclick') || '';
+                // Extract destination if possible: showAuthModal('/packs.html', false)
+                const match = onclick.match(/showAuthModal\('([^']+)'/);
+                const destination = match ? match[1] : '';
+
+                trackCta('cta_click', {
+                    cta_text: (btn.textContent || '').trim().slice(0, 60),
+                    destination: destination,
+                    location: 'index_hero'
+                });
+            }, { passive: true });
+        });
+
+        // Track key link clicks (pricing/store/portal/etc.)
+        document.querySelectorAll('a[href]').forEach(a => {
+            a.addEventListener('click', () => {
+                const href = a.getAttribute('href') || '';
+                const text = (a.textContent || '').trim().slice(0, 60);
+
+                // Chrome Web Store install clicks
+                if (href.includes('chromewebstore.google.com')) {
+                    trackCta('cws_install_click', { link_text: text, href });
+                    return;
+                }
+
+                // Internal nav CTAs you care about
+                if (
+                    href.includes('/pricing.html') ||
+                    href.includes('/store.html') ||
+                    href.includes('/packs.html') ||
+                    href.includes('/portal.html') ||
+                    href.includes('https://chromewebstore.google.com/detail/joheialcdpmcfgehhcpfjnppficonfih?utm_source=item-share-cb')
+                ) {
+                    trackCta('nav_click', { link_text: text, href });
+                }
+            }, { passive: true });
+        });
+
+            
+        });
+        
+        // Initial calculation
+        updateROICalculator();
+    });
+</script>
+<script src="js/app-core.js"></script>
+<script src="js/auth-modal.js"></script>
+</body>
+</html>
+

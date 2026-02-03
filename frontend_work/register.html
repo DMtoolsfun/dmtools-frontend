@@ -1,0 +1,347 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- PWA Manifest -->
+    <link rel="manifest" href="/manifest.json">
+    <meta name="theme-color" content="#8b5cf6">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+
+    <link rel="stylesheet" href="styles.css">
+
+
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-K0G9YRD39L"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'G-K0G9YRD39L');
+    </script>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign Up - DMTools.fun</title>
+    <meta name="description" content="Create your free DMTools.fun account - AI-powered universal messaging response generator">
+    <link rel="icon" href="/favicon.ico" type="image/x-icon">
+    
+  
+    <style>
+
+    .register-container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        min-height: calc(100vh - 200px);
+        padding: 2rem;
+    }
+
+    .register-card {
+        max-width: 450px;
+        width: 100%;
+        padding: 2.5rem;
+    }
+
+    .register-header {
+        text-align: center;
+        margin-bottom: 2rem;
+    }
+
+    .free-badge {
+        display: inline-block;
+        background: linear-gradient(135deg, #10b981, #059669);
+        color: white;
+        padding: 0.25rem 0.75rem;
+        border-radius: 20px;
+        font-size: 0.8rem;
+        font-weight: 600;
+        margin-top: 0.5rem;
+    }
+
+    /* Benefits list */
+    .benefits-list {
+        border-radius: 8px;
+        padding: 1rem;
+        margin-bottom: 1.5rem;
+    }
+
+    .benefits-list h3 {
+        font-size: 0.9rem;
+        margin-bottom: 0.5rem;
+    }
+
+    .benefits-list ul {
+        list-style: none;
+        margin: 0;
+        padding: 0;
+    }
+
+    .benefits-list li {
+        font-size: 0.85rem;
+        padding: 0.25rem 0;
+    }
+ 
+    /* Auth form helpers */
+    .password-requirements {
+        font-size: 0.8rem;
+        margin-top: 0.5rem;
+    }
+
+    .terms-checkbox {
+        display: flex;
+        align-items: flex-start;
+        gap: 0.75rem;
+        margin-bottom: 1.5rem;
+    }
+
+    /* Responsive – register only */
+    @media (max-width: 768px) {
+     .register-card {
+            padding: 1.5rem;
+            margin: 1rem;
+        }
+    }
+        
+    </style>
+    
+    </head>
+
+    <body>
+  
+   <!-- Header -->
+    <header class="header">
+        <div class="nav-container">
+            <a href="/" class="logo">DMTools.fun</a>
+            <div class="auth-buttons" id="authButtons">
+                <button class="mobile-menu-btn" onclick="toggleMobileMenu()" aria-label="Menu">☰</button>
+                <a href="/app.html" class="btn btn-secondary">← Back to App</a>
+            </div>
+        </div>
+    
+        <nav class="mobile-nav" id="mobileNav">
+            <a href="/app.html" class="tab-btn">Generator</a>
+            <a href="/presets.html" class="tab-btn">Templates</a>
+<a href="/packs.html" class="tab-btn">Response Packs</a>
+            <a href="/pricing.html" class="tab-btn">Pricing</a>
+            <a href="/store.html" class="tab-btn">Packs Store</a>
+</nav>
+    
+        <!-- Desktop Nav Tabs -->
+        <nav class="nav-tabs">
+            <a href="/app.html" class="tab-btn">Generator</a>
+            <a href="/presets.html" class="tab-btn">Templates</a>
+<a href="/packs.html" class="tab-btn">Response Packs</a>
+            <a href="/pricing.html" class="tab-btn">Pricing</a>
+            <a href="/store.html" class="tab-btn">Packs Store</a>
+</nav>
+    </header>
+
+    <!-- Register Container -->
+    <main class="register-container">
+        <div class="register-card">
+            <div class="register-header">
+                <h1>Create Your Account</h1>
+                <p>Start generating AI responses today</p>
+                <span class="free-badge">✨ 10 Free Responses/Month</span>
+            </div>
+
+            <!-- Benefits -->
+            <div class="benefits-list">
+                <h3>What you get for free:</h3>
+                <ul>
+                    <li>10 AI-generated responses per month</li>
+                    <li>Batch processing for any platform</li>
+                    <li>5 custom templates</li>
+                    <li>Basic analytics dashboard</li>
+                </ul>
+            </div>
+
+            <!-- Error/Success Messages -->
+            <div id="error-message" class="message error"></div>
+            <div id="success-message" class="message success"></div>
+
+            <!-- Register Form -->
+            <form id="register-form">
+                <div class="form-group">
+                    <label class="form-label" for="email">Email Address</label>
+                    <input 
+                        type="email" 
+                        id="email" 
+                        class="form-input" 
+                        placeholder="you@example.com"
+                        required
+                        autocomplete="email"
+                    >
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label" for="password">Password</label>
+                    <input 
+                        type="password" 
+                        id="password" 
+                        class="form-input" 
+                        placeholder="Create a strong password"
+                        required
+                        autocomplete="new-password"
+                        minlength="8"
+                    >
+                    <p class="password-requirements">At least 8 characters</p>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label" for="confirm-password">Confirm Password</label>
+                    <input 
+                        type="password" 
+                        id="confirm-password" 
+                        class="form-input" 
+                        placeholder="Confirm your password"
+                        required
+                        autocomplete="new-password"
+                    >
+                </div>
+
+                <div class="terms-checkbox">
+                    <input type="checkbox" id="terms" required>
+                    <label for="terms">
+                        I agree to the <a href="/terms-of-service.html" target="_blank">Terms of Service</a> 
+                        and <a href="/privacy-policy.html" target="_blank">Privacy Policy</a>
+                    </label>
+                </div>
+
+                <button type="submit" class="btn btn-primary btn-large" id="register-btn">
+                    Create Free Account
+                </button>
+            </form>
+
+            <div class="divider">
+                <span>or</span>
+            </div>
+
+            <p class="login-link">
+                Already have an account? <a href="/login.html">Sign in</a>
+            </p>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-brand">
+                    <h3>DMTools.fun</h3>
+                    <p>AI-powered universal messaging response generator. Generate perfect responses for any platform.</p>
+                </div>
+                
+                <div class="link-group">
+                    <h4>Product</h4>
+                    <a href="/app.html">Generator</a>
+                    <a href="/presets.html">Templates</a>
+                    <a href="/pricing.html">Pricing</a>
+                    <a href="/store.html">Packs Store</a>
+                </div>
+                
+                <div class="link-group">
+                    <h4>Legal</h4>
+                    <a href="/terms-of-service.html">Terms of Service</a>
+                    <a href="/privacy-policy.html">Privacy Policy</a>
+                    <a href="/refund-policy.html">Refund Policy</a>
+                    <a href="/cookie-policy.html">Cookie Policy</a>
+                </div>
+                
+                <div class="link-group">
+                    <h4>Support</h4>
+                    <a href="/contact.html">Contact Us</a>
+                    <a href="mailto:support@dmtools.fun">Email Support</a>
+                    <a href="/">Back to Home</a>
+                </div>
+            </div>
+            
+                <div class="footer-bottom">
+                    <p class="footer-copyright">© 2025 DMTools.fun LLC. All rights reserved.</p>
+                </div>
+            </div>
+        </footer>
+
+       <script src="/js/app-core.js"></script>
+       <script src="/js/access.js"></script>
+       <script src="/js/auth-modal.js"></script>
+<script>
+  // ===========================================================
+  // Register Page Script (Phase 2)
+  // Redirects successful register -> portal.html (or returnTo)
+  //
+  // Backend /api/user/register returns a token (same shape as login).
+  // ===========================================================
+
+  const API_BASE = DMTOOLS.API_BASE; // optional compatibility
+
+  // If already logged in, go to portal
+  document.addEventListener('DOMContentLoaded', () => {
+    DMTOOLS.redirectIfLoggedIn();
+  });
+
+  // Handle registration form submission
+  document.getElementById('register-form').addEventListener('submit', async (e) => {
+    e.preventDefault();
+
+    // Register page currently does not collect names.
+    // Keep these optional (backend accepts nulls).
+    const firstNameEl = document.getElementById('first-name');
+    const lastNameEl = document.getElementById('last-name');
+    const firstName = firstNameEl ? firstNameEl.value.trim() : '';
+    const lastName = lastNameEl ? lastNameEl.value.trim() : '';
+    const email = document.getElementById('email').value.trim();
+    const password = document.getElementById('password').value;
+
+    const registerBtn = document.getElementById('register-btn');
+    const errorMsg = document.getElementById('error-message');
+    const successMsg = document.getElementById('success-message');
+
+    // Reset UI
+    errorMsg.classList.remove('show');
+    successMsg.classList.remove('show');
+
+    registerBtn.disabled = true;
+    registerBtn.innerHTML = 'Creating account...';
+
+    try {
+      // Register
+      const registerRes = await fetch(`${API_BASE}/user/register`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          first_name: firstName,
+          last_name: lastName,
+          email,
+          password
+        })
+      });
+
+      const registerData = await registerRes.json();
+
+      if (!registerRes.ok) {
+        throw new Error(registerData?.error || registerData?.message || 'Registration failed');
+      }
+
+      // Store token and continue
+      if (registerData?.token) DMTOOLS.setToken(registerData.token);
+
+      successMsg.textContent = 'Account created. Redirecting...';
+      successMsg.classList.add('show');
+
+      const returnTo = DMTOOLS.getReturnTo('/portal.html');
+      setTimeout(() => DMTOOLS.redirectTo(returnTo), 250);
+
+    } catch (error) {
+      errorMsg.textContent = error.message || 'Connection error. Please try again.';
+      errorMsg.classList.add('show');
+
+      registerBtn.disabled = false;
+      registerBtn.innerHTML = 'Create Free Account';
+    }
+  });
+</script>
+
+
+</body>
+</html>
+

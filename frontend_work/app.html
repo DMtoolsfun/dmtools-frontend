@@ -1,0 +1,2216 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  
+  <script>window.lemonSqueezyAffiliateConfig = { store: "dmtoolsfun-llc" };</script>
+<script src="https://lmsqueezy.com/affiliate.js" defer></script>
+  
+ 
+
+  <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-K0G9YRD39L"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'G-K0G9YRD39L');
+    </script>
+  
+    <!-- DOMPurify - XSS Protection -->
+    <script src="https://cdn.jsdelivr.net/npm/dompurify@3.0.6/dist/purify.min.js"></script>
+  
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+    <!-- PWA Manifest and Meta Tags -->
+    <link rel="manifest" href="/manifest.json">
+    <meta name="theme-color" content="#8b5cf6">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="DMTools"> 
+    <link rel="apple-touch-icon" href="/icons/icon-180x180.png">
+  <link rel="stylesheet" href="styles.css">
+  
+    <title>DMTools.fun LLC - AI Universal Communication Response Assistant</title>
+  
+    <style>
+    /* PAGE-SPECIFIC: Batch Response Generator App */
+    
+    /* Navigation (keep existing for this page) */
+    .nav-tabs {
+        display: flex;
+        justify-content: center;
+        gap: 1rem;
+        padding: 1rem 2rem;
+        border-top: 1px solid #1e293b;
+    }
+
+    .tab-btn {
+        background: transparent;
+        border: 1px solid var(--border-medium);
+        color: var(--text-muted);
+        padding: 0.5rem 1.5rem;
+        border-radius: 6px;
+        text-decoration: none;
+        font-weight: 600;
+        transition: all 0.3s ease;
+        cursor: pointer;
+        font-size: 0.7rem;
+    }
+
+    .tab-btn:hover,
+    .tab-btn.active {
+        border-color: var(--primary);
+        color: var(--primary);
+        background: rgba(139, 92, 246, 0.1);
+    }
+
+    .tab-btn.active {
+        background: rgba(139, 92, 246, 0.2);
+    }
+
+    /* Platform Drawer */
+    .platform-drawer-toggle {
+        position: fixed;
+        left: 20px;
+        top: 50%;
+        transform: translateY(-50%);
+        z-index: 1000;
+    }
+
+    .drawer-toggle {
+        background: linear-gradient(135deg, var(--primary), var(--accent));
+        border: none;
+        width: 64px;
+        height: 64px;
+        border-radius: 50%;
+        color: white;
+        font-size: 2rem;
+        cursor: pointer;
+        box-shadow: var(--shadow-primary);
+        transition: all 0.3s ease;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .drawer-toggle:hover {
+        transform: scale(1.1);
+        box-shadow: var(--shadow-primary-lg);
+    }
+
+    .drawer-toggle.active {
+        left: 310px;
+    }
+
+    .platform-drawer {
+        position: fixed;
+        left: -300px;
+        top: 0;
+        width: 300px;
+        height: 100vh;
+        background: rgba(30, 41, 59, 0.98);
+        border-right: 1px solid var(--border-medium);
+        padding: 2rem 1rem;
+        overflow-y: auto;
+        transition: left 0.3s ease;
+        z-index: 998;
+    }
+
+    .platform-drawer.open {
+        left: 0;
+    }
+
+    .platform-drawer h3 {
+        color: var(--primary);
+        margin-bottom: 1.5rem;
+    }
+
+    .platform-item {
+        background: var(--bg-card);
+        padding: 1rem;
+        border-radius: 8px;
+        margin-bottom: 1rem;
+        cursor: pointer;
+        transition: all 0.3s ease;
+    }
+
+    .platform-item:hover {
+        background: var(--bg-light);
+        transform: translateX(5px);
+    }
+
+    .content-wrapper {
+        flex: 1;
+        margin-left: 0;
+        transition: margin-left 0.3s ease;
+    }
+
+    .content-wrapper.drawer-open {
+        margin-left: 300px;
+    }
+
+   
+    /* Tab Content */
+    .tab-content {
+        display: none;
+    }
+
+    .tab-content.active {
+        display: block;
+    }
+
+    /* Usage Counter */
+    .usage-counter {
+        background: rgba(30, 41, 59, 0.8);
+        border: 0.5px solid var(--border-medium);
+        border-radius: 12px;
+        padding: 1.1rem;
+        margin-bottom: 2rem;
+    }
+
+    .usage-text {
+        color: var(--text-primary);
+        font-size: 1.2rem;
+        margin-bottom: 1rem;
+        text-align: center;
+    }
+
+    .usage-bar {
+        background: var(--bg-input);
+        height: 12px;
+        border-radius: 6px;
+        overflow: hidden;
+        margin-bottom: 0.5rem;
+    }
+
+    .usage-fill {
+        background: linear-gradient(90deg, var(--primary), var(--accent));
+        height: 100%;
+        width: 0%;
+        transition: width 0.3s ease;
+    }
+
+    /* Upload Section */
+    .upload-section {
+        background: rgba(30, 41, 59, 0.8);
+        border: 1px solid var(--border-medium);
+        border-radius: 16px;
+        padding: 2rem;
+        margin-bottom: 2rem;
+    }
+
+    .upload-methods {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        gap: 1rem;
+        margin-bottom: 2rem;
+    }
+
+    .upload-method {
+        background: var(--bg-card);
+        border: 2px solid var(--bg-light);
+        border-radius: 12px;
+        padding: 1.5rem;
+        text-align: center;
+        cursor: pointer;
+        transition: all 0.3s ease;
+    }
+
+    .upload-method.active {
+        border-color: var(--primary);
+        background: rgba(139, 92, 246, 0.1);
+    }
+
+    .upload-method:hover {
+        transform: translateY(-2px);
+    }
+
+    .bulk-textarea {
+        width: 100%;
+        min-height: 150px;
+        background: var(--bg-input);
+        border: 1px solid var(--bg-light);
+        border-radius: 8px;
+        color: var(--text-primary);
+        padding: 1rem;
+        font-family: monospace;
+        resize: vertical;
+        display: none;
+        margin-top: 1rem;
+    }
+
+    .bulk-textarea:focus {
+        outline: none;
+        border-color: var(--primary);
+        box-shadow: 0 0 0 3px rgba(139, 92, 246, 0.1);
+    }
+
+    .bulk-textarea.show {
+        display: block;
+    }
+
+    /* Settings Section */
+    .settings-section {
+        background: rgba(30, 41, 59, 0.8);
+        border: 1px solid var(--border-medium);
+        border-radius: 16px;
+        padding: 2rem;
+        margin-bottom: 2rem;
+    }
+
+    .settings-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        gap: 1.5rem;
+        margin-bottom: 2rem;
+    }
+
+    .setting-group {
+        background: var(--bg-card);
+        border-radius: 12px;
+        padding: 1.5rem;
+    }
+
+    .setting-group h3 {
+        color: var(--primary);
+        font-size: 1.1rem;
+        margin-bottom: 1rem;
+    }
+
+    /* Messages Section */
+    .messages-section {
+        background: rgba(30, 41, 59, 0.8);
+        border: 1px solid var(--border-medium);
+        border-radius: 16px;
+        padding: 2rem;
+        margin-bottom: 2rem;
+    }
+
+    .messages-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 2rem;
+    }
+
+    .messages-header h2 {
+        color: var(--primary);
+    }
+
+    .batch-counter {
+        background: var(--bg-card);
+        padding: 0.75rem 1.5rem;
+        border-radius: 8px;
+        font-weight: 600;
+        color: var(--accent);
+    }
+
+    /* Message Pairs */
+    .message-pair {
+        background: var(--bg-card);
+        border-radius: 12px;
+        padding: 1.5rem;
+        margin-bottom: 1.5rem;
+        position: relative;
+    }
+
+    .message-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 1rem;
+        flex-wrap: wrap;
+        gap: 1rem;
+    }
+
+    .message-number {
+        color: var(--primary);
+        font-weight: 700;
+        font-size: 1.1rem;
+    }
+
+    .message-tone-selector {
+        flex: 1;
+        min-width: 150px;
+    }
+
+    .message-tone-selector select {
+        width: 100%;
+        background: var(--bg-input);
+        border: 1px solid var(--bg-light);
+        border-radius: 6px;
+        color: var(--text-primary);
+        padding: 0.5rem;
+        font-size: 0.9rem;
+    }
+
+    .message-tone-selector select:focus {
+        outline: none;
+        border-color: var(--primary);
+    }
+
+    .message-actions {
+        display: flex;
+        gap: 0.5rem;
+    }
+
+    .message-content {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 1rem;
+    }
+
+    .message-input-group {
+        background: var(--bg-input);
+        border-radius: 8px;
+        padding: 1rem;
+    }
+
+    .message-input-group label {
+        display: block;
+        color: var(--text-muted);
+        font-size: 0.9rem;
+        margin-bottom: 0.5rem;
+        font-weight: 600;
+    }
+
+    .message-input-group textarea {
+        width: 100%;
+        min-height: 100px;
+        background: transparent;
+        border: 1px solid var(--bg-light);
+        border-radius: 6px;
+        color: var(--text-primary);
+        padding: 0.75rem;
+        resize: vertical;
+        font-family: inherit;
+    }
+
+    .message-input-group textarea:focus {
+        outline: none;
+        border-color: var(--primary);
+    }
+
+    /* Paywall Modal */
+    .paywall-modal {
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.85);
+        z-index: 10000;
+        justify-content: center;
+        align-items: center;
+        padding: 1rem;
+    }
+
+    .paywall-modal.show {
+        display: flex;
+    }
+
+    .paywall-content {
+        background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
+        border: 2px solid var(--primary);
+        border-radius: 20px;
+        padding: 2.5rem;
+        max-width: 800px;
+        width: 100%;
+        text-align: center;
+        animation: slideUp 0.3s ease;
+        max-height: 90vh;
+        overflow-y: auto;
+    }
+
+    @keyframes slideUp {
+        from {
+            opacity: 0;
+            transform: translateY(20px);
+        }
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
+    .paywall-icon {
+        font-size: 4rem;
+        margin-bottom: 1rem;
+    }
+
+    .paywall-content h2 {
+        font-size: 1.75rem;
+        color: var(--text-primary);
+        margin-bottom: 0.5rem;
+    }
+
+    .paywall-content > p {
+        font-size: 1rem;
+        color: var(--text-muted);
+        margin-bottom: 2rem;
+    }
+
+    .paywall-options {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 1.5rem;
+        margin-bottom: 1.5rem;
+    }
+
+    .paywall-option {
+        background: rgba(255, 255, 255, 0.05);
+        border: 1px solid var(--border-medium);
+        border-radius: 16px;
+        padding: 1.5rem;
+        text-align: left;
+        transition: all 0.3s ease;
+        position: relative;
+    }
+
+    .paywall-option:hover {
+        border-color: var(--primary);
+        transform: translateY(-2px);
+    }
+
+    .option-badge {
+        position: absolute;
+        top: -10px;
+        left: 50%;
+        transform: translateX(-50%);
+        background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+        color: white;
+        padding: 4px 12px;
+        border-radius: 20px;
+        font-size: 0.7rem;
+        font-weight: 700;
+        white-space: nowrap;
+    }
+
+    .paywall-option:last-child .option-badge {
+        background: linear-gradient(135deg, var(--success), var(--success-dark));
+    }
+
+    .paywall-option h3 {
+        color: var(--text-primary);
+        font-size: 1.25rem;
+        margin: 0.5rem 0;
+    }
+
+    .option-price {
+        font-size: 2rem;
+        font-weight: 800;
+        color: var(--primary);
+        margin-bottom: 1rem;
+    }
+
+    .option-price span {
+        font-size: 0.9rem;
+        font-weight: 400;
+        color: var(--text-muted);
+    }
+
+    .paywall-option:last-child .option-price {
+        color: var(--success);
+    }
+
+    .paywall-option ul {
+        list-style: none;
+        padding: 0;
+        margin: 0 0 1.5rem 0;
+    }
+
+    .paywall-option li {
+        color: var(--text-secondary);
+        padding: 0.4rem 0;
+        font-size: 0.9rem;
+    }
+
+    .paywall-footer {
+        color: var(--text-dark);
+        font-size: 0.85rem;
+        margin-bottom: 1rem;
+    }
+
+    .paywall-close {
+        background: none;
+        border: none;
+        color: var(--text-dark);
+        cursor: pointer;
+        font-size: 0.9rem;
+        padding: 0.5rem 1rem;
+        transition: color 0.3s ease;
+    }
+
+    .paywall-close:hover {
+        color: var(--text-primary);
+    }
+
+    /* Response Actions */
+    .response-actions {
+        display: flex;
+        gap: 0.5rem;
+        margin-top: 0.5rem;
+    }
+
+    .btn-small {
+        padding: 0.4rem 0.8rem;
+        font-size: 0.8rem;
+        border-radius: 6px;
+        white-space: nowrap;
+    }
+
+    .btn-small:hover {
+        transform: translateY(-1px);
+    }
+
+    /* Drag and Drop */
+    .drop-zone-active {
+        background: rgba(139, 92, 246, 0.15);
+        border: 2px dashed var(--primary) !important;
+        transition: all 0.3s ease;
+    }
+
+    .drop-zone-hover {
+        background: rgba(139, 92, 246, 0.25);
+        border: 3px solid var(--primary) !important;
+        transform: scale(1.03);
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+        .nav-tabs {
+            display: none;
+        }
+
+        .upload-methods {
+            grid-template-columns: 1fr;
+        }
+
+        .settings-grid {
+            grid-template-columns: 1fr;
+        }
+
+        .drawer-toggle {
+            width: 58px;
+            height: 58px;
+            font-size: 1.5rem;
+        }
+
+        .platform-drawer {
+            width: 280px;
+            left: -280px;
+        }
+
+        .drawer-toggle.active {
+            left: 290px;
+        }
+
+        .messages-header {
+            flex-direction: column;
+            gap: 1rem;
+            align-items: flex-start;
+        }
+
+        .message-header {
+            flex-direction: column;
+            align-items: flex-start;
+        }
+
+        .message-tone-selector {
+            width: 100%;
+        }
+
+        .message-actions {
+            width: 100%;
+            flex-direction: row;
+            justify-content: space-between;
+        }
+
+        .message-content {
+            grid-template-columns: 1fr;
+        }
+
+        .btn-small {
+            font-size: 0.75rem;
+            padding: 0.35rem 0.6rem;
+        }
+
+        .response-actions {
+            flex-direction: column;
+        }
+
+        .paywall-options {
+            grid-template-columns: 1fr;
+        }
+
+        .paywall-content {
+            padding: 1.5rem;
+        }
+
+        .paywall-content h2 {
+            font-size: 1.4rem;
+        }
+
+        .option-price {
+            font-size: 1.75rem;
+        }
+    }
+</style>
+</head>
+<body>
+   <!-- Header -->
+<header class="header">
+    <div class="nav-container">
+        <a href="/" class="logo">DMTools.fun</a>
+        <div class="auth-buttons" id="authButtons">
+            <button class="mobile-menu-btn" onclick="toggleMobileMenu()" aria-label="Menu">☰</button>
+            
+            <div id="auth-section" class="auth-buttons">
+                <button class="btn btn-secondary" data-auth="login">Sign In</button>
+                <button class="btn btn-primary" data-auth="register">Sign Up Free</button>
+            </div>
+            
+            <div id="user-section" class="auth-buttons hidden">
+                <span class="user-email" id="user-email"></span>
+                <button class="btn btn-secondary" onclick="logout()">Logout</button>
+            </div>
+        </div>
+    </div>
+    
+    <nav class="mobile-nav" id="mobileNav">
+        <a href="/app.html" class="tab-btn active">Generator</a>
+        <a href="/presets.html" class="tab-btn">Templates</a>
+<a href="/packs.html" class="tab-btn">Response Packs</a>
+        <a href="/pricing.html" class="tab-btn">Pricing</a>
+        <a href="/store.html" class="tab-btn">Packs Store</a>
+</nav>
+
+</header>
+
+    <!-- Platform Drawer Toggle -->
+          
+    <div class="platform-drawer-toggle">
+        <button class="drawer-toggle" id="drawer-toggle" onclick="toggleDrawer()">
+            🌐
+        </button>
+    </div>
+
+    <!-- Platform Drawer -->
+          
+    <div class="platform-drawer" id="platform-drawer">
+        <h3>🌐 Browser Window</h3>
+    
+
+        <div class="platform-item" onclick="openPlatform('browser')">
+            <div style="font-size: 1.5rem; margin-bottom: 0.5rem;">🌐</div>
+            <strong>Open Browser</strong>
+            <p style="font-size: 0.85rem; color: #9ca3af; margin-top: 0.5rem;">
+                Open a floating browser to copy messages from any platform
+            </p>
+        </div>
+    </div>
+
+  
+          
+    <!--end platform drawer------->
+    <!--------------------------------------
+    <!-- Main Content ------------>
+          
+    <main class="main-content">
+        <div class="content-wrapper" id="content-wrapper">
+            <div class="container">
+                <div id="generator" class="tab-content active">
+
+                   <!-- Info Banner -->
+                    <div style="background: rgba(139, 92, 246, 0.1); border: 1px solid rgba(139, 92, 246, 0.3); border-radius: 12px; padding: 1.5rem; margin-bottom: 2rem; text-align: center;">
+                        <h2 style="color: #8b5cf6; margin-bottom: 1rem; font-size: 1.5rem;">🌐 Universal AI-Powered Response Assistant Command Center</h2>
+                        <p style="color: #d1d5db; margin-bottom: 1rem;">Click the large 🌐 button on the left to open a floating browser window.</p>
+                        <p style="color: #9ca3af; font-size: 0.9rem;">Process messages from any platform using our AI-powered response generator.</p>
+                    </div>
+                  
+                   <!-- Messages Section -->
+                    <div class="messages-section">
+                        <div class="messages-header">
+                            <h2>💬 Multi-Platform Messages</h2>
+                            <div class="batch-counter">
+                                <span id="message-count">0</span> Messages
+                            </div>
+                        </div>
+
+                        <div id="messages-container">
+                            <!-- Message pairs will be dynamically generated here -->
+                        </div>
+
+                        <button class="btn btn-secondary" style="width: 100%; margin-top: 1rem;" onclick="addMessagePair()">
+                            ➕ Add Message
+                        </button>
+                    </div>
+
+                    <!-- Action Buttons -->
+                    <div style="display: flex; gap: 1rem; margin-top: 2rem; flex-wrap: wrap;">
+                        <button class="btn btn-primary" id="process-all-btn" onclick="processAllMessages()" style="flex: 1; min-width: 200px;">
+                            🚀 Process All Responses
+                        </button>
+                        
+                        <button class="btn btn-secondary" onclick="clearAllMessages()" style="min-width: 150px;">
+                            🗑️ Clear All
+                        </button>
+                        
+                        <button class="btn btn-secondary" onclick="exportResults()" style="min-width: 150px;">
+                            📥 Export Results
+                        </button>
+                    </div>
+                  <!-- Usage Counter -->
+                    <div class="usage-counter" id="usage-counter">
+                        <div class="usage-text">
+                            <span id="usage-count">0</span> / <span id="usage-limit">10</span> responses used this month
+                        </div>
+                        <div class="usage-bar">
+                            <div class="usage-fill" id="usage-fill"></div>
+                        </div>
+                        <p style="color: #9ca3af; font-size: 0.9rem;" id="usage-plan-text">Sign up for 10 free responses per month</p>
+                    </div>
+
+                    <!-- Upload Section -->
+                    <div class="upload-section">
+                        <h2 style="color: #8b5cf6; margin-bottom: 1.5rem; text-align: center;">📤 Add Messages to Process</h2>
+                        
+                        <div class="upload-methods">
+                            <div class="upload-method active" data-method="manual" onclick="selectUploadMethod('manual', event)">
+                                <div style="font-size: 2rem; margin-bottom: 0.5rem;">✍️</div>
+                                <strong>Manual Entry</strong>
+                                <p style="font-size: 0.85rem; color: #9ca3af; margin-top: 0.5rem;">
+                                    Add messages one by one
+                                </p>
+                            </div>
+
+                            <div class="upload-method" data-method="bulk" onclick="selectUploadMethod('bulk', event)">
+                                <div style="font-size: 2rem; margin-bottom: 0.5rem;">📋</div>
+                                <strong>Bulk Text</strong>
+                                <p style="font-size: 0.85rem; color: #9ca3af; margin-top: 0.5rem;">
+                                    Paste multiple messages at once
+                                </p>
+                            </div>
+
+                            <div class="upload-method" data-method="csv" onclick="selectUploadMethod('csv', event)">
+                                <div style="font-size: 2rem; margin-bottom: 0.5rem;">📊</div>
+                                <strong>CSV Upload</strong>
+                                <p style="font-size: 0.85rem; color: #9ca3af; margin-top: 0.5rem;">
+                                    Import from spreadsheet
+                                </p>
+                            </div>
+                        </div>
+
+                        <textarea 
+                            id="bulk-messages" 
+                            class="bulk-textarea" 
+                            placeholder="Paste messages here (one per line):
+
+                                 Example:
+                                   Hey! Love your content
+                                   Thanks for the follow 
+                                   Can you check your DM?"
+                        ></textarea>
+
+                        <input 
+                            type="file" 
+                            id="csv-upload" 
+                            accept=".csv" 
+                            style="display: none;" 
+                            onchange="handleCSVUpload(this)"
+                        >
+                    </div>
+
+                    <!-- Settings Section -->
+                    <div class="settings-section">
+                        <h2 style="color: #8b5cf6; margin-bottom: 1.5rem; text-align: center;">⚙️ Response Settings</h2>
+                        
+                        <div class="settings-grid">
+                            <div class="setting-group">
+                                <h3>🎯 Tone</h3>
+                                <div class="form-group">
+                                    <label class="form-label">Response Style</label>
+                                    <select id="batch-tone" class="form-select">
+                                        <option value="friendly">😊 Friendly</option>
+                                        <option value="professional">💼 Professional</option>
+                                        <option value="casual">😎 Casual</option>
+                                        <option value="enthusiastic">🎉 Enthusiastic</option>
+                                        <option value="flirty">😏 Flirty</option>
+                                        <option value="witty">🤓 Witty/Humorous</option>
+                                        <option value="empathetic">🤗 Empathetic</option>
+                                        <option value="supportive">💪 Supportive</option>
+                                        <option value="sales">💰 Sales/Promotional</option>
+                                        <option value="short">⚡ Short & Quick</option>
+                                        <option value="detailed">📝 Detailed</option>
+                                        <option value="grateful">🙏 Grateful</option>
+                                        <option value="apologetic">😔 Apologetic</option>
+                                        <option value="confident">💯 Confident</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="setting-group">
+                                <h3>💬 Context</h3>
+                                <div class="form-group">
+                                    <label class="form-label">Additional Context</label>
+                                    <textarea id="batch-context" class="form-textarea" placeholder="Add context about your brand or style..."></textarea>
+                                </div>
+                            </div>
+
+                            <div class="setting-group">
+                                <h3>🤖 AI Features</h3>
+                                <div class="checkbox-group">
+                                    <input type="checkbox" id="smart-categorization" class="checkbox" checked>
+                                    <label>Smart Categorization</label>
+                                </div>
+                                <div class="checkbox-group">
+                                    <input type="checkbox" id="context-aware" class="checkbox" checked>
+                                    <label>Context-Aware</label>
+                                </div>
+                                <div class="checkbox-group">
+                                    <input type="checkbox" id="personalization" class="checkbox" checked>
+                                    <label>Personalization</label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3 class="footer-logo">DMTools.fun</h3>
+                    <p class="footer-description">
+                        The world's first Universal Digital Messaging Response Command Center. Generate perfect responses for any digital messaging service including social media DMs, email, SMS, dating apps, and customer service chat. Save 10+ hours weekly with our AI-powered universal unlimited batch response draft generator.
+                    </p>
+                </div>
+                
+                <div class="footer-links">
+                    <div class="link-group">
+                        <h4>Legal</h4>
+                        <a href="/terms-of-service.html">Terms of Service</a>
+                        <a href="/privacy-policy.html">Privacy Policy</a>
+                        <a href="/refund-policy.html">Refund Policy</a>
+                        <a href="/cookie-policy.html">Cookie Policy</a>
+                    </div>
+                    
+                    <div class="link-group">
+                        <h4>Product</h4>
+                        <a href="/pricing.html">Pricing</a>
+<a href="/presets.html">Templates</a>
+                        <a href="/app.html">Generator</a>
+                    </div>
+                    
+                    <div class="link-group">
+                        <h4>Support</h4>
+                        <a href="/contact.html">Contact Support</a>
+<a href="mailto:support@dmtools.fun">Email Support</a>
+                        <a href="/">Back to Home</a>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <p class="footer-copyright">
+                    © 2025 DMTools.fun. All rights reserved.
+                </p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Auth Modal -->
+    <div class="auth-modal" id="auth-modal">
+        <div class="auth-modal-content">
+            <h2 id="auth-modal-title">Welcome Back</h2>
+            <p id="auth-modal-subtitle">Sign in to your account</p>
+            
+            <div class="auth-error" id="auth-error"></div>
+            <div class="auth-success" id="auth-success"></div>
+            
+            <form class="auth-form" onsubmit="handleAuthSubmit(event)">
+                <div id="name-fields" class="hidden">
+                    <div class="form-group">
+                        <label>First Name</label>
+                        <input type="text" id="first-name" placeholder="Enter your first name">
+                    </div>
+                    <div class="form-group">
+                        <label>Last Name</label>
+                        <input type="text" id="last-name" placeholder="Enter your last name">
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label>Email</label>
+                    <input type="email" id="auth-email" placeholder="Enter your email" required>
+                </div>
+                
+                <div class="form-group">
+                    <label>Password</label>
+                    <input type="password" id="auth-password" placeholder="Enter your password" required>
+                </div>
+                
+                <button type="submit" class="btn btn-primary" id="auth-submit-btn" style="width: 100%; margin-top: 1rem;">
+                    Sign In
+                </button>
+            </form>
+            
+            <div class="auth-switch">
+                <span id="auth-switch-text">Don't have an account?</span>
+                <button type="button" id="auth-switch-btn" onclick="toggleAuthMode()">Sign Up</button>
+            </div>
+        </div>
+    </div>
+
+    <!--end auth modal--->
+    <!-------------------------------
+    <!-- Paywall Modal -->
+    <div class="paywall-modal" id="paywall-modal">
+        <div class="paywall-content">
+            <div class="paywall-icon">🔒</div>
+            <h2>You've Used Your 10 Free Responses</h2>
+            <p>Unlock unlimited batch processing with a subscription or grab a response pack!</p>
+        
+            <div class="paywall-options">
+                <!-- Option 1: Starter Subscription -->
+                <div class="paywall-option">
+                    <div class="option-badge">💎 BEST VALUE</div>
+                    <h3>Starter Plan</h3>
+                    <div class="option-price">$19<span>/month</span></div>
+                    <ul>
+                        <li>✓ 100 responses/month</li>
+                        <li>✓ Unlimited batch processing</li>
+                        <li>✓ THE-RIGHT-CLICK extension</li>
+                        <li>✓ 5 custom templates</li>
+                    </ul>
+                    <a href="/pricing.html" class="btn btn-primary">
+                         Start with Starter →
+                    </a>
+            </div>
+            
+                <!-- Option 2: Response Packs -->
+                <div class="paywall-option">
+                    <div class="option-badge">🎁 NO COMMITMENT</div>
+                    <h3>Response Packs</h3>
+                    <div class="option-price">$9.99<span> one-time</span></div>
+                    <ul>
+                    <li>✓ 500 responses to start</li>
+                        <li>✓ THE-RIGHT-CLICK extension</li>
+                        <li>✓ Never expires (12mo after first use)</li>
+                        <li>✓ No subscription required</li>
+                    </ul>
+                        <a href="/store.html" class="btn btn-secondary">
+                        Buy Response Pack →
+                    </a>
+                </div>
+            </div>
+        
+            <div class="paywall-footer">
+                 <p>Need more power? <a href="/pricing.html#pro">View Pro ($59/mo)</a> or <a href="/pricing.html#enterprise">Enterprise plans</a></p>
+            </div>
+        
+            <button class="paywall-close" onclick="hidePaywall()">
+                 ✕ Close
+            </button>
+        </div>
+     </div>
+
+          <!--end paywall modal-->
+
+    <script>
+        // ===== GLOBAL CONFIGURATION =====
+        const API_BASE = 'https://dmtools-backend-production.up.railway.app/api';
+        
+        // ===== GLOBAL VARIABLES =====
+        let currentUser = null;
+        let isAuthenticated = false;
+        let isLoginMode = true;
+        let drawerOpen = false;
+        let messageCount = 0;
+        let platformWindows = {};
+
+        // Platform configurations - Split-screen setup
+        const platformConfigs = {
+            browser: {
+                name: 'Browser',
+                url: 'https://www.google.com'
+            }
+        };
+
+      
+      // Mobile menu toggle
+      function toggleMobileMenu() {
+            document.getElementById('mobileNav').classList.toggle('show');
+        }
+
+        // ===== UTILITY FUNCTIONS =====
+        function showNotification(message, type = 'info', duration = 5000) {
+            document.querySelectorAll('.notification').forEach(n => n.remove());
+
+            const notification = document.createElement('div');
+            notification.className = `notification ${type}`;
+            
+            const icons = { success: '✅', error: '❌', info: 'ℹ️' };
+            // Sanitize message to prevent XSS attacks
+            const sanitizedMessage = DOMPurify.sanitize(message);
+            notification.innerHTML = `
+                <div style="display: flex; align-items: flex-start; gap: 0.8rem;">
+                    <span style="font-size: 1.2rem; flex-shrink: 0;">${icons[type] || '📢'}</span>
+                    <span style="flex: 1;">${sanitizedMessage}</span>
+                </div>
+            `;
+            
+            document.body.appendChild(notification);
+            
+            setTimeout(() => {
+                notification.style.animation = 'slideOut 0.4s ease';
+                setTimeout(() => notification.remove(), 400);
+            }, duration);
+        }
+
+        function toggleDrawer() {
+            drawerOpen = !drawerOpen;
+            const drawer = document.getElementById('platform-drawer');
+            const toggle = document.getElementById('drawer-toggle');
+            const content = document.getElementById('content-wrapper');
+            
+            if (drawerOpen) {
+                drawer.classList.add('open');
+                toggle.classList.add('active');
+                content.classList.add('drawer-open');
+            } else {
+                drawer.classList.remove('open');
+                toggle.classList.remove('active');
+                content.classList.remove('drawer-open');
+            }
+        }
+        
+
+        function openPlatform(platform) {
+            const config = platformConfigs[platform];
+            if (!config) return;
+            
+            if (platformWindows[platform] && !platformWindows[platform].closed) {
+                platformWindows[platform].focus();
+                return;
+            }
+
+            try {
+                // Calculate split-screen dimensions
+                const screenWidth = window.screen.availWidth;
+                const screenHeight = window.screen.availHeight;
+                
+                // Left half for browser window
+                const windowWidth = Math.floor(screenWidth * 0.48);
+                const windowHeight = screenHeight - 60;
+                const windowLeft = 0;
+                const windowTop = 0;
+                
+               // Features string
+const enhancedFeatures = [
+  `width=${windowWidth}`,
+  `height=${windowHeight}`,
+  `left=${windowLeft}`,
+  `top=${windowTop}`,
+  'scrollbars=yes',
+  'resizable=yes',
+  'location=yes',   // shows the address bar
+  'toolbar=yes',    // enables back/forward/reload buttons
+  'menubar=yes'     // adds full menu bar (optional)
+].join(',');
+
+// Open the window
+platformWindows[platform] = window.open(
+  config.url,
+  `dmtools_${platform}`,
+  enhancedFeatures
+);
+                // Check if popup was blocked
+                if (!platformWindows[platform] || platformWindows[platform].closed || typeof platformWindows[platform].closed === 'undefined') {
+                    throw new Error('Popup blocked! Please allow popups and try again');
+                }
+
+                // Success! Window opened
+                platformWindows[platform].focus();
+                showNotification(`Browser opened on left! Drag messages → to generator on right`, 'success');
+
+                // Move main window to right half (with fallback)
+                try {
+                    setTimeout(() => {
+                        const rightHalfLeft = Math.floor(screenWidth * 0.50);
+                        window.moveTo(rightHalf, windowTop);
+                        window.resizeTo(Math.floor(screenWidth * 0.50), windowHeight);
+                    }, 300);
+                } catch (moveError) {
+                    console.log('Window positioning restricted by browser');
+                    showNotification('Manually position windows side-by-side for best experience', 'info');
+                }
+
+                // Monitor window close
+                const checkClosed = setInterval(() => {
+                    if (platformWindows[platform].closed) {
+                        clearInterval(checkClosed);
+                        showNotification('Browser window closed', 'info');
+                    }
+                }, 1000);
+
+            } catch (error) {
+                console.error(`Failed to launch ${platform}:`, error);
+                showNotification(`Failed to open browser. Please allow popups in your browser settings.`, 'error');
+            }
+        }
+
+        // ===== UPLOAD METHOD SELECTION =====
+        function selectUploadMethod(method, event) {
+            if (event && event.target) {
+                document.querySelectorAll('.upload-method').forEach(m => m.classList.remove('active'));
+                const methodElement = event.target.closest('.upload-method');
+                if (methodElement) methodElement.classList.add('active');
+            }
+            
+            const bulkTextarea = document.getElementById('bulk-messages');
+            const csvInput = document.getElementById('csv-upload');
+            
+            if (method === 'bulk') {
+                bulkTextarea.classList.add('show');
+            } else if (method === 'csv') {
+                csvInput.click();
+            } else {
+                bulkTextarea.classList.remove('show');
+            }
+        }
+
+        function handleCSVUpload(input) {
+            if (!input.files || !input.files[0]) return;
+            
+            showNotification('📊 CSV processing coming soon!', 'info');
+            input.value = '';
+        }
+
+        // ===== MESSAGE MANAGEMENT =====
+        function initializeMessagePairs() {
+            for (let i = 0; i < 6; i++) {
+                addMessagePair();
+            }
+        }
+
+        function addMessagePair(initialMessage = '') {
+            messageCount++;
+            const container = document.getElementById('messages-container');
+            const pairId = 'pair-' + Date.now() + Math.random();
+            
+            const pairHTML = `
+                <div class="message-pair" id="${pairId}" data-pair-id="${pairId}">
+                    <div class="message-header">
+                        <span class="message-number">Message #${messageCount}</span>
+                        <div class="message-tone-selector">
+                            <select class="pair-tone-select" data-pair-id="${pairId}">
+                                <option value="friendly">😊 Friendly</option>
+                                <option value="professional">💼 Professional</option>
+                                <option value="casual">😎 Casual</option>
+                                <option value="enthusiastic">🎉 Enthusiastic</option>
+                                <option value="flirty">😏 Flirty</option>
+                                <option value="witty">🤓 Witty/Humorous</option>
+                                <option value="empathetic">🤗 Empathetic</option>
+                                <option value="supportive">💪 Supportive</option>
+                                <option value="sales">💰 Sales/Promotional</option>
+                                <option value="short">⚡ Short & Quick</option>
+                                <option value="detailed">📝 Detailed</option>
+                                <option value="grateful">🙏 Grateful</option>
+                                <option value="apologetic">😔 Apologetic</option>
+                                <option value="confident">💯 Confident</option>
+                            </select>
+                        </div>
+                        <div class="message-actions">
+                            <button class="btn btn-small btn-secondary" onclick="copyResponse('${pairId}')" title="Copy response">
+                                📋 Copy
+                            </button>
+                            <button class="btn btn-small btn-secondary" onclick="regenerateMessagePair('${pairId}')">
+                                🔄 Regenerate
+                            </button>
+                            <button class="btn btn-small btn-secondary" onclick="removeMessagePair('${pairId}')">
+                                🗑️
+                            </button>
+                        </div>
+                    </div>
+                    <div class="message-content">
+                        <div class="message-input-group">
+                            <label>📥 Incoming Message</label>
+                            <textarea placeholder="Paste or type the message you received...">${initialMessage}</textarea>
+                        </div>
+                        <div class="message-input-group">
+                            <label>📤 Your Response</label>
+                            <textarea placeholder="AI-generated response will appear here..." readonly></textarea>
+                        </div>
+                    </div>
+                </div>
+            `;
+            
+            container.insertAdjacentHTML('beforeend', pairHTML);
+            updateMessageCount();
+        }
+
+        function removeMessagePair(pairId) {
+            const pair = document.getElementById(pairId);
+            if (pair) {
+                pair.remove();
+                messageCount--;
+                updateMessageCount();
+            }
+        }
+
+        function clearAllMessages() {
+            document.getElementById('messages-container').innerHTML = '';
+            messageCount = 0;
+            updateMessageCount();
+            initializeMessagePairs();
+            showNotification('🗑️ All messages cleared', 'info');
+        }
+
+        function updateMessageCount() {
+            document.getElementById('message-count').textContent = messageCount;
+        }
+
+        function copyResponse(pairId) {
+            const pair = document.getElementById(pairId);
+            if (!pair) return;
+
+            const textareas = pair.querySelectorAll('textarea');
+            const responseText = textareas[1].value;
+
+            if (!responseText || responseText === 'AI-generated response will appear here...') {
+                showNotification('No response to copy yet', 'error');
+                return;
+            }
+
+            navigator.clipboard.writeText(responseText).then(() => {
+                showNotification('✅ Response copied to clipboard!', 'success');
+            }).catch(err => {
+                showNotification('Failed to copy response', 'error');
+            });
+        }
+
+        async function regenerateMessagePair(pairId) {
+            if (!isAuthenticated) {
+                showNotification('Please sign in to regenerate responses', 'error');
+                showAuthModal(false);
+                return;
+            }
+
+            const pair = document.getElementById(pairId);
+            if (!pair) return;
+
+            const textareas = pair.querySelectorAll('textarea');
+            const inputMessage = textareas[0].value.trim();
+            
+            if (!inputMessage) {
+                showNotification('Please enter a message first', 'error');
+                return;
+            }
+
+            // Get tone from this specific pair's dropdown
+            const toneSelect = pair.querySelector('.pair-tone-select');
+            const tone = toneSelect ? toneSelect.value : 'friendly';
+
+            try {
+                const context = document.getElementById('batch-context')?.value.trim() || '';
+
+                const response = await apiCall('/generate/single', {
+                    method: 'POST',
+                    body: JSON.stringify({
+                        message: inputMessage,
+                        tone: tone,
+                        context: context,
+                        platform: 'instagram'
+                    })
+                });
+
+                if (response.response) {
+                    textareas[1].value = response.response;
+                    showNotification('✅ Response regenerated!', 'success');
+                }
+            } catch (error) {
+                showNotification('Error regenerating response: ' + error.message, 'error');
+            }
+        }
+
+    // ==============================
+    // Paywall Functions
+    // ==============================
+    function showPaywall() {
+        const modal = document.getElementById('paywall-modal');
+        if (modal) modal.classList.add('show');
+    }
+
+    function hidePaywall() {
+        const modal = document.getElementById('paywall-modal');
+        if (modal) modal.classList.remove('show');
+    }
+
+    // Close paywall when clicking outside the modal content
+    document.getElementById('paywall-modal')?.addEventListener('click', function(e) {
+        if (e.target === this) {
+            hidePaywall();
+        }
+    });
+
+    // Close paywall when pressing the Escape key
+    document.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape') {
+            hidePaywall();
+        }
+    });
+   
+  
+
+        // ===== BATCH PROCESSING =====
+        async function processAllMessages() {
+            const messagePairs = document.querySelectorAll('.message-pair');
+            const bulkMessages = document.getElementById('bulk-messages')?.value.trim();
+            
+            let messages = [];
+            let tones = [];
+            
+            messagePairs.forEach(pair => {
+                const textarea = pair.querySelector('textarea');
+                const toneSelect = pair.querySelector('.pair-tone-select');
+                
+                if (textarea && textarea.value.trim()) {
+                    messages.push(textarea.value.trim());
+                    // Get tone from individual pair, default to friendly if not found
+                    tones.push(toneSelect ? toneSelect.value : 'friendly');
+                }
+            });
+
+            if (bulkMessages) {
+                const bulkLines = bulkMessages.split('\n').filter(line => line.trim());
+                clearAllMessages();
+                bulkLines.forEach(line => addMessagePair(line.trim()));
+                messages = bulkLines;
+                // Use default tone for bulk messages
+                tones = bulkLines.map(() => 'friendly');
+            }
+
+            if (messages.length === 0) {
+                showNotification('No messages to process. Please add some messages first.', 'error');
+                return;
+            }
+
+            if (!isAuthenticated) {
+                showNotification('Please sign in to process messages. You can register for free!', 'error');
+                showAuthModal(false);
+                return;
+            }
+          
+           // Check if free user trying to batch process (PAYWALL CHECK)
+            if (isAuthenticated && currentUser && currentUser.plan === 'free') {
+                showPaywall();
+                return;
+            }
+
+            const processBtn = document.getElementById('process-all-btn');
+            
+            if (processBtn) {
+                processBtn.disabled = true;
+                processBtn.innerHTML = '<span class="spinner"></span> Processing...';
+            }
+
+            try {
+                const context = document.getElementById('batch-context')?.value.trim() || '';
+
+                const response = await apiCall('/generate/batch', {
+                    method: 'POST',
+                    body: JSON.stringify({
+                        messages: messages,
+                        tone: 'friendly', // This is just a fallback, individual tones are used below
+                        context: context,
+                        platform: 'instagram',
+                        smartCategorization: document.getElementById('smart-categorization')?.checked || false,
+                        contextAware: document.getElementById('context-aware')?.checked || false,
+                        personalization: document.getElementById('personalization')?.checked || false
+                    })
+                });
+
+                if (response.responses) {
+                    const pairs = document.querySelectorAll('.message-pair');
+                    response.responses.forEach((result, index) => {
+                        if (pairs[index]) {
+                            const responseTextarea = pairs[index].querySelectorAll('textarea')[1];
+                            if (responseTextarea) {
+                                responseTextarea.value = result.response || 'Error generating response';
+                                responseTextarea.style.background = result.success ? '#1f2937' : 'rgba(239, 68, 68, 0.1)';
+                            }
+                        }
+                    });
+
+                    await checkAuthStatus();
+                    showNotification(`✅ Processed ${response.responses.length} responses!`, 'success');
+                }
+            } catch (error) {
+                showNotification('Error processing messages: ' + error.message, 'error');
+            } finally {
+                if (processBtn) {
+                    processBtn.disabled = false;
+                    processBtn.innerHTML = '🚀 Process All Responses';
+                }
+            }
+        }
+
+        function exportResults() {
+            const pairs = document.querySelectorAll('.message-pair');
+            let csvContent = 'Incoming Message,Generated Response\n';
+            
+            pairs.forEach(pair => {
+                const textareas = pair.querySelectorAll('textarea');
+                const input = textareas[0].value.replace(/"/g, '""');
+                const output = textareas[1].value.replace(/"/g, '""');
+                csvContent += `"${input}","${output}"\n`;
+            });
+            
+            const blob = new Blob([csvContent], { type: 'text/csv' });
+            const url = window.URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = 'dmtools-responses-' + new Date().toISOString().split('T')[0] + '.csv';
+            a.click();
+            window.URL.revokeObjectURL(url);
+            
+            showNotification('📥 Results exported successfully!', 'success');
+        }
+
+        // ===== API CALLS =====
+        async function apiCall(endpoint, options = {}) {
+            const token = localStorage.getItem('authToken');
+            const url = API_BASE + endpoint;
+            
+            const config = {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json',
+                    ...(token && { 'Authorization': `Bearer ${token}` })
+                },
+                ...options
+            };
+
+            try {
+                const response = await fetch(url, config);
+                const data = await response.json();
+
+                if (!response.ok) {
+                    if (response.status === 401) {
+                        localStorage.removeItem('authToken');
+                        isAuthenticated = false;
+                        throw new Error('Session expired. Please sign in again.');
+                    } else if (response.status === 429) {
+                        throw new Error('Usage limit reached. Please upgrade your plan or wait and try again.');
+                    } else if (response.status === 500) {
+                        throw new Error('Server error. Please try again later.');
+                    } else {
+                        throw new Error(data.error || data.message || `Server error (${response.status})`);
+                    }
+                }
+
+                return data;
+            } catch (error) {
+                if (error.name === 'TypeError' && error.message.includes('fetch')) {
+                    throw new Error('Cannot connect to server. Please check your internet connection.');
+                }
+                throw error;
+            }
+        }
+
+        // ===== AUTHENTICATION FUNCTIONS =====
+        function toggleAuthMode() {
+            isLoginMode = !isLoginMode;
+            updateAuthModalUI();
+        }
+
+        function showAuthModal(isLogin = true) {
+            // Prefer shared modal
+            if (window.DMTOOLS && typeof DMTOOLS.openAuthModal === 'function') {
+                const returnTo = window.location.pathname + window.location.search;
+                DMTOOLS.openAuthModal(isLogin ? 'login' : 'register', { returnTo });
+                return;
+            }
+            isLoginMode = isLogin;
+            updateAuthModalUI();
+            const modal = document.getElementById('auth-modal');
+            if (modal) {
+                modal.classList.add('show');
+                
+                setTimeout(() => {
+                    const firstInput = isLoginMode ? 
+                        document.getElementById('auth-email') : 
+                        document.getElementById('first-name');
+                    if (firstInput) firstInput.focus();
+                }, 300);
+            }
+        }
+
+        function hideAuthModal() {
+            const modal = document.getElementById('auth-modal');
+            if (modal) {
+                modal.classList.remove('show');
+                clearAuthForm();
+            }
+        }
+
+        function updateAuthModalUI() {
+            const title = document.getElementById('auth-modal-title');
+            const subtitle = document.getElementById('auth-modal-subtitle');
+            const nameFields = document.getElementById('name-fields');
+            const submitBtn = document.getElementById('auth-submit-btn');
+            const switchText = document.getElementById('auth-switch-text');
+            const switchBtn = document.getElementById('auth-switch-btn');
+
+            if (title && subtitle && nameFields && submitBtn && switchText && switchBtn) {
+                if (isLoginMode) {
+                    title.textContent = 'Welcome Back';
+                    subtitle.textContent = 'Sign in to your account';
+                    nameFields.classList.add('hidden');
+                    submitBtn.textContent = 'Sign In';
+                    switchText.textContent = "Don't have an account?";
+                    switchBtn.textContent = 'Sign Up';
+                } else {
+                    title.textContent = 'Create Account';
+                    subtitle.textContent = 'Start generating your message responses';
+                    nameFields.classList.remove('hidden');
+                    submitBtn.textContent = 'Create Account';
+                    switchText.textContent = 'Already have an account?';
+                    switchBtn.textContent = 'Sign In';
+                    
+                    const firstName = document.getElementById('first-name');
+                    const lastName = document.getElementById('last-name');
+                    if (firstName) firstName.setAttribute('required', '');
+                    if (lastName) lastName.setAttribute('required', '');
+                }
+            }
+        }
+
+        async function handleAuthSubmit(event) {
+            event.preventDefault();
+            
+            const email = document.getElementById('auth-email')?.value.trim();
+            const password = document.getElementById('auth-password')?.value;
+            const firstName = document.getElementById('first-name')?.value.trim();
+            const lastName = document.getElementById('last-name')?.value.trim();
+            
+            if (!email || !password) {
+                showAuthError('Email and password are required');
+                return;
+            }
+            
+            if (!isLoginMode && (!firstName || !lastName)) {
+                showAuthError('First name and last name are required');
+                return;
+            }
+            
+            if (password.length < 6) {
+                showAuthError('Password must be at least 6 characters');
+                return;
+            }
+
+            const submitBtn = document.getElementById('auth-submit-btn');
+            const originalText = submitBtn?.textContent;
+            
+            try {
+                if (submitBtn) {
+                    submitBtn.innerHTML = '<div class="spinner"></div> Processing...';
+                    submitBtn.disabled = true;
+                }
+                clearAuthMessages();
+
+                let response;
+                if (isLoginMode) {
+                    response = await apiCall('/user/login', {
+                        method: 'POST',
+                        body: JSON.stringify({ email, password })
+                    });
+                } else {
+                    response = await apiCall('/user/register', {
+                        method: 'POST',
+                        body: JSON.stringify({
+                            email,
+                            password,
+                            first_name: firstName,
+                            last_name: lastName
+                        })
+                    });
+                }
+
+                if (response.token) {
+                    localStorage.setItem('authToken', response.token);
+                    currentUser = response.user;
+                    isAuthenticated = true;
+                    
+                    // ✅ FIX: Update UI and display usage after successful auth
+                    updateAuthUI();
+                    updateUsageDisplay();
+                    
+                    showAuthSuccess(`Welcome${isLoginMode ? ' back' : ''}, ${response.user.first_name}!`);
+                    
+                    // Close modal and show notification
+                    setTimeout(() => {
+                        hideAuthModal();
+                        showNotification('🎉 Successfully signed in! You can now process messages.', 'success');
+                    }, 1500);
+                } else {
+                    throw new Error('Authentication failed');
+                }
+
+            } catch (error) {
+                console.error('Auth error:', error);
+                showAuthError(error.message || 'Authentication failed. Please try again.');
+            } finally {
+                if (submitBtn) {
+                    submitBtn.textContent = originalText;
+                    submitBtn.disabled = false;
+                }
+            }
+        }
+
+        function logout() {
+            localStorage.removeItem('authToken');
+            currentUser = null;
+            isAuthenticated = false;
+            updateAuthUI();
+            updateUsageDisplay();
+            showNotification('Successfully logged out', 'success');
+        }
+
+        function updateAuthUI() {
+            const authSection = document.getElementById('auth-section');
+            const userSection = document.getElementById('user-section');
+            
+            if (!authSection || !userSection) return;
+            
+            if (isAuthenticated && currentUser) {
+                authSection.classList.add('hidden');
+                userSection.classList.remove('hidden');
+                const userEmailElement = document.getElementById('user-email');
+                if (userEmailElement) {
+                    userEmailElement.textContent = currentUser.email;
+                }
+            } else {
+                authSection.classList.remove('hidden');
+                userSection.classList.add('hidden');
+            }
+        }
+
+        function updateUsageDisplay() {
+            const usageCount = document.getElementById('usage-count');
+            const usageLimit = document.getElementById('usage-limit');
+            const usageFill = document.getElementById('usage-fill');
+            const usagePlanText = document.getElementById('usage-plan-text');
+
+            if (usageCount && usageLimit && usageFill && usagePlanText) {
+                if (isAuthenticated && currentUser) {
+                    const usage = currentUser.monthly_usage || 0;
+                    const limits = { free: 10, pro: 1000, business: 5000, enterprise: 25000 };
+                    const limit = limits[currentUser.plan || 'free'];
+                    
+                    usageCount.textContent = usage;
+                    usageLimit.textContent = limit === Infinity ? '∞' : limit;
+                    usagePlanText.textContent = `${(currentUser.plan || 'free').charAt(0).toUpperCase() + (currentUser.plan || 'free').slice(1)} Plan`;
+                    
+                    const percentage = Math.min((usage / limit) * 100, 100);
+                    usageFill.style.width = percentage + '%';
+                } else {
+                    usageCount.textContent = '0';
+                    usageLimit.textContent = '10';
+                    usagePlanText.textContent = 'Sign up for 10 free responses per month';
+                    usageFill.style.width = '0%';
+                }
+            }
+        }
+
+        async function checkAuthStatus() {
+            const token = localStorage.getItem('authToken');
+            if (!token) return;
+            
+            try {
+                const response = await apiCall('/user/profile');
+                if (response.user) {
+                    currentUser = response.user;
+                    isAuthenticated = true;
+                    updateAuthUI();
+                    updateUsageDisplay();
+                }
+            } catch (error) {
+                localStorage.removeItem('authToken');
+                currentUser = null;
+                isAuthenticated = false;
+                updateAuthUI();
+            }
+        }
+
+        function showAuthError(message) {
+            const errorDiv = document.getElementById('auth-error');
+            if (errorDiv) {
+                errorDiv.textContent = message;
+                errorDiv.classList.add('show');
+            }
+            
+            const successDiv = document.getElementById('auth-success');
+            if (successDiv) {
+                successDiv.classList.remove('show');
+            }
+        }
+
+        function showAuthSuccess(message) {
+            const successDiv = document.getElementById('auth-success');
+            if (successDiv) {
+                successDiv.textContent = message;
+                successDiv.classList.add('show');
+            }
+            
+            const errorDiv = document.getElementById('auth-error');
+            if (errorDiv) {
+                errorDiv.classList.remove('show');
+            }
+        }
+
+        function clearAuthMessages() {
+            const errorDiv = document.getElementById('auth-error');
+            const successDiv = document.getElementById('auth-success');
+            if (errorDiv) errorDiv.classList.remove('show');
+            if (successDiv) successDiv.classList.remove('show');
+        }
+
+        function clearAuthForm() {
+            const fields = ['auth-email', 'auth-password', 'first-name', 'last-name'];
+            fields.forEach(id => {
+                const element = document.getElementById(id);
+                if (element) element.value = '';
+            });
+            clearAuthMessages();
+        }
+
+        // ================================
+// AUTHENTICATION WALL
+// ================================
+document.addEventListener('DOMContentLoaded', function() {
+    console.log('🚀 DMTools app initializing...');
+    
+    // Check authentication FIRST
+    const token = localStorage.getItem('authToken');
+    
+    if (!token) {
+        // No token = redirect to landing page
+        console.log('❌ No auth token - redirecting to landing page');
+        window.location.href = '/?auth=required';
+        return; // Stop initialization
+    }
+    
+    // Token exists - verify it's valid
+    checkAuthStatus();
+    selectUploadMethod('manual', null);
+    initializeMessagePairs();
+    
+    console.log('✅ DMTools app initialized successfully');
+});
+
+// Update checkAuthStatus to handle invalid tokens
+async function checkAuthStatus() {
+    const token = localStorage.getItem('authToken');
+    if (!token) {
+        window.location.href = '/?auth=required';
+        return;
+    }
+    
+    try {
+        const response = await apiCall('/user/profile');
+        if (response.user) {
+            currentUser = response.user;
+            isAuthenticated = true;
+            updateAuthUI();
+            updateUsageDisplay();
+        }
+    } catch (error) {
+        // Invalid token - clear and redirect
+        console.error('❌ Auth validation failed:', error);
+        localStorage.removeItem('authToken');
+        window.location.href = '/?auth=expired';
+    }
+}
+        
+    </script>
+    <script>
+// Header PWA Install Button
+let deferredPrompt;
+const headerInstallBtn = document.getElementById('pwa-install-header-btn');
+
+window.addEventListener('beforeinstallprompt', (e) => {
+    e.preventDefault();
+    deferredPrompt = e;
+    
+    if (headerInstallBtn) {
+        headerInstallBtn.style.display = 'inline-block';
+    }
+});
+
+if (headerInstallBtn) {
+    headerInstallBtn.addEventListener('click', async () => {
+        if (!deferredPrompt) return;
+        
+        deferredPrompt.prompt();
+        const { outcome } = await deferredPrompt.userChoice;
+        
+        if (outcome === 'accepted') {
+            console.log('✅ PWA installed from header button');
+        }
+        
+        deferredPrompt = null;
+        headerInstallBtn.style.display = 'none';
+    });
+}
+
+window.addEventListener('appinstalled', () => {
+    if (headerInstallBtn) {
+        headerInstallBtn.style.display = 'none';
+    }
+});
+</script>
+<script>
+// ========================================
+// PWA INSTALL FUNCTIONALITY - ERROR-SAFE
+// ========================================
+
+(function() {
+    'use strict';
+    
+    console.log('🔧 Initializing PWA install functionality...');
+    
+    let deferredPrompt = null;
+    
+    // Get all button elements (may or may not exist)
+    const floatingBtn = document.getElementById('pwa-floating-install');
+    const headerBtn = document.getElementById('pwa-header-install');
+    const inlineBtn = document.getElementById('pwa-inline-install');
+    const stickyBanner = document.getElementById('pwa-sticky-banner');
+    const stickyBannerBtn = document.getElementById('pwa-sticky-banner-btn');
+    const stickyBannerClose = document.getElementById('pwa-sticky-banner-close');
+    
+    // Log which buttons were found
+    console.log('📱 PWA Buttons found:', {
+        floating: !!floatingBtn,
+        header: !!headerBtn,
+        inline: !!inlineBtn,
+        stickyBanner: !!stickyBanner
+    });
+    
+    // Check if already running as installed PWA
+    function isRunningAsPWA() {
+        return window.matchMedia('(display-mode: standalone)').matches || 
+               window.navigator.standalone === true;
+    }
+    
+    // Hide all install prompts if running as PWA
+    if (isRunningAsPWA()) {
+        console.log('📱 Running as installed PWA - hiding install buttons');
+        document.body.classList.add('running-as-pwa');
+        return; // Exit early, no need to set up install prompts
+    }
+    
+    // Listen for beforeinstallprompt event
+    window.addEventListener('beforeinstallprompt', (e) => {
+        console.log('💡 PWA install prompt available');
+        
+        // Prevent Chrome 76+ from automatically showing the prompt
+        e.preventDefault();
+        
+        // Save the event for later use
+        deferredPrompt = e;
+        
+        // Show install buttons
+        showInstallButtons();
+        
+        // Track that install prompt is available
+        try {
+            if (typeof gtag !== 'undefined') {
+                gtag('event', 'pwa_install_prompt_shown', {
+                    'event_category': 'PWA',
+                    'event_label': 'Install Prompt Available'
+                });
+            }
+        } catch (err) {
+            console.log('Analytics tracking not available');
+        }
+    });
+    
+    // Show appropriate install buttons based on page
+    function showInstallButtons() {
+        let buttonsShown = 0;
+        
+        // Show floating button on all pages
+        if (floatingBtn) {
+            floatingBtn.style.display = 'flex';
+            buttonsShown++;
+            // Add pulse animation for first 5 seconds
+            floatingBtn.classList.add('pulse');
+            setTimeout(() => {
+                floatingBtn.classList.remove('pulse');
+            }, 5000);
+            console.log('✅ Floating button shown');
+        }
+        
+        // Show header button
+        if (headerBtn) {
+            headerBtn.style.display = 'flex';
+            buttonsShown++;
+            console.log('✅ Header button shown');
+        }
+        
+        // Show inline button (on index.html)
+        if (inlineBtn) {
+            inlineBtn.style.display = 'flex';
+            buttonsShown++;
+            console.log('✅ Inline button shown');
+        }
+        
+        // Show sticky banner (on app.html) after 3 seconds
+        if (stickyBanner) {
+            setTimeout(() => {
+                // Check if banner was dismissed in this session
+                if (!sessionStorage.getItem('pwa_banner_dismissed')) {
+                    stickyBanner.style.display = 'flex';
+                    buttonsShown++;
+                    console.log('✅ Sticky banner shown');
+                }
+            }, 3000);
+        }
+        
+        console.log(`📱 Total PWA buttons shown: ${buttonsShown}`);
+    }
+    
+    // Handle install button clicks
+    async function handleInstallClick(source) {
+        console.log(`🎯 Install button clicked from: ${source}`);
+        
+        if (!deferredPrompt) {
+            console.log('❌ No install prompt available');
+            alert('PWA installation is not available in this browser. Try Chrome on Android or Desktop.');
+            return;
+        }
+        
+        try {
+            // Show the install prompt
+            deferredPrompt.prompt();
+            
+            // Wait for the user to respond to the prompt
+            const { outcome } = await deferredPrompt.userChoice;
+            
+            console.log(`👤 User response: ${outcome}`);
+            
+            // Track the outcome
+            try {
+                if (typeof gtag !== 'undefined') {
+                    gtag('event', 'pwa_install_attempt', {
+                        'event_category': 'PWA',
+                        'event_label': source,
+                        'value': outcome === 'accepted' ? 1 : 0
+                    });
+                }
+            } catch (err) {
+                console.log('Analytics tracking not available');
+            }
+            
+            if (outcome === 'accepted') {
+                console.log('✅ User accepted PWA installation');
+                hideAllInstallButtons();
+            } else {
+                console.log('❌ User dismissed PWA installation');
+            }
+            
+            // Clear the deferred prompt
+            deferredPrompt = null;
+        } catch (error) {
+            console.error('Error during install:', error);
+        }
+    }
+    
+    // Hide all install buttons
+    function hideAllInstallButtons() {
+        if (floatingBtn) floatingBtn.style.display = 'none';
+        if (headerBtn) headerBtn.style.display = 'none';
+        if (inlineBtn) inlineBtn.style.display = 'none';
+        if (stickyBanner) stickyBanner.style.display = 'none';
+        console.log('🙈 All install buttons hidden');
+    }
+    
+    // Attach click handlers ONLY if elements exist
+    if (floatingBtn) {
+        floatingBtn.addEventListener('click', () => handleInstallClick('floating_button'));
+        console.log('✅ Floating button click handler attached');
+    }
+    
+    if (headerBtn) {
+        headerBtn.addEventListener('click', () => handleInstallClick('header_button'));
+        console.log('✅ Header button click handler attached');
+    }
+    
+    if (inlineBtn) {
+        inlineBtn.addEventListener('click', () => handleInstallClick('inline_button'));
+        console.log('✅ Inline button click handler attached');
+    }
+    
+    if (stickyBannerBtn) {
+        stickyBannerBtn.addEventListener('click', () => handleInstallClick('sticky_banner'));
+        console.log('✅ Sticky banner button click handler attached');
+    }
+    
+    // Handle sticky banner close
+    if (stickyBannerClose) {
+        stickyBannerClose.addEventListener('click', () => {
+            stickyBanner.style.display = 'none';
+            // Remember that user dismissed banner for this session
+            sessionStorage.setItem('pwa_banner_dismissed', 'true');
+            console.log('🙈 Sticky banner dismissed');
+            
+            // Track dismissal
+            try {
+                if (typeof gtag !== 'undefined') {
+                    gtag('event', 'pwa_banner_dismissed', {
+                        'event_category': 'PWA',
+                        'event_label': 'Sticky Banner Closed'
+                    });
+                }
+            } catch (err) {
+                console.log('Analytics tracking not available');
+            }
+        });
+        console.log('✅ Sticky banner close handler attached');
+    }
+    
+    // Listen for successful app installation
+    window.addEventListener('appinstalled', (evt) => {
+        console.log('🎉 PWA was successfully installed!');
+        
+        // Hide all install buttons
+        hideAllInstallButtons();
+        
+        // Track successful installation
+        try {
+            if (typeof gtag !== 'undefined') {
+                gtag('event', 'pwa_installed', {
+                    'event_category': 'PWA',
+                    'event_label': 'App Installed Successfully'
+                });
+            }
+        } catch (err) {
+            console.log('Analytics tracking not available');
+        }
+        
+        // Show success message if showNotification function exists
+        try {
+            if (typeof showNotification === 'function') {
+                showNotification('🎉 App installed successfully! Find it on your home screen.', 'success');
+            }
+        } catch (err) {
+            console.log('Notification function not available');
+        }
+    });
+    
+    // Show install instructions for iOS users (Safari doesn't support beforeinstallprompt)
+    function checkIOSInstallOption() {
+        const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
+        const isInStandaloneMode = ('standalone' in window.navigator) && (window.navigator.standalone);
+        
+        if (isIOS && !isInStandaloneMode) {
+            console.log('📱 iOS device detected - user can manually add to home screen');
+            
+            // Show iOS-specific instructions on floating button
+            if (floatingBtn) {
+                floatingBtn.innerHTML = '📱 Install App<br><small style="font-size:11px;">Tap Share → Add to Home Screen</small>';
+                floatingBtn.style.display = 'flex';
+                floatingBtn.style.flexDirection = 'column';
+                floatingBtn.style.padding = '12px 20px';
+                floatingBtn.style.textAlign = 'center';
+                floatingBtn.style.lineHeight = '1.3';
+                
+                // Disable click since iOS doesn't support programmatic install
+                floatingBtn.onclick = (e) => {
+                    e.preventDefault();
+                    alert('To install on iOS:\n1. Tap the Share button (square with arrow)\n2. Scroll down and tap "Add to Home Screen"\n3. Tap "Add" to confirm');
+                    return false;
+                };
+                
+                console.log('✅ iOS install instructions shown');
+            }
+        }
+    }
+    
+    // Check for iOS after a delay
+    setTimeout(checkIOSInstallOption, 2000);
+    
+    console.log('✅ PWA install functionality loaded successfully');
+})();
+
+// ========================================
+// SERVICE WORKER REGISTRATION
+// ========================================
+
+if ('serviceWorker' in navigator) {
+    window.addEventListener('load', () => {
+        navigator.serviceWorker.register('/service-worker.js')
+            .then(registration => {
+                console.log('✅ Service Worker registered successfully:', registration.scope);
+                
+                // Check for updates every hour
+                setInterval(() => {
+                    registration.update();
+                }, 60 * 60 * 1000);
+                
+                // Track service worker registration
+                try {
+                    if (typeof gtag !== 'undefined') {
+                        gtag('event', 'service_worker_registered', {
+                            'event_category': 'PWA',
+                            'event_label': 'Service Worker Active'
+                        });
+                    }
+                } catch (err) {
+                    console.log('Analytics tracking not available');
+                }
+            })
+            .catch(error => {
+                console.error('❌ Service Worker registration failed:', error);
+                
+                // Track service worker errors
+                try {
+                    if (typeof gtag !== 'undefined') {
+                        gtag('event', 'service_worker_error', {
+                            'event_category': 'PWA',
+                            'event_label': error.message
+                        });
+                    }
+                } catch (err) {
+                    console.log('Analytics tracking not available');
+                }
+            });
+    });
+    
+    // Handle service worker updates
+    let refreshing = false;
+    navigator.serviceWorker.addEventListener('controllerchange', () => {
+        if (!refreshing) {
+            refreshing = true;
+            console.log('🔄 Service Worker updated - reloading page');
+            window.location.reload();
+        }
+    });
+} else {
+    console.warn('⚠️ Service Workers are not supported in this browser');
+}
+</script>
+<script src="js/app-core.js"></script>
+<script src="js/auth-modal.js"></script>
+</body>
+</html>
+

@@ -333,6 +333,32 @@
 
 </head>
 <body>
+<!-- SAFETY SHIM: Prevent ReferenceErrors if main pricing JS fails to load.
+     Inserts minimal fallback implementations of setBilling and handleSubscriptionPurchase.
+     Replace/remove once root cause (Unexpected token '<') is fixed. -->
+<script>
+  (function(){
+    // Only define fallbacks when they don't already exist.
+    if (typeof window.setBilling !== 'function') {
+      window.setBilling = function(interval){
+        try {
+          console.warn('Fallback setBilling called before pricing JS initialized. interval=', interval);
+          document.getElementById('btnBillingAnnual')?.classList.toggle('active', interval === 'annual');
+          document.getElementById('btnBillingMonthly')?.classList.toggle('active', interval === 'monthly');
+        } catch (e) { /* ignore */ }
+      };
+    }
+
+    if (typeof window.handleSubscriptionPurchase !== 'function') {
+      window.handleSubscriptionPurchase = function(plan){
+        console.warn('Fallback handleSubscriptionPurchase called before pricing JS initialized. plan=', plan);
+        // Friendly message for your users while the real checkout is unavailable.
+        alert('Checkout is temporarily unavailable. Please try again shortly or contact support.');
+      };
+    }
+  })();
+</script>
+
 <!-- Header -->
 <header class="header">
     <div class="nav-container">
@@ -927,8 +953,8 @@ function handleSubscriptionPurchase(plan, interval) {
         //     POST /api/create_checkout -> { variant, custom_data } -> { checkout_url }
 
 
-        <script>
-/* Basic client-side pricing & checkout wiring. */
+      
+//* Basic client-side pricing & checkout wiring. */
 const PRICES = {
   starter: { monthly: 19, annual: Math.round(19 * 12 * 0.8) },
   pro:     { monthly: 59, annual: Math.round(59 * 12 * 0.8) },
@@ -1030,13 +1056,13 @@ function applyFounderDiscount(){
   alert('Founder discount applied. Choose a plan to checkout.');
 }
 
-/* show exit modal if mouse leaves viewport (desktop) or after 18s (mobile) */
+//* show exit modal if mouse leaves viewport (desktop) or after 18s (mobile) */
 document.addEventListener('mouseleave', (e) => {
   if (!exitModalShown && e.clientY <= 3) openExitModal();
 });
 setTimeout(()=>{ if (!exitModalShown && !localStorage.getItem('founder_dismissed')) openExitModal(); }, 18000);
 
-/* Init on load */
+//* Init on load */
 document.addEventListener('DOMContentLoaded', async () => {
   await loadPlanMap();
   renderPrices();

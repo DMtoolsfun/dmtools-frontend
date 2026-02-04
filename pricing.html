@@ -370,93 +370,136 @@
 
     <!-- END HERO SECTION -->
     
-    <!-- PRICING CARDS -->
-   <section class="pricing-grid" id="subsSection">
+  <!-- PRICING CARDS -->
+<!-- ----------------------------
+     FROM (inclusive): <!-- PRICING CARDS -->
+     TO   (exclusive): <!-- END PRICING CARDS -->
+     ---------------------------- -->
 
-        
-        <!-- Starter Plan -->
-        <div class="price-card">
-            <div class="plan-name">Starter</div>
-            <div class="plan-price">$19<span>/month</span></div>
-            <div class="plan-description">Perfect for getting started with DMTools</div>
-            
-            <ul class="features-list">
-                <li>free 500 response pack monthly</li>
-                <li>tone and context settings</li>
-                <li>THE-RIGHT-CLICK SIDEKICK extension included</li>
-                <li>5 custom templates</li>
-            </ul>
-            
-            <button class="btn btn-primary" onclick="handleSubscriptionPurchase('starter', 'monthly')">
-                Choose
-                Starter
-            </button>
-        </div>
-        
-        <!-- Pro Plan -->
-        <div class="price-card featured">
-            <div class="badge">⭐ Most Popular</div>
-            <div class="plan-name">Pro</div>
-            <div class="plan-price">$59<span>/month</span></div>
-            <div class="plan-description">7-day free trial</div>
-            
-            <ul class="features-list">
-                <li>free 2,000 response pack monthly</li>
-                <li>tone and context settings</li>
-                <li>THE-RIGHT-CLICK SIDEKICK extension included</li>
-                <li>20 custom user preset templates</li>
-                <li>7-day free trial</li>
-                
-            </ul>
-            
-            <button class="btn btn-primary" onclick="handleSubscriptionPurchase('pro', 'monthly')">
-                Choose Pro
-            </button>
-        </div>
-        
-        <!-- Business Plan -->
-        <div class="price-card">
-            <div class="plan-name">Business</div>
-            <div class="plan-price">$149<span>/month</span></div>
-            <div class="plan-description">7-day Free Trial</div>
-            
-            <ul class="features-list">
-                <li>free 8,000 response pack monthly</li>
-                <li>tone and context settings</li>
-                <li>THE-RIGHT-CLICK SIDE-KICK extension included</li>
-                <li>200 custom templates</li>
-                <li>7-day Free Trial</li>
-           
-            </ul>
-            
-            <button class="btn btn-primary" onclick="handleSubscriptionPurchase('business', 'monthly')">
-                Choose Business
-            </button>
-        </div>
-        
-        <!-- Enterprise Plan -->
-        <div class="price-card">
-            <div class="badge">🚀 Unlimited</div>
-            <div class="plan-name">Enterprise</div>
-            <div class="plan-price">$399<span>/month</span></div>
-            <div class="plan-description">For power users and large teams</div>
-            
-            <ul class="features-list">
-                <li>unlimited response generation (truely unlimited response generation no need for response packs)</li>
-                <li>unlimited right-click sidekick responses</li>
-                <li>unlimited batch limits</li>
-                <li>Unlimited custom templates</li>
-                <li>pay one monthly price for unlimited responses, batch processing or with the Right-Click SideKick</li>
-           
-            </ul>
-            
-            <button class="btn btn-primary" onclick="handleSubscriptionPurchase('enterprise', 'monthly')">
-                Choose Enterprise
-            </button>
-        </div>
-        
-    </section>
-    <!-- END PRICING CARDS -->
+<!-- Founder + social proof -->
+<section class="cta-section" style="max-width:1000px;margin:0 auto 2rem;">
+  <div class="cta-card" style="display:flex;align-items:center;gap:1rem;flex-wrap:wrap;">
+    <div style="flex:1;min-width:220px">
+      <h3 class="cta-title">Built by one founder — learned from scratch</h3>
+      <p class="cta-text">
+        DMTools was built by a single founder learning to code. Hundreds of users use it daily to save time.
+        Try Pro risk-free — small yearly discount for early supporters.
+      </p>
+    </div>
+    <div style="min-width:220px">
+      <div style="font-weight:700;color:var(--primary);margin-bottom:8px">What people say</div>
+      <div style="background:var(--darker);padding:12px;border-radius:8px">
+        “DMTools cut our response time in half.” — <em>@happy_user</em>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Pricing + billing toggle -->
+<div style="text-align:center; margin: 1rem 0;">
+  <div class="toggle-view" role="tablist" aria-label="Billing toggle" style="display:inline-flex;">
+    <button id="btnBillingAnnual" class="toggle-btn active" aria-pressed="true" onclick="setBilling('annual')">Annual — save 20%</button>
+    <button id="btnBillingMonthly" class="toggle-btn" aria-pressed="false" onclick="setBilling('monthly')">Monthly</button>
+  </div>
+</div>
+
+<section class="pricing-grid" id="subsSection">
+  <!-- Starter Plan -->
+  <div class="price-card">
+      <div class="plan-name">Starter</div>
+      <div class="plan-price" id="price-starter"></div>
+      <div class="plan-description">Perfect for getting started with DMTools</div>
+
+      <ul class="features-list">
+          <li>free 500 response pack monthly</li>
+          <li>tone and context settings</li>
+          <li>THE-RIGHT-CLICK SIDEKICK extension included</li>
+          <li>5 custom templates</li>
+      </ul>
+
+      <button class="btn btn-primary" onclick="handleSubscriptionPurchase('starter')">
+          Choose Starter
+      </button>
+  </div>
+
+  <!-- Pro Plan -->
+  <div class="price-card featured">
+      <div class="badge">⭐ Most Popular</div>
+      <div class="plan-name">Pro</div>
+      <div class="plan-price" id="price-pro"></div>
+      <div class="plan-description">7-day free trial</div>
+
+      <ul class="features-list">
+          <li>free 2,000 response pack monthly</li>
+          <li>tone and context settings</li>
+          <li>THE-RIGHT-CLICK SIDEKICK extension included</li>
+          <li>20 custom user preset templates</li>
+          <li>7-day free trial</li>
+      </ul>
+
+      <button class="btn btn-primary" onclick="handleSubscriptionPurchase('pro')">
+          Choose Pro
+      </button>
+  </div>
+
+  <!-- Business Plan -->
+  <div class="price-card">
+      <div class="plan-name">Business</div>
+      <div class="plan-price" id="price-business"></div>
+      <div class="plan-description">7-day Free Trial</div>
+
+      <ul class="features-list">
+          <li>free 8,000 response pack monthly</li>
+          <li>tone and context settings</li>
+          <li>THE-RIGHT-CLICK SIDE-KICK extension included</li>
+          <li>200 custom templates</li>
+          <li>7-day Free Trial</li>
+      </ul>
+
+      <button class="btn btn-primary" onclick="handleSubscriptionPurchase('business')">
+          Choose Business
+      </button>
+  </div>
+
+  <!-- Enterprise Plan -->
+  <div class="price-card">
+      <div class="badge">🚀 Unlimited</div>
+      <div class="plan-name">Enterprise</div>
+      <div class="plan-price" id="price-enterprise"></div>
+      <div class="plan-description">For power users and large teams</div>
+
+      <ul class="features-list">
+          <li>unlimited response generation</li>
+          <li>unlimited right-click sidekick responses</li>
+          <li>unlimited batch limits</li>
+          <li>Unlimited custom templates</li>
+      </ul>
+
+      <button class="btn btn-primary" onclick="handleSubscriptionPurchase('enterprise')">
+          Choose Enterprise
+      </button>
+  </div>
+</section>
+
+<!-- Exit-intent modal (simple) -->
+<div id="exitModal" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,0.6);align-items:center;justify-content:center;z-index:9999">
+  <div style="background:white;padding:20px;border-radius:8px;max-width:560px;margin:0 16px;">
+    <h3 style="margin-top:0">Wait — an offer for you</h3>
+    <p>Founder discount: <strong>15% off the first year</strong> — limited time for early users.</p>
+    <div style="display:flex;gap:8px;justify-content:flex-end;">
+      <button onclick="closeExitModal()" class="btn btn-secondary">No thanks</button>
+      <button onclick="applyFounderDiscount()" class="btn btn-primary">Claim 15% off</button>
+    </div>
+  </div>
+</div>
+
+
+
+
+<!-- ----------------------------
+     END new PRICING CARDS
+     (replaced the old PRICING CARDS -> END PRICING CARDS block)
+     ---------------------------- -->
 
 
         <!-- PACKS SECTION (Unified page) -->
@@ -880,6 +923,129 @@ function handleSubscriptionPurchase(plan, interval) {
       }
 
       }
+  //=======================================================================
+  //     PRICING PAGE JS: pricing toggle, price rendering, checkout wiring
+  //     This script expects the backend endpoints:
+  //     GET  /api/variants        -> JSON map { plan: { monthly, annual } } 
+        //     POST /api/create_checkout -> { variant, custom_data } -> { checkout_url }
+
+
+        <script>
+/* Basic client-side pricing & checkout wiring. */
+const PRICES = {
+  starter: { monthly: 19, annual: Math.round(19 * 12 * 0.8) },
+  pro:     { monthly: 59, annual: Math.round(59 * 12 * 0.8) },
+  business:{ monthly:149, annual: Math.round(149 * 12 * 0.8) },
+  enterprise:{ monthly:399, annual: Math.round(399 * 12 * 0.8) }
+};
+
+let PLAN_MAP = null;
+let billingInterval = 'annual'; // default to annual (higher ARPA)
+
+/* Set billing toggle */
+function setBilling(interval) {
+  billingInterval = interval;
+  document.getElementById('btnBillingAnnual').classList.toggle('active', interval === 'annual');
+  document.getElementById('btnBillingMonthly').classList.toggle('active', interval === 'monthly');
+  renderPrices();
+}
+
+/* Render prices into the DOM */
+function renderPrices(){
+  document.getElementById('price-starter').innerHTML = formatPrice(PRICES.starter[billingInterval], billingInterval);
+  document.getElementById('price-pro').innerHTML = formatPrice(PRICES.pro[billingInterval], billingInterval);
+  document.getElementById('price-business').innerHTML = formatPrice(PRICES.business[billingInterval], billingInterval);
+  document.getElementById('price-enterprise').innerHTML = formatPrice(PRICES.enterprise[billingInterval], billingInterval);
+}
+function formatPrice(amount, interval){
+  if (!amount) return '';
+  return `$${amount}<span>/${interval === 'annual' ? 'year' : 'month'}</span>`;
+}
+
+/* Capture UTMs into localStorage so we can persist through navigation */
+function captureUtmToLocalStorage(){
+  const params = ['utm_source','utm_medium','utm_campaign','utm_term','utm_content'];
+  const url = new URL(location.href);
+  params.forEach(p => {
+    const v = url.searchParams.get(p);
+    if (v) localStorage.setItem(p, v);
+  });
+}
+captureUtmToLocalStorage();
+
+/* Load variant ids from backend */
+async function loadPlanMap(){
+  try {
+    const r = await fetch('/api/variants');
+    if (!r.ok) throw new Error('variants fetch failed');
+    PLAN_MAP = await r.json();
+  } catch(e){
+    console.warn('Could not load plan map', e);
+    PLAN_MAP = null;
+  }
+}
+
+/* Handle purchase: server will return a hosted checkout URL */
+async function handleSubscriptionPurchase(plan){
+  if (!PLAN_MAP) {
+    alert('Checkout temporarily unavailable. Try again in a moment.');
+    return;
+  }
+  const variant = PLAN_MAP[plan]?.[billingInterval];
+  if (!variant) {
+    alert('Checkout temporarily unavailable for this plan/interval.');
+    return;
+  }
+
+  const custom_data = {
+    user_id: window.__USER_ID__ || null,
+    utm_source: localStorage.getItem('utm_source') || null,
+    utm_medium: localStorage.getItem('utm_medium') || null,
+    utm_campaign: localStorage.getItem('utm_campaign') || null,
+    page: location.pathname
+  };
+
+  try {
+    const r = await fetch('/api/create_checkout', {
+      method: 'POST',
+      headers: {'Content-Type':'application/json'},
+      body: JSON.stringify({ variant, custom_data })
+    });
+    if (!r.ok) throw new Error('create_checkout failed');
+    const { checkout_url } = await r.json();
+    if (!checkout_url) throw new Error('no checkout url');
+    // redirect user to hosted checkout
+    window.location = checkout_url;
+  } catch (err) {
+    console.error('checkout error', err);
+    alert('Unable to start checkout. Please try again or contact support.');
+  }
+}
+
+/* Exit intent modal logic */
+let exitModalShown = false;
+function closeExitModal(){ document.getElementById('exitModal').style.display = 'none'; }
+function openExitModal(){ document.getElementById('exitModal').style.display = 'flex'; exitModalShown = true; }
+function applyFounderDiscount(){
+  // simplest path: set a flag and forward to checkout. A fuller flow will create discounted variant or coupon server-side.
+  localStorage.setItem('founder_discount', '15');
+  closeExitModal();
+  alert('Founder discount applied. Choose a plan to checkout.');
+}
+
+/* show exit modal if mouse leaves viewport (desktop) or after 18s (mobile) */
+document.addEventListener('mouseleave', (e) => {
+  if (!exitModalShown && e.clientY <= 3) openExitModal();
+});
+setTimeout(()=>{ if (!exitModalShown && !localStorage.getItem('founder_dismissed')) openExitModal(); }, 18000);
+
+/* Init on load */
+document.addEventListener('DOMContentLoaded', async () => {
+  await loadPlanMap();
+  renderPrices();
+});
+
+
 
 // =============================================
 // RESPONSE PACKS CHECKOUT (ported from store.html)

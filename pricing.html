@@ -966,7 +966,7 @@ function handleSubscriptionPurchase(plan, interval) {
     if (!guestEmail) {
       // fallback: let them sign in if they don't want guest checkout
       alert('Please sign in or enter an email to continue.');
-      window.location.href = '/login.html?redirect=pricing';
+      window.location.href = '/login.html?returnTo=%2Fpricing.html%23packs';
       return;
     }
     emailForCheckout = guestEmail;

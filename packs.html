@@ -32,6 +32,18 @@
         padding: 4rem 2rem;
         color: var(--text-secondary);
     }
+
+    /* Page Header (centered on packs page) */
+    .page-header {
+        text-align: center;
+    }
+
+    .page-subtitle {
+        font-size: 1rem;
+        color: var(--text-muted);
+        margin: 0 auto;
+        max-width: 720px;
+    }
     
     /* Info Boxes */
     .info-box {
@@ -153,7 +165,7 @@
     <div class="container">
         <div class="page-header">
             <h2 class="page-title">🎁 My Response Packs</h2>
-            <p class="page-subtitle"> Purchase and manage your response packs</p>
+            <p class="page-subtitle">Purchase and manage your response packs</p>
         </div>
         
         <!-- Loading State -->
@@ -359,8 +371,8 @@
                 console.error('Auth check failed:', error);
                 authButtons.innerHTML = `
                     <button class="mobile-menu-btn" onclick="toggleMobileMenu()" aria-label="Menu">☰</button>
-                    <a href="/packs.html" data-auth="login" class="btn btn-secondary">Sign In</a>
-                    <a href="/packs.html" data-auth="register" class="btn btn-primary">Sign Up</a>
+                    <a href="#" data-auth="login" class="btn btn-secondary">Sign In</a>
+                    <a href="#" data-auth="register" class="btn btn-primary">Sign Up</a>
                 `;
             }
         }
@@ -426,15 +438,19 @@
             loading.classList.add('hidden');
             content.classList.remove('hidden');
             
+            const tier = String(user.subscription_tier || '').toLowerCase();
+            const status = String(user.subscription_status || '').toLowerCase();
+            const isActiveSub = status === 'active' || status === 'trialing';
+
             // Determine which section to show
-            if (user.subscription_tier === 'enterprise') {
+            if (isActiveSub && tier === 'enterprise') {
                 enterpriseSection.classList.remove('hidden');
-            } else if (user.subscription_tier === 'pro' || user.subscription_tier === 'business') {
+            } else if (isActiveSub && (tier === 'pro' || tier === 'business')) {
                 subscriberSection.classList.remove('hidden');
                 
                 // Update subscriber info
                 document.getElementById('plan-name').textContent = 
-                    user.subscription_tier.charAt(0).toUpperCase() + user.subscription_tier.slice(1);
+                    tier.charAt(0).toUpperCase() + tier.slice(1);
                 document.getElementById('monthly-limit').textContent = user.monthly_limit || 1000;
                 document.getElementById('responses-remaining').textContent = user.responses_remaining || 0;
                 

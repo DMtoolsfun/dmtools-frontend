@@ -100,7 +100,7 @@
         if (window.DMTOOLS?.openAuthModal) {
           window.DMTOOLS.openAuthModal('login', { returnTo: '/packs.html' });
         } else {
-          window.location.href = '/login.html?returnTo=%2Fpacks.html';
+          DMTOOLS.openAuthModal('login');
         }
         return;
       }
@@ -110,3 +110,4 @@
 </body>
 
 </html>
+

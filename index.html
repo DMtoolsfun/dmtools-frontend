@@ -805,13 +805,24 @@
 
 </head>
 <body>
-    <!-- Header -->
+        <!-- Header -->
     <header class="header">
-        <div class="container">
-            <div class="header-content">
-                <a href="/" class="logo">💬 DMTools.fun</a>
+        <div class="nav-container">
+            <a href="/" class="logo">DMTools.fun</a>
+            <div class="auth-buttons" id="authButtons">
+                <button class="mobile-menu-btn" onclick="toggleMobileMenu()" aria-label="Menu">☰</button>
+                <a href="#" data-auth="login" class="btn btn-secondary">Sign In</a>
+                <a href="#" data-auth="register" class="btn btn-primary">Sign Up</a>
             </div>
         </div>
+
+        <nav class="mobile-nav" id="mobileNav">
+            <a href="/app.html" class="tab-btn">Generator</a>
+            <a href="/presets.html" class="tab-btn">Templates</a>
+            <a href="/packs.html" class="tab-btn">Response Packs</a>
+            <a href="/pricing.html" class="tab-btn">Pricing</a>
+            <a href="/store.html" class="tab-btn">Packs Store</a>
+        </nav>
     </header>
     
    <!-- Hero Section -->
@@ -1590,7 +1601,12 @@
             submitBtn.textContent = isSignupMode ? 'Create Account' : 'Sign In';
         }
     }
-    
+    // Mobile menu toggle
+    function toggleMobileMenu() {
+        const menu = document.getElementById('mobileNav');
+        if (!menu) return;
+        menu.classList.toggle('show');
+    }
     // ROI Calculator
     function updateROICalculator() {
         const messagesPerDay = parseFloat(document.getElementById('messages-per-day').value) || 20;
@@ -1702,4 +1718,6 @@
 <script src="js/auth-modal.js"></script>
 </body>
 </html>
+
+
 

@@ -1757,7 +1757,13 @@ platformWindows[platform] = window.open(
 
         async function checkAuthStatus() {
             const token = localStorage.getItem('authToken');
-            if (!token) return;
+            if (!token) {
+                currentUser = null;
+                isAuthenticated = false;
+                updateAuthUI();
+                updateUsageDisplay();
+                return;
+            }
             
             try {
                 const response = await apiCall('/user/profile');
@@ -1768,13 +1774,17 @@ platformWindows[platform] = window.open(
                     updateUsageDisplay();
                 }
             } catch (error) {
+                console.error('Auth validation failed:', error);
                 localStorage.removeItem('authToken');
                 currentUser = null;
                 isAuthenticated = false;
                 updateAuthUI();
+                updateUsageDisplay();
+                if (typeof showAuthModal === 'function') {
+                    showAuthModal(true);
+                }
             }
         }
-
         function showAuthError(message) {
             const errorDiv = document.getElementById('auth-error');
             if (errorDiv) {
@@ -1817,8 +1827,7 @@ platformWindows[platform] = window.open(
             clearAuthMessages();
         }
 
-        // ================================
-// AUTHENTICATION WALL
+        // AUTHENTICATION WALL
 // ================================
 document.addEventListener('DOMContentLoaded', function() {
     console.log('🚀 DMTools app initializing...');
@@ -1827,45 +1836,22 @@ document.addEventListener('DOMContentLoaded', function() {
     const token = localStorage.getItem('authToken');
     
     if (!token) {
-        // No token = redirect to landing page
-        console.log('❌ No auth token - redirecting to landing page');
-        window.location.href = '/?auth=required';
-        return; // Stop initialization
+        // No token = prompt auth modal (stay on page)
+        console.log('❌ No auth token - opening auth modal');
+        if (typeof showAuthModal === 'function') {
+            showAuthModal(true);
+        }
+    } else {
+        // Token exists - verify it's valid
+        checkAuthStatus();
     }
     
-    // Token exists - verify it's valid
-    checkAuthStatus();
     selectUploadMethod('manual', null);
     initializeMessagePairs();
     
     console.log('✅ DMTools app initialized successfully');
 });
-
-// Update checkAuthStatus to handle invalid tokens
-async function checkAuthStatus() {
-    const token = localStorage.getItem('authToken');
-    if (!token) {
-        window.location.href = '/?auth=required';
-        return;
-    }
-    
-    try {
-        const response = await apiCall('/user/profile');
-        if (response.user) {
-            currentUser = response.user;
-            isAuthenticated = true;
-            updateAuthUI();
-            updateUsageDisplay();
-        }
-    } catch (error) {
-        // Invalid token - clear and redirect
-        console.error('❌ Auth validation failed:', error);
-        localStorage.removeItem('authToken');
-        window.location.href = '/?auth=expired';
-    }
-}
-        
-    </script>
+</script>
     <script>
 // Header PWA Install Button
 let deferredPrompt;
@@ -2238,3 +2224,11 @@ if ('serviceWorker' in navigator) {
 <script src="js/auth-modal.js"></script>
 </body>
 </html>
+
+
+
+
+
+
+
+

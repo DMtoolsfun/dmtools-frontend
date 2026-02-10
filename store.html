@@ -313,8 +313,14 @@
         <a href="/" class="logo">DMTools.fun</a>
         <div class="auth-buttons" id="authButtons">
             <button class="mobile-menu-btn" onclick="toggleMobileMenu()" aria-label="Menu">☰</button>
-            <a href="#" data-auth="login" class="btn btn-secondary">Sign In</a>
-            <a href="#" data-auth="register" class="btn btn-primary">Sign Up</a>
+            <div id="auth-section" class="auth-buttons">
+                <a href="#" data-auth="login" class="btn btn-secondary">Sign In</a>
+                <a href="#" data-auth="register" class="btn btn-primary">Sign Up</a>
+            </div>
+            <div id="user-section" class="auth-buttons hidden">
+                <span class="user-email" id="user-email"></span>
+                <button class="btn btn-secondary" onclick="logout()">Logout</button>
+            </div>
         </div>
     </div>
     
@@ -429,6 +435,19 @@
     <!-- PACK CARDS -->
     <section class="packs-grid">
         
+        <!-- Founder Pack -->
+        <div class="pack-card featured">
+            <div class="badge">🔥 Founder Special</div>
+            <div class="pack-icon">✨</div>
+            <div class="pack-name">First Users Pack</div>
+            <div class="pack-price">$3.99</div>
+            <div class="pack-responses">300 responses</div>
+            <div class="pack-value">$0.013 per response</div>
+            <button class="btn btn-buy featured" onclick="handlePackPurchase('founder')">
+                🖱️ Start Here
+            </button>
+        </div>
+        
         <!-- Starter Pack -->
         <div class="pack-card">
             <div class="pack-icon">🎯</div>
@@ -436,20 +455,19 @@
             <div class="pack-price">$9.99</div>
             <div class="pack-responses">500 responses</div>
             <div class="pack-value">$0.020 per response</div>
-            <button class="btn btn-buy" onclick="handlePackPurchase('starter', 9.99, 500)">
+            <button class="btn btn-buy" onclick="handlePackPurchase('starter')">
                 🖱️ Make THE-RIGHT-CLICK
             </button>
         </div>
         
         <!-- Pro Pack -->
-        <div class="pack-card featured">
-            <div class="badge">⭐ Best Value</div>
+        <div class="pack-card">
             <div class="pack-icon">💎</div>
             <div class="pack-name">Pro Pack</div>
             <div class="pack-price">$16.99</div>
-            <div class="pack-responses">1,000 responses</div>
-            <div class="pack-value">$0.017 per response</div>
-            <button class="btn btn-buy featured" onclick="handlePackPurchase('pro', 16.99, 1000)">
+            <div class="pack-responses">2,000 responses</div>
+            <div class="pack-value">$0.009 per response</div>
+            <button class="btn btn-buy" onclick="handlePackPurchase('pro')">
                 🖱️ Right-click Sidekick
             </button>
         </div>
@@ -459,21 +477,9 @@
             <div class="pack-icon">🚀</div>
             <div class="pack-name">Business Pack</div>
             <div class="pack-price">$34.99</div>
-            <div class="pack-responses">2,500 responses</div>
-            <div class="pack-value">$0.014 per response</div>
-            <button class="btn btn-buy" onclick="handlePackPurchase('business', 34.99, 2500)">
-                🖱️  Right-click Sidekick
-            </button>
-        </div>
-        
-        <!-- Elite Pack -->
-        <div class="pack-card">
-            <div class="pack-icon">👑</div>
-            <div class="pack-name">Elite Pack</div>
-            <div class="pack-price">$59.99</div>
-            <div class="pack-responses">4,000 responses</div>
-            <div class="pack-value">$0.015 per response</div>
-            <button class="btn btn-buy" onclick="handlePackPurchase('elite', 59.99, 4000)">
+            <div class="pack-responses">8,000 responses</div>
+            <div class="pack-value">$0.004 per response</div>
+            <button class="btn btn-buy" onclick="handlePackPurchase('business')">
                 🖱️ Right-click Sidekick
             </button>
         </div>
@@ -573,7 +579,10 @@
             </div>
         </div>
     </footer> 
-    <!-- END FOOTER -->>
+    <!-- END FOOTER -->
+
+    <script src="js/app-core.js"></script>
+    <script src="js/auth-modal.js"></script>
     
     <script>
         // =============================================
@@ -584,28 +593,29 @@
         // Response Packs Product UUID (single product with variants)
         const PACKS_PRODUCT_UUID = '65aa1de7-1f4f-4864-a7fd-ea37fc378103';
         
-        // Pack Variant IDs - CORRECTED
+        // Pack Variant IDs (align with pricing page)
         const PACK_VARIANTS = {
             starter: '1097731',   // 500 responses - $9.99
-            pro: '1097732',       // 1000 responses - $16.99
-            business: '1098385',  // 2500 responses - $34.99 (FIXED from 1098358)
-            elite: '1097735'      // 4000 responses - $59.99
+            pro: '1097732',       // 2000 responses - $16.99
+            business: '1098385',  // 8000 responses - $34.99
+            founder: '1111840'    // 300 responses - $3.99
         };
         
         // Pack details for tracking
         const PACK_DETAILS = {
             starter: { responses: 500, price: 9.99, name: 'Starter Pack' },
-            pro: { responses: 1000, price: 16.99, name: 'Pro Pack' },
-            business: { responses: 2500, price: 34.99, name: 'Business Pack' },
-            elite: { responses: 4000, price: 59.99, name: 'Elite Pack' }
+            pro: { responses: 2000, price: 16.99, name: 'Pro Pack' },
+            business: { responses: 8000, price: 34.99, name: 'Business Pack' },
+            founder: { responses: 300, price: 3.99, name: 'First Users Pack' }
         };
         
         /**
          * Handle response pack purchase - WORKING CHECKOUT
          */
-        function handlePackPurchase(packName, price, responses) {
-            const variantId = PACK_VARIANTS[packName.toLowerCase()];
-            const packInfo = PACK_DETAILS[packName.toLowerCase()];
+        function handlePackPurchase(packName) {
+            const key = String(packName || '').toLowerCase();
+            const variantId = PACK_VARIANTS[key];
+            const packInfo = PACK_DETAILS[key];
             
             if (!variantId) {
                 alert('Invalid pack selected. Please try again.');
@@ -613,66 +623,79 @@
                 return;
             }
             
-            // Check if user is logged in
+            // Build checkout base
+            let checkoutUrl = `https://dmtoolsfun-llc.lemonsqueezy.com/buy/${PACKS_PRODUCT_UUID}`;
+            checkoutUrl += `?checkout[variant]=${variantId}`;
+
             const token = localStorage.getItem('authToken');
-            if (!token) {
-                alert('Please sign in to purchase response packs');
-                localStorage.setItem('pendingPackPurchase', packName);
-                window.location.href = '/app.html?redirect=store';
-                return;
+            let userId = null;
+            let emailForCheckout = '';
+
+            if (token) {
+                try {
+                    const tokenParts = token.split('.');
+                    const payload = JSON.parse(atob(tokenParts[1]));
+                    userId = payload.id || payload.userId || null;
+                    emailForCheckout = payload.email || '';
+                } catch (e) {
+                    console.warn('Token decode failed, continuing as guest:', e);
+                    userId = null;
+                    emailForCheckout = '';
+                }
             }
-            
-            try {
-                // Decode JWT to get user info
-                const tokenParts = token.split('.');
-                const payload = JSON.parse(atob(tokenParts[1]));
-                const userId = payload.id || payload.userId;
-                const userEmail = payload.email || '';
-                
-                if (!userId) {
-                    alert('Session expired. Please log in again.');
-                    localStorage.removeItem('authToken');
-                    window.location.href = '/app.html';
+
+            // Guest checkout by email if not logged in
+            if (!userId) {
+                const guestEmail = prompt(
+                    'Enter your email for delivery/account linking (you can create your account after purchase):'
+                );
+                if (!guestEmail) {
+                    localStorage.setItem('pendingPackPurchase', key);
+                    if (window.DMTOOLS?.openAuthModal) {
+                        DMTOOLS.openAuthModal('login', { returnTo: window.location.pathname + window.location.search });
+                    } else {
+                        alert('Please sign in or enter an email to continue.');
+                    }
                     return;
                 }
-                
-                // Build CORRECT checkout URL with product UUID, user_id, and variant
-                let checkoutUrl = `https://dmtoolsfun-llc.lemonsqueezy.com/buy/${PACKS_PRODUCT_UUID}`;
-                checkoutUrl += `?checkout[custom][user_id]=${userId}`;
-                checkoutUrl += `&checkout[variant]=${variantId}`;
-                
-                // Pre-fill email if available
-                if (userEmail) {
-                    checkoutUrl += `&checkout[email]=${encodeURIComponent(userEmail)}`;
+                const trimmed = String(guestEmail).trim();
+                const ok = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(trimmed);
+                if (!ok) {
+                    alert('Please enter a valid email address.');
+                    return;
                 }
-                
-                console.log('Opening pack checkout:', checkoutUrl);
-                console.log('Pack:', packName, 'Variant:', variantId, 'User:', userId);
-                
-                // Track analytics
-                if (typeof gtag !== 'undefined') {
-                    gtag('event', 'begin_checkout', {
-                        pack_name: packInfo?.name || packName,
-                        value: packInfo?.price || price,
-                        currency: 'USD',
-                        items: [{
-                            item_name: packInfo?.name || packName + ' Pack',
-                            quantity: 1,
-                            price: packInfo?.price || price
-                        }]
-                    });
-                }
-                
-                // Open checkout - try LemonSqueezy overlay first, fallback to new tab
-                if (window.LemonSqueezy && window.LemonSqueezy.Url) {
-                    window.LemonSqueezy.Url.Open(checkoutUrl);
-                } else {
-                    window.open(checkoutUrl, '_blank');
-                }
-                
-            } catch (error) {
-                console.error('Checkout error:', error);
-                alert('Error starting checkout. Please try again.');
+                emailForCheckout = trimmed;
+                try { localStorage.setItem('pendingGuestEmail', emailForCheckout); } catch (_) {}
+            }
+
+            if (userId) checkoutUrl += `&checkout[custom][user_id]=${encodeURIComponent(userId)}`;
+            if (emailForCheckout) {
+                checkoutUrl += `&checkout[email]=${encodeURIComponent(emailForCheckout)}`;
+                checkoutUrl += `&checkout[custom][email]=${encodeURIComponent(emailForCheckout)}`;
+            }
+
+            console.log('Opening pack checkout:', checkoutUrl);
+            console.log('Pack:', packInfo?.name || packName, 'Variant:', variantId, 'User:', userId || 'guest');
+
+            // Track analytics
+            if (typeof gtag !== 'undefined') {
+                gtag('event', 'begin_checkout', {
+                    pack_name: packInfo?.name || packName,
+                    value: packInfo?.price,
+                    currency: 'USD',
+                    items: [{
+                        item_name: packInfo?.name || packName + ' Pack',
+                        quantity: 1,
+                        price: packInfo?.price
+                    }]
+                });
+            }
+
+            // Open checkout - try LemonSqueezy overlay first, fallback to new tab
+            if (window.LemonSqueezy && window.LemonSqueezy.Url) {
+                window.LemonSqueezy.Url.Open(checkoutUrl);
+            } else {
+                window.open(checkoutUrl, '_blank');
             }
         }
         
@@ -684,7 +707,7 @@
                 const packInfo = PACK_DETAILS[pendingPack.toLowerCase()];
                 if (packInfo) {
                     setTimeout(() => {
-                        handlePackPurchase(pendingPack, packInfo.price, packInfo.responses);
+                        handlePackPurchase(pendingPack);
                     }, 500);
                 }
             }

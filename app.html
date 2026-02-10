@@ -1408,10 +1408,25 @@ platformWindows[platform] = window.open(
                 return;
             }
           
-           // Check if free user trying to batch process (PAYWALL CHECK)
-            if (isAuthenticated && currentUser && currentUser.plan === 'free') {
-                showPaywall();
-                return;
+            // Check if free user has exhausted monthly allowance (PAYWALL CHECK)
+            if (isAuthenticated && currentUser) {
+                const tier = String(currentUser.subscription_tier || currentUser.plan || 'free').toLowerCase();
+                const limit = Number.isFinite(currentUser.monthly_limit)
+                    ? currentUser.monthly_limit
+                    : (tier === 'enterprise' ? 25000
+                        : tier === 'business' ? 8000
+                        : tier === 'pro' ? 2000
+                        : tier === 'starter' ? 500
+                        : 10);
+                const used = currentUser.monthly_usage || 0;
+                const remaining = (typeof currentUser.responses_remaining === 'number')
+                    ? currentUser.responses_remaining
+                    : Math.max(0, limit - used);
+
+                if (tier === 'free' && remaining <= 0) {
+                    showPaywall();
+                    return;
+                }
             }
 
             const processBtn = document.getElementById('process-all-btn');
@@ -1714,12 +1729,20 @@ platformWindows[platform] = window.open(
             if (usageCount && usageLimit && usageFill && usagePlanText) {
                 if (isAuthenticated && currentUser) {
                     const usage = currentUser.monthly_usage || 0;
-                    const limits = { free: 10, pro: 1000, business: 5000, enterprise: 25000 };
-                    const limit = limits[currentUser.plan || 'free'];
+                    const tier = String(currentUser.subscription_tier || currentUser.plan || 'free').toLowerCase();
+                    const limit = Number.isFinite(currentUser.monthly_limit)
+                        ? currentUser.monthly_limit
+                        : (tier === 'enterprise' ? 25000
+                            : tier === 'business' ? 8000
+                            : tier === 'pro' ? 2000
+                            : tier === 'starter' ? 500
+                            : 10);
                     
                     usageCount.textContent = usage;
                     usageLimit.textContent = limit === Infinity ? '∞' : limit;
-                    usagePlanText.textContent = `${(currentUser.plan || 'free').charAt(0).toUpperCase() + (currentUser.plan || 'free').slice(1)} Plan`;
+                    usagePlanText.textContent = tier === 'free'
+                        ? 'Sign up for 10 free responses per month'
+                        : `${tier.charAt(0).toUpperCase() + tier.slice(1)} Plan`;
                     
                     const percentage = Math.min((usage / limit) * 100, 100);
                     usageFill.style.width = percentage + '%';

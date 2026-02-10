@@ -26,6 +26,14 @@
     returnTo: '/portal.html'
   };
 
+  function getDefaultReturnTo() {
+    try {
+      const path = `${window.location.pathname || ''}${window.location.search || ''}${window.location.hash || ''}`;
+      if (path && path !== '/' && path !== '/index.html') return path;
+    } catch (e) {}
+    return DEFAULTS.returnTo;
+  }
+
   function ensureStyles() {
     if (document.getElementById(STYLE_ID)) return;
     const style = document.createElement('style');
@@ -231,7 +239,7 @@
 
   function show(mode = 'login', options = {}) {
     const modal = ensureModal();
-    state.returnTo = options.returnTo || DEFAULTS.returnTo;
+    state.returnTo = options.returnTo || getDefaultReturnTo();
     setMode(mode);
     modal.classList.add('show');
 
@@ -255,15 +263,13 @@
   DMTOOLS.closeAuthModal = hide;
 
   // Auto-wire: elements with data-auth="login" or data-auth="register"
-  document.addEventListener('DOMContentLoaded', () => {
-    document.querySelectorAll('[data-auth]').forEach((el) => {
-      el.addEventListener('click', (e) => {
-        const mode = (el.getAttribute('data-auth') || '').toLowerCase();
-        if (mode !== 'login' && mode !== 'register') return;
-        e.preventDefault();
-        const returnTo = el.getAttribute('data-return-to') || DEFAULTS.returnTo;
-        show(mode, { returnTo });
-      });
-    });
+  document.addEventListener('click', (e) => {
+    const el = e.target.closest('[data-auth]');
+    if (!el) return;
+    const mode = (el.getAttribute('data-auth') || '').toLowerCase();
+    if (mode !== 'login' && mode !== 'register') return;
+    e.preventDefault();
+    const returnTo = el.getAttribute('data-return-to') || getDefaultReturnTo();
+    show(mode, { returnTo });
   });
 })();

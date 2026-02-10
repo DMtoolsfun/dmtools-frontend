@@ -926,7 +926,7 @@
     </footer>
 
     <!-- Auth Modal -->
-    <div class="auth-modal" id="auth-modal">
+    <div class="auth-modal" id="auth-modal" style="display: none;">
         <div class="auth-modal-content">
             <h2 id="auth-modal-title">Welcome Back</h2>
             <p id="auth-modal-subtitle">Sign in to your account</p>
@@ -1542,6 +1542,7 @@ platformWindows[platform] = window.open(
             updateAuthModalUI();
             const modal = document.getElementById('auth-modal');
             if (modal) {
+                modal.style.display = 'flex';
                 modal.classList.add('show');
                 
                 setTimeout(() => {
@@ -1557,6 +1558,7 @@ platformWindows[platform] = window.open(
             const modal = document.getElementById('auth-modal');
             if (modal) {
                 modal.classList.remove('show');
+                modal.style.display = 'none';
                 clearAuthForm();
             }
         }

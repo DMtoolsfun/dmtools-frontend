@@ -50,6 +50,52 @@
         font-size: 1.1rem;
         color: var(--text-muted);
     }
+
+    .hero-offer {
+        display: inline-block;
+        margin-bottom: 1rem;
+        padding: 0.5rem 1rem;
+        border: 1px solid rgba(16, 185, 129, 0.35);
+        border-radius: 999px;
+        background: rgba(16, 185, 129, 0.12);
+        color: #a7f3d0;
+        font-weight: 700;
+        font-size: 0.95rem;
+    }
+
+    .hero-ctas {
+        display: flex;
+        justify-content: center;
+        gap: 1rem;
+        flex-wrap: wrap;
+        margin-top: 2rem;
+    }
+
+    .landing-nav-desktop {
+        display: flex;
+        align-items: center;
+        gap: 1.25rem;
+    }
+
+    .landing-nav-desktop a {
+        color: var(--text-secondary);
+        text-decoration: none;
+        font-weight: 600;
+    }
+
+    .landing-nav-desktop a:hover {
+        color: var(--primary);
+    }
+
+    .header-actions {
+        display: flex;
+        align-items: center;
+        gap: 0.75rem;
+    }
+
+    .header-actions .mobile-menu-btn {
+        display: none;
+    }
     
     /* Two-Card Layout */
     .hero-options {
@@ -747,6 +793,18 @@
         .hero-title {
             font-size: 2rem;
         }
+
+        .hero-ctas .btn {
+            width: 100%;
+        }
+
+        .landing-nav-desktop {
+            display: none;
+        }
+
+        .header-actions .mobile-menu-btn {
+            display: inline-flex;
+        }
         
         .hero-options {
             grid-template-columns: 1fr;
@@ -809,19 +867,23 @@
     <header class="header">
         <div class="nav-container">
             <a href="/" class="logo">DMTools.fun</a>
-            <div class="auth-buttons" id="authButtons">
-                <button class="mobile-menu-btn" onclick="toggleMobileMenu()" aria-label="Menu">☰</button>
-                <a href="#" data-auth="login" class="btn btn-secondary">Sign In</a>
-                <a href="#" data-auth="register" class="btn btn-primary">Sign Up</a>
+
+            <nav class="landing-nav-desktop" aria-label="Primary">
+                <a href="/app.html">Try</a>
+                <a href="/pricing.html">Pricing</a>
+                <a href="https://chromewebstore.google.com/detail/dmtools-%E2%80%93-inline-reply-as/joheialcdpmcfgehhcpfjnppficonfih" target="_blank" rel="noopener noreferrer">Extension</a>
+            </nav>
+
+            <div class="header-actions">
+                <a href="/app.html" class="btn btn-primary">Try It Free</a>
+                <button class="mobile-menu-btn" onclick="toggleMobileMenu()" aria-label="Menu">&#9776;</button>
             </div>
         </div>
 
         <nav class="mobile-nav" id="mobileNav">
-            <a href="/app.html" class="tab-btn">Generator</a>
-            <a href="/presets.html" class="tab-btn">Templates</a>
-            <a href="/packs.html" class="tab-btn">Response Packs</a>
+            <a href="/app.html" class="tab-btn">Try</a>
             <a href="/pricing.html" class="tab-btn">Pricing</a>
-            <a href="/store.html" class="tab-btn">Packs Store</a>
+            <a href="https://chromewebstore.google.com/detail/dmtools-%E2%80%93-inline-reply-as/joheialcdpmcfgehhcpfjnppficonfih" class="tab-btn" target="_blank" rel="noopener noreferrer">Extension</a>
         </nav>
     </header>
     
@@ -829,14 +891,16 @@
 <main class="hero">
   <div class="container">
     <div class="hero-intro">
-      <h1 class="hero-title">AI replies anywhere — right-click to generate.</h1>
-      <p class="hero-tagline">
-        <b>Subscriptions</b> unlock Pro features and include monthly responses.
-        <br />
-        <b>Response Packs</b> add extra responses — or unlock core usage without a subscription.
-      </p>
+      <span class="hero-offer">10 free responses per month, forever - No credit card required</span>
+      <h1 class="hero-title">Generate better replies in seconds.</h1>
+      <p class="hero-subtitle">Get your first win fast in the DMTools generator.</p>
+      <p class="hero-tagline">Start free, then choose what fits your workflow: monthly plans or one-time response packs.</p>
+      <div class="hero-ctas">
+        <a href="/app.html" class="btn btn-primary btn-large">Try it free (10 replies/month)</a>
+        <a href="/pricing.html" class="btn btn-secondary btn-large">View Pricing</a>
+      </div>
     </div>
-
+  </div>
 </main>
 
     <!-- SECTION 5: USE CASES (Visual Grid) -->
@@ -937,76 +1001,6 @@
             </a>
         </div>
 
-    
-    <!-- SECTION 1: ROI CALCULATOR (Add after hero) -->
-        <section class="roi-section">
-            <div class="container">
-                <h2 class="section-title">Calculate Your Time Savings</h2>
-                <p class="section-subtitle">See exactly how much time DMTools saves you every month</p>
-        
-                <div class="roi-calculator">
-                    <div class="calculator-inputs">
-                        <div class="input-group">
-                            <label>Avrage Daily Messages recieved</label>
-                            <input type="number" id="messages-per-day" value="50" min="1" max="500">
-                        </div>
-                
-                        <div class="input-group">
-                            <label>Average time per response</label>
-                            <input type="number" id="time-per-message" value="5" min="1" max="30">
-                        </div>
-                
-                        <div class="input-group">
-                            <label>Working days per month              </label>
-                            <input type="number" id="days-per-month" value="22" min="1" max="31">
-                        </div>
-                    </div>
-            
-                    <div class="calculator-results">
-                        <div class="result-card primary">
-                            <div class="result-value" id="hours-saved">17.3</div>
-                            <div class="result-label">Hours Saved Per Week</div>
-                        </div>
-                
-                            <div class="result-card secondary">
-                        <div class="result-value" id="money-saved">$865</div>
-                            <div class="result-label">Value of Time Saved*</div>
-                            <small>*Based on $50/hour average</small>
-                        </div>
-                
-                        <div class="result-card success">
-                            <div class="result-value" id="roi-multiple">45x</div>
-                            <div class="result-label">ROI on Pro Plan</div>
-                        </div>
-                    </div>
-            
-                    <div class="roi-breakdown">
-                        <h4>With DMTools, you'll save:</h4>
-                        <div class="breakdown-grid">
-                            <div class="breakdown-item">
-                                <strong id="daily-savings">47 min</strong>
-                                <span>Every Day</span>
-                            </div>
-                            <div class="breakdown-item">
-                                <strong id="weekly-savings">3.9 hrs</strong>
-                                <span>Every Week</span>
-                            </div>
-                            <div class="breakdown-item">
-                                <strong id="monthly-savings">17.3 hrs</strong>
-                                <span>Every Month</span>
-                            </div>
-                            <div class="breakdown-item">
-                                <strong id="yearly-savings">208 hrs</strong>
-                                <span>Every Year</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-
-
         <!-- SECTION 2: VS COMPETITORS (Comparison Table) -->
         <section class="comparison-section">
             <div class="container">
@@ -1073,13 +1067,6 @@
                                 <td class="check">✅</td>
                             </tr>
                             <tr>
-                                <td><strong>Starting Price (Monthly)</strong></td>
-                                <td class="highlight-col price"><strong>$19/mo</strong></td>
-                                <td class="price">$20/mo</td>
-                                <td class="price">$39/mo</td>
-                                <td class="price">$36/mo</td>
-                            </tr>
-                            <tr>
                                 <td><strong>Pay-As-You-Go Option</strong></td>
                                 <td class="highlight-col check">✅ From $9.99</td>
                                 <td class="cross">❌</td>
@@ -1102,11 +1089,11 @@
                      <strong>THE-RIGHT-CLICK™ is exclusive to DMTools.</strong> No other AI assistant offers true inline reply generation.
                     </p>
                     <div class="cta-buttons">
-                        <a href="/pricing.html" class="btn btn-primary btn-large">
-                            Get Started - From $19/mo
+                        <a href="/app.html" class="btn btn-primary btn-large">
+                            Try it free (10 replies/month)
                         </a>
-                        <a href="/store.html" class="btn btn-secondary btn-large">
-                            Or Buy Response Packs
+                        <a href="/pricing.html" class="btn btn-secondary btn-large">
+                            View Pricing
                         </a>
                     </div>
                 </div>
@@ -1143,7 +1130,7 @@
             </div>
             
             <div class="value-card">
-                <h3>Insane ROI</h3>
+                <h3>Measured ROI</h3>
                 <p class="value-stat">$19/mo → $865/mo value</p>
                 <p>If you respond to 20 messages daily, DMTools saves 17+ hours monthly. That's worth $865 at $50/hour.</p>
                 <div class="value-math">
@@ -1212,7 +1199,7 @@
             <div class="value-card">
                 <h3>Privacy First</h3>
                 <p class="value-stat">Your data stays yours</p>
-                <p>Enterprise-grade security. End-to-end encryption. No data sharing. No tracking. No BS.</p>
+                <p>Enterprise-grade security. End-to-end encryption. No data sharing. No tracking. Clear controls and transparent defaults.</p>
                 <ul class="security-list">
                     <li>🔐 AES-256 encryption</li>
                     <li>🔐 No data retention</li>
@@ -1284,7 +1271,7 @@
             
             <div class="testimonial-card">
                 <div class="testimonial-stars">⭐⭐⭐⭐⭐</div>
-                <p class="testimonial-text">"I process 100+ customer support tickets daily. DMTools batch processing saves me 3+ hours every single day. ROI is insane."</p>
+                <p class="testimonial-text">"I process 100+ customer support tickets daily. DMTools batch processing saves me 3+ hours every single day. The time savings are obvious."</p>
                 <div class="testimonial-author">
                     <strong>Michael R.</strong>
                     <span>Customer Support Lead</span>
@@ -1325,6 +1312,76 @@
 </p>
 
 
+
+
+    
+    <!-- SECTION 1: ROI CALCULATOR (Add after hero) -->
+        <section class="roi-section">
+            <div class="container">
+                <h2 class="section-title">Calculate Your Time Savings</h2>
+                <p class="section-subtitle">See exactly how much time DMTools saves you every month</p>
+        
+                <div class="roi-calculator">
+                    <div class="calculator-inputs">
+                        <div class="input-group">
+                            <label>Average daily messages received</label>
+                            <input type="number" id="messages-per-day" value="50" min="1" max="500">
+                        </div>
+                
+                        <div class="input-group">
+                            <label>Average time per response</label>
+                            <input type="number" id="time-per-message" value="5" min="1" max="30">
+                        </div>
+                
+                        <div class="input-group">
+                            <label>Working days per month              </label>
+                            <input type="number" id="days-per-month" value="22" min="1" max="31">
+                        </div>
+                    </div>
+            
+                    <div class="calculator-results">
+                        <div class="result-card primary">
+                            <div class="result-value" id="hours-saved">17.3</div>
+                            <div class="result-label">Hours Saved Per Week</div>
+                        </div>
+                
+                            <div class="result-card secondary">
+                        <div class="result-value" id="money-saved">$865</div>
+                            <div class="result-label">Value of Time Saved*</div>
+                            <small>*Based on $50/hour average</small>
+                        </div>
+                
+                        <div class="result-card success">
+                            <div class="result-value" id="roi-multiple">45x</div>
+                            <div class="result-label">ROI on Pro Plan</div>
+                        </div>
+                    </div>
+            
+                    <div class="roi-breakdown">
+                        <h4>With DMTools, you'll save:</h4>
+                        <div class="breakdown-grid">
+                            <div class="breakdown-item">
+                                <strong id="daily-savings">47 min</strong>
+                                <span>Every Day</span>
+                            </div>
+                            <div class="breakdown-item">
+                                <strong id="weekly-savings">3.9 hrs</strong>
+                                <span>Every Week</span>
+                            </div>
+                            <div class="breakdown-item">
+                                <strong id="monthly-savings">17.3 hrs</strong>
+                                <span>Every Month</span>
+                            </div>
+                            <div class="breakdown-item">
+                                <strong id="yearly-savings">208 hrs</strong>
+                                <span>Every Year</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
 <!-- SECTION 6: FINAL CTA (Urgency + Value) -->
 <section class="final-cta-section">
     <div class="container">
@@ -1340,7 +1397,7 @@
                     <span>70-85% time savings</span>
                 </div>
                 <div class="value-prop-mini">
-                    <span>45x ROI guaranteed</span>
+                    <span>Measurable time savings</span>
                 </div>
                 <div class="value-prop-mini">
                     <span>Cancel anytime</span>
@@ -1348,11 +1405,11 @@
             </div>
             
             <div class="cta-buttons-large">
-                <a href="/pricing.html" class="btn btn-primary btn-xl">
-                    Get Started Free →
+                <a href="/app.html" class="btn btn-primary btn-xl">
+                    Try it free (10 replies/month)
                 </a>
-                <a href="/store.html" class="btn btn-secondary btn-xl">
-                    View Response Packs
+                <a href="/pricing.html" class="btn btn-secondary btn-xl">
+                    View Pricing
                 </a>
             </div>
             
@@ -1642,12 +1699,15 @@
     
     // Initialize on page load
     document.addEventListener('DOMContentLoaded', function() {
-        // Close modal on outside click
-        document.getElementById('auth-modal').addEventListener('click', function(e) {
-            if (e.target === this) {
-                hideAuthModal();
-            }
-        });
+        // Close legacy modal on outside click (if present)
+        const legacyAuthModal = document.getElementById('auth-modal');
+        if (legacyAuthModal) {
+            legacyAuthModal.addEventListener('click', function(e) {
+                if (e.target === this) {
+                    hideAuthModal();
+                }
+            });
+        }
         
         // Update calculator on input change
         const calcInputs = ['messages-per-day', 'time-per-message', 'days-per-month'];
@@ -1696,6 +1756,7 @@
 
                 // Internal nav CTAs you care about
                 if (
+                    href.includes('/app.html') ||
                     href.includes('/pricing.html') ||
                     href.includes('/store.html') ||
                     href.includes('/packs.html') ||

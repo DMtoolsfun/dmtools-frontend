@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>My Response Packs - DMTools.fun</title>
-    <meta name="description" content="Manage your response packs and download THE-RIGHT-CLICK Chrome extension">
+    <title>Account &amp; Usage Dashboard - DMTools.fun</title>
+    <meta name="description" content="View your plan, monthly responses, and response pack details in one account dashboard">
 <link rel="stylesheet" href="styles.css">
     <!-- PWA Manifest -->
 <link rel="manifest" href="/manifest.json">
@@ -86,6 +86,41 @@
         flex: 1;
         min-width: 200px;
     }
+
+    .status-pill {
+        display: inline-block;
+        padding: 0.25rem 0.65rem;
+        border-radius: 999px;
+        font-size: 0.75rem;
+        font-weight: 700;
+        text-transform: lowercase;
+        border: 1px solid var(--border-medium);
+    }
+
+    .status-pill.active {
+        background: rgba(16, 185, 129, 0.14);
+        color: #6ee7b7;
+        border-color: rgba(16, 185, 129, 0.35);
+    }
+
+    .status-pill.trialing {
+        background: rgba(59, 130, 246, 0.16);
+        color: #93c5fd;
+        border-color: rgba(59, 130, 246, 0.4);
+    }
+
+    .status-pill.past_due,
+    .status-pill.cancelled {
+        background: rgba(245, 158, 11, 0.14);
+        color: #fcd34d;
+        border-color: rgba(245, 158, 11, 0.4);
+    }
+
+    .status-pill.inactive {
+        background: rgba(107, 114, 128, 0.2);
+        color: #d1d5db;
+        border-color: rgba(156, 163, 175, 0.35);
+    }
     
     /* Progress Bar */
     .progress-bar {
@@ -164,8 +199,8 @@
     
     <div class="container">
         <div class="page-header">
-            <h2 class="page-title">🎁 My Response Packs</h2>
-            <p class="page-subtitle">Purchase and manage your response packs</p>
+            <h2 class="page-title">Account &amp; Usage Dashboard</h2>
+            <p class="page-subtitle">View your plan, monthly responses, and response packs in one place</p>
         </div>
         
         <!-- Loading State -->
@@ -176,7 +211,45 @@
         
         <!-- Main Content (Hidden until loaded) -->
         <div id="content" class="hidden">
-            
+
+            <div id="plan-usage-section" class="hidden" style="display:none;">
+                <div class="card">
+                    <h2>Plan &amp; Usage</h2>
+                    <div class="info-box">
+                        <div style="display: flex; justify-content: space-between; align-items: flex-start; flex-wrap: wrap; gap: 1rem;">
+                            <div>
+                                <p style="margin: 0 0 0.5rem 0;"><strong>Plan:</strong> <span id="dashboard-plan-label">Loading...</span></p>
+                                <p style="margin: 0;"><strong>Status:</strong> <span id="dashboard-status-badge" class="status-pill inactive">inactive</span></p>
+                            </div>
+                            <div style="min-width: 220px;">
+                                <p style="margin: 0 0 0.5rem 0;"><strong>Monthly allowance:</strong> <span id="dashboard-monthly-allowance">Loading...</span></p>
+                                <p style="margin: 0;"><strong>Responses remaining:</strong> <span id="dashboard-responses-remaining">Loading...</span></p>
+                            </div>
+                        </div>
+                        <p id="dashboard-free-reminder" style="margin: 1rem 0 0 0; color: var(--text-secondary); display:none;">
+                            10 responses/month for life (no card required)
+                        </p>
+                        <p id="dashboard-status-note" style="margin: 1rem 0 0 0; color: var(--text-secondary);"></p>
+                        <div class="cta-buttons" style="margin-bottom: 0;" id="dashboard-cta-buttons">
+                            <a id="dashboard-primary-cta" href="/pricing.html" class="btn btn-primary">View plans</a>
+                            <a id="dashboard-secondary-cta" href="/pricing.html#packs" class="btn btn-secondary">Buy packs</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div id="pack-details-section" class="hidden" style="display:none;">
+                <div class="card">
+                    <h2>Pack Details</h2>
+                    <div class="info-box">
+                        <p style="margin-top: 0;"><strong>Pack balance:</strong> <span id="pack-balance">0 responses</span></p>
+                        <div id="pack-details-content">
+                            <p style="color: var(--text-secondary); margin-bottom: 0;">Loading pack details...</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+             
             <!-- Free User Section -->
             <div id="free-section" class="hidden">
                 <div class="card">
@@ -187,7 +260,7 @@
                         <ul>
                             <li>📥 Download the Chrome extension</li>
                             <li>Sign up for a free account and get 10 responses/month free</li>
-                            <li>💳 Buy response packs ($3.99-$34.99)</li>
+                            <li>💳 Buy response packs ($9.99-$34.99)</li>
                             <li>✨ Generate AI replies instantly</li>
                             <li>🎯 Works anywhere, if you can type a response to send, so can the RIGHT-CLICK SIDEKICK!</li>
                         </ul>
@@ -207,7 +280,7 @@
             </div>
             
             <!-- Subscriber Section (Pro/Business) -->
-            <div id="subscriber-section" class="hidden">
+            <div id="subscriber-section" class="hidden" style="display:none;">
                 <div class="card">
                     <h2>📊 Your Subscription</h2>
                     
@@ -215,22 +288,22 @@
                         <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem;">
                             <div>
                                 <div style="font-size: 1.5rem; font-weight: 700; margin-bottom: 0.5rem;">
-                                    <span id="plan-name">Pro</span> Plan
+                                    <span id="plan-name">-</span> Plan
                                 </div>
                                 <div style="color: var(--text-secondary);">
-                                    <span id="monthly-limit">2,000</span> responses/month
+                                    <span id="monthly-limit">-</span> responses/month
                                 </div>
                             </div>
                             <div style="text-align: right;">
                                 <div style="font-size: 2rem; font-weight: 800; color: var(--secondary);">
-                                    <span id="responses-remaining">1,700</span>
+                                    <span id="responses-remaining">-</span>
                                 </div>
                                 <div style="color: var(--text-secondary); font-size: 0.9rem;">remaining</div>
                             </div>
                         </div>
                         
                         <div class="progress-bar" style="margin-top: 1rem;">
-                            <div class="progress-fill" id="usage-bar" style="width: 15%;">
+                            <div class="progress-fill" id="usage-bar" style="width: 0%;">
                                 <span id="usage-text">Loading...</span>
                                 <span id="usage-percent">0%</span>
                             </div>
@@ -324,65 +397,308 @@
     
    <script>
     const API_BASE = 'https://dmtools-backend-production.up.railway.app/api';
-    
-    // Mobile menu toggle
+
     function toggleMobileMenu() {
         document.getElementById('mobileNav').classList.toggle('show');
     }
-    
-    // Check authentication and update header
+
+    function handleLogout() {
+        localStorage.removeItem('authToken');
+        window.location.href = '/';
+    }
+
+    function toNumber(value) {
+        const num = Number(value);
+        return Number.isFinite(num) ? num : null;
+    }
+
+    function formatNumber(value) {
+        const num = toNumber(value);
+        return num === null ? '-' : num.toLocaleString();
+    }
+
+    function formatTierLabel(tier) {
+        return String(tier || '')
+            .replace(/[_-]+/g, ' ')
+            .replace(/\b\w/g, (match) => match.toUpperCase());
+    }
+
+    function normalizeStatus(rawStatus) {
+        const normalized = String(rawStatus || '').toLowerCase().trim();
+        const supported = ['active', 'trialing', 'past_due', 'cancelled', 'inactive'];
+        return supported.includes(normalized) ? normalized : 'inactive';
+    }
+
+    function getDefaultMonthlyLimit(tier) {
+        const map = {
+            free: 10,
+            pro: 2000,
+            business: 8000,
+            enterprise: 25000
+        };
+        return map[String(tier || '').toLowerCase()] ?? null;
+    }
+
+    function setSectionVisibility(sectionEl, isVisible) {
+        if (!sectionEl) return;
+        sectionEl.style.display = isVisible ? 'block' : 'none';
+        sectionEl.classList.toggle('hidden', !isVisible);
+    }
+
+    function setDashboardCtas(primaryText, primaryHref, secondaryText, secondaryHref) {
+        const primary = document.getElementById('dashboard-primary-cta');
+        const secondary = document.getElementById('dashboard-secondary-cta');
+        if (!primary || !secondary) return;
+
+        primary.textContent = primaryText;
+        primary.href = primaryHref;
+
+        secondary.textContent = secondaryText;
+        secondary.href = secondaryHref;
+        secondary.style.display = secondaryText ? 'inline-flex' : 'none';
+    }
+
+    function updateSubscriberSection(user, tier) {
+        const planNameEl = document.getElementById('plan-name');
+        const monthlyLimitEl = document.getElementById('monthly-limit');
+        const responsesRemainingEl = document.getElementById('responses-remaining');
+        const usageBarEl = document.getElementById('usage-bar');
+        const usageTextEl = document.getElementById('usage-text');
+        const usagePercentEl = document.getElementById('usage-percent');
+
+        let monthlyLimit = toNumber(user.monthly_limit);
+        if (monthlyLimit === null) {
+            monthlyLimit = getDefaultMonthlyLimit(tier);
+        }
+
+        let responsesRemaining = toNumber(user.responses_remaining);
+        if (responsesRemaining === null && monthlyLimit !== null) {
+            const monthlyUsage = toNumber(user.monthly_usage) ?? 0;
+            responsesRemaining = Math.max(0, monthlyLimit - monthlyUsage);
+        }
+
+        const used = (monthlyLimit !== null && responsesRemaining !== null)
+            ? Math.max(0, monthlyLimit - responsesRemaining)
+            : (toNumber(user.monthly_usage) ?? 0);
+        const percent = monthlyLimit && monthlyLimit > 0
+            ? Math.max(0, Math.min(100, Math.round((used / monthlyLimit) * 100)))
+            : 0;
+
+        planNameEl.textContent = formatTierLabel(tier);
+        monthlyLimitEl.textContent = monthlyLimit === null ? '-' : formatNumber(monthlyLimit);
+        responsesRemainingEl.textContent = responsesRemaining === null ? '-' : formatNumber(responsesRemaining);
+        usageBarEl.style.width = percent + '%';
+        usageTextEl.textContent = formatNumber(used) + ' used';
+        usagePercentEl.textContent = percent + '%';
+    }
+
+    function renderPlanUsageSection(user, tier, status, isActive) {
+        const planUsageSection = document.getElementById('plan-usage-section');
+        const planLabelEl = document.getElementById('dashboard-plan-label');
+        const statusBadgeEl = document.getElementById('dashboard-status-badge');
+        const monthlyAllowanceEl = document.getElementById('dashboard-monthly-allowance');
+        const responsesRemainingEl = document.getElementById('dashboard-responses-remaining');
+        const reminderEl = document.getElementById('dashboard-free-reminder');
+        const noteEl = document.getElementById('dashboard-status-note');
+
+        let monthlyLimit = toNumber(user.monthly_limit);
+        if (monthlyLimit === null && (isActive || tier === 'free' || !tier)) {
+            monthlyLimit = getDefaultMonthlyLimit(tier || 'free');
+        }
+
+        let responsesRemaining = toNumber(user.responses_remaining);
+        if (responsesRemaining === null && monthlyLimit !== null) {
+            const monthlyUsage = toNumber(user.monthly_usage);
+            if (monthlyUsage !== null) {
+                responsesRemaining = Math.max(0, monthlyLimit - monthlyUsage);
+            }
+        }
+
+        const manageUrl = user.customer_portal_url
+            || user.manage_subscription_url
+            || user.billing_portal_url
+            || '';
+
+        let planLabel = 'Free';
+        let statusNote = '';
+
+        if (isActive && tier === 'enterprise') {
+            planLabel = 'Enterprise';
+            statusNote = 'Enterprise responses are active across the dashboard and extension.';
+            if (manageUrl) {
+                setDashboardCtas('Manage subscription', manageUrl, 'Buy packs', '/pricing.html#packs');
+            } else {
+                setDashboardCtas('View plans', '/pricing.html', 'Buy packs', '/pricing.html#packs');
+            }
+        } else if (isActive && (tier === 'pro' || tier === 'business')) {
+            planLabel = 'Subscription: ' + formatTierLabel(tier);
+            statusNote = 'Monthly responses are active and shared between batch and extension usage.';
+            if (manageUrl) {
+                setDashboardCtas('Manage subscription', manageUrl, 'Buy packs', '/pricing.html#packs');
+            } else {
+                setDashboardCtas('View plans', '/pricing.html', 'Buy packs', '/pricing.html#packs');
+            }
+        } else if (status === 'past_due' || status === 'cancelled') {
+            planLabel = tier && tier !== 'free' ? 'No active subscription' : 'Free';
+            statusNote = 'Your subscription is not active. Fix billing to restore monthly responses.';
+            setDashboardCtas('Fix billing', '/pricing.html', 'Buy packs', '/pricing.html#packs');
+        } else if (tier && tier !== 'free') {
+            planLabel = 'No active subscription';
+            statusNote = 'You do not have an active subscription. Upgrade or buy packs to continue.';
+            setDashboardCtas('Upgrade', '/pricing.html', 'Buy packs', '/pricing.html#packs');
+        } else {
+            planLabel = 'Free';
+            statusNote = 'Use your free monthly responses and top up anytime with packs.';
+            setDashboardCtas('Upgrade', '/pricing.html', 'Buy packs', '/pricing.html#packs');
+        }
+
+        planLabelEl.textContent = planLabel;
+        statusBadgeEl.textContent = status;
+        statusBadgeEl.className = 'status-pill ' + status;
+        monthlyAllowanceEl.textContent = monthlyLimit === null
+            ? 'Not available'
+            : formatNumber(monthlyLimit) + ' responses/month';
+        responsesRemainingEl.textContent = responsesRemaining === null
+            ? 'Not available'
+            : formatNumber(responsesRemaining) + ' responses';
+        reminderEl.style.display = isActive ? 'none' : 'block';
+        noteEl.textContent = statusNote;
+
+        setSectionVisibility(planUsageSection, true);
+    }
+
+    function escapeHtml(text) {
+        return String(text)
+            .replace(/&/g, '&amp;')
+            .replace(/</g, '&lt;')
+            .replace(/>/g, '&gt;')
+            .replace(/\"/g, '&quot;')
+            .replace(/'/g, '&#39;');
+    }
+
+    function getPackItems(user) {
+        if (Array.isArray(user.packs)) return user.packs;
+        if (Array.isArray(user.response_packs)) return user.response_packs;
+        if (Array.isArray(user.pack_details)) return user.pack_details;
+        return [];
+    }
+
+    function getPackBalance(user, packItems) {
+        const candidateKeys = [
+            'pack_balance',
+            'response_pack_balance',
+            'pack_responses_remaining',
+            'packs_remaining',
+            'response_packs_remaining'
+        ];
+
+        for (const key of candidateKeys) {
+            const value = toNumber(user[key]);
+            if (value !== null) return value;
+        }
+
+        if (packItems.length > 0) {
+            const summed = packItems.reduce((total, item) => {
+                const remaining = toNumber(item.responses_remaining)
+                    ?? toNumber(item.remaining)
+                    ?? toNumber(item.balance);
+                return total + (remaining ?? 0);
+            }, 0);
+            return summed;
+        }
+
+        return 0;
+    }
+
+    function renderPackDetailsSection(user) {
+        const sectionEl = document.getElementById('pack-details-section');
+        const balanceEl = document.getElementById('pack-balance');
+        const contentEl = document.getElementById('pack-details-content');
+
+        const packItems = getPackItems(user);
+        const packBalance = getPackBalance(user, packItems);
+
+        balanceEl.textContent = formatNumber(packBalance) + ' responses';
+
+        if (!packItems.length) {
+            contentEl.innerHTML = '<p style="color: var(--text-secondary); margin-bottom: 0;">No packs found. Buy a pack to top up your replies.</p>';
+            setSectionVisibility(sectionEl, true);
+            return;
+        }
+
+        contentEl.innerHTML = packItems.map((item) => {
+            const packName = item.pack_name || item.name || 'Response pack';
+            const remaining = toNumber(item.responses_remaining)
+                ?? toNumber(item.remaining)
+                ?? toNumber(item.balance);
+            const status = String(item.status || 'active').toLowerCase();
+            const expiration = item.expiration_date || item.expires_at || item.expiry_date;
+            const expirationText = expiration
+                ? new Date(expiration).toLocaleDateString()
+                : 'No expiration';
+
+            return `
+                <div class="pack-item">
+                    <p style="margin: 0 0 0.4rem 0;"><strong>${escapeHtml(packName)}</strong></p>
+                    <p style="margin: 0; color: var(--text-secondary);">
+                        ${remaining === null ? 'Balance not available' : (formatNumber(remaining) + ' responses remaining')}
+                    </p>
+                    <small style="display: block; margin-top: 0.35rem; color: var(--text-secondary);">
+                        Status: ${escapeHtml(status)} | Expires: ${escapeHtml(expirationText)}
+                    </small>
+                </div>
+            `;
+        }).join('');
+
+        setSectionVisibility(sectionEl, true);
+    }
+
     async function updateAuthSection() {
         const token = localStorage.getItem('authToken');
         const authButtons = document.getElementById('authButtons');
-        
+
         if (!authButtons) return;
-        
+
         if (!token) {
-            // Not logged in - show sign in/up buttons
             authButtons.innerHTML = `
                 <button class="mobile-menu-btn" onclick="toggleMobileMenu()" aria-label="Menu">☰</button>
                 <a href="#" data-auth="login" class="btn btn-secondary">Sign In</a>
                 <a href="#" data-auth="register" class="btn btn-primary">Sign Up</a>
             `;
-        } else {
-            // Logged in - get user info
-            try {
-                const response = await fetch(API_BASE + '/user/profile', {
-                    headers: {
-                        'Authorization': `Bearer ${token}`
-                    }
-                });
-                
-                if (response.ok) {
-                    const data = await response.json();
-                    const user = data.user;
-                    
-                    authButtons.innerHTML = `
-                        <button class="mobile-menu-btn" onclick="toggleMobileMenu()" aria-label="Menu">☰</button>
-                        <span class="user-email">${user.email}</span>
-                        <button class="btn btn-secondary" onclick="handleLogout()">Logout</button>
-                    `;
-                } else {
-                    // Token invalid
-                    localStorage.removeItem('authToken');
-                    updateAuthSection();
+            return;
+        }
+
+        try {
+            const response = await fetch(API_BASE + '/user/profile', {
+                headers: {
+                    'Authorization': `Bearer ${token}`
                 }
-            } catch (error) {
-                console.error('Auth check failed:', error);
-                authButtons.innerHTML = `
-                    <button class="mobile-menu-btn" onclick="toggleMobileMenu()" aria-label="Menu">☰</button>
-                    <a href="#" data-auth="login" class="btn btn-secondary">Sign In</a>
-                    <a href="#" data-auth="register" class="btn btn-primary">Sign Up</a>
-                `;
+            });
+
+            if (!response.ok) {
+                localStorage.removeItem('authToken');
+                updateAuthSection();
+                return;
             }
+
+            const data = await response.json();
+            const user = data.user;
+
+            authButtons.innerHTML = `
+                <button class="mobile-menu-btn" onclick="toggleMobileMenu()" aria-label="Menu">☰</button>
+                <span class="user-email">${user.email}</span>
+                <button class="btn btn-secondary" onclick="handleLogout()">Logout</button>
+            `;
+        } catch (error) {
+            console.error('Auth check failed:', error);
+            authButtons.innerHTML = `
+                <button class="mobile-menu-btn" onclick="toggleMobileMenu()" aria-label="Menu">☰</button>
+                <a href="#" data-auth="login" class="btn btn-secondary">Sign In</a>
+                <a href="#" data-auth="register" class="btn btn-primary">Sign Up</a>
+            `;
         }
     }
-    
-    function handleLogout() {
-        localStorage.removeItem('authToken');
-        window.location.href = '/';
-    }
-    
+
     async function loadPage() {
         const token = localStorage.getItem('authToken');
         const loading = document.getElementById('loading');
@@ -390,83 +706,61 @@
         const freeSection = document.getElementById('free-section');
         const subscriberSection = document.getElementById('subscriber-section');
         const enterpriseSection = document.getElementById('enterprise-section');
+        const planUsageSection = document.getElementById('plan-usage-section');
+        const packDetailsSection = document.getElementById('pack-details-section');
 
-        // ----------------------------
-        // Enterprise section visibility
-        // ----------------------------
-        (function () {
-          const enterpriseEl = document.getElementById('enterprise-section');
-          if (!enterpriseEl) return;
+        setSectionVisibility(planUsageSection, false);
+        setSectionVisibility(packDetailsSection, false);
+        setSectionVisibility(freeSection, false);
+        setSectionVisibility(subscriberSection, false);
+        setSectionVisibility(enterpriseSection, false);
 
-          const planTextEl = document.getElementById('plan-name');
-          const planText = (planTextEl?.textContent || "").toLowerCase();
-
-          const isEnterprise = planText.includes("enterprise");
-
-          enterpriseEl.style.display = isEnterprise ? "block" : "none";
-        })();
-
-        
-        console.log('Token found:', token ? 'YES' : 'NO');
-        
         if (!token) {
-            // Not logged in - show free section
             loading.classList.add('hidden');
             content.classList.remove('hidden');
-            freeSection.classList.remove('hidden');
+            setSectionVisibility(freeSection, true);
             return;
         }
-        
+
         try {
-            // Fetch user profile
             const response = await fetch(API_BASE + '/user/profile', {
                 headers: {
                     'Authorization': `Bearer ${token}`
                 }
             });
-            
-            console.log('API Response status:', response.status);
-            
+
             if (!response.ok) {
+                if (response.status === 401) {
+                    localStorage.removeItem('authToken');
+                    loading.classList.add('hidden');
+                    content.classList.remove('hidden');
+                    setSectionVisibility(freeSection, true);
+                    return;
+                }
                 throw new Error('Failed to fetch user data');
             }
-            
+
             const data = await response.json();
-            console.log('User data:', data);
-            const user = data.user;
-            
+            const user = data.user || {};
+
             loading.classList.add('hidden');
             content.classList.remove('hidden');
-            
-            const tier = String(user.subscription_tier || '').toLowerCase();
-            const status = String(user.subscription_status || '').toLowerCase();
-            const isActiveSub = status === 'active' || status === 'trialing';
 
-            // Determine which section to show
-            if (isActiveSub && tier === 'enterprise') {
-                enterpriseSection.classList.remove('hidden');
-            } else if (isActiveSub && (tier === 'pro' || tier === 'business')) {
-                subscriberSection.classList.remove('hidden');
-                
-                // Update subscriber info
-                document.getElementById('plan-name').textContent = 
-                    tier.charAt(0).toUpperCase() + tier.slice(1);
-                document.getElementById('monthly-limit').textContent = user.monthly_limit || 2000;
-                document.getElementById('responses-remaining').textContent = user.responses_remaining || 0;
-                
-                // Calculate usage percentage
-                const used = (user.monthly_limit || 2000) - (user.responses_remaining || 0);
-                const percent = Math.round((used / (user.monthly_limit || 2000)) * 100);
-                
-                document.getElementById('usage-bar').style.width = percent + '%';
-                document.getElementById('usage-text').textContent = used + ' used';
-                document.getElementById('usage-percent').textContent = percent + '%';
-                
+            const tier = String(user.subscription_tier || '').toLowerCase().trim();
+            const status = normalizeStatus(user.subscription_status);
+            const isActive = status === 'active' || status === 'trialing';
+
+            renderPlanUsageSection(user, tier, status, isActive);
+            renderPackDetailsSection(user);
+
+            if (isActive && tier === 'enterprise') {
+                setSectionVisibility(enterpriseSection, true);
+            } else if (isActive && (tier === 'pro' || tier === 'business')) {
+                updateSubscriberSection(user, tier);
+                setSectionVisibility(subscriberSection, true);
             } else {
-                // Free user
-                freeSection.classList.remove('hidden');
+                setSectionVisibility(freeSection, true);
             }
-            
         } catch (error) {
             console.error('Error loading page:', error);
             loading.innerHTML = `
@@ -479,8 +773,7 @@
             `;
         }
     }
-    
-    // Run on page load
+
     document.addEventListener('DOMContentLoaded', () => {
         updateAuthSection();
         loadPage();

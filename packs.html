@@ -186,8 +186,8 @@
                         <p><strong>How THE-RIGHT-CLICK SIDE-KICK works:</strong></p>
                         <ul>
                             <li>📥 Download the Chrome extension</li>
-                            <li>    (sign up for a free account and get 10 responses/month free)
-                            <li>💳 Buy response packs ($9.99-$59.99)</li>
+                            <li>Sign up for a free account and get 10 responses/month free</li>
+                            <li>💳 Buy response packs ($3.99-$34.99)</li>
                             <li>✨ Generate AI replies instantly</li>
                             <li>🎯 Works anywhere, if you can type a response to send, so can the RIGHT-CLICK SIDEKICK!</li>
                         </ul>
@@ -218,12 +218,12 @@
                                     <span id="plan-name">Pro</span> Plan
                                 </div>
                                 <div style="color: var(--text-secondary);">
-                                    <span id="monthly-limit">1,000</span> responses/month
+                                    <span id="monthly-limit">2,000</span> responses/month
                                 </div>
                             </div>
                             <div style="text-align: right;">
                                 <div style="font-size: 2rem; font-weight: 800; color: var(--secondary);">
-                                    <span id="responses-remaining">850</span>
+                                    <span id="responses-remaining">1,700</span>
                                 </div>
                                 <div style="color: var(--text-secondary); font-size: 0.9rem;">remaining</div>
                             </div>
@@ -245,7 +245,7 @@
                         <p>💡 <strong>Want backup responses?</strong></p>
                         <p><a href="/store.html" style="color: var(--primary); font-weight: 600;">Buy response packs</a> to ADD to your monthly allowance</p>
                         <small style="color: var(--text-secondary); display: block; margin-top: 0.5rem;">
-                            Example: Pro (1,000) + 500 pack = 1,500 total shared pool
+                            Example: Pro (2,000) + 500 pack = 2,500 total shared pool
                         </small>
                     </div>
                 </div>
@@ -451,12 +451,12 @@
                 // Update subscriber info
                 document.getElementById('plan-name').textContent = 
                     tier.charAt(0).toUpperCase() + tier.slice(1);
-                document.getElementById('monthly-limit').textContent = user.monthly_limit || 1000;
+                document.getElementById('monthly-limit').textContent = user.monthly_limit || 2000;
                 document.getElementById('responses-remaining').textContent = user.responses_remaining || 0;
                 
                 // Calculate usage percentage
-                const used = (user.monthly_limit || 1000) - (user.responses_remaining || 0);
-                const percent = Math.round((used / (user.monthly_limit || 1000)) * 100);
+                const used = (user.monthly_limit || 2000) - (user.responses_remaining || 0);
+                const percent = Math.round((used / (user.monthly_limit || 2000)) * 100);
                 
                 document.getElementById('usage-bar').style.width = percent + '%';
                 document.getElementById('usage-text').textContent = used + ' used';
@@ -490,5 +490,4 @@
 <script src="js/auth-modal.js"></script>
 </body>
 </html>
-
 

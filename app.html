@@ -925,50 +925,6 @@
         </div>
     </footer>
 
-    <!-- Auth Modal -->
-    <div class="auth-modal" id="auth-modal" style="display: none;">
-        <div class="auth-modal-content">
-            <h2 id="auth-modal-title">Welcome Back</h2>
-            <p id="auth-modal-subtitle">Sign in to your account</p>
-            
-            <div class="auth-error" id="auth-error"></div>
-            <div class="auth-success" id="auth-success"></div>
-            
-            <form class="auth-form" onsubmit="handleAuthSubmit(event)">
-                <div id="name-fields" class="hidden">
-                    <div class="form-group">
-                        <label>First Name</label>
-                        <input type="text" id="first-name" placeholder="Enter your first name">
-                    </div>
-                    <div class="form-group">
-                        <label>Last Name</label>
-                        <input type="text" id="last-name" placeholder="Enter your last name">
-                    </div>
-                </div>
-                
-                <div class="form-group">
-                    <label>Email</label>
-                    <input type="email" id="auth-email" placeholder="Enter your email" required>
-                </div>
-                
-                <div class="form-group">
-                    <label>Password</label>
-                    <input type="password" id="auth-password" placeholder="Enter your password" required>
-                </div>
-                
-                <button type="submit" class="btn btn-primary" id="auth-submit-btn" style="width: 100%; margin-top: 1rem;">
-                    Sign In
-                </button>
-            </form>
-            
-            <div class="auth-switch">
-                <span id="auth-switch-text">Don't have an account?</span>
-                <button type="button" id="auth-switch-btn" onclick="toggleAuthMode()">Sign Up</button>
-            </div>
-        </div>
-    </div>
-
-    <!--end auth modal--->
     <!-------------------------------
     <!-- Paywall Modal -->
     <div class="paywall-modal" id="paywall-modal">
@@ -1542,153 +1498,27 @@ platformWindows[platform] = window.open(
 
         // ===== AUTHENTICATION FUNCTIONS =====
         function toggleAuthMode() {
-            isLoginMode = !isLoginMode;
-            updateAuthModalUI();
+            showAuthModal(!isLoginMode);
         }
 
         function showAuthModal(isLogin = true) {
-            // Prefer shared modal
+            isLoginMode = !!isLogin;
+            const returnTo = window.location.pathname + window.location.search;
+
             if (window.DMTOOLS && typeof DMTOOLS.openAuthModal === 'function') {
-                const returnTo = window.location.pathname + window.location.search;
-                DMTOOLS.openAuthModal(isLogin ? 'login' : 'register', { returnTo });
+                DMTOOLS.openAuthModal(isLoginMode ? 'login' : 'register', { returnTo });
                 return;
             }
-            isLoginMode = isLogin;
-            updateAuthModalUI();
-            const modal = document.getElementById('auth-modal');
-            if (modal) {
-                modal.style.display = 'flex';
-                modal.classList.add('show');
-                
-                setTimeout(() => {
-                    const firstInput = isLoginMode ? 
-                        document.getElementById('auth-email') : 
-                        document.getElementById('first-name');
-                    if (firstInput) firstInput.focus();
-                }, 300);
+
+            // Retry once after full load in case auth-modal.js is still initializing.
+            if (document.readyState !== 'complete') {
+                window.addEventListener('load', () => showAuthModal(isLoginMode), { once: true });
             }
         }
 
         function hideAuthModal() {
-            const modal = document.getElementById('auth-modal');
-            if (modal) {
-                modal.classList.remove('show');
-                modal.style.display = 'none';
-                clearAuthForm();
-            }
-        }
-
-        function updateAuthModalUI() {
-            const title = document.getElementById('auth-modal-title');
-            const subtitle = document.getElementById('auth-modal-subtitle');
-            const nameFields = document.getElementById('name-fields');
-            const submitBtn = document.getElementById('auth-submit-btn');
-            const switchText = document.getElementById('auth-switch-text');
-            const switchBtn = document.getElementById('auth-switch-btn');
-
-            if (title && subtitle && nameFields && submitBtn && switchText && switchBtn) {
-                if (isLoginMode) {
-                    title.textContent = 'Welcome Back';
-                    subtitle.textContent = 'Sign in to your account';
-                    nameFields.classList.add('hidden');
-                    submitBtn.textContent = 'Sign In';
-                    switchText.textContent = "Don't have an account?";
-                    switchBtn.textContent = 'Sign Up';
-                } else {
-                    title.textContent = 'Create Account';
-                    subtitle.textContent = 'Start generating your message responses';
-                    nameFields.classList.remove('hidden');
-                    submitBtn.textContent = 'Create Account';
-                    switchText.textContent = 'Already have an account?';
-                    switchBtn.textContent = 'Sign In';
-                    
-                    const firstName = document.getElementById('first-name');
-                    const lastName = document.getElementById('last-name');
-                    if (firstName) firstName.setAttribute('required', '');
-                    if (lastName) lastName.setAttribute('required', '');
-                }
-            }
-        }
-
-        async function handleAuthSubmit(event) {
-            event.preventDefault();
-            
-            const email = document.getElementById('auth-email')?.value.trim();
-            const password = document.getElementById('auth-password')?.value;
-            const firstName = document.getElementById('first-name')?.value.trim();
-            const lastName = document.getElementById('last-name')?.value.trim();
-            
-            if (!email || !password) {
-                showAuthError('Email and password are required');
-                return;
-            }
-            
-            if (!isLoginMode && (!firstName || !lastName)) {
-                showAuthError('First name and last name are required');
-                return;
-            }
-            
-            if (password.length < 6) {
-                showAuthError('Password must be at least 6 characters');
-                return;
-            }
-
-            const submitBtn = document.getElementById('auth-submit-btn');
-            const originalText = submitBtn?.textContent;
-            
-            try {
-                if (submitBtn) {
-                    submitBtn.innerHTML = '<div class="spinner"></div> Processing...';
-                    submitBtn.disabled = true;
-                }
-                clearAuthMessages();
-
-                let response;
-                if (isLoginMode) {
-                    response = await apiCall('/user/login', {
-                        method: 'POST',
-                        body: JSON.stringify({ email, password })
-                    });
-                } else {
-                    response = await apiCall('/user/register', {
-                        method: 'POST',
-                        body: JSON.stringify({
-                            email,
-                            password,
-                            first_name: firstName,
-                            last_name: lastName
-                        })
-                    });
-                }
-
-                if (response.token) {
-                    localStorage.setItem('authToken', response.token);
-                    currentUser = response.user;
-                    isAuthenticated = true;
-                    
-                    // ✅ FIX: Update UI and display usage after successful auth
-                    updateAuthUI();
-                    updateUsageDisplay();
-                    
-                    showAuthSuccess(`Welcome${isLoginMode ? ' back' : ''}, ${response.user.first_name}!`);
-                    
-                    // Close modal and show notification
-                    setTimeout(() => {
-                        hideAuthModal();
-                        showNotification('🎉 Successfully signed in! You can now process messages.', 'success');
-                    }, 1500);
-                } else {
-                    throw new Error('Authentication failed');
-                }
-
-            } catch (error) {
-                console.error('Auth error:', error);
-                showAuthError(error.message || 'Authentication failed. Please try again.');
-            } finally {
-                if (submitBtn) {
-                    submitBtn.textContent = originalText;
-                    submitBtn.disabled = false;
-                }
+            if (window.DMTOOLS && typeof DMTOOLS.closeAuthModal === 'function') {
+                DMTOOLS.closeAuthModal();
             }
         }
 
@@ -1784,47 +1614,6 @@ platformWindows[platform] = window.open(
                     showAuthModal(true);
                 }
             }
-        }
-        function showAuthError(message) {
-            const errorDiv = document.getElementById('auth-error');
-            if (errorDiv) {
-                errorDiv.textContent = message;
-                errorDiv.classList.add('show');
-            }
-            
-            const successDiv = document.getElementById('auth-success');
-            if (successDiv) {
-                successDiv.classList.remove('show');
-            }
-        }
-
-        function showAuthSuccess(message) {
-            const successDiv = document.getElementById('auth-success');
-            if (successDiv) {
-                successDiv.textContent = message;
-                successDiv.classList.add('show');
-            }
-            
-            const errorDiv = document.getElementById('auth-error');
-            if (errorDiv) {
-                errorDiv.classList.remove('show');
-            }
-        }
-
-        function clearAuthMessages() {
-            const errorDiv = document.getElementById('auth-error');
-            const successDiv = document.getElementById('auth-success');
-            if (errorDiv) errorDiv.classList.remove('show');
-            if (successDiv) successDiv.classList.remove('show');
-        }
-
-        function clearAuthForm() {
-            const fields = ['auth-email', 'auth-password', 'first-name', 'last-name'];
-            fields.forEach(id => {
-                const element = document.getElementById(id);
-                if (element) element.value = '';
-            });
-            clearAuthMessages();
         }
 
         // AUTHENTICATION WALL

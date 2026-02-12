@@ -640,51 +640,6 @@
 
     <!-- Notification Container -->
     <div id="notification" class="notification"></div>
-
-    <!-- Auth Modal -->
-    <div id="auth-modal" class="auth-modal">
-        <div class="auth-modal-content">
-            <button class="modal-close" onclick="hideAuthModal()">×</button>
-            <div class="auth-modal-header">
-                <h2 class="auth-modal-title" id="auth-modal-title">Sign In</h2>
-                <p class="auth-modal-subtitle" id="auth-modal-subtitle">Access your account</p>
-            </div>
-
-            <div id="auth-error" class="error-message hidden"></div>
-
-            <div class="form-group">
-                <label class="form-label">Email</label>
-                <input type="email" id="email" class="form-input" placeholder="Enter your email" />
-            </div>
-            
-            <div class="form-group">
-                <label class="form-label">Password</label>
-                <input type="password" id="password" class="form-input" placeholder="Enter your password" />
-            </div>
-            
-            <div id="name-fields" class="name-fields hidden">
-                <div class="form-group">
-                    <label class="form-label">First Name</label>
-                    <input type="text" id="first-name" class="form-input" placeholder="First name" />
-                </div>
-                <div class="form-group">
-                    <label class="form-label">Last Name</label>
-                    <input type="text" id="last-name" class="form-input" placeholder="Last name" />
-                </div>
-            </div>
-            
-            <button class="btn btn-primary" id="auth-submit-btn" onclick="handleAuth()" style="width: 100%;">
-                Sign In
-            </button>
-            
-            <div style="text-align: center; margin-top: 1rem;">
-                <p>
-                    <span id="auth-switch-text">Don't have an account?</span>
-                    <button id="auth-switch-btn" onclick="toggleAuthMode()" style="background: none; border: none; color: #8b5cf6; text-decoration: underline; cursor: pointer;">Sign Up</button>
-                </p>
-            </div>
-        </div>
-    </div>
 <!-- Footer -->
 <footer class="footer">
     <div class="container">
@@ -730,7 +685,6 @@
         // Global Variables
         let currentUser = null;
         let isAuthenticated = false;
-        let isLoginMode = true;
         let isEditingProfile = false;
         let usageData = null;
         let billingData = null;
@@ -768,8 +722,18 @@
                 console.error('App initialization error:', error);
                 showUnauthenticatedState();
             }
+
         }
-   
+
+        function showUnauthenticatedState() {
+            const loadingState = document.getElementById('loading-state');
+            const accountContent = document.getElementById('account-content');
+            const unauthenticatedState = document.getElementById('unauthenticated-state');
+
+            if (loadingState) loadingState.classList.add('hidden');
+            if (accountContent) accountContent.classList.add('hidden');
+            if (unauthenticatedState) unauthenticatedState.classList.remove('hidden');
+        }
 
         // API helper function
         async function apiCall(endpoint, options = {}) {
@@ -1091,75 +1055,6 @@ function updatePlanDisplay() {
         // Upgrade Options
         function showUpgradeOptions() {
             window.open('/pricing.html', '_blank');
-        }
-
-        function clearAuthForm() {
-            document.getElementById('email').value = '';
-            document.getElementById('password').value = '';
-            document.getElementById('first-name').value = '';
-            document.getElementById('last-name').value = '';
-            document.getElementById('auth-error').classList.add('hidden');
-        }
-
-        async function handleAuth() {
-            const email = document.getElementById('email').value.trim();
-            const password = document.getElementById('password').value;
-            
-            if (!email || !password) {
-                showError('Please fill in all required fields');
-                return;
-            }
-
-            const submitBtn = document.getElementById('auth-submit-btn');
-            const originalText = submitBtn.textContent;
-            submitBtn.innerHTML = '<span class="spinner"></span> Processing...';
-            submitBtn.disabled = true;
-
-            try {
-                let endpoint, data;
-                
-                if (isLoginMode) {
-                    endpoint = '/user/login';
-                    data = { email, password };
-                } else {
-                    const firstName = document.getElementById('first-name').value.trim();
-                    const lastName = document.getElementById('last-name').value.trim();
-                    
-                    if (!firstName || !lastName) {
-                        showError('Please fill in all fields');
-                        return;
-                    }
-                    
-                    endpoint = '/user/register';
-                    data = { email, password, first_name: firstName, last_name: lastName };
-                }
-
-                const response = await apiCall(endpoint, {
-                    method: 'POST',
-                    body: JSON.stringify(data)
-                });
-
-                localStorage.setItem('authToken', response.token);
-                currentUser = response.user;
-                isAuthenticated = true;
-
-                hideAuthModal();
-                await loadAccountData();       
-                showNotification(`Welcome${isLoginMode ? ' back' : ''}!`, 'success');
-
-            } catch (error) {
-                showError(error.message || 'Authentication failed');
-            } finally {
-                submitBtn.textContent = originalText;
-                submitBtn.disabled = false;
-            }
-        
-        }
-
-        function showError(message) {
-            const errorDiv = document.getElementById('auth-error');
-            errorDiv.textContent = message;
-            errorDiv.classList.remove('hidden');
         }
 
         // Utility Functions

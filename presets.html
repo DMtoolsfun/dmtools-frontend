@@ -717,52 +717,6 @@ needs debugging --->
         </div>
     </main>
 
-    <!-- Authentication Modal -->
-    <div id="auth-modal" class="auth-modal">
-        <div class="auth-modal-content">
-            <button class="modal-close" onclick="hideAuthModal()">×</button>
-            <div class="auth-modal-header">
-                <h2 id="auth-modal-title">Sign In</h2>
-                <p id="auth-modal-subtitle">Access your template library</p>
-            </div>
-            
-            <div id="error-message" class="error-message hidden"></div>
-            <div id="success-message" class="success-message hidden"></div>
-            
-            <div id="name-fields" class="form-grid hidden">
-                <div class="form-group">
-                    <label class="form-label" for="first-name">First Name:</label>
-                    <input type="text" class="form-input" id="first-name" />
-                </div>
-                <div class="form-group">
-                    <label class="form-label" for="last-name">Last Name:</label>
-                    <input type="text" class="form-input" id="last-name" />
-                </div>
-            </div>
-            
-            <div class="form-group">
-                <label class="form-label" for="email">Email:</label>
-                <input type="email" class="form-input" id="email" />
-            </div>
-            
-            <div class="form-group">
-                <label class="form-label" for="password">Password:</label>
-                <input type="password" class="form-input" id="password" />
-            </div>
-            
-            <button class="btn btn-primary" id="auth-submit-btn" onclick="handleAuth()" style="width: 100%;">
-                Sign In
-            </button>
-            
-            <div style="text-align: center; margin-top: 1rem;">
-                <p>
-                    <span id="auth-switch-text">Don't have an account?</span>
-                    <button id="auth-switch-btn" onclick="toggleAuthMode()" style="background: none; border: none; color: #8b5cf6; text-decoration: underline; cursor: pointer;">Sign Up</button>
-                </p>
-            </div>
-        </div>
-    </div>
-
  <!-- Footer -->
 <footer class="footer">
     <div class="container">
@@ -1205,113 +1159,28 @@ function toggleMobileMenu() {
         }
 
         // Authentication Functions
-        function showAuthModal(loginMode) {
-            // Prefer shared modal
+        function showAuthModal(loginMode = true) {
+            isLoginMode = !!loginMode;
+            const returnTo = window.location.pathname + window.location.search;
+
             if (window.DMTOOLS && typeof DMTOOLS.openAuthModal === 'function') {
-                const returnTo = window.location.pathname + window.location.search;
-                DMTOOLS.openAuthModal(loginMode ? 'login' : 'register', { returnTo });
+                DMTOOLS.openAuthModal(isLoginMode ? 'login' : 'register', { returnTo });
                 return;
             }
-            isLoginMode = loginMode;
-            updateAuthModalUI();
-            document.getElementById('auth-modal').classList.add('show');
+
+            if (document.readyState !== 'complete') {
+                window.addEventListener('load', () => showAuthModal(isLoginMode), { once: true });
+            }
         }
 
         function hideAuthModal() {
-            document.getElementById('auth-modal').classList.remove('show');
-            clearAuthForm();
+            if (window.DMTOOLS && typeof DMTOOLS.closeAuthModal === 'function') {
+                DMTOOLS.closeAuthModal();
+            }
         }
 
         function toggleAuthMode() {
-            isLoginMode = !isLoginMode;
-            updateAuthModalUI();
-        }
-
-        function updateAuthModalUI() {
-            const title = document.getElementById('auth-modal-title');
-            const subtitle = document.getElementById('auth-modal-subtitle');
-            const nameFields = document.getElementById('name-fields');
-            const submitBtn = document.getElementById('auth-submit-btn');
-            const switchText = document.getElementById('auth-switch-text');
-            const switchBtn = document.getElementById('auth-switch-btn');
-
-            if (isLoginMode) {
-                title.textContent = 'Sign In';
-                subtitle.textContent = 'Access your template library';
-                nameFields.classList.add('hidden');
-                submitBtn.textContent = 'Sign In';
-                switchText.textContent = "Don't have an account?";
-                switchBtn.textContent = 'Sign Up';
-            } else {
-                title.textContent = 'Create Account';
-                subtitle.textContent = 'Start building your template collection';
-                nameFields.classList.remove('hidden');
-                submitBtn.textContent = 'Create Account';
-                switchText.textContent = 'Already have an account?';
-                switchBtn.textContent = 'Sign In';
-            }
-        }
-
-        async function handleAuth() {
-            const email = document.getElementById('email').value.trim();
-            const password = document.getElementById('password').value.trim();
-            
-            if (!email || !password) {
-                showAuthError('Email and password are required');
-                return;
-            }
-
-            const submitBtn = document.getElementById('auth-submit-btn');
-            const originalText = submitBtn.textContent;
-            submitBtn.disabled = true;
-            submitBtn.textContent = 'Processing...';
-
-            try {
-                if (isLoginMode) {
-                    const response = await apiCall('/user/login', {
-                        method: 'POST',
-                        body: JSON.stringify({ email, password })
-                    });
-                    
-                    localStorage.setItem('authToken', response.token);
-                    currentUser = response.user;
-                    isAuthenticated = true;
-                    
-                } else {
-                    const firstName = document.getElementById('first-name').value.trim();
-                    const lastName = document.getElementById('last-name').value.trim();
-                    
-                    if (!firstName || !lastName) {
-                        showAuthError('First name and last name are required');
-                        return;
-                    }
-
-                    const response = await apiCall('/user/register', {
-                        method: 'POST',
-                        body: JSON.stringify({
-                            email,
-                            password,
-                            first_name: firstName,
-                            last_name: lastName
-                        })
-                    });
-                    
-                    localStorage.setItem('authToken', response.token);
-                    currentUser = response.user;
-                    isAuthenticated = true;
-                }
-
-                await loadUserTemplates();
-                updateUI();
-                hideAuthModal();
-                showNotification(`Successfully ${isLoginMode ? 'signed in' : 'registered'}!`, 'success');
-
-            } catch (error) {
-                showAuthError(error.message);
-            } finally {
-                submitBtn.disabled = false;
-                submitBtn.textContent = originalText;
-            }
+            showAuthModal(!isLoginMode);
         }
 
         function logout() {
@@ -1321,29 +1190,6 @@ function toggleMobileMenu() {
             userTemplates = [];
             updateUI();
             showNotification('Signed out successfully', 'info');
-        }
-
-        function showAuthError(message) {
-            const errorDiv = document.getElementById('error-message');
-            errorDiv.textContent = message;
-            errorDiv.classList.remove('hidden');
-            
-            setTimeout(() => {
-                errorDiv.classList.add('hidden');
-            }, 5000);
-        }
-
-        function clearAuthForm() {
-            const fields = ['email', 'password', 'first-name', 'last-name'];
-            fields.forEach(id => {
-                const element = document.getElementById(id);
-                if (element) element.value = '';
-            });
-            
-            const errorDiv = document.getElementById('error-message');
-            const successDiv = document.getElementById('success-message');
-            errorDiv.classList.add('hidden');
-            successDiv.classList.add('hidden');
         }
 
         // Notification System
@@ -1379,14 +1225,6 @@ function toggleMobileMenu() {
                 setTimeout(() => notification.remove(), 300);
             }, 4000);
         }
-
-        // Close modal when clicking outside
-        document.addEventListener('click', function(event) {
-            const modal = document.getElementById('auth-modal');
-            if (event.target === modal) {
-                hideAuthModal();
-            }
-        });
 
         console.log('✅ DMTools Templates page fully loaded and optimized');
     </script>

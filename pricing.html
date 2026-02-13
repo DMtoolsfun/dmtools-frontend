@@ -731,7 +731,7 @@ function promptCheckoutEmailOrNull() {
 /**
  * Handle subscription purchase - GUEST CHECKOUT ENABLED
  */
-function handleSubscriptionPurchase(plan, interval) {
+async function handleSubscriptionPurchase(plan, interval) {
   const productUUID = SUBSCRIPTION_PRODUCTS[String(plan || '').toLowerCase()];
   const variantKey = `${String(plan || '').toLowerCase()}_${String(interval || '').toLowerCase()}`;
   const variantId = SUBSCRIPTION_VARIANTS[variantKey];
@@ -780,23 +780,32 @@ function handleSubscriptionPurchase(plan, interval) {
     try { localStorage.setItem('dm_guest_checkout_email', checkoutEmail); } catch (_) {}
   }
 
-  // Build checkout URL
-  let checkoutUrl = `https://dmtoolsfun-llc.lemonsqueezy.com/buy/${productUUID}`;
-  const qp = [];
+  let checkoutUrl = '';
+  try {
+    const headers = { 'Content-Type': 'application/json' };
+    if (token) headers['Authorization'] = `Bearer ${token}`;
 
-  // Only include user_id when we actually have it
-  if (userId) qp.push(`checkout[custom][user_id]=${encodeURIComponent(userId)}`);
+    const response = await fetch(`${API_BASE}/checkout/create`, {
+      method: 'POST',
+      headers,
+      body: JSON.stringify({
+        kind: 'subscription',
+        variantId,
+        email: checkoutEmail || undefined
+      })
+    });
 
-  // Always include email (this is what enables “buy first, create account later”)
-  qp.push(`checkout[email]=${encodeURIComponent(checkoutEmail)}`);
+    const data = await response.json().catch(() => ({}));
+    if (!response.ok || !data.url) {
+      throw new Error(data.error || 'Failed to create checkout URL');
+    }
 
-  // ALSO include email in custom fields so your webhook can read it consistently
-  qp.push(`checkout[custom][email]=${encodeURIComponent(checkoutEmail)}`);
-
-  // Variant
-  qp.push(`checkout[variant]=${encodeURIComponent(variantId)}`);
-
-  checkoutUrl += `?${qp.join('&')}`;
+    checkoutUrl = data.url;
+  } catch (error) {
+    console.error('Subscription checkout URL error:', error);
+    alert('Error starting checkout. Please try again.');
+    return;
+  }
 
   console.log('Opening subscription checkout:', checkoutUrl);
 
@@ -910,7 +919,7 @@ function handleSubscriptionPurchase(plan, interval) {
         founder: { responses: 300, price: 3.99, name: 'First Users Pack' }
     };
  
- function handlePackPurchase(packName) {
+ async function handlePackPurchase(packName) {
   const key = String(packName || '').toLowerCase();
   const variantId = PACK_VARIANTS[key];
   const packInfo = PACK_DETAILS[key];
@@ -938,10 +947,6 @@ function handleSubscriptionPurchase(plan, interval) {
   }
 
   const token = localStorage.getItem('authToken');
-
-  // Build checkout base
-  let checkoutUrl = `https://dmtoolsfun-llc.lemonsqueezy.com/buy/${PACKS_PRODUCT_UUID}`;
-  checkoutUrl += `?checkout[variant]=${variantId}`;
 
   let userId = null;
   let emailForCheckout = '';
@@ -975,11 +980,31 @@ function handleSubscriptionPurchase(plan, interval) {
     try { localStorage.setItem('pendingGuestEmail', emailForCheckout); } catch (_) {}
   }
 
-  // Attach custom fields for webhook mapping
-  if (userId) checkoutUrl += `&checkout[custom][user_id]=${encodeURIComponent(userId)}`;
-  if (emailForCheckout) {
-    checkoutUrl += `&checkout[email]=${encodeURIComponent(emailForCheckout)}`;
-    checkoutUrl += `&checkout[custom][email]=${encodeURIComponent(emailForCheckout)}`;
+  let checkoutUrl = '';
+  try {
+    const headers = { 'Content-Type': 'application/json' };
+    if (token) headers['Authorization'] = `Bearer ${token}`;
+
+    const response = await fetch(`${API_BASE}/checkout/create`, {
+      method: 'POST',
+      headers,
+      body: JSON.stringify({
+        kind: 'pack',
+        variantId,
+        email: emailForCheckout || undefined
+      })
+    });
+
+    const data = await response.json().catch(() => ({}));
+    if (!response.ok || !data.url) {
+      throw new Error(data.error || 'Failed to create checkout URL');
+    }
+
+    checkoutUrl = data.url;
+  } catch (error) {
+    console.error('Pack checkout URL error:', error);
+    alert('Error starting checkout. Please try again.');
+    return;
   }
 
   // ----------------------------

@@ -612,7 +612,7 @@
         /**
          * Handle response pack purchase - WORKING CHECKOUT
          */
-        function handlePackPurchase(packName) {
+        async function handlePackPurchase(packName) {
             const key = String(packName || '').toLowerCase();
             const variantId = PACK_VARIANTS[key];
             const packInfo = PACK_DETAILS[key];
@@ -623,10 +623,6 @@
                 return;
             }
             
-            // Build checkout base
-            let checkoutUrl = `https://dmtoolsfun-llc.lemonsqueezy.com/buy/${PACKS_PRODUCT_UUID}`;
-            checkoutUrl += `?checkout[variant]=${variantId}`;
-
             const token = localStorage.getItem('authToken');
             let userId = null;
             let emailForCheckout = '';
@@ -668,10 +664,31 @@
                 try { localStorage.setItem('pendingGuestEmail', emailForCheckout); } catch (_) {}
             }
 
-            if (userId) checkoutUrl += `&checkout[custom][user_id]=${encodeURIComponent(userId)}`;
-            if (emailForCheckout) {
-                checkoutUrl += `&checkout[email]=${encodeURIComponent(emailForCheckout)}`;
-                checkoutUrl += `&checkout[custom][email]=${encodeURIComponent(emailForCheckout)}`;
+            let checkoutUrl = '';
+            try {
+                const headers = { 'Content-Type': 'application/json' };
+                if (token) headers['Authorization'] = `Bearer ${token}`;
+
+                const response = await fetch(`${API_BASE}/checkout/create`, {
+                    method: 'POST',
+                    headers,
+                    body: JSON.stringify({
+                        kind: 'pack',
+                        variantId,
+                        email: emailForCheckout || undefined
+                    })
+                });
+
+                const data = await response.json().catch(() => ({}));
+                if (!response.ok || !data.url) {
+                    throw new Error(data.error || 'Failed to create checkout URL');
+                }
+
+                checkoutUrl = data.url;
+            } catch (error) {
+                console.error('Pack checkout URL error:', error);
+                alert('Error starting checkout. Please try again.');
+                return;
             }
 
             console.log('Opening pack checkout:', checkoutUrl);

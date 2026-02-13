@@ -1,0 +1,103 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Sign Up | DMTools.fun</title>
+  <meta name="description" content="Sign up to DMTools.fun" />
+  <link rel="stylesheet" href="/styles.css?v=20260212" />
+</head>
+<body>
+  <main class="main-content">
+    <div class="container" style="max-width: 760px; padding-top: 48px;">
+      <section class="card" style="text-align: center; padding: 32px;">
+        <h1 style="margin-bottom: 8px;">Create your account</h1>
+        <p class="text-muted" style="margin-bottom: 20px;">Opening sign up...</p>
+        <button id="open-auth" type="button" class="btn btn-primary">Open sign up</button>
+        <p style="margin-top: 16px; margin-bottom: 0;">
+          <a id="go-app" href="/app.html" class="btn btn-secondary">Go to app</a>
+        </p>
+        <a id="auto-auth-trigger" href="/register.html" data-auth="register" style="display:none">Open auth</a>
+      </section>
+    </div>
+  </main>
+
+  <script src="/js/app-core.js"></script>
+  <script src="/js/auth-modal.js"></script>
+  <script>
+    (function () {
+      function parseMode(defaultMode) {
+        try {
+          var url = new URL(window.location.href);
+          var auth = (url.searchParams.get('auth') || '').toLowerCase();
+          if (auth === 'login' || auth === 'register') return auth;
+        } catch (e) {}
+        return defaultMode;
+      }
+
+      function parseReturnTo() {
+        try {
+          var url = new URL(window.location.href);
+          return url.searchParams.get('returnTo') || '/app.html';
+        } catch (e) {
+          return '/app.html';
+        }
+      }
+
+      function isAnyAuthModalOpen() {
+        var sharedModal = document.getElementById('dmtools-auth-modal');
+        if (sharedModal && sharedModal.classList.contains('show')) return true;
+
+        var legacyModal = document.getElementById('auth-modal');
+        if (legacyModal && legacyModal.classList.contains('show')) return true;
+
+        return false;
+      }
+
+      function attemptOpen(mode, returnTo) {
+        try {
+          if (window.DMTOOLS && typeof window.DMTOOLS.openAuthModal === 'function') {
+            window.DMTOOLS.openAuthModal(mode, { returnTo: returnTo });
+            return true;
+          }
+
+          var trigger = document.getElementById('auto-auth-trigger');
+          if (trigger) {
+            trigger.setAttribute('data-auth', mode);
+            trigger.setAttribute('data-return-to', returnTo);
+            trigger.click();
+            return isAnyAuthModalOpen();
+          }
+        } catch (e) {}
+
+        return false;
+      }
+
+      function openWithRetry(mode, returnTo, attempt) {
+        if (attemptOpen(mode, returnTo)) return;
+        if (attempt >= 10) return;
+        setTimeout(function () {
+          openWithRetry(mode, returnTo, attempt + 1);
+        }, 150);
+      }
+
+      document.addEventListener('DOMContentLoaded', function () {
+        var mode = parseMode('register');
+        var returnTo = parseReturnTo();
+        var openButton = document.getElementById('open-auth');
+
+        if (openButton) {
+          openButton.addEventListener('click', function () {
+            attemptOpen(mode, returnTo);
+          });
+        }
+
+        openWithRetry(mode, returnTo, 0);
+        window.addEventListener('load', function () {
+          openWithRetry(mode, returnTo, 0);
+        });
+      });
+    })();
+  </script>
+</body>
+</html>

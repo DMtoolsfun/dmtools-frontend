@@ -1,0 +1,30 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Sign Up | DMTools.fun</title>
+  <meta http-equiv="refresh" content="0; url=/register.html" />
+  <link rel="stylesheet" href="/styles.css?v=20260212" />
+</head>
+<body>
+  <main class="main-content">
+    <div class="container" style="max-width: 760px; padding-top: 48px; text-align: center;">
+      <section class="card" style="padding: 24px;">
+        <p style="margin: 0;">Redirecting to sign up...</p>
+        <p style="margin-top: 12px;"><a class="btn btn-primary" href="/register.html">Continue</a></p>
+      </section>
+    </div>
+  </main>
+  <script>
+    (function () {
+      try {
+        var target = '/register.html' + (window.location.search || '') + (window.location.hash || '');
+        window.location.replace(target);
+      } catch (e) {
+        window.location.href = '/register.html';
+      }
+    })();
+  </script>
+</body>
+</html>

@@ -678,80 +678,251 @@ function gaEvent(name, params) {
 })();
 
 
-// Current displayed monthly prices on this page (used for GA value)
-// (Only monthly is shown in UI right now)
-const SUB_PRICE_USD = {
-  starter: 19,
-  pro: 59,
-  business: 149,
-  enterprise: 399
+const PRICING_STATE = {
+  loaded: false,
+  subscriptionsByKey: {},
+  packsByKey: {}
 };
 
-        
-        // Product Checkout UUIDs (from Lemon Squeezy)
-        const SUBSCRIPTION_PRODUCTS = {
-            starter: 'd8258a23-e538-4bd6-baf3-15a58cea80bf',
-            pro: 'c6f7c828-dd29-4ef7-b4d7-9270f390a41c',
-            business: '0bb6e756-ab23-4db0-8359-f06f7f621d1c',
-            enterprise: '899c3c4c-2f92-489c-a8c4-11914cd89692'
-        };
-        
-        // Variant IDs for each plan/interval combination
-        const SUBSCRIPTION_VARIANTS = {
-            // Starter
-            starter_weekly: '1038685',
-            starter_monthly: '1038672',
-            
-            // Pro
-            pro_weekly: '1038701',
-            pro_monthly: '1038690',
-            pro_annual: '1038704',
-            
-            // Business
-            business_weekly: '1038714',
-            business_monthly: '1038709',
-            business_annual: '1038716',
-            
-            // Enterprise
-            enterprise_monthly: '1038726',
-            enterprise_annual: '1038727'
-        };
-        
-        // ----------------------------
+const SUBSCRIPTION_ORDER = ['starter', 'pro', 'business', 'enterprise'];
+const PACK_ORDER = ['starter', 'pro', 'business', 'founder'];
+
+function escapeHtml(str) {
+  return String(str || '')
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;')
+    .replace(/'/g, '&#39;');
+}
+
+function formatUsd(amount) {
+  const value = Number(amount);
+  if (!Number.isFinite(value)) return '$0.00';
+  return `$${value.toFixed(2)}`;
+}
+
+function normalizePricingCatalog(payload) {
+  const plans = payload?.plans && typeof payload.plans === 'object' ? payload.plans : {};
+  const packs = payload?.packs && typeof payload.packs === 'object' ? payload.packs : {};
+  const normalized = { subscriptionsByKey: {}, packsByKey: {} };
+
+  Object.entries(plans).forEach(([rawKey, plan]) => {
+    const key = String(plan?.key || rawKey || '').toLowerCase();
+    if (!key || key === 'free') return;
+
+    const variantId = String(plan?.variantId || plan?.variant_id || '').trim();
+    if (!variantId) return;
+
+    const billingInterval = String(plan?.billing_interval || plan?.interval || 'month').toLowerCase();
+    const amount = Number(plan?.price_amount ?? plan?.price ?? plan?.price?.amount ?? 0);
+    const currency = plan?.currency || plan?.price?.currency || payload?.currency || 'USD';
+    const baseKey = key.replace(/_(weekly|monthly|annual|yearly)$/i, '');
+
+    normalized.subscriptionsByKey[key] = {
+      key,
+      baseKey,
+      displayName: plan?.display_name || plan?.name || baseKey,
+      variantId,
+      billingInterval,
+      priceAmount: Number.isFinite(amount) ? amount : 0,
+      currency,
+      features: Array.isArray(plan?.features) ? plan.features : [],
+      limits: plan?.limits || null
+    };
+  });
+
+  Object.entries(packs).forEach(([rawKey, pack]) => {
+    const key = String(pack?.key || rawKey || '').toLowerCase();
+    if (!key) return;
+
+    const variantId = String(pack?.variantId || pack?.variant_id || '').trim();
+    if (!variantId) return;
+
+    const amount = Number(pack?.price_amount ?? pack?.price ?? pack?.price?.amount ?? 0);
+    const currency = pack?.currency || pack?.price?.currency || payload?.currency || 'USD';
+
+    normalized.packsByKey[key] = {
+      key,
+      displayName: pack?.display_name || pack?.name || `${key} pack`,
+      variantId,
+      responses: Number(pack?.responses || 0),
+      priceAmount: Number.isFinite(amount) ? amount : 0,
+      currency,
+      features: Array.isArray(pack?.features) ? pack.features : []
+    };
+  });
+
+  return normalized;
+}
+
+function getMonthlySubscription(baseKey) {
+  const preferred = PRICING_STATE.subscriptionsByKey[baseKey];
+  if (preferred && preferred.billingInterval === 'month') return preferred;
+
+  const monthlyKey = `${baseKey}_monthly`;
+  const monthly = PRICING_STATE.subscriptionsByKey[monthlyKey];
+  if (monthly) return monthly;
+
+  const any = Object.values(PRICING_STATE.subscriptionsByKey).find((item) => item.baseKey === baseKey);
+  return any || null;
+}
+
+function showPricingLoadError(message) {
+  let node = document.getElementById('pricingLoadError');
+  if (!node) {
+    node = document.createElement('div');
+    node.id = 'pricingLoadError';
+    node.className = 'container';
+    node.style.marginTop = '12px';
+    node.style.marginBottom = '8px';
+    node.innerHTML = `<div class="card" style="padding:12px 16px;color:#fecaca;border-color:#ef4444;background:rgba(239,68,68,.12);font-size:.92rem;"></div>`;
+    const hero = document.querySelector('.hero');
+    if (hero && hero.parentNode) {
+      hero.parentNode.insertBefore(node, hero.nextSibling);
+    } else {
+      document.body.insertBefore(node, document.body.firstChild);
+    }
+  }
+  const card = node.querySelector('.card');
+  if (card) card.textContent = message;
+}
+
+function renderSubscriptionCards() {
+  const container = document.getElementById('subsSection');
+  if (!container) return;
+
+  const details = {
+    starter: { description: 'Perfect for getting started with DMTools' },
+    pro: { description: '7-day free trial', badge: '⭐ Most Popular', featured: true },
+    business: { description: '7-day Free Trial' },
+    enterprise: { description: 'For power users and large teams', badge: '🚀 Unlimited' }
+  };
+
+  const cards = SUBSCRIPTION_ORDER
+    .map((baseKey) => getMonthlySubscription(baseKey))
+    .filter(Boolean)
+    .map((item) => {
+      const meta = details[item.baseKey] || {};
+      const featureList = (item.features || [])
+        .map((feature) => `<li>${escapeHtml(feature)}</li>`)
+        .join('');
+      const intervalLabel = item.billingInterval || 'month';
+      return `
+        <div class="price-card${meta.featured ? ' featured' : ''}">
+          ${meta.badge ? `<div class="badge">${escapeHtml(meta.badge)}</div>` : ''}
+          <div class="plan-name">${escapeHtml(item.displayName)}</div>
+          <div class="plan-price">${formatUsd(item.priceAmount)}<span>/${escapeHtml(intervalLabel)}</span></div>
+          <div class="plan-description">${escapeHtml(meta.description || '')}</div>
+          <ul class="features-list">${featureList}</ul>
+          <button class="btn btn-primary" onclick="handleSubscriptionPurchase('${escapeHtml(item.baseKey)}', '${escapeHtml(item.billingInterval)}')">
+            Choose ${escapeHtml(item.displayName)}
+          </button>
+        </div>
+      `;
+    })
+    .join('');
+
+  if (cards) container.innerHTML = cards;
+}
+
+function renderPackCards() {
+  const container = document.getElementById('packsSection');
+  if (!container) return;
+
+  const details = {
+    starter: { description: 'Perfect for light usage and trying packs', cta: 'Buy Starter Pack' },
+    pro: { description: 'Most popular pack size', cta: 'Buy Pro Pack', badge: '⭐ Best Value', featured: true },
+    business: { description: 'High volume packs for power users', cta: 'Buy Business Pack' },
+    founder: { description: 'Founders special price for early adopters', cta: 'Buy First Users Pack', badge: '🔥 Founder Special', extraClass: ' founder' }
+  };
+
+  const cards = PACK_ORDER
+    .map((key) => PRICING_STATE.packsByKey[key])
+    .filter(Boolean)
+    .map((item) => {
+      const meta = details[item.key] || {};
+      const features = (item.features || [])
+        .map((feature) => `<li>${escapeHtml(feature)}</li>`)
+        .join('');
+      return `
+        <div class="price-card${meta.featured ? ' featured' : ''}${meta.extraClass || ''}">
+          ${meta.badge ? `<div class="badge">${escapeHtml(meta.badge)}</div>` : ''}
+          <div class="plan-name">${escapeHtml(item.displayName)}</div>
+          <div class="plan-price">${formatUsd(item.priceAmount)}</div>
+          <div class="plan-description">${escapeHtml(meta.description || '')}</div>
+          <ul class="features-list">${features}</ul>
+          <button class="btn btn-primary" onclick="handlePackPurchase('${escapeHtml(item.key)}')">
+            ${escapeHtml(meta.cta || `Buy ${item.displayName}`)}
+          </button>
+        </div>
+      `;
+    })
+    .join('');
+
+  if (cards) container.innerHTML = cards;
+}
+
+async function loadPricingCatalog() {
+  try {
+    const response = await fetch(`${API_BASE}/subscription/pricing`);
+    const data = await response.json();
+
+    if (!response.ok) {
+      throw new Error(data?.error || 'Failed to load pricing');
+    }
+
+    const normalized = normalizePricingCatalog(data);
+    PRICING_STATE.subscriptionsByKey = normalized.subscriptionsByKey;
+    PRICING_STATE.packsByKey = normalized.packsByKey;
+    PRICING_STATE.loaded = true;
+
+    renderSubscriptionCards();
+    renderPackCards();
+    return true;
+  } catch (error) {
+    console.error('Pricing fetch failed:', error);
+    showPricingLoadError('Pricing is temporarily unavailable. Showing fallback display values.');
+    return false;
+  }
+}
+
+// ----------------------------
 // Guest checkout helper (email capture for webhook mapping)
 function promptCheckoutEmailOrNull() {
   const raw = prompt('Enter your email to receive your receipt and to claim your responses after purchase:', '');
-  if (raw === null) return null; // user canceled
+  if (raw === null) return null;
   const email = String(raw).trim().toLowerCase();
   const ok = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
   if (!ok) return null;
   return email;
 }
 
-/**
- * Handle subscription purchase - GUEST CHECKOUT ENABLED
- */
-async function handleSubscriptionPurchase(plan, interval) {
-  const productUUID = SUBSCRIPTION_PRODUCTS[String(plan || '').toLowerCase()];
-  const variantKey = `${String(plan || '').toLowerCase()}_${String(interval || '').toLowerCase()}`;
-  const variantId = SUBSCRIPTION_VARIANTS[variantKey];
+function getSubscriptionForCheckout(plan, interval) {
+  const planKey = String(plan || '').toLowerCase();
+  const intervalKey = String(interval || '').toLowerCase();
+  const direct = PRICING_STATE.subscriptionsByKey[`${planKey}_${intervalKey}`];
+  if (direct) return direct;
+  const fallback = PRICING_STATE.subscriptionsByKey[planKey];
+  if (fallback) return fallback;
+  return getMonthlySubscription(planKey);
+}
 
-  // Validate
-  if (!productUUID) {
-    alert('Invalid plan selected. Please try again.');
-    console.error('Invalid plan:', plan);
+async function handleSubscriptionPurchase(plan, interval) {
+  const subscription = getSubscriptionForCheckout(plan, interval);
+  if (!subscription || !subscription.variantId) {
+    alert('Pricing is still loading. Please try again.');
     return;
   }
-  if (!variantId) {
-    alert(`${interval} billing is not available for ${plan} plan.`);
-    console.error('Invalid variant:', variantKey);
-    return;
-  }
+
+  const variantId = subscription.variantId;
+  const planKey = subscription.baseKey || String(plan || '').toLowerCase();
+  const planInterval = subscription.billingInterval || String(interval || '').toLowerCase() || 'month';
+  const planName = subscription.displayName || planKey;
+  const price = subscription.priceAmount || 0;
+  const currency = subscription.currency || 'USD';
 
   const token = localStorage.getItem('authToken');
-
-  // If logged in -> use user_id + email from JWT
-  // If NOT logged in -> prompt for email and proceed anyway (no user_id)
   let userId = null;
   let checkoutEmail = '';
 
@@ -775,8 +946,6 @@ async function handleSubscriptionPurchase(plan, interval) {
       return;
     }
     checkoutEmail = guestEmail;
-
-    // Save so you can optionally prefill register later
     try { localStorage.setItem('dm_guest_checkout_email', checkoutEmail); } catch (_) {}
   }
 
@@ -807,42 +976,34 @@ async function handleSubscriptionPurchase(plan, interval) {
     return;
   }
 
-  console.log('Opening subscription checkout:', checkoutUrl);
-
-  // ----------------------------
-  // GA4: begin_checkout (subscription)
-  const planKey = String(plan || '').toLowerCase();
-  const price = (interval === 'monthly') ? (SUB_PRICE_USD[planKey] || 0) : 0;
-
   gaEvent('begin_checkout', {
-    currency: 'USD',
+    currency: currency,
     value: price || undefined,
     items: [{
-      item_name: `${plan} Subscription`,
-      item_id: `sub_${planKey}_${interval}`,
+      item_name: `${planName} Subscription`,
+      item_id: `sub_${planKey}_${planInterval}`,
       item_category: 'subscription',
       price: price || undefined,
       quantity: 1
     }],
-    plan_name: plan,
-    interval: interval,
+    plan_name: planKey,
+    interval: planInterval,
     variant_id: variantId,
     user_id: userId || undefined,
     email: checkoutEmail || undefined
   });
 
-  // ----------------------------
-  // GA4: store checkout context for purchase event
   try {
     sessionStorage.setItem('dm_last_checkout', JSON.stringify({
-      item_name: `${plan} Subscription`,
-      item_id: `sub_${planKey}_${interval}`,
+      item_name: `${planName} Subscription`,
+      item_id: `sub_${planKey}_${planInterval}`,
       item_category: 'subscription',
       value: price || undefined,
       price: price || undefined,
+      currency: currency,
       items: [{
-        item_name: `${plan} Subscription`,
-        item_id: `sub_${planKey}_${interval}`,
+        item_name: `${planName} Subscription`,
+        item_id: `sub_${planKey}_${planInterval}`,
         item_category: 'subscription',
         price: price || undefined,
         quantity: 1
@@ -850,7 +1011,6 @@ async function handleSubscriptionPurchase(plan, interval) {
     }));
   } catch (e) {}
 
-  // Open checkout (overlay first, fallback to new tab)
   if (window.LemonSqueezy && window.LemonSqueezy.Url) {
     window.LemonSqueezy.Url.Open(checkoutUrl);
   } else {
@@ -861,83 +1021,51 @@ async function handleSubscriptionPurchase(plan, interval) {
 // =============================================
 // UNIFIED PAGE VIEW TOGGLE (Subs <-> Packs)
 // =============================================
-    function showPricingView(view) {
-      const subs = document.getElementById('subsSection');
-      const packs = document.getElementById('packsSection');
-      const packsHero = document.getElementById('packsHero');
+function showPricingView(view) {
+  const subs = document.getElementById('subsSection');
+  const packs = document.getElementById('packsSection');
+  const packsHero = document.getElementById('packsHero');
+  const btnSubs = document.getElementById('btnShowSubs');
+  const btnPacks = document.getElementById('btnShowPacks');
 
-      const btnSubs = document.getElementById('btnShowSubs');
-      const btnPacks = document.getElementById('btnShowPacks');
+  if (!subs || !packs || !btnSubs || !btnPacks) return;
 
-      if (!subs || !packs || !btnSubs || !btnPacks) return;
+  if (view === 'packs') {
+    subs.style.display = 'none';
+    packs.style.display = '';
+    if (packsHero) packsHero.style.display = '';
+    btnSubs.classList.remove('active');
+    btnPacks.classList.add('active');
+    packs.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  } else {
+    subs.style.display = '';
+    packs.style.display = 'none';
+    if (packsHero) packsHero.style.display = 'none';
+    btnPacks.classList.remove('active');
+    btnSubs.classList.add('active');
+    subs.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }
 
-      if (view === 'packs') {
-        subs.style.display = 'none';
-        packs.style.display = '';
-        if (packsHero) packsHero.style.display = '';
-        btnSubs.classList.remove('active');
-        btnPacks.classList.add('active');
-        packs.scrollIntoView({ behavior: 'smooth', block: 'start' });
-      } else {
-        subs.style.display = '';
-        packs.style.display = 'none';
-        if (packsHero) packsHero.style.display = 'none';
-        btnPacks.classList.remove('active');
-        btnSubs.classList.add('active');
-        subs.scrollIntoView({ behavior: 'smooth', block: 'start' });
-      }
+  if (typeof gtag === 'function') {
+    gtag('event', 'pricing_view_switch', { view: view });
+  }
+}
 
-  // GA4: pricing view switch
-      if (typeof gtag === 'function') {
-        gtag('event', 'pricing_view_switch', { view: view });
-      }
-
-      }
-
-// =============================================
-// RESPONSE PACKS CHECKOUT (ported from store.html)
-// Elite removed + new pack sizes
-// =============================================
-
-// Response Packs Product UUID (single product with variants)
-    const PACKS_PRODUCT_UUID = '65aa1de7-1f4f-4864-a7fd-ea37fc378103';
-
-// IMPORTANT:
-// If you keep the same Lemon variants, leave these IDs.
-// Backend can grant the NEW response amounts based on pack name.
-    const PACK_VARIANTS = {
-      starter: '1097731',   // $9.99
-      pro: '1097732',       // $16.99
-      business: '1098385',   // $34.99
-      founder: '1111840'    // $3.99
-  };
-
-    const PACK_DETAILS = {
-      starter: { responses: 500, price: 9.99, name: 'Starter Pack' },
-      pro: { responses: 2000, price: 16.99, name: 'Pro Pack' },
-      business: { responses: 8000, price: 34.99, name: 'Business Pack' },
-        founder: { responses: 300, price: 3.99, name: 'First Users Pack' }
-    };
- 
- async function handlePackPurchase(packName) {
+async function handlePackPurchase(packName) {
   const key = String(packName || '').toLowerCase();
-  const variantId = PACK_VARIANTS[key];
-  const packInfo = PACK_DETAILS[key];
+  const packInfo = PRICING_STATE.packsByKey[key];
 
-  if (!variantId || !packInfo) {
-    alert('Invalid pack selected. Please try again.');
-    console.error('Invalid pack:', packName);
+  if (!packInfo || !packInfo.variantId) {
+    alert('Pricing is still loading. Please try again.');
     return;
   }
 
-  // Helper: simple email prompt for guest checkout
   function promptForEmail() {
     const email = prompt(
       'Enter your email for delivery/account linking (you can create your account after purchase):'
     );
     if (!email) return null;
     const trimmed = String(email).trim();
-    // basic sanity check
     const ok = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(trimmed);
     if (!ok) {
       alert('Please enter a valid email address.');
@@ -947,11 +1075,9 @@ async function handleSubscriptionPurchase(plan, interval) {
   }
 
   const token = localStorage.getItem('authToken');
-
   let userId = null;
   let emailForCheckout = '';
 
-  // If logged in, attach user_id + email (best case)
   if (token) {
     try {
       const tokenParts = token.split('.');
@@ -965,18 +1091,16 @@ async function handleSubscriptionPurchase(plan, interval) {
     }
   }
 
-  // If not logged in (or token decode failed), allow guest checkout by email
   if (!userId) {
     const guestEmail = promptForEmail();
     if (!guestEmail) {
-      // fallback: let them sign in if they don't want guest checkout
       alert('Please sign in or enter an email to continue.');
-      DMTOOLS.openAuthModal('login');
+      if (window.DMTOOLS?.openAuthModal) {
+        window.DMTOOLS.openAuthModal('login');
+      }
       return;
     }
     emailForCheckout = guestEmail;
-
-    // Store for later (optional convenience)
     try { localStorage.setItem('pendingGuestEmail', emailForCheckout); } catch (_) {}
   }
 
@@ -990,7 +1114,7 @@ async function handleSubscriptionPurchase(plan, interval) {
       headers,
       body: JSON.stringify({
         kind: 'pack',
-        variantId,
+        variantId: packInfo.variantId,
         email: emailForCheckout || undefined
       })
     });
@@ -1007,50 +1131,44 @@ async function handleSubscriptionPurchase(plan, interval) {
     return;
   }
 
-  // ----------------------------
-  // GA4: begin_checkout (pack)
-  // ----------------------------
   try {
     if (typeof gtag === 'function') {
       gtag('event', 'begin_checkout', {
-        currency: 'USD',
-        value: packInfo.price,
-        pack_name: packInfo.name,
+        currency: packInfo.currency || 'USD',
+        value: packInfo.priceAmount,
+        pack_name: packInfo.displayName,
         pack_key: key,
         user_id: userId || undefined,
         email: emailForCheckout || undefined,
         items: [{
-          item_name: packInfo.name,
+          item_name: packInfo.displayName,
           item_id: `pack_${key}`,
           item_category: 'pack',
-          price: packInfo.price,
+          price: packInfo.priceAmount,
           quantity: 1
         }]
       });
     }
   } catch (e) {}
 
-  // -----------------------------------------------------
-  // GA4: store checkout context for purchase event (pack)
-  // -----------------------------------------------------
   try {
     sessionStorage.setItem('dm_last_checkout', JSON.stringify({
-      item_name: packInfo.name,
+      item_name: packInfo.displayName,
       item_id: `pack_${key}`,
       item_category: 'pack',
-      value: packInfo.price,
-      price: packInfo.price,
+      value: packInfo.priceAmount,
+      price: packInfo.priceAmount,
+      currency: packInfo.currency || 'USD',
       items: [{
-        item_name: packInfo.name,
+        item_name: packInfo.displayName,
         item_id: `pack_${key}`,
         item_category: 'pack',
-        price: packInfo.price,
+        price: packInfo.priceAmount,
         quantity: 1
       }]
     }));
   } catch (e) {}
 
-  // Open checkout
   try {
     if (window.LemonSqueezy && window.LemonSqueezy.Url) {
       window.LemonSqueezy.Url.Open(checkoutUrl);
@@ -1063,19 +1181,18 @@ async function handleSubscriptionPurchase(plan, interval) {
   }
 }
 
-        function checkPendingPackPurchase() {
-          const pending = localStorage.getItem('pendingPackPurchase');
-          if (!pending) return;
+function checkPendingPackPurchase() {
+  const pending = localStorage.getItem('pendingPackPurchase');
+  if (!pending) return;
 
-          localStorage.removeItem('pendingPackPurchase');
-  // show packs view and trigger purchase
-          showPricingView('packs');
+  localStorage.removeItem('pendingPackPurchase');
+  showPricingView('packs');
 
-        const packInfo = PACK_DETAILS[pending];
-        if (packInfo) {
-          setTimeout(() => handlePackPurchase(pending), 500);
-      }
-    }
+  const packInfo = PRICING_STATE.packsByKey[pending];
+  if (packInfo) {
+    setTimeout(() => handlePackPurchase(pending), 500);
+  }
+}
 
         // Check for pending purchase after login
         function checkPendingPurchase() {
@@ -1154,19 +1271,18 @@ async function updateAuthSection() {
             window.location.href = '/';
         }
         
-  document.addEventListener('DOMContentLoaded', function() {
+  document.addEventListener('DOMContentLoaded', async function() {
   if (window.createLemonSqueezy) {
     window.createLemonSqueezy();
   }
+
+  await loadPricingCatalog();
 
   if (window.location.hash === '#packs') {
     showPricingView('packs');
   }
 
-  // Always run pending pack logic (it has its own fallback)
   checkPendingPackPurchase();
-
-  // Update auth section
   updateAuthSection();
 });
 

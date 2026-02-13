@@ -590,39 +590,136 @@
         // Updated: December 4, 2025
         // =============================================
         
-        // Response Packs Product UUID (single product with variants)
-        const PACKS_PRODUCT_UUID = '65aa1de7-1f4f-4864-a7fd-ea37fc378103';
-        
-        // Pack Variant IDs (align with pricing page)
-        const PACK_VARIANTS = {
-            starter: '1097731',   // 500 responses - $9.99
-            pro: '1097732',       // 2000 responses - $16.99
-            business: '1098385',  // 8000 responses - $34.99
-            founder: '1111840'    // 300 responses - $3.99
+        const STORE_PACK_STATE = {
+            loaded: false,
+            packsByKey: {}
         };
-        
-        // Pack details for tracking
-        const PACK_DETAILS = {
-            starter: { responses: 500, price: 9.99, name: 'Starter Pack' },
-            pro: { responses: 2000, price: 16.99, name: 'Pro Pack' },
-            business: { responses: 8000, price: 34.99, name: 'Business Pack' },
-            founder: { responses: 300, price: 3.99, name: 'First Users Pack' }
-        };
-        
-        /**
-         * Handle response pack purchase - WORKING CHECKOUT
-         */
+
+        const STORE_PACK_ORDER = ['founder', 'starter', 'pro', 'business'];
+
+        function escapeHtml(str) {
+            return String(str || '')
+                .replace(/&/g, '&amp;')
+                .replace(/</g, '&lt;')
+                .replace(/>/g, '&gt;')
+                .replace(/"/g, '&quot;')
+                .replace(/'/g, '&#39;');
+        }
+
+        function formatUsd(amount) {
+            const value = Number(amount);
+            if (!Number.isFinite(value)) return '$0.00';
+            return `$${value.toFixed(2)}`;
+        }
+
+        function normalizePackCatalog(payload) {
+            const packs = payload?.packs && typeof payload.packs === 'object' ? payload.packs : {};
+            const normalized = {};
+
+            Object.entries(packs).forEach(([rawKey, pack]) => {
+                const key = String(pack?.key || rawKey || '').toLowerCase();
+                if (!key) return;
+
+                const variantId = String(pack?.variantId || pack?.variant_id || '').trim();
+                if (!variantId) return;
+
+                const amount = Number(pack?.price_amount ?? pack?.price ?? pack?.price?.amount ?? 0);
+                const currency = pack?.currency || pack?.price?.currency || payload?.currency || 'USD';
+                normalized[key] = {
+                    key,
+                    displayName: pack?.display_name || pack?.name || `${key} pack`,
+                    variantId,
+                    responses: Number(pack?.responses || 0),
+                    priceAmount: Number.isFinite(amount) ? amount : 0,
+                    currency,
+                    features: Array.isArray(pack?.features) ? pack.features : []
+                };
+            });
+
+            return normalized;
+        }
+
+        function showPackLoadError(message) {
+            let node = document.getElementById('storePackLoadError');
+            if (!node) {
+                node = document.createElement('div');
+                node.id = 'storePackLoadError';
+                node.className = 'container';
+                node.style.marginBottom = '12px';
+                node.innerHTML = '<div class="card" style="padding:12px 16px;color:#fecaca;border-color:#ef4444;background:rgba(239,68,68,.12);font-size:.92rem;"></div>';
+                const grid = document.querySelector('.packs-grid');
+                if (grid && grid.parentNode) {
+                    grid.parentNode.insertBefore(node, grid);
+                }
+            }
+            const card = node?.querySelector('.card');
+            if (card) card.textContent = message;
+        }
+
+        function renderPackGrid() {
+            const grid = document.querySelector('.packs-grid');
+            if (!grid) return;
+
+            const meta = {
+                founder: { icon: '✨', badge: '🔥 Founder Special', cta: '🖱️ Start Here', featured: true },
+                starter: { icon: '🎯', cta: '🖱️ Make THE-RIGHT-CLICK' },
+                pro: { icon: '💎', cta: '🖱️ Right-click Sidekick' },
+                business: { icon: '🚀', cta: '🖱️ Right-click Sidekick' }
+            };
+
+            const cards = STORE_PACK_ORDER
+                .map((key) => STORE_PACK_STATE.packsByKey[key])
+                .filter(Boolean)
+                .map((pack) => {
+                    const entry = meta[pack.key] || {};
+                    const perResponse = pack.responses > 0 ? (pack.priceAmount / pack.responses) : 0;
+                    return `
+                        <div class="pack-card${entry.featured ? ' featured' : ''}">
+                            ${entry.badge ? `<div class="badge">${escapeHtml(entry.badge)}</div>` : ''}
+                            <div class="pack-icon">${escapeHtml(entry.icon || '✨')}</div>
+                            <div class="pack-name">${escapeHtml(pack.displayName)}</div>
+                            <div class="pack-price">${formatUsd(pack.priceAmount)}</div>
+                            <div class="pack-responses">${escapeHtml(pack.responses.toLocaleString())} responses</div>
+                            <div class="pack-value">${formatUsd(perResponse)} per response</div>
+                            <button class="btn btn-buy${entry.featured ? ' featured' : ''}" onclick="handlePackPurchase('${escapeHtml(pack.key)}')">
+                                ${escapeHtml(entry.cta || `Buy ${pack.displayName}`)}
+                            </button>
+                        </div>
+                    `;
+                })
+                .join('');
+
+            if (cards) grid.innerHTML = cards;
+        }
+
+        async function loadPackCatalog() {
+            try {
+                const response = await fetch(`${API_BASE}/subscription/pricing`);
+                const data = await response.json();
+                if (!response.ok) {
+                    throw new Error(data?.error || 'Failed to load pricing');
+                }
+
+                STORE_PACK_STATE.packsByKey = normalizePackCatalog(data);
+                STORE_PACK_STATE.loaded = true;
+                renderPackGrid();
+                return true;
+            } catch (error) {
+                console.error('Store pricing fetch failed:', error);
+                showPackLoadError('Pack pricing is temporarily unavailable. Showing fallback display values.');
+                return false;
+            }
+        }
+
         async function handlePackPurchase(packName) {
             const key = String(packName || '').toLowerCase();
-            const variantId = PACK_VARIANTS[key];
-            const packInfo = PACK_DETAILS[key];
-            
-            if (!variantId) {
-                alert('Invalid pack selected. Please try again.');
-                console.error('Invalid pack:', packName);
+            const packInfo = STORE_PACK_STATE.packsByKey[key];
+
+            if (!packInfo || !packInfo.variantId) {
+                alert('Pricing is still loading. Please try again.');
                 return;
             }
-            
+
             const token = localStorage.getItem('authToken');
             let userId = null;
             let emailForCheckout = '';
@@ -640,7 +737,6 @@
                 }
             }
 
-            // Guest checkout by email if not logged in
             if (!userId) {
                 const guestEmail = prompt(
                     'Enter your email for delivery/account linking (you can create your account after purchase):'
@@ -674,7 +770,7 @@
                     headers,
                     body: JSON.stringify({
                         kind: 'pack',
-                        variantId,
+                        variantId: packInfo.variantId,
                         email: emailForCheckout || undefined
                     })
                 });
@@ -691,24 +787,37 @@
                 return;
             }
 
-            console.log('Opening pack checkout:', checkoutUrl);
-            console.log('Pack:', packInfo?.name || packName, 'Variant:', variantId, 'User:', userId || 'guest');
-
-            // Track analytics
             if (typeof gtag !== 'undefined') {
                 gtag('event', 'begin_checkout', {
-                    pack_name: packInfo?.name || packName,
-                    value: packInfo?.price,
-                    currency: 'USD',
+                    pack_name: packInfo.displayName,
+                    value: packInfo.priceAmount,
+                    currency: packInfo.currency || 'USD',
                     items: [{
-                        item_name: packInfo?.name || packName + ' Pack',
+                        item_name: packInfo.displayName,
                         quantity: 1,
-                        price: packInfo?.price
+                        price: packInfo.priceAmount
                     }]
                 });
             }
 
-            // Open checkout - try LemonSqueezy overlay first, fallback to new tab
+            try {
+                sessionStorage.setItem('dm_last_checkout', JSON.stringify({
+                    item_name: packInfo.displayName,
+                    item_id: `pack_${key}`,
+                    item_category: 'pack',
+                    value: packInfo.priceAmount,
+                    price: packInfo.priceAmount,
+                    currency: packInfo.currency || 'USD',
+                    items: [{
+                        item_name: packInfo.displayName,
+                        item_id: `pack_${key}`,
+                        item_category: 'pack',
+                        price: packInfo.priceAmount,
+                        quantity: 1
+                    }]
+                }));
+            } catch (e) {}
+
             if (window.LemonSqueezy && window.LemonSqueezy.Url) {
                 window.LemonSqueezy.Url.Open(checkoutUrl);
             } else {
@@ -716,12 +825,11 @@
             }
         }
         
-        // Check for pending pack purchase after login
         function checkPendingPackPurchase() {
             const pendingPack = localStorage.getItem('pendingPackPurchase');
             if (pendingPack) {
                 localStorage.removeItem('pendingPackPurchase');
-                const packInfo = PACK_DETAILS[pendingPack.toLowerCase()];
+                const packInfo = STORE_PACK_STATE.packsByKey[pendingPack.toLowerCase()];
                 if (packInfo) {
                     setTimeout(() => {
                         handlePackPurchase(pendingPack);
@@ -737,11 +845,13 @@
         }
         
         // Initialize on page load
-        document.addEventListener('DOMContentLoaded', function() {
+        document.addEventListener('DOMContentLoaded', async function() {
             // Initialize LemonSqueezy overlay
             if (window.createLemonSqueezy) {
                 window.createLemonSqueezy();
             }
+
+            await loadPackCatalog();
             
             // Check if user is logged in and update UI
             const token = localStorage.getItem('authToken');

@@ -234,6 +234,25 @@
                             <a id="dashboard-primary-cta" href="/pricing.html" class="btn btn-primary">View plans</a>
                             <a id="dashboard-secondary-cta" href="/pricing.html#packs" class="btn btn-secondary">Buy packs</a>
                         </div>
+                        <div class="info-box" style="margin-top: 1rem; margin-bottom: 0;">
+                            <p style="margin: 0 0 0.5rem 0;"><strong>Missing a purchase?</strong></p>
+                            <p style="margin: 0 0 0.75rem 0; color: var(--text-secondary);">
+                                If checkout used a different email, claim purchases here.
+                            </p>
+                            <div style="display: flex; gap: 0.75rem; flex-wrap: wrap; align-items: center;">
+                                <input
+                                    id="claim-email"
+                                    type="email"
+                                    placeholder="Checkout email"
+                                    style="flex: 1; min-width: 220px; background: var(--bg-input); border: 1px solid var(--border-medium); border-radius: var(--radius-md); color: var(--text-primary); padding: 0.65rem 0.75rem;"
+                                />
+                                <button id="claim-purchases-btn" type="button" class="btn btn-secondary" onclick="handleClaimPurchases()">
+                                    Claim purchases
+                                </button>
+                            </div>
+                            <p id="claim-purchases-error" style="margin: 0.65rem 0 0 0; color: var(--error); display: none;"></p>
+                            <p id="claim-purchases-result" style="margin: 0.65rem 0 0 0; color: var(--text-secondary); display: none;"></p>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -427,6 +446,101 @@
         const normalized = String(rawStatus || '').toLowerCase().trim();
         const supported = ['active', 'trialing', 'past_due', 'cancelled', 'inactive'];
         return supported.includes(normalized) ? normalized : 'inactive';
+    }
+
+    function isValidEmail(email) {
+        return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(String(email || '').trim());
+    }
+
+    function setClaimPurchasesMessage(text, isError) {
+        const errorEl = document.getElementById('claim-purchases-error');
+        const resultEl = document.getElementById('claim-purchases-result');
+        if (!errorEl || !resultEl) return;
+
+        if (isError) {
+            errorEl.textContent = text;
+            errorEl.style.display = 'block';
+            resultEl.style.display = 'none';
+            resultEl.textContent = '';
+            return;
+        }
+
+        resultEl.textContent = text;
+        resultEl.style.display = text ? 'block' : 'none';
+        resultEl.style.color = text && text.toLowerCase().startsWith('claimed')
+            ? 'var(--success)'
+            : 'var(--text-secondary)';
+        errorEl.style.display = 'none';
+        errorEl.textContent = '';
+    }
+
+    function initializeClaimPurchases(user) {
+        const input = document.getElementById('claim-email');
+        if (!input) return;
+        if (!input.value && user && user.email) {
+            input.value = String(user.email).trim();
+        }
+    }
+
+    async function handleClaimPurchases() {
+        const token = localStorage.getItem('authToken');
+        const emailInput = document.getElementById('claim-email');
+        const button = document.getElementById('claim-purchases-btn');
+        if (!token || !emailInput || !button) return;
+
+        const email = String(emailInput.value || '').trim().toLowerCase();
+        setClaimPurchasesMessage('', false);
+
+        if (!isValidEmail(email)) {
+            setClaimPurchasesMessage('Enter a valid email address.', true);
+            return;
+        }
+
+        const originalButtonText = button.textContent;
+        button.disabled = true;
+        button.textContent = 'Claiming...';
+
+        try {
+            const response = await fetch(API_BASE + '/subscription/claim-purchases', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${token}`
+                },
+                body: JSON.stringify({ email })
+            });
+
+            if (response.status === 400) {
+                setClaimPurchasesMessage('Enter a valid email address.', true);
+                return;
+            }
+
+            if (response.status === 401 || response.status === 403) {
+                setClaimPurchasesMessage('Session expired. Please sign in again.', true);
+                return;
+            }
+
+            if (!response.ok) {
+                setClaimPurchasesMessage('Could not claim purchases right now. Please try again.', true);
+                return;
+            }
+
+            const data = await response.json();
+            const claimedCount = Number(data.claimed_count) || 0;
+
+            if (claimedCount > 0) {
+                await loadPage();
+                setClaimPurchasesMessage(`Claimed ${claimedCount} purchase(s).`, false);
+            } else {
+                setClaimPurchasesMessage('No purchases found to claim.', false);
+            }
+        } catch (error) {
+            console.error('Claim purchases request failed:', error);
+            setClaimPurchasesMessage('Could not claim purchases right now. Please try again.', true);
+        } finally {
+            button.disabled = false;
+            button.textContent = originalButtonText;
+        }
     }
 
     function getDefaultMonthlyLimit(tier) {
@@ -745,6 +859,8 @@
 
             loading.classList.add('hidden');
             content.classList.remove('hidden');
+
+            initializeClaimPurchases(user);
 
             const tier = String(user.subscription_tier || '').toLowerCase().trim();
             const status = normalizeStatus(user.subscription_status);

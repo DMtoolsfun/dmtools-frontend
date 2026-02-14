@@ -17,7 +17,7 @@
         <p style="margin-top: 16px; margin-bottom: 0;">
           <a id="go-app" href="/app.html" class="btn btn-secondary">Go to app</a>
         </p>
-        <a id="auto-auth-trigger" href="/register.html" data-auth="register" style="display:none">Open auth</a>
+        <a id="auto-auth-trigger" href="#" data-auth="register" style="display:none">Open auth</a>
       </section>
     </div>
   </main>
@@ -58,14 +58,14 @@
         try {
           if (window.DMTOOLS && typeof window.DMTOOLS.openAuthModal === 'function') {
             window.DMTOOLS.openAuthModal(mode, { returnTo: returnTo });
-            return true;
+            return isAnyAuthModalOpen();
           }
 
           var trigger = document.getElementById('auto-auth-trigger');
           if (trigger) {
             trigger.setAttribute('data-auth', mode);
             trigger.setAttribute('data-return-to', returnTo);
-            trigger.click();
+            trigger.dispatchEvent(new MouseEvent('click', { bubbles: true, cancelable: true }));
             return isAnyAuthModalOpen();
           }
         } catch (e) {}
@@ -75,13 +75,13 @@
 
       function openWithRetry(mode, returnTo, attempt) {
         if (attemptOpen(mode, returnTo)) return;
-        if (attempt >= 10) return;
+        if (attempt >= 20) return;
         setTimeout(function () {
           openWithRetry(mode, returnTo, attempt + 1);
         }, 150);
       }
 
-      document.addEventListener('DOMContentLoaded', function () {
+      function initBridge() {
         var mode = parseMode('register');
         var returnTo = parseReturnTo();
         var openButton = document.getElementById('open-auth');
@@ -96,7 +96,13 @@
         window.addEventListener('load', function () {
           openWithRetry(mode, returnTo, 0);
         });
-      });
+      }
+
+      if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', initBridge);
+      } else {
+        initBridge();
+      }
     })();
   </script>
 </body>

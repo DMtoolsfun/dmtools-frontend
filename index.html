@@ -1042,37 +1042,18 @@
                 <div class="tutorial-block">
                     <p class="tutorial-instruction">Highlight the sample incoming message and right-click..., then choose “Capture Message”</p>
 
-                    <div class="tutorial-controls">
-                        <div class="tutorial-select-wrap">
-                            <label for="tutorial-sample-select">Sample message</label>
-                            <select id="tutorial-sample-select" class="form-select">
-                                <option value="sales">Sales follow-up</option>
-                                <option value="support">Customer support</option>
-                                <option value="recruiting">Recruiter outreach</option>
-                            </select>
-                        </div>
-                        <div class="tutorial-select-wrap">
-                            <label for="tutorial-tone-select">Tone</label>
-                            <select id="tutorial-tone-select" class="form-select">
-                                <option value="friendly">Friendly</option>
-                                <option value="direct">Direct</option>
-                                <option value="professional">Professional</option>
-                            </select>
-                        </div>
-                    </div>
-
+        
                     <textarea id="tutorial-incoming" class="tutorial-textarea" rows="4">Hey, just checking in on the proposal we sent last week. Do you have any updates for us?</textarea>
                     <p class="tutorial-helper">This simulates an incoming DM/email. In the extension, “Capture Message” grabs this text for you.</p>
                 </div>
 
                 <div class="tutorial-block">
-                    <p class="tutorial-instruction">Then right-click again in the reply box and choose “Generate Reply” and the response will show up</p>
+                    <p class="tutorial-instruction">Then right-click again in the reply box and choose “Generate Reply” and the AI generated response will appear</p>
                     <textarea id="tutorial-reply" class="tutorial-textarea" rows="5" placeholder="Generated reply appears here..."></textarea>
-                    <p class="tutorial-helper">If you aren’t logged in, the extension toast will tell you to download the extension (which routes back here).</p>
+                    <p class="tutorial-helper">If you aren’t logged in to the browser extension you can install this feature free from the chrome web store below</p>
 
                     <div class="tutorial-actions">
-                        <button id="tutorial-generate" type="button" class="btn btn-primary">Generate Reply</button>
-                        <button id="tutorial-copy" type="button" class="btn btn-secondary">Copy Reply</button>
+                
                         <span id="tutorial-status" class="tutorial-helper tutorial-status" aria-live="polite"></span>
                     </div>
                 </div>

@@ -6,26 +6,29 @@
   <title>DMTools Admin v3</title>
  <link rel="stylesheet" href="/styles.css">
 <style>
-  /* ================================
+/* ================================
      ADMIN v3 minimal layout overrides
      Keep this small — let styles.css control the “brand”
      ================================ */
 
   /* basic layout (safe defaults if styles.css doesn’t define them) */
   body { margin: 0; }
-  .app { display: grid; grid-template-columns: 260px 1fr; min-height: 100vh; }
-  .sidebar { position: sticky; top: 0; height: 100vh; overflow: auto; }
-  .main { padding: 18px; }
-  .hidden { display: none !important; }
 
-  /* table overflow safety */
+.app { display: grid; grid-template-columns: 260px 1fr; min-height: 100vh; }
+
+.sidebar { position: sticky; top: 0; height: 100vh; overflow: auto; }
+
+.main { padding: 18px; }
+
+/* table overflow safety */
   table { width: 100%; border-collapse: collapse; }
-  th, td { vertical-align: top; }
 
-  /* email body formatting */
+th, td { vertical-align: top; }
+
+/* email body formatting */
   .emailBody { white-space: pre-wrap; }
 
-  /* Optional: if your global CSS doesn’t style <code>/<pre> well */
+/* Optional: if your global CSS doesn’t style <code>/<pre> well */
   code, pre { font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace; }
 </style>
 

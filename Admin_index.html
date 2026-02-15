@@ -5,13 +5,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>🛡️ DMTools Admin Dashboard - LemonSqueezy Edition</title>
     <style>
-        * {
+* {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
         }
 
-        body {
+body {
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
             background: linear-gradient(135deg, #0f172a 0%, #1e293b 50%, #334155 100%);
             background-attachment: fixed;
@@ -19,11 +19,7 @@
             min-height: 100vh;
         }
 
-        .hidden {
-            display: none !important;
-        }
-
-        /* Login Screen */
+/* Login Screen */
         .login-container {
             display: flex;
             align-items: center;
@@ -32,7 +28,7 @@
             padding: 2rem;
         }
 
-        .login-card {
+.login-card {
             background: rgba(30, 41, 59, 0.95);
             backdrop-filter: blur(10px);
             border: 1px solid #374151;
@@ -43,12 +39,12 @@
             box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
         }
 
-        .login-header {
+.login-header {
             text-align: center;
             margin-bottom: 2rem;
         }
 
-        .login-title {
+.login-title {
             font-size: 2rem;
             font-weight: 700;
             background: linear-gradient(135deg, #8b5cf6, #06b6d4);
@@ -58,42 +54,17 @@
             margin-bottom: 0.5rem;
         }
 
-        .login-subtitle {
+.login-subtitle {
             color: #9ca3af;
             font-size: 0.9rem;
         }
 
-        /* Form Elements */
+/* Form Elements */
         .form-group {
             margin-bottom: 1.5rem;
         }
 
-        .form-label {
-            display: block;
-            color: #d1d5db;
-            font-weight: 600;
-            margin-bottom: 0.5rem;
-            font-size: 0.9rem;
-        }
-
-        .form-input {
-            width: 100%;
-            padding: 0.875rem 1rem;
-            background: #1e293b;
-            border: 1px solid #374151;
-            border-radius: 8px;
-            color: #e5e7eb;
-            font-size: 0.95rem;
-            transition: all 0.3s ease;
-        }
-
-        .form-input:focus {
-            outline: none;
-            border-color: #8b5cf6;
-            box-shadow: 0 0 0 3px rgba(139, 92, 246, 0.1);
-        }
-
-        /* Buttons */
+/* Buttons */
         .btn {
             padding: 0.875rem 1.5rem;
             border: none;
@@ -106,62 +77,19 @@
             display: inline-block;
         }
 
-        .btn-primary {
-            background: linear-gradient(135deg, #8b5cf6, #7c3aed);
-            color: white;
-        }
-
-        .btn-primary:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 8px 25px rgba(139, 92, 246, 0.3);
-        }
-
-        .btn-secondary {
-            background: #374151;
-            color: #e5e7eb;
-        }
-
-        .btn-secondary:hover {
-            background: #4b5563;
-        }
-
-        .btn-success {
-            background: linear-gradient(135deg, #10b981, #059669);
-            color: white;
-        }
-
-        .btn-warning {
+.btn-warning {
             background: linear-gradient(135deg, #f59e0b, #d97706);
             color: white;
         }
 
-        .btn-danger {
-            background: linear-gradient(135deg, #ef4444, #dc2626);
-            color: white;
-        }
-
-        /* Dashboard */
+/* Dashboard */
         .container {
             max-width: 1600px;
             margin: 0 auto;
             padding: 2rem;
         }
 
-        .header {
-            background: rgba(30, 41, 59, 0.95);
-            backdrop-filter: blur(10px);
-            border: 1px solid #374151;
-            border-radius: 16px;
-            padding: 2rem;
-            margin-bottom: 2rem;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            flex-wrap: wrap;
-            gap: 1rem;
-        }
-
-        .header-title {
+.header-title {
             font-size: 2rem;
             font-weight: 700;
             background: linear-gradient(135deg, #8b5cf6, #06b6d4);
@@ -170,14 +98,14 @@
             background-clip: text;
         }
 
-        .header-actions {
+.header-actions {
             display: flex;
             gap: 1rem;
             align-items: center;
             flex-wrap: wrap;
         }
 
-        /* Stats Grid */
+/* Stats Grid */
         .stats-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
@@ -185,7 +113,7 @@
             margin-bottom: 2rem;
         }
 
-        .stat-card {
+.stat-card {
             background: rgba(30, 41, 59, 0.95);
             backdrop-filter: blur(10px);
             border: 1px solid #374151;
@@ -194,31 +122,31 @@
             transition: all 0.3s ease;
         }
 
-        .stat-card:hover {
+.stat-card:hover {
             transform: translateY(-4px);
             box-shadow: 0 12px 30px rgba(139, 92, 246, 0.2);
             border-color: #8b5cf6;
         }
 
-        .stat-value {
+.stat-value {
             font-size: 2.5rem;
             font-weight: 700;
             color: #8b5cf6;
             margin-bottom: 0.5rem;
         }
 
-        .stat-label {
+.stat-label {
             color: #9ca3af;
             font-size: 0.9rem;
             font-weight: 500;
         }
 
-        /* Revenue Card Specific */
+/* Revenue Card Specific */
         .stat-card.revenue-card .stat-value {
             color: #10b981;
         }
 
-        /* Admin Sections */
+/* Admin Sections */
         .admin-section {
             background: rgba(30, 41, 59, 0.95);
             backdrop-filter: blur(10px);
@@ -228,7 +156,7 @@
             margin-bottom: 2rem;
         }
 
-        .section-header {
+.section-header {
             display: flex;
             justify-content: space-between;
             align-items: center;
@@ -237,23 +165,23 @@
             gap: 1rem;
         }
 
-        .section-title {
+.section-title {
             font-size: 1.5rem;
             font-weight: 700;
             color: #e5e7eb;
         }
 
-        /* Tables */
+/* Tables */
         .table-container {
             overflow-x: auto;
         }
 
-        table {
+table {
             width: 100%;
             border-collapse: collapse;
         }
 
-        th {
+th {
             background: #1e293b;
             padding: 1rem;
             text-align: left;
@@ -262,17 +190,17 @@
             border-bottom: 2px solid #374151;
         }
 
-        td {
+td {
             padding: 1rem;
             border-bottom: 1px solid #374151;
             color: #e5e7eb;
         }
 
-        tr:hover {
+tr:hover {
             background: rgba(139, 92, 246, 0.05);
         }
 
-        /* Badge */
+/* Badge */
         .badge {
             padding: 0.25rem 0.75rem;
             border-radius: 9999px;
@@ -281,27 +209,27 @@
             display: inline-block;
         }
 
-        .badge-success {
+.badge-success {
             background: rgba(16, 185, 129, 0.2);
             color: #10b981;
         }
 
-        .badge-warning {
+.badge-warning {
             background: rgba(245, 158, 11, 0.2);
             color: #f59e0b;
         }
 
-        .badge-danger {
+.badge-danger {
             background: rgba(239, 68, 68, 0.2);
             color: #ef4444;
         }
 
-        .badge-info {
+.badge-info {
             background: rgba(6, 182, 212, 0.2);
             color: #06b6d4;
         }
 
-        /* Messages */
+/* Messages */
         .message {
             padding: 1rem;
             border-radius: 8px;
@@ -309,25 +237,7 @@
             font-weight: 500;
         }
 
-        .message.success {
-            background: rgba(16, 185, 129, 0.2);
-            color: #10b981;
-            border: 1px solid #10b981;
-        }
-
-        .message.error {
-            background: rgba(239, 68, 68, 0.2);
-            color: #ef4444;
-            border: 1px solid #ef4444;
-        }
-
-        .message.info {
-            background: rgba(6, 182, 212, 0.2);
-            color: #06b6d4;
-            border: 1px solid #06b6d4;
-        }
-
-        /* Modal */
+/* Modal */
         .modal {
             display: none;
             position: fixed;
@@ -343,63 +253,14 @@
             padding: 2rem;
         }
 
-        .modal.show {
-            display: flex;
-        }
-
-        .modal-content {
-            background: #1e293b;
-            border: 1px solid #374151;
-            border-radius: 16px;
-            padding: 2rem;
-            max-width: 600px;
-            width: 100%;
-            max-height: 90vh;
-            overflow-y: auto;
-        }
-
-        .modal-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 1.5rem;
-        }
-
-        .modal-title {
-            font-size: 1.5rem;
-            font-weight: 700;
-            color: #e5e7eb;
-        }
-
-        .modal-close {
-            background: none;
-            border: none;
-            color: #9ca3af;
-            font-size: 1.5rem;
-            cursor: pointer;
-            padding: 0;
-            width: 32px;
-            height: 32px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            border-radius: 4px;
-            transition: all 0.3s ease;
-        }
-
-        .modal-close:hover {
-            background: rgba(239, 68, 68, 0.2);
-            color: #ef4444;
-        }
-
-        .modal-buttons {
+.modal-buttons {
             display: flex;
             gap: 1rem;
             margin-top: 2rem;
             justify-content: flex-end;
         }
 
-        /* Filters */
+/* Filters */
         .filters {
             display: flex;
             gap: 1rem;
@@ -407,13 +268,13 @@
             flex-wrap: wrap;
         }
 
-        .filters input,
+.filters input,
         .filters select {
             flex: 1;
             min-width: 200px;
         }
 
-        /* Spinner */
+/* Spinner */
         .spinner {
             width: 40px;
             height: 40px;
@@ -424,22 +285,23 @@
             margin: 2rem auto;
         }
 
-        @keyframes spin {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
-        }
+@keyframes spin {
+0% { transform: rotate(0deg); }
 
-        /* Loading State */
+100% { transform: rotate(360deg); }
+}
+
+/* Loading State */
         .loading-state {
             text-align: center;
             padding: 4rem 2rem;
         }
 
-        .loading-state .spinner {
+.loading-state .spinner {
             display: inline-block;
         }
 
-        /* Revenue Breakdown */
+/* Revenue Breakdown */
         .revenue-breakdown {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
@@ -447,32 +309,32 @@
             margin-top: 1rem;
         }
 
-        .revenue-item {
+.revenue-item {
             background: #1e293b;
             padding: 1rem;
             border-radius: 8px;
             border: 1px solid #374151;
         }
 
-        .revenue-plan {
+.revenue-plan {
             color: #9ca3af;
             font-size: 0.85rem;
             margin-bottom: 0.5rem;
         }
 
-        .revenue-amount {
+.revenue-amount {
             font-size: 1.5rem;
             font-weight: 700;
             color: #10b981;
         }
 
-        .revenue-subs {
+.revenue-subs {
             color: #6b7280;
             font-size: 0.8rem;
             margin-top: 0.25rem;
         }
 
-        /* Tabs */
+/* Tabs */
         .tabs {
             display: flex;
             gap: 0.5rem;
@@ -481,7 +343,7 @@
             overflow-x: auto;
         }
 
-        .tab {
+.tab {
             padding: 0.75rem 1.5rem;
             background: none;
             border: none;
@@ -494,16 +356,16 @@
             white-space: nowrap;
         }
 
-        .tab:hover {
+.tab:hover {
             color: #8b5cf6;
         }
 
-        .tab.active {
+.tab.active {
             color: #8b5cf6;
             border-bottom-color: #8b5cf6;
         }
 
-        /* Responsive */
+/* Responsive */
         @media (max-width: 768px) {
             .container {
                 padding: 1rem;
@@ -527,7 +389,7 @@
                 width: 100%;
             }
         }
-    </style>
+</style>
 </head>
 <body>
     <!-- Login Screen -->

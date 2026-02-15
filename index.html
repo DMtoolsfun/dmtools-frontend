@@ -19,19 +19,19 @@
     </script>
     
   <style>
-    /* PAGE-SPECIFIC: Landing Page */
+/* PAGE-SPECIFIC: Landing Page */
     
     /* Hero Section */
     .hero {
         padding: 4rem 0;
         text-align: center;
     }
-    
-    .hero-intro {
+
+.hero-intro {
         margin-bottom: 3rem;
     }
-    
-    .hero-title {
+
+.hero-title {
         font-size: 3.5rem;
         font-weight: 800;
         background: linear-gradient(135deg, #ffffff 0%, #e0e7ff 100%);
@@ -39,19 +39,19 @@
         -webkit-text-fill-color: transparent;
         margin-bottom: 1rem;
     }
-    
-    .hero-subtitle {
+
+.hero-subtitle {
         font-size: 1.5rem;
         color: var(--text-secondary);
         margin-bottom: 0.5rem;
     }
-    
-    .hero-tagline {
+
+.hero-tagline {
         font-size: 1.1rem;
         color: var(--text-muted);
     }
 
-    .hero-offer {
+.hero-offer {
         display: inline-block;
         margin-bottom: 1rem;
         padding: 0.5rem 1rem;
@@ -63,7 +63,7 @@
         font-size: 0.95rem;
     }
 
-    .hero-ctas {
+.hero-ctas {
         display: flex;
         justify-content: center;
         gap: 1rem;
@@ -71,33 +71,33 @@
         margin-top: 2rem;
     }
 
-    .landing-nav-desktop {
+.landing-nav-desktop {
         display: flex;
         align-items: center;
         gap: 1.25rem;
     }
 
-    .landing-nav-desktop a {
+.landing-nav-desktop a {
         color: var(--text-secondary);
         text-decoration: none;
         font-weight: 600;
     }
 
-    .landing-nav-desktop a:hover {
+.landing-nav-desktop a:hover {
         color: var(--primary);
     }
 
-    .header-actions {
+.header-actions {
         display: flex;
         align-items: center;
         gap: 0.75rem;
     }
 
-    .header-actions .mobile-menu-btn {
+.header-actions .mobile-menu-btn {
         display: none;
     }
-    
-    /* Two-Card Layout */
+
+/* Two-Card Layout */
     .hero-options {
         display: grid;
         grid-template-columns: 1fr 1fr;
@@ -105,8 +105,8 @@
         max-width: 1000px;
         margin: 0 auto;
     }
-    
-    .hero-card {
+
+.hero-card {
         background: var(--bg-card);
         border: 2px solid var(--border-medium);
         border-radius: 16px;
@@ -114,19 +114,19 @@
         transition: all 0.3s ease;
         position: relative;
     }
-    
-    .hero-card:hover {
+
+.hero-card:hover {
         transform: translateY(-8px);
         border-color: var(--primary);
         box-shadow: 0 12px 40px rgba(139, 92, 246, 0.3);
     }
-    
-    .hero-card.featured {
+
+.hero-card.featured {
         border-color: var(--primary);
         box-shadow: 0 8px 24px rgba(139, 92, 246, 0.2);
     }
-    
-    .badge {
+
+.badge {
         position: absolute;
         top: -12px;
         right: 20px;
@@ -137,39 +137,39 @@
         font-size: 0.85rem;
         font-weight: 700;
     }
-    
-    .card-icon {
+
+.card-icon {
         font-size: 4rem;
         margin-bottom: 1rem;
     }
-    
-    .hero-card h2 {
+
+.hero-card h2 {
         font-size: 1.5rem;
         color: var(--text-primary);
         margin-bottom: 0.5rem;
     }
-    
-    .hero-card h3 {
+
+.hero-card h3 {
         font-size: 1.1rem;
         color: var(--text-muted);
         margin-bottom: 1.5rem;
         font-weight: 500;
     }
-    
-    .features {
+
+.features {
         list-style: none;
         text-align: left;
         margin-bottom: 1.5rem;
     }
-    
-    .features li {
+
+.features li {
         padding: 0.75rem 0;
         color: var(--text-muted);
         font-size: 0.95rem;
         line-height: 1.6;
     }
-    
-    .pricing {
+
+.pricing {
         background: rgba(139, 92, 246, 0.1);
         border: 2px solid var(--primary);
         border-radius: 8px;
@@ -179,8 +179,8 @@
         font-weight: 600;
         font-size: 1.1rem;
     }
-    
-   .cta-buttons {
+
+.cta-buttons {
         display: flex;
         gap: 1rem;
         flex-direction: column;
@@ -189,14 +189,14 @@
         margin-top: auto;
         padding-top: 1.5rem;
     }
-    
-    /* ROI Calculator Section */
+
+/* ROI Calculator Section */
     .roi-section {
         padding: 6rem 0;
         background: linear-gradient(135deg, rgba(139, 92, 246, 0.1), rgba(6, 182, 212, 0.1));
     }
-    
-    .section-title {
+
+.section-title {
         font-size: 2.5rem;
         font-weight: 800;
         text-align: center;
@@ -205,15 +205,15 @@
         -webkit-background-clip: text;
         -webkit-text-fill-color: transparent;
     }
-    
-    .section-subtitle {
+
+.section-subtitle {
         text-align: center;
         color: var(--text-muted);
         font-size: 0.7rem;
         margin-bottom: 3rem;
     }
-    
-    .roi-calculator {
+
+.roi-calculator {
         background: rgba(31, 41, 59, 0.8);
         border: 2px solid var(--border-medium);
         border-radius: 24px;
@@ -221,22 +221,22 @@
         max-width: 1000px;
         margin: 0 auto;
     }
-    
-    .calculator-inputs {
+
+.calculator-inputs {
         display: grid;
         grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
         gap: 2rem;
         margin-bottom: 3rem;
     }
-    
-    .input-group label {
+
+.input-group label {
         display: block;
         color: var(--text-muted);
         margin-bottom: 0.5rem;
         font-weight: 600;
     }
-    
-    .input-group input {
+
+.input-group input {
         width: 100%;
         padding: 1rem;
         background: var(--bg-input);
@@ -247,143 +247,143 @@
         font-weight: 600;
         text-align: center;
     }
-    
-    .input-group input:focus {
+
+.input-group input:focus {
         outline: none;
         border-color: var(--primary);
     }
-    
-    .calculator-results {
+
+.calculator-results {
         display: grid;
         grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
         gap: 2rem;
         margin-bottom: 3rem;
     }
-    
-    .result-card {
+
+.result-card {
         padding: 2rem;
         border-radius: 16px;
         text-align: center;
         border: 3px solid;
     }
-    
-    .result-card.primary {
+
+.result-card.primary {
         background: rgba(139, 92, 246, 0.1);
         border-color: var(--primary);
     }
-    
-    .result-card.secondary {
+
+.result-card.secondary {
         background: var(--success-bg);
         border-color: var(--success);
     }
-    
-    .result-card.success {
+
+.result-card.success {
         background: rgba(6, 182, 212, 0.1);
         border-color: var(--accent);
     }
-    
-    .result-icon {
+
+.result-icon {
         font-size: 2.0rem;
         margin-bottom: 1rem;
     }
-    
-    .result-value {
+
+.result-value {
         font-size: 2.5rem;
         font-weight: 700;
         color: var(--text-primary);
         margin-bottom: 0.5rem;
     }
-    
-    .result-label {
+
+.result-label {
         color: var(--text-muted);
         font-weight: 600;
     }
-    
-    .roi-breakdown {
+
+.roi-breakdown {
         background: rgba(139, 92, 246, 0.1);
         border: 2px solid var(--primary);
         border-radius: 16px;
         padding: 2rem;
         text-align: center;
     }
-    
-    .roi-breakdown h4 {
+
+.roi-breakdown h4 {
         margin-bottom: 1.5rem;
         color: var(--primary);
     }
-    
-    .breakdown-grid {
+
+.breakdown-grid {
         display: grid;
         grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
         gap: 1.5rem;
     }
-    
-    .breakdown-item {
+
+.breakdown-item {
         display: flex;
         flex-direction: column;
         gap: 0.5rem;
     }
-    
-    .breakdown-item strong {
+
+.breakdown-item strong {
         font-size: 1.8rem;
         color: var(--primary);
     }
-    
-    .breakdown-item span {
+
+.breakdown-item span {
         color: var(--text-muted);
     }
-    
-    /* Comparison Table */
+
+/* Comparison Table */
     .comparison-section {
         padding: 6rem 0;
         background: rgba(17, 24, 39, 0.5);
     }
-    
-    .comparison-table-wrapper {
+
+.comparison-table-wrapper {
         overflow-x: auto;
         margin-bottom: 3rem;
     }
-    
-    .comparison-table {
+
+.comparison-table {
         width: 100%;
         border-collapse: collapse;
         background: rgba(31, 41, 59, 0.8);
         border-radius: 16px;
         overflow: hidden;
     }
-    
-    .comparison-table th,
+
+.comparison-table th,
     .comparison-table td {
         padding: 1.5rem;
         text-align: center;
         border-bottom: 1px solid var(--border-medium);
     }
-    
-    .comparison-table th {
+
+.comparison-table th {
         background: rgba(139, 92, 246, 0.2);
         font-weight: 700;
         color: var(--text-primary);
     }
-    
-    .comparison-table td:first-child {
+
+.comparison-table td:first-child {
         text-align: left;
         font-weight: 600;
     }
-    
-    .highlight-col {
+
+.highlight-col {
         background: rgba(139, 92, 246, 0.1) !important;
         border-left: 3px solid var(--primary);
         border-right: 3px solid var(--primary);
     }
-    
-    .brand-header {
+
+.brand-header {
         display: flex;
         flex-direction: column;
         gap: 0.5rem;
         align-items: center;
     }
-    
-    .feature-badge {
+
+.feature-badge {
         background: var(--primary);
         color: white;
         padding: 0.25rem 0.5rem;
@@ -391,96 +391,96 @@
         font-size: 0.9rem;
         margin-left: 0.5rem;
     }
-    
-    .check {
+
+.check {
         color: var(--success);
         font-weight: 700;
     }
-    
-    .cross {
+
+.cross {
         color: var(--error);
     }
-    
-    .partial {
+
+.partial {
         color: var(--warning);
     }
-    
-    .price {
+
+.price {
         font-size: 1.2rem;
         font-weight: 700;
         color: var(--primary);
     }
-    
-    .comparison-cta {
+
+.comparison-cta {
         text-align: center;
     }
-    
-    .comparison-highlight {
+
+.comparison-highlight {
         font-size: 1.2rem;
         margin-bottom: 2rem;
         color: var(--primary);
     }
-    
-    /* Value Proposition Grid */
+
+/* Value Proposition Grid */
     .value-section {
         padding: 6rem 0;
     }
-    
-    .value-grid {
+
+.value-grid {
         display: grid;
         grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
         gap: 2rem;
     }
-    
-    .value-card {
+
+.value-card {
         background: rgba(31, 41, 59, 0.8);
         border: 2px solid var(--border-medium);
         border-radius: 16px;
         padding: 2.5rem;
         transition: all 0.3s ease;
     }
-    
-    .value-card:hover {
+
+.value-card:hover {
         border-color: var(--primary);
         transform: translateY(-8px);
         box-shadow: 0 12px 32px rgba(139, 92, 246, 0.3);
     }
-    
-    .value-icon {
+
+.value-icon {
         font-size: 3rem;
         margin-bottom: 1rem;
     }
-    
-    .value-card h3 {
+
+.value-card h3 {
         font-size: 1.5rem;
         margin-bottom: 0.5rem;
     }
-    
-    .value-stat {
+
+.value-stat {
         color: var(--primary);
         font-weight: 700;
         margin-bottom: 1rem;
     }
-    
-    .value-math {
+
+.value-math {
         background: rgba(139, 92, 246, 0.1);
         border: 2px solid var(--primary);
         border-radius: 12px;
         padding: 1.5rem;
         margin-top: 1.5rem;
     }
-    
-    .math-row {
+
+.math-row {
         display: flex;
         justify-content: space-between;
         padding: 0.5rem 0;
     }
-    
-    .math-row.highlight {
+
+.math-row.highlight {
         color: var(--success);
     }
-    
-    .math-result {
+
+.math-result {
         text-align: center;
         padding-top: 1rem;
         margin-top: 1rem;
@@ -489,25 +489,25 @@
         font-weight: 700;
         color: var(--primary);
     }
-    
-    .platform-list,
+
+.platform-list,
     .security-list {
         list-style: none;
         margin-top: 1rem;
     }
-    
-    .platform-list li,
+
+.platform-list li,
     .security-list li {
         padding: 0.5rem 0;
     }
-    
-    .value-steps {
+
+.value-steps {
         display: flex;
         gap: 0.5rem;
         margin-top: 1rem;
     }
-    
-    .step-mini {
+
+.step-mini {
         flex: 1;
         background: rgba(139, 92, 246, 0.2);
         padding: 0.75rem;
@@ -515,204 +515,204 @@
         text-align: center;
         font-size: 0.9rem;
     }
-    
-    .analytics-preview .stat-bar {
+
+.analytics-preview .stat-bar {
         display: flex;
         justify-content: space-between;
         padding: 0.75rem 0;
         border-bottom: 1px solid var(--border-medium);
     }
-    
-    /* Social Proof Section */
+
+/* Social Proof Section */
     .social-proof-section {
         padding: 6rem 0;
         background: linear-gradient(135deg, rgba(139, 92, 246, 0.1), rgba(6, 182, 212, 0.1));
     }
-    
-    .stats-grid {
+
+.stats-grid {
         display: grid;
         grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
         gap: 2rem;
         margin-bottom: 4rem;
     }
-    
-    .stat-card {
+
+.stat-card {
         text-align: center;
         padding: 2rem;
         background: rgba(31, 41, 59, 0.8);
         border: 2px solid var(--primary);
         border-radius: 16px;
     }
-    
-    .stat-number {
+
+.stat-number {
         font-size: 3rem;
         font-weight: 900;
         color: var(--primary);
         margin-bottom: 0.5rem;
     }
-    
-    .stat-label {
+
+.stat-label {
         color: var(--text-muted);
         font-weight: 600;
     }
-    
-    .testimonials-grid {
+
+.testimonials-grid {
         display: grid;
         grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
         gap: 2rem;
     }
-    
-    .testimonial-card {
+
+.testimonial-card {
         background: rgba(31, 41, 59, 0.8);
         border: 2px solid var(--border-medium);
         border-radius: 16px;
         padding: 2rem;
     }
-    
-    .testimonial-stars {
+
+.testimonial-stars {
         font-size: 1.2rem;
         margin-bottom: 1rem;
     }
-    
-    .testimonial-text {
+
+.testimonial-text {
         color: var(--text-muted);
         line-height: 1.6;
         margin-bottom: 1.5rem;
     }
-    
-    .testimonial-author strong {
+
+.testimonial-author strong {
         display: block;
         color: var(--text-primary);
         margin-bottom: 0.25rem;
     }
-    
-    .testimonial-author span {
+
+.testimonial-author span {
         color: var(--primary);
         font-size: 0.9rem;
     }
-    
-    /* Use Cases Section */
+
+/* Use Cases Section */
     .use-cases-section {
         padding: 6rem 0;
         background: rgba(17, 24, 39, 0.5);
     }
-    
-    .use-cases-grid {
+
+.use-cases-grid {
         display: grid;
         grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
         gap:1.5rem;
     }
-    
-    .use-case-card {
+
+.use-case-card {
         background: rgba(31, 41, 59, 0.8);
         border: 2px solid var(--border-medium);
         border-radius: 16px;
         padding: 2rem;
         transition: all 0.3s ease;
     }
-    
-    .use-case-card:hover {
+
+.use-case-card:hover {
         border-color: var(--primary);
         transform: translateY(-4px);
     }
-    
-    .use-case-icon {
+
+.use-case-icon {
         font-size: 2rem;
         margin-bottom: 1rem;
     }
-    
-    .use-case-card h3 {
+
+.use-case-card h3 {
         margin-bottom: 1rem;
     }
-    
-    .use-case-card ul {
+
+.use-case-card ul {
         list-style: none;
         margin-bottom: 1.5rem;
     }
-    
-    .use-case-card li {
+
+.use-case-card li {
         padding: 0.5rem 0;
         color: var(--text-muted);
     }
-    
-    .use-case-stat {
+
+.use-case-stat {
         background: rgba(139, 92, 246, 0.2);
         border: 2px solid var(--primary);
         border-radius: 8px;
         padding: 1rem;
         text-align: center;
     }
-    
-    .use-case-stat strong {
+
+.use-case-stat strong {
         color: var(--primary);
     }
-    
-    /* Final CTA Section */
+
+/* Final CTA Section */
     .final-cta-section {
         padding: 6rem 0;
         background: linear-gradient(135deg, var(--primary), var(--accent));
     }
-    
-    .final-cta-content {
+
+.final-cta-content {
         text-align: center;
         max-width: 800px;
         margin: 0 auto;
     }
-    
-    .final-cta-content h2 {
+
+.final-cta-content h2 {
         font-size: 2.5rem;
         font-weight: 900;
         margin-bottom: 1rem;
         color: #ffffff;
     }
-    
-    .cta-subtitle {
+
+.cta-subtitle {
         font-size: 1.2rem;
         color: rgba(255, 255, 255, 0.9);
         margin-bottom: 3rem;
     }
-    
-    .cta-value-props {
+
+.cta-value-props {
         display: flex;
         justify-content: center;
         gap: 2rem;
         flex-wrap: wrap;
         margin-bottom: 3rem;
     }
-    
-    .value-prop-mini {
+
+.value-prop-mini {
         display: flex;
         align-items: center;
         gap: 0.5rem;
         color: rgba(255, 255, 255, 0.9);
         font-weight: 600;
     }
-    
-    .value-prop-mini .icon {
+
+.value-prop-mini .icon {
         font-size: 1.5rem;
     }
-    
-    .cta-buttons-large {
+
+.cta-buttons-large {
         display: flex;
         justify-content: center;
         gap: 1rem;
         margin-bottom: 2rem;
         flex-wrap: wrap;
     }
-    
-    .btn-xl {
+
+.btn-xl {
         padding: 1.25rem 3rem;
         font-size: 1.2rem;
         font-weight: 700;
         border-radius: 12px;
     }
-    
-    .cta-guarantee {
+
+.cta-guarantee {
         color: rgba(255, 255, 255, 0.9);
         font-size: 0.95rem;
     }
-    
-    /* Extension Download Buttons */
+
+/* Extension Download Buttons */
     .extension-download-btn {
         display: inline-block;
         padding: 1.25rem 2.5rem;
@@ -728,13 +728,13 @@
         box-shadow: var(--shadow-primary);
         text-align: center;
     }
-    
-    .extension-download-btn:hover {
+
+.extension-download-btn:hover {
         transform: translateY(-3px);
         box-shadow: var(--shadow-primary-lg);
     }
-    
-    .extension-download-btn-secondary {
+
+.extension-download-btn-secondary {
         display: inline-block;
         padding: 1.25rem 2.5rem;
         background: transparent;
@@ -748,34 +748,34 @@
         transition: all 0.3s ease;
         text-align: center;
     }
-    
-    .extension-download-btn-secondary:hover {
+
+.extension-download-btn-secondary:hover {
         background: rgba(255, 255, 255, 0.1);
         transform: translateY(-2px);
     }
-    
-    .extension-download-container {
+
+.extension-download-container {
         display: flex;
         justify-content: center;
         gap: 1rem;
         margin: 2rem 0;
         flex-wrap: wrap;
     }
-    
-    .extension-download-info {
+
+.extension-download-info {
         text-align: center;
         color: var(--text-muted);
         font-size: 0.95rem;
         margin-top: 1rem;
     }
-    
-    /* Auth Modal Overrides */
+
+/* Auth Modal Overrides */
     .auth-switch {
         text-align: center;
         margin-top: 1.5rem;
     }
-    
-    .auth-switch button {
+
+.auth-switch button {
         background: none;
         border: none;
         color: var(--primary);
@@ -783,12 +783,12 @@
         font-weight: 600;
         margin-left: 0.5rem;
     }
-    
-    .auth-switch button:hover {
+
+.auth-switch button:hover {
         text-decoration: underline;
     }
-    
-    /* Responsive */
+
+/* Responsive */
     @media (max-width: 768px) {
         .hero-title {
             font-size: 2rem;

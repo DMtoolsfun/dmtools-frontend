@@ -1,0 +1,152 @@
+# DMTools shared selector whitelist
+# --------------------------------
+# Any inline CSS rule that matches one of these selectors (or variants like
+# pseudo-classes / descendants) will be moved to /styles.css by
+# extract_shared_css.py.
+#
+# Keep page-specific selectors OUT of this list.
+
+# Layout containers
+.container
+.container-sm
+.container-lg
+.main-content
+.page-header
+.page-title
+.page-description
+
+# Header / nav
+.header
+.header-content
+.logo
+.nav-container
+.nav-tabs
+.tab-btn
+.mobile-menu-btn
+.mobile-nav
+.nav-links
+.auth-buttons
+.user-section
+.user-email
+.user-name
+.user-menu
+
+# Buttons
+.btn
+.btn-primary
+.btn-secondary
+.btn-success
+.btn-danger
+.btn-outline
+.btn-small
+.btn-large
+.btn-full
+
+# Grids / cards / pricing shells
+.pricing-grid
+.packs-grid
+.pricing-card
+.pricing-content
+.pricing-cta
+.price-card
+.card
+.card-header
+.card-title
+.card-subtitle
+.card-body
+.card-footer
+.panel
+.section-panel
+
+# Shared pricing/store explainer block
+.pricing-explainer
+.pricing-explainer__inner
+.pricing-explainer__top
+.pricing-explainer__title
+.pricing-explainer__subtitle
+.pricing-explainer__badge
+.pricing-explainer__badge-title
+.pricing-explainer__badge-text
+.pricing-explainer__grid
+.pricing-explainer__col
+.pricing-explainer__col--highlight
+.pricing-explainer__col-head
+.pricing-explainer__col-kicker
+.pricing-explainer__col-title
+.pricing-explainer__col-desc
+.pricing-explainer__list
+.pricing-explainer__check
+.pricing-explainer__cta
+.pricing-explainer__footer
+.pricing-explainer__note
+.pricing-explainer__micro
+
+# Forms
+.form-group
+.form-label
+.form-input
+.form-select
+.form-textarea
+.checkbox-group
+.checkbox
+.radio
+.form-helper
+.form-error
+
+# Messaging / notifications
+.message
+.error-message
+.success-message
+.auth-error
+.auth-success
+.notification
+
+# Footer
+.footer
+.footer-content
+.footer-brand
+.footer-logo
+.footer-description
+.footer-links
+.link-group
+.footer-bottom
+.footer-copyright
+
+# Modal/auth shared wrappers
+.modal
+.modal-content
+.modal-close
+.modal-header
+.modal-title
+.modal-subtitle
+.auth-modal
+.auth-modal-content
+
+# Generic shared utility classes
+.hidden
+.show
+.flex
+.grid
+.inline-flex
+.items-center
+.justify-center
+.justify-between
+.flex-wrap
+.gap-sm
+.gap-md
+.gap-lg
+.text-left
+.text-center
+.text-right
+.mt-sm
+.mt-md
+.mt-lg
+.mt-xl
+.mb-sm
+.mb-md
+.mb-lg
+.mb-xl
+.p-sm
+.p-md
+.p-lg
+.p-xl

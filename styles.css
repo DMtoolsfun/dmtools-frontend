@@ -2390,49 +2390,68 @@ button.link-style {
 
 /* [CANONICAL_EXTRACTED_SHARED_CSS_END] */
 
-/* Homepage Extension Demo */
-.extension-demo-section {
+/* Shared card grids */
+.cards-grid {
+    display: grid;
+    gap: 1.25rem;
+    align-items: stretch;
+}
+
+.cards-grid > * {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+/* Homepage extension tutorial */
+.tutorial-section {
     padding: 3rem 0 4rem;
 }
 
-.extension-demo-card {
+.tutorial-card {
     padding: 2rem;
 }
 
-.demo-steps {
-    margin: 0 0 1.5rem 1.25rem;
-    color: var(--text-secondary);
-    line-height: 1.7;
+.tutorial-flow {
+    grid-template-columns: 1fr;
 }
 
-.demo-layout {
+.tutorial-block {
     display: grid;
-    gap: 1.25rem;
+    gap: 0.85rem;
 }
 
-.demo-controls {
-    display: grid;
-    gap: 1rem;
+.tutorial-instruction {
+    margin: 0;
+    font-weight: 700;
+    color: var(--text-primary);
 }
 
-.demo-row {
+.tutorial-helper {
+    margin: 0;
+    color: var(--text-muted);
+    font-size: 0.92rem;
+    line-height: 1.5;
+}
+
+.tutorial-controls {
     display: grid;
     grid-template-columns: repeat(2, minmax(0, 1fr));
     gap: 1rem;
 }
 
-.demo-field {
+.tutorial-select-wrap {
     display: grid;
-    gap: 0.5rem;
+    gap: 0.45rem;
 }
 
-.demo-field label {
+.tutorial-select-wrap label {
     color: var(--text-muted);
     font-weight: 600;
     font-size: 0.9rem;
 }
 
-.demo-textarea {
+.tutorial-textarea {
     width: 100%;
     min-height: 120px;
     resize: vertical;
@@ -2444,34 +2463,30 @@ button.link-style {
     line-height: 1.5;
 }
 
-.demo-textarea:focus {
+.tutorial-textarea:focus {
     outline: none;
     border-color: var(--primary);
-    box-shadow: 0 0 0 3px rgba(139, 92, 246, 0.15);
+    box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.2);
 }
 
-.demo-actions {
+.tutorial-actions {
     display: flex;
     align-items: center;
     gap: 0.75rem;
-    margin-top: 0.75rem;
+    margin-top: 0.6rem;
+    flex-wrap: wrap;
 }
 
-.demo-status {
-    color: var(--text-muted);
-    font-size: 0.9rem;
+.tutorial-status {
+    min-height: 1.25rem;
 }
 
 @media (max-width: 768px) {
-    .demo-row {
-        grid-template-columns: 1fr;
-    }
-
-    .extension-demo-card {
+    .tutorial-card {
         padding: 1.25rem;
     }
 
-    .demo-actions {
-        flex-wrap: wrap;
+    .tutorial-controls {
+        grid-template-columns: 1fr;
     }
 }

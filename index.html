@@ -903,39 +903,28 @@
   </div>
 </main>
 
-<!-- Interactive Extension Demo -->
-<section class="extension-demo-section" aria-labelledby="extension-demo-title">
+<!-- Extension Tutorial Section -->
+<section class="tutorial-section" aria-labelledby="tutorial-title">
     <div class="container">
-        <div class="extension-demo-card card">
-            <h2 id="extension-demo-title" class="section-title">Try the Extension in 10 Seconds</h2>
-            <p class="section-subtitle">See how DMTools turns incoming messages into polished replies without leaving your workflow.</p>
+        <div class="tutorial-card card">
+            <h2 id="tutorial-title" class="section-title">Try the Extension in 10 Seconds</h2>
 
-            <ol class="demo-steps">
-                <li>Paste a sample incoming message.</li>
-                <li>Pick a use case and tone.</li>
-                <li>Click <strong>Generate Reply</strong>.</li>
-                <li>Copy and use the reply anywhere.</li>
-            </ol>
+            <div class="cards-grid tutorial-flow">
+                <div class="tutorial-block">
+                    <p class="tutorial-instruction">Highlight the sample incoming message and right-click..., then choose “Capture Message”</p>
 
-            <div class="demo-layout">
-                <div class="demo-field">
-                    <label for="demo-message">Incoming Message</label>
-                    <textarea id="demo-message" class="demo-textarea" rows="5" placeholder="Paste an incoming message here...">Hey, just checking in on the proposal we sent last week. Do you have any updates for us?</textarea>
-                </div>
-
-                <div class="demo-controls">
-                    <div class="demo-row">
-                        <div class="demo-field">
-                            <label for="demo-usecase">Use Case</label>
-                            <select id="demo-usecase" class="form-select">
-                                <option value="sales_followup">Sales Follow-Up</option>
-                                <option value="customer_support">Customer Support</option>
-                                <option value="recruiter_outreach">Recruiter Outreach</option>
+                    <div class="tutorial-controls">
+                        <div class="tutorial-select-wrap">
+                            <label for="tutorial-sample-select">Sample message</label>
+                            <select id="tutorial-sample-select" class="form-select">
+                                <option value="sales">Sales follow-up</option>
+                                <option value="support">Customer support</option>
+                                <option value="recruiting">Recruiter outreach</option>
                             </select>
                         </div>
-                        <div class="demo-field">
-                            <label for="demo-tone">Tone</label>
-                            <select id="demo-tone" class="form-select">
+                        <div class="tutorial-select-wrap">
+                            <label for="tutorial-tone-select">Tone</label>
+                            <select id="tutorial-tone-select" class="form-select">
                                 <option value="friendly">Friendly</option>
                                 <option value="direct">Direct</option>
                                 <option value="professional">Professional</option>
@@ -943,15 +932,19 @@
                         </div>
                     </div>
 
-                    <button id="demo-generate" type="button" class="btn btn-primary">Generate Reply</button>
+                    <textarea id="tutorial-incoming" class="tutorial-textarea" rows="4">Hey, just checking in on the proposal we sent last week. Do you have any updates for us?</textarea>
+                    <p class="tutorial-helper">This simulates an incoming DM/email. In the extension, “Capture Message” grabs this text for you.</p>
                 </div>
 
-                <div class="demo-field">
-                    <label for="demo-reply">Generated Reply</label>
-                    <textarea id="demo-reply" class="demo-textarea" rows="6" readonly placeholder="Your generated reply will appear here..."></textarea>
-                    <div class="demo-actions">
-                        <button id="demo-copy" type="button" class="btn btn-secondary">Copy Reply</button>
-                        <span id="demo-status" class="demo-status" aria-live="polite"></span>
+                <div class="tutorial-block">
+                    <p class="tutorial-instruction">Then right-click again in the reply box and choose “Generate Reply” and the response will show up</p>
+                    <textarea id="tutorial-reply" class="tutorial-textarea" rows="5" placeholder="Generated reply appears here..."></textarea>
+                    <p class="tutorial-helper">If you aren’t logged in, the extension toast will tell you to download the extension (which routes back here).</p>
+
+                    <div class="tutorial-actions">
+                        <button id="tutorial-generate" type="button" class="btn btn-primary">Generate Reply</button>
+                        <button id="tutorial-copy" type="button" class="btn btn-secondary">Copy Reply</button>
+                        <span id="tutorial-status" class="tutorial-helper tutorial-status" aria-live="polite"></span>
                     </div>
                 </div>
             </div>
@@ -965,7 +958,7 @@
         <h2 class="section-title">Perfect For Every Professional</h2>
         <p class="section-subtitle">No matter your industry, DMTools saves you hours every week</p>
         
-        <div class="use-cases-grid">
+        <div class="use-cases-grid cards-grid">
             <div class="use-case-card">
                 <h3>Sales Teams</h3>
                 <ul>
@@ -1165,7 +1158,7 @@
         <h2 class="section-title">Your Best Investment This Year</h2>
         <p class="section-subtitle">Here's why DMTools pays for itself in the first week</p>
         
-        <div class="value-grid">
+        <div class="value-grid cards-grid">
             <div class="value-card">
                 <h3>Lightning Fast</h3>
                 <p class="value-stat">2 clicks vs 6+ actions</p>
@@ -1306,7 +1299,7 @@
             </div>
         </div>
         
-        <div class="testimonials-grid">
+        <div class="testimonials-grid cards-grid">
             <div class="testimonial-card">
                 <div class="testimonial-stars">⭐⭐⭐⭐⭐</div>
                 <p class="testimonial-text">"DMTools cut my email response time by 80%. I used to spend 2+ hours daily on email - now it's 25 minutes. Game changer for busy professionals."</p>
@@ -1753,73 +1746,81 @@
         document.getElementById('yearly-savings').textContent = Math.round(hoursSavedPerYear) + ' hrs';
     }
 
-    function initExtensionDemo() {
-        const messageEl = document.getElementById('demo-message');
-        const useCaseEl = document.getElementById('demo-usecase');
-        const toneEl = document.getElementById('demo-tone');
-        const replyEl = document.getElementById('demo-reply');
-        const generateBtn = document.getElementById('demo-generate');
-        const copyBtn = document.getElementById('demo-copy');
-        const statusEl = document.getElementById('demo-status');
+    function initTutorialDemo() {
+        const sampleSelect = document.getElementById('tutorial-sample-select');
+        const toneSelect = document.getElementById('tutorial-tone-select');
+        const incoming = document.getElementById('tutorial-incoming');
+        const reply = document.getElementById('tutorial-reply');
+        const generateBtn = document.getElementById('tutorial-generate');
+        const copyBtn = document.getElementById('tutorial-copy');
+        const status = document.getElementById('tutorial-status');
 
-        if (!messageEl || !useCaseEl || !toneEl || !replyEl || !generateBtn || !copyBtn) return;
+        if (!sampleSelect || !toneSelect || !incoming || !reply || !generateBtn || !copyBtn) return;
 
-        const demoReplies = {
-            sales_followup: {
-                friendly: "Thanks for following up - I appreciate the nudge. I reviewed the proposal and it looks aligned with what we need. I can confirm final approval by tomorrow afternoon.",
-                direct: "Thanks for checking in. I reviewed the proposal and can provide a final decision by tomorrow afternoon.",
-                professional: "Thank you for following up on the proposal. I have completed my review and expect to share a final decision by tomorrow afternoon."
+        const samples = {
+            sales: "Hey, just checking in on the proposal we sent last week. Do you have any updates for us?",
+            support: "Hi team, I’m still unable to sync my inbox after the last update. Can someone help?",
+            recruiting: "Thanks for reaching out about the role. I’m interested and would like to learn more details."
+        };
+
+        const responses = {
+            sales: {
+                friendly: "Thanks for following up - I appreciate the nudge. I reviewed the proposal and can share a final update by tomorrow afternoon.",
+                direct: "Thanks for checking in. I reviewed the proposal and will provide a final decision by tomorrow afternoon.",
+                professional: "Thank you for following up on the proposal. I have completed my review and will provide a final update by tomorrow afternoon."
             },
-            customer_support: {
-                friendly: "Thanks for reaching out - happy to help. I checked your account and reset the sync process on our side. Please refresh and try again, and if it still fails I can jump in right away.",
-                direct: "Thanks for reporting this. I reset the sync process for your account. Refresh and retry. If the issue continues, reply here and I'll escalate it immediately.",
-                professional: "Thank you for contacting support. I have reset the synchronization process for your account. Please refresh and test again; if the issue persists, we will escalate promptly."
+            support: {
+                friendly: "Thanks for flagging this - happy to help. I’ve reset the sync process on our side. Please refresh and try again, and I’ll stay on this until it’s resolved.",
+                direct: "Thanks for reporting this. I reset the sync process. Please refresh and retry; if it fails again, I’ll escalate immediately.",
+                professional: "Thank you for reporting this issue. I have reset the synchronization process. Please refresh and test again; if the problem persists, we will escalate promptly."
             },
-            recruiter_outreach: {
-                friendly: "Great to hear from you, thanks for reaching out. The role sounds interesting and I'm open to learning more. Could you share the team details and expected timeline?",
-                direct: "Thanks for reaching out. I'm interested in learning more about the role. Please share team details, key responsibilities, and the interview timeline.",
-                professional: "Thank you for your outreach regarding this opportunity. I am interested in learning more and would appreciate additional details on the team structure, responsibilities, and hiring timeline."
+            recruiting: {
+                friendly: "Great to hear from you, thanks for reaching out. The role sounds interesting - could you share team details and next steps?",
+                direct: "Thanks for reaching out. I’m interested in learning more. Please share role scope, team details, and interview timeline.",
+                professional: "Thank you for your outreach regarding this role. I am interested and would appreciate additional details on the team, responsibilities, and interview timeline."
             }
         };
 
         function setStatus(message) {
-            if (!statusEl) return;
-            statusEl.textContent = message || "";
+            if (status) status.textContent = message || '';
+        }
+
+        function setSampleMessage() {
+            incoming.value = samples[sampleSelect.value] || samples.sales;
+            setStatus('');
         }
 
         function generateReply() {
-            const useCase = useCaseEl.value || "sales_followup";
-            const tone = toneEl.value || "friendly";
-            const incoming = (messageEl.value || "").trim();
-
-            const base = (demoReplies[useCase] && demoReplies[useCase][tone]) || demoReplies.sales_followup.friendly;
-            const prefixed = incoming ? `Re: "${incoming.slice(0, 90)}${incoming.length > 90 ? "..." : ""}"\n\n` : "";
-            replyEl.value = `${prefixed}${base}`;
-            setStatus("Reply generated.");
+            const category = sampleSelect.value || 'sales';
+            const tone = toneSelect.value || 'friendly';
+            reply.value = (responses[category] && responses[category][tone]) || responses.sales.friendly;
+            setStatus('Reply generated.');
         }
 
         async function copyReply() {
-            const text = (replyEl.value || "").trim();
+            const text = (reply.value || '').trim();
             if (!text) {
-                setStatus("Generate a reply first.");
+                setStatus('Generate a reply first.');
                 return;
             }
             try {
                 if (navigator.clipboard && navigator.clipboard.writeText) {
                     await navigator.clipboard.writeText(text);
                 } else {
-                    replyEl.select();
-                    document.execCommand("copy");
+                    reply.select();
+                    document.execCommand('copy');
                 }
-                setStatus("Copied to clipboard.");
+                setStatus('Copied.');
             } catch (e) {
-                setStatus("Copy failed - please copy manually.");
+                setStatus('Copy failed. Please copy manually.');
             }
         }
 
-        generateBtn.addEventListener("click", generateReply);
-        copyBtn.addEventListener("click", copyReply);
-        generateReply();
+        sampleSelect.addEventListener('change', setSampleMessage);
+        generateBtn.addEventListener('click', generateReply);
+        copyBtn.addEventListener('click', copyReply);
+
+        setSampleMessage();
     }
     
     // Initialize on page load
@@ -1834,7 +1835,7 @@
             });
         }
         
-        initExtensionDemo();
+        initTutorialDemo();
 
         // Update calculator on input change
         const calcInputs = ['messages-per-day', 'time-per-message', 'days-per-month'];

@@ -2390,19 +2390,6 @@ button.link-style {
 
 /* [CANONICAL_EXTRACTED_SHARED_CSS_END] */
 
-/* Shared card grids */
-.cards-grid {
-    display: grid;
-    gap: 1.25rem;
-    align-items: stretch;
-}
-
-.cards-grid > * {
-    height: 100%;
-    display: flex;
-    flex-direction: column;
-}
-
 /* Homepage extension tutorial */
 .tutorial-section {
     padding: 3rem 0 4rem;

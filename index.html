@@ -903,6 +903,62 @@
   </div>
 </main>
 
+<!-- Interactive Extension Demo -->
+<section class="extension-demo-section" aria-labelledby="extension-demo-title">
+    <div class="container">
+        <div class="extension-demo-card card">
+            <h2 id="extension-demo-title" class="section-title">Try the Extension in 10 Seconds</h2>
+            <p class="section-subtitle">See how DMTools turns incoming messages into polished replies without leaving your workflow.</p>
+
+            <ol class="demo-steps">
+                <li>Paste a sample incoming message.</li>
+                <li>Pick a use case and tone.</li>
+                <li>Click <strong>Generate Reply</strong>.</li>
+                <li>Copy and use the reply anywhere.</li>
+            </ol>
+
+            <div class="demo-layout">
+                <div class="demo-field">
+                    <label for="demo-message">Incoming Message</label>
+                    <textarea id="demo-message" class="demo-textarea" rows="5" placeholder="Paste an incoming message here...">Hey, just checking in on the proposal we sent last week. Do you have any updates for us?</textarea>
+                </div>
+
+                <div class="demo-controls">
+                    <div class="demo-row">
+                        <div class="demo-field">
+                            <label for="demo-usecase">Use Case</label>
+                            <select id="demo-usecase" class="form-select">
+                                <option value="sales_followup">Sales Follow-Up</option>
+                                <option value="customer_support">Customer Support</option>
+                                <option value="recruiter_outreach">Recruiter Outreach</option>
+                            </select>
+                        </div>
+                        <div class="demo-field">
+                            <label for="demo-tone">Tone</label>
+                            <select id="demo-tone" class="form-select">
+                                <option value="friendly">Friendly</option>
+                                <option value="direct">Direct</option>
+                                <option value="professional">Professional</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <button id="demo-generate" type="button" class="btn btn-primary">Generate Reply</button>
+                </div>
+
+                <div class="demo-field">
+                    <label for="demo-reply">Generated Reply</label>
+                    <textarea id="demo-reply" class="demo-textarea" rows="6" readonly placeholder="Your generated reply will appear here..."></textarea>
+                    <div class="demo-actions">
+                        <button id="demo-copy" type="button" class="btn btn-secondary">Copy Reply</button>
+                        <span id="demo-status" class="demo-status" aria-live="polite"></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
     <!-- SECTION 5: USE CASES (Visual Grid) -->
 <section class="use-cases-section">
     <div class="container">
@@ -1696,6 +1752,75 @@
         document.getElementById('monthly-savings').textContent = hoursSavedPerMonth.toFixed(1) + ' hrs';
         document.getElementById('yearly-savings').textContent = Math.round(hoursSavedPerYear) + ' hrs';
     }
+
+    function initExtensionDemo() {
+        const messageEl = document.getElementById('demo-message');
+        const useCaseEl = document.getElementById('demo-usecase');
+        const toneEl = document.getElementById('demo-tone');
+        const replyEl = document.getElementById('demo-reply');
+        const generateBtn = document.getElementById('demo-generate');
+        const copyBtn = document.getElementById('demo-copy');
+        const statusEl = document.getElementById('demo-status');
+
+        if (!messageEl || !useCaseEl || !toneEl || !replyEl || !generateBtn || !copyBtn) return;
+
+        const demoReplies = {
+            sales_followup: {
+                friendly: "Thanks for following up - I appreciate the nudge. I reviewed the proposal and it looks aligned with what we need. I can confirm final approval by tomorrow afternoon.",
+                direct: "Thanks for checking in. I reviewed the proposal and can provide a final decision by tomorrow afternoon.",
+                professional: "Thank you for following up on the proposal. I have completed my review and expect to share a final decision by tomorrow afternoon."
+            },
+            customer_support: {
+                friendly: "Thanks for reaching out - happy to help. I checked your account and reset the sync process on our side. Please refresh and try again, and if it still fails I can jump in right away.",
+                direct: "Thanks for reporting this. I reset the sync process for your account. Refresh and retry. If the issue continues, reply here and I'll escalate it immediately.",
+                professional: "Thank you for contacting support. I have reset the synchronization process for your account. Please refresh and test again; if the issue persists, we will escalate promptly."
+            },
+            recruiter_outreach: {
+                friendly: "Great to hear from you, thanks for reaching out. The role sounds interesting and I'm open to learning more. Could you share the team details and expected timeline?",
+                direct: "Thanks for reaching out. I'm interested in learning more about the role. Please share team details, key responsibilities, and the interview timeline.",
+                professional: "Thank you for your outreach regarding this opportunity. I am interested in learning more and would appreciate additional details on the team structure, responsibilities, and hiring timeline."
+            }
+        };
+
+        function setStatus(message) {
+            if (!statusEl) return;
+            statusEl.textContent = message || "";
+        }
+
+        function generateReply() {
+            const useCase = useCaseEl.value || "sales_followup";
+            const tone = toneEl.value || "friendly";
+            const incoming = (messageEl.value || "").trim();
+
+            const base = (demoReplies[useCase] && demoReplies[useCase][tone]) || demoReplies.sales_followup.friendly;
+            const prefixed = incoming ? `Re: "${incoming.slice(0, 90)}${incoming.length > 90 ? "..." : ""}"\n\n` : "";
+            replyEl.value = `${prefixed}${base}`;
+            setStatus("Reply generated.");
+        }
+
+        async function copyReply() {
+            const text = (replyEl.value || "").trim();
+            if (!text) {
+                setStatus("Generate a reply first.");
+                return;
+            }
+            try {
+                if (navigator.clipboard && navigator.clipboard.writeText) {
+                    await navigator.clipboard.writeText(text);
+                } else {
+                    replyEl.select();
+                    document.execCommand("copy");
+                }
+                setStatus("Copied to clipboard.");
+            } catch (e) {
+                setStatus("Copy failed - please copy manually.");
+            }
+        }
+
+        generateBtn.addEventListener("click", generateReply);
+        copyBtn.addEventListener("click", copyReply);
+        generateReply();
+    }
     
     // Initialize on page load
     document.addEventListener('DOMContentLoaded', function() {
@@ -1709,6 +1834,8 @@
             });
         }
         
+        initExtensionDemo();
+
         // Update calculator on input change
         const calcInputs = ['messages-per-day', 'time-per-message', 'days-per-month'];
         calcInputs.forEach(id => {

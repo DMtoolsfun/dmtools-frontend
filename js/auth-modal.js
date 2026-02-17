@@ -58,6 +58,10 @@
       .dmtools-auth-modal__btn:disabled{opacity:.65;cursor:not-allowed}
       .dmtools-auth-modal__footer{margin-top:12px;text-align:center;color:#9ca3af;font-size:.95rem}
       .dmtools-auth-modal__linkbtn{background:none;border:0;color:#8b5cf6;text-decoration:underline;cursor:pointer;font-weight:700;padding:0 4px}
+      .dmtools-auth-modal__terms{display:flex;align-items:flex-start;gap:8px;font-size:.88rem;color:#d1d5db}
+      .dmtools-auth-modal__terms input{margin-top:2px}
+      .dmtools-auth-modal__terms a{color:#a78bfa}
+      .dmtools-auth-modal__terms a:hover{color:#c4b5fd}
       @media (max-width:520px){.dmtools-auth-modal__namegrid{grid-template-columns:1fr}}
     `;
     document.head.appendChild(style);
@@ -102,6 +106,14 @@
         <div class="dmtools-auth-modal__row">
           <label class="dmtools-auth-modal__label" for="dmtools-auth-pass">Password</label>
           <input class="dmtools-auth-modal__input" id="dmtools-auth-pass" type="password" autocomplete="current-password" placeholder="Your password" />
+        </div>
+        <div class="dmtools-auth-modal__row" id="dmtools-auth-terms-row" style="display:none">
+          <label class="dmtools-auth-modal__terms">
+            <input id="dmtools-auth-terms" type="checkbox" />
+            <span>
+              I agree to the <a href="/terms-of-service.html" target="_blank" rel="noopener noreferrer">Terms and Conditions</a>.
+            </span>
+          </label>
         </div>
 
         <button class="dmtools-auth-modal__btn" type="button" id="dmtools-auth-submit">Sign In</button>
@@ -149,11 +161,15 @@
     const switchText = modal.querySelector('#dmtools-auth-switch-text');
     const switchBtn = modal.querySelector('#dmtools-auth-switch-btn');
     const pass = modal.querySelector('#dmtools-auth-pass');
+    const termsRow = modal.querySelector('#dmtools-auth-terms-row');
+    const terms = modal.querySelector('#dmtools-auth-terms');
 
     if (state.mode === 'register') {
       title.textContent = 'Create Account';
       subtitle.textContent = 'Start generating AI responses today';
       names.style.display = '';
+      termsRow.style.display = '';
+      terms.checked = false;
       submitBtn.textContent = 'Create Account';
       switchText.textContent = 'Already have an account?';
       switchBtn.textContent = 'Sign In';
@@ -162,6 +178,8 @@
       title.textContent = 'Sign In';
       subtitle.textContent = 'Access your account';
       names.style.display = 'none';
+      termsRow.style.display = 'none';
+      terms.checked = false;
       submitBtn.textContent = 'Sign In';
       switchText.textContent = "Don't have an account?";
       switchBtn.textContent = 'Sign Up';
@@ -202,10 +220,14 @@
     const password = modal.querySelector('#dmtools-auth-pass').value || '';
     const firstName = (modal.querySelector('#dmtools-auth-first').value || '').trim();
     const lastName = (modal.querySelector('#dmtools-auth-last').value || '').trim();
+    const termsAccepted = !!modal.querySelector('#dmtools-auth-terms')?.checked;
 
     try {
       if (!email) throw new Error('Please enter your email.');
       if (!password) throw new Error('Please enter your password.');
+      if (state.mode === 'register' && !termsAccepted) {
+        throw new Error('Please agree to the Terms and Conditions to continue.');
+      }
 
       let data;
       if (state.mode === 'register') {
@@ -215,7 +237,8 @@
             email,
             password,
             first_name: firstName || null,
-            last_name: lastName || null
+            last_name: lastName || null,
+            terms_accepted: true
           })
         });
       } else {

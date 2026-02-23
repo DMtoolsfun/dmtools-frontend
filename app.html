@@ -1288,32 +1288,153 @@ platformWindows[platform] = window.open(
             }
         }
 
-    // ==============================
-    // Paywall Functions
-    // ==============================
-    function showPaywall() {
-        const modal = document.getElementById('paywall-modal');
-        if (modal) modal.classList.add('show');
-    }
+   // ==============================
+// Paywall Functions (V2 - momentum + dynamic pricing)
+// ==============================
 
-    function hidePaywall() {
-        const modal = document.getElementById('paywall-modal');
-        if (modal) modal.classList.remove('show');
-    }
+let _paywallPricingCache = null;
 
-    // Close paywall when clicking outside the modal content
-    document.getElementById('paywall-modal')?.addEventListener('click', function(e) {
-        if (e.target === this) {
-            hidePaywall();
-        }
+// Fetch pricing from backend source of truth
+async function getPricingConfig() {
+  if (_paywallPricingCache) return _paywallPricingCache;
+
+  try {
+    const res = await fetch(`${API_BASE}/subscription/pricing`, {
+      method: 'GET',
+      headers: { 'Content-Type': 'application/json' }
     });
+    const data = await res.json();
+    if (data && data.success) {
+      _paywallPricingCache = data;
+      return data;
+    }
+  } catch (e) {
+    console.warn('Paywall pricing fetch failed:', e);
+  }
 
-    // Close paywall when pressing the Escape key
-    document.addEventListener('keydown', function(e) {
-        if (e.key === 'Escape') {
-            hidePaywall();
-        }
-    });
+  return null;
+}
+
+function formatMoney(amount, currency = 'USD') {
+  const n = Number(amount);
+  if (!Number.isFinite(n)) return '';
+  // Keep it simple & predictable for UI
+  return `$${n.toFixed(n % 1 === 0 ? 0 : 2)}`;
+}
+
+function estimateSavedMinutes(usedCount) {
+  // Your positioning: ~5 minutes manual vs ~15 seconds with DMTools
+  // Saved per reply ≈ 285 seconds = 4.75 minutes
+  const used = Math.max(0, Number(usedCount) || 0);
+  const savedSeconds = used * 285;
+  const savedMinutes = Math.max(1, Math.round(savedSeconds / 60));
+  return savedMinutes;
+}
+
+function getUserUsageSnapshot(pricing) {
+  // Uses currentUser if available; falls back gracefully.
+  const tier = String(currentUser?.subscription_tier || currentUser?.plan || 'free').toLowerCase();
+
+  const freeLimitFromBackend =
+    pricing?.plans?.free?.limits?.responses ?? 10;
+
+  const used = Number(currentUser?.monthly_usage || 0);
+
+  // If backend provided a limit on the user object, prefer it
+  const limit = Number.isFinite(currentUser?.monthly_limit)
+    ? Number(currentUser.monthly_limit)
+    : (tier === 'free' ? freeLimitFromBackend : freeLimitFromBackend);
+
+  const remaining = (typeof currentUser?.responses_remaining === 'number')
+    ? Number(currentUser.responses_remaining)
+    : Math.max(0, limit - used);
+
+  return { tier, used, limit, remaining };
+}
+
+async function hydratePaywallUI() {
+  const pricing = await getPricingConfig();
+
+  // Fill time-saved + copy even if pricing fetch fails
+  const snap = getUserUsageSnapshot(pricing);
+  const saved = estimateSavedMinutes(snap.used || (snap.limit || 10));
+  const savedEl = document.getElementById('paywall-saved-minutes');
+  if (savedEl) savedEl.textContent = String(saved);
+
+  // If pricing is unavailable, keep your default HTML copy
+  if (!pricing?.plans || !pricing?.packs) return;
+
+  // Prefer Starter monthly plan + Starter pack from backend mapping
+  const starterPlan = pricing.plans.starter || null;
+  const starterPack = pricing.packs.starter || null;
+
+  // Plan UI
+  if (starterPlan) {
+    const planNameEl = document.getElementById('paywall-plan-name');
+    const planPriceEl = document.getElementById('paywall-plan-price');
+    const planIntervalEl = document.getElementById('paywall-plan-interval');
+    const planResponsesEl = document.getElementById('paywall-plan-responses');
+    const planTemplatesEl = document.getElementById('paywall-plan-templates');
+    const primaryCta = document.getElementById('paywall-primary-cta');
+
+    if (planNameEl) planNameEl.textContent = `${starterPlan.display_name || 'Starter'} Plan`;
+    if (planPriceEl) planPriceEl.textContent = formatMoney(starterPlan.price_amount ?? starterPlan.price, starterPlan.currency);
+    if (planIntervalEl) planIntervalEl.textContent = `/${starterPlan.billing_interval || 'month'}`;
+
+    const resp = starterPlan?.limits?.responses;
+    if (planResponsesEl) planResponsesEl.textContent = Number.isFinite(resp) ? resp.toLocaleString() : String(resp || '—');
+
+    const tmpl = starterPlan?.limits?.templates;
+    if (planTemplatesEl) planTemplatesEl.textContent = (tmpl === 'unlimited') ? 'Unlimited' : (Number.isFinite(tmpl) ? tmpl.toLocaleString() : String(tmpl || '—'));
+
+    // Add light attribution tags for analytics in your own tracking later
+    if (primaryCta) primaryCta.href = `/pricing.html#starter`;
+  }
+
+  // Pack UI
+  if (starterPack) {
+    const packNameEl = document.getElementById('paywall-pack-name');
+    const packPriceEl = document.getElementById('paywall-pack-price');
+    const packResponsesEl = document.getElementById('paywall-pack-responses');
+    const secondaryCta = document.getElementById('paywall-secondary-cta');
+
+    if (packNameEl) packNameEl.textContent = starterPack.display_name || 'Response Pack';
+    if (packPriceEl) packPriceEl.textContent = formatMoney(starterPack.price_amount ?? starterPack.price, starterPack.currency);
+
+    const resp = starterPack.responses;
+    if (packResponsesEl) packResponsesEl.textContent = Number.isFinite(resp) ? resp.toLocaleString() : String(resp || '—');
+
+    if (secondaryCta) secondaryCta.href = `/store.html`;
+  }
+}
+
+function showPaywall() {
+  // Don’t block UX if pricing fetch fails
+  hydratePaywallUI().catch(() => {});
+  const modal = document.getElementById('paywall-modal');
+  if (modal) {
+    modal.classList.add('show');
+    modal.setAttribute('aria-hidden', 'false');
+  }
+}
+
+function hidePaywall() {
+  const modal = document.getElementById('paywall-modal');
+  if (modal) {
+    modal.classList.remove('show');
+    modal.setAttribute('aria-hidden', 'true');
+  }
+}
+
+// Close paywall when clicking outside the modal content
+document.getElementById('paywall-modal')?.addEventListener('click', function (e) {
+  if (e.target === this) hidePaywall();
+});
+
+// Close paywall when pressing the Escape key
+document.addEventListener('keydown', function (e) {
+  if (e.key === 'Escape') hidePaywall();
+});
    
   
 

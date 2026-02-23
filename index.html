@@ -952,6 +952,47 @@
   text-decoration: underline;
 }
 
+      .extension-arrow-hint {
+  position: fixed;
+  top: 12px;
+  right: 40px; /* Adjust if needed */
+  text-align: center;
+  z-index: 9999;
+  pointer-events: none;
+}
+
+.arrow-text {
+  font-size: 14px;
+  font-weight: 700;
+  margin-bottom: 6px;
+  background: rgba(138, 92, 246, 0.9);
+  padding: 6px 10px;
+  border-radius: 10px;
+  color: white;
+  white-space: nowrap;
+  animation: pulseText 2s infinite ease-in-out;
+}
+
+.arrow-up {
+  width: 0;
+  height: 0;
+  margin: 0 auto;
+  border-left: 10px solid transparent;
+  border-right: 10px solid transparent;
+  border-bottom: 16px solid rgba(138, 92, 246, 0.95);
+  animation: bounceArrow 1.5s infinite ease-in-out;
+}
+
+@keyframes bounceArrow {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-8px); }
+}
+
+@keyframes pulseText {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.7; }
+}
+
 /* Responsive */
     @media (max-width: 768px) {
         .hero-title {
@@ -1074,6 +1115,11 @@
     </div>
   </div>
 </main>
+
+    <div class="extension-arrow-hint" id="extension-arrow-hint">
+  <div class="arrow-text">Click the puzzle piece to open DMTools</div>
+  <div class="arrow-up"></div>
+</div>
 
 <!-- Extension Tutorial Section -->
 <section id="quickstart" class="tutorial-section" aria-labelledby="tutorial-title">

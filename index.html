@@ -910,6 +910,48 @@
         text-decoration: underline;
     }
 
+      .tutorial-callout {
+  margin: 14px 0 18px;
+  padding: 14px 14px;
+  border-radius: 14px;
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.10);
+}
+
+.tutorial-callout-title {
+  font-weight: 800;
+  margin-bottom: 8px;
+  letter-spacing: 0.2px;
+}
+
+.tutorial-callout-body {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  opacity: 0.95;
+}
+
+.tutorial-callout-row {
+  display: flex;
+  gap: 10px;
+  align-items: flex-start;
+  line-height: 1.35;
+}
+
+.tutorial-callout-row .dot {
+  width: 8px;
+  height: 8px;
+  margin-top: 6px;
+  border-radius: 50%;
+  background: rgba(138, 92, 246, 0.9);
+  flex: 0 0 8px;
+}
+
+.tutorial-link {
+  font-weight: 700;
+  text-decoration: underline;
+}
+
 /* Responsive */
     @media (max-width: 768px) {
         .hero-title {
@@ -1039,11 +1081,28 @@
         <div class="tutorial-card card">
             <h2 id="tutorial-title" class="section-title">Try the Extension in 10 Seconds</h2>
 
+            <div class="tutorial-callout" role="note">
+                  <div class="tutorial-callout-title">Quick heads up</div>
+                  <div class="tutorial-callout-body">
+                    <div class="tutorial-callout-row">
+                      <span class="dot"></span>
+                      <span>
+                        You must be <strong>signed into the Chrome extension</strong> to generate replies (website login is separate).
+                      </span>
+                    </div>
+                    <div class="tutorial-callout-row">
+                      <span class="dot"></span>
+                      <span>
+                        Don’t have it installed? <a class="tutorial-link" href="https://chrome.google.com/webstore/detail/joheialcdpmcfgehhcpfjnppficonfih" target="_blank" rel="noopener">Install from the Chrome Web Store</a>.
+                      </span>
+                    </div>
+                  </div>
+                </div>
+            
             <div class="tutorial-flow">
                 <div class="tutorial-block">
                     <p class="tutorial-instruction">Highlight the sample incoming message and right-click..., then choose “Capture Message”</p>
 
-        
                     <textarea id="tutorial-incoming" class="tutorial-textarea" rows="4">Hey, just checking in on the proposal we sent last week. Do you have any updates for us?</textarea>
                     <p class="tutorial-helper">This simulates an incoming DM/email. In the extension, “Capture Message” grabs this text for you.</p>
                 </div>

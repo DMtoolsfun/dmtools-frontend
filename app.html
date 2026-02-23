@@ -1586,19 +1586,42 @@ document.addEventListener('keydown', function (e) {
                 const response = await fetch(url, config);
                 const data = await response.json();
 
-                if (!response.ok) {
-                    if (response.status === 401) {
-                        localStorage.removeItem('authToken');
-                        isAuthenticated = false;
-                        throw new Error('Session expired. Please sign in again.');
-                    } else if (response.status === 429) {
-                        throw new Error('Usage limit reached. Please upgrade your plan or wait and try again.');
-                    } else if (response.status === 500) {
-                        throw new Error('Server error. Please try again later.');
-                    } else {
-                        throw new Error(data.error || data.message || `Server error (${response.status})`);
-                    }
-                }
+               if (!response.ok) {
+  // Try to detect "usage/plan limit" responses and show paywall
+  const status = response.status;
+  const msg = String(data?.message || data?.error || '').toLowerCase();
+  const code = String(data?.code || '').toLowerCase();
+
+  const looksLikeLimit =
+    msg.includes('limit') ||
+    msg.includes('quota') ||
+    msg.includes('usage') ||
+    msg.includes('responses') ||
+    code.includes('limit') ||
+    code.includes('quota') ||
+    code.includes('paywall');
+
+  // Most common statuses for paywalls/limits
+  if ((status === 402 || status === 403 || status === 429) && looksLikeLimit) {
+    if (typeof showPaywall === 'function') showPaywall();
+    throw new Error('Paywall triggered'); // stop execution cleanly
+  }
+
+  // Auth handling
+  if (status === 401) {
+    localStorage.removeItem('authToken');
+    isAuthenticated = false;
+    throw new Error('Session expired. Please sign in again.');
+  }
+
+  // Server handling
+  if (status === 500) {
+    throw new Error('Server error. Please try again later.');
+  }
+
+  // Default error
+  throw new Error(data?.error || data?.message || `Server error (${status})`);
+}
 
                 return data;
             } catch (error) {

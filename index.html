@@ -2154,6 +2154,19 @@
         window.addEventListener("load", highlightQuickstart);
     }
 })();
+
+        
+window.addEventListener("load", function () {
+  const hint = document.getElementById("extension-arrow-hint");
+  if (!hint) return;
+
+  setTimeout(() => {
+    hint.style.transition = "opacity 0.6s ease";
+    hint.style.opacity = "0";
+    setTimeout(() => hint.remove(), 600);
+  }, 6000);
+});
+
 </script>
 <script src="js/app-core.js"></script>
 <script src="js/auth-modal.js"></script>

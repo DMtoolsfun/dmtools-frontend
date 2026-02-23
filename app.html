@@ -971,6 +971,9 @@ to {
 <!-- end paywall modal -->
           <!--end paywall modal-->
 
+  <script src="js/app-core.js"></script>
+<script src="js/auth-modal.js"></script>
+
     <script>
         // ===== GLOBAL CONFIGURATION =====
         const API_BASE = 'https://dmtools-backend-production.up.railway.app/api';
@@ -1776,8 +1779,7 @@ document.addEventListener('DOMContentLoaded', function() {
     
     console.log('✅ DMTools app initialized successfully');
 });
-</script>
-    <script>
+
 // Header PWA Install Button
 let deferredPrompt;
 const headerInstallBtn = document.getElementById('pwa-install-header-btn');
@@ -1812,8 +1814,7 @@ window.addEventListener('appinstalled', () => {
         headerInstallBtn.style.display = 'none';
     }
 });
-</script>
-<script>
+
 // ========================================
 // PWA INSTALL FUNCTIONALITY - ERROR-SAFE
 // ========================================
@@ -2145,8 +2146,7 @@ if ('serviceWorker' in navigator) {
     console.warn('⚠️ Service Workers are not supported in this browser');
 }
 </script>
-<script src="js/app-core.js"></script>
-<script src="js/auth-modal.js"></script>
+
 </body>
 </html>
 

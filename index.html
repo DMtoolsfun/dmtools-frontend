@@ -1034,7 +1034,7 @@
 </main>
 
 <!-- Extension Tutorial Section -->
-<section class="tutorial-section" aria-labelledby="tutorial-title">
+<section id="quickstart" class="tutorial-section" aria-labelledby="tutorial-title">
     <div class="container">
         <div class="tutorial-card card">
             <h2 id="tutorial-title" class="section-title">Try the Extension in 10 Seconds</h2>
@@ -2024,6 +2024,32 @@
         // Initial calculation
         updateROICalculator();
     });
+
+        
+(function () {
+    function highlightQuickstart() {
+        const el = document.getElementById("quickstart");
+        if (!el) return;
+
+        // Smooth scroll into view
+        el.scrollIntoView({ behavior: "smooth", block: "start" });
+
+        // Temporary highlight effect
+        el.style.transition = "box-shadow 0.4s ease, transform 0.4s ease";
+        el.style.boxShadow = "0 0 0 4px rgba(138, 92, 246, 0.6)";
+        el.style.transform = "scale(1.01)";
+
+        setTimeout(() => {
+            el.style.boxShadow = "none";
+            el.style.transform = "scale(1)";
+        }, 1600);
+    }
+
+    // If page loads with #quickstart
+    if (window.location.hash === "#quickstart") {
+        window.addEventListener("load", highlightQuickstart);
+    }
+})();
 </script>
 <script src="js/app-core.js"></script>
 <script src="js/auth-modal.js"></script>

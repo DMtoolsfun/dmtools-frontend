@@ -1425,7 +1425,10 @@ function hidePaywall() {
     modal.setAttribute('aria-hidden', 'true');
   }
 }
-
+      
+window.showPaywall = showPaywall;
+window.hidePaywall = hidePaywall;
+      
 // Close paywall when clicking outside the modal content
 document.getElementById('paywall-modal')?.addEventListener('click', function (e) {
   if (e.target === this) hidePaywall();

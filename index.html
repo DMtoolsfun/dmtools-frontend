@@ -961,36 +961,69 @@
   pointer-events: none;
 }
 
-.arrow-text {
-  font-size: 14px;
-  font-weight: 700;
-  margin-bottom: 6px;
-  background: rgba(138, 92, 246, 0.9);
-  padding: 6px 10px;
-  border-radius: 10px;
-  color: white;
-  white-space: nowrap;
-  animation: pulseText 2s infinite ease-in-out;
+.ext-hint {
+  position: fixed;
+  top: 10px;
+  right: 46px; /* tweak this if needed */
+  z-index: 9999;
+  pointer-events: none;
+  display: none; /* only show via JS */
 }
 
-.arrow-up {
+.ext-hint-bubble {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-weight: 800;
+  font-size: 14px;
+  color: #fff;
+  padding: 8px 12px;
+  border-radius: 999px;
+  background: rgba(138, 92, 246, 0.92);
+  border: 1px solid rgba(255,255,255,0.18);
+  box-shadow: 0 10px 26px rgba(0,0,0,0.25);
+  transform-origin: right center;
+  animation: extHintPop 1.6s ease-in-out infinite;
+}
+
+.ext-hint-emoji {
+  font-size: 16px;
+}
+
+.ext-hint-arrow {
+  position: relative;
   width: 0;
   height: 0;
-  margin: 0 auto;
+  margin: 6px auto 0;
   border-left: 10px solid transparent;
   border-right: 10px solid transparent;
-  border-bottom: 16px solid rgba(138, 92, 246, 0.95);
-  animation: bounceArrow 1.5s infinite ease-in-out;
+  border-bottom: 18px solid rgba(138, 92, 246, 0.95);
+  filter: drop-shadow(0 8px 14px rgba(0,0,0,0.25));
+  animation: extHintWiggle 1.2s ease-in-out infinite;
 }
 
-@keyframes bounceArrow {
-  0%, 100% { transform: translateY(0); }
-  50% { transform: translateY(-8px); }
+.ext-hint-sparkle {
+  position: absolute;
+  top: -18px;
+  left: -6px;
+  font-size: 14px;
+  opacity: 0.9;
+  animation: extHintSparkle 1.1s ease-in-out infinite;
 }
 
-@keyframes pulseText {
-  0%, 100% { opacity: 1; }
-  50% { opacity: 0.7; }
+@keyframes extHintPop {
+  0%, 100% { transform: scale(1) rotate(0deg); }
+  50% { transform: scale(1.03) rotate(-1deg); }
+}
+
+@keyframes extHintWiggle {
+  0%, 100% { transform: translateY(0) rotate(0deg); }
+  50% { transform: translateY(-8px) rotate(-6deg); }
+}
+
+@keyframes extHintSparkle {
+  0%, 100% { transform: translateY(0); opacity: 0.9; }
+  50% { transform: translateY(-6px); opacity: 0.6; }
 }
 
 /* Responsive */
@@ -1116,9 +1149,14 @@
   </div>
 </main>
 
-    <div class="extension-arrow-hint" id="extension-arrow-hint">
-  <div class="arrow-text">Click the puzzle piece to open DMTools</div>
-  <div class="arrow-up"></div>
+  <div id="ext-hint" class="ext-hint" aria-hidden="true">
+  <div class="ext-hint-bubble">
+    <span class="ext-hint-emoji">🧩</span>
+    Click the puzzle piece to open DMTools
+  </div>
+  <div class="ext-hint-arrow">
+    <div class="ext-hint-sparkle">✨</div>
+  </div>
 </div>
 
 <!-- Extension Tutorial Section -->
@@ -2156,16 +2194,37 @@
 })();
 
         
-window.addEventListener("load", function () {
-  const hint = document.getElementById("extension-arrow-hint");
-  if (!hint) return;
 
-  setTimeout(() => {
-    hint.style.transition = "opacity 0.6s ease";
+(function () {
+  function showExtHint() {
+    const hint = document.getElementById("ext-hint");
+    if (!hint) return;
+
+    hint.style.display = "block";
     hint.style.opacity = "0";
-    setTimeout(() => hint.remove(), 600);
-  }, 6000);
-});
+    hint.style.transition = "opacity 250ms ease";
+
+    // fade in
+    requestAnimationFrame(() => {
+      hint.style.opacity = "1";
+      hint.setAttribute("aria-hidden", "false");
+    });
+
+    // auto-hide after 7s
+    setTimeout(() => {
+      hint.style.opacity = "0";
+      hint.setAttribute("aria-hidden", "true");
+      setTimeout(() => { hint.style.display = "none"; }, 300);
+    }, 7000);
+  }
+
+  window.addEventListener("load", () => {
+    if (window.location.hash === "#quickstart") {
+      showExtHint();
+    }
+  });
+})();
+
 
 </script>
 <script src="js/app-core.js"></script>

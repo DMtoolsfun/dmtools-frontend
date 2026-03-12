@@ -463,8 +463,8 @@
     
     <!-- HERO SECTION -->
     <section class="hero">
-        <h1 class="hero-title">💎 Choose Your Plan</h1>
-        <p class="hero-subtitle">batch processing + monthly extension responses</p>
+        <h1 class="hero-title">Choose the plan that fits how you reply</h1>
+        <p class="hero-subtitle">Subscriptions are best for daily use. Response packs are best if you want flexibility without a monthly commitment.</p>
        <div class="toggle-view">
   <button class="toggle-btn active" type="button" id="btnShowSubs" onclick="showPricingView('subs')">
     Monthly Subscriptions
@@ -486,17 +486,17 @@
         <div class="price-card">
             <div class="plan-name">Starter</div>
             <div class="plan-price">$19</div>
-            <div class="plan-description">Perfect for getting started with DMTools</div>
+            <div class="plan-description">Best if you want a low monthly cost and a simple way to stay consistent.</div>
             
             <ul class="features-list">
-                <li>free 500 response pack monthly</li>
-                <li>tone and context settings</li>
+                <li>500 responses included every month</li>
+                <li>Tone and context controls</li>
                 <li>5 custom templates</li>
+                <li>Good fit for lighter weekly usage</li>
             </ul>
             
             <button class="btn btn-primary" onclick="handleSubscriptionPurchase('starter', 'monthly')">
-                Choose
-                Starter
+                Choose Starter
             </button>
         </div>
         
@@ -505,15 +505,14 @@
             <div class="badge">⭐ Most Popular</div>
             <div class="plan-name">Pro</div>
             <div class="plan-price">$59<span>/month</span></div>
-            <div class="plan-description">7-day free trial</div>
+            <div class="plan-description">Best for most users who want DMTools in their workflow every day.</div>
             
             <ul class="features-list">
-                <li>free 2,000 response pack monthly</li>
-                <li>tone and context settings</li>
-                <li>monthly or annual (25% 0ff for picking the annual plan</li>
-                <li>20 custom user preset templates</li>
+                <li>2,000 responses included every month</li>
+                <li>Tone and context controls</li>
+                <li>20 custom templates</li>
                 <li>7-day free trial</li>
-                
+                <li>Annual option available with 25% off</li>
             </ul>
             
             <button class="btn btn-primary" onclick="handleSubscriptionPurchase('pro', 'monthly')">
@@ -525,14 +524,14 @@
         <div class="price-card">
             <div class="plan-name">Business</div>
             <div class="plan-price">$149<span>/month</span></div>
-            <div class="plan-description">7-day Free Trial</div>
+            <div class="plan-description">Best for high-volume users, teams, and heavy daily messaging.</div>
             
             <ul class="features-list">
-                <li>free 8,000 response pack monthly</li>
-                <li>tone and context settings</li>
-                <li>monthly or annual (25% 0ff for picking the annual plan</li>
+                <li>8,000 responses included every month</li>
+                <li>Tone and context controls</li>
                 <li>200 custom templates</li>
-                <li>7-day Free Trial</li>
+                <li>7-day free trial</li>
+                <li>Annual option available with 25% off</li>
            
             </ul>
             
@@ -559,12 +558,13 @@
   <div class="price-card">
     <div class="plan-name">Starter Pack</div>
     <div class="plan-price">$9.99</div>
-    <div class="plan-description">Perfect for light usage and trying packs</div>
+    <div class="plan-description">Best if you want to pay once and use responses as needed.</div>
 
     <ul class="features-list">
       <li>500 responses</li>
-      <li>Responses roll over</li>
+      <li>Responses roll over until used</li>
       <li>Expires 6 months after activation</li>
+      <li>Good for light or occasional use</li>
     </ul>
 
     <button class="btn btn-primary" onclick="handlePackPurchase('starter')">
@@ -577,12 +577,13 @@
     <div class="badge">⭐ Best Value</div>
     <div class="plan-name">Pro Pack</div>
     <div class="plan-price">$16.99</div>
-    <div class="plan-description">Most popular pack size</div>
+    <div class="plan-description">Best if you want flexibility without a subscription and enough volume to use DMTools regularly.</div>
 
     <ul class="features-list">
       <li>2,000 responses</li>
-      <li>Responses roll over</li>
+      <li>Responses roll over until used</li>
       <li>Expires 6 months after activation</li>
+      <li>Best value for non-subscription use</li>
     </ul>
 
     <button class="btn btn-primary" onclick="handlePackPurchase('pro')">
@@ -594,12 +595,13 @@
   <div class="price-card">
     <div class="plan-name">Business Pack</div>
     <div class="plan-price">$34.99</div>
-    <div class="plan-description">High volume packs for power users</div>
+    <div class="plan-description">Best if you want a large one-time response balance without monthly billing.</div>
 
     <ul class="features-list">
       <li>8,000 responses</li>
-      <li>Responses roll over</li>
+      <li>Responses roll over until used</li>
       <li>Expires 6 months after activation</li>
+      <li>Built for heavy usage without a subscription</li>
     </ul>
 
     <button class="btn btn-primary" onclick="handlePackPurchase('business')">
@@ -867,9 +869,9 @@ function renderSubscriptionCards() {
   if (!container) return;
 
   const details = {
-    starter: { description: 'Perfect for getting started with DMTools' },
-    pro: { description: '7-day free trial', badge: '⭐ Most Popular', featured: true },
-    business: { description: '7-day Free Trial' },
+    starter: { description: 'Best if you want a low monthly cost and a simple way to stay consistent.' },
+    pro: { description: 'Best for most users who want DMTools in their workflow every day.', badge: '⭐ Most Popular', featured: true },
+    business: { description: 'Best for high-volume users, teams, and heavy daily messaging.' },
     enterprise: { description: 'For power users and large teams', badge: '🚀 Unlimited' }
   };
 
@@ -905,9 +907,9 @@ function renderPackCards() {
   if (!container) return;
 
   const details = {
-    starter: { description: 'Perfect for light usage and trying packs', cta: 'Buy Starter Pack' },
-    pro: { description: 'Most popular pack size', cta: 'Buy Pro Pack', badge: '⭐ Best Value', featured: true },
-    business: { description: 'High volume packs for power users', cta: 'Buy Business Pack' },
+    starter: { description: 'Best if you want to pay once and use responses as needed.', cta: 'Buy Starter Pack' },
+    pro: { description: 'Best if you want flexibility without a subscription and enough volume to use DMTools regularly.', cta: 'Buy Pro Pack', badge: '⭐ Best Value', featured: true },
+    business: { description: 'Best if you want a large one-time response balance without monthly billing.', cta: 'Buy Business Pack' },
     founder: { description: 'Founders special price for early adopters', cta: 'Buy First Users Pack', badge: '🔥 Founder Special', extraClass: ' founder' }
   };
 

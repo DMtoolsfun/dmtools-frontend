@@ -464,7 +464,7 @@
     <!-- HERO SECTION -->
     <section class="hero">
         <h1 class="hero-title">Choose the plan that fits how you reply</h1>
-        <p class="hero-subtitle">Subscriptions are best for daily use. Response packs are best if you want flexibility without a monthly commitment.</p>
+        <p class="hero-subtitle">Subscriptions are best for ongoing use. Packs are best if you want flexibility without monthly billing.</p>
        <div class="toggle-view">
   <button class="toggle-btn active" type="button" id="btnShowSubs" onclick="showPricingView('subs')">
     Monthly Subscriptions
@@ -496,7 +496,7 @@
             </ul>
             
             <button class="btn btn-primary" onclick="handleSubscriptionPurchase('starter', 'monthly')">
-                Choose Starter
+                Start with Starter
             </button>
         </div>
         
@@ -516,7 +516,7 @@
             </ul>
             
             <button class="btn btn-primary" onclick="handleSubscriptionPurchase('pro', 'monthly')">
-                Choose Pro
+                Start Pro free
             </button>
         </div>
         
@@ -536,7 +536,7 @@
             </ul>
             
             <button class="btn btn-primary" onclick="handleSubscriptionPurchase('business', 'monthly')">
-                Choose Business
+                Start Business free
             </button>
         </div>
         
@@ -869,9 +869,9 @@ function renderSubscriptionCards() {
   if (!container) return;
 
   const details = {
-    starter: { description: 'Best if you want a low monthly cost and a simple way to stay consistent.' },
-    pro: { description: 'Best for most users who want DMTools in their workflow every day.', badge: '⭐ Most Popular', featured: true },
-    business: { description: 'Best for high-volume users, teams, and heavy daily messaging.' },
+    starter: { description: 'Best if you want a low monthly cost and a simple way to stay consistent.', cta: 'Start with Starter' },
+    pro: { description: 'Best for most users who want DMTools in their workflow every day.', cta: 'Start Pro free', badge: '⭐ Most Popular', featured: true },
+    business: { description: 'Best for high-volume users, teams, and heavy daily messaging.', cta: 'Start Business free' },
     enterprise: { description: 'For power users and large teams', badge: '🚀 Unlimited' }
   };
 
@@ -892,7 +892,7 @@ function renderSubscriptionCards() {
           <div class="plan-description">${escapeHtml(meta.description || '')}</div>
           <ul class="features-list">${featureList}</ul>
           <button class="btn btn-primary" onclick="handleSubscriptionPurchase('${escapeHtml(item.baseKey)}', '${escapeHtml(item.billingInterval)}')">
-            Choose ${escapeHtml(item.displayName)}
+            ${escapeHtml(meta.cta || `Choose ${item.displayName}`)}
           </button>
         </div>
       `;

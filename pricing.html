@@ -1,1382 +1,1273 @@
-    <!DOCTYPE html>
-        <html lang="en">
-    <head>
-            <meta charset="UTF-8">
-            <meta name="viewport" content="width=device-width, initial-scale=1.0">
-            <title>Pricing Plans - DMTools.fun</title>
-            <meta name="description" content="Choose the perfect plan for your messaging needs. From free to enterprise, we've got you covered.">
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>DMTools.fun Pricing - Clear plans, simple top-ups, faster replies</title>
+  <meta name="description" content="Choose a DMTools subscription for monthly reply credits and premium features, or buy one-time response packs as top-ups. Clear pricing. Clear value.">
+  <link rel="stylesheet" href="/styles.css?v=20260323a">
 
-            <!-- PWA Manifest -->
-            <link rel="manifest" href="/manifest.json">
-            <meta name="theme-color" content="#8b5cf6">
-            <meta name="mobile-web-app-capable" content="yes">
-            <meta name="apple-mobile-web-app-capable" content="yes">
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-K0G9YRD39L"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-K0G9YRD39L');
+    gtag('config', 'G-YFTZBVLQHF');
 
-            <link rel="stylesheet" href="/styles.css?v=20260212">
+    window.DMTOOLS = window.DMTOOLS || {};
+    window.DMTOOLS.track = window.DMTOOLS.track || function(eventName, params) {
+      try { gtag('event', eventName, params || {}); } catch (_) {}
+    };
+  </script>
 
-        <script>
-        (function () {
-            if (window.location.hash === "#packs") {
-            window.location.replace("/#quickstart");
-        }
-    })();
-        </script>
-        
-     <!-- Google Analytics -->
-            <script async src="https://www.googletagmanager.com/gtag/js?id=G-K0G9YRD39L"></script>
-            <script>
-                   window.dataLayer = window.dataLayer || [];
-                function gtag(){dataLayer.push(arguments);}
-                gtag('js', new Date());
-                gtag('config', 'G-K0G9YRD39L');
-      gtag('config', 'G-YFTZBVLQHF');
-            </script>
+  <script src="https://app.lemonsqueezy.com/js/lemon.js" defer></script>
 
-    <!-- Lemon Squeezy -->
-            <script src="https://assets.lemonsqueezy.com/lemon.js" defer></script>
-
-    <style>
-/* ================================
-             HERO SECTION
-             ================================ */
-          .hero {
-            text-align: center;
-            padding: 4rem 2rem 2rem;
-        }
-
-.hero-title {
-            font-size: 3rem;
-            font-weight: 800;
-            background: linear-gradient(135deg, #ffffff 0%, #e0e7ff 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            margin-bottom: 1rem;
-        }
-
-.hero-subtitle {
-            font-size: 1.25rem;
-            color: var(--text-primary);
-            margin-bottom: 2rem;
-        }
-
-.toggle-view {
-            display: inline-flex;
-            gap: 1rem;
-            background: var(--darker);
-            padding: 0.5rem;
-            border-radius: 12px;
-            margin-bottom: 3rem;
-        }
-
-.toggle-btn {
-            padding: 0.75rem 1.5rem;
-            border: none;
-            border-radius: 8px;
-            background: transparent;
-            color: var(--text-secondary);
-            cursor: pointer;
-            font-weight: 600;
-            transition: all 0.3s ease;
-            text-decoration: none;
-        }
-
-.toggle-btn.active {
-            background: var(--primary);
-            color: white;
-        }
-
-/* END HERO SECTION */
-
-
-          /* ================================
-             PRICING CARDS
-             ================================ */
-         
-           .pricing-grid {
-             display: grid;
-             grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-             gap: 2rem;
-             max-width: 1200px;
-             margin: 0 auto;
-             padding: 2rem;
-          }
-
-.badge {
-            position: absolute;
-            top: -12px;
-            left: 50%;
-            transform: translateX(-50%);
-            background: var(--primary);
-            color: white;
-            padding: 0.25rem 1rem;
-            border-radius: 20px;
-            font-size: 0.875rem;
-            font-weight: 700;
-          }
-
-.plan-name {
-            font-size: 1.5rem;
-            font-weight: 700;
-            color: var(--text);
-            margin-bottom: 0.5rem;
-          }
-
-.plan-price {
-            font-size: 3rem;
-            font-weight: 800;
-            color: var(--primary);
-            margin: 1rem 0;
-          }
-
-.plan-price span {
-            font-size: 1rem;
-            color: var(--text-secondary);
-            font-weight: 400;
-          }
-
-.plan-description {
-            color: var(--text-secondary);
-            margin-bottom: 2rem;
-            min-height: 3rem;
-          }
-
-.features-list {
-            list-style: none;
-            margin: 1.5rem 0;
-
-            /* ✅ Gives the list room so CTA can anchor at bottom */
-            flex: 1;
-          }
-
-.features-list li {
-            padding: 0.75rem 0;
-            color: var(--text);
-            display: flex;
-            align-items: center;
-            gap: 0.25rem;
-          }
-
-.features-list li::before {
-            content: '✓';
-            color: var(--secondary);
-            font-weight: bold;
-            font-size: 1.25rem;
-          }
-
-
-        }
-
-/* ================================
-             CTA BUTTON FIX (Pricing Page)
-             - makes buttons obvious
-             - pins button to bottom of card
-             ================================ */
-          .price-card .btn {
-            margin-top: auto;       /* ✅ push CTA to bottom */
-            width: 90%;            /* ✅ full-width CTA */
-          }
-
-/* ================================
-             COMPARISON TABLE
-             ================================ */
-          .comparison-section {
-            max-width: 1200px;
-            margin: 4rem auto;
-            padding: 2rem;
-          }
-
-.section-title {
-            text-align: center;
-            font-size: 2rem;
-            font-weight: 700;
-            color: var(--text);
-            margin-bottom: 2rem;
-          }
-
-.comparison-table {
-            background: var(--darker);
-            border: 2px solid var(--border);
-            border-radius: 16px;
-            overflow: hidden;
-          }
-
-.comparison-table table {
-            width: 100%;
-            border-collapse: collapse;
-          }
-
-.comparison-table th,
-          .comparison-table td {
-            padding: 1rem;
-            text-align: left;
-            border-bottom: 1px solid var(--border);
-          }
-
-.comparison-table th {
-            background: var(--dark);
-            color: var(--primary);
-            font-weight: 600;
-          }
-
-.comparison-table td {
-            color: var(--text);
-          }
-
-.checkmark {
-            color: var(--secondary);
-            font-weight: bold;
-          }
-
-/* END COMPARISON TABLE */
-
-        /* pricing.css — include only on pricing pages or import as a component stylesheet */
-
-/* ============================
-   Decision Explainer
-   ============================ */
-    .pricing-explainer {
-      padding: var(--spacing-lg) 0 var(--spacing-md);
+  <style>
+    .pricing-hero {
+      padding: 4.25rem 0 2rem;
     }
 
-    .pricing-explainer__inner {
-      border-radius: var(--radius-lg);
-      padding: var(--spacing-xl);
-      position: relative;
+    .pricing-hero__wrap {
+      display: grid;
+      grid-template-columns: minmax(0, 1.15fr) minmax(320px, 0.85fr);
+      gap: 1.5rem;
+      align-items: stretch;
     }
 
-    .pricing-explainer__top {
+    .pricing-hero__copy,
+    .pricing-hero__panel,
+    .pricing-panel,
+    .pricing-card,
+    .pricing-faq,
+    .pricing-clarity,
+    .pricing-status {
+      background: var(--bg-card);
+      border: 1px solid var(--border-medium);
+      border-radius: 22px;
+      box-shadow: var(--shadow-md);
+      backdrop-filter: blur(16px);
+    }
+
+    .pricing-hero__copy {
+      padding: 2rem;
+    }
+
+    .pricing-hero__copy .lead {
+      max-width: 720px;
+      color: var(--text-secondary);
+    }
+
+    .pricing-hero__actions {
       display: flex;
-      align-items: flex-start;
-      justify-content: space-between;
-      gap: var(--spacing-xl);
-      margin-bottom: var(--spacing-xl);
+      gap: 0.85rem;
+      flex-wrap: wrap;
+      margin-top: 1.35rem;
     }
 
-    .pricing-explainer__title {
-      margin: 0 0 var(--spacing-sm);
-      font-size: 1.8rem;
+    .pricing-hero__proof {
+      margin-top: 1.5rem;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.75rem;
+    }
+
+    .pricing-hero__proof span,
+    .pricing-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      padding: 0.5rem 0.8rem;
+      border-radius: var(--radius-full);
+      border: 1px solid rgba(124, 152, 205, 0.18);
+      background: rgba(16, 28, 47, 0.72);
+      color: var(--text-secondary);
+      font-size: 0.92rem;
+    }
+
+    .pricing-hero__panel {
+      padding: 1.4rem;
+      display: grid;
+      gap: 1rem;
+    }
+
+    .pricing-panel {
+      padding: 1.1rem 1.2rem;
+      background: linear-gradient(135deg, rgba(79, 124, 255, 0.12), rgba(24, 183, 160, 0.10));
+    }
+
+    .pricing-panel h3 {
+      font-size: 1.08rem;
+      margin-bottom: 0.45rem;
+    }
+
+    .pricing-panel p {
+      margin: 0;
+      color: var(--text-secondary);
+    }
+
+    .pricing-status {
+      margin-top: 1rem;
+      padding: 1rem 1.2rem;
+    }
+
+    .pricing-status__grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 0.8rem;
+      margin-top: 0.8rem;
+    }
+
+    .pricing-status__item {
+      padding: 0.9rem;
+      border-radius: 16px;
+      background: rgba(13, 23, 38, 0.92);
+      border: 1px solid rgba(108, 135, 184, 0.14);
+    }
+
+    .pricing-status__label {
+      font-size: 0.82rem;
+      color: var(--text-muted);
+      margin-bottom: 0.25rem;
+    }
+
+    .pricing-status__value {
+      color: var(--text-primary);
+      font-weight: 750;
+      font-size: 1.02rem;
+    }
+
+    .pricing-controls {
+      padding: 0.5rem 0 1rem;
+    }
+
+    .pricing-switches {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .segmented {
+      display: inline-flex;
+      padding: 0.3rem;
+      border-radius: 999px;
+      background: rgba(12, 22, 36, 0.92);
+      border: 1px solid var(--border-medium);
+      gap: 0.25rem;
+    }
+
+    .segmented button {
+      appearance: none;
+      border: 0;
+      border-radius: 999px;
+      padding: 0.72rem 1rem;
+      background: transparent;
+      color: var(--text-secondary);
+      font-weight: 700;
+      min-width: 124px;
+      transition: background var(--transition-fast), color var(--transition-fast), transform var(--transition-fast);
+    }
+
+    .segmented button.active {
+      background: var(--gradient-primary-dark);
+      color: #fff;
+      box-shadow: var(--shadow-primary);
+    }
+
+    .segmented button:not(.active):hover {
+      background: rgba(79, 124, 255, 0.10);
+      color: var(--text-primary);
+    }
+
+    .billing-notice {
+      color: var(--text-muted);
+      font-size: 0.95rem;
+    }
+
+    .pricing-section {
+      padding: 1rem 0 2.4rem;
+    }
+
+    .pricing-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 1rem;
+      margin-top: 1.35rem;
+    }
+
+    .pricing-grid.pricing-grid--subscriptions {
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+    }
+
+    .pricing-card {
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      padding: 1.35rem;
+      overflow: hidden;
+    }
+
+    .pricing-card.featured {
+      border-color: rgba(79, 124, 255, 0.46);
+      box-shadow: var(--shadow-primary-lg);
+      transform: translateY(-4px);
+    }
+
+    .pricing-card__badge {
+      position: absolute;
+      top: 1rem;
+      right: 1rem;
+      padding: 0.35rem 0.6rem;
+      border-radius: 999px;
+      background: rgba(79, 124, 255, 0.18);
+      border: 1px solid rgba(79, 124, 255, 0.3);
+      color: var(--primary-light);
+      font-size: 0.76rem;
+      font-weight: 800;
+      letter-spacing: 0.03em;
+      text-transform: uppercase;
+    }
+
+    .pricing-card__name {
+      font-size: 1.1rem;
+      font-weight: 800;
+      color: var(--text-primary);
+      margin: 0 0 0.4rem;
+      padding-right: 6rem;
+    }
+
+    .pricing-card__sub {
+      color: var(--text-muted);
+      font-size: 0.95rem;
+      min-height: 2.8rem;
+      margin: 0 0 1rem;
+    }
+
+    .pricing-card__price {
+      display: flex;
+      align-items: flex-end;
+      gap: 0.2rem;
+      margin-bottom: 0.8rem;
+      color: var(--text-primary);
+    }
+
+    .pricing-card__price .amount {
+      font-size: clamp(2rem, 4vw, 2.5rem);
+      font-weight: 850;
+      line-height: 1;
+    }
+
+    .pricing-card__price .suffix {
+      color: var(--text-muted);
+      font-weight: 650;
+      padding-bottom: 0.2rem;
+    }
+
+    .pricing-card__meta {
+      display: grid;
+      gap: 0.45rem;
+      padding: 0.9rem 0;
+      margin: 0.2rem 0 0.8rem;
+      border-top: 1px solid rgba(108, 135, 184, 0.14);
+      border-bottom: 1px solid rgba(108, 135, 184, 0.14);
+    }
+
+    .pricing-card__meta div {
+      display: flex;
+      justify-content: space-between;
+      gap: 1rem;
+      color: var(--text-secondary);
+      font-size: 0.95rem;
+    }
+
+    .pricing-card__meta div span:last-child {
+      color: var(--text-primary);
+      font-weight: 750;
+    }
+
+    .pricing-card__features {
+      list-style: none;
+      padding: 0;
+      margin: 0 0 1rem;
+      display: grid;
+      gap: 0.6rem;
+      color: var(--text-secondary);
+      flex: 1 1 auto;
+    }
+
+    .pricing-card__features li {
+      display: grid;
+      grid-template-columns: 1.1rem 1fr;
+      gap: 0.55rem;
+      align-items: start;
+    }
+
+    .pricing-card__features li::before {
+      content: "✓";
+      color: var(--accent-light);
       font-weight: 900;
     }
 
-    .pricing-explainer__subtitle {
-      margin: 0;
-      color: var(--text-muted);
-      max-width: 820px;
-      line-height: 1.5;
+    .pricing-card__actions {
+      display: grid;
+      gap: 0.7rem;
     }
 
-    .pricing-explainer__badge {
-      border: 1px solid var(--border-medium);
-      background: rgba(15, 23, 42, 0.35);
-      border-radius: var(--radius-lg);
-      padding: var(--spacing-md) var(--spacing-lg);
-      min-width: 170px;
+    .pricing-card__hint {
+      color: var(--text-muted);
+      font-size: 0.84rem;
       text-align: center;
     }
 
-    .pricing-explainer__badge-title {
-      color: var(--text-primary);
-      font-weight: 800;
-      margin-bottom: 1.5px;
-    }
-
-    .pricing-explainer__badge-text {
-      color: var(--text-muted);
-      font-size: 0.7rem;
-    }
-
-    .pricing-explainer__grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: var(--spacing-lg);
-    }
-
-    .pricing-explainer__col {
+    .pricing-empty,
+    .pricing-feedback {
+      margin-top: 1rem;
+      padding: 1rem 1.1rem;
+      border-radius: 16px;
       border: 1px solid var(--border-medium);
-      background: rgba(30, 41, 59, 0.55);
-      border-radius: var(--radius-xl);
-      padding: var(--spacing-xl);
-      display: flex;
-      flex-direction: column;
-      min-height: 100%;
-    }
-    
-    .pricing-explainer__col--highlight {
-      border-color: rgba(139, 92, 246, 0.6);
-      box-shadow: 0 0 0 1px rgba(139, 92, 246, 0.2), var(--shadow-md);
+      background: rgba(10, 20, 34, 0.92);
+      color: var(--text-secondary);
     }
 
-    .pricing-explainer__col-head {
-      margin-bottom: var(--spacing-lg);
+    .pricing-feedback.is-error {
+      border-color: rgba(239, 68, 68, 0.36);
+      background: rgba(49, 18, 23, 0.34);
+      color: #ffd6dc;
     }
 
-    .pricing-explainer__col-kicker {
-      color: var(--primary-light);
-      font-weight: 800;
-      font-size: 0.85rem;
-      text-transform: uppercase;
-      letter-spacing: 0.6px;
-      margin-bottom: var(--spacing-sm);
+    .pricing-feedback.is-success {
+      border-color: rgba(34, 197, 94, 0.32);
+      background: rgba(9, 38, 24, 0.34);
+      color: #d8ffe8;
     }
 
-    .pricing-explainer__col-title {
-      margin: 0 0 var(--spacing-sm);
-      font-size: 1.0rem;
-      font-weight: 900;
-    }
-
-    .pricing-explainer__col-desc {
-      margin: 0;
-      color: var(--text-muted);
-    }
-
-    .pricing-explainer__list {
-      list-style: none;
-      padding: 0;
-      margin: 0;
+    .pricing-clarity-grid,
+    .pricing-faq-grid {
       display: grid;
-      gap: 10px;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 1rem;
     }
 
-    .pricing-explainer__check {
-      display: inline-flex;
-      width: 20px;
-      height: 20px;
-      border-radius: 999px;
-      align-items: center;
-      justify-content: center;
-      margin-right: 10px;
-      font-weight: 900;
-      color: var(--success);
-      background: rgba(34, 197, 94, 0.12);
-      border: 1px solid rgba(34, 197, 94, 0.35);
+    .pricing-clarity,
+    .pricing-faq {
+      padding: 1.25rem;
     }
 
-    .pricing-explainer__cta {
-      margin-top: var(--spacing-lg);
-      display: flex;
-      flex-direction: column;
-      gap: var(--spacing-md);
+    .pricing-clarity h3,
+    .pricing-faq h3 {
+      font-size: 1.05rem;
+      margin-bottom: 0.4rem;
     }
 
-    .pricing-explainer__footer {
-      margin-top: var(--spacing-lg);
-      padding-top: var(--spacing-lg);
-      border-top: 1px solid var(--border-medium);
-      display: flex;
-      flex-wrap: wrap;
-      align-items: center;
-      justify-content: space-between;
-      gap: var(--spacing-md);
-     }
-
-    .pricing-explainer__note {
+    .pricing-clarity p,
+    .pricing-faq p {
+      margin: 0;
       color: var(--text-secondary);
     }
 
-    /* fixed this — originally broken */
-    .pricing-explainer__micro {
-      font-size: 0.7rem;
-      color: var(--text-secondary);
+    .small-note {
+      color: var(--text-muted);
+      font-size: 0.88rem;
     }
 
-    @media (max-width: 900px) {
-      .pricing-explainer__top {
-        flex-direction: column;
-  }
-      .pricing-explainer__grid {
+    @media (max-width: 1100px) {
+      .pricing-hero__wrap,
+      .pricing-grid.pricing-grid--subscriptions,
+      .pricing-grid,
+      .pricing-status__grid,
+      .pricing-clarity-grid,
+      .pricing-faq-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+    }
+
+    @media (max-width: 780px) {
+      .pricing-hero__wrap,
+      .pricing-grid.pricing-grid--subscriptions,
+      .pricing-grid,
+      .pricing-status__grid,
+      .pricing-clarity-grid,
+      .pricing-faq-grid {
         grid-template-columns: 1fr;
       }
+
+      .pricing-switches {
+        align-items: stretch;
+      }
+
+      .segmented {
+        width: 100%;
+        justify-content: stretch;
+      }
+
+      .segmented button {
+        flex: 1 1 0;
+        min-width: 0;
+      }
+
+      .pricing-hero__actions {
+        flex-direction: column;
+        align-items: stretch;
+      }
+
+      .pricing-card__name {
+        padding-right: 0;
+      }
+
+      .pricing-card__badge {
+        position: static;
+        display: inline-flex;
+        width: fit-content;
+        margin-bottom: 0.75rem;
+      }
     }
-
-
-          /* ================================
-             CTA SECTION
-             ================================ */
-          .cta-section {
-            text-align: center;
-            padding: 4rem 2rem;
-            max-width: 700px;
-            margin: 0 auto;
-          }
-
-.cta-card {
-            background: var(--darker);
-            border: 2px solid var(--primary);
-            border-radius: 16px;
-            padding: 3rem;
-          }
-
-.cta-title {
-            font-size: 2rem;
-            font-weight: 700;
-            color: var(--text);
-            margin-bottom: 1rem;
-          }
-
-.cta-text {
-            color: var(--text-secondary);
-            margin-bottom: 2rem;
-            font-size: 1rem;
-          }
-
-.cta-link {
-            display: inline-block;
-            padding: 1rem 2rem;
-            background: transparent;
-            border: 2px solid var(--primary);
-            border-radius: 8px;
-            color: var(--primary);
-            text-decoration: none;
-            font-weight: 600;
-            transition: all 0.3s ease;
-          }
-
-.cta-link:hover {
-            background: var(--primary);
-            color: white;
-          }
-
-/* END CTA SECTION */
-</style>
-
+  </style>
 </head>
 <body>
-<!-- Header -->
-<header class="header">
+  <header class="header">
     <div class="nav-container">
-        <a href="/" class="logo">DMTools.fun</a>
-        <div class="auth-buttons" id="authButtons">
-            <button class="mobile-menu-btn" onclick="toggleMobileMenu()" aria-label="Menu">☰</button>
-            <a href="#" data-auth="login" class="btn btn-secondary">Sign In</a>
-            <a href="#" data-auth="register" class="btn btn-primary">Sign Up</a>
-        </div>
-    </div>
-    
-    <nav class="mobile-nav" id="mobileNav">
-        <a href="/app.html" class="tab-btn">Generator</a>
-        <a href="/presets.html" class="tab-btn">Templates</a>
-        <a href="/packs.html" class="tab-btn">Response Packs</a>
-        <a href="/pricing.html" class="tab-btn">Pricing</a>
-</nav>
-</header>
-    
-    <!-- HERO SECTION -->
-    <section class="hero">
-        <h1 class="hero-title">Choose the plan that fits how you reply</h1>
-        <p class="hero-subtitle">Subscriptions are best for ongoing use. Packs are best if you want flexibility without monthly billing.</p>
-       <div class="toggle-view">
-  <button class="toggle-btn active" type="button" id="btnShowSubs" onclick="showPricingView('subs')">
-    Monthly Subscriptions
-  </button>
-  <button class="toggle-btn" type="button" id="btnShowPacks" onclick="showPricingView('packs')">
-    Response Packs →
-  </button>
-</div>
-   </section>
-        
-
-    <!-- END HERO SECTION -->
-    
-    <!-- PRICING CARDS -->
-   <section class="pricing-grid" id="subsSection">
-
-        
-        <!-- Starter Plan -->
-        <div class="price-card">
-            <div class="plan-name">Starter</div>
-            <div class="plan-price">$19</div>
-            <div class="plan-description">Best if you want a low monthly cost and a simple way to stay consistent.</div>
-            
-            <ul class="features-list">
-                <li>500 responses included every month</li>
-                <li>Tone and context controls</li>
-                <li>5 custom templates</li>
-                <li>Good fit for lighter weekly usage</li>
-            </ul>
-            
-            <button class="btn btn-primary" onclick="handleSubscriptionPurchase('starter', 'monthly')">
-                Start with Starter
-            </button>
-        </div>
-        
-        <!-- Pro Plan -->
-        <div class="price-card featured">
-            <div class="badge">⭐ Most Popular</div>
-            <div class="plan-name">Pro</div>
-            <div class="plan-price">$59<span>/month</span></div>
-            <div class="plan-description">Best for most users who want DMTools in their workflow every day.</div>
-            
-            <ul class="features-list">
-                <li>2,000 responses included every month</li>
-                <li>Tone and context controls</li>
-                <li>20 custom templates</li>
-                <li>7-day free trial</li>
-                <li>Annual option available with 25% off</li>
-            </ul>
-            
-            <button class="btn btn-primary" onclick="handleSubscriptionPurchase('pro', 'monthly')">
-                Start Pro free
-            </button>
-        </div>
-        
-        <!-- Business Plan -->
-        <div class="price-card">
-            <div class="plan-name">Business</div>
-            <div class="plan-price">$149<span>/month</span></div>
-            <div class="plan-description">Best for high-volume users, teams, and heavy daily messaging.</div>
-            
-            <ul class="features-list">
-                <li>8,000 responses included every month</li>
-                <li>Tone and context controls</li>
-                <li>200 custom templates</li>
-                <li>7-day free trial</li>
-                <li>Annual option available with 25% off</li>
-           
-            </ul>
-            
-            <button class="btn btn-primary" onclick="handleSubscriptionPurchase('business', 'monthly')">
-                Start Business free
-            </button>
-        </div>
-        
-       
-        
-    </section>
-    <!-- END PRICING CARDS -->
-
-
-        <!-- PACKS SECTION (Unified page) -->
-
-
-<section class="pricing-grid" id="packsSection" style="display:none;">
-
-
-
-    
-  <!-- Starter Pack -->
-  <div class="price-card">
-    <div class="plan-name">Starter Pack</div>
-    <div class="plan-price">$9.99</div>
-    <div class="plan-description">Best if you want to pay once and use responses as needed.</div>
-
-    <ul class="features-list">
-      <li>500 responses</li>
-      <li>Responses roll over until used</li>
-      <li>Expires 6 months after activation</li>
-      <li>Good for light or occasional use</li>
-    </ul>
-
-    <button class="btn btn-primary" onclick="handlePackPurchase('starter')">
-      Buy Starter Pack
-    </button>
-  </div>
-
-  <!-- Pro Pack -->
-  <div class="price-card featured">
-    <div class="badge">⭐ Best Value</div>
-    <div class="plan-name">Pro Pack</div>
-    <div class="plan-price">$16.99</div>
-    <div class="plan-description">Best if you want flexibility without a subscription and enough volume to use DMTools regularly.</div>
-
-    <ul class="features-list">
-      <li>2,000 responses</li>
-      <li>Responses roll over until used</li>
-      <li>Expires 6 months after activation</li>
-      <li>Best value for non-subscription use</li>
-    </ul>
-
-    <button class="btn btn-primary" onclick="handlePackPurchase('pro')">
-      Buy Pro Pack
-    </button>
-  </div>
-
-  <!-- Business Pack -->
-  <div class="price-card">
-    <div class="plan-name">Business Pack</div>
-    <div class="plan-price">$34.99</div>
-    <div class="plan-description">Best if you want a large one-time response balance without monthly billing.</div>
-
-    <ul class="features-list">
-      <li>8,000 responses</li>
-      <li>Responses roll over until used</li>
-      <li>Expires 6 months after activation</li>
-      <li>Built for heavy usage without a subscription</li>
-    </ul>
-
-    <button class="btn btn-primary" onclick="handlePackPurchase('business')">
-      Buy Business Pack
-    </button>
-  </div>
-
-      
-
-
-</section>
-    <!-- END PACKS SECTION -->
-   <!-- Footer -->
-<footer class="footer">
-    <div class="container">
-        <div class="footer-content">
-            <div class="footer-brand">
-                <h3 class="footer-logo">DMTools.fun</h3>
-                <p class="footer-description">
-                    AI-powered universal messaging response generator.
-                </p>
-            </div>
-            
-            <div class="footer-links">
-                <div class="link-group">
-                    <h4>Product</h4>
-                    <a href="/app.html">Generator</a>
-                    <a href="/presets.html">Templates</a>
-                    <a href="/pricing.html">Pricing</a>
-                    <a href="/store.html">Packs Store</a>
-                </div>
-                
-                <div class="link-group">
-                    <h4>Legal</h4>
-                    <a href="/terms-of-service.html">Terms of Service</a>
-                    <a href="/privacy-policy.html">Privacy Policy</a>
-                    <a href="/refund-policy.html">Refund Policy</a>
-                    <a href="/cookie-policy.html">Cookie Policy</a>
-                </div>
-                
-                <div class="link-group">
-                    <h4>Support</h4>
-                    <a href="/contact.html">Contact Us</a>
-                    <a href="mailto:admin@dmtools.fun">Email Support</a>
-                </div>
-            </div>
-        </div>
-        
-        <div class="footer-bottom">
-            <p class="footer-copyright">© 2025 DMTools.fun LLC. All rights reserved.</p>
-        </div>
-    </div>
-</footer>
-    <!-- END FOOTER -->
-    
-    <script>
-        // =============================================
-        // SUBSCRIPTION CHECKOUT - WORKING VERSION
-        // Updated: December 4, 2025
-        // =============================================
-
-    // Mobile menu toggle
-    function toggleMobileMenu() {
-        document.getElementById('mobileNav').classList.toggle('show');
-    }
-// ----------------------------
-// [BANNER-PRC-001] PRICING CONFIG + CHECKOUT (billing entrypoint)
-// ----------------------------
-
-        const API_BASE = 'https://dmtools-backend-production.up.railway.app/api';
-
-        // ----------------------------
-// GA4 helpers (safe wrappers)
-function gaEvent(name, params) {
-  try {
-    if (typeof gtag === 'function') gtag('event', name, params || {});
-  } catch (e) {}
-}
-
-        // ----------------------------
-// GA4: LemonSqueezy Checkout.Success => purchase
-(function initLemonGaPurchaseTracker() {
-  if (window.__dm_ls_ga_purchase_init) return;
-  window.__dm_ls_ga_purchase_init = true;
-
-  function getOrderField(order, key) {
-    if (!order) return undefined;
-    if (order[key] != null) return order[key];
-    if (order.data && order.data.attributes && order.data.attributes[key] != null) return order.data.attributes[key];
-    if (order.attributes && order.attributes[key] != null) return order.attributes[key];
-    return undefined;
-  }
-
-  function wasOrderSeen(id) {
-    try { return sessionStorage.getItem('dm_last_order_id') === String(id || ''); } catch (_) { return false; }
-  }
-
-  function markOrderSeen(id) {
-    try { sessionStorage.setItem('dm_last_order_id', String(id || '')); } catch (_) {}
-  }
-
-  function readCheckoutContext() {
-    try {
-      const raw = sessionStorage.getItem('dm_last_checkout');
-      return raw ? JSON.parse(raw) : null;
-    } catch (_) { return null; }
-  }
-
-  function firePurchase(order) {
-    if (typeof gtag !== 'function') return;
-
-    const identifier =
-      getOrderField(order, 'identifier') ||
-      getOrderField(order, 'order_number') ||
-      getOrderField(order, 'id');
-
-    if (!identifier || wasOrderSeen(identifier)) return;
-
-    const currency = getOrderField(order, 'currency') || 'USD';
-    const totalCents = getOrderField(order, 'total');
-
-    const ctx = readCheckoutContext() || {};
-    const value = (typeof totalCents === 'number') ? (totalCents / 100) : ctx.value;
-
-    gtag('event', 'purchase', {
-      transaction_id: String(identifier),
-      currency: currency,
-      value: value,
-      items: ctx.items
-    });
-
-    markOrderSeen(identifier);
-  }
-
-  function setupWhenReady() {
-    if (window.LemonSqueezy && typeof window.LemonSqueezy.Setup === 'function') {
-      window.LemonSqueezy.Setup({
-        eventHandler: (evt) => {
-          if (evt && evt.event === 'Checkout.Success') {
-            firePurchase(evt.data);
-          }
-        }
-      });
-      return;
-    }
-    setTimeout(setupWhenReady, 250);
-  }
-
-  setupWhenReady();
-})();
-
-
-const PRICING_STATE = {
-  loaded: false,
-  subscriptionsByKey: {},
-  packsByKey: {}
-};
-
-const SUBSCRIPTION_ORDER = ['starter', 'pro', 'business'];
-const PACK_ORDER = ['starter', 'pro', 'business'];
-
-function escapeHtml(str) {
-  return String(str || '')
-    .replace(/&/g, '&amp;')
-    .replace(/</g, '&lt;')
-    .replace(/>/g, '&gt;')
-    .replace(/"/g, '&quot;')
-    .replace(/'/g, '&#39;');
-}
-
-function formatUsd(amount) {
-  const value = Number(amount);
-  if (!Number.isFinite(value)) return '$0.00';
-  return `$${value.toFixed(2)}`;
-}
-
-function normalizePricingCatalog(payload) {
-  const plans = payload?.plans && typeof payload.plans === 'object' ? payload.plans : {};
-  const packs = payload?.packs && typeof payload.packs === 'object' ? payload.packs : {};
-  const normalized = { subscriptionsByKey: {}, packsByKey: {} };
-
-  Object.entries(plans).forEach(([rawKey, plan]) => {
-    const key = String(plan?.key || rawKey || '').toLowerCase();
-    if (!key || key === 'free') return;
-
-    const variantId = String(plan?.variantId || plan?.variant_id || '').trim();
-    if (!variantId) return;
-
-    const billingInterval = String(plan?.billing_interval || plan?.interval || 'month').toLowerCase();
-    const amount = Number(plan?.price_amount ?? plan?.price ?? plan?.price?.amount ?? 0);
-    const currency = plan?.currency || plan?.price?.currency || payload?.currency || 'USD';
-    const baseKey = key.replace(/_(weekly|monthly|annual|yearly)$/i, '');
-
-    normalized.subscriptionsByKey[key] = {
-      key,
-      baseKey,
-      displayName: plan?.display_name || plan?.name || baseKey,
-      variantId,
-      billingInterval,
-      priceAmount: Number.isFinite(amount) ? amount : 0,
-      currency,
-      features: Array.isArray(plan?.features) ? plan.features : [],
-      limits: plan?.limits || null
-    };
-  });
-
-  Object.entries(packs).forEach(([rawKey, pack]) => {
-    const key = String(pack?.key || rawKey || '').toLowerCase();
-    if (!key) return;
-
-    const variantId = String(pack?.variantId || pack?.variant_id || '').trim();
-    if (!variantId) return;
-
-    const amount = Number(pack?.price_amount ?? pack?.price ?? pack?.price?.amount ?? 0);
-    const currency = pack?.currency || pack?.price?.currency || payload?.currency || 'USD';
-
-    normalized.packsByKey[key] = {
-      key,
-      displayName: pack?.display_name || pack?.name || `${key} pack`,
-      variantId,
-      responses: Number(pack?.responses || 0),
-      priceAmount: Number.isFinite(amount) ? amount : 0,
-      currency,
-      features: Array.isArray(pack?.features) ? pack.features : []
-    };
-  });
-
-  return normalized;
-}
-
-function getMonthlySubscription(baseKey) {
-  const preferred = PRICING_STATE.subscriptionsByKey[baseKey];
-  if (preferred && preferred.billingInterval === 'month') return preferred;
-
-  const monthlyKey = `${baseKey}_monthly`;
-  const monthly = PRICING_STATE.subscriptionsByKey[monthlyKey];
-  if (monthly) return monthly;
-
-  const any = Object.values(PRICING_STATE.subscriptionsByKey).find((item) => item.baseKey === baseKey);
-  return any || null;
-}
-
-function showPricingLoadError(message) {
-  let node = document.getElementById('pricingLoadError');
-  if (!node) {
-    node = document.createElement('div');
-    node.id = 'pricingLoadError';
-    node.className = 'container';
-    node.style.marginTop = '12px';
-    node.style.marginBottom = '8px';
-    node.innerHTML = `<div class="card" style="padding:12px 16px;color:#fecaca;border-color:#ef4444;background:rgba(239,68,68,.12);font-size:.92rem;"></div>`;
-    const hero = document.querySelector('.hero');
-    if (hero && hero.parentNode) {
-      hero.parentNode.insertBefore(node, hero.nextSibling);
-    } else {
-      document.body.insertBefore(node, document.body.firstChild);
-    }
-  }
-  const card = node.querySelector('.card');
-  if (card) card.textContent = message;
-}
-
-function renderSubscriptionCards() {
-  const container = document.getElementById('subsSection');
-  if (!container) return;
-
-  const details = {
-    starter: { description: 'Best if you want a low monthly cost and a simple way to stay consistent.', cta: 'Start with Starter' },
-    pro: { description: 'Best for most users who want DMTools in their workflow every day.', cta: 'Start Pro free', badge: '⭐ Most Popular', featured: true },
-    business: { description: 'Best for high-volume users, teams, and heavy daily messaging.', cta: 'Start Business free' },
-    enterprise: { description: 'For power users and large teams', badge: '🚀 Unlimited' }
-  };
-
-  const cards = SUBSCRIPTION_ORDER
-    .map((baseKey) => getMonthlySubscription(baseKey))
-    .filter(Boolean)
-    .map((item) => {
-      const meta = details[item.baseKey] || {};
-      const featureList = (item.features || [])
-        .map((feature) => `<li>${escapeHtml(feature)}</li>`)
-        .join('');
-      const intervalLabel = item.billingInterval || 'month';
-      return `
-        <div class="price-card${meta.featured ? ' featured' : ''}">
-          ${meta.badge ? `<div class="badge">${escapeHtml(meta.badge)}</div>` : ''}
-          <div class="plan-name">${escapeHtml(item.displayName)}</div>
-          <div class="plan-price">${formatUsd(item.priceAmount)}<span>/${escapeHtml(intervalLabel)}</span></div>
-          <div class="plan-description">${escapeHtml(meta.description || '')}</div>
-          <ul class="features-list">${featureList}</ul>
-          <button class="btn btn-primary" onclick="handleSubscriptionPurchase('${escapeHtml(item.baseKey)}', '${escapeHtml(item.billingInterval)}')">
-            ${escapeHtml(meta.cta || `Choose ${item.displayName}`)}
-          </button>
-        </div>
-      `;
-    })
-    .join('');
-
-  if (cards) container.innerHTML = cards;
-}
-
-function renderPackCards() {
-  const container = document.getElementById('packsSection');
-  if (!container) return;
-
-  const details = {
-    starter: { description: 'Best if you want to pay once and use responses as needed.', cta: 'Buy Starter Pack' },
-    pro: { description: 'Best if you want flexibility without a subscription and enough volume to use DMTools regularly.', cta: 'Buy Pro Pack', badge: '⭐ Best Value', featured: true },
-    business: { description: 'Best if you want a large one-time response balance without monthly billing.', cta: 'Buy Business Pack' },
-    founder: { description: 'Founders special price for early adopters', cta: 'Buy First Users Pack', badge: '🔥 Founder Special', extraClass: ' founder' }
-  };
-
-  const cards = PACK_ORDER
-    .map((key) => PRICING_STATE.packsByKey[key])
-    .filter(Boolean)
-    .map((item) => {
-      const meta = details[item.key] || {};
-      const features = (item.features || [])
-        .map((feature) => `<li>${escapeHtml(feature)}</li>`)
-        .join('');
-      return `
-        <div class="price-card${meta.featured ? ' featured' : ''}${meta.extraClass || ''}">
-          ${meta.badge ? `<div class="badge">${escapeHtml(meta.badge)}</div>` : ''}
-          <div class="plan-name">${escapeHtml(item.displayName)}</div>
-          <div class="plan-price">${formatUsd(item.priceAmount)}</div>
-          <div class="plan-description">${escapeHtml(meta.description || '')}</div>
-          <ul class="features-list">${features}</ul>
-          <button class="btn btn-primary" onclick="handlePackPurchase('${escapeHtml(item.key)}')">
-            ${escapeHtml(meta.cta || `Buy ${item.displayName}`)}
-          </button>
-        </div>
-      `;
-    })
-    .join('');
-
-  if (cards) container.innerHTML = cards;
-}
-
-async function loadPricingCatalog() {
-  try {
-    const response = await fetch(`${API_BASE}/subscription/pricing`);
-    const data = await response.json();
-
-    if (!response.ok) {
-      throw new Error(data?.error || 'Failed to load pricing');
-    }
-
-    const normalized = normalizePricingCatalog(data);
-    PRICING_STATE.subscriptionsByKey = normalized.subscriptionsByKey;
-    PRICING_STATE.packsByKey = normalized.packsByKey;
-    PRICING_STATE.loaded = true;
-
-    renderSubscriptionCards();
-    renderPackCards();
-    return true;
-  } catch (error) {
-    console.error('Pricing fetch failed:', error);
-    showPricingLoadError('Pricing is temporarily unavailable. Showing fallback display values.');
-    return false;
-  }
-}
-
-// ----------------------------
-// Guest checkout helper (email capture for webhook mapping)
-function promptCheckoutEmailOrNull() {
-  const raw = prompt('Enter your email to receive your receipt and to claim your responses after purchase:', '');
-  if (raw === null) return null;
-  const email = String(raw).trim().toLowerCase();
-  const ok = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
-  if (!ok) return null;
-  return email;
-}
-
-function getSubscriptionForCheckout(plan, interval) {
-  const planKey = String(plan || '').toLowerCase();
-  const intervalKey = String(interval || '').toLowerCase();
-  const direct = PRICING_STATE.subscriptionsByKey[`${planKey}_${intervalKey}`];
-  if (direct) return direct;
-  const fallback = PRICING_STATE.subscriptionsByKey[planKey];
-  if (fallback) return fallback;
-  return getMonthlySubscription(planKey);
-}
-
-async function handleSubscriptionPurchase(plan, interval) {
-  const subscription = getSubscriptionForCheckout(plan, interval);
-  if (!subscription || !subscription.variantId) {
-    alert('Pricing is still loading. Please try again.');
-    return;
-  }
-
-  const variantId = subscription.variantId;
-  const planKey = subscription.baseKey || String(plan || '').toLowerCase();
-  const planInterval = subscription.billingInterval || String(interval || '').toLowerCase() || 'month';
-  const planName = subscription.displayName || planKey;
-  const price = subscription.priceAmount || 0;
-  const currency = subscription.currency || 'USD';
-
-  const token = localStorage.getItem('authToken');
-  let userId = null;
-  let checkoutEmail = '';
-
-  if (token) {
-    try {
-      const tokenParts = token.split('.');
-      const payload = JSON.parse(atob(tokenParts[1]));
-      userId = payload.id || payload.userId || null;
-      checkoutEmail = payload.email || '';
-      if (!userId) userId = null;
-    } catch (e) {
-      userId = null;
-      checkoutEmail = '';
-    }
-  }
-
-  if (!checkoutEmail) {
-    const guestEmail = promptCheckoutEmailOrNull();
-    if (!guestEmail) {
-      alert('Email is required to continue checkout.');
-      return;
-    }
-    checkoutEmail = guestEmail;
-    try { localStorage.setItem('dm_guest_checkout_email', checkoutEmail); } catch (_) {}
-  }
-
-  let checkoutUrl = '';
-  try {
-    const headers = { 'Content-Type': 'application/json' };
-    if (token) headers['Authorization'] = `Bearer ${token}`;
-
-    const response = await fetch(`${API_BASE}/checkout/create`, {
-      method: 'POST',
-      headers,
-      body: JSON.stringify({
-        kind: 'subscription',
-        variantId,
-        email: checkoutEmail || undefined
-      })
-    });
-
-    const data = await response.json().catch(() => ({}));
-    if (!response.ok || !data.url) {
-      throw new Error(data.error || 'Failed to create checkout URL');
-    }
-
-    checkoutUrl = data.url;
-  } catch (error) {
-    console.error('Subscription checkout URL error:', error);
-    alert('Error starting checkout. Please try again.');
-    return;
-  }
-
-  gaEvent('begin_checkout', {
-    currency: currency,
-    value: price || undefined,
-    items: [{
-      item_name: `${planName} Subscription`,
-      item_id: `sub_${planKey}_${planInterval}`,
-      item_category: 'subscription',
-      price: price || undefined,
-      quantity: 1
-    }],
-    plan_name: planKey,
-    interval: planInterval,
-    variant_id: variantId,
-    user_id: userId || undefined,
-    email: checkoutEmail || undefined
-  });
-
-  try {
-    sessionStorage.setItem('dm_last_checkout', JSON.stringify({
-      item_name: `${planName} Subscription`,
-      item_id: `sub_${planKey}_${planInterval}`,
-      item_category: 'subscription',
-      value: price || undefined,
-      price: price || undefined,
-      currency: currency,
-      items: [{
-        item_name: `${planName} Subscription`,
-        item_id: `sub_${planKey}_${planInterval}`,
-        item_category: 'subscription',
-        price: price || undefined,
-        quantity: 1
-      }]
-    }));
-  } catch (e) {}
-
-  if (window.LemonSqueezy && window.LemonSqueezy.Url) {
-    window.LemonSqueezy.Url.Open(checkoutUrl);
-  } else {
-    window.open(checkoutUrl, '_blank');
-  }
-}
-
-// =============================================
-// UNIFIED PAGE VIEW TOGGLE (Subs <-> Packs)
-// =============================================
-function showPricingView(view) {
-  const subs = document.getElementById('subsSection');
-  const packs = document.getElementById('packsSection');
-  const packsHero = document.getElementById('packsHero');
-  const btnSubs = document.getElementById('btnShowSubs');
-  const btnPacks = document.getElementById('btnShowPacks');
-
-  if (!subs || !packs || !btnSubs || !btnPacks) return;
-
-  if (view === 'packs') {
-    subs.style.display = 'none';
-    packs.style.display = '';
-    if (packsHero) packsHero.style.display = '';
-    btnSubs.classList.remove('active');
-    btnPacks.classList.add('active');
-    packs.scrollIntoView({ behavior: 'smooth', block: 'start' });
-  } else {
-    subs.style.display = '';
-    packs.style.display = 'none';
-    if (packsHero) packsHero.style.display = 'none';
-    btnPacks.classList.remove('active');
-    btnSubs.classList.add('active');
-    subs.scrollIntoView({ behavior: 'smooth', block: 'start' });
-  }
-
-  if (typeof gtag === 'function') {
-    gtag('event', 'pricing_view_switch', { view: view });
-  }
-}
-
-async function handlePackPurchase(packName) {
-  const key = String(packName || '').toLowerCase();
-  const packInfo = PRICING_STATE.packsByKey[key];
-
-  if (!packInfo || !packInfo.variantId) {
-    alert('Pricing is still loading. Please try again.');
-    return;
-  }
-
-  function promptForEmail() {
-    const email = prompt(
-      'Enter your email for delivery/account linking (you can create your account after purchase):'
-    );
-    if (!email) return null;
-    const trimmed = String(email).trim();
-    const ok = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(trimmed);
-    if (!ok) {
-      alert('Please enter a valid email address.');
-      return null;
-    }
-    return trimmed;
-  }
-
-  const token = localStorage.getItem('authToken');
-  let userId = null;
-  let emailForCheckout = '';
-
-  if (token) {
-    try {
-      const tokenParts = token.split('.');
-      const payload = JSON.parse(atob(tokenParts[1]));
-      userId = payload.id || payload.userId || null;
-      emailForCheckout = payload.email || '';
-    } catch (e) {
-      console.warn('Token decode failed, continuing as guest:', e);
-      userId = null;
-      emailForCheckout = '';
-    }
-  }
-
-  if (!userId) {
-    const guestEmail = promptForEmail();
-    if (!guestEmail) {
-      alert('Please sign in or enter an email to continue.');
-      if (window.DMTOOLS?.openAuthModal) {
-        window.DMTOOLS.openAuthModal('login');
-      }
-      return;
-    }
-    emailForCheckout = guestEmail;
-    try { localStorage.setItem('pendingGuestEmail', emailForCheckout); } catch (_) {}
-  }
-
-  let checkoutUrl = '';
-  try {
-    const headers = { 'Content-Type': 'application/json' };
-    if (token) headers['Authorization'] = `Bearer ${token}`;
-
-    const response = await fetch(`${API_BASE}/checkout/create`, {
-      method: 'POST',
-      headers,
-      body: JSON.stringify({
-        kind: 'pack',
-        variantId: packInfo.variantId,
-        email: emailForCheckout || undefined
-      })
-    });
-
-    const data = await response.json().catch(() => ({}));
-    if (!response.ok || !data.url) {
-      throw new Error(data.error || 'Failed to create checkout URL');
-    }
-
-    checkoutUrl = data.url;
-  } catch (error) {
-    console.error('Pack checkout URL error:', error);
-    alert('Error starting checkout. Please try again.');
-    return;
-  }
-
-  try {
-    if (typeof gtag === 'function') {
-      gtag('event', 'begin_checkout', {
-        currency: packInfo.currency || 'USD',
-        value: packInfo.priceAmount,
-        pack_name: packInfo.displayName,
-        pack_key: key,
-        user_id: userId || undefined,
-        email: emailForCheckout || undefined,
-        items: [{
-          item_name: packInfo.displayName,
-          item_id: `pack_${key}`,
-          item_category: 'pack',
-          price: packInfo.priceAmount,
-          quantity: 1
-        }]
-      });
-    }
-  } catch (e) {}
-
-  try {
-    sessionStorage.setItem('dm_last_checkout', JSON.stringify({
-      item_name: packInfo.displayName,
-      item_id: `pack_${key}`,
-      item_category: 'pack',
-      value: packInfo.priceAmount,
-      price: packInfo.priceAmount,
-      currency: packInfo.currency || 'USD',
-      items: [{
-        item_name: packInfo.displayName,
-        item_id: `pack_${key}`,
-        item_category: 'pack',
-        price: packInfo.priceAmount,
-        quantity: 1
-      }]
-    }));
-  } catch (e) {}
-
-  try {
-    if (window.LemonSqueezy && window.LemonSqueezy.Url) {
-      window.LemonSqueezy.Url.Open(checkoutUrl);
-    } else {
-      window.open(checkoutUrl, '_blank');
-    }
-  } catch (error) {
-    console.error('Pack checkout error:', error);
-    alert('Error starting checkout. Please try again.');
-  }
-}
-
-function checkPendingPackPurchase() {
-  const pending = localStorage.getItem('pendingPackPurchase');
-  if (!pending) return;
-
-  localStorage.removeItem('pendingPackPurchase');
-  showPricingView('packs');
-
-  const packInfo = PRICING_STATE.packsByKey[pending];
-  if (packInfo) {
-    setTimeout(() => handlePackPurchase(pending), 500);
-  }
-}
-
-        // Check for pending purchase after login
-        function checkPendingPurchase() {
-            const pending = localStorage.getItem('pendingPurchase');
-            if (pending) {
-                try {
-                    const { plan, interval } = JSON.parse(pending);
-                    localStorage.removeItem('pendingPurchase');
-                    setTimeout(() => {
-                        handleSubscriptionPurchase(plan, interval);
-                    }, 500);
-                } catch (e) {
-                    localStorage.removeItem('pendingPurchase');
-                }
-            }
-        }
-        
-       // Check authentication and update header
-async function updateAuthSection() {
-  const token = localStorage.getItem('authToken');
-  const authSection = document.getElementById('authButtons'); // ✅ fix: correct element id
-
-  if (!authSection) return;
-
-  const menuBtnHtml = `<button class="mobile-menu-btn" onclick="toggleMobileMenu()" aria-label="Menu">☰</button>`;
-
-  if (!token) {
-    authSection.innerHTML = `
-      ${menuBtnHtml}
-      <a href="#" data-auth="login" class="btn btn-secondary">Sign In</a>
-      <a href="#" data-auth="register" class="btn btn-primary">Sign Up</a>
-    `;
-    return;
-  }
-
-  try {
-    const response = await fetch(API_BASE + '/user/profile', {
-      headers: { 'Authorization': `Bearer ${token}` }
-    });
-
-    if (!response.ok) {
-      localStorage.removeItem('authToken');
-      authSection.innerHTML = `
-        ${menuBtnHtml}
-        <a href="#" data-auth="login" class="btn btn-secondary">Sign In</a>
-        <a href="#" data-auth="register" class="btn btn-primary">Sign Up</a>
-      `;
-      return;
-    }
-
-    const data = await response.json();
-    const user = data.user;
-
-    authSection.innerHTML = `
-      ${menuBtnHtml}
-      <div class="user-section">
-        <span class="user-email">${user.email}</span>
-<button class="btn btn-primary" onclick="handleLogout()">Logout</button>
+      <a class="logo" href="/index.html" aria-label="DMTools.fun home">
+        <span class="logo-mark" aria-hidden="true"></span>
+        <span>DMTools.fun</span>
+      </a>
+
+      <nav class="landing-nav-desktop" aria-label="Primary">
+        <a href="/app.html" data-track="nav_link_click" data-track-location="header" data-track-target="queue">Queue</a>
+        <a href="/presets.html" data-track="nav_link_click" data-track-location="header" data-track-target="voice">Voice</a>
+        <a href="/pricing.html" aria-current="page" data-track="nav_link_click" data-track-location="header" data-track-target="pricing">Pricing</a>
+        <a href="https://chromewebstore.google.com/detail/dmtools-%E2%80%93-inline-reply-as/joheialcdpmcfgehhcpfjnppficonfih" target="_blank" rel="noopener noreferrer" data-track="extension_install_click" data-track-location="header" data-track-target="chrome_store">Install Extension</a>
+      </nav>
+
+      <div class="header-actions">
+        <a class="btn btn-secondary hide-mobile" href="/account.html" id="account-link" data-track="nav_link_click" data-track-location="header" data-track-target="account">Account</a>
+        <button class="btn btn-secondary hide-mobile" type="button" data-auth="login" data-return-to="/pricing.html" data-track="auth_modal_open" data-track-mode="login" id="signin-button">Sign in</button>
+        <button class="btn btn-primary" type="button" data-auth="register" data-return-to="/pricing.html" data-track="auth_modal_open" data-track-mode="register" id="signup-button">Start free</button>
+        <button class="mobile-menu-btn" type="button" aria-label="Open menu" aria-expanded="false" aria-controls="mobile-menu" id="mobile-menu-toggle">☰</button>
       </div>
-    `;
+    </div>
 
-    checkPendingPurchase();
-  } catch (error) {
-    console.error('Auth check failed:', error);
-    authSection.innerHTML = `
-      ${menuBtnHtml}
-      <a href="#" data-auth="login" class="btn btn-secondary">Sign In</a>
-      <a href="#" data-auth="register" class="btn btn-primary">Sign Up</a>
-    `;
-  }
-}
+    <div class="mobile-menu" id="mobile-menu">
+      <div class="mobile-menu-links">
+        <a href="/app.html" data-track="nav_link_click" data-track-location="mobile" data-track-target="queue">Queue</a>
+        <a href="/presets.html" data-track="nav_link_click" data-track-location="mobile" data-track-target="voice">Voice</a>
+        <a href="/pricing.html" data-track="nav_link_click" data-track-location="mobile" data-track-target="pricing">Pricing</a>
+        <a href="/account.html" data-track="nav_link_click" data-track-location="mobile" data-track-target="account">Account</a>
+        <a href="https://chromewebstore.google.com/detail/dmtools-%E2%80%93-inline-reply-as/joheialcdpmcfgehhcpfjnppficonfih" target="_blank" rel="noopener noreferrer" data-track="extension_install_click" data-track-location="mobile" data-track-target="chrome_store">Install Extension</a>
+        <button class="btn btn-secondary" type="button" data-auth="login" data-return-to="/pricing.html" data-track="auth_modal_open" data-track-mode="login">Sign in</button>
+      </div>
+    </div>
+  </header>
 
-        
-        function handleLogout() {
-            localStorage.removeItem('authToken');
-            window.location.href = '/';
+  <main>
+    <section class="pricing-hero">
+      <div class="pricing-container">
+        <div class="pricing-hero__wrap">
+          <div class="pricing-hero__copy">
+            <span class="eyebrow">Simple monetization story</span>
+            <h1>One subscription story.<br>One top-up story.</h1>
+            <p class="lead">
+              Subscriptions give you monthly reply credits plus premium features. Response packs are one-time top-ups when you want extra capacity without another subscription.
+            </p>
+
+            <div class="pricing-hero__actions">
+              <button class="btn btn-primary" type="button" data-jump="subscriptions" data-track="landing_cta_click" data-track-cta="view_subscriptions" data-track-surface="pricing">View subscriptions</button>
+              <button class="btn btn-accent" type="button" data-jump="packs" data-track="landing_cta_click" data-track-cta="view_packs" data-track-surface="pricing">View packs</button>
+              <a class="btn btn-secondary" href="/account.html" data-track="nav_link_click" data-track-location="hero" data-track-target="account">Open account</a>
+            </div>
+
+            <div class="pricing-hero__proof">
+              <span>Clear monthly allowance</span>
+              <span>One-time packs as top-ups</span>
+              <span>Real checkout and live catalog</span>
+            </div>
+          </div>
+
+          <div class="pricing-hero__panel">
+            <div class="pricing-panel">
+              <h3>Subscriptions</h3>
+              <p>Best if DMTools is part of your regular workflow. You get recurring credits, premium limits, and higher-capacity usage over time.</p>
+            </div>
+            <div class="pricing-panel">
+              <h3>Response packs</h3>
+              <p>Best if you want more replies without changing your plan. Packs behave like top-ups and can be activated when needed.</p>
+            </div>
+            <div class="pricing-panel">
+              <h3>Clearer decision</h3>
+              <p>If you reply every week, start with a subscription. If you only need occasional extra volume, buy a pack.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="pricing-status hidden" id="pricingStatus">
+          <strong id="statusHeadline">Signed in</strong>
+          <div class="small-note" id="statusSubline">We found your current DMTools account.</div>
+          <div class="pricing-status__grid">
+            <div class="pricing-status__item">
+              <div class="pricing-status__label">Current plan</div>
+              <div class="pricing-status__value" id="statusPlan">Free</div>
+            </div>
+            <div class="pricing-status__item">
+              <div class="pricing-status__label">Replies remaining</div>
+              <div class="pricing-status__value" id="statusRemaining">-</div>
+            </div>
+            <div class="pricing-status__item">
+              <div class="pricing-status__label">Pack balance</div>
+              <div class="pricing-status__value" id="statusPacks">-</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="pricing-feedback hidden" id="pricingFeedback"></div>
+      </div>
+    </section>
+
+    <section class="pricing-section">
+      <div class="pricing-container">
+        <div class="pricing-controls">
+          <div class="pricing-switches">
+            <div class="segmented" aria-label="Pricing surface selector">
+              <button type="button" class="active" id="btnSubscriptions">Subscriptions</button>
+              <button type="button" id="btnPacks">Response Packs</button>
+            </div>
+
+            <div class="segmented" aria-label="Billing interval selector" id="intervalToggle">
+              <button type="button" class="active" data-interval="month">Monthly</button>
+              <button type="button" data-interval="week">Weekly</button>
+              <button type="button" data-interval="year">Annual</button>
+            </div>
+          </div>
+
+          <div class="billing-notice" id="billingNotice">
+            Subscriptions are shown with the selected billing cadence. Packs are one-time purchases.
+          </div>
+        </div>
+
+        <section id="subscriptionsSection">
+          <div class="section-header">
+            <span class="eyebrow">Subscriptions</span>
+            <h2>Predictable credits for ongoing reply work</h2>
+            <p class="lead">Choose the cadence that matches how often you reply. Weekly plans fit tighter cycles. Monthly or annual plans work best when DMTools is part of your steady workflow.</p>
+          </div>
+          <div class="pricing-grid pricing-grid--subscriptions" id="subscriptionsGrid"></div>
+          <div class="pricing-empty hidden" id="subscriptionsEmpty">No subscriptions are available for this billing interval yet.</div>
+        </section>
+
+        <section id="packsSection" class="hidden">
+          <div class="section-header">
+            <span class="eyebrow">Response Packs</span>
+            <h2>One-time top-ups when you need extra capacity</h2>
+            <p class="lead">Buy reply credits once and use them as extra volume. Packs work best when you do not want another subscription but still need more responses available.</p>
+          </div>
+          <div class="pricing-grid" id="packsGrid"></div>
+        </section>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="pricing-container">
+        <div class="section-header">
+          <span class="eyebrow">Clarity first</span>
+          <h2>How to think about plans versus packs</h2>
+          <p class="lead">This is the simple model the new frontend uses. Subscriptions cover ongoing usage. Packs add more responses when you need them.</p>
+        </div>
+
+        <div class="pricing-clarity-grid">
+          <article class="pricing-clarity">
+            <h3>Pick a subscription if</h3>
+            <p>You expect DMTools to be part of your weekly or monthly workflow and want recurring credits plus feature access built into one plan.</p>
+          </article>
+          <article class="pricing-clarity">
+            <h3>Pick a pack if</h3>
+            <p>You just need extra responses available now, or you want to top up usage without starting a larger recurring plan.</p>
+          </article>
+          <article class="pricing-clarity">
+            <h3>Best first step</h3>
+            <p>If you are new, start free, try the queue or extension, and only upgrade once the workflow clearly saves you time.</p>
+          </article>
+          <article class="pricing-clarity">
+            <h3>What you should always know</h3>
+            <p>Your account should make it obvious how many replies you have left, what plan you are on, and whether you still have pack balance available.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="pricing-container">
+        <div class="section-header">
+          <span class="eyebrow">Frequently asked</span>
+          <h2>Questions users should not have to guess about</h2>
+        </div>
+
+        <div class="pricing-faq-grid">
+          <article class="pricing-faq">
+            <h3>What is the difference between a subscription and a pack?</h3>
+            <p>A subscription gives you recurring reply allowance and plan features. A pack is a one-time purchase that acts like extra reply balance.</p>
+          </article>
+          <article class="pricing-faq">
+            <h3>Can I buy a pack without a subscription?</h3>
+            <p>Yes. Packs are meant to work as standalone top-ups or as extra capacity on top of a subscription.</p>
+          </article>
+          <article class="pricing-faq">
+            <h3>Do I need an account to checkout?</h3>
+            <p>You can check out as a guest by entering an email address. If you are already signed in, checkout uses your existing account context automatically.</p>
+          </article>
+          <article class="pricing-faq">
+            <h3>Where do I manage plan and pack status?</h3>
+            <p>Your account page should show current plan, replies remaining, billing details, and whether you still have packs available.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-content">
+      <div class="footer-brand">
+        <a class="footer-logo" href="/index.html">
+          <span class="logo-mark" aria-hidden="true"></span>
+          <span>DMTools.fun</span>
+        </a>
+        <p class="footer-description">Subscriptions for recurring reply work. Packs for extra capacity.</p>
+      </div>
+
+      <div class="footer-column">
+        <h4>Product</h4>
+        <a href="/app.html">Queue</a>
+        <a href="/presets.html">Voice</a>
+        <a href="/pricing.html">Pricing</a>
+        <a href="/account.html">Account</a>
+      </div>
+
+      <div class="footer-column">
+        <h4>Legal</h4>
+        <a href="/terms-of-service.html">Terms of Service</a>
+        <a href="/privacy-policy.html">Privacy Policy</a>
+        <a href="/refund-policy.html">Refund Policy</a>
+        <a href="/cookie-policy.html">Cookie Policy</a>
+      </div>
+
+      <div class="footer-column">
+        <h4>Support</h4>
+        <a href="/contact.html">Contact</a>
+        <a href="mailto:admin@dmtools.fun">admin@dmtools.fun</a>
+      </div>
+    </div>
+
+    <div class="footer-bottom">
+      <span>© 2026 DMTools.fun LLC. All rights reserved.</span>
+      <span class="small-note">Powered by the existing live pricing and checkout contract.</span>
+    </div>
+  </footer>
+
+  <script src="/js/app-core.js"></script>
+  <script src="/js/auth-modal.js"></script>
+  <script>
+    (function () {
+      const STATE = {
+        surface: 'subscriptions',
+        interval: 'month',
+        auth: { signedIn: false, user: null },
+        pricing: { loaded: false, subscriptions: [], packs: [], raw: null },
+        packsStatus: null
+      };
+
+      const CHROME_STORE_URL = 'https://chromewebstore.google.com/detail/dmtools-%E2%80%93-inline-reply-as/joheialcdpmcfgehhcpfjnppficonfih';
+
+      const SUBSCRIPTION_ORDER = ['starter', 'pro', 'business', 'enterprise'];
+      const PACK_ORDER = ['starter', 'pro', 'business'];
+
+      const SUBSCRIPTION_META = {
+        starter: { badge: 'Best first step', featured: true, description: 'Start here if you want recurring credits without complexity.', cta: 'Choose Starter' },
+        pro: { badge: 'Most popular', featured: true, description: 'More capacity and better limits for heavier weekly or monthly usage.', cta: 'Choose Pro' },
+        business: { badge: 'For teams', description: 'Higher-capacity usage for professional and business workflows.', cta: 'Choose Business' },
+        enterprise: { badge: 'Highest volume', description: 'The highest-capacity plan for heavy usage and advanced workflows.', cta: 'Talk to Enterprise' }
+      };
+
+      const PACK_META = {
+        starter: { badge: 'Top-up', description: 'Smallest one-time top-up when you need extra replies.', cta: 'Buy Starter Pack' },
+        pro: { badge: 'Best value', featured: true, description: 'A larger balance for heavier one-time or overflow usage.', cta: 'Buy Pro Pack' },
+        business: { badge: 'High volume', description: 'Large one-time balance without adding another recurring plan.', cta: 'Buy Business Pack' }
+      };
+
+      function track(name, params) {
+        try {
+          if (window.DMTOOLS && typeof window.DMTOOLS.track === 'function') {
+            window.DMTOOLS.track(name, params || {});
+          }
+        } catch (_) {}
+      }
+
+      function $(id) {
+        return document.getElementById(id);
+      }
+
+      function showFeedback(message, type) {
+        const el = $('pricingFeedback');
+        if (!el) return;
+        el.textContent = message;
+        el.className = 'pricing-feedback';
+        if (type === 'error') el.classList.add('is-error');
+        if (type === 'success') el.classList.add('is-success');
+        if (!message) {
+          el.classList.add('hidden');
+        } else {
+          el.classList.remove('hidden');
         }
-        
-  document.addEventListener('DOMContentLoaded', async function() {
-  if (window.createLemonSqueezy) {
-    window.createLemonSqueezy();
-  }
+      }
 
-  await loadPricingCatalog();
+      function formatUsd(amount, currency) {
+        const value = Number(amount);
+        if (!Number.isFinite(value)) return '';
+        try {
+          return new Intl.NumberFormat('en-US', {
+            style: 'currency',
+            currency: currency || 'USD',
+            maximumFractionDigits: value % 1 === 0 ? 0 : 2
+          }).format(value);
+        } catch (_) {
+          return `$${value.toFixed(value % 1 === 0 ? 0 : 2)}`;
+        }
+      }
 
-  if (window.location.hash === '#packs') {
-    showPricingView('packs');
-  }
+      function basePlanKey(key) {
+        const value = String(key || '').toLowerCase();
+        return value
+          .replace(/_monthly$/, '')
+          .replace(/_weekly$/, '')
+          .replace(/_annual$/, '')
+          .replace(/_yearly$/, '');
+      }
 
-  checkPendingPackPurchase();
-  updateAuthSection();
-});
+      function normalizeInterval(value) {
+        const raw = String(value || '').toLowerCase();
+        if (raw.includes('week')) return 'week';
+        if (raw.includes('year') || raw.includes('annual')) return 'year';
+        return 'month';
+      }
 
-        // ----------------------------
-// Make sure inline onclick handlers can always find these
-try {
-  window.toggleMobileMenu = toggleMobileMenu;
-  window.handleSubscriptionPurchase = handleSubscriptionPurchase;
-  window.showPricingView = showPricingView;
-  window.handlePackPurchase = handlePackPurchase;
-} catch (e) {}
+      function normalizePricingCatalog(data) {
+        const items = Array.isArray(data?.items) ? data.items : [];
+        const subscriptions = [];
+        const packs = [];
 
+        items.forEach((item) => {
+          if (!item || !item.kind) return;
+          const normalized = {
+            kind: item.kind,
+            key: String(item.key || '').toLowerCase(),
+            displayName: item.display_name || item.displayName || item.name || item.key || '',
+            priceAmount: item?.price?.amount ?? item.price_amount ?? item.price ?? 0,
+            currency: item?.price?.currency || item.currency || 'USD',
+            billingInterval: normalizeInterval(item.billing_interval),
+            limits: item.limits || {},
+            responses: item.responses || item?.limits?.responses || 0,
+            features: Array.isArray(item.features) ? item.features : [],
+            variantId: item.variantId || item.variant_id || null,
+            baseKey: basePlanKey(item.key)
+          };
 
-            
-         
-    </script>
-<script src="js/app-core.js"></script>
-<script src="js/auth-modal.js"></script>
+          if (normalized.kind === 'subscription') subscriptions.push(normalized);
+          if (normalized.kind === 'pack') packs.push(normalized);
+        });
+
+        if (!subscriptions.length && data?.plans) {
+          Object.values(data.plans).forEach((item) => {
+            subscriptions.push({
+              kind: 'subscription',
+              key: String(item.key || '').toLowerCase(),
+              displayName: item.display_name || item.name || item.key || '',
+              priceAmount: item.price_amount ?? item.price ?? 0,
+              currency: item.currency || 'USD',
+              billingInterval: normalizeInterval(item.billing_interval || item.interval),
+              limits: item.limits || {},
+              responses: item?.limits?.responses || 0,
+              features: Array.isArray(item.features) ? item.features : [],
+              variantId: item.variantId || item.variant_id || null,
+              baseKey: basePlanKey(item.key)
+            });
+          });
+        }
+
+        if (!packs.length && data?.packs) {
+          Object.values(data.packs).forEach((item) => {
+            packs.push({
+              kind: 'pack',
+              key: String(item.key || '').toLowerCase(),
+              displayName: item.display_name || item.name || item.key || '',
+              priceAmount: item.price_amount ?? item.price ?? 0,
+              currency: item.currency || 'USD',
+              billingInterval: null,
+              responses: item.responses || 0,
+              features: Array.isArray(item.features) ? item.features : [],
+              variantId: item.variantId || item.variant_id || null
+            });
+          });
+        }
+
+        return { subscriptions, packs, raw: data };
+      }
+
+      function getSubscriptionCardsForInterval(interval) {
+        const grouped = new Map();
+        STATE.pricing.subscriptions.forEach((sub) => {
+          if (!grouped.has(sub.baseKey)) grouped.set(sub.baseKey, []);
+          grouped.get(sub.baseKey).push(sub);
+        });
+
+        const cards = [];
+        grouped.forEach((list, baseKey) => {
+          const exact = list.find((item) => item.billingInterval === interval);
+          const fallback = list.find((item) => item.billingInterval === 'month') || list[0];
+          const selected = exact || fallback;
+          if (selected) cards.push(selected);
+        });
+
+        cards.sort((a, b) => {
+          const aIdx = SUBSCRIPTION_ORDER.indexOf(a.baseKey);
+          const bIdx = SUBSCRIPTION_ORDER.indexOf(b.baseKey);
+          return (aIdx === -1 ? 999 : aIdx) - (bIdx === -1 ? 999 : bIdx);
+        });
+
+        return cards;
+      }
+
+      function renderSubscriptions() {
+        const grid = $('subscriptionsGrid');
+        const empty = $('subscriptionsEmpty');
+        if (!grid || !empty) return;
+
+        const cards = getSubscriptionCardsForInterval(STATE.interval);
+        grid.innerHTML = '';
+
+        if (!cards.length) {
+          empty.classList.remove('hidden');
+          return;
+        }
+
+        empty.classList.add('hidden');
+
+        cards.forEach((plan) => {
+          const meta = SUBSCRIPTION_META[plan.baseKey] || {};
+          const responses = plan?.limits?.responses ?? plan.responses;
+          const templates = plan?.limits?.templates;
+          const planInterval = plan.billingInterval || STATE.interval;
+          const suffix = planInterval === 'week' ? '/week' : planInterval === 'year' ? '/year' : '/month';
+          const wrapper = document.createElement('article');
+          wrapper.className = `pricing-card${meta.featured ? ' featured' : ''}`;
+
+          wrapper.innerHTML = `
+            ${meta.badge ? `<div class="pricing-card__badge">${escapeHtml(meta.badge)}</div>` : ''}
+            <div class="pricing-card__name">${escapeHtml(plan.displayName)}</div>
+            <p class="pricing-card__sub">${escapeHtml(meta.description || 'Recurring reply allowance and premium feature access.')}</p>
+            <div class="pricing-card__price">
+              <span class="amount">${escapeHtml(formatUsd(plan.priceAmount, plan.currency))}</span>
+              <span class="suffix">${escapeHtml(suffix)}</span>
+            </div>
+            <div class="pricing-card__meta">
+              <div><span>Replies included</span><span>${escapeHtml(formatCount(responses))}</span></div>
+              <div><span>Templates</span><span>${escapeHtml(formatCount(templates))}</span></div>
+              <div><span>Billing cadence</span><span>${escapeHtml(labelForInterval(planInterval))}</span></div>
+            </div>
+            <ul class="pricing-card__features">
+              ${(plan.features || []).map((feature) => `<li>${escapeHtml(feature)}</li>`).join('')}
+            </ul>
+            <div class="pricing-card__actions">
+              <button class="btn btn-primary" type="button" data-subscription-key="${escapeHtml(plan.baseKey)}">
+                ${escapeHtml(meta.cta || `Choose ${plan.displayName}`)}
+              </button>
+              <div class="pricing-card__hint">Uses your existing DMTools checkout flow.</div>
+            </div>
+          `;
+
+          const button = wrapper.querySelector('button');
+          if (button) {
+            button.addEventListener('click', () => handleSubscriptionPurchase(plan));
+          }
+
+          grid.appendChild(wrapper);
+        });
+      }
+
+      function renderPacks() {
+        const grid = $('packsGrid');
+        if (!grid) return;
+        grid.innerHTML = '';
+
+        const cards = [...STATE.pricing.packs].sort((a, b) => {
+          const aIdx = PACK_ORDER.indexOf(a.key);
+          const bIdx = PACK_ORDER.indexOf(b.key);
+          return (aIdx === -1 ? 999 : aIdx) - (bIdx === -1 ? 999 : bIdx);
+        });
+
+        cards.forEach((pack) => {
+          const meta = PACK_META[pack.key] || {};
+          const wrapper = document.createElement('article');
+          wrapper.className = `pricing-card${meta.featured ? ' featured' : ''}`;
+
+          wrapper.innerHTML = `
+            ${meta.badge ? `<div class="pricing-card__badge">${escapeHtml(meta.badge)}</div>` : ''}
+            <div class="pricing-card__name">${escapeHtml(pack.displayName)}</div>
+            <p class="pricing-card__sub">${escapeHtml(meta.description || 'One-time top-up for extra reply capacity.')}</p>
+            <div class="pricing-card__price">
+              <span class="amount">${escapeHtml(formatUsd(pack.priceAmount, pack.currency))}</span>
+              <span class="suffix">one time</span>
+            </div>
+            <div class="pricing-card__meta">
+              <div><span>Reply credits</span><span>${escapeHtml(formatCount(pack.responses))}</span></div>
+              <div><span>Purchase type</span><span>One-time</span></div>
+              <div><span>Best for</span><span>Top-ups</span></div>
+            </div>
+            <ul class="pricing-card__features">
+              ${(pack.features || []).map((feature) => `<li>${escapeHtml(feature)}</li>`).join('')}
+            </ul>
+            <div class="pricing-card__actions">
+              <button class="btn btn-accent" type="button" data-pack-key="${escapeHtml(pack.key)}">
+                ${escapeHtml(meta.cta || `Buy ${pack.displayName}`)}
+              </button>
+              <div class="pricing-card__hint">Useful when you want extra capacity without changing plans.</div>
+            </div>
+          `;
+
+          const button = wrapper.querySelector('button');
+          if (button) {
+            button.addEventListener('click', () => handlePackPurchase(pack));
+          }
+
+          grid.appendChild(wrapper);
+        });
+      }
+
+      function labelForInterval(value) {
+        if (value === 'week') return 'Weekly';
+        if (value === 'year') return 'Annual';
+        return 'Monthly';
+      }
+
+      function formatCount(value) {
+        if (value === undefined || value === null || value === '') return '—';
+        if (String(value).toLowerCase() === 'unlimited') return 'Unlimited';
+        const num = Number(value);
+        if (!Number.isFinite(num)) return String(value);
+        return num.toLocaleString('en-US');
+      }
+
+      function escapeHtml(value) {
+        return String(value ?? '')
+          .replace(/&/g, '&amp;')
+          .replace(/</g, '&lt;')
+          .replace(/>/g, '&gt;')
+          .replace(/"/g, '&quot;')
+          .replace(/'/g, '&#39;');
+      }
+
+      function updateSurfaceButtons() {
+        $('btnSubscriptions').classList.toggle('active', STATE.surface === 'subscriptions');
+        $('btnPacks').classList.toggle('active', STATE.surface === 'packs');
+        $('subscriptionsSection').classList.toggle('hidden', STATE.surface !== 'subscriptions');
+        $('packsSection').classList.toggle('hidden', STATE.surface !== 'packs');
+        $('intervalToggle').classList.toggle('hidden', STATE.surface !== 'subscriptions');
+        $('billingNotice').textContent = STATE.surface === 'subscriptions'
+          ? 'Subscriptions are shown with the selected billing cadence. Packs are one-time purchases.'
+          : 'Packs are one-time purchases that act like extra reply credits.';
+      }
+
+      function updateIntervalButtons() {
+        document.querySelectorAll('#intervalToggle [data-interval]').forEach((button) => {
+          button.classList.toggle('active', button.dataset.interval === STATE.interval);
+        });
+      }
+
+      async function loadCatalog() {
+        try {
+          const data = await DMTOOLS.apiCall('/subscription/pricing', { method: 'GET' });
+          const normalized = normalizePricingCatalog(data);
+          STATE.pricing = { loaded: true, subscriptions: normalized.subscriptions, packs: normalized.packs, raw: normalized.raw };
+          renderSubscriptions();
+          renderPacks();
+          track('pricing_catalog_loaded', {
+            subscription_count: normalized.subscriptions.length,
+            pack_count: normalized.packs.length
+          });
+        } catch (error) {
+          console.error('Pricing load failed:', error);
+          showFeedback('Pricing is temporarily unavailable. Please refresh or try again in a moment.', 'error');
+          track('pricing_catalog_error', { message: String(error.message || error) });
+        }
+      }
+
+      async function hydrateAuthState() {
+        try {
+          const signedIn = await DMTOOLS.verifyToken();
+          STATE.auth.signedIn = signedIn;
+
+          const signinButton = $('signin-button');
+          const signupButton = $('signup-button');
+          const accountLink = $('account-link');
+
+          if (signedIn) {
+            const profile = await DMTOOLS.apiCall('/user/profile', { method: 'GET' });
+            STATE.auth.user = profile?.user || profile || null;
+            if (signinButton) signinButton.classList.add('hidden');
+            if (signupButton) signupButton.textContent = 'Open account';
+            if (signupButton) {
+              signupButton.removeAttribute('data-auth');
+              signupButton.setAttribute('onclick', "window.location.href='/account.html'");
+            }
+            if (accountLink) accountLink.textContent = 'Account';
+            hydrateStatusPanel();
+            track('auth_state_detected', { signed_in: true, page_name: 'pricing' });
+          } else {
+            track('auth_state_detected', { signed_in: false, page_name: 'pricing' });
+          }
+        } catch (error) {
+          console.warn('Auth hydrate failed:', error);
+        }
+      }
+
+      async function hydrateStatusPanel() {
+        const panel = $('pricingStatus');
+        if (!panel || !STATE.auth.signedIn || !STATE.auth.user) return;
+
+        const user = STATE.auth.user;
+        $('statusPlan').textContent = prettyPlanName(user.subscription_tier || user.plan || 'free');
+        $('statusRemaining').textContent = formatCount(user.responses_remaining ?? '—');
+
+        try {
+          const packData = await DMTOOLS.apiCall('/packs/status', { method: 'GET' });
+          STATE.packsStatus = packData;
+          const summary = packData?.summary || {};
+          $('statusPacks').textContent = formatCount(summary.totalAvailable ?? summary.activeResponses ?? 0);
+        } catch (error) {
+          $('statusPacks').textContent = '—';
+        }
+
+        $('statusHeadline').textContent = `Signed in as ${user.email || 'DMTools user'}`;
+        $('statusSubline').textContent = 'Your current plan and balance were loaded from the live account endpoints.';
+        panel.classList.remove('hidden');
+      }
+
+      function prettyPlanName(plan) {
+        const p = String(plan || 'free').replace(/_/g, ' ').trim();
+        return p.charAt(0).toUpperCase() + p.slice(1);
+      }
+
+      function promptForCheckoutEmail() {
+        const raw = window.prompt('Enter your email so we can link the purchase to your account or send your receipt:');
+        if (raw === null) return null;
+        const email = String(raw).trim().toLowerCase();
+        const ok = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+        if (!ok) {
+          window.alert('Please enter a valid email address.');
+          return null;
+        }
+        return email;
+      }
+
+      async function createCheckout(kind, variantId, fallbackName, priceAmount, currency, extraParams) {
+        if (!variantId) {
+          window.alert('Pricing is still loading. Please try again.');
+          return;
+        }
+
+        let email = '';
+        const user = STATE.auth.user;
+
+        if (user?.email) {
+          email = user.email;
+        } else {
+          const guestEmail = promptForCheckoutEmail();
+          if (!guestEmail) {
+            track('checkout_blocked', { kind, reason: 'missing_email' });
+            if (window.DMTOOLS && typeof window.DMTOOLS.openAuthModal === 'function') {
+              window.DMTOOLS.openAuthModal('login');
+            }
+            return;
+          }
+          email = guestEmail;
+          try { localStorage.setItem('dm_guest_checkout_email', email); } catch (_) {}
+        }
+
+        try {
+          showFeedback('', '');
+          track('checkout_start', {
+            page_name: 'pricing',
+            kind,
+            item_name: fallbackName,
+            billing_interval: extraParams?.billing_interval || null,
+            value: priceAmount || undefined,
+            currency: currency || 'USD'
+          });
+
+          const data = await DMTOOLS.apiCall('/checkout/create', {
+            method: 'POST',
+            body: JSON.stringify({
+              kind,
+              variantId,
+              email: email || undefined
+            })
+          });
+
+          if (!data || !data.url) {
+            throw new Error('Checkout URL missing');
+          }
+
+          track('checkout_ready', {
+            page_name: 'pricing',
+            kind,
+            item_name: fallbackName,
+            billing_interval: extraParams?.billing_interval || null
+          });
+
+          if (window.LemonSqueezy && window.LemonSqueezy.Url) {
+            window.LemonSqueezy.Url.Open(data.url);
+          } else {
+            window.open(data.url, '_blank', 'noopener');
+          }
+        } catch (error) {
+          console.error('Checkout failed:', error);
+          showFeedback('There was a problem starting checkout. Please try again.', 'error');
+          track('checkout_error', {
+            page_name: 'pricing',
+            kind,
+            item_name: fallbackName,
+            message: String(error.message || error)
+          });
+        }
+      }
+
+      async function handleSubscriptionPurchase(plan) {
+        await createCheckout(
+          'subscription',
+          plan.variantId,
+          `${plan.displayName} Subscription`,
+          plan.priceAmount,
+          plan.currency,
+          { billing_interval: plan.billingInterval, plan_key: plan.baseKey }
+        );
+      }
+
+      async function handlePackPurchase(pack) {
+        await createCheckout(
+          'pack',
+          pack.variantId,
+          pack.displayName,
+          pack.priceAmount,
+          pack.currency,
+          { pack_key: pack.key }
+        );
+      }
+
+      function wireJumpButtons() {
+        document.querySelectorAll('[data-jump]').forEach((button) => {
+          button.addEventListener('click', () => {
+            const target = button.getAttribute('data-jump');
+            if (target === 'packs') {
+              STATE.surface = 'packs';
+              updateSurfaceButtons();
+              track('pricing_surface_change', { surface: 'packs', source: 'hero' });
+              $('packsSection').scrollIntoView({ behavior: 'smooth', block: 'start' });
+            } else {
+              STATE.surface = 'subscriptions';
+              updateSurfaceButtons();
+              track('pricing_surface_change', { surface: 'subscriptions', source: 'hero' });
+              $('subscriptionsSection').scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }
+          });
+        });
+      }
+
+      function wireGlobalTracking() {
+        document.querySelectorAll('[data-track]').forEach((element) => {
+          element.addEventListener('click', () => {
+            const name = element.getAttribute('data-track');
+            if (!name) return;
+            track(name, {
+              page_name: 'pricing',
+              location: element.getAttribute('data-track-location') || undefined,
+              target: element.getAttribute('data-track-target') || undefined,
+              cta_id: element.getAttribute('data-track-cta') || undefined,
+              mode: element.getAttribute('data-track-mode') || undefined
+            });
+          });
+        });
+      }
+
+      function wireControls() {
+        $('btnSubscriptions').addEventListener('click', () => {
+          STATE.surface = 'subscriptions';
+          updateSurfaceButtons();
+          track('pricing_surface_change', { page_name: 'pricing', surface: 'subscriptions' });
+        });
+
+        $('btnPacks').addEventListener('click', () => {
+          STATE.surface = 'packs';
+          updateSurfaceButtons();
+          track('pricing_surface_change', { page_name: 'pricing', surface: 'packs' });
+        });
+
+        document.querySelectorAll('#intervalToggle [data-interval]').forEach((button) => {
+          button.addEventListener('click', () => {
+            const next = button.dataset.interval;
+            if (STATE.interval === next) return;
+            STATE.interval = next;
+            updateIntervalButtons();
+            renderSubscriptions();
+            track('pricing_interval_change', {
+              page_name: 'pricing',
+              billing_interval: next
+            });
+          });
+        });
+
+        const mobileToggle = $('mobile-menu-toggle');
+        const mobileMenu = $('mobile-menu');
+        if (mobileToggle && mobileMenu) {
+          mobileToggle.addEventListener('click', () => {
+            const expanded = mobileToggle.getAttribute('aria-expanded') === 'true';
+            mobileToggle.setAttribute('aria-expanded', String(!expanded));
+            mobileMenu.classList.toggle('show');
+            track('mobile_menu_toggle', { page_name: 'pricing', open: !expanded });
+          });
+        }
+      }
+
+      function initSectionObservers() {
+        if (!('IntersectionObserver' in window)) return;
+        const seen = new Set();
+        const observer = new IntersectionObserver((entries) => {
+          entries.forEach((entry) => {
+            if (!entry.isIntersecting) return;
+            const id = entry.target.id || entry.target.getAttribute('data-section-id');
+            if (!id || seen.has(id)) return;
+            seen.add(id);
+            track('section_view', { page_name: 'pricing', section_id: id });
+          });
+        }, { threshold: 0.35 });
+
+        ['subscriptionsSection', 'packsSection'].forEach((id) => {
+          const el = $(id);
+          if (el) observer.observe(el);
+        });
+      }
+
+      async function init() {
+        wireGlobalTracking();
+        wireControls();
+        wireJumpButtons();
+        initSectionObservers();
+
+        track('pricing_view', { page_name: 'pricing' });
+        await hydrateAuthState();
+        await loadCatalog();
+        updateSurfaceButtons();
+        updateIntervalButtons();
+      }
+
+      document.addEventListener('DOMContentLoaded', init);
+    })();
+  </script>
 </body>
 </html>
-

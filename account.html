@@ -1,1039 +1,456 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<!-- PWA Manifest -->
-<link rel="manifest" href="/manifest.json">
-<meta name="theme-color" content="#8b5cf6">
-<meta name="apple-mobile-web-app-capable" content="yes">
-
-    <link rel="stylesheet" href="/styles.css?v=20260212">
-    
-    <!-- Google tag (gtag.js) -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-K0G9YRD39L"></script>
-    <script>
-      window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
-      gtag('js', new Date());
-      gtag('config', 'G-K0G9YRD39L');
-      gtag('config', 'G-YFTZBVLQHF');
-    </script>
-
-    <!-- Lemon Squeezy -->
-    <script src="https://assets.lemonsqueezy.com/lemon.js" defer></script>
-
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Account Management | DMTools.fun account status, plan infomation, usage tracking and billing history </title>
-    <meta name="description" content="Manage your DMTools.fun account, view usage statistics, upgrade plans, and access billing information.">
-    
-    <!-- Favicon -->
-    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>💬</text></svg>">
-    
-
-    
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>DMTools.fun Account</title>
+  <meta name="description" content="Manage your DMTools account, plan, usage, billing, and profile.">
+  <link rel="manifest" href="/manifest.json">
+  <meta name="theme-color" content="#0b1730">
+  <link rel="stylesheet" href="/styles.css?v=20260324-account">
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-K0G9YRD39L"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-K0G9YRD39L');
+    gtag('config', 'G-YFTZBVLQHF');
+    window.DMTOOLS = window.DMTOOLS || {};
+    window.DMTOOLS.track = window.DMTOOLS.track || function(eventName, params) {
+      try { gtag('event', eventName, params || {}); } catch (_) {}
+    };
+  </script>
+  <script src="https://app.lemonsqueezy.com/js/lemon.js" defer></script>
   <style>
-/* PAGE-SPECIFIC: Account Management */
-    
-    .account-header {
-        text-align: center;
-        margin-bottom: 3rem;
-        padding: 2rem 0;
-    }
-
-.account-header h1 {
-        font-size: 2.5rem;
-        font-weight: 800;
-        margin-bottom: 0.5rem;
-        background: linear-gradient(135deg, #ffffff, #8b5cf6);
-        -webkit-background-clip: text;
-        -webkit-text-fill-color: transparent;
-        background-clip: text;
-    }
-
-.account-header p {
-        color: var(--text-muted);
-        font-size: 1.1rem;
-    }
-
-/* Account Grid */
-    .account-grid {
-        display: grid;
-        grid-template-columns: 1fr 1fr;
-        gap: 2rem;
-        margin-bottom: 3rem;
-    }
-
-.account-card {
-        background: var(--bg-input);
-        border-radius: 16px;
-        padding: 2rem;
-        border: 1px solid var(--border-medium);
-        box-shadow: var(--shadow-md);
-    }
-
-.card-action {
-        background: none;
-        border: none;
-        color: var(--primary);
-        cursor: pointer;
-        font-size: 0.9rem;
-        text-decoration: underline;
-    }
-
-.card-action:hover {
-        color: var(--primary-light);
-    }
-
-/* Profile Section */
-    .profile-info {
-        display: grid;
-        gap: 1rem;
-    }
-
-.info-item {
-        display: flex;
-        justify-content: space-between;
-        padding: 0.75rem 0;
-        border-bottom: 1px solid var(--border-medium);
-    }
-
-.info-item:last-child {
-        border-bottom: none;
-    }
-
-.info-label {
-        color: var(--text-muted);
-        font-weight: 500;
-    }
-
-.info-value {
-        color: var(--text-primary);
-        font-weight: 600;
-    }
-
-/* Profile Edit Form */
-    .profile-edit-form {
-        display: grid;
-        gap: 1rem;
-    }
-
-.form-actions {
-        display: flex;
-        gap: 1rem;
-        margin-top: 1rem;
-    }
-
-/* Plan Section */
-    .current-plan {
-        text-align: center;
-        margin-bottom: 2rem;
-    }
-
-.plan-badge {
-        background: linear-gradient(135deg, var(--primary), var(--primary-dark));
-        color: white;
-        padding: 0.5rem 1rem;
-        border-radius: 50px;
-        font-size: 0.9rem;
-        font-weight: 700;
-        display: inline-block;
-        margin-bottom: 1rem;
-    }
-
-.plan-price {
-        font-size: 2rem;
-        font-weight: 800;
-        color: var(--primary);
-        margin-bottom: 0.5rem;
-    }
-
-.plan-features {
-        list-style: none;
-        padding: 0;
-        margin: 1rem 0;
-    }
-
-.plan-features li {
-        padding: 0.5rem 0;
-        color: var(--text-secondary);
-        display: flex;
-        align-items: center;
-        gap: 0.5rem;
-    }
-
-.plan-features li::before {
-        content: '✓';
-        color: var(--success);
-        font-weight: bold;
-    }
-
-/* Usage Statistics */
-    .usage-stats {
-        display: grid;
-        gap: 1.5rem;
-    }
-
-.stat-item {
-        background: var(--bg-card);
-        border-radius: 12px;
-        padding: 1.5rem;
-        border: 1px solid var(--bg-light);
-    }
-
-.stat-header {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        margin-bottom: 1rem;
-    }
-
-.stat-title {
-        font-weight: 600;
-        color: var(--text-primary);
-    }
-
-.stat-value {
-        font-size: 1.5rem;
-        font-weight: 800;
-        color: var(--primary);
-    }
-
-.progress-bar {
-        width: 100%;
-        height: 8px;
-        background: var(--bg-input);
-        border-radius: 4px;
-        overflow: hidden;
-    }
-
-.progress-fill {
-        height: 100%;
-        background: linear-gradient(135deg, var(--primary), var(--accent));
-        transition: width 0.3s ease;
-        border-radius: 4px;
-    }
-
-/* Billing History */
-    .billing-table {
-        width: 100%;
-        border-collapse: collapse;
-        margin-top: 1rem;
-    }
-
-.billing-table th,
-    .billing-table td {
-        padding: 1rem;
-        text-align: left;
-        border-bottom: 1px solid var(--border-medium);
-    }
-
-.billing-table th {
-        color: var(--text-muted);
-        font-weight: 600;
-        font-size: 0.9rem;
-        text-transform: uppercase;
-        letter-spacing: 1px;
-    }
-
-.billing-table td {
-        color: var(--text-primary);
-    }
-
-.status-badge {
-        padding: 0.25rem 0.75rem;
-        border-radius: 50px;
-        font-size: 0.8rem;
-        font-weight: 600;
-        text-transform: uppercase;
-    }
-
-.status-paid {
-        background: var(--success-bg);
-        color: var(--success);
-        border: 1px solid var(--success);
-    }
-
-.status-pending {
-        background: var(--warning-bg);
-        color: var(--warning);
-        border: 1px solid var(--warning);
-    }
-
-/* Upgrade Section */
-    .upgrade-section {
-        margin-top: 2rem;
-        padding-top: 2rem;
-        border-top: 1px solid var(--border-medium);
-    }
-
-.plans-grid {
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-        gap: 1.5rem;
-        margin-top: 2rem;
-    }
-
-.plan-card {
-        background: var(--bg-card);
-        border-radius: 16px;
-        padding: 2rem;
-        border: 2px solid var(--bg-light);
-        text-align: center;
-        position: relative;
-        transition: all 0.3s ease;
-    }
-
-.plan-card:hover {
-        transform: translateY(-4px);
-        box-shadow: var(--shadow-lg);
-    }
-
-.plan-card.featured {
-        border-color: var(--primary);
-        background: linear-gradient(135deg, rgba(139, 92, 246, 0.1), var(--bg-input));
-    }
-
-.plan-card.current-plan-card {
-        border-color: var(--success);
-        background: linear-gradient(135deg, var(--success-bg), var(--bg-input));
-    }
-
-.plan-name {
-        font-size: 1.5rem;
-        font-weight: 700;
-        margin-bottom: 0.5rem;
-        color: var(--text-primary);
-    }
-
-.plan-card-price {
-        font-size: 2.5rem;
-        font-weight: 800;
-        color: var(--primary);
-        margin-bottom: 1rem;
-    }
-
-.plan-card.current-plan-card .plan-card-price {
-        color: var(--success);
-    }
-
-/* Loading State */
-    .loading {
-        text-align: center;
-        padding: 3rem;
-        color: var(--text-muted);
-    }
-
-/* Auth Modal Overrides */
-    .auth-modal {
-        display: none;
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        background: rgba(0, 0, 0, 0.8);
-        z-index: var(--z-modal);
-        justify-content: center;
-        align-items: center;
-        backdrop-filter: blur(4px);
-    }
-
-.auth-modal-header {
-        margin-bottom: 1.5rem;
-    }
-
-.auth-modal-title {
-        font-size: 1.5rem;
-        font-weight: 700;
-        color: var(--text-primary);
-        margin-bottom: 0.5rem;
-    }
-
-.auth-modal-subtitle {
-        color: var(--text-muted);
-    }
-
-.name-fields {
-        display: grid;
-        gap: 1rem;
-    }
-
-/* Notification */
-    .notification {
-        position: fixed;
-        top: 100px;
-        right: 20px;
-        background: var(--bg-input);
-        border: 1px solid var(--border-medium);
-        border-radius: var(--radius-lg);
-        padding: 1rem 1.5rem;
-        color: var(--text-primary);
-        z-index: var(--z-notification);
-        max-width: 400px;
-        opacity: 0;
-        transform: translateX(100%);
-        transition: all 0.3s ease;
-    }
-
-/* Responsive */
-    @media (max-width: 768px) {
-        .account-grid {
-            grid-template-columns: 1fr;
-        }
-
-        .form-actions {
-            flex-direction: column;
-        }
-
-        .form-actions .btn {
-            width: 100%;
-        }
-    }
-</style>
+    .account-shell{width:min(1160px,calc(100vw - 2rem));margin:0 auto;padding:3rem 0 4rem}
+    .account-hero,.account-card,.account-status,.account-empty,.account-feedback{background:var(--bg-card);border:1px solid var(--border-medium);border-radius:22px;box-shadow:var(--shadow-md);backdrop-filter:blur(14px)}
+    .account-hero{display:grid;grid-template-columns:minmax(0,1.15fr) minmax(280px,.85fr);gap:1rem;padding:1.6rem;margin-bottom:1rem}
+    .account-hero p{color:var(--text-secondary);max-width:760px}
+    .account-actions{display:flex;flex-wrap:wrap;gap:.75rem;margin-top:1rem}
+    .account-mini-grid{display:grid;gap:.85rem}
+    .account-mini{padding:1rem 1.05rem;border-radius:18px;border:1px solid rgba(108,135,184,.14);background:linear-gradient(135deg,rgba(79,124,255,.10),rgba(24,183,160,.08))}
+    .account-mini h3{font-size:1rem;margin-bottom:.3rem}.account-mini p{margin:0;color:var(--text-secondary);font-size:.95rem}
+    .account-status{padding:1rem 1.1rem;margin-bottom:1rem}
+    .account-status__grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:.75rem;margin-top:.8rem}
+    .stat{padding:.9rem;border-radius:16px;background:rgba(12,22,37,.88);border:1px solid rgba(108,135,184,.12)}
+    .stat__label{font-size:.8rem;color:var(--text-muted);margin-bottom:.2rem}.stat__value{color:var(--text-primary);font-weight:800;font-size:1rem}
+    .account-feedback{padding:.9rem 1rem;margin-bottom:1rem;color:var(--text-secondary)}
+    .account-feedback.hidden,.hidden{display:none!important}
+    .account-feedback.is-error{border-color:rgba(239,68,68,.34);background:rgba(50,17,24,.28);color:#ffdbe1}
+    .account-feedback.is-success{border-color:rgba(34,197,94,.32);background:rgba(8,42,23,.28);color:#d9ffe7}
+    .account-grid{display:grid;grid-template-columns:1.1fr .9fr;gap:1rem}.account-stack{display:grid;gap:1rem}.account-card{padding:1.25rem}
+    .card-head{display:flex;justify-content:space-between;gap:.75rem;align-items:flex-start;margin-bottom:1rem}
+    .card-head h2{font-size:1.16rem;margin-bottom:.15rem}.card-sub{margin:0;color:var(--text-muted);font-size:.92rem}
+    .tile-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:.75rem}
+    .tile{padding:.95rem;border-radius:16px;background:rgba(12,22,37,.88);border:1px solid rgba(108,135,184,.12)}
+    .tile__label{font-size:.78rem;color:var(--text-muted);margin-bottom:.22rem;text-transform:uppercase;letter-spacing:.04em}
+    .tile__value{color:var(--text-primary);font-size:1rem;font-weight:800;overflow-wrap:anywhere}
+    .plan-badge{display:inline-flex;padding:.45rem .8rem;border-radius:999px;border:1px solid rgba(79,124,255,.22);background:rgba(79,124,255,.14);color:var(--primary-light);font-size:.86rem;font-weight:800;text-transform:uppercase;letter-spacing:.03em}
+    .plan-price{font-size:2.2rem;font-weight:900;color:var(--text-primary);line-height:1;margin:.7rem 0 .9rem}
+    .bullet-list{display:grid;gap:.6rem;margin:1rem 0}.bullet{display:grid;grid-template-columns:1rem 1fr;gap:.5rem;color:var(--text-secondary)}.bullet::before{content:"✓";color:var(--accent-light);font-weight:900}
+    .meter{margin-top:.9rem}.meter__row{display:flex;justify-content:space-between;gap:1rem;color:var(--text-secondary);margin-bottom:.42rem;font-size:.94rem}
+    .meter__bar{width:100%;height:10px;background:rgba(11,19,31,.95);border-radius:999px;overflow:hidden;border:1px solid rgba(108,135,184,.12)}
+    .meter__fill{height:100%;width:0;background:var(--gradient-primary-dark);transition:width .35s ease;border-radius:999px}
+    .field{display:grid;gap:.35rem}.field label{color:var(--text-secondary);font-weight:650;font-size:.92rem}
+    .field input{width:100%;padding:.9rem 1rem;border-radius:14px;border:1px solid var(--border-medium);background:rgba(12,22,37,.88);color:var(--text-primary)}
+    .field input:focus{outline:none;border-color:rgba(79,124,255,.55);box-shadow:0 0 0 3px rgba(79,124,255,.12)}.field input[disabled]{opacity:.72;cursor:not-allowed}
+    .button-row{display:flex;flex-wrap:wrap;gap:.75rem}.profile-form{display:grid;gap:.9rem;margin-top:.8rem}
+    .table-wrap{overflow-x:auto;margin-top:.6rem;border-radius:16px;border:1px solid rgba(108,135,184,.12);background:rgba(10,18,30,.7)}
+    .billing-table{width:100%;border-collapse:collapse;min-width:640px}.billing-table th,.billing-table td{padding:.95rem 1rem;text-align:left;border-bottom:1px solid rgba(108,135,184,.12)}.billing-table th{color:var(--text-muted);font-size:.82rem;text-transform:uppercase;letter-spacing:.04em}.billing-table td{color:var(--text-primary)}
+    .status-pill{display:inline-flex;align-items:center;padding:.25rem .55rem;border-radius:999px;font-size:.78rem;font-weight:800;text-transform:uppercase;letter-spacing:.02em;border:1px solid transparent}
+    .status-paid,.status-active{background:rgba(16,185,129,.12);color:#8ff3cf;border-color:rgba(16,185,129,.28)}
+    .status-pending,.status-past_due{background:rgba(245,158,11,.12);color:#ffd48a;border-color:rgba(245,158,11,.28)}
+    .status-cancelled,.status-expired,.status-none{background:rgba(148,163,184,.12);color:#c7d4e7;border-color:rgba(148,163,184,.22)}
+    .account-empty{padding:1.8rem;text-align:center}.account-empty p{color:var(--text-secondary);max-width:640px;margin:0 auto 1rem}
+    .loading{display:grid;place-items:center;padding:4rem 1rem;color:var(--text-muted)}.spinner{width:40px;height:40px;border:3px solid rgba(108,135,184,.16);border-top-color:var(--primary);border-radius:999px;animation:spin .8s linear infinite;margin-bottom:.9rem}
+    @keyframes spin{to{transform:rotate(360deg)}}
+    @media (max-width:1100px){.account-hero,.account-grid,.account-status__grid,.tile-grid{grid-template-columns:1fr}}
+    @media (max-width:760px){.account-shell{width:min(100vw - 1rem,100%)}.account-actions,.button-row{flex-direction:column;align-items:stretch}}
+  </style>
 </head>
 <body>
-   <!-- Header -->
-<header class="header">
+  <header class="header">
     <div class="nav-container">
-        <a href="/" class="logo">DMTools.fun</a>
-        <div class="auth-buttons" id="authButtons">
-            <button class="mobile-menu-btn" onclick="toggleMobileMenu()" aria-label="Menu">☰</button>
-    
-
-  
-    <nav class="mobile-nav" id="mobileNav">
-        <a href="/app.html" class="tab-btn">Generator</a>
-        <a href="/presets.html" class="tab-btn">Templates</a>
-        <a href="/packs.html" class="tab-btn">Response Packs</a>
-        <a href="/pricing.html" class="tab-btn">Pricing</a>
-</nav>
-</header>
-
-    <!-- Main Content -->
-    <main class="main-content">
-        <div class="container">
-            <!-- Account Header -->
-            <div class="account-header">
-                <h1>Account Management</h1>
-                <p>Manage your profile, view usage statistics, and upgrade your plan</p>
-            </div>
-
-            <!-- Loading State -->
-            <div id="loading-state" class="loading">
-                <div class="spinner"></div>
-                Loading account information...
-            </div>
-
-            <!-- Account Content -->
-            <div id="account-content" class="hidden">
-                <!-- Account Grid -->
-                <div class="account-grid">
-                    <!-- Profile Information -->
-                    <div class="account-card">
-                        <div class="card-header">
-                            <h2 class="card-title">Profile Information</h2>
-                            <button class="card-action" onclick="toggleProfileEdit()" id="edit-profile-btn">
-                                <span id="edit-profile-text">✏️ Edit</span>
-                            </button>
-                        </div>
-
-                        <!-- Profile View -->
-                        <div id="profile-view" class="profile-info">
-                            <div class="info-item">
-                                <span class="info-label">Email</span>
-                                <span class="info-value" id="profile-email">-</span>
-                            </div>
-                            <div class="info-item">
-                                <span class="info-label">First Name</span>
-                                <span class="info-value" id="profile-first-name">-</span>
-                            </div>
-                            <div class="info-item">
-                                <span class="info-label">Last Name</span>
-                                <span class="info-value" id="profile-last-name">-</span>
-                            </div>
-                            <div class="info-item">
-                                <span class="info-label">Member Since</span>
-                                <span class="info-value" id="profile-created">-</span>
-                            </div>
-                        </div>
-
-                        <!-- Profile Edit -->
-                        <div id="profile-edit" class="profile-edit-form hidden">
-                            <div class="form-group">
-                                <label class="form-label">Email</label>
-                                <input type="email" id="edit-email" class="form-input" disabled>
-                            </div>
-                            <div class="form-group">
-                                <label class="form-label">First Name</label>
-                                <input type="text" id="edit-first-name" class="form-input">
-                            </div>
-                            <div class="form-group">
-                                <label class="form-label">Last Name</label>
-                                <input type="text" id="edit-last-name" class="form-input">
-                            </div>
-                            <div class="form-actions">
-                                <button class="btn btn-primary" onclick="saveProfile()">Save Changes</button>
-                                <button class="btn btn-secondary" onclick="cancelProfileEdit()">Cancel</button>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Current Plan -->
-                    <div class="account-card">
-                        <div class="card-header">
-                            <h2 class="card-title">Current Plan</h2>
-                            <button class="card-action" onclick="showUpgradeOptions()">Upgrade</button>
-                        </div>
-
-                        <div class="current-plan">
-                            <div class="plan-badge" id="current-plan-badge">Free Plan</div>
-                            <div class="plan-price" id="current-plan-price">$0/month</div>
-                            
-                            <ul class="plan-features" id="current-plan-features">
-                                <!-- Features will be loaded dynamically -->
-                            </ul>
-
-                            <div id="next-billing-info" class="hidden" style="margin-top: 1rem; padding: 1rem; background: rgba(139, 92, 246, 0.1); border-radius: 8px; border: 1px solid #8b5cf6;">
-                                <div style="color: #c4b5fd; font-weight: 600; margin-bottom: 0.5rem;">Next Billing</div>
-                                <div id="next-billing-date" style="color: #ffffff;"></div>
-                                <div id="next-billing-amount" style="color: #8b5cf6; font-weight: 700;"></div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Usage Statistics -->
-                <div class="account-card" style="margin-bottom: 2rem;">
-                    <div class="card-header">
-                        <h2 class="card-title">Usage Statistics</h2>
-                        <span class="card-action" id="usage-last-updated">Loading...</span>
-                    </div>
-
-                    <div class="usage-stats">
-                        <div class="stat-item">
-                            <div class="stat-header">
-                                <span class="stat-title">Monthly AI Responses</span>
-                                <span class="stat-value" id="monthly-usage-text">0 / 10</span>
-                            </div>
-                            <div class="progress-bar">
-                                <div class="progress-fill" id="monthly-progress" style="width: 0%"></div>
-                            </div>
-                        </div>
-
-                        <div class="stat-item">
-                            <div class="stat-header">
-                                <span class="stat-title">Custom Templates</span>
-                                <span class="stat-value" id="templates-usage-text">0 / 5</span>
-                            </div>
-                            <div class="progress-bar">
-                                <div class="progress-fill" id="templates-progress" style="width: 0%"></div>
-                            </div>
-                        </div>
-
-                        <div class="stat-item">
-                            <div class="stat-header">
-                                <span class="stat-title">Lifetime Responses Generated</span>
-                                <span class="stat-value" id="total-generated">0</span>
-                            </div>
-                            <div style="color: #9ca3af; font-size: 0.9rem; margin-top: 0.5rem;">
-                                Account active for <span id="account-age">0</span> months
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Billing History -->
-                <div class="account-card">
-                    <div class="card-header">
-                        <h2 class="card-title">Billing History</h2>
-                        <span class="card-action" id="billing-summary">Total: $0</span>
-                    </div>
-
-                    <div id="billing-loading" class="loading">
-                        <div class="spinner"></div>
-                        Loading billing history...
-                    </div>
-
-                    <div id="billing-content" class="hidden">
-                        <table class="billing-table">
-                            <thead>
-                                <tr>
-                                    <th>Date</th>
-                                    <th>Description</th>
-                                    <th>Amount</th>
-                                    <th>Status</th>
-                                    <th>Invoice</th>
-                                </tr>
-                            </thead>
-                            <tbody id="billing-history">
-                                <!-- Billing history will be loaded here -->
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-
-            <!-- Unauthenticated State -->
-            <div id="unauthenticated-state" class="hidden">
-                <div style="text-align: center; padding: 4rem; background: #1f2937; border-radius: 16px; border: 1px solid #374151;">
-                    <div style="font-size: 4rem; margin-bottom: 1rem;">🔒</div>
-                    <h2 style="color: #ffffff; margin-bottom: 1rem;">Sign In Required</h2>
-                    <p style="color: #9ca3af; margin-bottom: 2rem;">
-                        Please sign in to access your account management page.
-                    </p>
-                    <button class="btn btn-primary" data-auth="login">Sign In</button>
-                </div>
-            </div>
-        </div>
-    </main>
-
-    <!-- Notification Container -->
-    <div id="notification" class="notification"></div>
-<!-- Footer -->
-<footer class="footer">
-    <div class="container">
-        <div class="footer-content">
-            <div class="footer-brand">
-                <h3 class="footer-logo">DMTools.fun</h3>
-                <p class="footer-description">
-                    AI-powered universal messaging response generator.
-                </p>
-            </div>
-            
-            <div class="footer-links">
-                <div class="link-group">
-                    <h4>Product</h4>
-                    <a href="/app.html">Generator</a>
-                    <a href="/presets.html">Templates</a>
-                    <a href="/pricing.html">Pricing</a>
-                    <a href="/store.html">Packs Store</a>
-                </div>
-                
-                <div class="link-group">
-                    <h4>Legal</h4>
-                    <a href="/terms-of-service.html">Terms of Service</a>
-                    <a href="/privacy-policy.html">Privacy Policy</a>
-                    <a href="/refund-policy.html">Refund Policy</a>
-                    <a href="/cookie-policy.html">Cookie Policy</a>
-                </div>
-                
-                <div class="link-group">
-                    <h4>Support</h4>
-                    <a href="/contact.html">Contact Us</a>
-                    <a href="mailto:admin@dmtools.fun">Email Support</a>
-                </div>
-            </div>
-        </div>
-        
-        <div class="footer-bottom">
-            <p class="footer-copyright">© 2025 DMTools.fun LLC. All rights reserved.</p>
-        </div>
+      <a class="logo" href="/index.html" aria-label="DMTools.fun home"><span class="logo-mark" aria-hidden="true"></span><span>DMTools.fun</span></a>
+      <nav class="landing-nav-desktop" aria-label="Primary">
+        <a href="/app.html">Queue</a><a href="/presets.html">Voice</a><a href="/pricing.html">Pricing</a><a href="/account.html" aria-current="page">Account</a>
+      </nav>
+      <div class="header-actions">
+        <button class="btn btn-secondary hide-mobile" type="button" data-auth="login" data-return-to="/account.html" id="signinButton">Sign in</button>
+        <button class="btn btn-primary" type="button" data-auth="register" data-return-to="/account.html" id="primaryButton">Start free</button>
+        <button class="mobile-menu-btn" type="button" aria-label="Open menu" aria-expanded="false" aria-controls="mobile-menu" id="mobile-menu-toggle">☰</button>
+      </div>
     </div>
-</footer>
-    <script>
-        // Global Variables
-        let currentUser = null;
-        let isAuthenticated = false;
-        let isEditingProfile = false;
-        let usageData = null;
-        let billingData = null;
-        
-        // FIXED API Configuration - Added /api to the base URL
-        const API_BASE = 'https://dmtools-backend-production.up.railway.app/api';
+    <div class="mobile-menu" id="mobile-menu">
+      <div class="mobile-menu-links">
+        <a href="/app.html">Queue</a><a href="/presets.html">Voice</a><a href="/pricing.html">Pricing</a><a href="/account.html">Account</a>
+        <button class="btn btn-secondary" type="button" data-auth="login" data-return-to="/account.html">Sign in</button>
+      </div>
+    </div>
+  </header>
 
-    // Mobile menu toggle
-    function toggleMobileMenu() {
-        document.getElementById('mobileNav').classList.toggle('show');
-    }
-        // Initialize App
-        document.addEventListener('DOMContentLoaded', initializeApp);
+  <main class="account-shell">
+    <section class="account-hero">
+      <div>
+        <span class="eyebrow">Trust and control</span>
+        <h1>Everything important about your DMTools account in one place.</h1>
+        <p>See your plan, remaining replies, billing activity, profile settings, and available pack balance without hunting through separate pages.</p>
+        <div class="account-actions">
+          <a class="btn btn-primary" href="/pricing.html" id="upgradeHeroCta">View plans</a>
+          <a class="btn btn-secondary" href="/app.html">Open queue</a>
+        </div>
+      </div>
+      <div class="account-mini-grid">
+        <div class="account-mini"><h3>Plan clarity</h3><p>See current plan, billing cadence, subscription status, and remaining allowance at a glance.</p></div>
+        <div class="account-mini"><h3>Usage clarity</h3><p>Track monthly replies, templates usage, and total generated volume without guessing what your limits mean.</p></div>
+      </div>
+    </section>
 
-        async function initializeApp() {
-            console.log('🚀 Initializing DMTools Account Page...');
-            
-            try {
-                const token = localStorage.getItem('authToken');
-                if (token) {
-                    try {
-                        const response = await apiCall('/user/profile');
-                        currentUser = response.user;
-                        isAuthenticated = true;
-                        await loadAccountData();
-                    } catch (error) {
-                        console.error('Auth validation failed:', error);
-                        localStorage.removeItem('authToken');
-                        showUnauthenticatedState();
-                    }
-                } else {
-                    showUnauthenticatedState();
-                }
-            } catch (error) {
-                console.error('App initialization error:', error);
-                showUnauthenticatedState();
-            }
+    <section class="account-status hidden" id="accountStatus">
+      <strong id="statusHeadline">Signed in</strong>
+      <div class="card-sub" id="statusSubline">Your current account state is loaded from the live endpoints.</div>
+      <div class="account-status__grid">
+        <div class="stat"><div class="stat__label">Current plan</div><div class="stat__value" id="statusPlan">Free</div></div>
+        <div class="stat"><div class="stat__label">Replies remaining</div><div class="stat__value" id="statusRemaining">-</div></div>
+        <div class="stat"><div class="stat__label">Subscription status</div><div class="stat__value" id="statusSubscription">-</div></div>
+        <div class="stat"><div class="stat__label">Pack balance</div><div class="stat__value" id="statusPacks">-</div></div>
+      </div>
+    </section>
 
+    <div class="account-feedback hidden" id="accountFeedback"></div>
+
+    <div class="loading" id="loadingState"><div><div class="spinner"></div><div>Loading your account...</div></div></div>
+
+    <section class="account-empty hidden" id="signedOutState">
+      <h2>Sign in to manage your plan, usage, billing, and profile.</h2>
+      <p>Your account page shows your current plan, reply balance, usage history, billing details, and profile settings once you are signed in.</p>
+      <div class="account-actions" style="justify-content:center;">
+        <button class="btn btn-primary" type="button" data-auth="login" data-return-to="/account.html" id="signInPromptButton">Sign in</button>
+        <button class="btn btn-secondary" type="button" data-auth="register" data-return-to="/account.html">Create account</button>
+      </div>
+    </section>
+
+    <section class="hidden" id="accountContent">
+      <div class="account-grid">
+        <div class="account-stack">
+          <article class="account-card">
+            <div class="card-head"><div><h2>Account overview</h2><p class="card-sub">Basic profile details and account age.</p></div><button class="btn btn-secondary btn-small" type="button" id="editToggleButton">Edit profile</button></div>
+            <div id="profileView">
+              <div class="tile-grid">
+                <div class="tile"><div class="tile__label">Email</div><div class="tile__value" id="profileEmail">-</div></div>
+                <div class="tile"><div class="tile__label">Member since</div><div class="tile__value" id="profileCreated">-</div></div>
+                <div class="tile"><div class="tile__label">First name</div><div class="tile__value" id="profileFirstName">-</div></div>
+                <div class="tile"><div class="tile__label">Last name</div><div class="tile__value" id="profileLastName">-</div></div>
+              </div>
+            </div>
+            <form class="profile-form hidden" id="profileEditForm">
+              <div class="field"><label for="editEmail">Email</label><input type="email" id="editEmail" disabled></div>
+              <div class="field"><label for="editFirstName">First name</label><input type="text" id="editFirstName" maxlength="60"></div>
+              <div class="field"><label for="editLastName">Last name</label><input type="text" id="editLastName" maxlength="60"></div>
+              <div class="button-row">
+                <button class="btn btn-primary" type="submit" id="saveProfileButton">Save changes</button>
+                <button class="btn btn-secondary" type="button" id="cancelEditButton">Cancel</button>
+              </div>
+            </form>
+          </article>
+
+          <article class="account-card">
+            <div class="card-head"><div><h2>Usage and limits</h2><p class="card-sub" id="usageUpdatedText">Updated just now.</p></div><a class="btn btn-secondary btn-small" href="/app.html">Go to queue</a></div>
+            <div class="tile-grid">
+              <div class="tile"><div class="tile__label">Total generated</div><div class="tile__value" id="lifetimeGenerated">0</div></div>
+              <div class="tile"><div class="tile__label">Account age</div><div class="tile__value" id="accountAge">-</div></div>
+            </div>
+            <div class="meter"><div class="meter__row"><span>Monthly AI responses</span><strong id="monthlyUsageText">0 / 0</strong></div><div class="meter__bar"><div class="meter__fill" id="monthlyUsageFill"></div></div></div>
+            <div class="meter"><div class="meter__row"><span>Templates usage</span><strong id="templatesUsageText">0 / 0</strong></div><div class="meter__bar"><div class="meter__fill" id="templatesUsageFill"></div></div></div>
+          </article>
+
+          <article class="account-card">
+            <div class="card-head"><div><h2>Billing and invoices</h2><p class="card-sub">Recent transactions and next billing details.</p></div><a class="btn btn-secondary btn-small" href="/pricing.html">Change plan</a></div>
+            <div class="tile-grid">
+              <div class="tile"><div class="tile__label">Billing total</div><div class="tile__value" id="billingTotal">$0.00</div></div>
+              <div class="tile"><div class="tile__label">Next billing</div><div class="tile__value" id="nextBillingDate">-</div></div>
+              <div class="tile"><div class="tile__label">Next amount</div><div class="tile__value" id="nextBillingAmount">-</div></div>
+              <div class="tile"><div class="tile__label">Current billing plan</div><div class="tile__value" id="billingPlanText">-</div></div>
+            </div>
+            <div class="table-wrap"><table class="billing-table"><thead><tr><th>Date</th><th>Description</th><th>Amount</th><th>Status</th><th>Invoice</th></tr></thead><tbody id="billingRows"><tr><td colspan="5">Loading billing history...</td></tr></tbody></table></div>
+          </article>
+        </div>
+
+        <div class="account-stack">
+          <article class="account-card">
+            <div class="card-head"><div><h2>Plan and credits</h2><p class="card-sub">Current subscription, interval, and available replies.</p></div><a class="btn btn-primary btn-small" href="/pricing.html" id="upgradeCardCta">Upgrade</a></div>
+            <div class="plan-badge" id="planBadge">Free Plan</div>
+            <div class="plan-price" id="planPrice">$0/month</div>
+            <div class="bullet-list" id="planNotes"></div>
+            <div class="tile-grid" style="margin-top:1rem;">
+              <div class="tile"><div class="tile__label">Subscription status</div><div class="tile__value" id="subscriptionStatus">None</div></div>
+              <div class="tile"><div class="tile__label">Billing cadence</div><div class="tile__value" id="subscriptionInterval">-</div></div>
+              <div class="tile"><div class="tile__label">Replies remaining</div><div class="tile__value" id="responsesRemaining">0</div></div>
+              <div class="tile"><div class="tile__label">Subscription ID</div><div class="tile__value" id="subscriptionId">-</div></div>
+            </div>
+          </article>
+
+          <article class="account-card">
+            <div class="card-head"><div><h2>Response packs</h2><p class="card-sub">See active balance and queued top-ups.</p></div><button class="btn btn-secondary btn-small hidden" type="button" id="activatePackButton">Activate next pack</button></div>
+            <div class="tile-grid">
+              <div class="tile"><div class="tile__label">Active responses</div><div class="tile__value" id="activePackResponses">0</div></div>
+              <div class="tile"><div class="tile__label">Queued responses</div><div class="tile__value" id="queuedPackResponses">0</div></div>
+              <div class="tile"><div class="tile__label">Total available</div><div class="tile__value" id="totalPackResponses">0</div></div>
+              <div class="tile"><div class="tile__label">Active pack status</div><div class="tile__value" id="packStatusText">-</div></div>
+            </div>
+            <div class="button-row" style="margin-top:1rem;"><a class="btn btn-accent" href="/pricing.html#packs">Buy more credits</a></div>
+          </article>
+
+          <article class="account-card">
+            <div class="card-head"><div><h2>Helpful next steps</h2><p class="card-sub">Quick actions based on where you are in the workflow.</p></div></div>
+            <div class="bullet-list">
+              <div class="bullet">Open Queue to generate responses in bulk and keep your reply workflow moving.</div>
+              <div class="bullet">Open Voice to save reusable templates and keep output consistent across platforms.</div>
+              <div class="bullet">Use Pricing whenever you want more recurring capacity or a one-time top-up.</div>
+            </div>
+            <div class="button-row"><a class="btn btn-secondary" href="/app.html">Open queue</a><a class="btn btn-secondary" href="/presets.html">Open voice</a></div>
+          </article>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-content">
+      <div class="footer-brand"><a class="footer-logo" href="/index.html"><span class="logo-mark" aria-hidden="true"></span><span>DMTools.fun</span></a><p class="footer-description">Manage plan, usage, billing, and credits in one place.</p></div>
+      <div class="footer-column"><h4>Product</h4><a href="/app.html">Queue</a><a href="/presets.html">Voice</a><a href="/pricing.html">Pricing</a><a href="/account.html">Account</a></div>
+      <div class="footer-column"><h4>Legal</h4><a href="/terms-of-service.html">Terms of Service</a><a href="/privacy-policy.html">Privacy Policy</a><a href="/refund-policy.html">Refund Policy</a><a href="/cookie-policy.html">Cookie Policy</a></div>
+      <div class="footer-column"><h4>Support</h4><a href="/contact.html">Contact</a><a href="mailto:admin@dmtools.fun">admin@dmtools.fun</a></div>
+    </div>
+    <div class="footer-bottom"><span>© 2026 DMTools.fun LLC. All rights reserved.</span><span class="small-note">Powered by the existing live account, usage, and billing contract.</span></div>
+  </footer>
+
+  <script src="/js/app-core.js"></script>
+  <script src="/js/auth-modal.js"></script>
+  <script>
+    (function () {
+      const PLAN_CONTENT = {
+        free:{badge:'Free Plan',price:'$0/month',notes:['10 AI responses per month','Basic templates','Works across web and mobile surfaces']},
+        starter:{badge:'Starter',price:'$19/month',notes:['500 replies per month','10 templates','Batch processing included']},
+        starter_weekly:{badge:'Starter Weekly',price:'$5.99/week',notes:['125 replies per week','10 templates','Batch processing included']},
+        startwk:{badge:'Starter Weekly',price:'$5.99/week',notes:['125 replies per week','10 templates','Batch processing included']},
+        pro:{badge:'Pro',price:'$59/month',notes:['2,000 replies per month','20 templates','Priority support']},
+        pro_annual:{badge:'Pro Annual',price:'$531/year',notes:['2,000 replies per month','20 templates','3 months free equivalent']},
+        proannual:{badge:'Pro Annual',price:'$531/year',notes:['2,000 replies per month','20 templates','3 months free equivalent']},
+        business:{badge:'Business',price:'$149/month',notes:['8,000 replies per month','200 templates','Advanced batch processing']},
+        business_annual:{badge:'Business Annual',price:'$1,341/year',notes:['8,000 replies per month','200 templates','3 months free equivalent']},
+        businessannual:{badge:'Business Annual',price:'$1,341/year',notes:['8,000 replies per month','200 templates','3 months free equivalent']},
+        enterprise:{badge:'Enterprise',price:'$399/month',notes:['High-capacity usage','Unlimited templates','Enterprise support orientation']},
+        enterprise_annual:{badge:'Enterprise Annual',price:'$3,591/year',notes:['High-capacity usage','Unlimited templates','3 months free equivalent']},
+        enterpriseannual:{badge:'Enterprise Annual',price:'$3,591/year',notes:['High-capacity usage','Unlimited templates','3 months free equivalent']}
+      };
+      const state = { signedIn:false, user:null, usage:null, billing:null, packs:null, editing:false };
+      function track(name, params){ try { if (window.DMTOOLS && typeof window.DMTOOLS.track === 'function') window.DMTOOLS.track(name, params || {}); } catch (_) {} }
+      function $(id){ return document.getElementById(id); }
+      function showFeedback(message, type){
+        const el = $('accountFeedback'); if (!el) return;
+        if (!message){ el.textContent=''; el.className='account-feedback hidden'; return; }
+        el.textContent = message; el.className = 'account-feedback' + (type === 'error' ? ' is-error' : type === 'success' ? ' is-success' : '');
+      }
+      function formatDate(v){ if (!v) return '—'; const d = new Date(v); return Number.isNaN(d.getTime()) ? '—' : d.toLocaleDateString('en-US',{year:'numeric',month:'long',day:'numeric'}); }
+      function formatDateShort(v){ if (!v) return '—'; const d = new Date(v); return Number.isNaN(d.getTime()) ? '—' : d.toLocaleDateString('en-US',{year:'numeric',month:'short',day:'numeric'}); }
+      function formatCount(v){ if (v === undefined || v === null || v === '') return '—'; if (String(v).toLowerCase() === 'unlimited') return 'Unlimited'; const n = Number(v); return Number.isFinite(n) ? n.toLocaleString('en-US') : String(v); }
+      function formatUsd(v){ const n = Number(v); return Number.isFinite(n) ? new Intl.NumberFormat('en-US',{style:'currency',currency:'USD',maximumFractionDigits:2}).format(n) : '—'; }
+      function safeText(v, fallback){ const t = String(v ?? '').trim(); return t || (fallback || '—'); }
+      function prettyStatus(v){ const t = String(v || 'none').replace(/_/g,' ').trim(); return t ? t.charAt(0).toUpperCase()+t.slice(1) : 'None'; }
+      function labelInterval(v){ const raw = String(v || '').toLowerCase(); if (!raw) return '—'; if (raw.includes('year')) return 'Annual'; if (raw.includes('week')) return 'Weekly'; if (raw.includes('month')) return 'Monthly'; return raw.charAt(0).toUpperCase()+raw.slice(1); }
+      function statusClass(v){ const raw = String(v || 'none').toLowerCase(); if (raw === 'paid' || raw === 'active') return 'status-active'; if (raw === 'pending' || raw === 'past_due') return 'status-past_due'; return 'status-none'; }
+      function setHeaderState(){
+        const signinButton = $('signinButton'); const primaryButton = $('primaryButton');
+        if (signinButton) signinButton.classList.toggle('hidden', state.signedIn);
+        if (primaryButton){
+          if (state.signedIn){ primaryButton.textContent='Sign out'; primaryButton.removeAttribute('data-auth'); primaryButton.onclick = logout; }
+          else { primaryButton.textContent='Start free'; primaryButton.setAttribute('data-auth','register'); primaryButton.setAttribute('data-return-to','/account.html'); primaryButton.onclick = null; }
         }
-
-        function showUnauthenticatedState() {
-            const loadingState = document.getElementById('loading-state');
-            const accountContent = document.getElementById('account-content');
-            const unauthenticatedState = document.getElementById('unauthenticated-state');
-
-            if (loadingState) loadingState.classList.add('hidden');
-            if (accountContent) accountContent.classList.add('hidden');
-            if (unauthenticatedState) unauthenticatedState.classList.remove('hidden');
+      }
+      function showSignedOut(){ $('loadingState').classList.add('hidden'); $('accountContent').classList.add('hidden'); $('accountStatus').classList.add('hidden'); $('signedOutState').classList.remove('hidden'); setHeaderState(); }
+      function showSignedIn(){ $('loadingState').classList.add('hidden'); $('signedOutState').classList.add('hidden'); $('accountContent').classList.remove('hidden'); $('accountStatus').classList.remove('hidden'); setHeaderState(); }
+      function renderProfile(){
+        const u = state.user || {};
+        $('profileEmail').textContent = safeText(u.email);
+        $('profileFirstName').textContent = safeText(u.first_name, '—');
+        $('profileLastName').textContent = safeText(u.last_name, '—');
+        $('profileCreated').textContent = formatDate(u.created_at);
+        $('editEmail').value = safeText(u.email, '');
+        $('editFirstName').value = safeText(u.first_name, '');
+        $('editLastName').value = safeText(u.last_name, '');
+      }
+      function renderPlan(){
+        const u = state.user || {};
+        const key = String(u.plan || u.subscription_tier || 'free').toLowerCase();
+        const plan = PLAN_CONTENT[key] || PLAN_CONTENT.free;
+        $('planBadge').textContent = plan.badge;
+        $('planPrice').textContent = plan.price;
+        $('responsesRemaining').textContent = formatCount(u.responses_remaining ?? 0);
+        $('subscriptionStatus').textContent = prettyStatus(u.subscription_status);
+        $('subscriptionInterval').textContent = labelInterval(u.subscription_interval);
+        $('subscriptionId').textContent = safeText(u.subscription_id, '—');
+        $('statusPlan').textContent = plan.badge;
+        $('statusRemaining').textContent = formatCount(u.responses_remaining ?? 0);
+        $('statusSubscription').textContent = prettyStatus(u.subscription_status);
+        $('statusHeadline').textContent = 'Signed in as ' + safeText(u.email);
+        $('statusSubline').textContent = 'Your plan, billing, and usage are loaded from the live account endpoints.';
+        $('planNotes').innerHTML = (plan.notes || []).map(function(n){ return '<div class="bullet">' + n + '</div>'; }).join('');
+      }
+      function renderUsage(){
+        const usage = state.usage || {};
+        $('monthlyUsageText').textContent = formatCount(usage.monthlyUsage || 0) + ' / ' + formatCount(usage.monthlyLimit || 0);
+        $('monthlyUsageFill').style.width = Math.max(0, Math.min(100, Number(usage.monthlyPercentage || 0))) + '%';
+        $('templatesUsageText').textContent = formatCount(usage.templatesUsed || 0) + ' / ' + formatCount(usage.templatesLimit || 0);
+        $('templatesUsageFill').style.width = Math.max(0, Math.min(100, Number(usage.templatesPercentage || 0))) + '%';
+        $('lifetimeGenerated').textContent = formatCount(usage.lifetimeGenerated || 0);
+        $('accountAge').textContent = usage.accountAgeMonths ? formatCount(usage.accountAgeMonths) + ' months' : '—';
+        $('usageUpdatedText').textContent = 'Updated just now';
+      }
+      function renderBilling(){
+        const billing = state.billing || { summary:{}, transactions:[] };
+        $('billingTotal').textContent = formatUsd(billing.summary.total || 0);
+        $('nextBillingDate').textContent = formatDate(billing.summary.nextBilling);
+        $('nextBillingAmount').textContent = billing.summary.nextBilling ? formatUsd(billing.summary.nextAmount || 0) : '—';
+        $('billingPlanText').textContent = safeText(billing.summary.currentPlan, safeText(state.user && state.user.plan, 'Free'));
+        const rows = $('billingRows');
+        const txs = Array.isArray(billing.transactions) ? billing.transactions : [];
+        if (!txs.length){ rows.innerHTML = '<tr><td colspan="5">No billing history available yet.</td></tr>'; return; }
+        rows.innerHTML = txs.map(function(tx){
+          const invoice = tx.invoiceUrl || tx.invoice_url || '#';
+          const link = invoice && invoice !== '#' ? '<a href="' + invoice + '" target="_blank" rel="noopener noreferrer">Download</a>' : '<span style="color:var(--text-muted)">Unavailable</span>';
+          return '<tr><td>' + formatDateShort(tx.date) + '</td><td>' + safeText(tx.description, 'Transaction') + '</td><td>' + formatUsd(tx.amount) + '</td><td><span class="status-pill ' + statusClass(tx.status) + '">' + safeText(tx.status, 'unknown') + '</span></td><td>' + link + '</td></tr>';
+        }).join('');
+      }
+      function renderPacks(){
+        const packs = state.packs || {};
+        const active = Number(packs.activeResponses || 0) || 0;
+        const queued = Number(packs.queuedResponses || 0) || 0;
+        const total = Number(packs.totalAvailable || 0) || 0;
+        $('activePackResponses').textContent = formatCount(active);
+        $('queuedPackResponses').textContent = formatCount(queued);
+        $('totalPackResponses').textContent = formatCount(total);
+        $('statusPacks').textContent = formatCount(total);
+        $('packStatusText').textContent = active > 0 ? 'Active pack available' : queued > 0 ? 'Queued pack waiting' : 'No active pack';
+        $('activatePackButton').classList.toggle('hidden', !(queued > 0 && active === 0));
+      }
+      function setEditing(editing){
+        state.editing = editing;
+        $('profileView').classList.toggle('hidden', editing);
+        $('profileEditForm').classList.toggle('hidden', !editing);
+        $('editToggleButton').disabled = editing;
+        $('editToggleButton').textContent = editing ? 'Editing...' : 'Edit profile';
+      }
+      function normalizeUsage(payload){
+        const data = payload && (payload.data || payload) || {};
+        const current = data.current || {};
+        const totals = data.totals || {};
+        return {
+          monthlyUsage: Number(current.monthlyUsage ?? current.monthly_usage ?? (state.user && state.user.monthly_usage) ?? 0) || 0,
+          monthlyLimit: Number(current.monthlyLimit ?? current.monthly_limit ?? (state.user && state.user.monthly_limit) ?? 0) || 0,
+          monthlyPercentage: Number(current.monthlyPercentage ?? current.monthly_percentage ?? 0) || 0,
+          templatesUsed: Number(current.templatesUsed ?? current.templates_used ?? 0) || 0,
+          templatesLimit: Number(current.templatesLimit ?? current.templates_limit ?? 0) || 0,
+          templatesPercentage: Number(current.templatesPercentage ?? current.templates_percentage ?? 0) || 0,
+          lifetimeGenerated: Number(totals.lifetimeGenerated ?? totals.lifetime_generated ?? 0) || 0,
+          accountAgeMonths: Number(totals.accountAgeMonths ?? totals.account_age_months ?? 0) || 0
+        };
+      }
+      function normalizeBilling(payload){
+        const data = payload && (payload.data || payload) || {};
+        return {
+          summary: {
+            total: Number((data.summary && data.summary.total) || 0) || 0,
+            nextBilling: data.summary && (data.summary.nextBilling || data.summary.next_billing) || null,
+            nextAmount: Number((data.summary && (data.summary.nextAmount || data.summary.next_amount)) || 0) || 0,
+            currentPlan: data.summary && (data.summary.currentPlan || data.summary.current_plan) || null
+          },
+          transactions: Array.isArray(data.transactions) ? data.transactions : []
+        };
+      }
+      function normalizePacks(payload){
+        const data = payload || {}; const summary = data.summary || {};
+        return { activeResponses:Number(summary.activeResponses ?? summary.active_responses ?? 0) || 0, queuedResponses:Number(summary.queuedResponses ?? summary.queued_responses ?? 0) || 0, totalAvailable:Number(summary.totalAvailable ?? summary.total_available ?? 0) || 0 };
+      }
+      async function loadProfile(){ const res = await DMTOOLS.apiCall('/user/profile', { method:'GET' }); state.user = res.user || res; }
+      async function loadUsage(){ const res = await DMTOOLS.apiCall('/account/usage', { method:'GET' }); state.usage = normalizeUsage(res); }
+      async function loadBilling(){ const res = await DMTOOLS.apiCall('/account/billing', { method:'GET' }); state.billing = normalizeBilling(res); }
+      async function loadPacks(){ try { const res = await DMTOOLS.apiCall('/packs/status', { method:'GET' }); state.packs = normalizePacks(res); } catch (_) { state.packs = normalizePacks({}); } }
+      async function initialize(){
+        track('account_view', { page_name:'account' });
+        state.signedIn = await DMTOOLS.verifyToken();
+        track('auth_state_detected', { page_name:'account', signed_in:state.signedIn });
+        if (!state.signedIn){ showSignedOut(); return; }
+        try {
+          await loadProfile();
+          await Promise.all([
+            loadUsage().catch(function(err){ console.warn(err); track('usage_section_error', { page_name:'account' }); }),
+            loadBilling().catch(function(err){ console.warn(err); track('billing_section_error', { page_name:'account' }); }),
+            loadPacks()
+          ]);
+          renderProfile(); renderPlan(); renderUsage(); renderBilling(); renderPacks(); showSignedIn();
+          track('usage_section_view', { page_name:'account' });
+          track('billing_section_view', { page_name:'account' });
+        } catch (err) {
+          console.error(err);
+          DMTOOLS.clearToken();
+          state.signedIn = false;
+          showFeedback('Please sign in again to load your account.', 'error');
+          showSignedOut();
         }
-
-        // API helper function
-        async function apiCall(endpoint, options = {}) {
-            const token = localStorage.getItem('authToken');
-            const url = API_BASE + endpoint;
-            
-            const config = {
-                headers: {
-                    'Content-Type': 'application/json',
-                    ...(token ? { 'Authorization': `Bearer ${token}` } : {})
-                },
-                ...options,
-            };
-
-            const response = await fetch(url, config);
-            const data = await response.json();
-
-            if (!response.ok) {
-                throw new Error(data.error || data.message || `HTTP error! status: ${response.status}`);
-            }
-
-            return data;
+      }
+      async function saveProfile(event){
+        event.preventDefault();
+        const first = $('editFirstName').value.trim();
+        const last = $('editLastName').value.trim();
+        if (!first || !last){ showFeedback('Please fill in both first and last name.', 'error'); return; }
+        try {
+          track('profile_update_start', { page_name:'account' });
+          $('saveProfileButton').disabled = true; $('saveProfileButton').textContent = 'Saving...';
+          await DMTOOLS.apiCall('/user/profile', { method:'PUT', body: JSON.stringify({ first_name:first, last_name:last }) });
+          state.user.first_name = first; state.user.last_name = last; renderProfile(); setEditing(false);
+          showFeedback('Profile updated successfully.', 'success');
+          track('profile_update_success', { page_name:'account' });
+        } catch (err) {
+          console.error(err); showFeedback(err.message || 'Failed to update profile.', 'error');
+          track('profile_update_error', { page_name:'account', message:String(err.message || err) });
+        } finally {
+          $('saveProfileButton').disabled = false; $('saveProfileButton').textContent = 'Save changes';
         }
-      
-
-        // Account Data Loading - Now with real API calls
-        async function loadAccountData() {
-            if (!currentUser) return;
-
-            try {
-                // Show loading
-                document.getElementById('loading-state').classList.remove('hidden');
-                document.getElementById('account-content').classList.add('hidden');
-
-                // Update user name in header
-                document.getElementById('user-name').textContent = `${currentUser.first_name} ${currentUser.last_name}`;
-
-                // Update profile information
-                document.getElementById('profile-email').textContent = currentUser.email;
-                document.getElementById('profile-first-name').textContent = currentUser.first_name || 'N/A';
-                document.getElementById('profile-last-name').textContent = currentUser.last_name || 'N/A';
-                document.getElementById('profile-created').textContent = formatDate(currentUser.created_at);
-
-                // Update current plan
-                updatePlanDisplay();
-
-                // Load real usage statistics
-                await loadUsageStatistics();
-
-                // Load real billing history
-                await loadBillingHistory();
-
-                // Hide loading and show content
-                document.getElementById('loading-state').classList.add('hidden');
-                document.getElementById('account-content').classList.remove('hidden');
-
-            } catch (error) {
-                console.error('Error loading account data:', error);
-                showNotification('Failed to load account data', 'error');
-                
-                // Hide loading and show content anyway
-                document.getElementById('loading-state').classList.add('hidden');
-                document.getElementById('account-content').classList.remove('hidden');
-            }
+      }
+      async function activateNextPack(){
+        try {
+          showFeedback('');
+          const res = await DMTOOLS.apiCall('/packs/activate', { method:'POST' });
+          if (res && res.success){ showFeedback('Next response pack activated successfully.', 'success'); await loadPacks(); renderPacks(); }
+          else { showFeedback((res && (res.message || res.error)) || 'No inactive packs available.', 'error'); }
+        } catch (err) {
+          console.error(err); showFeedback(err.message || 'Failed to activate next pack.', 'error');
         }
-      
-        
-
-     // REPLACE the updatePlanDisplay() function in account.html with this:
-
-function updatePlanDisplay() {
-    const plan = currentUser.plan || 'free';
-    
-    console.log('📊 Updating plan display for plan:', plan);
-    
-    const planNames = {
-        free: 'Free Plan',
-        starter: 'Starter Monthly Plan', 
-        startwk: 'Starter Weekly Plan',
-        starter_weekly: 'Starter Weekly Plan',  // Added underscore version
-        pro: 'Pro Monthly Plan',
-        proAnnual: 'Pro Annual Plan',
-        pro_annual: 'Pro Annual Plan',  // Added underscore version
-        business: 'Business Monthly Plan',
-        businessAnnual: 'Business Annual Plan',
-        business_annual: 'Business Annual Plan',  // Added underscore version
-        enterprise: 'Enterprise Monthly Plan',
-        enterpriseAnnual: 'Enterprise Annual Plan',
-        enterprise_annual: 'Enterprise Annual Plan'  // Added underscore version
-    };
-    
-    const planPrices = {
-        free: '$0/month',
-        starter: '$19/month',
-        startwk: '$5.99/week',
-        starter_weekly: '$5.99/week',
-        pro: '$59/month',
-        proAnnual: '$531/year',
-        pro_annual: '$531/year',
-        business: '$149/month',
-        businessAnnual: '$1,341/year',
-        business_annual: '$1,341/year',
-        enterprise: '$399/month',
-        enterpriseAnnual: '$3,591/year',
-        enterprise_annual: '$3,591/year'
-    };
-    
-    const planFeatures = {
-        free: ['10 responses per month', '5 custom templates', 'Basic analytics', 'Email support'],
-        starter: ['100 responses per month', '10 custom templates', 'Basic analytics', 'Email support', 'Batch processing'],
-        startwk: ['30 responses per week', '10 custom templates', 'Basic analytics', 'Email support', 'Batch processing'],
-        starter_weekly: ['30 responses per week', '10 custom templates', 'Basic analytics', 'Email support', 'Batch processing'],
-        pro: ['1,000 responses per month', '20 custom templates', 'Advanced analytics', 'Priority support', 'Batch processing', 'Export functionality', 'Chrome Extension Access'],
-        proAnnual: ['1,000 responses per month', '20 custom templates', 'Advanced analytics', 'Priority support', 'Batch processing', 'Export functionality', 'Chrome Extension Access', '3 months free'],
-        pro_annual: ['1,000 responses per month', '20 custom templates', 'Advanced analytics', 'Priority support', 'Batch processing', 'Export functionality', 'Chrome Extension Access', '3 months free'],
-        business: ['5,000 responses per month', '200 custom templates', 'Team analytics', 'Phone support', 'Advanced batch processing', 'API access', 'Chrome Extension Access', 'White-label options'],
-        businessAnnual: ['5,000 responses per month', '200 custom templates', 'Team analytics', 'Phone support', 'Advanced batch processing', 'API access', 'Chrome Extension Access', 'White-label options', '3 months free'],
-        business_annual: ['5,000 responses per month', '200 custom templates', 'Team analytics', 'Phone support', 'Advanced batch processing', 'API access', 'Chrome Extension Access', 'White-label options', '3 months free'],
-        enterprise: ['25,000 responses per month', 'Unlimited templates', 'Custom analytics', 'Chrome Extension Access'],
-        enterpriseAnnual: ['25,000 responses per month', 'Unlimited templates', 'Custom analytics', 'Chrome Extension Access', '3 months free'],
-        enterprise_annual: ['25,000 responses per month', 'Unlimited templates', 'Custom analytics', 'Chrome Extension Access', '3 months free']
-    };
-    
-    // Update plan badge - with fallback
-    const planBadge = document.getElementById('current-plan-badge');
-    if (planBadge) {
-        planBadge.textContent = planNames[plan] || plan || 'Free Plan';
-    }
-    
-    // Update plan price - with fallback
-    const planPrice = document.getElementById('current-plan-price');
-    if (planPrice) {
-        planPrice.textContent = planPrices[plan] || '$0/month';
-    }
-    
-    // Update features - WITH SAFETY CHECK BEFORE .map()
-    const featuresContainer = document.getElementById('current-plan-features');
-    if (featuresContainer) {
-        // Check if features exist for this plan
-        if (planFeatures[plan]) {
-            // Safe to use .map()
-            featuresContainer.innerHTML = planFeatures[plan]
-                .map(feature => `<li>${feature}</li>`)
-                .join('');
-        } else {
-            // Fallback for unknown plans
-            console.warn('⚠️ Unknown plan type:', plan, '- using Free plan features');
-            featuresContainer.innerHTML = planFeatures['free']
-                .map(feature => `<li>${feature}</li>`)
-                .join('');
+      }
+      function logout(){ DMTOOLS.clearToken(); window.location.href = '/index.html'; }
+      function wireEvents(){
+        const mobileToggle = $('mobile-menu-toggle'); const mobileMenu = $('mobile-menu');
+        if (mobileToggle && mobileMenu){
+          mobileToggle.addEventListener('click', function(){
+            const expanded = mobileToggle.getAttribute('aria-expanded') === 'true';
+            mobileToggle.setAttribute('aria-expanded', String(!expanded));
+            mobileMenu.classList.toggle('show');
+            track('mobile_menu_toggle', { page_name:'account', open:!expanded });
+          });
         }
-    }
-    
-    console.log('✅ Plan display updated successfully');
-}
-
-        // Load real usage statistics from API
-        async function loadUsageStatistics() {
-            try {
-                const response = await apiCall('/account/usage');
-                usageData = response.data;
-
-                // Update monthly usage
-                const monthlyText = `${usageData.current.monthlyUsage} / ${usageData.current.monthlyLimit}`;
-                document.getElementById('monthly-usage-text').textContent = monthlyText;
-                document.getElementById('monthly-progress').style.width = `${usageData.current.monthlyPercentage}%`;
-
-                // Update templates usage
-                const templatesText = `${usageData.current.templatesUsed} / ${usageData.current.templatesLimit}`;
-                document.getElementById('templates-usage-text').textContent = templatesText;
-                document.getElementById('templates-progress').style.width = `${usageData.current.templatesPercentage}%`;
-
-                // Update totals
-                document.getElementById('total-generated').textContent = usageData.totals.lifetimeGenerated.toLocaleString();
-                document.getElementById('account-age').textContent = usageData.totals.accountAgeMonths;
-
-                // Update last updated time
-                document.getElementById('usage-last-updated').textContent = 'Updated just now';
-
-            } catch (error) {
-                console.error('Error loading usage statistics:', error);
-                showNotification('Failed to load usage statistics', 'error');
-                
-                // Fallback to basic user data
-                const monthlyUsage = currentUser.monthly_usage || 0;
-                const plan = currentUser.plan || 'free';
-                const limits = { free: 10, pro: 1000, business: 5000 };
-                
-                document.getElementById('monthly-usage-text').textContent = `${monthlyUsage} / ${limits[plan]}`;
-                document.getElementById('monthly-progress').style.width = `${Math.min((monthlyUsage / limits[plan]) * 100, 100)}%`;
-                document.getElementById('templates-usage-text').textContent = '0 / 5';
-                document.getElementById('templates-progress').style.width = '0%';
-                document.getElementById('total-generated').textContent = monthlyUsage;
-                document.getElementById('account-age').textContent = '1';
-            }
-        }
-
-        // Load real billing history from API
-        async function loadBillingHistory() {
-            try {
-                document.getElementById('billing-loading').classList.remove('hidden');
-                document.getElementById('billing-content').classList.add('hidden');
-
-                const response = await apiCall('/account/billing');
-                billingData = response.data;
-
-                const billingTable = document.getElementById('billing-history');
-                
-                if (billingData.transactions.length === 0) {
-                    billingTable.innerHTML = `
-                        <tr>
-                            <td colspan="5" style="text-align: center; color: #9ca3af; padding: 2rem;">
-                                ${billingData.summary.currentPlan === 'Free Plan' ? 'No billing history available for free plan' : 'No transactions found'}
-                            </td>
-                        </tr>
-                    `;
-                } else {
-                    billingTable.innerHTML = billingData.transactions.map(transaction => `
-                        <tr>
-                            <td>${formatDate(transaction.date)}</td>
-                            <td>${transaction.description}</td>
-                            <td>$${transaction.amount.toFixed(2)}</td>
-                            <td><span class="status-badge status-${transaction.status}">${transaction.status.toUpperCase()}</span></td>
-                            <td><a href="${transaction.invoiceUrl}" style="color: #8b5cf6;" ${transaction.invoiceUrl.startsWith('#') ? 'onclick="showNotification(\'Demo invoice\', \'info\'); return false;"' : ''}>Download</a></td>
-                        </tr>
-                    `).join('');
-                }
-
-                // Update billing summary
-                document.getElementById('billing-summary').textContent = `Total: $${billingData.summary.total.toFixed(2)}`;
-                
-                // Show next billing info if applicable
-                if (billingData.summary.nextBilling && billingData.summary.currentPlan !== 'Free Plan') {
-                    document.getElementById('next-billing-info').classList.remove('hidden');
-                    document.getElementById('next-billing-date').textContent = formatDate(billingData.summary.nextBilling);
-                    document.getElementById('next-billing-amount').textContent = `$${billingData.summary.nextAmount.toFixed(2)}`;
-                }
-
-                document.getElementById('billing-loading').classList.add('hidden');
-                document.getElementById('billing-content').classList.remove('hidden');
-
-            } catch (error) {
-                console.error('Error loading billing history:', error);
-                showNotification('Failed to load billing history', 'error');
-                
-                // Show error state
-                document.getElementById('billing-loading').classList.add('hidden');
-                document.getElementById('billing-content').classList.remove('hidden');
-                document.getElementById('billing-history').innerHTML = `
-                    <tr>
-                        <td colspan="5" style="text-align: center; color: #ef4444; padding: 2rem;">
-                            Failed to load billing history
-                        </td>
-                    </tr>
-                `;
-            }
-        }
-
-        // Profile Management
-        function toggleProfileEdit() {
-            const profileView = document.getElementById('profile-view');
-            const profileEdit = document.getElementById('profile-edit');
-            const editText = document.getElementById('edit-profile-text');
-
-            if (isEditingProfile) {
-                // Cancel edit
-                profileView.classList.remove('hidden');
-                profileEdit.classList.add('hidden');
-                editText.textContent = '✏️ Edit';
-                isEditingProfile = false;
-            } else {
-                // Start edit
-                profileView.classList.add('hidden');
-                profileEdit.classList.remove('hidden');
-                editText.textContent = '❌ Cancel';
-                isEditingProfile = true;
-
-                // Populate edit fields
-                document.getElementById('edit-email').value = currentUser.email;
-                document.getElementById('edit-first-name').value = currentUser.first_name || '';
-                document.getElementById('edit-last-name').value = currentUser.last_name || '';
-            }
-        }
-
-        function cancelProfileEdit() {
-            toggleProfileEdit();
-        }
-
-        async function saveProfile() {
-            const firstName = document.getElementById('edit-first-name').value.trim();
-            const lastName = document.getElementById('edit-last-name').value.trim();
-
-            if (!firstName || !lastName) {
-                showNotification('Please fill in all fields', 'error');
-                return;
-            }
-
-            try {
-                const response = await apiCall('/user/profile', {
-                    method: 'PUT',
-                    body: JSON.stringify({
-                        first_name: firstName,
-                        last_name: lastName
-                    })
-                });
-
-                currentUser.first_name = firstName;
-                currentUser.last_name = lastName;
-                loadAccountData();
-                toggleProfileEdit();
-                showNotification('Profile updated successfully!', 'success');
-
-            } catch (error) {
-                console.error('Profile update error:', error);
-                showNotification(error.message || 'Failed to update profile', 'error');
-            }
-        }
-
-        // Upgrade Options
-        function showUpgradeOptions() {
-            window.open('/pricing.html', '_blank');
-        }
-
-        // Utility Functions
-        function formatDate(dateString) {
-            return new Date(dateString).toLocaleDateString('en-US', {
-                year: 'numeric',
-                month: 'long',
-                day: 'numeric'
-            });
-        }
-
-        function showNotification(message, type = 'success') {
-            const notification = document.getElementById('notification');
-            notification.textContent = message;
-            notification.className = `notification ${type}`;
-            notification.classList.add('show');
-            
-            setTimeout(() => {
-                notification.classList.remove('show');
-            }, 4000);
-        }
-
-        function logout() {
-            localStorage.removeItem('authToken');
-            currentUser = null;
-            isAuthenticated = false;
-            window.location.href = '/';
-        }
-    </script>
-<script src="js/app-core.js"></script>
-<script src="js/auth-modal.js"></script>
+        $('editToggleButton').addEventListener('click', function(){ setEditing(true); });
+        $('cancelEditButton').addEventListener('click', function(){ setEditing(false); renderProfile(); });
+        $('profileEditForm').addEventListener('submit', saveProfile);
+        $('activatePackButton').addEventListener('click', activateNextPack);
+        const signInPromptButton = $('signInPromptButton');
+        if (signInPromptButton) signInPromptButton.addEventListener('click', function(){ track('sign_in_prompt_click', { page_name:'account' }); });
+        document.querySelectorAll('a[href="/pricing.html"], #upgradeHeroCta, #upgradeCardCta').forEach(function(el){
+          el.addEventListener('click', function(){ track('account_upgrade_cta_click', { page_name:'account' }); });
+        });
+      }
+      document.addEventListener('DOMContentLoaded', async function(){ wireEvents(); setHeaderState(); await initialize(); });
+    })();
+  </script>
 </body>
 </html>
-

@@ -3,10 +3,9 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>DMTools.fun Pricing - Clear plans, simple top-ups, faster replies</title>
-  <meta name="description" content="Choose a DMTools subscription for monthly reply credits and premium features, or buy one-time response packs as top-ups. Clear pricing. Clear value.">
-  <link rel="stylesheet" href="/styles.css?v=20260323a">
-
+  <title>DMTools.fun Pricing</title>
+  <meta name="description" content="Clear DMTools pricing: subscriptions for ongoing usage, response packs for top-ups.">
+  <link rel="stylesheet" href="/styles.css?v=20260324a">
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-K0G9YRD39L"></script>
   <script>
     window.dataLayer = window.dataLayer || [];
@@ -14,415 +13,66 @@
     gtag('js', new Date());
     gtag('config', 'G-K0G9YRD39L');
     gtag('config', 'G-YFTZBVLQHF');
-
     window.DMTOOLS = window.DMTOOLS || {};
     window.DMTOOLS.track = window.DMTOOLS.track || function(eventName, params) {
       try { gtag('event', eventName, params || {}); } catch (_) {}
     };
   </script>
-
   <script src="https://app.lemonsqueezy.com/js/lemon.js" defer></script>
-
   <style>
-    .pricing-hero {
-      padding: 4.25rem 0 2rem;
-    }
-
-    .pricing-hero__wrap {
-      display: grid;
-      grid-template-columns: minmax(0, 1.15fr) minmax(320px, 0.85fr);
-      gap: 1.5rem;
-      align-items: stretch;
-    }
-
-    .pricing-hero__copy,
-    .pricing-hero__panel,
-    .pricing-panel,
-    .pricing-card,
-    .pricing-faq,
-    .pricing-clarity,
-    .pricing-status {
-      background: var(--bg-card);
-      border: 1px solid var(--border-medium);
-      border-radius: 22px;
-      box-shadow: var(--shadow-md);
-      backdrop-filter: blur(16px);
-    }
-
-    .pricing-hero__copy {
-      padding: 2rem;
-    }
-
-    .pricing-hero__copy .lead {
-      max-width: 720px;
-      color: var(--text-secondary);
-    }
-
-    .pricing-hero__actions {
-      display: flex;
-      gap: 0.85rem;
-      flex-wrap: wrap;
-      margin-top: 1.35rem;
-    }
-
-    .pricing-hero__proof {
-      margin-top: 1.5rem;
-      display: flex;
-      flex-wrap: wrap;
-      gap: 0.75rem;
-    }
-
-    .pricing-hero__proof span,
-    .pricing-pill {
-      display: inline-flex;
-      align-items: center;
-      gap: 0.4rem;
-      padding: 0.5rem 0.8rem;
-      border-radius: var(--radius-full);
-      border: 1px solid rgba(124, 152, 205, 0.18);
-      background: rgba(16, 28, 47, 0.72);
-      color: var(--text-secondary);
-      font-size: 0.92rem;
-    }
-
-    .pricing-hero__panel {
-      padding: 1.4rem;
-      display: grid;
-      gap: 1rem;
-    }
-
-    .pricing-panel {
-      padding: 1.1rem 1.2rem;
-      background: linear-gradient(135deg, rgba(79, 124, 255, 0.12), rgba(24, 183, 160, 0.10));
-    }
-
-    .pricing-panel h3 {
-      font-size: 1.08rem;
-      margin-bottom: 0.45rem;
-    }
-
-    .pricing-panel p {
-      margin: 0;
-      color: var(--text-secondary);
-    }
-
-    .pricing-status {
-      margin-top: 1rem;
-      padding: 1rem 1.2rem;
-    }
-
-    .pricing-status__grid {
-      display: grid;
-      grid-template-columns: repeat(3, minmax(0, 1fr));
-      gap: 0.8rem;
-      margin-top: 0.8rem;
-    }
-
-    .pricing-status__item {
-      padding: 0.9rem;
-      border-radius: 16px;
-      background: rgba(13, 23, 38, 0.92);
-      border: 1px solid rgba(108, 135, 184, 0.14);
-    }
-
-    .pricing-status__label {
-      font-size: 0.82rem;
-      color: var(--text-muted);
-      margin-bottom: 0.25rem;
-    }
-
-    .pricing-status__value {
-      color: var(--text-primary);
-      font-weight: 750;
-      font-size: 1.02rem;
-    }
-
-    .pricing-controls {
-      padding: 0.5rem 0 1rem;
-    }
-
-    .pricing-switches {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 1rem;
-      align-items: center;
-      justify-content: space-between;
-    }
-
-    .segmented {
-      display: inline-flex;
-      padding: 0.3rem;
-      border-radius: 999px;
-      background: rgba(12, 22, 36, 0.92);
-      border: 1px solid var(--border-medium);
-      gap: 0.25rem;
-    }
-
-    .segmented button {
-      appearance: none;
-      border: 0;
-      border-radius: 999px;
-      padding: 0.72rem 1rem;
-      background: transparent;
-      color: var(--text-secondary);
-      font-weight: 700;
-      min-width: 124px;
-      transition: background var(--transition-fast), color var(--transition-fast), transform var(--transition-fast);
-    }
-
-    .segmented button.active {
-      background: var(--gradient-primary-dark);
-      color: #fff;
-      box-shadow: var(--shadow-primary);
-    }
-
-    .segmented button:not(.active):hover {
-      background: rgba(79, 124, 255, 0.10);
-      color: var(--text-primary);
-    }
-
-    .billing-notice {
-      color: var(--text-muted);
-      font-size: 0.95rem;
-    }
-
-    .pricing-section {
-      padding: 1rem 0 2.4rem;
-    }
-
-    .pricing-grid {
-      display: grid;
-      grid-template-columns: repeat(3, minmax(0, 1fr));
-      gap: 1rem;
-      margin-top: 1.35rem;
-    }
-
-    .pricing-grid.pricing-grid--subscriptions {
-      grid-template-columns: repeat(4, minmax(0, 1fr));
-    }
-
-    .pricing-card {
-      position: relative;
-      display: flex;
-      flex-direction: column;
-      padding: 1.35rem;
-      overflow: hidden;
-    }
-
-    .pricing-card.featured {
-      border-color: rgba(79, 124, 255, 0.46);
-      box-shadow: var(--shadow-primary-lg);
-      transform: translateY(-4px);
-    }
-
-    .pricing-card__badge {
-      position: absolute;
-      top: 1rem;
-      right: 1rem;
-      padding: 0.35rem 0.6rem;
-      border-radius: 999px;
-      background: rgba(79, 124, 255, 0.18);
-      border: 1px solid rgba(79, 124, 255, 0.3);
-      color: var(--primary-light);
-      font-size: 0.76rem;
-      font-weight: 800;
-      letter-spacing: 0.03em;
-      text-transform: uppercase;
-    }
-
-    .pricing-card__name {
-      font-size: 1.1rem;
-      font-weight: 800;
-      color: var(--text-primary);
-      margin: 0 0 0.4rem;
-      padding-right: 6rem;
-    }
-
-    .pricing-card__sub {
-      color: var(--text-muted);
-      font-size: 0.95rem;
-      min-height: 2.8rem;
-      margin: 0 0 1rem;
-    }
-
-    .pricing-card__price {
-      display: flex;
-      align-items: flex-end;
-      gap: 0.2rem;
-      margin-bottom: 0.8rem;
-      color: var(--text-primary);
-    }
-
-    .pricing-card__price .amount {
-      font-size: clamp(2rem, 4vw, 2.5rem);
-      font-weight: 850;
-      line-height: 1;
-    }
-
-    .pricing-card__price .suffix {
-      color: var(--text-muted);
-      font-weight: 650;
-      padding-bottom: 0.2rem;
-    }
-
-    .pricing-card__meta {
-      display: grid;
-      gap: 0.45rem;
-      padding: 0.9rem 0;
-      margin: 0.2rem 0 0.8rem;
-      border-top: 1px solid rgba(108, 135, 184, 0.14);
-      border-bottom: 1px solid rgba(108, 135, 184, 0.14);
-    }
-
-    .pricing-card__meta div {
-      display: flex;
-      justify-content: space-between;
-      gap: 1rem;
-      color: var(--text-secondary);
-      font-size: 0.95rem;
-    }
-
-    .pricing-card__meta div span:last-child {
-      color: var(--text-primary);
-      font-weight: 750;
-    }
-
-    .pricing-card__features {
-      list-style: none;
-      padding: 0;
-      margin: 0 0 1rem;
-      display: grid;
-      gap: 0.6rem;
-      color: var(--text-secondary);
-      flex: 1 1 auto;
-    }
-
-    .pricing-card__features li {
-      display: grid;
-      grid-template-columns: 1.1rem 1fr;
-      gap: 0.55rem;
-      align-items: start;
-    }
-
-    .pricing-card__features li::before {
-      content: "✓";
-      color: var(--accent-light);
-      font-weight: 900;
-    }
-
-    .pricing-card__actions {
-      display: grid;
-      gap: 0.7rem;
-    }
-
-    .pricing-card__hint {
-      color: var(--text-muted);
-      font-size: 0.84rem;
-      text-align: center;
-    }
-
-    .pricing-empty,
-    .pricing-feedback {
-      margin-top: 1rem;
-      padding: 1rem 1.1rem;
-      border-radius: 16px;
-      border: 1px solid var(--border-medium);
-      background: rgba(10, 20, 34, 0.92);
-      color: var(--text-secondary);
-    }
-
-    .pricing-feedback.is-error {
-      border-color: rgba(239, 68, 68, 0.36);
-      background: rgba(49, 18, 23, 0.34);
-      color: #ffd6dc;
-    }
-
-    .pricing-feedback.is-success {
-      border-color: rgba(34, 197, 94, 0.32);
-      background: rgba(9, 38, 24, 0.34);
-      color: #d8ffe8;
-    }
-
-    .pricing-clarity-grid,
-    .pricing-faq-grid {
-      display: grid;
-      grid-template-columns: repeat(2, minmax(0, 1fr));
-      gap: 1rem;
-    }
-
-    .pricing-clarity,
-    .pricing-faq {
-      padding: 1.25rem;
-    }
-
-    .pricing-clarity h3,
-    .pricing-faq h3 {
-      font-size: 1.05rem;
-      margin-bottom: 0.4rem;
-    }
-
-    .pricing-clarity p,
-    .pricing-faq p {
-      margin: 0;
-      color: var(--text-secondary);
-    }
-
-    .small-note {
-      color: var(--text-muted);
-      font-size: 0.88rem;
-    }
-
-    @media (max-width: 1100px) {
-      .pricing-hero__wrap,
-      .pricing-grid.pricing-grid--subscriptions,
-      .pricing-grid,
-      .pricing-status__grid,
-      .pricing-clarity-grid,
-      .pricing-faq-grid {
-        grid-template-columns: repeat(2, minmax(0, 1fr));
-      }
-    }
-
-    @media (max-width: 780px) {
-      .pricing-hero__wrap,
-      .pricing-grid.pricing-grid--subscriptions,
-      .pricing-grid,
-      .pricing-status__grid,
-      .pricing-clarity-grid,
-      .pricing-faq-grid {
-        grid-template-columns: 1fr;
-      }
-
-      .pricing-switches {
-        align-items: stretch;
-      }
-
-      .segmented {
-        width: 100%;
-        justify-content: stretch;
-      }
-
-      .segmented button {
-        flex: 1 1 0;
-        min-width: 0;
-      }
-
-      .pricing-hero__actions {
-        flex-direction: column;
-        align-items: stretch;
-      }
-
-      .pricing-card__name {
-        padding-right: 0;
-      }
-
-      .pricing-card__badge {
-        position: static;
-        display: inline-flex;
-        width: fit-content;
-        margin-bottom: 0.75rem;
-      }
-    }
+    .pricing-wrap{width:min(1120px,calc(100vw - 2rem));margin:0 auto;padding:3rem 0 4rem}
+    .pricing-hero,.pricing-status,.pricing-card,.pricing-callout,.pricing-faq,.pricing-feedback{background:var(--bg-card);border:1px solid var(--border-medium);border-radius:22px;box-shadow:var(--shadow-md);backdrop-filter:blur(14px)}
+    .pricing-hero{display:grid;grid-template-columns:minmax(0,1.15fr) minmax(280px,.85fr);gap:1rem;padding:1.6rem;margin-bottom:1rem}
+    .pricing-hero__copy h1{margin-bottom:.8rem}
+    .pricing-hero__copy p{color:var(--text-secondary);max-width:700px;margin-bottom:1rem}
+    .pricing-actions{display:flex;flex-wrap:wrap;gap:.75rem;margin-top:1rem}
+    .pricing-mini-grid{display:grid;gap:.85rem}
+    .pricing-callout{padding:1rem 1.05rem;background:linear-gradient(135deg,rgba(79,124,255,.10),rgba(24,183,160,.08))}
+    .pricing-callout h3{font-size:1rem;margin-bottom:.3rem}
+    .pricing-callout p{color:var(--text-secondary);margin:0;font-size:.95rem}
+    .pricing-status{padding:1rem 1.1rem;margin-bottom:1rem}
+    .pricing-status__grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:.75rem;margin-top:.75rem}
+    .pricing-status__item{padding:.9rem;border-radius:16px;background:rgba(12,22,37,.88);border:1px solid rgba(108,135,184,.12)}
+    .pricing-status__label{font-size:.8rem;color:var(--text-muted);margin-bottom:.22rem}
+    .pricing-status__value{color:var(--text-primary);font-size:1rem;font-weight:800}
+    .pricing-toolbar{display:flex;flex-wrap:wrap;justify-content:space-between;gap:.8rem;align-items:center;margin-bottom:1rem}
+    .segmented{display:inline-flex;padding:.28rem;border-radius:999px;background:rgba(11,21,36,.92);border:1px solid var(--border-medium);gap:.25rem}
+    .segmented button{appearance:none;border:0;border-radius:999px;padding:.7rem .95rem;background:transparent;color:var(--text-secondary);font-weight:760;min-width:94px;transition:background var(--transition-fast),color var(--transition-fast)}
+    .segmented button.active{background:var(--gradient-primary-dark);color:#fff;box-shadow:var(--shadow-primary)}
+    .segmented button:not(.active):hover{background:rgba(79,124,255,.10);color:var(--text-primary)}
+    .pricing-copyline{color:var(--text-muted);font-size:.94rem}
+    .pricing-feedback{padding:.9rem 1rem;margin-bottom:1rem;color:var(--text-secondary)}
+    .pricing-feedback.hidden,.hidden{display:none!important}
+    .pricing-feedback.is-error{border-color:rgba(239,68,68,.34);background:rgba(50,17,24,.28);color:#ffdbe1}
+    .pricing-section{margin-top:1.2rem}
+    .pricing-section h2{font-size:1.85rem;margin-bottom:.35rem}
+    .pricing-section p.lead{color:var(--text-secondary);max-width:760px;margin-bottom:1rem}
+    .pricing-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:1rem}
+    .pricing-card{padding:1.25rem;display:flex;flex-direction:column;min-height:100%}
+    .pricing-card.featured{border-color:rgba(79,124,255,.42);box-shadow:var(--shadow-primary-lg);transform:translateY(-2px)}
+    .pricing-card__badge{align-self:flex-start;padding:.34rem .6rem;border-radius:999px;border:1px solid rgba(79,124,255,.24);background:rgba(79,124,255,.14);color:var(--primary-light);font-size:.76rem;font-weight:800;margin-bottom:.8rem;text-transform:uppercase;letter-spacing:.02em}
+    .pricing-card__name{font-size:1.2rem;font-weight:850;color:var(--text-primary);margin-bottom:.25rem}
+    .pricing-card__sub{color:var(--text-muted);min-height:2.8rem;margin-bottom:.95rem}
+    .pricing-card__price{display:flex;align-items:flex-end;gap:.2rem;margin-bottom:.9rem;color:var(--text-primary)}
+    .pricing-card__price .amount{font-size:clamp(2rem,3vw,2.45rem);font-weight:900;line-height:1}
+    .pricing-card__price .suffix{color:var(--text-muted);font-weight:700;padding-bottom:.16rem}
+    .pricing-card__meta{padding:.9rem 0;border-top:1px solid rgba(108,135,184,.14);border-bottom:1px solid rgba(108,135,184,.14);display:grid;gap:.45rem;margin-bottom:1rem}
+    .pricing-card__meta div{display:flex;justify-content:space-between;gap:1rem;color:var(--text-secondary);font-size:.94rem}
+    .pricing-card__meta span:last-child{color:var(--text-primary);font-weight:800}
+    .pricing-card__features{list-style:none;padding:0;margin:0 0 1rem;display:grid;gap:.55rem;color:var(--text-secondary);flex:1 1 auto}
+    .pricing-card__features li{display:grid;grid-template-columns:1rem 1fr;gap:.5rem;align-items:start}
+    .pricing-card__features li::before{content:"✓";color:var(--accent-light);font-weight:900}
+    .pricing-card__footer{display:grid;gap:.65rem}
+    .pricing-card__hint{color:var(--text-muted);font-size:.84rem;text-align:center}
+    .pricing-enterprise{margin-top:1rem}
+    .pricing-enterprise .pricing-callout{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:1rem;align-items:center}
+    .pricing-packs{margin-top:2rem}
+    .pricing-faqs{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:1rem;margin-top:2rem}
+    .pricing-faq{padding:1.1rem 1.15rem}
+    .pricing-faq h3{font-size:1rem;margin-bottom:.3rem}
+    .pricing-faq p{margin:0;color:var(--text-secondary)}
+    @media (max-width:1100px){.pricing-hero,.pricing-grid,.pricing-status__grid,.pricing-faqs,.pricing-enterprise .pricing-callout{grid-template-columns:1fr}}
+    @media (max-width:760px){.pricing-wrap{width:min(100vw - 1rem,100%)}.pricing-toolbar{align-items:stretch}.segmented{width:100%}.segmented button{flex:1 1 0;min-width:0}.pricing-actions{flex-direction:column;align-items:stretch}}
   </style>
 </head>
 <body>
@@ -432,194 +82,115 @@
         <span class="logo-mark" aria-hidden="true"></span>
         <span>DMTools.fun</span>
       </a>
-
       <nav class="landing-nav-desktop" aria-label="Primary">
-        <a href="/app.html" data-track="nav_link_click" data-track-location="header" data-track-target="queue">Queue</a>
-        <a href="/presets.html" data-track="nav_link_click" data-track-location="header" data-track-target="voice">Voice</a>
-        <a href="/pricing.html" aria-current="page" data-track="nav_link_click" data-track-location="header" data-track-target="pricing">Pricing</a>
-        <a href="https://chromewebstore.google.com/detail/dmtools-%E2%80%93-inline-reply-as/joheialcdpmcfgehhcpfjnppficonfih" target="_blank" rel="noopener noreferrer" data-track="extension_install_click" data-track-location="header" data-track-target="chrome_store">Install Extension</a>
+        <a href="/app.html">Queue</a>
+        <a href="/presets.html">Voice</a>
+        <a href="/pricing.html" aria-current="page">Pricing</a>
+        <a href="https://chromewebstore.google.com/detail/dmtools-%E2%80%93-inline-reply-as/joheialcdpmcfgehhcpfjnppficonfih" target="_blank" rel="noopener noreferrer">Install Extension</a>
       </nav>
-
       <div class="header-actions">
-        <a class="btn btn-secondary hide-mobile" href="/account.html" id="account-link" data-track="nav_link_click" data-track-location="header" data-track-target="account">Account</a>
-        <button class="btn btn-secondary hide-mobile" type="button" data-auth="login" data-return-to="/pricing.html" data-track="auth_modal_open" data-track-mode="login" id="signin-button">Sign in</button>
-        <button class="btn btn-primary" type="button" data-auth="register" data-return-to="/pricing.html" data-track="auth_modal_open" data-track-mode="register" id="signup-button">Start free</button>
+        <a class="btn btn-secondary hide-mobile" href="/account.html" id="account-link">Account</a>
+        <button class="btn btn-primary" type="button" data-auth="register" data-return-to="/pricing.html" id="primary-auth-button">Start free</button>
         <button class="mobile-menu-btn" type="button" aria-label="Open menu" aria-expanded="false" aria-controls="mobile-menu" id="mobile-menu-toggle">☰</button>
       </div>
     </div>
-
     <div class="mobile-menu" id="mobile-menu">
       <div class="mobile-menu-links">
-        <a href="/app.html" data-track="nav_link_click" data-track-location="mobile" data-track-target="queue">Queue</a>
-        <a href="/presets.html" data-track="nav_link_click" data-track-location="mobile" data-track-target="voice">Voice</a>
-        <a href="/pricing.html" data-track="nav_link_click" data-track-location="mobile" data-track-target="pricing">Pricing</a>
-        <a href="/account.html" data-track="nav_link_click" data-track-location="mobile" data-track-target="account">Account</a>
-        <a href="https://chromewebstore.google.com/detail/dmtools-%E2%80%93-inline-reply-as/joheialcdpmcfgehhcpfjnppficonfih" target="_blank" rel="noopener noreferrer" data-track="extension_install_click" data-track-location="mobile" data-track-target="chrome_store">Install Extension</a>
-        <button class="btn btn-secondary" type="button" data-auth="login" data-return-to="/pricing.html" data-track="auth_modal_open" data-track-mode="login">Sign in</button>
+        <a href="/app.html">Queue</a>
+        <a href="/presets.html">Voice</a>
+        <a href="/pricing.html">Pricing</a>
+        <a href="/account.html">Account</a>
+        <a href="https://chromewebstore.google.com/detail/dmtools-%E2%80%93-inline-reply-as/joheialcdpmcfgehhcpfjnppficonfih" target="_blank" rel="noopener noreferrer">Install Extension</a>
+        <button class="btn btn-secondary" type="button" data-auth="login" data-return-to="/pricing.html">Sign in</button>
       </div>
     </div>
   </header>
 
-  <main>
+  <main class="pricing-wrap">
     <section class="pricing-hero">
-      <div class="pricing-container">
-        <div class="pricing-hero__wrap">
-          <div class="pricing-hero__copy">
-            <span class="eyebrow">Simple monetization story</span>
-            <h1>One subscription story.<br>One top-up story.</h1>
-            <p class="lead">
-              Subscriptions give you monthly reply credits plus premium features. Response packs are one-time top-ups when you want extra capacity without another subscription.
-            </p>
-
-            <div class="pricing-hero__actions">
-              <button class="btn btn-primary" type="button" data-jump="subscriptions" data-track="landing_cta_click" data-track-cta="view_subscriptions" data-track-surface="pricing">View subscriptions</button>
-              <button class="btn btn-accent" type="button" data-jump="packs" data-track="landing_cta_click" data-track-cta="view_packs" data-track-surface="pricing">View packs</button>
-              <a class="btn btn-secondary" href="/account.html" data-track="nav_link_click" data-track-location="hero" data-track-target="account">Open account</a>
-            </div>
-
-            <div class="pricing-hero__proof">
-              <span>Clear monthly allowance</span>
-              <span>One-time packs as top-ups</span>
-              <span>Real checkout and live catalog</span>
-            </div>
-          </div>
-
-          <div class="pricing-hero__panel">
-            <div class="pricing-panel">
-              <h3>Subscriptions</h3>
-              <p>Best if DMTools is part of your regular workflow. You get recurring credits, premium limits, and higher-capacity usage over time.</p>
-            </div>
-            <div class="pricing-panel">
-              <h3>Response packs</h3>
-              <p>Best if you want more replies without changing your plan. Packs behave like top-ups and can be activated when needed.</p>
-            </div>
-            <div class="pricing-panel">
-              <h3>Clearer decision</h3>
-              <p>If you reply every week, start with a subscription. If you only need occasional extra volume, buy a pack.</p>
-            </div>
-          </div>
+      <div class="pricing-hero__copy">
+        <span class="eyebrow">Clear plans, lighter page</span>
+        <h1>Pick the plan that matches how often you reply.</h1>
+        <p>Subscriptions are for ongoing usage. Response packs are top-ups when you need more capacity without changing your regular plan.</p>
+        <div class="pricing-actions">
+          <button class="btn btn-primary" type="button" data-jump="plans">View plans</button>
+          <button class="btn btn-secondary" type="button" data-jump="packs">View packs</button>
         </div>
-
-        <div class="pricing-status hidden" id="pricingStatus">
-          <strong id="statusHeadline">Signed in</strong>
-          <div class="small-note" id="statusSubline">We found your current DMTools account.</div>
-          <div class="pricing-status__grid">
-            <div class="pricing-status__item">
-              <div class="pricing-status__label">Current plan</div>
-              <div class="pricing-status__value" id="statusPlan">Free</div>
-            </div>
-            <div class="pricing-status__item">
-              <div class="pricing-status__label">Replies remaining</div>
-              <div class="pricing-status__value" id="statusRemaining">-</div>
-            </div>
-            <div class="pricing-status__item">
-              <div class="pricing-status__label">Pack balance</div>
-              <div class="pricing-status__value" id="statusPacks">-</div>
-            </div>
-          </div>
-        </div>
-
-        <div class="pricing-feedback hidden" id="pricingFeedback"></div>
       </div>
-    </section>
-
-    <section class="pricing-section">
-      <div class="pricing-container">
-        <div class="pricing-controls">
-          <div class="pricing-switches">
-            <div class="segmented" aria-label="Pricing surface selector">
-              <button type="button" class="active" id="btnSubscriptions">Subscriptions</button>
-              <button type="button" id="btnPacks">Response Packs</button>
-            </div>
-
-            <div class="segmented" aria-label="Billing interval selector" id="intervalToggle">
-              <button type="button" class="active" data-interval="month">Monthly</button>
-              <button type="button" data-interval="week">Weekly</button>
-              <button type="button" data-interval="year">Annual</button>
-            </div>
-          </div>
-
-          <div class="billing-notice" id="billingNotice">
-            Subscriptions are shown with the selected billing cadence. Packs are one-time purchases.
-          </div>
+      <div class="pricing-mini-grid">
+        <div class="pricing-callout">
+          <h3>Use a subscription if</h3>
+          <p>You expect DMTools to be part of your weekly or monthly workflow.</p>
         </div>
-
-        <section id="subscriptionsSection">
-          <div class="section-header">
-            <span class="eyebrow">Subscriptions</span>
-            <h2>Predictable credits for ongoing reply work</h2>
-            <p class="lead">Choose the cadence that matches how often you reply. Weekly plans fit tighter cycles. Monthly or annual plans work best when DMTools is part of your steady workflow.</p>
-          </div>
-          <div class="pricing-grid pricing-grid--subscriptions" id="subscriptionsGrid"></div>
-          <div class="pricing-empty hidden" id="subscriptionsEmpty">No subscriptions are available for this billing interval yet.</div>
-        </section>
-
-        <section id="packsSection" class="hidden">
-          <div class="section-header">
-            <span class="eyebrow">Response Packs</span>
-            <h2>One-time top-ups when you need extra capacity</h2>
-            <p class="lead">Buy reply credits once and use them as extra volume. Packs work best when you do not want another subscription but still need more responses available.</p>
-          </div>
-          <div class="pricing-grid" id="packsGrid"></div>
-        </section>
-      </div>
-    </section>
-
-    <section class="section">
-      <div class="pricing-container">
-        <div class="section-header">
-          <span class="eyebrow">Clarity first</span>
-          <h2>How to think about plans versus packs</h2>
-          <p class="lead">This is the simple model the new frontend uses. Subscriptions cover ongoing usage. Packs add more responses when you need them.</p>
-        </div>
-
-        <div class="pricing-clarity-grid">
-          <article class="pricing-clarity">
-            <h3>Pick a subscription if</h3>
-            <p>You expect DMTools to be part of your weekly or monthly workflow and want recurring credits plus feature access built into one plan.</p>
-          </article>
-          <article class="pricing-clarity">
-            <h3>Pick a pack if</h3>
-            <p>You just need extra responses available now, or you want to top up usage without starting a larger recurring plan.</p>
-          </article>
-          <article class="pricing-clarity">
-            <h3>Best first step</h3>
-            <p>If you are new, start free, try the queue or extension, and only upgrade once the workflow clearly saves you time.</p>
-          </article>
-          <article class="pricing-clarity">
-            <h3>What you should always know</h3>
-            <p>Your account should make it obvious how many replies you have left, what plan you are on, and whether you still have pack balance available.</p>
-          </article>
+        <div class="pricing-callout">
+          <h3>Use a pack if</h3>
+          <p>You just need extra replies available without changing your larger plan.</p>
         </div>
       </div>
     </section>
 
-    <section class="section">
-      <div class="pricing-container">
-        <div class="section-header">
-          <span class="eyebrow">Frequently asked</span>
-          <h2>Questions users should not have to guess about</h2>
+    <section class="pricing-status hidden" id="pricingStatus">
+      <strong id="statusHeadline">Signed in</strong>
+      <div class="pricing-copyline" id="statusSubline">We found your current DMTools account.</div>
+      <div class="pricing-status__grid">
+        <div class="pricing-status__item">
+          <div class="pricing-status__label">Current plan</div>
+          <div class="pricing-status__value" id="statusPlan">Free</div>
         </div>
-
-        <div class="pricing-faq-grid">
-          <article class="pricing-faq">
-            <h3>What is the difference between a subscription and a pack?</h3>
-            <p>A subscription gives you recurring reply allowance and plan features. A pack is a one-time purchase that acts like extra reply balance.</p>
-          </article>
-          <article class="pricing-faq">
-            <h3>Can I buy a pack without a subscription?</h3>
-            <p>Yes. Packs are meant to work as standalone top-ups or as extra capacity on top of a subscription.</p>
-          </article>
-          <article class="pricing-faq">
-            <h3>Do I need an account to checkout?</h3>
-            <p>You can check out as a guest by entering an email address. If you are already signed in, checkout uses your existing account context automatically.</p>
-          </article>
-          <article class="pricing-faq">
-            <h3>Where do I manage plan and pack status?</h3>
-            <p>Your account page should show current plan, replies remaining, billing details, and whether you still have packs available.</p>
-          </article>
+        <div class="pricing-status__item">
+          <div class="pricing-status__label">Replies remaining</div>
+          <div class="pricing-status__value" id="statusRemaining">-</div>
+        </div>
+        <div class="pricing-status__item">
+          <div class="pricing-status__label">Pack balance</div>
+          <div class="pricing-status__value" id="statusPacks">-</div>
         </div>
       </div>
+    </section>
+
+    <div class="pricing-feedback hidden" id="pricingFeedback"></div>
+
+    <section class="pricing-section" id="plansSection">
+      <div class="pricing-toolbar">
+        <div>
+          <h2>Subscriptions</h2>
+          <p class="lead">Three main plans first. Enterprise is separated below to keep the decision simpler.</p>
+        </div>
+        <div class="segmented" id="intervalToggle" aria-label="Billing interval selector">
+          <button type="button" class="active" data-interval="month">Monthly</button>
+          <button type="button" data-interval="week">Weekly</button>
+          <button type="button" data-interval="year">Annual</button>
+        </div>
+      </div>
+      <div class="pricing-grid" id="plansGrid"></div>
+      <div class="pricing-enterprise" id="enterpriseContainer"></div>
+    </section>
+
+    <section class="pricing-section pricing-packs" id="packsSection">
+      <div>
+        <h2>Response packs</h2>
+        <p class="lead">One-time top-ups for extra reply capacity.</p>
+      </div>
+      <div class="pricing-grid" id="packsGrid"></div>
+    </section>
+
+    <section class="pricing-faqs">
+      <article class="pricing-faq">
+        <h3>What is the difference between a subscription and a pack?</h3>
+        <p>A subscription gives you recurring reply allowance and features. A pack is a one-time purchase that adds more reply balance.</p>
+      </article>
+      <article class="pricing-faq">
+        <h3>Can I buy a pack without a subscription?</h3>
+        <p>Yes. Packs work as standalone top-ups or extra capacity on top of a subscription.</p>
+      </article>
+      <article class="pricing-faq">
+        <h3>Do I need an account to checkout?</h3>
+        <p>You can check out by entering an email address. If you are already signed in, checkout uses your current account context.</p>
+      </article>
+      <article class="pricing-faq">
+        <h3>Where do I see my plan and remaining replies?</h3>
+        <p>Your account page should show current plan, billing details, reply balance, and any packs available.</p>
+      </article>
     </section>
   </main>
 
@@ -630,9 +201,8 @@
           <span class="logo-mark" aria-hidden="true"></span>
           <span>DMTools.fun</span>
         </a>
-        <p class="footer-description">Subscriptions for recurring reply work. Packs for extra capacity.</p>
+        <p class="footer-description">Subscriptions for ongoing usage. Packs for top-ups.</p>
       </div>
-
       <div class="footer-column">
         <h4>Product</h4>
         <a href="/app.html">Queue</a>
@@ -640,7 +210,6 @@
         <a href="/pricing.html">Pricing</a>
         <a href="/account.html">Account</a>
       </div>
-
       <div class="footer-column">
         <h4>Legal</h4>
         <a href="/terms-of-service.html">Terms of Service</a>
@@ -648,14 +217,12 @@
         <a href="/refund-policy.html">Refund Policy</a>
         <a href="/cookie-policy.html">Cookie Policy</a>
       </div>
-
       <div class="footer-column">
         <h4>Support</h4>
         <a href="/contact.html">Contact</a>
         <a href="mailto:admin@dmtools.fun">admin@dmtools.fun</a>
       </div>
     </div>
-
     <div class="footer-bottom">
       <span>© 2026 DMTools.fun LLC. All rights reserved.</span>
       <span class="small-note">Powered by the existing live pricing and checkout contract.</span>
@@ -666,251 +233,160 @@
   <script src="/js/auth-modal.js"></script>
   <script>
     (function () {
-      const STATE = {
-        surface: 'subscriptions',
-        interval: 'month',
-        auth: { signedIn: false, user: null },
-        pricing: { loaded: false, subscriptions: [], packs: [], raw: null },
-        packsStatus: null
-      };
-
-      const CHROME_STORE_URL = 'https://chromewebstore.google.com/detail/dmtools-%E2%80%93-inline-reply-as/joheialcdpmcfgehhcpfjnppficonfih';
-
-      const SUBSCRIPTION_ORDER = ['starter', 'pro', 'business', 'enterprise'];
-      const PACK_ORDER = ['starter', 'pro', 'business'];
-
       const SUBSCRIPTION_META = {
-        starter: { badge: 'Best first step', featured: true, description: 'Start here if you want recurring credits without complexity.', cta: 'Choose Starter' },
-        pro: { badge: 'Most popular', featured: true, description: 'More capacity and better limits for heavier weekly or monthly usage.', cta: 'Choose Pro' },
-        business: { badge: 'For teams', description: 'Higher-capacity usage for professional and business workflows.', cta: 'Choose Business' },
-        enterprise: { badge: 'Highest volume', description: 'The highest-capacity plan for heavy usage and advanced workflows.', cta: 'Talk to Enterprise' }
+        starter: { badge: 'Best first step', description: 'Start here if you want recurring credits without complexity.', benefits: ['Reliable recurring allowance', 'Templates included', 'Good first upgrade'], featured: false },
+        pro: { badge: 'Most popular', description: 'More capacity for heavier weekly or monthly usage.', benefits: ['Higher reply allowance', 'More room to scale', 'Best fit for regular usage'], featured: true },
+        business: { badge: 'For teams', description: 'Higher-capacity usage for professional workflows.', benefits: ['Bigger reply pool', 'Business-level limits', 'Better for shared workflows'], featured: false },
+        enterprise: { badge: 'Highest volume', description: 'Highest-capacity usage and advanced workflow coverage.', benefits: ['Highest capacity', 'Enterprise-oriented usage', 'Best for heavy volume'], featured: false }
       };
-
       const PACK_META = {
-        starter: { badge: 'Top-up', description: 'Smallest one-time top-up when you need extra replies.', cta: 'Buy Starter Pack' },
-        pro: { badge: 'Best value', featured: true, description: 'A larger balance for heavier one-time or overflow usage.', cta: 'Buy Pro Pack' },
-        business: { badge: 'High volume', description: 'Large one-time balance without adding another recurring plan.', cta: 'Buy Business Pack' }
+        starter: { badge: 'Top-up', description: 'Small one-time top-up for extra capacity.', benefits: ['One-time purchase', 'Useful for overflow', 'Simple extra balance'], featured: false },
+        pro: { badge: 'Best value', description: 'Larger one-time top-up for heavier usage.', benefits: ['More reply credits', 'Useful without changing plans', 'Best balance for top-ups'], featured: true },
+        business: { badge: 'High volume', description: 'Large one-time balance without adding another recurring plan.', benefits: ['Largest one-time option', 'Useful for bursts', 'Good for bigger queues'], featured: false }
       };
+      const PLAN_ORDER = ['starter', 'pro', 'business', 'enterprise'];
+      const PACK_ORDER = ['starter', 'pro', 'business'];
+      const state = { interval: 'month', pricing: { subscriptions: [], packs: [] }, auth: { signedIn: false, user: null } };
 
-      function track(name, params) {
-        try {
-          if (window.DMTOOLS && typeof window.DMTOOLS.track === 'function') {
-            window.DMTOOLS.track(name, params || {});
-          }
-        } catch (_) {}
+      function track(name, params) { try { if (window.DMTOOLS && typeof window.DMTOOLS.track === 'function') window.DMTOOLS.track(name, params || {}); } catch (_) {} }
+      function $(id) { return document.getElementById(id); }
+      function escapeHtml(value) { return String(value ?? '').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;').replace(/'/g,'&#39;'); }
+      function formatCount(value) {
+        if (value === undefined || value === null || value === '') return '—';
+        if (String(value).toLowerCase() === 'unlimited') return 'Unlimited';
+        const num = Number(value);
+        if (!Number.isFinite(num)) return String(value);
+        return num.toLocaleString('en-US');
       }
-
-      function $(id) {
-        return document.getElementById(id);
-      }
-
-      function showFeedback(message, type) {
-        const el = $('pricingFeedback');
-        if (!el) return;
-        el.textContent = message;
-        el.className = 'pricing-feedback';
-        if (type === 'error') el.classList.add('is-error');
-        if (type === 'success') el.classList.add('is-success');
-        if (!message) {
-          el.classList.add('hidden');
-        } else {
-          el.classList.remove('hidden');
-        }
-      }
-
       function formatUsd(amount, currency) {
         const value = Number(amount);
         if (!Number.isFinite(value)) return '';
-        try {
-          return new Intl.NumberFormat('en-US', {
-            style: 'currency',
-            currency: currency || 'USD',
-            maximumFractionDigits: value % 1 === 0 ? 0 : 2
-          }).format(value);
-        } catch (_) {
-          return `$${value.toFixed(value % 1 === 0 ? 0 : 2)}`;
-        }
+        try { return new Intl.NumberFormat('en-US', { style:'currency', currency:currency || 'USD', maximumFractionDigits:value % 1 === 0 ? 0 : 2 }).format(value); }
+        catch (_) { return '$' + value.toFixed(value % 1 === 0 ? 0 : 2); }
       }
-
-      function basePlanKey(key) {
-        const value = String(key || '').toLowerCase();
-        return value
-          .replace(/_monthly$/, '')
-          .replace(/_weekly$/, '')
-          .replace(/_annual$/, '')
-          .replace(/_yearly$/, '');
-      }
-
+      function labelForInterval(value) { if (value === 'week') return 'Weekly'; if (value === 'year') return 'Annual'; return 'Monthly'; }
       function normalizeInterval(value) {
         const raw = String(value || '').toLowerCase();
         if (raw.includes('week')) return 'week';
         if (raw.includes('year') || raw.includes('annual')) return 'year';
         return 'month';
       }
-
-      function normalizePricingCatalog(data) {
-        const items = Array.isArray(data?.items) ? data.items : [];
+      function basePlanKey(key) { return String(key || '').toLowerCase().replace(/_monthly$/,'').replace(/_weekly$/,'').replace(/_annual$/,'').replace(/_yearly$/,''); }
+      function showFeedback(message, isError) {
+        const el = $('pricingFeedback');
+        if (!el) return;
+        if (!message) { el.textContent = ''; el.className = 'pricing-feedback hidden'; return; }
+        el.textContent = message;
+        el.className = 'pricing-feedback' + (isError ? ' is-error' : '');
+      }
+      function prettyPlanName(plan) {
+        const p = String(plan || 'free').replace(/_/g, ' ').trim();
+        return p.charAt(0).toUpperCase() + p.slice(1);
+      }
+      function normalizeCatalog(data) {
+        const items = Array.isArray(data && data.items) ? data.items : [];
         const subscriptions = [];
         const packs = [];
-
-        items.forEach((item) => {
+        items.forEach(function (item) {
           if (!item || !item.kind) return;
           const normalized = {
             kind: item.kind,
             key: String(item.key || '').toLowerCase(),
+            baseKey: basePlanKey(item.key),
             displayName: item.display_name || item.displayName || item.name || item.key || '',
-            priceAmount: item?.price?.amount ?? item.price_amount ?? item.price ?? 0,
-            currency: item?.price?.currency || item.currency || 'USD',
+            priceAmount: (item.price && item.price.amount) || item.price_amount || item.price || 0,
+            currency: (item.price && item.price.currency) || item.currency || 'USD',
             billingInterval: normalizeInterval(item.billing_interval),
             limits: item.limits || {},
-            responses: item.responses || item?.limits?.responses || 0,
-            features: Array.isArray(item.features) ? item.features : [],
-            variantId: item.variantId || item.variant_id || null,
-            baseKey: basePlanKey(item.key)
+            responses: item.responses || (item.limits && item.limits.responses) || 0,
+            variantId: item.variantId || item.variant_id || null
           };
-
           if (normalized.kind === 'subscription') subscriptions.push(normalized);
           if (normalized.kind === 'pack') packs.push(normalized);
         });
-
-        if (!subscriptions.length && data?.plans) {
-          Object.values(data.plans).forEach((item) => {
-            subscriptions.push({
-              kind: 'subscription',
-              key: String(item.key || '').toLowerCase(),
-              displayName: item.display_name || item.name || item.key || '',
-              priceAmount: item.price_amount ?? item.price ?? 0,
-              currency: item.currency || 'USD',
-              billingInterval: normalizeInterval(item.billing_interval || item.interval),
-              limits: item.limits || {},
-              responses: item?.limits?.responses || 0,
-              features: Array.isArray(item.features) ? item.features : [],
-              variantId: item.variantId || item.variant_id || null,
-              baseKey: basePlanKey(item.key)
-            });
-          });
-        }
-
-        if (!packs.length && data?.packs) {
-          Object.values(data.packs).forEach((item) => {
-            packs.push({
-              kind: 'pack',
-              key: String(item.key || '').toLowerCase(),
-              displayName: item.display_name || item.name || item.key || '',
-              priceAmount: item.price_amount ?? item.price ?? 0,
-              currency: item.currency || 'USD',
-              billingInterval: null,
-              responses: item.responses || 0,
-              features: Array.isArray(item.features) ? item.features : [],
-              variantId: item.variantId || item.variant_id || null
-            });
-          });
-        }
-
-        return { subscriptions, packs, raw: data };
+        return { subscriptions: subscriptions, packs: packs };
       }
-
-      function getSubscriptionCardsForInterval(interval) {
-        const grouped = new Map();
-        STATE.pricing.subscriptions.forEach((sub) => {
-          if (!grouped.has(sub.baseKey)) grouped.set(sub.baseKey, []);
-          grouped.get(sub.baseKey).push(sub);
+      function subscriptionsForInterval(interval) {
+        const groups = new Map();
+        state.pricing.subscriptions.forEach(function (plan) {
+          if (!groups.has(plan.baseKey)) groups.set(plan.baseKey, []);
+          groups.get(plan.baseKey).push(plan);
         });
-
-        const cards = [];
-        grouped.forEach((list, baseKey) => {
-          const exact = list.find((item) => item.billingInterval === interval);
-          const fallback = list.find((item) => item.billingInterval === 'month') || list[0];
-          const selected = exact || fallback;
-          if (selected) cards.push(selected);
+        const selected = [];
+        groups.forEach(function (plans) {
+          const exact = plans.find(function (plan) { return plan.billingInterval === interval; });
+          const fallback = plans.find(function (plan) { return plan.billingInterval === 'month'; }) || plans[0];
+          selected.push(exact || fallback);
         });
-
-        cards.sort((a, b) => {
-          const aIdx = SUBSCRIPTION_ORDER.indexOf(a.baseKey);
-          const bIdx = SUBSCRIPTION_ORDER.indexOf(b.baseKey);
-          return (aIdx === -1 ? 999 : aIdx) - (bIdx === -1 ? 999 : bIdx);
-        });
-
-        return cards;
+        selected.sort(function (a, b) { return PLAN_ORDER.indexOf(a.baseKey) - PLAN_ORDER.indexOf(b.baseKey); });
+        return selected;
       }
-
-      function renderSubscriptions() {
-        const grid = $('subscriptionsGrid');
-        const empty = $('subscriptionsEmpty');
-        if (!grid || !empty) return;
-
-        const cards = getSubscriptionCardsForInterval(STATE.interval);
-        grid.innerHTML = '';
-
-        if (!cards.length) {
-          empty.classList.remove('hidden');
-          return;
-        }
-
-        empty.classList.add('hidden');
-
-        cards.forEach((plan) => {
+      function renderPlans() {
+        const plansGrid = $('plansGrid');
+        const enterpriseContainer = $('enterpriseContainer');
+        plansGrid.innerHTML = '';
+        enterpriseContainer.innerHTML = '';
+        const selectedPlans = subscriptionsForInterval(state.interval);
+        const mainPlans = selectedPlans.filter(function (plan) { return plan.baseKey !== 'enterprise'; });
+        const enterprise = selectedPlans.find(function (plan) { return plan.baseKey === 'enterprise'; });
+        mainPlans.forEach(function (plan) {
           const meta = SUBSCRIPTION_META[plan.baseKey] || {};
-          const responses = plan?.limits?.responses ?? plan.responses;
-          const templates = plan?.limits?.templates;
-          const planInterval = plan.billingInterval || STATE.interval;
-          const suffix = planInterval === 'week' ? '/week' : planInterval === 'year' ? '/year' : '/month';
-          const wrapper = document.createElement('article');
-          wrapper.className = `pricing-card${meta.featured ? ' featured' : ''}`;
-
-          wrapper.innerHTML = `
+          const responses = (plan.limits && plan.limits.responses) || plan.responses;
+          const templates = plan.limits && plan.limits.templates;
+          const card = document.createElement('article');
+          card.className = 'pricing-card' + (meta.featured ? ' featured' : '');
+          card.innerHTML = `
             ${meta.badge ? `<div class="pricing-card__badge">${escapeHtml(meta.badge)}</div>` : ''}
             <div class="pricing-card__name">${escapeHtml(plan.displayName)}</div>
-            <p class="pricing-card__sub">${escapeHtml(meta.description || 'Recurring reply allowance and premium feature access.')}</p>
+            <div class="pricing-card__sub">${escapeHtml(meta.description || 'Recurring reply allowance and plan features.')}</div>
             <div class="pricing-card__price">
               <span class="amount">${escapeHtml(formatUsd(plan.priceAmount, plan.currency))}</span>
-              <span class="suffix">${escapeHtml(suffix)}</span>
+              <span class="suffix">/${escapeHtml(state.interval === 'week' ? 'week' : state.interval === 'year' ? 'year' : 'month')}</span>
             </div>
             <div class="pricing-card__meta">
-              <div><span>Replies included</span><span>${escapeHtml(formatCount(responses))}</span></div>
+              <div><span>Replies</span><span>${escapeHtml(formatCount(responses))}</span></div>
               <div><span>Templates</span><span>${escapeHtml(formatCount(templates))}</span></div>
-              <div><span>Billing cadence</span><span>${escapeHtml(labelForInterval(planInterval))}</span></div>
+              <div><span>Billing</span><span>${escapeHtml(labelForInterval(plan.billingInterval))}</span></div>
             </div>
             <ul class="pricing-card__features">
-              ${(plan.features || []).map((feature) => `<li>${escapeHtml(feature)}</li>`).join('')}
+              ${(meta.benefits || []).map(function (benefit) { return `<li>${escapeHtml(benefit)}</li>`; }).join('')}
             </ul>
-            <div class="pricing-card__actions">
-              <button class="btn btn-primary" type="button" data-subscription-key="${escapeHtml(plan.baseKey)}">
-                ${escapeHtml(meta.cta || `Choose ${plan.displayName}`)}
-              </button>
-              <div class="pricing-card__hint">Uses your existing DMTools checkout flow.</div>
+            <div class="pricing-card__footer">
+              <button class="btn btn-primary" type="button">Choose ${escapeHtml(plan.displayName)}</button>
+              <div class="pricing-card__hint">Uses the existing live checkout flow.</div>
             </div>
           `;
-
-          const button = wrapper.querySelector('button');
-          if (button) {
-            button.addEventListener('click', () => handleSubscriptionPurchase(plan));
-          }
-
-          grid.appendChild(wrapper);
+          card.querySelector('button').addEventListener('click', function () { startCheckout('subscription', plan); });
+          plansGrid.appendChild(card);
         });
+        if (enterprise) {
+          const meta = SUBSCRIPTION_META.enterprise || {};
+          enterpriseContainer.innerHTML = `
+            <div class="pricing-callout">
+              <div>
+                <div class="pricing-card__badge">${escapeHtml(meta.badge || 'Enterprise')}</div>
+                <h3>${escapeHtml(enterprise.displayName)}</h3>
+                <p>${escapeHtml(meta.description || 'Highest-capacity usage and advanced workflow coverage.')}</p>
+              </div>
+              <button class="btn btn-secondary" type="button" id="enterpriseButton">View enterprise option</button>
+            </div>
+          `;
+          const btn = $('enterpriseButton');
+          if (btn) btn.addEventListener('click', function () { startCheckout('subscription', enterprise); });
+        }
       }
-
       function renderPacks() {
-        const grid = $('packsGrid');
-        if (!grid) return;
-        grid.innerHTML = '';
-
-        const cards = [...STATE.pricing.packs].sort((a, b) => {
-          const aIdx = PACK_ORDER.indexOf(a.key);
-          const bIdx = PACK_ORDER.indexOf(b.key);
-          return (aIdx === -1 ? 999 : aIdx) - (bIdx === -1 ? 999 : bIdx);
-        });
-
-        cards.forEach((pack) => {
+        const packsGrid = $('packsGrid');
+        packsGrid.innerHTML = '';
+        const sorted = state.pricing.packs.slice().sort(function (a, b) { return PACK_ORDER.indexOf(a.key) - PACK_ORDER.indexOf(b.key); });
+        sorted.forEach(function (pack) {
           const meta = PACK_META[pack.key] || {};
-          const wrapper = document.createElement('article');
-          wrapper.className = `pricing-card${meta.featured ? ' featured' : ''}`;
-
-          wrapper.innerHTML = `
+          const card = document.createElement('article');
+          card.className = 'pricing-card' + (meta.featured ? ' featured' : '');
+          card.innerHTML = `
             ${meta.badge ? `<div class="pricing-card__badge">${escapeHtml(meta.badge)}</div>` : ''}
             <div class="pricing-card__name">${escapeHtml(pack.displayName)}</div>
-            <p class="pricing-card__sub">${escapeHtml(meta.description || 'One-time top-up for extra reply capacity.')}</p>
+            <div class="pricing-card__sub">${escapeHtml(meta.description || 'One-time reply credit top-up.')}</div>
             <div class="pricing-card__price">
               <span class="amount">${escapeHtml(formatUsd(pack.priceAmount, pack.currency))}</span>
               <span class="suffix">one time</span>
@@ -921,311 +397,124 @@
               <div><span>Best for</span><span>Top-ups</span></div>
             </div>
             <ul class="pricing-card__features">
-              ${(pack.features || []).map((feature) => `<li>${escapeHtml(feature)}</li>`).join('')}
+              ${(meta.benefits || []).map(function (benefit) { return `<li>${escapeHtml(benefit)}</li>`; }).join('')}
             </ul>
-            <div class="pricing-card__actions">
-              <button class="btn btn-accent" type="button" data-pack-key="${escapeHtml(pack.key)}">
-                ${escapeHtml(meta.cta || `Buy ${pack.displayName}`)}
-              </button>
-              <div class="pricing-card__hint">Useful when you want extra capacity without changing plans.</div>
+            <div class="pricing-card__footer">
+              <button class="btn btn-accent" type="button">Buy ${escapeHtml(pack.displayName)}</button>
+              <div class="pricing-card__hint">Useful when you need more replies without changing plans.</div>
             </div>
           `;
-
-          const button = wrapper.querySelector('button');
-          if (button) {
-            button.addEventListener('click', () => handlePackPurchase(pack));
-          }
-
-          grid.appendChild(wrapper);
+          card.querySelector('button').addEventListener('click', function () { startCheckout('pack', pack); });
+          packsGrid.appendChild(card);
         });
       }
-
-      function labelForInterval(value) {
-        if (value === 'week') return 'Weekly';
-        if (value === 'year') return 'Annual';
-        return 'Monthly';
-      }
-
-      function formatCount(value) {
-        if (value === undefined || value === null || value === '') return '—';
-        if (String(value).toLowerCase() === 'unlimited') return 'Unlimited';
-        const num = Number(value);
-        if (!Number.isFinite(num)) return String(value);
-        return num.toLocaleString('en-US');
-      }
-
-      function escapeHtml(value) {
-        return String(value ?? '')
-          .replace(/&/g, '&amp;')
-          .replace(/</g, '&lt;')
-          .replace(/>/g, '&gt;')
-          .replace(/"/g, '&quot;')
-          .replace(/'/g, '&#39;');
-      }
-
-      function updateSurfaceButtons() {
-        $('btnSubscriptions').classList.toggle('active', STATE.surface === 'subscriptions');
-        $('btnPacks').classList.toggle('active', STATE.surface === 'packs');
-        $('subscriptionsSection').classList.toggle('hidden', STATE.surface !== 'subscriptions');
-        $('packsSection').classList.toggle('hidden', STATE.surface !== 'packs');
-        $('intervalToggle').classList.toggle('hidden', STATE.surface !== 'subscriptions');
-        $('billingNotice').textContent = STATE.surface === 'subscriptions'
-          ? 'Subscriptions are shown with the selected billing cadence. Packs are one-time purchases.'
-          : 'Packs are one-time purchases that act like extra reply credits.';
-      }
-
-      function updateIntervalButtons() {
-        document.querySelectorAll('#intervalToggle [data-interval]').forEach((button) => {
-          button.classList.toggle('active', button.dataset.interval === STATE.interval);
-        });
-      }
-
       async function loadCatalog() {
         try {
           const data = await DMTOOLS.apiCall('/subscription/pricing', { method: 'GET' });
-          const normalized = normalizePricingCatalog(data);
-          STATE.pricing = { loaded: true, subscriptions: normalized.subscriptions, packs: normalized.packs, raw: normalized.raw };
-          renderSubscriptions();
+          state.pricing = normalizeCatalog(data);
+          renderPlans();
           renderPacks();
-          track('pricing_catalog_loaded', {
-            subscription_count: normalized.subscriptions.length,
-            pack_count: normalized.packs.length
-          });
+          track('pricing_catalog_loaded', { page_name: 'pricing', subscription_count: state.pricing.subscriptions.length, pack_count: state.pricing.packs.length });
         } catch (error) {
-          console.error('Pricing load failed:', error);
-          showFeedback('Pricing is temporarily unavailable. Please refresh or try again in a moment.', 'error');
-          track('pricing_catalog_error', { message: String(error.message || error) });
+          console.error(error);
+          showFeedback('Pricing is temporarily unavailable. Please refresh and try again.', true);
+          track('pricing_catalog_error', { page_name: 'pricing', message: String(error.message || error) });
         }
       }
-
       async function hydrateAuthState() {
         try {
           const signedIn = await DMTOOLS.verifyToken();
-          STATE.auth.signedIn = signedIn;
-
-          const signinButton = $('signin-button');
-          const signupButton = $('signup-button');
-          const accountLink = $('account-link');
-
+          state.auth.signedIn = signedIn;
+          const primaryAuthButton = $('primary-auth-button');
           if (signedIn) {
             const profile = await DMTOOLS.apiCall('/user/profile', { method: 'GET' });
-            STATE.auth.user = profile?.user || profile || null;
-            if (signinButton) signinButton.classList.add('hidden');
-            if (signupButton) signupButton.textContent = 'Open account';
-            if (signupButton) {
-              signupButton.removeAttribute('data-auth');
-              signupButton.setAttribute('onclick', "window.location.href='/account.html'");
+            state.auth.user = (profile && (profile.user || profile)) || null;
+            if (primaryAuthButton) {
+              primaryAuthButton.textContent = 'Open account';
+              primaryAuthButton.removeAttribute('data-auth');
+              primaryAuthButton.addEventListener('click', function () { window.location.href = '/account.html'; });
             }
-            if (accountLink) accountLink.textContent = 'Account';
-            hydrateStatusPanel();
-            track('auth_state_detected', { signed_in: true, page_name: 'pricing' });
-          } else {
-            track('auth_state_detected', { signed_in: false, page_name: 'pricing' });
+            await hydrateStatusPanel();
           }
-        } catch (error) {
-          console.warn('Auth hydrate failed:', error);
-        }
+          track('auth_state_detected', { page_name: 'pricing', signed_in: signedIn });
+        } catch (error) { console.warn(error); }
       }
-
       async function hydrateStatusPanel() {
-        const panel = $('pricingStatus');
-        if (!panel || !STATE.auth.signedIn || !STATE.auth.user) return;
-
-        const user = STATE.auth.user;
-        $('statusPlan').textContent = prettyPlanName(user.subscription_tier || user.plan || 'free');
-        $('statusRemaining').textContent = formatCount(user.responses_remaining ?? '—');
-
+        if (!state.auth.signedIn || !state.auth.user) return;
+        const status = $('pricingStatus');
+        $('statusHeadline').textContent = 'Signed in as ' + (state.auth.user.email || 'DMTools user');
+        $('statusSubline').textContent = 'Your current account state was loaded from the live endpoints.';
+        $('statusPlan').textContent = prettyPlanName(state.auth.user.subscription_tier || state.auth.user.plan || 'free');
+        $('statusRemaining').textContent = formatCount(state.auth.user.responses_remaining ?? '—');
         try {
-          const packData = await DMTOOLS.apiCall('/packs/status', { method: 'GET' });
-          STATE.packsStatus = packData;
-          const summary = packData?.summary || {};
+          const packStatus = await DMTOOLS.apiCall('/packs/status', { method: 'GET' });
+          const summary = (packStatus && packStatus.summary) || {};
           $('statusPacks').textContent = formatCount(summary.totalAvailable ?? summary.activeResponses ?? 0);
-        } catch (error) {
+        } catch (_) {
           $('statusPacks').textContent = '—';
         }
-
-        $('statusHeadline').textContent = `Signed in as ${user.email || 'DMTools user'}`;
-        $('statusSubline').textContent = 'Your current plan and balance were loaded from the live account endpoints.';
-        panel.classList.remove('hidden');
+        status.classList.remove('hidden');
       }
-
-      function prettyPlanName(plan) {
-        const p = String(plan || 'free').replace(/_/g, ' ').trim();
-        return p.charAt(0).toUpperCase() + p.slice(1);
-      }
-
       function promptForCheckoutEmail() {
         const raw = window.prompt('Enter your email so we can link the purchase to your account or send your receipt:');
         if (raw === null) return null;
         const email = String(raw).trim().toLowerCase();
-        const ok = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
-        if (!ok) {
+        if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
           window.alert('Please enter a valid email address.');
           return null;
         }
         return email;
       }
-
-      async function createCheckout(kind, variantId, fallbackName, priceAmount, currency, extraParams) {
-        if (!variantId) {
+      async function startCheckout(kind, item) {
+        if (!item || !item.variantId) {
           window.alert('Pricing is still loading. Please try again.');
           return;
         }
-
-        let email = '';
-        const user = STATE.auth.user;
-
-        if (user?.email) {
-          email = user.email;
-        } else {
-          const guestEmail = promptForCheckoutEmail();
-          if (!guestEmail) {
-            track('checkout_blocked', { kind, reason: 'missing_email' });
-            if (window.DMTOOLS && typeof window.DMTOOLS.openAuthModal === 'function') {
-              window.DMTOOLS.openAuthModal('login');
-            }
+        let email = (state.auth.user && state.auth.user.email) || '';
+        if (!email) {
+          email = promptForCheckoutEmail();
+          if (!email) {
+            track('checkout_blocked', { page_name: 'pricing', kind: kind, reason: 'missing_email' });
+            if (window.DMTOOLS && typeof window.DMTOOLS.openAuthModal === 'function') window.DMTOOLS.openAuthModal('login');
             return;
           }
-          email = guestEmail;
-          try { localStorage.setItem('dm_guest_checkout_email', email); } catch (_) {}
         }
-
         try {
-          showFeedback('', '');
-          track('checkout_start', {
-            page_name: 'pricing',
-            kind,
-            item_name: fallbackName,
-            billing_interval: extraParams?.billing_interval || null,
-            value: priceAmount || undefined,
-            currency: currency || 'USD'
-          });
-
-          const data = await DMTOOLS.apiCall('/checkout/create', {
-            method: 'POST',
-            body: JSON.stringify({
-              kind,
-              variantId,
-              email: email || undefined
-            })
-          });
-
-          if (!data || !data.url) {
-            throw new Error('Checkout URL missing');
-          }
-
-          track('checkout_ready', {
-            page_name: 'pricing',
-            kind,
-            item_name: fallbackName,
-            billing_interval: extraParams?.billing_interval || null
-          });
-
-          if (window.LemonSqueezy && window.LemonSqueezy.Url) {
-            window.LemonSqueezy.Url.Open(data.url);
-          } else {
-            window.open(data.url, '_blank', 'noopener');
-          }
+          showFeedback('');
+          track('checkout_start', { page_name: 'pricing', kind: kind, item_name: item.displayName, billing_interval: item.billingInterval || null, value: item.priceAmount || undefined, currency: item.currency || 'USD' });
+          const response = await DMTOOLS.apiCall('/checkout/create', { method: 'POST', body: JSON.stringify({ kind: kind, variantId: item.variantId, email: email || undefined }) });
+          if (!response || !response.url) throw new Error('Checkout URL missing');
+          track('checkout_ready', { page_name: 'pricing', kind: kind, item_name: item.displayName, billing_interval: item.billingInterval || null });
+          if (window.LemonSqueezy && window.LemonSqueezy.Url) window.LemonSqueezy.Url.Open(response.url);
+          else window.open(response.url, '_blank', 'noopener');
         } catch (error) {
-          console.error('Checkout failed:', error);
-          showFeedback('There was a problem starting checkout. Please try again.', 'error');
-          track('checkout_error', {
-            page_name: 'pricing',
-            kind,
-            item_name: fallbackName,
-            message: String(error.message || error)
-          });
+          console.error(error);
+          showFeedback('There was a problem starting checkout. Please try again.', true);
+          track('checkout_error', { page_name: 'pricing', kind: kind, item_name: item.displayName || 'unknown', message: String(error.message || error) });
         }
       }
-
-      async function handleSubscriptionPurchase(plan) {
-        await createCheckout(
-          'subscription',
-          plan.variantId,
-          `${plan.displayName} Subscription`,
-          plan.priceAmount,
-          plan.currency,
-          { billing_interval: plan.billingInterval, plan_key: plan.baseKey }
-        );
-      }
-
-      async function handlePackPurchase(pack) {
-        await createCheckout(
-          'pack',
-          pack.variantId,
-          pack.displayName,
-          pack.priceAmount,
-          pack.currency,
-          { pack_key: pack.key }
-        );
-      }
-
-      function wireJumpButtons() {
-        document.querySelectorAll('[data-jump]').forEach((button) => {
-          button.addEventListener('click', () => {
-            const target = button.getAttribute('data-jump');
-            if (target === 'packs') {
-              STATE.surface = 'packs';
-              updateSurfaceButtons();
-              track('pricing_surface_change', { surface: 'packs', source: 'hero' });
-              $('packsSection').scrollIntoView({ behavior: 'smooth', block: 'start' });
-            } else {
-              STATE.surface = 'subscriptions';
-              updateSurfaceButtons();
-              track('pricing_surface_change', { surface: 'subscriptions', source: 'hero' });
-              $('subscriptionsSection').scrollIntoView({ behavior: 'smooth', block: 'start' });
-            }
-          });
-        });
-      }
-
-      function wireGlobalTracking() {
-        document.querySelectorAll('[data-track]').forEach((element) => {
-          element.addEventListener('click', () => {
-            const name = element.getAttribute('data-track');
-            if (!name) return;
-            track(name, {
-              page_name: 'pricing',
-              location: element.getAttribute('data-track-location') || undefined,
-              target: element.getAttribute('data-track-target') || undefined,
-              cta_id: element.getAttribute('data-track-cta') || undefined,
-              mode: element.getAttribute('data-track-mode') || undefined
-            });
-          });
-        });
-      }
-
       function wireControls() {
-        $('btnSubscriptions').addEventListener('click', () => {
-          STATE.surface = 'subscriptions';
-          updateSurfaceButtons();
-          track('pricing_surface_change', { page_name: 'pricing', surface: 'subscriptions' });
-        });
-
-        $('btnPacks').addEventListener('click', () => {
-          STATE.surface = 'packs';
-          updateSurfaceButtons();
-          track('pricing_surface_change', { page_name: 'pricing', surface: 'packs' });
-        });
-
-        document.querySelectorAll('#intervalToggle [data-interval]').forEach((button) => {
-          button.addEventListener('click', () => {
+        document.querySelectorAll('#intervalToggle [data-interval]').forEach(function (button) {
+          button.addEventListener('click', function () {
             const next = button.dataset.interval;
-            if (STATE.interval === next) return;
-            STATE.interval = next;
-            updateIntervalButtons();
-            renderSubscriptions();
-            track('pricing_interval_change', {
-              page_name: 'pricing',
-              billing_interval: next
-            });
+            if (state.interval === next) return;
+            state.interval = next;
+            document.querySelectorAll('#intervalToggle [data-interval]').forEach(function (btn) { btn.classList.toggle('active', btn.dataset.interval === next); });
+            renderPlans();
+            track('pricing_interval_change', { page_name: 'pricing', billing_interval: next });
           });
         });
-
+        document.querySelectorAll('[data-jump]').forEach(function (button) {
+          button.addEventListener('click', function () {
+            const target = button.dataset.jump === 'packs' ? $('packsSection') : $('plansSection');
+            if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            track('landing_cta_click', { page_name: 'pricing', cta_id: button.dataset.jump === 'packs' ? 'view_packs' : 'view_plans' });
+          });
+        });
         const mobileToggle = $('mobile-menu-toggle');
         const mobileMenu = $('mobile-menu');
         if (mobileToggle && mobileMenu) {
-          mobileToggle.addEventListener('click', () => {
+          mobileToggle.addEventListener('click', function () {
             const expanded = mobileToggle.getAttribute('aria-expanded') === 'true';
             mobileToggle.setAttribute('aria-expanded', String(!expanded));
             mobileMenu.classList.toggle('show');
@@ -1233,40 +522,12 @@
           });
         }
       }
-
-      function initSectionObservers() {
-        if (!('IntersectionObserver' in window)) return;
-        const seen = new Set();
-        const observer = new IntersectionObserver((entries) => {
-          entries.forEach((entry) => {
-            if (!entry.isIntersecting) return;
-            const id = entry.target.id || entry.target.getAttribute('data-section-id');
-            if (!id || seen.has(id)) return;
-            seen.add(id);
-            track('section_view', { page_name: 'pricing', section_id: id });
-          });
-        }, { threshold: 0.35 });
-
-        ['subscriptionsSection', 'packsSection'].forEach((id) => {
-          const el = $(id);
-          if (el) observer.observe(el);
-        });
-      }
-
-      async function init() {
-        wireGlobalTracking();
-        wireControls();
-        wireJumpButtons();
-        initSectionObservers();
-
+      document.addEventListener('DOMContentLoaded', async function () {
         track('pricing_view', { page_name: 'pricing' });
+        wireControls();
         await hydrateAuthState();
         await loadCatalog();
-        updateSurfaceButtons();
-        updateIntervalButtons();
-      }
-
-      document.addEventListener('DOMContentLoaded', init);
+      });
     })();
   </script>
 </body>

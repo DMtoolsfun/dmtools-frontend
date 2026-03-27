@@ -1,1131 +1,342 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<!-- PWA Manifest -->
-<link rel="manifest" href="/manifest.json">
-<meta name="theme-color" content="#8b5cf6">
-<meta name="apple-mobile-web-app-capable" content="yes">
-
- <link rel="stylesheet" href="/styles.css?v=20260212">
- 
- <!-- Google tag (gtag.js) -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-K0G9YRD39L"></script>
-    <script>
-        window.dataLayer = window.dataLayer || [];
-        function gtag(){dataLayer.push(arguments);}
-        gtag('js', new Date());
-        gtag('config', 'G-K0G9YRD39L');
-      gtag('config', 'G-YFTZBVLQHF');
-    </script>
-    
-    <!-- DOMPurify - XSS Protection -->
-    <script src="https://cdn.jsdelivr.net/npm/dompurify@3.0.6/dist/purify.min.js"></script>
-
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Response Templates - DMTools.fun</title>
-    <meta name="description" content="Create and manage custom response templates for any digital messaging platform. Save time with pre-built responses.">
-    
-    <style>
-/* Template Usage Tracker */
-        .usage-tracker {
-            background: rgba(139, 92, 246, 0.1);
-            border: 1px solid #8b5cf6;
-            border-radius: 12px;
-            padding: 1.5rem;
-            margin-bottom: 2rem;
-            text-align: center;
-        }
-
-.usage-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 1rem;
-        }
-
-.usage-count {
-            font-size: 1.5rem;
-            font-weight: 700;
-            color: #8b5cf6;
-        }
-
-.plan-badge {
-            background: linear-gradient(135deg, #8b5cf6, #7c3aed);
-            color: white;
-            padding: 0.25rem 0.75rem;
-            border-radius: 20px;
-            font-size: 0.8rem;
-            font-weight: 600;
-            text-transform: uppercase;
-        }
-
-.progress-bar {
-            background: #374151;
-            height: 8px;
-            border-radius: 4px;
-            overflow: hidden;
-            margin-bottom: 1rem;
-        }
-
-.progress-fill {
-            background: linear-gradient(135deg, #8b5cf6, #06b6d4);
-            height: 100%;
-            border-radius: 4px;
-            transition: width 0.3s ease;
-        }
-
-.upgrade-hint {
-            color: #9ca3af;
-            font-size: 0.9rem;
-        }
-
-/* Value Proposition Section */
-        .value-section {
-            background: rgba(15, 23, 42, 0.8);
-            border-radius: 16px;
-            padding: 2rem;
-            margin-bottom: 2rem;
-            border: 1px solid #334155;
-        }
-
-.value-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 1.5rem;
-        }
-
-.value-card {
-            text-align: center;
-            padding: 1.5rem;
-            background: rgba(139, 92, 246, 0.05);
-            border-radius: 12px;
-            border: 1px solid rgba(139, 92, 246, 0.2);
-        }
-
-.value-icon {
-            font-size: 2.5rem;
-            margin-bottom: 1rem;
-        }
-
-.value-title {
-            font-size: 1.1rem;
-            font-weight: 600;
-            color: #ffffff;
-            margin-bottom: 0.5rem;
-        }
-
-.value-description {
-            color: #9ca3af;
-            font-size: 0.9rem;
-        }
-
-/* Templates Section */
-        .templates-section {
-            background: #1f2937;
-            border-radius: 16px;
-            padding: 2rem;
-            border: 1px solid #374151;
-        }
-
-.section-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 2rem;
-        }
-
-.section-title {
-            font-size: 1.5rem;
-            font-weight: 700;
-            color: #ffffff;
-        }
-
-/* Enhanced Template Form */
-        .template-form {
-            background: #374151;
-            border-radius: 12px;
-            padding: 2rem;
-            margin-bottom: 2rem;
-            border: 1px solid #4b5563;
-        }
-
-.form-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 1rem;
-            margin-bottom: 1rem;
-        }
-
-/* Live Preview */
-        .preview-section {
-            background: #1f2937;
-            border: 1px solid #4b5563;
-            border-radius: 8px;
-            padding: 1rem;
-            margin-top: 1rem;
-        }
-
-.preview-label {
-            color: #9ca3af;
-            font-size: 0.8rem;
-            margin-bottom: 0.5rem;
-            text-transform: uppercase;
-            font-weight: 600;
-        }
-
-.preview-content {
-            color: #e5e7eb;
-            font-style: italic;
-            min-height: 40px;
-            padding: 0.5rem;
-            background: rgba(139, 92, 246, 0.05);
-            border-radius: 6px;
-        }
-
-/* Template Cards */
-        .template-grid {
-            display: grid;
-            gap: 1rem;
-        }
-
-.template-card {
-            background: #374151;
-            border-radius: 12px;
-            padding: 1.5rem;
-            border: 1px solid #4b5563;
-            transition: all 0.3s ease;
-        }
-
-.template-card:hover {
-            border-color: #8b5cf6;
-            transform: translateY(-2px);
-            box-shadow: 0 8px 25px rgba(139, 92, 246, 0.1);
-        }
-
-.template-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: flex-start;
-            margin-bottom: 1rem;
-        }
-
-.template-info {
-            flex: 1;
-        }
-
-.template-name {
-            font-size: 1.1rem;
-            font-weight: 600;
-            color: #ffffff;
-            margin-bottom: 0.5rem;
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-        }
-
-.template-category {
-            background: #8b5cf6;
-            color: white;
-            padding: 0.25rem 0.75rem;
-            border-radius: 20px;
-            font-size: 0.7rem;
-            font-weight: 600;
-            text-transform: uppercase;
-            display: inline-block;
-        }
-
-.template-actions {
-            display: flex;
-            gap: 0.5rem;
-            flex-shrink: 0;
-        }
-
-.copy-btn {
-            background: #10b981;
-            color: white;
-            border: none;
-            padding: 0.5rem 1rem;
-            border-radius: 6px;
-            font-size: 0.8rem;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            display: flex;
-            align-items: center;
-            gap: 0.25rem;
-        }
-
-.copy-btn:hover {
-            background: #059669;
-            transform: translateY(-1px);
-        }
-
-.copy-btn.copied {
-            background: #06b6d4;
-        }
-
-.delete-btn {
-            background: #ef4444;
-            color: white;
-            border: none;
-            padding: 0.5rem;
-            border-radius: 6px;
-            font-size: 0.8rem;
-            cursor: pointer;
-            transition: all 0.3s ease;
-        }
-
-.delete-btn:hover {
-            background: #dc2626;
-            transform: translateY(-1px);
-        }
-
-.template-response {
-            color: #e5e7eb;
-            line-height: 1.6;
-            background: rgba(15, 23, 42, 0.5);
-            padding: 1rem;
-            border-radius: 8px;
-            margin-bottom: 1rem;
-            border-left: 3px solid #8b5cf6;
-        }
-
-.template-tags {
-            display: flex;
-            gap: 0.5rem;
-            flex-wrap: wrap;
-        }
-
-.tag {
-            background: rgba(139, 92, 246, 0.2);
-            color: #a78bfa;
-            padding: 0.25rem 0.5rem;
-            border-radius: 12px;
-            font-size: 0.7rem;
-            font-weight: 500;
-        }
-
-/* Example Templates Section */
-        .examples-section {
-            margin-bottom: 2rem;
-        }
-
-.examples-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 1rem;
-            margin-top: 1rem;
-        }
-
-.example-card {
-            background: rgba(139, 92, 246, 0.1);
-            border: 1px solid #8b5cf6;
-            border-radius: 12px;
-            padding: 1.5rem;
-        }
-
-.example-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 1rem;
-        }
-
-.example-name {
-            font-weight: 600;
-            color: #ffffff;
-        }
-
-.example-response {
-            color: #e5e7eb;
-            margin-bottom: 1rem;
-            font-style: italic;
-        }
-
-/* Empty State */
-        .empty-state {
-            text-align: center;
-            padding: 3rem;
-            color: #9ca3af;
-        }
-
-.empty-icon {
-            font-size: 4rem;
-            margin-bottom: 1rem;
-            opacity: 0.5;
-        }
-
-.empty-title {
-            font-size: 1.3rem;
-            font-weight: 600;
-            margin-bottom: 0.5rem;
-            color: #e5e7eb;
-        }
-
-.empty-description {
-            margin-bottom: 2rem;
-        }
-
-/* Authentication Modal */
-        .auth-modal {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.8);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            z-index: 10000;
-            opacity: 0;
-            visibility: hidden;
-            transition: all 0.3s ease;
-        }
-
-.auth-modal-header {
-            text-align: center;
-            margin-bottom: 2rem;
-        }
-
-.auth-modal-title {
-            font-size: 1.8rem;
-            font-weight: 700;
-            margin-bottom: 0.5rem;
-            color: #ffffff;
-        }
-</style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>DMTools.fun Voice</title>
+  <meta name="description" content="Create, save, copy, and manage reusable DMTools response templates across platforms.">
+  <link rel="manifest" href="/manifest.json">
+  <meta name="theme-color" content="#0b1730">
+  <link rel="stylesheet" href="/styles.css?v=20260324-presets">
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-K0G9YRD39L"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-K0G9YRD39L');
+    gtag('config', 'G-YFTZBVLQHF');
+    window.DMTOOLS = window.DMTOOLS || {};
+    window.DMTOOLS.track = window.DMTOOLS.track || function(eventName, params) {
+      try { gtag('event', eventName, params || {}); } catch (_) {}
+    };
+  </script>
+  <script src="https://cdn.jsdelivr.net/npm/dompurify@3.0.6/dist/purify.min.js"></script>
+  <style>
+    .voice-shell{width:min(1160px,calc(100vw - 2rem));margin:0 auto;padding:3rem 0 4rem}
+    .voice-hero,.voice-card,.voice-usage,.voice-feedback,.example-card{background:var(--bg-card);border:1px solid var(--border-medium);border-radius:22px;box-shadow:var(--shadow-md);backdrop-filter:blur(14px)}
+    .voice-hero{display:grid;grid-template-columns:minmax(0,1.15fr) minmax(280px,.85fr);gap:1rem;padding:1.6rem;margin-bottom:1rem}
+    .voice-hero p{color:var(--text-secondary);max-width:760px}
+    .voice-actions{display:flex;flex-wrap:wrap;gap:.75rem;margin-top:1rem}
+    .voice-mini-grid{display:grid;gap:.85rem}
+    .voice-mini{padding:1rem 1.05rem;border-radius:18px;border:1px solid rgba(108,135,184,.14);background:linear-gradient(135deg,rgba(79,124,255,.10),rgba(24,183,160,.08))}
+    .voice-mini h3{font-size:1rem;margin-bottom:.3rem}.voice-mini p{margin:0;color:var(--text-secondary);font-size:.95rem}
+    .voice-feedback{padding:.9rem 1rem;margin-bottom:1rem;color:var(--text-secondary)}
+    .voice-feedback.hidden,.hidden{display:none!important}
+    .voice-feedback.is-error{border-color:rgba(239,68,68,.34);background:rgba(50,17,24,.28);color:#ffdbe1}
+    .voice-feedback.is-success{border-color:rgba(34,197,94,.32);background:rgba(8,42,23,.28);color:#d9ffe7}
+    .voice-usage{padding:1rem 1.1rem;margin-bottom:1rem}
+    .usage-header{display:flex;justify-content:space-between;align-items:center;gap:1rem;margin-bottom:.85rem}
+    .usage-count{font-size:1.25rem;font-weight:800;color:var(--text-primary)}
+    .plan-badge{display:inline-flex;padding:.4rem .75rem;border-radius:999px;border:1px solid rgba(79,124,255,.22);background:rgba(79,124,255,.14);color:var(--primary-light);font-size:.84rem;font-weight:800;text-transform:uppercase;letter-spacing:.03em}
+    .progress-bar{height:10px;background:rgba(11,19,31,.95);border-radius:999px;overflow:hidden;border:1px solid rgba(108,135,184,.12);margin-bottom:.7rem}
+    .progress-fill{height:100%;width:0;background:var(--gradient-primary-dark);transition:width .35s ease;border-radius:999px}
+    .upgrade-hint{color:var(--text-muted);font-size:.92rem}
+    .voice-grid{display:grid;grid-template-columns:.95fr 1.05fr;gap:1rem}
+    .voice-stack{display:grid;gap:1rem}
+    .voice-card{padding:1.25rem}
+    .card-head{display:flex;justify-content:space-between;gap:.75rem;align-items:flex-start;margin-bottom:1rem}
+    .card-head h2{font-size:1.16rem;margin-bottom:.15rem}.card-sub{margin:0;color:var(--text-muted);font-size:.92rem}
+    .field{display:grid;gap:.35rem}
+    .field label{color:var(--text-secondary);font-weight:650;font-size:.92rem}
+    .field input,.field textarea,.field select{width:100%;padding:.9rem 1rem;border-radius:14px;border:1px solid var(--border-medium);background:rgba(12,22,37,.88);color:var(--text-primary)}
+    .field input:focus,.field textarea:focus,.field select:focus{outline:none;border-color:rgba(79,124,255,.55);box-shadow:0 0 0 3px rgba(79,124,255,.12)}
+    .form-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:.75rem}
+    .button-row{display:flex;flex-wrap:wrap;gap:.75rem}
+    .preview-box{padding:1rem;border-radius:16px;background:rgba(12,22,37,.88);border:1px solid rgba(108,135,184,.12);color:var(--text-secondary);min-height:88px;line-height:1.55}
+    .tag-row{display:flex;flex-wrap:wrap;gap:.45rem}
+    .tag{display:inline-flex;padding:.28rem .55rem;border-radius:999px;background:rgba(79,124,255,.14);border:1px solid rgba(79,124,255,.2);color:var(--primary-light);font-size:.78rem;font-weight:700}
+    .examples-grid,.template-grid{display:grid;gap:1rem}
+    .examples-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+    .example-card,.template-card{padding:1.1rem}
+    .example-head,.template-head{display:flex;justify-content:space-between;gap:.75rem;align-items:flex-start;margin-bottom:.85rem}
+    .example-name,.template-name{font-size:1rem;font-weight:800;color:var(--text-primary)}
+    .category-pill{display:inline-flex;padding:.28rem .55rem;border-radius:999px;background:rgba(24,183,160,.14);border:1px solid rgba(24,183,160,.2);color:var(--accent-light);font-size:.74rem;font-weight:800;text-transform:uppercase;letter-spacing:.03em}
+    .example-response,.template-response{color:var(--text-secondary);line-height:1.6;background:rgba(11,19,31,.62);padding:1rem;border-radius:14px;border-left:3px solid var(--primary)}
+    .template-actions{display:flex;gap:.5rem;flex-wrap:wrap}
+    .copy-btn,.delete-btn{border:none;border-radius:10px;padding:.62rem .85rem;font-weight:700;cursor:pointer;transition:transform .15s ease}
+    .copy-btn{background:#0f9f74;color:#fff}.copy-btn.copied{background:#0b84c6}.delete-btn{background:#dc2626;color:#fff}
+    .copy-btn:hover,.delete-btn:hover{transform:translateY(-1px)}
+    .empty-box{padding:2rem;text-align:center;border-radius:18px;background:rgba(12,22,37,.72);border:1px dashed rgba(108,135,184,.22)}
+    .empty-box p{color:var(--text-secondary);max-width:540px;margin:0 auto 1rem}
+    .loading{display:grid;place-items:center;padding:4rem 1rem;color:var(--text-muted)}.spinner{width:40px;height:40px;border:3px solid rgba(108,135,184,.16);border-top-color:var(--primary);border-radius:999px;animation:spin .8s linear infinite;margin-bottom:.9rem}
+    @keyframes spin{to{transform:rotate(360deg)}}
+    @media (max-width:1100px){.voice-hero,.voice-grid,.form-grid,.examples-grid{grid-template-columns:1fr}}
+    @media (max-width:760px){.voice-shell{width:min(100vw - 1rem,100%)}.voice-actions,.button-row,.usage-header,.example-head,.template-head{flex-direction:column;align-items:stretch}}
+  </style>
 </head>
 <body>
-    <!-- Header -->
-<header class="header">
+  <header class="header">
     <div class="nav-container">
-        <a href="/" class="logo">DMTools.fun</a>
-        <div class="auth-buttons" id="authButtons">
-            <button class="mobile-menu-btn" onclick="toggleMobileMenu()" aria-label="Menu">☰</button>
-            
-            <div id="auth-section" class="auth-buttons">
-                <button class="btn btn-secondary" data-auth="login">Sign In</button>
-                <button class="btn btn-primary" data-auth="register">Sign Up Free</button>
-            </div>
-            
-            <div id="user-section" class="auth-buttons hidden">
-                <span class="user-email" id="user-email"></span>
-                <button class="btn btn-secondary" onclick="logout()">Logout</button>
-            </div>
-        </div>
+      <a class="logo" href="/index.html" aria-label="DMTools.fun home"><span class="logo-mark" aria-hidden="true"></span><span>DMTools.fun</span></a>
+      <nav class="landing-nav-desktop" aria-label="Primary">
+        <a href="/app.html">Queue</a><a href="/presets.html" aria-current="page">Voice</a><a href="/pricing.html">Pricing</a><a href="/account.html">Account</a>
+      </nav>
+      <div class="header-actions">
+        <button class="btn btn-secondary hide-mobile" type="button" data-auth="login" data-return-to="/presets.html" id="signinButton">Sign in</button>
+        <button class="btn btn-primary" type="button" data-auth="register" data-return-to="/presets.html" id="primaryButton">Start free</button>
+        <button class="mobile-menu-btn" type="button" aria-label="Open menu" aria-expanded="false" aria-controls="mobile-menu" id="mobile-menu-toggle">☰</button>
+      </div>
     </div>
-    
-    <nav class="mobile-nav" id="mobileNav">
-        <a href="/app.html" class="tab-btn active">Generator</a>
-        <a href="/presets.html" class="tab-btn">Templates</a>
-       <!--
-needs debugging --->
-        <a href="/packs.html" class="tab-btn">Response Packs</a>
-        <a href="/pricing.html" class="tab-btn">Pricing</a>
-        <a href="/store.html" class="tab-btn">Packs Store</a>
-</nav>
-    </header>
-
-    <!-- Main Content -->
-    <main class="main-content">
-        <div class="container">
-            <!-- Page Header -->
-            <div class="page-header">
-                <h1 class="page-title">📝 Response Templates</h1>
-                <p class="page-description">
-                    Create and manage your custom response templates for quick access. 
-                    Save your best responses and reuse them instantly across all platforms.
-                </p>
-
-                <!-- Template Usage Tracker -->
-                <div class="usage-tracker" id="usage-tracker">
-                    <div class="usage-header">
-                        <div class="usage-count">
-                            <span id="template-count">0</span> of <span id="template-limit">5</span> Templates Used
-                        </div>
-                        <div class="plan-badge" id="plan-badge">Free Plan</div>
-                    </div>
-                    <div class="progress-bar">
-                        <div class="progress-fill" id="usage-progress" style="width: 0%"></div>
-                    </div>
-                    <div class="upgrade-hint" id="upgrade-hint">
-                        Create up to 5 templates on the free plan. <a href="/pricing.html" style="color: #8b5cf6;">Upgrade for unlimited templates</a>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Value Proposition Section (for non-authenticated users) -->
-            <div class="value-section" id="value-section">
-                <h2 style="text-align: center; color: #8b5cf6; margin-bottom: 2rem;">🚀 Why Use Templates?</h2>
-                <div class="value-grid">
-                    <div class="value-card">
-                        <div class="value-icon">⚡</div>
-                        <div class="value-title">Save Time</div>
-                        <div class="value-description">Respond to DMs 10x faster with pre-written templates</div>
-                    </div>
-                    <div class="value-card">
-                        <div class="value-icon">🎯</div>
-                        <div class="value-title">Stay Consistent</div>
-                        <div class="value-description">Maintain your brand voice across all conversations</div>
-                    </div>
-                    <div class="value-card">
-                        <div class="value-icon">🔄</div>
-                        <div class="value-title">Reuse Everything</div>
-                        <div class="value-description">One template works across Instagram, TikTok, Twitter & more</div>
-                    </div>
-                    <div class="value-card">
-                        <div class="value-icon">✨</div>
-                        <div class="value-title">AI Enhanced</div>
-                        <div class="value-description">Templates get enhanced by AI for even better responses</div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Example Templates Section -->
-            <div class="examples-section" id="examples-section">
-                <h3 style="color: #ffffff; margin-bottom: 1rem;">📋 Popular Template Examples</h3>
-                <p style="color: #9ca3af; margin-bottom: 1rem;">Get started with these proven templates. Sign up to customize and save your own!</p>
-                
-                <div class="examples-grid">
-                    <div class="example-card">
-                        <div class="example-header">
-                            <div class="example-name">🤝 Collaboration Interest</div>
-                            <button class="btn btn-small btn-secondary" onclick="useExample('collaboration')">📋 Use This</button>
-                        </div>
-                        <div class="example-response">
-                            "Thanks for reaching out! I'm definitely interested in collaborating. Let me check my calendar and get back to you with some ideas. What kind of timeline were you thinking?"
-                        </div>
-                    </div>
-                    
-                    <div class="example-card">
-                        <div class="example-header">
-                            <div class="example-name">💕 Fan Appreciation</div>
-                            <button class="btn btn-small btn-secondary" onclick="useExample('fan')">📋 Use This</button>
-                        </div>
-                        <div class="example-response">
-                            "This made my day! Thank you so much for the kind words and support. It truly means everything to me! 🙏✨"
-                        </div>
-                    </div>
-                    
-                    <div class="example-card">
-                        <div class="example-header">
-                            <div class="example-name">❓ Question Response</div>
-                            <button class="btn btn-small btn-secondary" onclick="useExample('question')">📋 Use This</button>
-                        </div>
-                        <div class="example-response">
-                            "Great question! I actually covered this in my recent post/story. Check it out and let me know if you need any clarification!"
-                        </div>
-                    </div>
-                    
-                    <div class="example-card">
-                        <div class="example-header">
-                            <div class="example-name">💼 Business Inquiry</div>
-                            <button class="btn btn-small btn-secondary" onclick="useExample('business')">📋 Use This</button>
-                        </div>
-                        <div class="example-response">
-                            "Thanks for your interest! I'd love to discuss this opportunity. Please email me at [email] with more details and we can set up a call."
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Templates Section -->
-            <div class="templates-section">
-                <div class="section-header">
-                    <h2 class="section-title">Your Templates</h2>
-                    <button class="btn btn-primary" id="add-template-btn" onclick="showTemplateForm()">
-                        ➕ Add Template
-                    </button>
-                </div>
-
-                <!-- Template Creation Form -->
-                <div id="template-form" class="template-form hidden">
-                    <h3 style="margin-bottom: 1.5rem;">Create New Template</h3>
-                    
-                    <div class="form-grid">
-                        <div class="form-group">
-                            <label class="form-label" for="template-name">Template Name:</label>
-                            <input 
-                                type="text"
-                                class="form-input" 
-                                id="template-name" 
-                                placeholder="e.g., Collaboration Response"
-                                oninput="updatePreview()"
-                            />
-                        </div>
-                        <div class="form-group">
-                            <label class="form-label" for="template-category">Category:</label>
-                            <select class="form-select" id="template-category" onchange="updatePreview()">
-                                <option value="collaboration">🤝 Collaboration (partnerships, collabs)</option>
-                                <option value="compliment">💕 Compliment (fan responses, praise)</option>
-                                <option value="question">❓ Question (info requests, FAQs)</option>
-                                <option value="business">💼 Business (work inquiries, deals)</option>
-                                <option value="support">🤗 Support (encouragement, help)</option>
-                                <option value="promotional">📢 Promotional (product mentions, ads)</option>
-                                <option value="other">📌 Other (custom responses)</option>
-                            </select>
-                        </div>
-                    </div>
-
-                    <div class="form-group">
-                        <label class="form-label" for="template-response">Template Response:</label>
-                        <textarea 
-                            class="form-textarea" 
-                            id="template-response" 
-                            placeholder="Enter your template response here..."
-                            rows="4"
-                            oninput="updatePreview()"
-                        ></textarea>
-                    </div>
-
-                    <div class="form-group">
-                        <label class="form-label" for="template-tags">Tags (Optional):</label>
-                        <input 
-                            type="text"
-                            class="form-input" 
-                            id="template-tags" 
-                            placeholder="collaboration, brand, partnership (comma separated)"
-                            oninput="updatePreview()"
-                        />
-                    </div>
-
-                    <!-- Live Preview -->
-                    <div class="preview-section">
-                        <div class="preview-label">📋 Template Preview:</div>
-                        <div class="preview-content" id="template-preview">
-                            Start typing above to see your template preview...
-                        </div>
-                    </div>
-
-                    <div style="display: flex; gap: 1rem; justify-content: flex-end; margin-top: 1.5rem;">
-                        <button class="btn btn-secondary" onclick="hideTemplateForm()">Cancel</button>
-                        <button class="btn btn-primary" onclick="saveTemplate()">💾 Save Template</button>
-                    </div>
-                </div>
-
-                <!-- Templates List -->
-                <div id="templates-list">
-                    <!-- Templates will be loaded here -->
-                </div>
-            </div>
-        </div>
-    </main>
-
- <!-- Footer -->
-<footer class="footer">
-    <div class="container">
-        <div class="footer-content">
-            <div class="footer-brand">
-                <h3 class="footer-logo">DMTools.fun</h3>
-                <p class="footer-description">
-                    AI-powered universal messaging response generator.
-                </p>
-            </div>
-            
-            <div class="footer-links">
-                <div class="link-group">
-                    <h4>Product</h4>
-                    <a href="/app.html">Generator</a>
-                    <a href="/presets.html">Templates</a>
-                    <a href="/pricing.html">Pricing</a>
-                    <a href="/store.html">Packs Store</a>
-                </div>
-                
-                <div class="link-group">
-                    <h4>Legal</h4>
-                    <a href="/terms-of-service.html">Terms of Service</a>
-                    <a href="/privacy-policy.html">Privacy Policy</a>
-                    <a href="/refund-policy.html">Refund Policy</a>
-                    <a href="/cookie-policy.html">Cookie Policy</a>
-                </div>
-                
-                <div class="link-group">
-                    <h4>Support</h4>
-                    <a href="/contact.html">Contact Us</a>
-                    <a href="mailto:support@dmtools.fun">Email Support</a>
-                </div>
-            </div>
-        </div>
-        
-        <div class="footer-bottom">
-            <p class="footer-copyright">© 2025 DMTools.fun LLC. All rights reserved.</p>
-        </div>
+    <div class="mobile-menu" id="mobile-menu">
+      <div class="mobile-menu-links">
+        <a href="/app.html">Queue</a><a href="/presets.html">Voice</a><a href="/pricing.html">Pricing</a><a href="/account.html">Account</a>
+        <button class="btn btn-secondary" type="button" data-auth="login" data-return-to="/presets.html">Sign in</button>
+      </div>
     </div>
-</footer>
+  </header>
 
-    <script>
-        // Global Variables
-        let currentUser = null;
-        let isAuthenticated = false;
-        let isLoginMode = true;
-        let userTemplates = [];
-        
-        // API Configuration
-        const API_BASE = 'https://dmtools-backend-production.up.railway.app/api';
-// Mobile menu toggle
-function toggleMobileMenu() {
-    document.getElementById('mobileNav').classList.toggle('show');
-}
-        // Template Examples
-        const templateExamples = {
-            collaboration: {
-                name: "Collaboration Interest",
-                category: "collaboration",
-                response: "Thanks for reaching out! I'm definitely interested in collaborating. Let me check my calendar and get back to you with some ideas. What kind of timeline were you thinking?",
-                tags: ["collaboration", "partnership", "business"]
-            },
-            fan: {
-                name: "Fan Appreciation", 
-                category: "compliment",
-                response: "This made my day! Thank you so much for the kind words and support. It truly means everything to me! 🙏✨",
-                tags: ["appreciation", "fan", "gratitude"]
-            },
-            question: {
-                name: "Question Response",
-                category: "question", 
-                response: "Great question! I actually covered this in my recent post/story. Check it out and let me know if you need any clarification!",
-                tags: ["question", "faq", "help"]
-            },
-            business: {
-                name: "Business Inquiry",
-                category: "business",
-                response: "Thanks for your interest! I'd love to discuss this opportunity. Please email me at [email] with more details and we can set up a call.",
-                tags: ["business", "inquiry", "opportunity"]
+  <main class="voice-shell">
+    <section class="voice-hero">
+      <div>
+        <span class="eyebrow">Voice and reusable replies</span>
+        <h1>Teach DMTools how you sound, then reuse your best replies anywhere.</h1>
+        <p>Save response templates once, keep your tone consistent, and copy proven replies into email, DMs, customer support, or anywhere else you type.</p>
+        <div class="voice-actions">
+          <button class="btn btn-primary" type="button" id="newTemplateHero">Create template</button>
+          <a class="btn btn-secondary" href="/app.html">Open queue</a>
+        </div>
+      </div>
+      <div class="voice-mini-grid">
+        <div class="voice-mini"><h3>Reusable voice</h3><p>Keep high-performing replies ready so you do not rewrite the same message every time.</p></div>
+        <div class="voice-mini"><h3>Cross-platform</h3><p>One template works across Instagram, TikTok, Twitter, and more. The current live page explicitly positions templates as reusable across platforms. fileciteturn76file0L315-L347</p></div>
+      </div>
+    </section>
+
+    <div class="voice-feedback hidden" id="voiceFeedback"></div>
+
+    <section class="voice-usage hidden" id="usageTracker">
+      <div class="usage-header">
+        <div class="usage-count"><span id="templateCount">0</span> of <span id="templateLimit">5</span> templates used</div>
+        <div class="plan-badge" id="planBadge">Free Plan</div>
+      </div>
+      <div class="progress-bar"><div class="progress-fill" id="usageProgress"></div></div>
+      <div class="upgrade-hint" id="upgradeHint">Create up to 5 templates on the free plan. Upgrade for more. fileciteturn76file0L335-L347</div>
+    </section>
+
+    <div class="loading" id="loadingState"><div><div class="spinner"></div><div>Loading your voice workspace...</div></div></div>
+
+    <section class="voice-grid hidden" id="voiceContent">
+      <div class="voice-stack">
+        <article class="voice-card">
+          <div class="card-head">
+            <div>
+              <h2>Create template</h2>
+              <p class="card-sub">The current live page saves templates with <code>name</code>, <code>category</code>, <code>response</code>, and <code>tags</code> to <code>/presets</code>. fileciteturn76file0L661-L684</p>
+            </div>
+          </div>
+          <form id="templateForm" class="voice-stack">
+            <div class="form-grid">
+              <div class="field"><label for="templateName">Template name</label><input id="templateName" type="text" maxlength="120" placeholder="Collaboration follow-up"></div>
+              <div class="field"><label for="templateCategory">Category</label><select id="templateCategory"><option value="collaboration">Collaboration</option><option value="compliment">Compliment</option><option value="question">Question</option><option value="business">Business</option><option value="support">Support</option><option value="promotional">Promotional</option><option value="other">Other</option></select></div>
+            </div>
+            <div class="field"><label for="templateResponse">Template response</label><textarea id="templateResponse" rows="6" placeholder="Enter the reusable reply you want to save..."></textarea></div>
+            <div class="field"><label for="templateTags">Tags</label><input id="templateTags" type="text" placeholder="brand, outreach, follow-up"></div>
+            <div class="field"><label>Preview</label><div class="preview-box" id="templatePreview">Start typing above to preview your template. The live page also includes a preview section. fileciteturn76file0L418-L447</div></div>
+            <div class="button-row"><button class="btn btn-primary" type="submit" id="saveTemplateButton">Save template</button><button class="btn btn-secondary" type="button" id="clearTemplateButton">Clear</button></div>
+          </form>
+        </article>
+
+        <article class="voice-card">
+          <div class="card-head">
+            <div>
+              <h2>Popular starter examples</h2>
+              <p class="card-sub">The current page already ships starter examples for collaboration, compliment, question, and business. fileciteturn76file0L449-L489</p>
+            </div>
+          </div>
+          <div class="examples-grid" id="examplesGrid"></div>
+        </article>
+      </div>
+
+      <div class="voice-stack">
+        <article class="voice-card">
+          <div class="card-head">
+            <div>
+              <h2>Your templates</h2>
+              <p class="card-sub">The current page loads saved templates from <code>/presets</code> and expects <code>response.presets</code>. fileciteturn76file0L736-L746</p>
+            </div>
+          </div>
+          <div id="templatesList"></div>
+        </article>
+      </div>
+    </section>
+
+    <section class="voice-card hidden" id="signedOutState">
+      <div class="empty-box">
+        <h2 style="margin-bottom:.5rem;">Sign in to save and manage your templates.</h2>
+        <p>Create reusable replies, keep your tone consistent, and copy proven messages across every platform.</p>
+        <div class="button-row" style="justify-content:center;">
+          <button class="btn btn-primary" type="button" data-auth="login" data-return-to="/presets.html" id="signInPromptButton">Sign in</button>
+          <button class="btn btn-secondary" type="button" data-auth="register" data-return-to="/presets.html">Create account</button>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-content">
+      <div class="footer-brand"><a class="footer-logo" href="/index.html"><span class="logo-mark" aria-hidden="true"></span><span>DMTools.fun</span></a><p class="footer-description">Save reusable templates and keep your voice consistent everywhere.</p></div>
+      <div class="footer-column"><h4>Product</h4><a href="/app.html">Queue</a><a href="/presets.html">Voice</a><a href="/pricing.html">Pricing</a><a href="/account.html">Account</a></div>
+      <div class="footer-column"><h4>Legal</h4><a href="/terms-of-service.html">Terms of Service</a><a href="/privacy-policy.html">Privacy Policy</a><a href="/refund-policy.html">Refund Policy</a><a href="/cookie-policy.html">Cookie Policy</a></div>
+      <div class="footer-column"><h4>Support</h4><a href="/contact.html">Contact</a><a href="mailto:admin@dmtools.fun">admin@dmtools.fun</a></div>
+    </div>
+    <div class="footer-bottom"><span>© 2026 DMTools.fun LLC. All rights reserved.</span><span class="small-note">Powered by the existing live presets contract.</span></div>
+  </footer>
+
+  <script src="/js/app-core.js"></script>
+  <script src="/js/auth-modal.js"></script>
+  <script>
+    (function () {
+      const PLAN_LIMITS = { free: 5, starter: 10, pro: 20, business: 200, enterprise: 500 };
+      const EXAMPLES = {
+        collaboration: { name: 'Collaboration Interest', category: 'collaboration', response: "Thanks for reaching out! I'm definitely interested in collaborating. Let me check my calendar and get back to you with some ideas. What kind of timeline were you thinking?", tags: ['collaboration','partnership','business'] },
+        fan: { name: 'Fan Appreciation', category: 'compliment', response: 'This made my day! Thank you so much for the kind words and support. It truly means everything to me! 🙏✨', tags: ['appreciation','fan','gratitude'] },
+        question: { name: 'Question Response', category: 'question', response: 'Great question! I actually covered this in my recent post/story. Check it out and let me know if you need any clarification!', tags: ['question','faq','help'] },
+        business: { name: 'Business Inquiry', category: 'business', response: "Thanks for your interest! I'd love to discuss this opportunity. Please email me at [email] with more details and we can set up a call.", tags: ['business','inquiry','opportunity'] }
+      };
+      const state = { signedIn: false, user: null, templates: [] };
+      function track(name, params){ try { if (window.DMTOOLS && typeof window.DMTOOLS.track === 'function') window.DMTOOLS.track(name, params || {}); } catch (_) {} }
+      function $(id){ return document.getElementById(id); }
+      function showFeedback(message, type){
+        const el = $('voiceFeedback');
+        if (!message){ el.textContent = ''; el.className = 'voice-feedback hidden'; return; }
+        el.textContent = message;
+        el.className = 'voice-feedback' + (type === 'error' ? ' is-error' : type === 'success' ? ' is-success' : '');
+      }
+      function setHeaderState(){
+        const signin = $('signinButton');
+        const primary = $('primaryButton');
+        if (signin) signin.classList.toggle('hidden', state.signedIn);
+        if (primary){
+          if (state.signedIn){ primary.textContent = 'Open account'; primary.removeAttribute('data-auth'); primary.onclick = function(){ window.location.href='/account.html'; }; }
+          else { primary.textContent = 'Start free'; primary.setAttribute('data-auth','register'); primary.setAttribute('data-return-to','/presets.html'); primary.onclick = null; }
+        }
+      }
+      function planKey(){ return String((state.user && (state.user.plan || state.user.subscription_tier)) || 'free').toLowerCase(); }
+      function updateUsage(){
+        const plan = planKey(); const limit = PLAN_LIMITS[plan] || PLAN_LIMITS.free; const count = state.templates.length; const pct = Math.min(100, Math.round((count / limit) * 100));
+        $('templateCount').textContent = count; $('templateLimit').textContent = limit; $('usageProgress').style.width = pct + '%';
+        $('planBadge').textContent = plan.charAt(0).toUpperCase() + plan.slice(1) + ' Plan';
+        $('upgradeHint').textContent = count >= limit ? 'Template limit reached. Upgrade for more templates.' : 'Create up to ' + limit + ' templates on the ' + plan + ' plan. Upgrade for more.';
+        track('usage_tracker_view', { page_name: 'presets', template_count: count, template_limit: limit });
+      }
+      function categoryLabel(v){ const raw = String(v || 'other'); return raw.charAt(0).toUpperCase() + raw.slice(1); }
+      function updatePreview(){
+        const name = $('templateName').value.trim(); const response = $('templateResponse').value.trim(); const tags = $('templateTags').value.trim(); const preview = $('templatePreview');
+        preview.textContent = (!name && !response && !tags) ? 'Start typing above to preview your template.' : (response || 'Enter your response text to preview it here.');
+      }
+      function clearForm(){ $('templateName').value=''; $('templateCategory').value='collaboration'; $('templateResponse').value=''; $('templateTags').value=''; updatePreview(); }
+      function fillForm(example){ $('templateName').value=example.name; $('templateCategory').value=example.category; $('templateResponse').value=example.response; $('templateTags').value=(example.tags||[]).join(', '); updatePreview(); }
+      function renderExamples(){
+        const grid = $('examplesGrid');
+        grid.innerHTML = Object.keys(EXAMPLES).map(function(key){
+          const example = EXAMPLES[key];
+          return '<article class="example-card"><div class="example-head"><div><div class="example-name">'+example.name+'</div><div class="category-pill">'+categoryLabel(example.category)+'</div></div><button class="btn btn-secondary btn-small" type="button" data-example="'+key+'">Use this</button></div><div class="example-response">'+DOMPurify.sanitize(example.response)+'</div><div class="tag-row">'+(example.tags||[]).map(function(tag){ return '<span class="tag">'+DOMPurify.sanitize(tag)+'</span>'; }).join('')+'</div></article>';
+        }).join('');
+        grid.querySelectorAll('[data-example]').forEach(function(btn){
+          btn.addEventListener('click', async function(){
+            const example = EXAMPLES[this.dataset.example];
+            track('example_use', { page_name: 'presets', category: example.category });
+            if (state.signedIn){ fillForm(example); $('templateName').focus(); }
+            else {
+              try { await navigator.clipboard.writeText(example.response); showFeedback('Example copied. Sign in to save and customize templates.', 'success'); }
+              catch (_) { showFeedback('Sign in to save and customize templates.', 'success'); }
             }
-        };
-
-        // Initialize App
-        document.addEventListener('DOMContentLoaded', initializeApp);
-
-        async function initializeApp() {
-            console.log('🚀 Initializing DMTools Templates Page...');
-            
-            try {
-                // Check authentication
-                const token = localStorage.getItem('authToken');
-                if (token) {
-                    try {
-                        const response = await apiCall('/user/profile');
-                        currentUser = response.user;
-                        isAuthenticated = true;
-                        await loadUserTemplates();
-                    } catch (error) {
-                        localStorage.removeItem('authToken');
-                        isAuthenticated = false;
-                    }
-                }
-                
-                updateUI();
-                
-                console.log('✅ Templates page initialized successfully');
-            } catch (error) {
-                console.error('Error during app initialization:', error);
-            }
+          });
+        });
+      }
+      async function copyTemplate(text, button){
+        try {
+          await navigator.clipboard.writeText(text);
+          const original = button.textContent; button.textContent = 'Copied'; button.classList.add('copied');
+          showFeedback('Template copied to clipboard.', 'success'); track('preset_copy', { page_name: 'presets' });
+          setTimeout(function(){ button.textContent = original; button.classList.remove('copied'); }, 1800);
+        } catch (_) { showFeedback('Failed to copy template.', 'error'); }
+      }
+      async function deleteTemplate(id){
+        if (!window.confirm('Delete this template?')) return;
+        try {
+          await DMTOOLS.apiCall('/presets/' + id, { method: 'DELETE' });
+          state.templates = state.templates.filter(function(t){ return String(t.id) !== String(id); });
+          renderTemplates(); updateUsage(); showFeedback('Template deleted successfully.', 'success'); track('preset_delete', { page_name: 'presets' });
+        } catch (err) { showFeedback(err.message || 'Failed to delete template.', 'error'); }
+      }
+      function normalizeTemplates(res){ return Array.isArray(res && res.presets) ? res.presets : Array.isArray(res) ? res : []; }
+      function renderTemplates(){
+        const list = $('templatesList');
+        if (!state.signedIn){ list.innerHTML = ''; return; }
+        if (!state.templates.length){
+          list.innerHTML = '<div class="empty-box"><h3 style="margin-bottom:.5rem;">No templates saved yet.</h3><p>Create your first template to start building a reusable voice library.</p></div>';
+          return;
         }
-
-        // API Call Function
-        async function apiCall(endpoint, options = {}) {
-            const token = localStorage.getItem('authToken');
-            const url = `${API_BASE}${endpoint}`;
-            
-            const config = {
-                method: 'GET',
-                headers: {
-                    'Content-Type': 'application/json',
-                    ...(token && { 'Authorization': `Bearer ${token}` })
-                },
-                ...options
-            };
-
-            const response = await fetch(url, config);
-            
-            if (!response.ok) {
-                const errorData = await response.json().catch(() => ({}));
-                throw new Error(errorData.error || `Request failed: ${response.status}`);
-            }
-
-            return response.json();
+        list.innerHTML = '<div class="template-grid">' + state.templates.map(function(template){
+          const name = DOMPurify.sanitize(template.name || template.title || 'Untitled template');
+          const category = DOMPurify.sanitize(template.category || 'other');
+          const response = DOMPurify.sanitize(template.response || template.content || '');
+          const tags = Array.isArray(template.tags) ? template.tags : [];
+          return '<article class="template-card"><div class="template-head"><div><div class="template-name">'+name+'</div><div class="category-pill">'+categoryLabel(category)+'</div></div><div class="template-actions"><button class="copy-btn" type="button" data-copy="'+template.id+'">Copy</button><button class="delete-btn" type="button" data-delete="'+template.id+'">Delete</button></div></div><div class="template-response">'+(response || 'No response text saved.')+'</div><div class="tag-row">'+tags.map(function(tag){ return '<span class="tag">'+DOMPurify.sanitize(tag)+'</span>'; }).join('')+'</div></article>';
+        }).join('') + '</div>';
+        list.querySelectorAll('[data-copy]').forEach(function(btn){
+          btn.addEventListener('click', function(){
+            const template = state.templates.find(function(t){ return String(t.id) === String(btn.dataset.copy); });
+            if (template) copyTemplate(template.response || template.content || '', btn);
+          });
+        });
+        list.querySelectorAll('[data-delete]').forEach(function(btn){ btn.addEventListener('click', function(){ deleteTemplate(btn.dataset.delete); }); });
+      }
+      async function loadTemplates(){ const res = await DMTOOLS.apiCall('/presets', { method: 'GET' }); state.templates = normalizeTemplates(res); }
+      async function saveTemplate(event){
+        event.preventDefault();
+        const name = $('templateName').value.trim();
+        const category = $('templateCategory').value;
+        const response = $('templateResponse').value.trim();
+        const tags = $('templateTags').value.trim() ? $('templateTags').value.split(',').map(function(t){ return t.trim(); }).filter(Boolean) : [];
+        if (!name || !response){ showFeedback('Template name and response are required.', 'error'); return; }
+        const limit = PLAN_LIMITS[planKey()] || PLAN_LIMITS.free;
+        if (state.templates.length >= limit){ showFeedback('Template limit reached for your current plan.', 'error'); return; }
+        try {
+          $('saveTemplateButton').disabled = true; $('saveTemplateButton').textContent = 'Saving...';
+          track('preset_save_start', { page_name: 'presets', category: category });
+          await DMTOOLS.apiCall('/presets', { method: 'POST', body: JSON.stringify({ name: name, category: category, response: response, tags: tags }) });
+          await loadTemplates(); renderTemplates(); updateUsage(); clearForm();
+          showFeedback('Template saved successfully.', 'success'); track('preset_save_success', { page_name: 'presets', category: category });
+        } catch (err) {
+          showFeedback(err.message || 'Failed to save template.', 'error'); track('preset_save_error', { page_name: 'presets', message: String(err.message || err) });
+        } finally { $('saveTemplateButton').disabled = false; $('saveTemplateButton').textContent = 'Save template'; }
+      }
+      function showSignedOut(){ $('loadingState').classList.add('hidden'); $('voiceContent').classList.add('hidden'); $('signedOutState').classList.remove('hidden'); $('usageTracker').classList.add('hidden'); setHeaderState(); }
+      function showSignedIn(){ $('loadingState').classList.add('hidden'); $('signedOutState').classList.add('hidden'); $('voiceContent').classList.remove('hidden'); $('usageTracker').classList.remove('hidden'); setHeaderState(); }
+      async function initialize(){
+        track('presets_view', { page_name: 'presets' }); renderExamples();
+        state.signedIn = await DMTOOLS.verifyToken(); track('auth_state_detected', { page_name: 'presets', signed_in: state.signedIn });
+        if (!state.signedIn){ showSignedOut(); return; }
+        try {
+          const profile = await DMTOOLS.apiCall('/user/profile', { method: 'GET' });
+          state.user = profile.user || profile;
+          await loadTemplates(); renderTemplates(); updateUsage(); showSignedIn();
+        } catch (err) {
+          console.error(err); DMTOOLS.clearToken(); state.signedIn = false; showFeedback('Please sign in again to load your templates.', 'error'); showSignedOut();
         }
-
-        // Update UI based on auth status
-        function updateUI() {
-            const authSection = document.getElementById('auth-section');
-            const userSection = document.getElementById('user-section');
-            const usageTracker = document.getElementById('usage-tracker');
-            const valueSection = document.getElementById('value-section');
-            const examplesSection = document.getElementById('examples-section');
-            const addTemplateBtn = document.getElementById('add-template-btn');
-
-            if (isAuthenticated) {
-                authSection.classList.add('hidden');
-                userSection.classList.remove('hidden');
-                usageTracker.classList.remove('hidden');
-                valueSection.classList.add('hidden');
-                examplesSection.classList.add('hidden');
-                addTemplateBtn.classList.remove('hidden');
-                
-                // Update user email
-                document.getElementById('user-email').textContent = currentUser?.email || 'user@example.com';
-                
-                // Update usage tracker
-                updateUsageTracker();
-                
-            } else {
-                authSection.classList.remove('hidden');
-                userSection.classList.add('hidden');
-                usageTracker.classList.add('hidden');
-                valueSection.classList.remove('hidden');
-                examplesSection.classList.remove('hidden');
-                addTemplateBtn.innerHTML = '🔐 Sign In to Create Templates';
-                addTemplateBtn.onclick = () => showAuthModal(true);
-            }
-
-            updateTemplatesList();
-        }
-
-        // Update usage tracker
-        function updateUsageTracker() {
-            if (!isAuthenticated) return;
-
-            const limits = { 
-                free: 5, 
-                starter: 10,
-                pro: 20, 
-                business: 200,
-                enterprise: 500 
-            };
-            
-            const userPlan = currentUser?.plan || 'free';
-            const limit = limits[userPlan];
-            const count = userTemplates.length;
-            const percentage = Math.min((count / limit) * 100, 100);
-
-            document.getElementById('template-count').textContent = count;
-            document.getElementById('template-limit').textContent = limit;
-            document.getElementById('usage-progress').style.width = percentage + '%';
-            document.getElementById('plan-badge').textContent = userPlan.charAt(0).toUpperCase() + userPlan.slice(1) + ' Plan';
-
-            const upgradeHint = document.getElementById('upgrade-hint');
-            if (count >= limit * 0.8) {
-                upgradeHint.innerHTML = `You're approaching your limit. <a href="/pricing.html" style="color: #8b5cf6;">Upgrade for more templates</a>`;
-            } else {
-                upgradeHint.innerHTML = `Create up to ${limit} templates on the ${userPlan} plan. <a href="/pricing.html" style="color: #8b5cf6;">Upgrade for more</a>`;
-            }
-        }
-
-        // Template Management Functions
-        function showTemplateForm() {
-            if (!isAuthenticated) {
-                showNotification('Please sign in to create templates', 'error');
-                showAuthModal(true);
-                return;
-            }
-            
-            const limits = { 
-                free: 5, 
-                starter: 10,
-                pro: 20, 
-                business: 200,
-                enterprise: 500 
-            };
-            const limit = limits[currentUser?.plan || 'free'];
-            
-            if (userTemplates.length >= limit) {
-                showNotification(`Template limit reached (${limit}). Upgrade to add more templates.`, 'error');
-                return;
-            }
-            
-            document.getElementById('template-form').classList.remove('hidden');
-        }
-
-        function hideTemplateForm() {
-            document.getElementById('template-form').classList.add('hidden');
-            clearTemplateForm();
-        }
-
-        function clearTemplateForm() {
-            document.getElementById('template-name').value = '';
-            document.getElementById('template-response').value = '';
-            document.getElementById('template-tags').value = '';
-            document.getElementById('template-category').value = 'collaboration';
-            updatePreview();
-        }
-
-        function updatePreview() {
-            const name = document.getElementById('template-name').value.trim();
-            const response = document.getElementById('template-response').value.trim();
-            const preview = document.getElementById('template-preview');
-            
-            if (!name && !response) {
-                preview.textContent = 'Start typing above to see your template preview...';
-                preview.style.opacity = '0.5';
-            } else {
-                preview.textContent = response || 'Enter your response text...';
-                preview.style.opacity = '1';
-            }
-        }
-
-        async function saveTemplate() {
-            const name = document.getElementById('template-name').value.trim();
-            const category = document.getElementById('template-category').value;
-            const response = document.getElementById('template-response').value.trim();
-            const tagsInput = document.getElementById('template-tags').value.trim();
-            
-            // Convert comma-separated tags to array
-            const tags = tagsInput ? tagsInput.split(',').map(tag => tag.trim()).filter(tag => tag.length > 0) : [];
-            
-            if (!name || !response) {
-                showNotification('Template name and response are required', 'error');
-                return;
-            }
-
-            try {
-                await apiCall('/presets', {
-                    method: 'POST',
-                    body: JSON.stringify({
-                        name: name,
-                        category: category,
-                        response: response,
-                        tags: tags
-                    })
-                });
-
-                await loadUserTemplates();
-                hideTemplateForm();
-                showNotification('Template saved successfully!', 'success');
-                updateUsageTracker();
-                
-            } catch (error) {
-                showNotification(error.message || 'Failed to save template', 'error');
-            }
-        }
-
-        async function deleteTemplate(id) {
-            if (!confirm('Are you sure you want to delete this template?')) return;
-
-            try {
-                await apiCall(`/presets/${id}`, {
-                    method: 'DELETE'
-                });
-
-                await loadUserTemplates();
-                showNotification('Template deleted successfully', 'success');
-                updateUsageTracker();
-                
-            } catch (error) {
-                showNotification(error.message || 'Failed to delete template', 'error');
-            }
-        }
-
-        async function copyTemplate(text, button) {
-            try {
-                await navigator.clipboard.writeText(text);
-                
-                // Visual feedback
-                const originalText = button.innerHTML;
-                button.innerHTML = '✅ Copied to Clipboard!';
-                button.classList.add('copied');
-                
-                setTimeout(() => {
-                    button.innerHTML = originalText;
-                    button.classList.remove('copied');
-                }, 2000);
-
-                showNotification('Template copied to clipboard!', 'success');
-                
-            } catch (error) {
-                showNotification('Failed to copy template', 'error');
-            }
-        }
-
-        function useExample(type) {
-            const example = templateExamples[type];
-            if (!example) return;
-
-            if (isAuthenticated) {
-                // Fill the form with the example
-                document.getElementById('template-name').value = example.name;
-                document.getElementById('template-category').value = example.category;
-                document.getElementById('template-response').value = example.response;
-                document.getElementById('template-tags').value = example.tags.join(', ');
-                updatePreview();
-                showTemplateForm();
-            } else {
-                // Copy to clipboard and show signup prompt
-                navigator.clipboard.writeText(example.response).then(() => {
-                    showNotification('Template copied! Sign up to save and customize templates.', 'info');
-                    setTimeout(() => showAuthModal(false), 2000);
-                });
-            }
-        }
-
-        async function loadUserTemplates() {
-            if (!isAuthenticated) {
-                userTemplates = [];
-                return;
-            }
-
-            try {
-                const response = await apiCall('/presets');
-                userTemplates = response.presets || [];
-            } catch (error) {
-                console.error('Failed to load templates:', error);
-                userTemplates = [];
-            }
-        }
-
-        function updateTemplatesList() {
-            const container = document.getElementById('templates-list');
-            if (!container) return;
-            
-            if (!isAuthenticated || userTemplates.length === 0) {
-                container.innerHTML = `
-                    <div class="empty-state">
-                        <div class="empty-icon">📝</div>
-                        <div class="empty-title">${isAuthenticated ? 'No templates saved yet' : 'Sign in to view your templates'}</div>
-                        <div class="empty-description">
-                            ${isAuthenticated 
-                                ? 'Click "Add Template" to create your first response template!' 
-                                : 'Create and manage your custom response templates for quick message responses.'
-                            }
-                        </div>
-                        ${!isAuthenticated ? `
-                            <button class="btn btn-primary" data-auth="register" style="margin-top: 1rem;">
-                                Get Started Free
-                            </button>
-                        ` : ''}
-                    </div>
-                `;
-                return;
-            }
-            
-            container.innerHTML = `
-                <div class="template-grid">
-                    ${userTemplates.map(template => {
-                        // Sanitize all user-generated content to prevent XSS
-                        const sanitizedName = DOMPurify.sanitize(template.name);
-                        const sanitizedCategory = DOMPurify.sanitize(template.category);
-                        const sanitizedResponse = DOMPurify.sanitize(template.response);
-                        const sanitizedResponseForCopy = template.response.replace(/`/g, '\\`').replace(/\$/g, '\\$');
-                        
-                        return `
-                        <div class="template-card">
-                            <div class="template-header">
-                                <div class="template-info">
-                                    <div class="template-name">
-                                        ${getCategoryIcon(template.category)} ${sanitizedName}
-                                    </div>
-                                    <div class="template-category">${sanitizedCategory}</div>
-                                </div>
-                                <div class="template-actions">
-                                    <button class="copy-btn" onclick="copyTemplate(\`${sanitizedResponseForCopy}\`, this)">
-                                        📋 Copy
-                                    </button>
-                                    <button class="delete-btn" onclick="deleteTemplate(${template.id})" title="Delete template">
-                                        🗑️
-                                    </button>
-                                </div>
-                            </div>
-                            <div class="template-response">${sanitizedResponse}</div>
-                            ${template.tags && template.tags.length > 0 ? `
-                                <div class="template-tags">
-                                    ${template.tags.map(tag => `<span class="tag">${DOMPurify.sanitize(tag)}</span>`).join('')}
-                                </div>
-                            ` : ''}
-                        </div>
-                        `;
-                    }).join('')}
-                </div>
-            `;
-        }
-
-        function getCategoryIcon(category) {
-            const icons = {
-                collaboration: '🤝',
-                compliment: '💕',
-                question: '❓',
-                business: '💼',
-                support: '🤗',
-                promotional: '📢',
-                other: '📌'
-            };
-            return icons[category] || '📌';
-        }
-
-        // Authentication Functions
-        function showAuthModal(loginMode = true) {
-            isLoginMode = !!loginMode;
-            const returnTo = window.location.pathname + window.location.search;
-
-            if (window.DMTOOLS && typeof DMTOOLS.openAuthModal === 'function') {
-                DMTOOLS.openAuthModal(isLoginMode ? 'login' : 'register', { returnTo });
-                return;
-            }
-
-            if (document.readyState !== 'complete') {
-                window.addEventListener('load', () => showAuthModal(isLoginMode), { once: true });
-            }
-        }
-
-        function hideAuthModal() {
-            if (window.DMTOOLS && typeof DMTOOLS.closeAuthModal === 'function') {
-                DMTOOLS.closeAuthModal();
-            }
-        }
-
-        function toggleAuthMode() {
-            showAuthModal(!isLoginMode);
-        }
-
-        function logout() {
-            localStorage.removeItem('authToken');
-            currentUser = null;
-            isAuthenticated = false;
-            userTemplates = [];
-            updateUI();
-            showNotification('Signed out successfully', 'info');
-        }
-
-        // Notification System
-        function showNotification(message, type = 'info') {
-            const notification = document.createElement('div');
-            notification.style.cssText = `
-                position: fixed;
-                top: 2rem;
-                right: 2rem;
-                background: ${type === 'error' ? '#ef4444' : type === 'success' ? '#10b981' : '#3b82f6'};
-                color: white;
-                padding: 1rem 2rem;
-                border-radius: 12px;
-                box-shadow: 0 10px 40px rgba(0,0,0,0.3);
-                z-index: 10001;
-                font-weight: 600;
-                max-width: 400px;
-                transform: translateX(100%);
-                transition: transform 0.3s ease;
-            `;
-            notification.textContent = message;
-
-            document.body.appendChild(notification);
-
-            // Animate in
-            requestAnimationFrame(() => {
-                notification.style.transform = 'translateX(0)';
-            });
-
-            // Animate out and remove
-            setTimeout(() => {
-                notification.style.transform = 'translateX(100%)';
-                setTimeout(() => notification.remove(), 300);
-            }, 4000);
-        }
-
-        console.log('✅ DMTools Templates page fully loaded and optimized');
-    </script>
-<script src="js/app-core.js"></script>
-<script src="js/auth-modal.js"></script>
+      }
+      function wireEvents(){
+        const mobileToggle = $('mobile-menu-toggle'); const mobileMenu = $('mobile-menu');
+        if (mobileToggle && mobileMenu){ mobileToggle.addEventListener('click', function(){ const expanded = mobileToggle.getAttribute('aria-expanded') === 'true'; mobileToggle.setAttribute('aria-expanded', String(!expanded)); mobileMenu.classList.toggle('show'); track('mobile_menu_toggle', { page_name: 'presets', open: !expanded }); }); }
+        $('templateName').addEventListener('input', updatePreview); $('templateResponse').addEventListener('input', updatePreview); $('templateTags').addEventListener('input', updatePreview); $('templateCategory').addEventListener('change', updatePreview);
+        $('clearTemplateButton').addEventListener('click', clearForm); $('templateForm').addEventListener('submit', saveTemplate);
+        $('newTemplateHero').addEventListener('click', function(){ track('preset_form_open', { page_name: 'presets' }); if (state.signedIn){ $('templateName').focus(); } else if (window.DMTOOLS && typeof window.DMTOOLS.openAuthModal === 'function'){ window.DMTOOLS.openAuthModal('register', { returnTo: '/presets.html' }); } });
+        const promptBtn = $('signInPromptButton'); if (promptBtn) promptBtn.addEventListener('click', function(){ track('sign_in_prompt_click', { page_name: 'presets' }); });
+      }
+      document.addEventListener('DOMContentLoaded', async function(){ wireEvents(); setHeaderState(); await initialize(); });
+    })();
+  </script>
 </body>
 </html>
-

@@ -141,6 +141,9 @@
     .message-toolbar{padding:.9rem 1rem;margin-bottom:1rem;display:flex;justify-content:space-between;gap:.75rem;align-items:center}
     .message-toolbar strong{font-size:1rem;color:var(--text-primary)}
     .message-list{display:grid;gap:1rem}
+    .queue-bottom-actions{margin-top:1rem;padding:1rem 1.05rem;display:flex;justify-content:space-between;gap:.75rem;align-items:center}
+    .queue-bottom-actions__copy{color:var(--text-secondary);font-size:.92rem}
+    .queue-bottom-actions__buttons{display:flex;flex-wrap:wrap;gap:.75rem}
     .message-card{padding:1rem}
     .message-head{display:flex;justify-content:space-between;gap:.75rem;align-items:flex-start;margin-bottom:.8rem}
     .message-index{font-weight:800;color:var(--primary-light)}
@@ -402,7 +405,6 @@
             </div>
 
             <div class="tool-actions">
-              <button class="btn btn-secondary" type="button" id="addMessageBtn">Add message</button>
               <button class="btn btn-secondary" type="button" id="applyBulkBtn">Load bulk text into queue</button>
               <button class="btn btn-secondary" type="button" id="openBrowserBtn">Open side browser helper</button>
             </div>
@@ -454,15 +456,22 @@
 
       <div class="queue-stack">
         <div class="message-toolbar">
-          <strong><span id="messageCount">0</span> messages in queue</strong>
+          <strong><span id="messageCount">0</span> message pairs in queue</strong>
           <div class="tool-actions">
-            <button class="btn btn-primary" type="button" id="processAllBtn">Process all responses</button>
             <button class="btn btn-secondary" type="button" id="clearAllBtn">Clear all</button>
             <button class="btn btn-secondary" type="button" id="exportResultsBtn">Export results</button>
           </div>
         </div>
 
         <div class="message-list" id="messageList"></div>
+
+        <div class="queue-card queue-bottom-actions" id="queueBottomActions">
+          <div class="queue-bottom-actions__copy">Work down the pairs, then add another one or process the whole batch when you are ready.</div>
+          <div class="queue-bottom-actions__buttons">
+            <button class="btn btn-secondary" type="button" id="addMessageBtn">Add message pair</button>
+            <button class="btn btn-primary" type="button" id="processAllBtn">Process all responses</button>
+          </div>
+        </div>
       </div>
     </section>
 
@@ -758,7 +767,7 @@
         $('messageCount').textContent = String(state.messages.length);
         const list = $('messageList');
         if (!state.messages.length) {
-          list.innerHTML = '<div class="empty-state"><h3 style="margin-bottom:.5rem;">Your queue is empty.</h3><p>Add a message manually, load bulk text, or import a CSV to start generating responses.</p></div>';
+          list.innerHTML = '<div class="empty-state"><h3 style="margin-bottom:.5rem;">Your queue is empty.</h3><p>Add a message pair, load bulk text, or import a CSV to start generating responses.</p></div>';
           return;
         }
         list.innerHTML = state.messages.map(function (message, index) {

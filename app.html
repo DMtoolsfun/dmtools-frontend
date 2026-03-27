@@ -1,2159 +1,1020 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  
-  <script>window.lemonSqueezyAffiliateConfig = { store: "dmtoolsfun-llc" };</script>
-  <script src="https://lmsqueezy.com/affiliate.js" defer></script>
-  
-<!-- Google tag (gtag.js) -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-K0G9YRD39L"></script>
-    <script>
-        window.dataLayer = window.dataLayer || [];
-        function gtag(){dataLayer.push(arguments);}
-        gtag('js', new Date());
-        gtag('config', 'G-K0G9YRD39L');
-        gtag('config', 'G-YFTZBVLQHF');
-    </script>
-  
-    <!-- DOMPurify - XSS Protection -->
-    <script src="https://cdn.jsdelivr.net/npm/dompurify@3.0.6/dist/purify.min.js"></script>
-  
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  
-    <!-- PWA Manifest and Meta Tags -->
-      <link rel="manifest" href="/manifest.json">
-    <meta name="theme-color" content="#8b5cf6">
-    <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-    <meta name="apple-mobile-web-app-title" content="DMTools"> 
-      <link rel="apple-touch-icon" href="/icons/icon-180x180.png">
-      <link rel="stylesheet" href="/styles.css?v=20260212">
-  
-      <title>DMTools.fun LLC - AI Universal Communication Response Assistant</title>
-  
-    <style>
-/* PAGE-SPECIFIC: Batch Response Generator App */
-    
-    /* Navigation (keep existing for this page) */
-    .nav-tabs {
-        display: flex;
-        justify-content: center;
-        gap: 1rem;
-        padding: 1rem 2rem;
-        border-top: 1px solid #1e293b;
-    }
-
-/* Platform Drawer */
-    .platform-drawer-toggle {
-        position: fixed;
-        left: 20px;
-        top: 50%;
-        transform: translateY(-50%);
-        z-index: 1000;
-    }
-
-    .drawer-toggle {
-        background: linear-gradient(135deg, var(--primary), var(--accent));
-        border: none;
-        width: 64px;
-        height: 64px;
-        border-radius: 50%;
-        color: white;
-        font-size: 2rem;
-        cursor: pointer;
-        box-shadow: var(--shadow-primary);
-        transition: all 0.3s ease;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-    }
-
-    .drawer-toggle:hover {
-        transform: scale(1.1);
-        box-shadow: var(--shadow-primary-lg);
-    }
-
-    .drawer-toggle.active {
-        left: 310px;
-    }
-
-    .platform-drawer {
-        position: fixed;
-        left: -300px;
-        top: 0;
-        width: 300px;
-        height: 100vh;
-        background: rgba(30, 41, 59, 0.98);
-        border-right: 1px solid var(--border-medium);
-        padding: 2rem 1rem;
-        overflow-y: auto;
-        transition: left 0.3s ease;
-        z-index: 998;
-    }
-
-    .platform-drawer.open {
-        left: 0;
-    }
-
-    .platform-drawer h3 {
-        color: var(--primary);
-        margin-bottom: 1.5rem;
-    }
-
-    .platform-item {
-        background: var(--bg-card);
-        padding: 1rem;
-        border-radius: 8px;
-        margin-bottom: 1rem;
-        cursor: pointer;
-        transition: all 0.3s ease;
-    }
-
-    .platform-item:hover {
-        background: var(--bg-light);
-        transform: translateX(5px);
-    }
-
-    .content-wrapper {
-        flex: 1;
-        margin-left: 0;
-        transition: margin-left 0.3s ease;
-    }
-
-    .content-wrapper.drawer-open {
-        margin-left: 300px;
-    }
-
-/* Tab Content */
-    .tab-content {
-        display: none;
-    }
-
-    .tab-content.active {
-        display: block;
-    }
-
-/* Usage Counter */
-    .usage-counter {
-        background: rgba(30, 41, 59, 0.8);
-        border: 0.5px solid var(--border-medium);
-        border-radius: 12px;
-        padding: 1.1rem;
-        margin-bottom: 2rem;
-    }
-
-    .usage-text {
-        color: var(--text-primary);
-        font-size: 1.2rem;
-        margin-bottom: 1rem;
-        text-align: center;
-    }
-
-    .usage-bar {
-        background: var(--bg-input);
-        height: 12px;
-        border-radius: 6px;
-        overflow: hidden;
-        margin-bottom: 0.5rem;
-    }
-
-    .usage-fill {
-        background: linear-gradient(90deg, var(--primary), var(--accent));
-        height: 100%;
-        width: 0%;
-        transition: width 0.3s ease;
-    }
-
-/* Upload Section */
-    .upload-section {
-        background: rgba(30, 41, 59, 0.8);
-        border: 1px solid var(--border-medium);
-        border-radius: 16px;
-        padding: 2rem;
-        margin-bottom: 2rem;
-    }
-
-    .upload-methods {
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-        gap: 1rem;
-        margin-bottom: 2rem;
-    }
-
-    .upload-method {
-        background: var(--bg-card);
-        border: 2px solid var(--bg-light);
-        border-radius: 12px;
-        padding: 1.5rem;
-        text-align: center;
-        cursor: pointer;
-        transition: all 0.3s ease;
-    }
-
-    .upload-method.active {
-        border-color: var(--primary);
-        background: rgba(139, 92, 246, 0.1);
-    }
-
-    .upload-method:hover {
-        transform: translateY(-2px);
-    }
-
-    .bulk-textarea {
-        width: 100%;
-        min-height: 150px;
-        background: var(--bg-input);
-        border: 1px solid var(--bg-light);
-        border-radius: 8px;
-        color: var(--text-primary);
-        padding: 1rem;
-        font-family: monospace;
-        resize: vertical;
-        display: none;
-        margin-top: 1rem;
-    }
-
-    .bulk-textarea:focus {
-        outline: none;
-        border-color: var(--primary);
-        box-shadow: 0 0 0 3px rgba(139, 92, 246, 0.1);
-    }
-
-    .bulk-textarea.show {
-        display: block;
-    }
-
-/* Settings Section */
-    .settings-section {
-        background: rgba(30, 41, 59, 0.8);
-        border: 1px solid var(--border-medium);
-        border-radius: 16px;
-        padding: 2rem;
-        margin-bottom: 2rem;
-    }
-
-    .settings-grid {
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-        gap: 1.5rem;
-        margin-bottom: 2rem;
-    }
-
-    .setting-group {
-        background: var(--bg-card);
-        border-radius: 12px;
-        padding: 1.5rem;
-    }
-
-    .setting-group h3 {
-        color: var(--primary);
-        font-size: 1.1rem;
-        margin-bottom: 1rem;
-    }
-
-/* Messages Section */
-    .messages-section {
-        background: rgba(30, 41, 59, 0.8);
-        border: 1px solid var(--border-medium);
-        border-radius: 16px;
-        padding: 2rem;
-        margin-bottom: 2rem;
-    }
-
-    .messages-header {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        margin-bottom: 2rem;
-    }
-
-    .messages-header h2 {
-        color: var(--primary);
-    }
-
-    .batch-counter {
-        background: var(--bg-card);
-        padding: 0.75rem 1.5rem;
-        border-radius: 8px;
-        font-weight: 600;
-        color: var(--accent);
-    }
-
-/* Message Pairs */
-    .message-pair {
-        background: var(--bg-card);
-        border-radius: 12px;
-        padding: 1.5rem;
-        margin-bottom: 1.5rem;
-        position: relative;
-    }
-
-    .message-header {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        margin-bottom: 1rem;
-        flex-wrap: wrap;
-        gap: 1rem;
-    }
-
-    .message-number {
-        color: var(--primary);
-        font-weight: 700;
-        font-size: 1.1rem;
-    }
-
-    .message-tone-selector {
-        flex: 1;
-        min-width: 150px;
-    }
-
-    .message-tone-selector select {
-        width: 100%;
-        background: var(--bg-input);
-        border: 1px solid var(--bg-light);
-        border-radius: 6px;
-        color: var(--text-primary);
-        padding: 0.5rem;
-        font-size: 0.9rem;
-    }
-
-    .message-tone-selector select:focus {
-        outline: none;
-        border-color: var(--primary);
-    }
-
-    .message-actions {
-        display: flex;
-        gap: 0.5rem;
-    }
-
-    .message-content {
-        display: grid;
-        grid-template-columns: 1fr 1fr;
-        gap: 1rem;
-    }
-
-    .message-input-group {
-        background: var(--bg-input);
-        border-radius: 8px;
-        padding: 1rem;
-    }
-
-    .message-input-group label {
-        display: block;
-        color: var(--text-muted);
-        font-size: 0.9rem;
-        margin-bottom: 0.5rem;
-        font-weight: 600;
-    }
-
-    .message-input-group textarea {
-        width: 100%;
-        min-height: 100px;
-        background: transparent;
-        border: 1px solid var(--bg-light);
-        border-radius: 6px;
-        color: var(--text-primary);
-        padding: 0.75rem;
-        resize: vertical;
-        font-family: inherit;
-    }
- 
-    .message-input-group textarea:focus {
-        outline: none;
-        border-color: var(--primary);
-    }
-
-/* Paywall Modal */
-    .paywall-modal {
-        display: none;
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        background: rgba(0, 0, 0, 0.85);
-        z-index: 10000;
-        justify-content: center;
-        align-items: center;
-        padding: 1rem;
-    }
-
-    .paywall-modal.show {
-        display: flex;
-    }
-
-    .paywall-content {
-        background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
-        border: 2px solid var(--primary);
-        border-radius: 20px;
-        padding: 2.5rem;
-        max-width: 800px;
-        width: 100%;
-        text-align: center;
-        animation: slideUp 0.3s ease;
-        max-height: 90vh;
-        overflow-y: auto;
-    }
-
-    @keyframes slideUp {
-    from {
-            opacity: 0;
-            transform: translateY(20px);
-        }
-
-    to {
-            opacity: 1;
-            transform: translateY(0);
-        }
-    }
-
-    .paywall-icon {
-        font-size: 4rem;
-        margin-bottom: 1rem;
-    }
-
-    .paywall-content h2 {
-        font-size: 1.75rem;
-        color: var(--text-primary);
-        margin-bottom: 0.5rem;
-    }
-
-    .paywall-content > p {
-        font-size: 1rem;
-        color: var(--text-muted);
-        margin-bottom: 2rem;
-    }
-
-    .paywall-options {
-        display: grid;
-        grid-template-columns: 1fr 1fr;
-        gap: 1.5rem;
-        margin-bottom: 1.5rem;
-    }
-
-    .paywall-option {
-        background: rgba(255, 255, 255, 0.05);
-        border: 1px solid var(--border-medium);
-        border-radius: 16px;
-        padding: 1.5rem;
-        text-align: left;
-        transition: all 0.3s ease;
-        position: relative;
-    }
-
-    .paywall-option:hover {
-        border-color: var(--primary);
-        transform: translateY(-2px);
-    }
-
-    .option-badge {
-        position: absolute;
-        top: -10px;
-        left: 50%;
-        transform: translateX(-50%);
-        background: linear-gradient(135deg, var(--primary), var(--primary-dark));
-        color: white;
-        padding: 4px 12px;
-        border-radius: 20px;
-        font-size: 0.7rem;
-        font-weight: 700;
-        white-space: nowrap;
-    }
-
-    .paywall-option:last-child .option-badge {
-        background: linear-gradient(135deg, var(--success), var(--success-dark));
-    }
-
-    .paywall-option h3 {
-        color: var(--text-primary);
-        font-size: 1.25rem;
-        margin: 0.5rem 0;
-    }
-
-    .option-price {
-        font-size: 2rem;
-        font-weight: 800;
-        color: var(--primary);
-        margin-bottom: 1rem;
-    }
-
-    .option-price span {
-        font-size: 0.9rem;
-        font-weight: 400;
-        color: var(--text-muted);
-    }
-
-    .paywall-option:last-child .option-price {
-        color: var(--success);
-    }
-
-    .paywall-option ul {
-        list-style: none;
-        padding: 0;
-        margin: 0 0 1.5rem 0;
-    }
-
-    .paywall-option li {
-        color: var(--text-secondary);
-        padding: 0.4rem 0;
-        font-size: 0.9rem;
-    }
-
-    .paywall-footer {
-        color: var(--text-dark);
-        font-size: 0.85rem;
-        margin-bottom: 1rem;
-    }
-
-    .paywall-close {
-        background: none;
-        border: none;
-        color: var(--text-dark);
-        cursor: pointer;
-        font-size: 0.9rem;
-        padding: 0.5rem 1rem;
-        transition: color 0.3s ease;
-    }
-
-    .paywall-close:hover {
-        color: var(--text-primary);
-    }
-
-/* Response Actions */
-    .response-actions {
-        display: flex;
-        gap: 0.5rem;
-        margin-top: 0.5rem;
-    }
-
-/* Drag and Drop */
-    .drop-zone-active {
-        background: rgba(139, 92, 246, 0.15);
-        border: 2px dashed var(--primary) !important;
-        transition: all 0.3s ease;
-    }
-
-    .drop-zone-hover {
-        background: rgba(139, 92, 246, 0.25);
-        border: 3px solid var(--primary) !important;
-        transform: scale(1.03);
-    }
-
-/* Responsive */
-    @media (max-width: 768px) {
-        .nav-tabs {
-            display: none;
-        }
-
-        .upload-methods {
-            grid-template-columns: 1fr;
-        }
-
-        .settings-grid {
-            grid-template-columns: 1fr;
-        }
-
-        .drawer-toggle {
-            width: 58px;
-            height: 58px;
-            font-size: 1.5rem;
-        }
-
-        .platform-drawer {
-            width: 280px;
-            left: -280px;
-        }
-
-        .drawer-toggle.active {
-            left: 290px;
-        }
-
-        .messages-header {
-            flex-direction: column;
-            gap: 1rem;
-            align-items: flex-start;
-        }
-
-        .message-header {
-            flex-direction: column;
-            align-items: flex-start;
-        }
-
-        .message-tone-selector {
-            width: 100%;
-        }
-
-        .message-actions {
-            width: 100%;
-            flex-direction: row;
-            justify-content: space-between;
-        }
-
-        .message-content {
-            grid-template-columns: 1fr;
-        }
-
-        .btn-small {
-            font-size: 0.75rem;
-            padding: 0.35rem 0.6rem;
-        }
-
-        .response-actions {
-            flex-direction: column;
-        }
-
-        .paywall-options {
-            grid-template-columns: 1fr;
-        }
-
-        .paywall-content {
-            padding: 1.5rem;
-        }
-
-        .paywall-content h2 {
-            font-size: 1.4rem;
-        }
-
-        .option-price {
-            font-size: 1.75rem;
-        }
-    }
-</style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>DMTools.fun Queue</title>
+  <meta name="description" content="Generate replies in bulk, import messages, and learn the extension workflow with a mock inbox onboarding experience.">
+  <link rel="manifest" href="/manifest.json">
+  <meta name="theme-color" content="#0b1730">
+  <link rel="stylesheet" href="/styles.css?v=20260327-app">
+
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-K0G9YRD39L"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-K0G9YRD39L');
+    gtag('config', 'G-YFTZBVLQHF');
+    window.DMTOOLS = window.DMTOOLS || {};
+    window.DMTOOLS.track = window.DMTOOLS.track || function(eventName, params) {
+      try { gtag('event', eventName, params || {}); } catch (_) {}
+    };
+  </script>
+
+  <style>
+    .queue-shell{width:min(1180px,calc(100vw - 2rem));margin:0 auto;padding:3rem 0 4rem}
+
+    /* Floating browser drawer */
+    .platform-drawer-toggle{position:fixed;left:20px;top:50%;transform:translateY(-50%);z-index:1000}
+    .drawer-toggle{background:linear-gradient(135deg,var(--primary),var(--accent));border:none;width:64px;height:64px;border-radius:50%;color:white;font-size:2rem;cursor:pointer;box-shadow:var(--shadow-primary);transition:all .3s ease;display:flex;align-items:center;justify-content:center}
+    .drawer-toggle:hover{transform:scale(1.08);box-shadow:var(--shadow-primary-lg)}
+    .drawer-toggle.active{left:310px}
+    .platform-drawer{position:fixed;left:-300px;top:0;width:300px;height:100vh;background:rgba(30,41,59,.98);border-right:1px solid var(--border-medium);padding:2rem 1rem;overflow-y:auto;transition:left .3s ease;z-index:998}
+    .platform-drawer.open{left:0}
+    .platform-drawer h3{color:var(--primary);margin-bottom:1.2rem}
+    .platform-item{background:var(--bg-card);padding:1rem;border-radius:12px;margin-bottom:1rem;cursor:pointer;transition:all .3s ease}
+    .platform-item:hover{background:var(--bg-light);transform:translateX(5px)}
+    .content-wrapper{flex:1;margin-left:0;transition:margin-left .3s ease}
+    .content-wrapper.drawer-open{margin-left:300px}
+    .notification{position:fixed;top:24px;right:24px;max-width:420px;padding:1rem 1.1rem;border-radius:14px;border:1px solid rgba(108,135,184,.18);background:rgba(15,23,42,.96);color:#fff;box-shadow:var(--shadow-lg);z-index:10020;animation:slideIn .25s ease}
+    .notification.success{border-color:rgba(34,197,94,.34)}
+    .notification.error{border-color:rgba(239,68,68,.34)}
+    .notification.info{border-color:rgba(79,124,255,.34)}
+    @keyframes slideIn{from{opacity:0;transform:translateY(-10px)}to{opacity:1;transform:translateY(0)}}
+
+    .queue-hero,.queue-card,.queue-feedback,.queue-usage,.queue-empty,.onboarding-card,.message-card,.message-toolbar{
+      background:var(--bg-card);
+      border:1px solid var(--border-medium);
+      border-radius:22px;
+      box-shadow:var(--shadow-md);
+      backdrop-filter:blur(14px)
+    }
+    .queue-hero{display:grid;grid-template-columns:minmax(0,1.05fr) minmax(280px,.95fr);gap:1rem;padding:1.6rem;margin-bottom:1rem}
+    .queue-hero p{color:var(--text-secondary);max-width:760px}
+    .queue-actions{display:flex;flex-wrap:wrap;gap:.75rem;margin-top:1rem}
+    .queue-mini-grid{display:grid;gap:.85rem}
+    .queue-mini{padding:1rem 1.05rem;border-radius:18px;border:1px solid rgba(108,135,184,.14);background:linear-gradient(135deg,rgba(79,124,255,.10),rgba(24,183,160,.08))}
+    .queue-mini h3{font-size:1rem;margin-bottom:.3rem}.queue-mini p{margin:0;color:var(--text-secondary);font-size:.95rem}
+
+    .queue-feedback{padding:.9rem 1rem;margin-bottom:1rem;color:var(--text-secondary)}
+    .queue-feedback.hidden,.hidden{display:none!important}
+    .queue-feedback.is-error{border-color:rgba(239,68,68,.34);background:rgba(50,17,24,.28);color:#ffdbe1}
+    .queue-feedback.is-success{border-color:rgba(34,197,94,.32);background:rgba(8,42,23,.28);color:#d9ffe7}
+
+    .queue-usage{padding:1rem 1.1rem;margin-bottom:1rem}
+    .usage-head{display:flex;justify-content:space-between;align-items:center;gap:1rem;margin-bottom:.85rem}
+    .usage-title{font-size:1.15rem;font-weight:800;color:var(--text-primary)}
+    .plan-badge{display:inline-flex;padding:.4rem .75rem;border-radius:999px;border:1px solid rgba(79,124,255,.22);background:rgba(79,124,255,.14);color:var(--primary-light);font-size:.84rem;font-weight:800;text-transform:uppercase;letter-spacing:.03em}
+    .usage-bar{height:10px;background:rgba(11,19,31,.95);border-radius:999px;overflow:hidden;border:1px solid rgba(108,135,184,.12);margin-bottom:.6rem}
+    .usage-fill{height:100%;width:0;background:var(--gradient-primary-dark);transition:width .35s ease;border-radius:999px}
+    .usage-hint{color:var(--text-muted);font-size:.92rem}
+
+    .onboarding-wrap{position:relative;margin-bottom:1rem}
+    .onboarding-reopen{position:absolute;right:0;top:-.35rem}
+    .onboarding-card{padding:1.2rem}
+    .onboarding-head{display:flex;justify-content:space-between;gap:.75rem;align-items:flex-start;margin-bottom:1rem}
+    .onboarding-head h2{font-size:1.2rem;margin-bottom:.2rem}
+    .onboarding-sub{margin:0;color:var(--text-muted);font-size:.94rem}
+    .onboarding-grid{display:grid;grid-template-columns:1.05fr .95fr;gap:1rem}
+    .mock-app{border-radius:20px;background:linear-gradient(180deg,rgba(10,18,30,.96),rgba(13,23,38,.96));border:1px solid rgba(108,135,184,.14);overflow:hidden}
+    .mock-topbar{display:flex;justify-content:space-between;align-items:center;padding:.8rem 1rem;border-bottom:1px solid rgba(108,135,184,.12);background:rgba(255,255,255,.02)}
+    .mock-dots{display:flex;gap:.35rem}
+    .mock-dots span{width:.6rem;height:.6rem;border-radius:50%;background:rgba(255,255,255,.24)}
+    .mock-title{font-size:.88rem;color:var(--text-secondary);font-weight:700}
+    .mock-layout{display:grid;grid-template-columns:220px minmax(0,1fr);min-height:420px}
+    .mock-sidebar{border-right:1px solid rgba(108,135,184,.1);padding:1rem;background:rgba(255,255,255,.02)}
+    .mock-sidebar .sidebar-pill{display:block;padding:.65rem .8rem;border-radius:12px;background:rgba(79,124,255,.12);border:1px solid rgba(79,124,255,.16);color:var(--text-primary);font-weight:700;margin-bottom:.55rem}
+    .mock-sidebar .sidebar-pill.muted{background:rgba(255,255,255,.02);border-color:rgba(108,135,184,.08);color:var(--text-secondary);font-weight:600}
+    .mock-pane{display:grid;grid-template-rows:auto 1fr auto}
+    .mock-thread-head{padding:1rem;border-bottom:1px solid rgba(108,135,184,.1)}
+    .mock-thread-title{font-weight:800;color:var(--text-primary)}
+    .mock-thread-meta{color:var(--text-muted);font-size:.88rem;margin-top:.2rem}
+    .mock-thread-body{padding:1rem;display:grid;gap:1rem;align-content:start}
+    .message-bubble{max-width:88%;padding:1rem 1rem 1.1rem;border-radius:18px;border:1px solid rgba(108,135,184,.12);position:relative}
+    .message-bubble.incoming{background:rgba(255,255,255,.03)}
+    .message-bubble.outgoing{margin-left:auto;background:rgba(79,124,255,.10);border-color:rgba(79,124,255,.16)}
+    .message-name{font-size:.82rem;font-weight:800;color:var(--text-primary);margin-bottom:.35rem}
+    .message-text{color:var(--text-secondary);line-height:1.55}
+    .hint-chip{display:inline-flex;align-items:center;gap:.45rem;margin-top:.7rem;padding:.45rem .7rem;border-radius:999px;background:rgba(24,183,160,.12);border:1px solid rgba(24,183,160,.18);color:var(--accent-light);font-size:.78rem;font-weight:700}
+    .mock-composer{padding:1rem;border-top:1px solid rgba(108,135,184,.1);background:rgba(255,255,255,.02)}
+    .composer-box{min-height:92px;padding:1rem;border-radius:16px;background:rgba(10,18,30,.88);border:1px solid rgba(108,135,184,.12);color:var(--text-muted)}
+    .composer-hint{margin-top:.7rem;display:flex;flex-wrap:wrap;gap:.5rem}
+    .shadow-instruction{padding:.4rem .65rem;border-radius:999px;background:rgba(255,255,255,.04);border:1px solid rgba(108,135,184,.12);color:var(--text-secondary);font-size:.8rem}
+
+    .onboarding-side{display:grid;gap:1rem}
+    .instruction-card,.helper-card{padding:1rem;border-radius:18px;background:rgba(12,22,37,.88);border:1px solid rgba(108,135,184,.12)}
+    .instruction-step{display:grid;grid-template-columns:2rem 1fr;gap:.75rem;align-items:start}
+    .step-number{width:2rem;height:2rem;border-radius:999px;background:var(--gradient-primary-dark);display:grid;place-items:center;color:#fff;font-weight:900}
+    .instruction-step + .instruction-step{margin-top:.85rem}
+    .instruction-title{font-weight:800;color:var(--text-primary);margin-bottom:.2rem}
+    .instruction-copy{color:var(--text-secondary);font-size:.94rem;line-height:1.5}
+    .helper-card h3{font-size:1rem;margin-bottom:.35rem}
+    .helper-card p{color:var(--text-secondary);margin:0 0 .8rem}
+    .helper-actions{display:flex;flex-wrap:wrap;gap:.6rem}
+
+    .queue-grid{display:grid;grid-template-columns:.92fr 1.08fr;gap:1rem}
+    .queue-stack{display:grid;gap:1rem}
+    .queue-card{padding:1.25rem}
+    .card-head{display:flex;justify-content:space-between;gap:.75rem;align-items:flex-start;margin-bottom:1rem}
+    .card-head h2{font-size:1.16rem;margin-bottom:.15rem}
+    .card-sub{margin:0;color:var(--text-muted);font-size:.92rem}
+
+    .field{display:grid;gap:.35rem}
+    .field label{color:var(--text-secondary);font-weight:650;font-size:.92rem}
+    .field textarea,.field select,.field input{
+      width:100%;padding:.9rem 1rem;border-radius:14px;border:1px solid var(--border-medium);background:rgba(12,22,37,.88);color:var(--text-primary)
+    }
+    .field textarea:focus,.field select:focus,.field input:focus{outline:none;border-color:rgba(79,124,255,.55);box-shadow:0 0 0 3px rgba(79,124,255,.12)}
+    .field textarea{resize:vertical;min-height:120px}
+    .method-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:.75rem}
+    .method-btn{padding:1rem;border-radius:16px;border:1px solid rgba(108,135,184,.12);background:rgba(12,22,37,.72);cursor:pointer;transition:transform .15s ease,border-color .15s ease;background-color .15s ease}
+    .method-btn:hover{transform:translateY(-1px)}
+    .method-btn.active{border-color:rgba(79,124,255,.45);background:rgba(79,124,255,.12)}
+    .method-btn strong{display:block;color:var(--text-primary);margin-bottom:.2rem}
+    .method-btn span{color:var(--text-muted);font-size:.86rem}
+    .checkbox-grid{display:grid;gap:.65rem}
+    .checkbox-row{display:flex;gap:.65rem;align-items:center;color:var(--text-secondary)}
+    .checkbox-row input{accent-color:#4f7cff}
+    .tool-actions{display:flex;flex-wrap:wrap;gap:.75rem}
+
+    .message-toolbar{padding:.9rem 1rem;margin-bottom:1rem;display:flex;justify-content:space-between;gap:.75rem;align-items:center}
+    .message-toolbar strong{font-size:1rem;color:var(--text-primary)}
+    .message-list{display:grid;gap:1rem}
+    .message-card{padding:1rem}
+    .message-head{display:flex;justify-content:space-between;gap:.75rem;align-items:flex-start;margin-bottom:.8rem}
+    .message-index{font-weight:800;color:var(--primary-light)}
+    .message-controls{display:flex;flex-wrap:wrap;gap:.5rem;align-items:center}
+    .message-grid{display:grid;grid-template-columns:1fr 1fr;gap:1rem}
+    .mini-label{font-size:.82rem;color:var(--text-muted);font-weight:700;margin-bottom:.45rem}
+    .output-box,.input-box{min-height:132px}
+    .input-box textarea,.output-box textarea{min-height:132px}
+    .output-box textarea{background:rgba(10,18,30,.8)}
+    .action-row{display:flex;flex-wrap:wrap;gap:.5rem;margin-top:.85rem}
+    .mini-btn{border:none;border-radius:10px;padding:.62rem .85rem;font-weight:700;cursor:pointer;transition:transform .15s ease}
+    .mini-btn:hover{transform:translateY(-1px)}
+    .mini-btn.copy{background:#0f9f74;color:#fff}
+    .mini-btn.copy.copied{background:#0b84c6}
+    .mini-btn.subtle{background:rgba(79,124,255,.12);color:var(--primary-light);border:1px solid rgba(79,124,255,.18)}
+    .mini-btn.delete{background:#dc2626;color:#fff}
+    .empty-state{padding:2rem;text-align:center;border-radius:18px;background:rgba(12,22,37,.72);border:1px dashed rgba(108,135,184,.22)}
+    .empty-state p{color:var(--text-secondary);max-width:540px;margin:0 auto 1rem}
+
+    .paywall-modal{display:none;position:fixed;inset:0;background:rgba(0,0,0,.82);z-index:10000;justify-content:center;align-items:center;padding:1rem}
+    .paywall-modal.show{display:flex}
+    .paywall-content{max-width:760px;width:100%;background:linear-gradient(135deg,#1e293b 0%,#0f172a 100%);border:2px solid var(--primary);border-radius:20px;padding:2rem;box-shadow:var(--shadow-primary-lg)}
+    .paywall-content h2{margin-bottom:.4rem}
+    .paywall-content p{color:var(--text-secondary)}
+    .paywall-grid{display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin:1.25rem 0}
+    .paywall-option{padding:1.2rem;border-radius:18px;background:rgba(255,255,255,.05);border:1px solid rgba(108,135,184,.16)}
+    .paywall-option h3{margin-bottom:.35rem}
+    .paywall-price{font-size:2rem;font-weight:900;color:var(--text-primary);margin-bottom:.75rem}
+    .paywall-price span{font-size:.95rem;color:var(--text-muted);font-weight:500}
+    .paywall-close{background:none;border:none;color:var(--text-muted);cursor:pointer;margin-top:.5rem}
+
+    .loading{display:grid;place-items:center;padding:4rem 1rem;color:var(--text-muted)}
+    .spinner{width:40px;height:40px;border:3px solid rgba(108,135,184,.16);border-top-color:var(--primary);border-radius:999px;animation:spin .8s linear infinite;margin-bottom:.9rem}
+    @keyframes spin{to{transform:rotate(360deg)}}
+
+    @media (max-width:1100px){
+      .queue-hero,.onboarding-grid,.queue-grid,.message-grid,.method-grid,.paywall-grid{grid-template-columns:1fr}
+      .mock-layout{grid-template-columns:1fr}
+      .mock-sidebar{display:none}
+    }
+    @media (max-width:760px){
+      .queue-shell{width:min(100vw - 1rem,100%)}
+      .queue-actions,.voice-actions,.helper-actions,.tool-actions,.action-row,.usage-head,.message-toolbar,.card-head,.onboarding-head{flex-direction:column;align-items:stretch}
+      .onboarding-reopen{position:static;margin-bottom:.75rem}
+    }
+  </style>
 </head>
 <body>
-   <!-- Header -->
-<header class="header">
+  <header class="header">
     <div class="nav-container">
-        <a href="/" class="logo">DMTools.fun</a>
-        <div class="auth-buttons" id="authButtons">
-            <button class="mobile-menu-btn" onclick="toggleMobileMenu()" aria-label="Menu">☰</button>
-            
-            <div id="auth-section" class="auth-buttons">
-                <button class="btn btn-secondary" data-auth="login">Sign In</button>
-                <button class="btn btn-primary" data-auth="register">Sign Up Free</button>
-            </div>
-            
-            <div id="user-section" class="auth-buttons hidden">
-                <span class="user-email" id="user-email"></span>
-                <button class="btn btn-secondary" onclick="logout()">Logout</button>
-            </div>
-        </div>
+      <a class="logo" href="/index.html" aria-label="DMTools.fun home"><span class="logo-mark" aria-hidden="true"></span><span>DMTools.fun</span></a>
+      <nav class="landing-nav-desktop" aria-label="Primary">
+        <a href="/app.html" aria-current="page">Queue</a>
+        <a href="/presets.html">Voice</a>
+        <a href="/pricing.html">Pricing</a>
+        <a href="/account.html">Account</a>
+      </nav>
+      <div class="header-actions">
+        <button class="btn btn-secondary hide-mobile" type="button" data-auth="login" data-return-to="/app.html" id="signinButton">Sign in</button>
+        <button class="btn btn-primary" type="button" data-auth="register" data-return-to="/app.html" id="primaryButton">Start free</button>
+        <button class="mobile-menu-btn" type="button" aria-label="Open menu" aria-expanded="false" aria-controls="mobile-menu" id="mobile-menu-toggle">☰</button>
+      </div>
     </div>
-    
-    <nav class="mobile-nav" id="mobileNav">
-        <a href="/app.html" class="tab-btn active">Generator</a>
-        <a href="/presets.html" class="tab-btn">Templates</a>
-<a href="/packs.html" class="tab-btn">Response Packs</a>
-        <a href="/pricing.html" class="tab-btn">Pricing</a>
-        <a href="/store.html" class="tab-btn">Packs Store</a>
-</nav>
-
-</header>
-
-    <!-- Platform Drawer Toggle -->
-          
-    <div class="platform-drawer-toggle">
-        <button class="drawer-toggle" id="drawer-toggle" onclick="toggleDrawer()">
-            🌐
-        </button>
+    <div class="mobile-menu" id="mobile-menu">
+      <div class="mobile-menu-links">
+        <a href="/app.html">Queue</a><a href="/presets.html">Voice</a><a href="/pricing.html">Pricing</a><a href="/account.html">Account</a>
+        <button class="btn btn-secondary" type="button" data-auth="login" data-return-to="/app.html">Sign in</button>
+      </div>
     </div>
-
-    <!-- Platform Drawer -->
-          
-    <div class="platform-drawer" id="platform-drawer">
-        <h3>🌐 Browser Window</h3>
-    
-
-        <div class="platform-item" onclick="openPlatform('browser')">
-            <div style="font-size: 1.5rem; margin-bottom: 0.5rem;">🌐</div>
-            <strong>Open Browser</strong>
-            <p style="font-size: 0.85rem; color: #9ca3af; margin-top: 0.5rem;">
-                Open a floating browser to copy messages from any platform
-            </p>
-        </div>
-    </div>
+  </header>
 
   
-          
-    <!--end platform drawer------->
-    <!--------------------------------------
-    <!-- Main Content ------------>
-          
-    <main class="main-content">
-        <div class="content-wrapper" id="content-wrapper">
-            <div class="container">
-                <div id="generator" class="tab-content active">
-
-                   <!-- Info Banner -->
-                    <div style="background: rgba(139, 92, 246, 0.1); border: 1px solid rgba(139, 92, 246, 0.3); border-radius: 12px; padding: 1.5rem; margin-bottom: 2rem; text-align: center;">
-                        <h2 style="color: #8b5cf6; margin-bottom: 1rem; font-size: 1.5rem;">🌐 Universal AI-Powered Response Assistant Command Center</h2>
-                        <p style="color: #d1d5db; margin-bottom: 1rem;">Click the large 🌐 button on the left to open a floating browser window.</p>
-                        <p style="color: #9ca3af; font-size: 0.9rem;">Process messages from any platform using our AI-powered response generator.</p>
-                    </div>
-                  
-                   <!-- Messages Section -->
-                    <div class="messages-section">
-                        <div class="messages-header">
-                            <h2>💬 Multi-Platform Messages</h2>
-                            <div class="batch-counter">
-                                <span id="message-count">0</span> Messages
-                            </div>
-                        </div>
-
-                        <div id="messages-container">
-                            <!-- Message pairs will be dynamically generated here -->
-                        </div>
-
-                        <button class="btn btn-secondary" style="width: 100%; margin-top: 1rem;" onclick="addMessagePair()">
-                            ➕ Add Message
-                        </button>
-                    </div>
-
-                    <!-- Action Buttons -->
-                    <div style="display: flex; gap: 1rem; margin-top: 2rem; flex-wrap: wrap;">
-                        <button class="btn btn-primary" id="process-all-btn" onclick="processAllMessages()" style="flex: 1; min-width: 200px;">
-                            🚀 Process All Responses
-                        </button>
-                        
-                        <button class="btn btn-secondary" onclick="clearAllMessages()" style="min-width: 150px;">
-                            🗑️ Clear All
-                        </button>
-                        
-                        <button class="btn btn-secondary" onclick="exportResults()" style="min-width: 150px;">
-                            📥 Export Results
-                        </button>
-                    </div>
-                  <!-- Usage Counter -->
-                    <div class="usage-counter" id="usage-counter">
-                        <div class="usage-text">
-                            <span id="usage-count">0</span> / <span id="usage-limit">10</span> responses used this month
-                        </div>
-                        <div class="usage-bar">
-                            <div class="usage-fill" id="usage-fill"></div>
-                        </div>
-                        <p style="color: #9ca3af; font-size: 0.9rem;" id="usage-plan-text">Sign up for 10 free responses per month</p>
-                    </div>
-
-                    <!-- Upload Section -->
-                    <div class="upload-section">
-                        <h2 style="color: #8b5cf6; margin-bottom: 1.5rem; text-align: center;">📤 Add Messages to Process</h2>
-                        
-                        <div class="upload-methods">
-                            <div class="upload-method active" data-method="manual" onclick="selectUploadMethod('manual', event)">
-                                <div style="font-size: 2rem; margin-bottom: 0.5rem;">✍️</div>
-                                <strong>Manual Entry</strong>
-                                <p style="font-size: 0.85rem; color: #9ca3af; margin-top: 0.5rem;">
-                                    Add messages one by one
-                                </p>
-                            </div>
-
-                            <div class="upload-method" data-method="bulk" onclick="selectUploadMethod('bulk', event)">
-                                <div style="font-size: 2rem; margin-bottom: 0.5rem;">📋</div>
-                                <strong>Bulk Text</strong>
-                                <p style="font-size: 0.85rem; color: #9ca3af; margin-top: 0.5rem;">
-                                    Paste multiple messages at once
-                                </p>
-                            </div>
-
-                            <div class="upload-method" data-method="csv" onclick="selectUploadMethod('csv', event)">
-                                <div style="font-size: 2rem; margin-bottom: 0.5rem;">📊</div>
-                                <strong>CSV Upload</strong>
-                                <p style="font-size: 0.85rem; color: #9ca3af; margin-top: 0.5rem;">
-                                    Import from spreadsheet
-                                </p>
-                            </div>
-                        </div>
-
-                        <textarea 
-                            id="bulk-messages" 
-                            class="bulk-textarea" 
-                            placeholder="Paste messages here (one per line):
-
-                                 Example:
-                                   Hey! Love your content
-                                   Thanks for the follow 
-                                   Can you check your DM?"
-                        ></textarea>
-
-                        <input 
-                            type="file" 
-                            id="csv-upload" 
-                            accept=".csv" 
-                            style="display: none;" 
-                            onchange="handleCSVUpload(this)"
-                        >
-                    </div>
-
-                    <!-- Settings Section -->
-                    <div class="settings-section">
-                        <h2 style="color: #8b5cf6; margin-bottom: 1.5rem; text-align: center;">⚙️ Response Settings</h2>
-                        
-                        <div class="settings-grid">
-                            <div class="setting-group">
-                                <h3>🎯 Tone</h3>
-                                <div class="form-group">
-                                    <label class="form-label">Response Style</label>
-                                    <select id="batch-tone" class="form-select">
-                                        <option value="friendly">😊 Friendly</option>
-                                        <option value="professional">💼 Professional</option>
-                                        <option value="casual">😎 Casual</option>
-                                        <option value="enthusiastic">🎉 Enthusiastic</option>
-                                        <option value="flirty">😏 Flirty</option>
-                                        <option value="witty">🤓 Witty/Humorous</option>
-                                        <option value="empathetic">🤗 Empathetic</option>
-                                        <option value="supportive">💪 Supportive</option>
-                                        <option value="sales">💰 Sales/Promotional</option>
-                                        <option value="short">⚡ Short & Quick</option>
-                                        <option value="detailed">📝 Detailed</option>
-                                        <option value="grateful">🙏 Grateful</option>
-                                        <option value="apologetic">😔 Apologetic</option>
-                                        <option value="confident">💯 Confident</option>
-                                    </select>
-                                </div>
-                            </div>
-
-                            <div class="setting-group">
-                                <h3>💬 Context</h3>
-                                <div class="form-group">
-                                    <label class="form-label">Additional Context</label>
-                                    <textarea id="batch-context" class="form-textarea" placeholder="Add context about your brand or style..."></textarea>
-                                </div>
-                            </div>
-
-                            <div class="setting-group">
-                                <h3>🤖 AI Features</h3>
-                                <div class="checkbox-group">
-                                    <input type="checkbox" id="smart-categorization" class="checkbox" checked>
-                                    <label>Smart Categorization</label>
-                                </div>
-                                <div class="checkbox-group">
-                                    <input type="checkbox" id="context-aware" class="checkbox" checked>
-                                    <label>Context-Aware</label>
-                                </div>
-                                <div class="checkbox-group">
-                                    <input type="checkbox" id="personalization" class="checkbox" checked>
-                                    <label>Personalization</label>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </main>
-
-    <!-- Footer -->
-    <footer class="footer">
-        <div class="container">
-            <div class="footer-content">
-                <div class="footer-section">
-                    <h3 class="footer-logo">DMTools.fun</h3>
-                    <p class="footer-description">
-                        The world's first Universal Digital Messaging Response Command Center. Generate perfect responses for any digital messaging service including social media DMs, email, SMS, dating apps, and customer service chat. Save 10+ hours weekly with our AI-powered universal unlimited batch response draft generator.
-                    </p>
-                </div>
-                
-                <div class="footer-links">
-                    <div class="link-group">
-                        <h4>Legal</h4>
-                        <a href="/terms-of-service.html">Terms of Service</a>
-                        <a href="/privacy-policy.html">Privacy Policy</a>
-                        <a href="/refund-policy.html">Refund Policy</a>
-                        <a href="/cookie-policy.html">Cookie Policy</a>
-                    </div>
-                    
-                    <div class="link-group">
-                        <h4>Product</h4>
-                        <a href="/pricing.html">Pricing</a>
-                        <a href="/presets.html">Templates</a>
-                        <a href="/app.html">Generator</a>
-                    </div>
-                    
-                    <div class="link-group">
-                        <h4>Support</h4>
-                        <a href="/contact.html">Contact Support</a>
-                        <a href="mailto:support@dmtools.fun">Email Support</a>
-                        <a href="/">Back to Home</a>
-                    </div>
-                </div>
-            </div>
-            
-            <div class="footer-bottom">
-                <p class="footer-copyright">
-                    © 2025 DMTools.fun. All rights reserved.
-                </p>
-            </div>
-        </div>
-    </footer>
-
-    <!-------------------------------
-  <!-- Paywall Modal (V2 - momentum + source-of-truth pricing) -->
-          <div class="paywall-modal" id="paywall-modal" aria-hidden="true">
-          <div class="paywall-content" role="dialog" aria-modal="true" aria-labelledby="paywall-title">
-          <div class="paywall-icon">⚡</div>
-
-        <h2 id="paywall-title">You were replying 5× faster.</h2>
-        <p id="paywall-subtitle">
-             Your free responses are used up. Don’t slow down now — keep the momentum.
-        </p>
-
-          <div class="paywall-momentum" style="margin: 12px 0 18px; padding: 12px; border-radius: 12px; background: rgba(255,255,255,0.06);">
-          <div style="font-weight: 700; margin-bottom: 6px;">
-             You just saved <span id="paywall-saved-minutes">—</span> minutes.
-          </div>
-          <div style="opacity: 0.9; font-size: 0.95em;">
-             Not automation. <strong>You still approve & press send.</strong>
-        </div>
-      </div>
-
-    <div class="paywall-options">
-      <!-- Primary: Subscription -->
-      <div class="paywall-option" id="paywall-primary">
-        <div class="option-badge">💎 KEEP REPLYING</div>
-        <h3 id="paywall-plan-name">Starter Plan</h3>
-        <div class="option-price">
-          <span id="paywall-plan-price">$19</span><span id="paywall-plan-interval">/month</span>
-        </div>
-
-        <ul id="paywall-plan-features">
-          <li>✓ <span id="paywall-plan-responses">—</span> responses per month</li>
-          <li>✓ Unlimited batch processing</li>
-          <li>✓ THE-RIGHT-CLICK extension</li>
-          <li>✓ <span id="paywall-plan-templates">—</span> custom templates</li>
-        </ul>
-
-        <a href="/pricing.html#starter" class="btn btn-primary" id="paywall-primary-cta">
-          Keep Replying →
-        </a>
-
-        <div style="margin-top: 10px; font-size: 0.92em; opacity: 0.9;">
-          Cancel anytime. Upgrade in 30 seconds.
-        </div>
-      </div>
-
-      <!-- Secondary: Pack -->
-      <div class="paywall-option" id="paywall-secondary">
-        <div class="option-badge">🎁 ONE-TIME</div>
-        <h3 id="paywall-pack-name">Response Pack</h3>
-        <div class="option-price">
-          <span id="paywall-pack-price">$9.99</span><span> one-time</span>
-        </div>
-
-        <ul id="paywall-pack-features">
-          <li>✓ <span id="paywall-pack-responses">—</span> responses</li>
-          <li>✓ THE-RIGHT-CLICK extension</li>
-          <li>✓ Expires 6 months after activation</li>
-          <li>✓ No subscription required</li>
-        </ul>
-
-        <a href="/store.html" class="btn btn-secondary" id="paywall-secondary-cta">
-          Get a Pack →
-        </a>
-      </div>
-    </div>
-
-    <div class="paywall-footer" style="margin-top: 14px;">
-      <p style="opacity:0.9;">
-        Need more volume? <a href="/pricing.html#pro">Pro</a> or <a href="/pricing.html#business">Business</a>.
-      </p>
-    </div>
-
-    <button class="paywall-close" onclick="hidePaywall()" aria-label="Close paywall">
-      ✕ Close
-    </button>
+  <div class="platform-drawer-toggle">
+    <button class="drawer-toggle" id="drawer-toggle" type="button" aria-label="Open floating browser drawer">🌐</button>
   </div>
-</div>
-<!-- end paywall modal -->
-        
 
-  <script src="js/app-core.js"></script>
-<script src="js/auth-modal.js"></script>
+  <aside class="platform-drawer" id="platform-drawer" aria-label="Browser helper drawer">
+    <h3>🌐 Browser Window</h3>
+    <div class="platform-item" id="openBrowserDrawer">
+      <div style="font-size:1.5rem;margin-bottom:.5rem;">🌐</div>
+      <strong>Open Browser</strong>
+      <p style="font-size:.85rem;color:#9ca3af;margin-top:.5rem;">Open a floating browser to copy messages from any platform.</p>
+    </div>
+  </aside>
 
-    <script>
-        // ===== GLOBAL CONFIGURATION =====
-        const API_BASE = 'https://dmtools-backend-production.up.railway.app/api';
-        
-        // ===== GLOBAL VARIABLES =====
-        let currentUser = null;
-        let isAuthenticated = false;
-        let isLoginMode = true;
-        let drawerOpen = false;
-        let messageCount = 0;
-        let platformWindows = {};
+  <div class="content-wrapper" id="content-wrapper">
 
-        // Platform configurations - Split-screen setup
-        const platformConfigs = {
-            browser: {
-                name: 'Browser',
-                url: 'https://www.google.com'
-            }
-        };
+  <main class="queue-shell">
+    <section class="queue-hero">
+      <div>
+        <span class="eyebrow">Queue and inline workflow</span>
+        <h1>Generate replies in bulk, and learn the extension workflow right where you start.</h1>
+        <p>Use the queue for volume, or use the mock inbox below to learn the two-right-click flow before you try it on Gmail, LinkedIn, X, Instagram DMs, and other web text fields.</p>
+        <div class="queue-actions">
+          <button class="btn btn-primary" type="button" id="jumpOnboarding">Try the extension flow</button>
+          <button class="btn btn-secondary" type="button" id="jumpQueue">Go to the queue</button>
+        </div>
+      </div>
+      <div class="queue-mini-grid">
+        <div class="queue-mini"><h3>Inline first-value</h3><p>New users can immediately understand capture and generate without leaving the page.</p></div>
+        <div class="queue-mini"><h3>Volume workflow</h3><p>The live queue still supports manual entry, bulk paste, CSV import, per-message editing, and exporting results.</p></div>
+      </div>
+    </section>
 
-      
-      // Mobile menu toggle
-      function toggleMobileMenu() {
-            document.getElementById('mobileNav').classList.toggle('show');
-        }
+    <div class="queue-feedback hidden" id="queueFeedback"></div>
 
-        // ===== UTILITY FUNCTIONS =====
-        function showNotification(message, type = 'info', duration = 5000) {
-            document.querySelectorAll('.notification').forEach(n => n.remove());
+    <section class="queue-usage" id="usageTracker">
+      <div class="usage-head">
+        <div class="usage-title"><span id="usageCount">0</span> / <span id="usageLimit">10</span> responses used this month</div>
+        <div class="plan-badge" id="planBadge">Free Plan</div>
+      </div>
+      <div class="usage-bar"><div class="usage-fill" id="usageFill"></div></div>
+      <div class="usage-hint" id="usageHint">Sign up for 10 free responses per month.</div>
+    </section>
 
-            const notification = document.createElement('div');
-            notification.className = `notification ${type}`;
-            
-            const icons = { success: '✅', error: '❌', info: 'ℹ️' };
-            // Sanitize message to prevent XSS attacks
-            const sanitizedMessage = DOMPurify.sanitize(message);
-            notification.innerHTML = `
-                <div style="display: flex; align-items: flex-start; gap: 0.8rem;">
-                    <span style="font-size: 1.2rem; flex-shrink: 0;">${icons[type] || '📢'}</span>
-                    <span style="flex: 1;">${sanitizedMessage}</span>
+    <div class="onboarding-wrap">
+      <button class="btn btn-secondary onboarding-reopen hidden" id="onboardingReopen" type="button">Reopen extension walkthrough</button>
+      <section class="onboarding-card" id="appOnboarding">
+        <div class="onboarding-head">
+          <div>
+            <h2>Try the extension workflow right now</h2>
+            <p class="onboarding-sub">This mock inbox always works as a demo, whether the extension is installed yet or not.</p>
+          </div>
+          <div class="helper-actions">
+            <a class="btn btn-primary" href="https://chromewebstore.google.com/detail/dmtools-%E2%80%93-inline-reply-as/joheialcdpmcfgehhcpfjnppficonfih" target="_blank" rel="noopener noreferrer" id="installExtensionCta">Install Extension</a>
+            <button class="btn btn-secondary" type="button" id="hideOnboarding">Hide</button>
+          </div>
+        </div>
+
+        <div class="onboarding-grid">
+          <div class="mock-app">
+            <div class="mock-topbar">
+              <div class="mock-dots"><span></span><span></span><span></span></div>
+              <div class="mock-title">Mock inbox demo</div>
+              <div class="tag">Works even before install</div>
+            </div>
+            <div class="mock-layout">
+              <aside class="mock-sidebar">
+                <div class="sidebar-pill">Inbox</div>
+                <div class="sidebar-pill muted">Messages</div>
+                <div class="sidebar-pill muted">Requests</div>
+                <div class="sidebar-pill muted">Archive</div>
+              </aside>
+
+              <div class="mock-pane">
+                <div class="mock-thread-head">
+                  <div class="mock-thread-title">Partnership follow-up</div>
+                  <div class="mock-thread-meta">Generic inbox example • use the same flow later on real sites</div>
                 </div>
-            `;
-            
-            document.body.appendChild(notification);
-            
-            setTimeout(() => {
-                notification.style.animation = 'slideOut 0.4s ease';
-                setTimeout(() => notification.remove(), 400);
-            }, duration);
+
+                <div class="mock-thread-body">
+                  <div class="message-bubble incoming">
+                    <div class="message-name">Incoming message</div>
+                    <div class="message-text" id="mockIncomingText">Hey, just checking in on the proposal we sent last week. Do you have any updates for us?</div>
+                    <div class="hint-chip" id="highlightHint">Step 1: highlight this message, then right-click and choose Capture with DMTools.</div>
+                  </div>
+
+                  <div class="message-bubble outgoing">
+                    <div class="message-name">What happens next</div>
+                    <div class="message-text">After capture, move to the reply box below. Use the same flow later on Gmail, LinkedIn, X, support tools, and other web text fields.</div>
+                  </div>
+                </div>
+
+                <div class="mock-composer">
+                  <div class="composer-box">Right-click in this reply box and choose Generate with DMTools. Your extension-generated reply should appear where you are typing.</div>
+                  <div class="composer-hint">
+                    <span class="shadow-instruction" id="replyHint">Step 2: right-click in the reply box and choose Generate.</span>
+                    <span class="shadow-instruction">If nothing happens, sign into the extension first.</span>
+                    <span class="shadow-instruction">This mock stays visible even if you have not installed it yet.</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="onboarding-side">
+            <div class="instruction-card">
+              <div class="instruction-step">
+                <div class="step-number">1</div>
+                <div>
+                  <div class="instruction-title">Highlight the incoming message</div>
+                  <div class="instruction-copy">Use the sample message on the left. Highlight it exactly the same way you would on a real site, then right-click and choose Capture with DMTools.</div>
+                </div>
+              </div>
+              <div class="instruction-step">
+                <div class="step-number">2</div>
+                <div>
+                  <div class="instruction-title">Right-click in the reply field</div>
+                  <div class="instruction-copy">Move to the mock reply strip and choose Generate with DMTools. This trains the behavior before you use the same flow in real inboxes and DMs.</div>
+                </div>
+              </div>
+              <div class="instruction-step">
+                <div class="step-number">3</div>
+                <div>
+                  <div class="instruction-title">Use the queue for volume</div>
+                  <div class="instruction-copy">Once you understand the inline flow, drop into the queue below to process batches, bulk text, or CSVs.</div>
+                </div>
+              </div>
+            </div>
+
+            <div class="helper-card">
+              <h3>Quick actions</h3>
+              <p>Install the extension, keep this walkthrough visible, or hide it and reopen it later from the button above.</p>
+              <div class="helper-actions">
+                <a class="btn btn-secondary" href="https://chromewebstore.google.com/detail/dmtools-%E2%80%93-inline-reply-as/joheialcdpmcfgehhcpfjnppficonfih" target="_blank" rel="noopener noreferrer" id="secondaryInstallCta">Install now</a>
+                <button class="btn btn-secondary" type="button" id="markOnboardingDone">I've installed it</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
+
+    <section class="queue-card hidden" id="signedOutNotice">
+      <div class="empty-state">
+        <h2 style="margin-bottom:.5rem;">Sign in to generate replies and use the queue.</h2>
+        <p>You can still view the extension walkthrough above, but processing messages, regenerating, and saving usage against your account require sign-in.</p>
+        <div class="queue-actions" style="justify-content:center;">
+          <button class="btn btn-primary" type="button" data-auth="login" data-return-to="/app.html" id="queueSignInButton">Sign in</button>
+          <button class="btn btn-secondary" type="button" data-auth="register" data-return-to="/app.html">Create account</button>
+        </div>
+      </div>
+    </section>
+
+    <section class="queue-grid" id="queueWorkspace">
+      <div class="queue-stack">
+        <article class="queue-card">
+          <div class="card-head">
+            <div>
+              <h2>Add messages to process</h2>
+              <p class="card-sub">The current live page supports manual entry, bulk text, and CSV upload, so this drop-in preserves those three intake modes.</p>
+            </div>
+          </div>
+
+          <div class="method-grid" id="methodGrid">
+            <button class="method-btn active" data-method="manual" type="button">
+              <strong>Manual Entry</strong>
+              <span>Add messages one by one.</span>
+            </button>
+            <button class="method-btn" data-method="bulk" type="button">
+              <strong>Bulk Text</strong>
+              <span>Paste multiple messages at once.</span>
+            </button>
+            <button class="method-btn" data-method="csv" type="button">
+              <strong>CSV Upload</strong>
+              <span>Import messages from a spreadsheet.</span>
+            </button>
+          </div>
+
+          <div class="queue-stack">
+            <div class="field hidden" id="bulkBlock">
+              <label for="bulkMessages">Bulk messages</label>
+              <textarea id="bulkMessages" placeholder="Paste messages here, one per line.&#10;&#10;Example:&#10;Hey! Love your content&#10;Thanks for the follow&#10;Can you check your DM?"></textarea>
+            </div>
+
+            <div class="field hidden" id="csvBlock">
+              <label for="csvUpload">CSV upload</label>
+              <input id="csvUpload" type="file" accept=".csv">
+            </div>
+
+            <div class="tool-actions">
+              <button class="btn btn-secondary" type="button" id="addMessageBtn">Add message</button>
+              <button class="btn btn-secondary" type="button" id="applyBulkBtn">Load bulk text into queue</button>
+              <button class="btn btn-secondary" type="button" id="openBrowserBtn">Open side browser helper</button>
+            </div>
+          </div>
+        </article>
+
+        <article class="queue-card">
+          <div class="card-head">
+            <div>
+              <h2>Response settings</h2>
+              <p class="card-sub">The current live queue uses a batch tone selector, additional context, and AI feature toggles, so those controls stay here too.</p>
+            </div>
+          </div>
+
+          <div class="queue-stack">
+            <div class="field">
+              <label for="batchTone">Response style</label>
+              <select id="batchTone">
+                <option value="friendly">😊 Friendly</option>
+                <option value="professional">💼 Professional</option>
+                <option value="casual">😎 Casual</option>
+                <option value="enthusiastic">🎉 Enthusiastic</option>
+                <option value="flirty">😏 Flirty</option>
+                <option value="witty">🤓 Witty/Humorous</option>
+                <option value="empathetic">🤗 Empathetic</option>
+                <option value="supportive">💪 Supportive</option>
+                <option value="sales">💰 Sales/Promotional</option>
+                <option value="short">⚡ Short & Quick</option>
+                <option value="detailed">📝 Detailed</option>
+                <option value="grateful">🙏 Grateful</option>
+                <option value="apologetic">😔 Apologetic</option>
+                <option value="confident">💯 Confident</option>
+              </select>
+            </div>
+
+            <div class="field">
+              <label for="batchContext">Additional context</label>
+              <textarea id="batchContext" placeholder="Add context about your brand, style, customer situation, or reply preferences..."></textarea>
+            </div>
+
+            <div class="checkbox-grid">
+              <label class="checkbox-row"><input type="checkbox" id="smartCategorization" checked> Smart categorization</label>
+              <label class="checkbox-row"><input type="checkbox" id="contextAware" checked> Context-aware</label>
+              <label class="checkbox-row"><input type="checkbox" id="personalization" checked> Personalization</label>
+            </div>
+          </div>
+        </article>
+      </div>
+
+      <div class="queue-stack">
+        <div class="message-toolbar">
+          <strong><span id="messageCount">0</span> messages in queue</strong>
+          <div class="tool-actions">
+            <button class="btn btn-primary" type="button" id="processAllBtn">Process all responses</button>
+            <button class="btn btn-secondary" type="button" id="clearAllBtn">Clear all</button>
+            <button class="btn btn-secondary" type="button" id="exportResultsBtn">Export results</button>
+          </div>
+        </div>
+
+        <div class="message-list" id="messageList"></div>
+      </div>
+    </section>
+
+    <div class="paywall-modal" id="paywallModal" aria-hidden="true">
+      <div class="paywall-content" role="dialog" aria-modal="true" aria-labelledby="paywallTitle">
+        <h2 id="paywallTitle">You were replying faster. Keep the momentum.</h2>
+        <p>Your free responses are used up. Upgrade your recurring plan or grab a one-time pack to keep processing without stopping.</p>
+        <div class="paywall-grid">
+          <div class="paywall-option">
+            <h3>Upgrade plan</h3>
+            <div class="paywall-price">From $19<span>/month</span></div>
+            <p>More recurring replies, more templates, and uninterrupted queue usage.</p>
+            <a class="btn btn-primary" href="/pricing.html">View plans</a>
+          </div>
+          <div class="paywall-option">
+            <h3>Get a response pack</h3>
+            <div class="paywall-price">Top-up<span> one-time</span></div>
+            <p>Keep replying with one-time credits if you do not want to change your plan yet.</p>
+            <a class="btn btn-secondary" href="/pricing.html#packs">View packs</a>
+          </div>
+        </div>
+        <button class="paywall-close" type="button" id="closePaywall">Close</button>
+      </div>
+    </div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-content">
+      <div class="footer-brand"><a class="footer-logo" href="/index.html"><span class="logo-mark" aria-hidden="true"></span><span>DMTools.fun</span></a><p class="footer-description">Generate replies in bulk and learn the inline extension workflow in one workspace.</p></div>
+      <div class="footer-column"><h4>Product</h4><a href="/app.html">Queue</a><a href="/presets.html">Voice</a><a href="/pricing.html">Pricing</a><a href="/account.html">Account</a></div>
+      <div class="footer-column"><h4>Legal</h4><a href="/terms-of-service.html">Terms of Service</a><a href="/privacy-policy.html">Privacy Policy</a><a href="/refund-policy.html">Refund Policy</a><a href="/cookie-policy.html">Cookie Policy</a></div>
+      <div class="footer-column"><h4>Support</h4><a href="/contact.html">Contact</a><a href="mailto:admin@dmtools.fun">admin@dmtools.fun</a></div>
+    </div>
+    <div class="footer-bottom"><span>© 2026 DMTools.fun LLC. All rights reserved.</span><span class="small-note">Powered by the existing live queue and generation contract.</span></div>
+  </footer>
+
+  <script src="/js/app-core.js"></script>
+  <script src="/js/auth-modal.js"></script>
+  <script>
+    (function () {
+      const ONBOARDING_KEY = 'dmtools_app_onboarding_hidden_v1';
+      const state = {
+        signedIn: false,
+        user: null,
+        messages: [],
+        nextId: 1,
+        method: 'manual'
+      };
+
+      function track(name, params) {
+        try { if (window.DMTOOLS && typeof window.DMTOOLS.track === 'function') window.DMTOOLS.track(name, params || {}); } catch (_) {}
+      }
+      function $(id) { return document.getElementById(id); }
+      function showFeedback(message, type) {
+        const el = $('queueFeedback');
+        if (!message) { el.textContent = ''; el.className = 'queue-feedback hidden'; return; }
+        el.textContent = message;
+        el.className = 'queue-feedback' + (type === 'error' ? ' is-error' : type === 'success' ? ' is-success' : '');
+      }
+      function setHeaderState() {
+        const signin = $('signinButton');
+        const primary = $('primaryButton');
+        if (signin) signin.classList.toggle('hidden', state.signedIn);
+        if (primary) {
+          if (state.signedIn) {
+            primary.textContent = 'Open account';
+            primary.removeAttribute('data-auth');
+            primary.onclick = function () { window.location.href = '/account.html'; };
+          } else {
+            primary.textContent = 'Start free';
+            primary.setAttribute('data-auth', 'register');
+            primary.setAttribute('data-return-to', '/app.html');
+            primary.onclick = null;
+          }
         }
-
-        function toggleDrawer() {
-            drawerOpen = !drawerOpen;
-            const drawer = document.getElementById('platform-drawer');
-            const toggle = document.getElementById('drawer-toggle');
-            const content = document.getElementById('content-wrapper');
-            
-            if (drawerOpen) {
-                drawer.classList.add('open');
-                toggle.classList.add('active');
-                content.classList.add('drawer-open');
-            } else {
-                drawer.classList.remove('open');
-                toggle.classList.remove('active');
-                content.classList.remove('drawer-open');
-            }
+      }
+      function formatCount(value) {
+        const n = Number(value);
+        return Number.isFinite(n) ? n.toLocaleString('en-US') : String(value ?? '0');
+      }
+      function usageSnapshot() {
+        if (state.signedIn && state.user) {
+          const tier = String(state.user.subscription_tier || state.user.plan || 'free').toLowerCase();
+          const limit = Number.isFinite(state.user.monthly_limit)
+            ? Number(state.user.monthly_limit)
+            : (tier === 'enterprise' ? 25000 : tier === 'business' ? 8000 : tier === 'pro' ? 2000 : tier === 'starter' ? 500 : 10);
+          const used = Number(state.user.monthly_usage || 0) || 0;
+          const remaining = typeof state.user.responses_remaining === 'number' ? Number(state.user.responses_remaining) : Math.max(0, limit - used);
+          return { tier, used, limit, remaining };
         }
-        
-        function openPlatform(platform) {
-            const config = platformConfigs[platform];
-            if (!config) return;
-            
-            if (platformWindows[platform] && !platformWindows[platform].closed) {
-                platformWindows[platform].focus();
-                return;
-            }
+        return { tier: 'free', used: 0, limit: 10, remaining: 10 };
+      }
 
-            try {
-                // Calculate split-screen dimensions
-                const screenWidth = window.screen.availWidth;
-                const screenHeight = window.screen.availHeight;
-                
-                // Left half for browser window
-                const windowWidth = Math.floor(screenWidth * 0.48);
-                const windowHeight = screenHeight - 60;
-                const windowLeft = 0;
-                const windowTop = 0;
-                
-               // Features string
-                const enhancedFeatures = [
-                  `width=${windowWidth}`,
-                  `height=${windowHeight}`,
-                  `left=${windowLeft}`,
-                  `top=${windowTop}`,
-                  'scrollbars=yes',
-                  'resizable=yes',
-                  'location=yes',   // shows the address bar
-                  'toolbar=yes',    // enables back/forward/reload buttons
-                  'menubar=yes'     // adds full menu bar (optional) 
-               ].join(',');
+      let drawerOpen = false;
+      const platformWindows = {};
+      const platformConfigs = { browser: { name: 'Browser', url: 'https://www.google.com' } };
 
-                // Open the window
-                platformWindows[platform] = window.open(
-                  config.url,
-                 `dmtools_${platform}`,
-                  enhancedFeatures
-        );
-                // Check if popup was blocked
-                if (!platformWindows[platform] || platformWindows[platform].closed || typeof platformWindows[platform].closed === 'undefined') {
-                    throw new Error('Popup blocked! Please allow popups and try again');
-                }
-
-                // Success! Window opened
-                platformWindows[platform].focus();
-                showNotification(`Browser opened on left! Drag messages → to generator on right`, 'success');
-
-                // Move main window to right half (with fallback)
-                try {
-                    setTimeout(() => {
-                        const rightHalfLeft = Math.floor(screenWidth * 0.50);
-                        window.moveTo(rightHalf, windowTop);
-                        window.resizeTo(Math.floor(screenWidth * 0.50), windowHeight);
-                    }, 300);
-                } catch (moveError) {
-                    console.log('Window positioning restricted by browser');
-                    showNotification('Manually position windows side-by-side for best experience', 'info');
-                }
-
-                // Monitor window close
-                const checkClosed = setInterval(() => {
-                    if (platformWindows[platform].closed) {
-                        clearInterval(checkClosed);
-                        showNotification('Browser window closed', 'info');
-                    }
-                }, 1000);
-
-                } catch (error) {
-                    console.error(`Failed to launch ${platform}:`, error);
-                        showNotification(`Failed to open browser. Please allow popups in your browser settings.`, 'error');
-            }
+      function showNotification(message, type, duration){
+        document.querySelectorAll('.notification').forEach(function(n){ n.remove(); });
+        const notification = document.createElement('div');
+        notification.className = 'notification ' + (type || 'info');
+        const icons = { success:'✅', error:'❌', info:'ℹ️' };
+        notification.innerHTML = '<div style="display:flex;align-items:flex-start;gap:.8rem;"><span style="font-size:1.2rem;flex-shrink:0;">' + (icons[type] || '📢') + '</span><span style="flex:1;">' + String(message || '') + '</span></div>';
+        document.body.appendChild(notification);
+        setTimeout(function(){ notification.remove(); }, duration || 5000);
+      }
+      function toggleDrawer(){
+        drawerOpen = !drawerOpen;
+        const drawer = $('platform-drawer');
+        const toggle = $('drawer-toggle');
+        const content = $('content-wrapper');
+        if (!drawer || !toggle || !content) return;
+        drawer.classList.toggle('open', drawerOpen);
+        toggle.classList.toggle('active', drawerOpen);
+        content.classList.toggle('drawer-open', drawerOpen);
+      }
+      function openPlatform(platform){
+        const config = platformConfigs[platform];
+        if (!config) return;
+        if (platformWindows[platform] && !platformWindows[platform].closed) {
+          platformWindows[platform].focus();
+          return;
         }
-
-                // ===== UPLOAD METHOD SELECTION =====
-                function selectUploadMethod(method, event) {
-                    if (event && event.target) {
-                        document.querySelectorAll('.upload-method').forEach(m => m.classList.remove('active'));
-                        const methodElement = event.target.closest('.upload-method');
-                        if (methodElement) methodElement.classList.add('active');
-            }
-            
-                    const bulkTextarea = document.getElementById('bulk-messages');
-                    const csvInput = document.getElementById('csv-upload');
-            
-                    if (method === 'bulk') {
-                        bulkTextarea.classList.add('show');
-                    } else if (method === 'csv') {
-                        csvInput.click();
-                    } else {
-                        bulkTextarea.classList.remove('show');
-                    }
-             }        
-
-                function handleCSVUpload(input) {
-                    if (!input.files || !input.files[0]) return;
-            
-                    showNotification('📊 CSV processing coming soon!', 'info');
-                    input.value = '';
-             }
-
-                // ===== MESSAGE MANAGEMENT =====
-                function initializeMessagePairs() {
-                    for (let i = 0; i < 6; i++) {
-                        addMessagePair();
-            }
-        }
-
-                function addMessagePair(initialMessage = '') {
-                    messageCount++;
-                    const container = document.getElementById('messages-container');
-                    const pairId = 'pair-' + Date.now() + Math.random();
-            
-                    const pairHTML = `
-                        <div class="message-pair" id="${pairId}" data-pair-id="${pairId}">
-                            <div class="message-header">
-                                <span class="message-number">Message #${messageCount}</span>
-                                <div class="message-tone-selector">
-                                    <select class="pair-tone-select" data-pair-id="${pairId}">
-                                        <option value="friendly">😊 Friendly</option>
-                                        <option value="professional">💼 Professional</option>
-                                        <option value="casual">😎 Casual</option>
-                                        <option value="enthusiastic">🎉 Enthusiastic</option>
-                                        <option value="flirty">😏 Flirty</option>
-                                        <option value="witty">🤓 Witty/Humorous</option>
-                                        <option value="empathetic">🤗 Empathetic</option>
-                                        <option value="supportive">💪 Supportive</option>
-                                        <option value="sales">💰 Sales/Promotional</option>
-                                        <option value="short">⚡ Short & Quick</option>
-                                        <option value="detailed">📝 Detailed</option>
-                                        <option value="grateful">🙏 Grateful</option>
-                                        <option value="apologetic">😔 Apologetic</option>
-                                        <option value="confident">💯 Confident</option>
-                                    </select>
-                                </div>
-                                <div class="message-actions">
-                                        <button class="btn btn-small btn-secondary" onclick="copyResponse('${pairId}')" title="Copy response">
-                                        📋 Copy
-                                    </button>
-                                         <button class="btn btn-small btn-secondary" onclick="regenerateMessagePair('${pairId}')">
-                                        🔄 Regenerate
-                                    </button>
-                                    <button class="btn btn-small btn-secondary" onclick="removeMessagePair('${pairId}')">
-                                        🗑️
-                                    </button>
-                                </div>
-                            </div>
-                            <div class="message-content">
-                                <div class="message-input-group">
-                                    <label>📥 Incoming Message</label>
-                                    <textarea placeholder="Paste or type the message you received...">${initialMessage}</textarea>
-                                </div>
-                                <div class="message-input-group">
-                                    <label>📤 Your Response</label>
-                                    <textarea placeholder="AI-generated response will appear here..." readonly></textarea>
-                                </div>
-                            </div>
-                        </div>
-                    `;
-            
-                    container.insertAdjacentHTML('beforeend', pairHTML);
-                    updateMessageCount();
-                }
-
-                function removeMessagePair(pairId) {
-                    const pair = document.getElementById(pairId);
-                    if (pair) {
-                        pair.remove();
-                        messageCount--;
-                        updateMessageCount();
-                    }
-                }
-
-                function clearAllMessages() {
-                    document.getElementById('messages-container').innerHTML = '';
-                    messageCount = 0;
-                    updateMessageCount();
-                    initializeMessagePairs();
-                    showNotification('🗑️ All messages cleared', 'info');
-                }
-
-                function updateMessageCount() {
-                    document.getElementById('message-count').textContent = messageCount;
-                }
-
-                function copyResponse(pairId) {
-                    const pair = document.getElementById(pairId);
-                    if (!pair) return;
-
-                    const textareas = pair.querySelectorAll('textarea');
-                    const responseText = textareas[1].value;
-
-                    if (!responseText || responseText === 'AI-generated response will appear here...') {
-                        showNotification('No response to copy yet', 'error');
-                        return;
-                }
-
-                    navigator.clipboard.writeText(responseText).then(() => {
-                        showNotification('✅ Response copied to clipboard!', 'success');
-                    }).catch(err => {
-                        showNotification('Failed to copy response', 'error');
-                    });
-                }
-
-                async function regenerateMessagePair(pairId) {
-                    if (!isAuthenticated) {
-                        showNotification('Please sign in to regenerate responses', 'error');
-                        showAuthModal(false);
-                        return;
-                }
-
-            const pair = document.getElementById(pairId);
-            if (!pair) return;
-
-            const textareas = pair.querySelectorAll('textarea');
-            const inputMessage = textareas[0].value.trim();
-            
-            if (!inputMessage) {
-                showNotification('Please enter a message first', 'error');
-                return;
-            }
-
-            // Get tone from this specific pair's dropdown
-            const toneSelect = pair.querySelector('.pair-tone-select');
-            const tone = toneSelect ? toneSelect.value : 'friendly';
-
-            try {
-                const context = document.getElementById('batch-context')?.value.trim() || '';
-
-                const response = await apiCall('/generate/single', {
-                    method: 'POST',
-                    body: JSON.stringify({
-                        message: inputMessage,
-                        tone: tone,
-                        context: context,
-                        platform: 'instagram'
-                    })
-                });
-
-                if (response.response) {
-                    textareas[1].value = response.response;
-                    showNotification('✅ Response regenerated!', 'success');
-                }
-            } catch (error) {
-                showNotification('Error regenerating response: ' + error.message, 'error');
-            }
-        }
-
-   // ==============================
-// Paywall Functions (V2 - momentum + dynamic pricing)
-// ==============================
-
-let _paywallPricingCache = null;
-
-// Fetch pricing from backend source of truth
-async function getPricingConfig() {
-  if (_paywallPricingCache) return _paywallPricingCache;
-
-  try {
-    const res = await fetch(`${API_BASE}/subscription/pricing`, {
-      method: 'GET',
-      headers: { 'Content-Type': 'application/json' }
-    });
-    const data = await res.json();
-    if (data && data.success) {
-      _paywallPricingCache = data;
-      return data;
-    }
-  } catch (e) {
-    console.warn('Paywall pricing fetch failed:', e);
-  }
-
-  return null;
-}
-
-function formatMoney(amount, currency = 'USD') {
-  const n = Number(amount);
-  if (!Number.isFinite(n)) return '';
-  // Keep it simple & predictable for UI
-  return `$${n.toFixed(n % 1 === 0 ? 0 : 2)}`;
-}
-
-function estimateSavedMinutes(usedCount) {
-  // Your positioning: ~5 minutes manual vs ~15 seconds with DMTools
-  // Saved per reply ≈ 285 seconds = 4.75 minutes
-  const used = Math.max(0, Number(usedCount) || 0);
-  const savedSeconds = used * 285;
-  const savedMinutes = Math.max(1, Math.round(savedSeconds / 60));
-  return savedMinutes;
-}
-
-function getUserUsageSnapshot(pricing) {
-  // Uses currentUser if available; falls back gracefully.
-  const tier = String(currentUser?.subscription_tier || currentUser?.plan || 'free').toLowerCase();
-
-  const freeLimitFromBackend =
-    pricing?.plans?.free?.limits?.responses ?? 10;
-
-  const used = Number(currentUser?.monthly_usage || 0);
-
-  // If backend provided a limit on the user object, prefer it
-  const limit = Number.isFinite(currentUser?.monthly_limit)
-    ? Number(currentUser.monthly_limit)
-    : (tier === 'free' ? freeLimitFromBackend : freeLimitFromBackend);
-
-  const remaining = (typeof currentUser?.responses_remaining === 'number')
-    ? Number(currentUser.responses_remaining)
-    : Math.max(0, limit - used);
-
-  return { tier, used, limit, remaining };
-}
-
-async function hydratePaywallUI() {
-  const pricing = await getPricingConfig();
-
-  // Fill time-saved + copy even if pricing fetch fails
-  const snap = getUserUsageSnapshot(pricing);
-  const saved = estimateSavedMinutes(snap.used || (snap.limit || 10));
-  const savedEl = document.getElementById('paywall-saved-minutes');
-  if (savedEl) savedEl.textContent = String(saved);
-
-  // If pricing is unavailable, keep your default HTML copy
-  if (!pricing?.plans || !pricing?.packs) return;
-
-  // Prefer Starter monthly plan + Starter pack from backend mapping
-  const starterPlan = pricing.plans.starter || null;
-  const starterPack = pricing.packs.starter || null;
-
-  // Plan UI
-  if (starterPlan) {
-    const planNameEl = document.getElementById('paywall-plan-name');
-    const planPriceEl = document.getElementById('paywall-plan-price');
-    const planIntervalEl = document.getElementById('paywall-plan-interval');
-    const planResponsesEl = document.getElementById('paywall-plan-responses');
-    const planTemplatesEl = document.getElementById('paywall-plan-templates');
-    const primaryCta = document.getElementById('paywall-primary-cta');
-
-    if (planNameEl) planNameEl.textContent = `${starterPlan.display_name || 'Starter'} Plan`;
-    if (planPriceEl) planPriceEl.textContent = formatMoney(starterPlan.price_amount ?? starterPlan.price, starterPlan.currency);
-    if (planIntervalEl) planIntervalEl.textContent = `/${starterPlan.billing_interval || 'month'}`;
-
-    const resp = starterPlan?.limits?.responses;
-    if (planResponsesEl) planResponsesEl.textContent = Number.isFinite(resp) ? resp.toLocaleString() : String(resp || '—');
-
-    const tmpl = starterPlan?.limits?.templates;
-    if (planTemplatesEl) planTemplatesEl.textContent = (tmpl === 'unlimited') ? 'Unlimited' : (Number.isFinite(tmpl) ? tmpl.toLocaleString() : String(tmpl || '—'));
-
-    // Add light attribution tags for analytics in your own tracking later
-    if (primaryCta) primaryCta.href = `/pricing.html#starter`;
-  }
-
-  // Pack UI
-  if (starterPack) {
-    const packNameEl = document.getElementById('paywall-pack-name');
-    const packPriceEl = document.getElementById('paywall-pack-price');
-    const packResponsesEl = document.getElementById('paywall-pack-responses');
-    const secondaryCta = document.getElementById('paywall-secondary-cta');
-
-    if (packNameEl) packNameEl.textContent = starterPack.display_name || 'Response Pack';
-    if (packPriceEl) packPriceEl.textContent = formatMoney(starterPack.price_amount ?? starterPack.price, starterPack.currency);
-
-    const resp = starterPack.responses;
-    if (packResponsesEl) packResponsesEl.textContent = Number.isFinite(resp) ? resp.toLocaleString() : String(resp || '—');
-
-    if (secondaryCta) secondaryCta.href = `/store.html`;
-  }
-}
-
-function showPaywall() {
-  // Don’t block UX if pricing fetch fails
-  hydratePaywallUI().catch(() => {});
-  const modal = document.getElementById('paywall-modal');
-  if (modal) {
-    modal.classList.add('show');
-    modal.setAttribute('aria-hidden', 'false');
-  }
-}
-
-function hidePaywall() {
-  const modal = document.getElementById('paywall-modal');
-  if (modal) {
-    modal.classList.remove('show');
-    modal.setAttribute('aria-hidden', 'true');
-  }
-}
-      
-window.showPaywall = showPaywall;
-window.hidePaywall = hidePaywall;
-      
-// Close paywall when clicking outside the modal content
-document.getElementById('paywall-modal')?.addEventListener('click', function (e) {
-  if (e.target === this) hidePaywall();
-});
-
-// Close paywall when pressing the Escape key
-document.addEventListener('keydown', function (e) {
-  if (e.key === 'Escape') hidePaywall();
-});
-   
-  
-
-        // ===== BATCH PROCESSING =====
-        async function processAllMessages() {
-            const messagePairs = document.querySelectorAll('.message-pair');
-            const bulkMessages = document.getElementById('bulk-messages')?.value.trim();
-            
-            let messages = [];
-            let tones = [];
-            
-            messagePairs.forEach(pair => {
-                const textarea = pair.querySelector('textarea');
-                const toneSelect = pair.querySelector('.pair-tone-select');
-                
-                if (textarea && textarea.value.trim()) {
-                    messages.push(textarea.value.trim());
-                    // Get tone from individual pair, default to friendly if not found
-                    tones.push(toneSelect ? toneSelect.value : 'friendly');
-                }
-            });
-
-            if (bulkMessages) {
-                const bulkLines = bulkMessages.split('\n').filter(line => line.trim());
-                clearAllMessages();
-                bulkLines.forEach(line => addMessagePair(line.trim()));
-                messages = bulkLines;
-                // Use default tone for bulk messages
-                tones = bulkLines.map(() => 'friendly');
-            }
-
-            if (messages.length === 0) {
-                showNotification('No messages to process. Please add some messages first.', 'error');
-                return;
-            }
-
-            if (!isAuthenticated) {
-                showNotification('Please sign in to process messages. You can register for free!', 'error');
-                showAuthModal(false);
-                return;
-            }
-          
-            // Check if free user has exhausted monthly allowance (PAYWALL CHECK)
-            if (isAuthenticated && currentUser) {
-                const tier = String(currentUser.subscription_tier || currentUser.plan || 'free').toLowerCase();
-                const limit = Number.isFinite(currentUser.monthly_limit)
-                    ? currentUser.monthly_limit
-                    : (tier === 'enterprise' ? 25000
-                        : tier === 'business' ? 8000
-                        : tier === 'pro' ? 2000
-                        : tier === 'starter' ? 500
-                        : 10);
-                const used = currentUser.monthly_usage || 0;
-                const remaining = (typeof currentUser.responses_remaining === 'number')
-                    ? currentUser.responses_remaining
-                    : Math.max(0, limit - used);
-
-                if (tier === 'free' && remaining <= 0) {
-                    showPaywall();
-                    return;
-                }
-            }
-
-            const processBtn = document.getElementById('process-all-btn');
-            
-            if (processBtn) {
-                processBtn.disabled = true;
-                processBtn.innerHTML = '<span class="spinner"></span> Processing...';
-            }
-
-            try {
-                const context = document.getElementById('batch-context')?.value.trim() || '';
-
-                const response = await apiCall('/generate/batch', {
-                    method: 'POST',
-                    body: JSON.stringify({
-                        messages: messages,
-                        tone: 'friendly', // This is just a fallback, individual tones are used below
-                        context: context,
-                        platform: 'instagram',
-                        smartCategorization: document.getElementById('smart-categorization')?.checked || false,
-                        contextAware: document.getElementById('context-aware')?.checked || false,
-                        personalization: document.getElementById('personalization')?.checked || false
-                    })
-                });
-
-                if (response.responses) {
-                    const pairs = document.querySelectorAll('.message-pair');
-                    response.responses.forEach((result, index) => {
-                        if (pairs[index]) {
-                            const responseTextarea = pairs[index].querySelectorAll('textarea')[1];
-                            if (responseTextarea) {
-                                responseTextarea.value = result.response || 'Error generating response';
-                                responseTextarea.style.background = result.success ? '#1f2937' : 'rgba(239, 68, 68, 0.1)';
-                            }
-                        }
-                    });
-
-                    await checkAuthStatus();
-                    showNotification(`✅ Processed ${response.responses.length} responses!`, 'success');
-                }
-            } catch (error) {
-                showNotification('Error processing messages: ' + error.message, 'error');
-            } finally {
-                if (processBtn) {
-                    processBtn.disabled = false;
-                    processBtn.innerHTML = '🚀 Process All Responses';
-                }
-            }
-        }
-
-        function exportResults() {
-            const pairs = document.querySelectorAll('.message-pair');
-            let csvContent = 'Incoming Message,Generated Response\n';
-            
-            pairs.forEach(pair => {
-                const textareas = pair.querySelectorAll('textarea');
-                const input = textareas[0].value.replace(/"/g, '""');
-                const output = textareas[1].value.replace(/"/g, '""');
-                csvContent += `"${input}","${output}"\n`;
-            });
-            
-            const blob = new Blob([csvContent], { type: 'text/csv' });
-            const url = window.URL.createObjectURL(blob);
-            const a = document.createElement('a');
-            a.href = url;
-            a.download = 'dmtools-responses-' + new Date().toISOString().split('T')[0] + '.csv';
-            a.click();
-            window.URL.revokeObjectURL(url);
-            
-            showNotification('📥 Results exported successfully!', 'success');
-        }
-
-        // ===== API CALLS =====
-        async function apiCall(endpoint, options = {}) {
-            const token = localStorage.getItem('authToken');
-            const url = API_BASE + endpoint;
-            
-            const config = {
-                method: 'GET',
-                headers: {
-                    'Content-Type': 'application/json',
-                    ...(token && { 'Authorization': `Bearer ${token}` })
-                },
-                ...options
-            };
-
-            try {
-                const response = await fetch(url, config);
-                const data = await response.json();
-
-               if (!response.ok) {
-  // Try to detect "usage/plan limit" responses and show paywall
-  const status = response.status;
-  const msg = String(data?.message || data?.error || '').toLowerCase();
-  const code = String(data?.code || '').toLowerCase();
-
-  const looksLikeLimit =
-    msg.includes('limit') ||
-    msg.includes('quota') ||
-    msg.includes('usage') ||
-    msg.includes('responses') ||
-    code.includes('limit') ||
-    code.includes('quota') ||
-    code.includes('paywall');
-
-  // Most common statuses for paywalls/limits
-  if ((status === 402 || status === 403 || status === 429) && looksLikeLimit) {
-    if (typeof showPaywall === 'function') showPaywall();
-    throw new Error('Paywall triggered'); // stop execution cleanly
-  }
-
-  // Auth handling
-  if (status === 401) {
-    localStorage.removeItem('authToken');
-    isAuthenticated = false;
-    throw new Error('Session expired. Please sign in again.');
-  }
-
-  // Server handling
-  if (status === 500) {
-    throw new Error('Server error. Please try again later.');
-  }
-
-  // Default error
-  throw new Error(data?.error || data?.message || `Server error (${status})`);
-}
-
-                return data;
-            } catch (error) {
-                if (error.name === 'TypeError' && error.message.includes('fetch')) {
-                    throw new Error('Cannot connect to server. Please check your internet connection.');
-                }
-                throw error;
-            }
-        }
-
-        // ===== AUTHENTICATION FUNCTIONS =====
-        function toggleAuthMode() {
-            showAuthModal(!isLoginMode);
-        }
-
-        function showAuthModal(isLogin = true) {
-            isLoginMode = !!isLogin;
-            const returnTo = window.location.pathname + window.location.search;
-
-            if (window.DMTOOLS && typeof DMTOOLS.openAuthModal === 'function') {
-                DMTOOLS.openAuthModal(isLoginMode ? 'login' : 'register', { returnTo });
-                return;
-            }
-
-            // Retry once after full load in case auth-modal.js is still initializing.
-            if (document.readyState !== 'complete') {
-                window.addEventListener('load', () => showAuthModal(isLoginMode), { once: true });
-            }
-        }
-
-        function hideAuthModal() {
-            if (window.DMTOOLS && typeof DMTOOLS.closeAuthModal === 'function') {
-                DMTOOLS.closeAuthModal();
-            }
-        }
-
-        function logout() {
-            localStorage.removeItem('authToken');
-            currentUser = null;
-            isAuthenticated = false;
-            updateAuthUI();
-            updateUsageDisplay();
-            showNotification('Successfully logged out', 'success');
-        }
-
-        function updateAuthUI() {
-            const authSection = document.getElementById('auth-section');
-            const userSection = document.getElementById('user-section');
-            
-            if (!authSection || !userSection) return;
-            
-            if (isAuthenticated && currentUser) {
-                authSection.classList.add('hidden');
-                userSection.classList.remove('hidden');
-                const userEmailElement = document.getElementById('user-email');
-                if (userEmailElement) {
-                    userEmailElement.textContent = currentUser.email;
-                }
-            } else {
-                authSection.classList.remove('hidden');
-                userSection.classList.add('hidden');
-            }
-        }
-
-        function updateUsageDisplay() {
-            const usageCount = document.getElementById('usage-count');
-            const usageLimit = document.getElementById('usage-limit');
-            const usageFill = document.getElementById('usage-fill');
-            const usagePlanText = document.getElementById('usage-plan-text');
-
-            if (usageCount && usageLimit && usageFill && usagePlanText) {
-                if (isAuthenticated && currentUser) {
-                    const usage = currentUser.monthly_usage || 0;
-                    const tier = String(currentUser.subscription_tier || currentUser.plan || 'free').toLowerCase();
-                    const limit = Number.isFinite(currentUser.monthly_limit)
-                        ? currentUser.monthly_limit
-                        : (tier === 'enterprise' ? 25000
-                            : tier === 'business' ? 8000
-                            : tier === 'pro' ? 2000
-                            : tier === 'starter' ? 500
-                            : 10);
-                    
-                    usageCount.textContent = usage;
-                    usageLimit.textContent = limit === Infinity ? '∞' : limit;
-                    usagePlanText.textContent = tier === 'free'
-                        ? 'Sign up for 10 free responses per month'
-                        : `${tier.charAt(0).toUpperCase() + tier.slice(1)} Plan`;
-                    
-                    const percentage = Math.min((usage / limit) * 100, 100);
-                    usageFill.style.width = percentage + '%';
-                } else {
-                    usageCount.textContent = '0';
-                    usageLimit.textContent = '10';
-                    usagePlanText.textContent = 'Sign up for 10 free responses per month';
-                    usageFill.style.width = '0%';
-                }
-            }
-        }
-
-        async function checkAuthStatus() {
-            const token = localStorage.getItem('authToken');
-            if (!token) {
-                currentUser = null;
-                isAuthenticated = false;
-                updateAuthUI();
-                updateUsageDisplay();
-                return;
-            }
-            
-            try {
-                const response = await apiCall('/user/profile');
-                if (response.user) {
-                    currentUser = response.user;
-                    isAuthenticated = true;
-                    updateAuthUI();
-                    updateUsageDisplay();
-                }
-            } catch (error) {
-                console.error('Auth validation failed:', error);
-                localStorage.removeItem('authToken');
-                currentUser = null;
-                isAuthenticated = false;
-                updateAuthUI();
-                updateUsageDisplay();
-                if (typeof showAuthModal === 'function') {
-                    showAuthModal(true);
-                }
-            }
-        }
-
-        // AUTHENTICATION WALL
-// ================================
-document.addEventListener('DOMContentLoaded', function() {
-    console.log('🚀 DMTools app initializing...');
-    
-    // Check authentication FIRST
-    const token = localStorage.getItem('authToken');
-    
-    if (!token) {
-        // No token = prompt auth modal (stay on page)
-        console.log('❌ No auth token - opening auth modal');
-        if (typeof showAuthModal === 'function') {
-            showAuthModal(true);
-        }
-    } else {
-        // Token exists - verify it's valid
-        checkAuthStatus();
-    }
-    
-    selectUploadMethod('manual', null);
-    initializeMessagePairs();
-    
-    console.log('✅ DMTools app initialized successfully');
-});
-
-// Header PWA Install Button
-let deferredPrompt;
-const headerInstallBtn = document.getElementById('pwa-install-header-btn');
-
-window.addEventListener('beforeinstallprompt', (e) => {
-    e.preventDefault();
-    deferredPrompt = e;
-    
-    if (headerInstallBtn) {
-        headerInstallBtn.style.display = 'inline-block';
-    }
-});
-
-if (headerInstallBtn) {
-    headerInstallBtn.addEventListener('click', async () => {
-        if (!deferredPrompt) return;
-        
-        deferredPrompt.prompt();
-        const { outcome } = await deferredPrompt.userChoice;
-        
-        if (outcome === 'accepted') {
-            console.log('✅ PWA installed from header button');
-        }
-        
-        deferredPrompt = null;
-        headerInstallBtn.style.display = 'none';
-    });
-}
-
-window.addEventListener('appinstalled', () => {
-    if (headerInstallBtn) {
-        headerInstallBtn.style.display = 'none';
-    }
-});
-
-// ========================================
-// PWA INSTALL FUNCTIONALITY - ERROR-SAFE
-// ========================================
-
-(function() {
-    'use strict';
-    
-    console.log('🔧 Initializing PWA install functionality...');
-    
-    let deferredPrompt = null;
-    
-    // Get all button elements (may or may not exist)
-    const floatingBtn = document.getElementById('pwa-floating-install');
-    const headerBtn = document.getElementById('pwa-header-install');
-    const inlineBtn = document.getElementById('pwa-inline-install');
-    const stickyBanner = document.getElementById('pwa-sticky-banner');
-    const stickyBannerBtn = document.getElementById('pwa-sticky-banner-btn');
-    const stickyBannerClose = document.getElementById('pwa-sticky-banner-close');
-    
-    // Log which buttons were found
-    console.log('📱 PWA Buttons found:', {
-        floating: !!floatingBtn,
-        header: !!headerBtn,
-        inline: !!inlineBtn,
-        stickyBanner: !!stickyBanner
-    });
-    
-    // Check if already running as installed PWA
-    function isRunningAsPWA() {
-        return window.matchMedia('(display-mode: standalone)').matches || 
-               window.navigator.standalone === true;
-    }
-    
-    // Hide all install prompts if running as PWA
-    if (isRunningAsPWA()) {
-        console.log('📱 Running as installed PWA - hiding install buttons');
-        document.body.classList.add('running-as-pwa');
-        return; // Exit early, no need to set up install prompts
-    }
-    
-    // Listen for beforeinstallprompt event
-    window.addEventListener('beforeinstallprompt', (e) => {
-        console.log('💡 PWA install prompt available');
-        
-        // Prevent Chrome 76+ from automatically showing the prompt
-        e.preventDefault();
-        
-        // Save the event for later use
-        deferredPrompt = e;
-        
-        // Show install buttons
-        showInstallButtons();
-        
-        // Track that install prompt is available
         try {
-            if (typeof gtag !== 'undefined') {
-                gtag('event', 'pwa_install_prompt_shown', {
-                    'event_category': 'PWA',
-                    'event_label': 'Install Prompt Available'
-                });
+          const screenWidth = window.screen.availWidth;
+          const screenHeight = window.screen.availHeight;
+          const windowWidth = Math.floor(screenWidth * 0.48);
+          const windowHeight = screenHeight - 60;
+          const windowLeft = 0;
+          const windowTop = 0;
+          const enhancedFeatures = [
+            'width=' + windowWidth,
+            'height=' + windowHeight,
+            'left=' + windowLeft,
+            'top=' + windowTop,
+            'scrollbars=yes',
+            'resizable=yes',
+            'location=yes',
+            'toolbar=yes',
+            'menubar=yes'
+          ].join(',');
+          platformWindows[platform] = window.open(config.url, 'dmtools_' + platform, enhancedFeatures);
+          if (!platformWindows[platform] || platformWindows[platform].closed || typeof platformWindows[platform].closed === 'undefined') {
+            throw new Error('Popup blocked');
+          }
+          platformWindows[platform].focus();
+          showNotification('Browser opened on left. Drag messages to the generator on the right.', 'success');
+          track('browser_helper_open', { page_name: 'app', platform: platform });
+          try {
+            setTimeout(function(){
+              const rightHalfLeft = Math.floor(screenWidth * 0.50);
+              window.moveTo(rightHalfLeft, windowTop);
+              window.resizeTo(Math.floor(screenWidth * 0.50), windowHeight);
+            }, 300);
+          } catch (_) {
+            showNotification('Manually position windows side-by-side for best experience.', 'info');
+          }
+          const checkClosed = setInterval(function(){
+            if (platformWindows[platform] && platformWindows[platform].closed) {
+              clearInterval(checkClosed);
+              showNotification('Browser window closed.', 'info');
             }
-        } catch (err) {
-            console.log('Analytics tracking not available');
-        }
-    });
-    
-    // Show appropriate install buttons based on page
-    function showInstallButtons() {
-        let buttonsShown = 0;
-        
-        // Show floating button on all pages
-        if (floatingBtn) {
-            floatingBtn.style.display = 'flex';
-            buttonsShown++;
-            // Add pulse animation for first 5 seconds
-            floatingBtn.classList.add('pulse');
-            setTimeout(() => {
-                floatingBtn.classList.remove('pulse');
-            }, 5000);
-            console.log('✅ Floating button shown');
-        }
-        
-        // Show header button
-        if (headerBtn) {
-            headerBtn.style.display = 'flex';
-            buttonsShown++;
-            console.log('✅ Header button shown');
-        }
-        
-        // Show inline button (on index.html)
-        if (inlineBtn) {
-            inlineBtn.style.display = 'flex';
-            buttonsShown++;
-            console.log('✅ Inline button shown');
-        }
-        
-        // Show sticky banner (on app.html) after 3 seconds
-        if (stickyBanner) {
-            setTimeout(() => {
-                // Check if banner was dismissed in this session
-                if (!sessionStorage.getItem('pwa_banner_dismissed')) {
-                    stickyBanner.style.display = 'flex';
-                    buttonsShown++;
-                    console.log('✅ Sticky banner shown');
-                }
-            }, 3000);
-        }
-        
-        console.log(`📱 Total PWA buttons shown: ${buttonsShown}`);
-    }
-    
-    // Handle install button clicks
-    async function handleInstallClick(source) {
-        console.log(`🎯 Install button clicked from: ${source}`);
-        
-        if (!deferredPrompt) {
-            console.log('❌ No install prompt available');
-            alert('PWA installation is not available in this browser. Try Chrome on Android or Desktop.');
-            return;
-        }
-        
-        try {
-            // Show the install prompt
-            deferredPrompt.prompt();
-            
-            // Wait for the user to respond to the prompt
-            const { outcome } = await deferredPrompt.userChoice;
-            
-            console.log(`👤 User response: ${outcome}`);
-            
-            // Track the outcome
-            try {
-                if (typeof gtag !== 'undefined') {
-                    gtag('event', 'pwa_install_attempt', {
-                        'event_category': 'PWA',
-                        'event_label': source,
-                        'value': outcome === 'accepted' ? 1 : 0
-                    });
-                }
-            } catch (err) {
-                console.log('Analytics tracking not available');
-            }
-            
-            if (outcome === 'accepted') {
-                console.log('✅ User accepted PWA installation');
-                hideAllInstallButtons();
-            } else {
-                console.log('❌ User dismissed PWA installation');
-            }
-            
-            // Clear the deferred prompt
-            deferredPrompt = null;
+          }, 1000);
         } catch (error) {
-            console.error('Error during install:', error);
+          console.error(error);
+          showNotification('Failed to open browser. Please allow popups in your browser settings.', 'error');
         }
-    }
-    
-    // Hide all install buttons
-    function hideAllInstallButtons() {
-        if (floatingBtn) floatingBtn.style.display = 'none';
-        if (headerBtn) headerBtn.style.display = 'none';
-        if (inlineBtn) inlineBtn.style.display = 'none';
-        if (stickyBanner) stickyBanner.style.display = 'none';
-        console.log('🙈 All install buttons hidden');
-    }
-    
-    // Attach click handlers ONLY if elements exist
-    if (floatingBtn) {
-        floatingBtn.addEventListener('click', () => handleInstallClick('floating_button'));
-        console.log('✅ Floating button click handler attached');
-    }
-    
-    if (headerBtn) {
-        headerBtn.addEventListener('click', () => handleInstallClick('header_button'));
-        console.log('✅ Header button click handler attached');
-    }
-    
-    if (inlineBtn) {
-        inlineBtn.addEventListener('click', () => handleInstallClick('inline_button'));
-        console.log('✅ Inline button click handler attached');
-    }
-    
-    if (stickyBannerBtn) {
-        stickyBannerBtn.addEventListener('click', () => handleInstallClick('sticky_banner'));
-        console.log('✅ Sticky banner button click handler attached');
-    }
-    
-    // Handle sticky banner close
-    if (stickyBannerClose) {
-        stickyBannerClose.addEventListener('click', () => {
-            stickyBanner.style.display = 'none';
-            // Remember that user dismissed banner for this session
-            sessionStorage.setItem('pwa_banner_dismissed', 'true');
-            console.log('🙈 Sticky banner dismissed');
-            
-            // Track dismissal
-            try {
-                if (typeof gtag !== 'undefined') {
-                    gtag('event', 'pwa_banner_dismissed', {
-                        'event_category': 'PWA',
-                        'event_label': 'Sticky Banner Closed'
-                    });
-                }
-            } catch (err) {
-                console.log('Analytics tracking not available');
-            }
+      }
+
+      function updateUsage() {
+        const snap = usageSnapshot();
+        $('usageCount').textContent = formatCount(snap.used);
+        $('usageLimit').textContent = formatCount(snap.limit);
+        $('usageFill').style.width = Math.max(0, Math.min(100, Math.round((snap.used / Math.max(1, snap.limit)) * 100))) + '%';
+        $('planBadge').textContent = snap.tier.charAt(0).toUpperCase() + snap.tier.slice(1) + ' Plan';
+        $('usageHint').textContent = snap.tier === 'free'
+          ? 'Sign up for 10 free responses per month.'
+          : snap.remaining > 0
+            ? formatCount(snap.remaining) + ' responses remaining this cycle.'
+            : 'You have used your available responses for this cycle.';
+      }
+      function showPaywall() {
+        $('paywallModal').classList.add('show');
+        $('paywallModal').setAttribute('aria-hidden', 'false');
+      }
+      function hidePaywall() {
+        $('paywallModal').classList.remove('show');
+        $('paywallModal').setAttribute('aria-hidden', 'true');
+      }
+      function showOnboarding() {
+        localStorage.removeItem(ONBOARDING_KEY);
+        $('appOnboarding').classList.remove('hidden');
+        $('onboardingReopen').classList.add('hidden');
+        track('onboarding_reopen', { page_name: 'app' });
+      }
+      function hideOnboarding(markComplete) {
+        localStorage.setItem(ONBOARDING_KEY, '1');
+        $('appOnboarding').classList.add('hidden');
+        $('onboardingReopen').classList.remove('hidden');
+        track('onboarding_dismiss', { page_name: 'app', complete: !!markComplete });
+        if (markComplete) track('app_onboarding_complete', { page_name: 'app' });
+      }
+      function restoreOnboardingState() {
+        const hidden = localStorage.getItem(ONBOARDING_KEY) === '1';
+        $('appOnboarding').classList.toggle('hidden', hidden);
+        $('onboardingReopen').classList.toggle('hidden', !hidden);
+        track('app_onboarding_view', { page_name: 'app', hidden: hidden });
+        track('mock_inbox_highlight_hint_view', { page_name: 'app' });
+        track('mock_inbox_reply_hint_view', { page_name: 'app' });
+      }
+      function setMethod(method) {
+        state.method = method;
+        document.querySelectorAll('.method-btn').forEach(function (btn) {
+          btn.classList.toggle('active', btn.dataset.method === method);
         });
-        console.log('✅ Sticky banner close handler attached');
-    }
-    
-    // Listen for successful app installation
-    window.addEventListener('appinstalled', (evt) => {
-        console.log('🎉 PWA was successfully installed!');
-        
-        // Hide all install buttons
-        hideAllInstallButtons();
-        
-        // Track successful installation
+        $('bulkBlock').classList.toggle('hidden', method !== 'bulk');
+        $('csvBlock').classList.toggle('hidden', method !== 'csv');
+      }
+      function addMessage(initialText) {
+        state.messages.push({ id: 'msg_' + state.nextId++, input: initialText || '', output: '', tone: $('batchTone').value || 'friendly', processing: false });
+        renderMessages();
+        track('queue_message_add', { page_name: 'app' });
+      }
+      function removeMessage(id) {
+        state.messages = state.messages.filter(function (m) { return m.id !== id; });
+        renderMessages();
+        track('queue_message_remove', { page_name: 'app' });
+      }
+      function clearAllMessages() {
+        state.messages = [];
+        renderMessages();
+        showFeedback('All messages cleared.', 'success');
+      }
+      function updateMessage(id, field, value) {
+        const message = state.messages.find(function (m) { return m.id === id; });
+        if (!message) return;
+        message[field] = value;
+      }
+      async function copyResponse(id, button) {
+        const message = state.messages.find(function (m) { return m.id === id; });
+        if (!message || !message.output) {
+          showFeedback('No response to copy yet.', 'error');
+          return;
+        }
         try {
-            if (typeof gtag !== 'undefined') {
-                gtag('event', 'pwa_installed', {
-                    'event_category': 'PWA',
-                    'event_label': 'App Installed Successfully'
-                });
-            }
-        } catch (err) {
-            console.log('Analytics tracking not available');
+          await navigator.clipboard.writeText(message.output);
+          const original = button.textContent;
+          button.textContent = 'Copied';
+          button.classList.add('copied');
+          setTimeout(function () {
+            button.textContent = original;
+            button.classList.remove('copied');
+          }, 1600);
+          showFeedback('Response copied to clipboard.', 'success');
+        } catch (_) {
+          showFeedback('Failed to copy response.', 'error');
         }
-        
-        // Show success message if showNotification function exists
+      }
+      function parseCSV(text) {
+        const rows = text.split(/\r?\n/).map(function (line) { return line.trim(); }).filter(Boolean);
+        if (!rows.length) return [];
+        return rows.slice(1).map(function (line) {
+          const parts = line.split(',');
+          return (parts[0] || '').replace(/^"|"$/g, '').trim();
+        }).filter(Boolean);
+      }
+      function loadBulkMessages() {
+        const text = $('bulkMessages').value.trim();
+        if (!text) {
+          showFeedback('Paste at least one message first.', 'error');
+          return;
+        }
+        const lines = text.split(/\r?\n/).map(function (line) { return line.trim(); }).filter(Boolean);
+        lines.forEach(function (line) { addMessage(line); });
+        $('bulkMessages').value = '';
+        showFeedback('Bulk messages loaded into the queue.', 'success');
+      }
+      async function openSideBrowser() {
         try {
-            if (typeof showNotification === 'function') {
-                showNotification('🎉 App installed successfully! Find it on your home screen.', 'success');
-            }
-        } catch (err) {
-            console.log('Notification function not available');
+          const width = Math.floor(window.screen.availWidth * 0.48);
+          const height = window.screen.availHeight - 60;
+          const features = ['width=' + width, 'height=' + height, 'left=0', 'top=0', 'scrollbars=yes', 'resizable=yes', 'location=yes', 'toolbar=yes', 'menubar=yes'].join(',');
+          const popup = window.open('https://www.google.com', 'dmtools_browser_helper', features);
+          if (!popup || popup.closed || typeof popup.closed === 'undefined') throw new Error('Popup blocked');
+          popup.focus();
+          showFeedback('Browser helper opened. Position it beside DMTools if you want a side-by-side workflow.', 'success');
+          track('browser_helper_open', { page_name: 'app' });
+        } catch (_) {
+          showFeedback('Failed to open the browser helper. Please allow popups and try again.', 'error');
         }
-    });
-    
-    // Show install instructions for iOS users (Safari doesn't support beforeinstallprompt)
-    function checkIOSInstallOption() {
-        const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
-        const isInStandaloneMode = ('standalone' in window.navigator) && (window.navigator.standalone);
-        
-        if (isIOS && !isInStandaloneMode) {
-            console.log('📱 iOS device detected - user can manually add to home screen');
-            
-            // Show iOS-specific instructions on floating button
-            if (floatingBtn) {
-                floatingBtn.innerHTML = '📱 Install App<br><small style="font-size:11px;">Tap Share → Add to Home Screen</small>';
-                floatingBtn.style.display = 'flex';
-                floatingBtn.style.flexDirection = 'column';
-                floatingBtn.style.padding = '12px 20px';
-                floatingBtn.style.textAlign = 'center';
-                floatingBtn.style.lineHeight = '1.3';
-                
-                // Disable click since iOS doesn't support programmatic install
-                floatingBtn.onclick = (e) => {
-                    e.preventDefault();
-                    alert('To install on iOS:\n1. Tap the Share button (square with arrow)\n2. Scroll down and tap "Add to Home Screen"\n3. Tap "Add" to confirm');
-                    return false;
-                };
-                
-                console.log('✅ iOS install instructions shown');
-            }
+      }
+      function renderMessages() {
+        $('messageCount').textContent = String(state.messages.length);
+        const list = $('messageList');
+        if (!state.messages.length) {
+          list.innerHTML = '<div class="empty-state"><h3 style="margin-bottom:.5rem;">Your queue is empty.</h3><p>Add a message manually, load bulk text, or import a CSV to start generating responses.</p></div>';
+          return;
         }
-    }
-    
-    // Check for iOS after a delay
-    setTimeout(checkIOSInstallOption, 2000);
-    
-    console.log('✅ PWA install functionality loaded successfully');
-})();
+        list.innerHTML = state.messages.map(function (message, index) {
+          return `
+            <article class="message-card" data-id="${message.id}">
+              <div class="message-head">
+                <div class="message-index">Message #${index + 1}</div>
+                <div class="message-controls">
+                  <select class="tone-select" data-id="${message.id}">
+                    ${renderToneOptions(message.tone)}
+                  </select>
+                </div>
+              </div>
+              <div class="message-grid">
+                <div class="input-box">
+                  <div class="mini-label">Incoming message</div>
+                  <textarea class="input-textarea" data-id="${message.id}" placeholder="Paste or type the message you received...">${escapeHtml(message.input)}</textarea>
+                </div>
+                <div class="output-box">
+                  <div class="mini-label">Generated response</div>
+                  <textarea class="output-textarea" data-id="${message.id}" placeholder="AI-generated response will appear here..." readonly>${escapeHtml(message.output)}</textarea>
+                </div>
+              </div>
+              <div class="action-row">
+                <button class="mini-btn copy" type="button" data-copy="${message.id}">Copy</button>
+                <button class="mini-btn subtle" type="button" data-regenerate="${message.id}">Regenerate</button>
+                <button class="mini-btn delete" type="button" data-delete="${message.id}">Delete</button>
+              </div>
+            </article>
+          `;
+        }).join('');
 
-// ========================================
-// SERVICE WORKER REGISTRATION
-// ========================================
-
-if ('serviceWorker' in navigator) {
-    window.addEventListener('load', () => {
-        navigator.serviceWorker.register('/service-worker.js')
-            .then(registration => {
-                console.log('✅ Service Worker registered successfully:', registration.scope);
-                
-                // Check for updates every hour
-                setInterval(() => {
-                    registration.update();
-                }, 60 * 60 * 1000);
-                
-                // Track service worker registration
-                try {
-                    if (typeof gtag !== 'undefined') {
-                        gtag('event', 'service_worker_registered', {
-                            'event_category': 'PWA',
-                            'event_label': 'Service Worker Active'
-                        });
-                    }
-                } catch (err) {
-                    console.log('Analytics tracking not available');
-                }
+        list.querySelectorAll('.input-textarea').forEach(function (el) {
+          el.addEventListener('input', function () { updateMessage(this.dataset.id, 'input', this.value); });
+        });
+        list.querySelectorAll('.tone-select').forEach(function (el) {
+          el.addEventListener('change', function () { updateMessage(this.dataset.id, 'tone', this.value); });
+        });
+        list.querySelectorAll('[data-copy]').forEach(function (btn) {
+          btn.addEventListener('click', function () { copyResponse(this.dataset.copy, this); });
+        });
+        list.querySelectorAll('[data-regenerate]').forEach(function (btn) {
+          btn.addEventListener('click', function () { regenerateMessage(this.dataset.regenerate); });
+        });
+        list.querySelectorAll('[data-delete]').forEach(function (btn) {
+          btn.addEventListener('click', function () { removeMessage(this.dataset.delete); });
+        });
+      }
+      function renderToneOptions(selected) {
+        const tones = [
+          ['friendly','😊 Friendly'],['professional','💼 Professional'],['casual','😎 Casual'],['enthusiastic','🎉 Enthusiastic'],
+          ['flirty','😏 Flirty'],['witty','🤓 Witty/Humorous'],['empathetic','🤗 Empathetic'],['supportive','💪 Supportive'],
+          ['sales','💰 Sales/Promotional'],['short','⚡ Short & Quick'],['detailed','📝 Detailed'],['grateful','🙏 Grateful'],
+          ['apologetic','😔 Apologetic'],['confident','💯 Confident']
+        ];
+        return tones.map(function (tone) {
+          return '<option value="' + tone[0] + '"' + (tone[0] === selected ? ' selected' : '') + '>' + tone[1] + '</option>';
+        }).join('');
+      }
+      function escapeHtml(value) {
+        return String(value || '')
+          .replace(/&/g, '&amp;')
+          .replace(/</g, '&lt;')
+          .replace(/>/g, '&gt;')
+          .replace(/"/g, '&quot;')
+          .replace(/'/g, '&#39;');
+      }
+      async function regenerateMessage(id) {
+        if (!state.signedIn) {
+          showFeedback('Please sign in to regenerate responses.', 'error');
+          if (window.DMTOOLS && typeof window.DMTOOLS.openAuthModal === 'function') {
+            window.DMTOOLS.openAuthModal('login', { returnTo: '/app.html' });
+          }
+          return;
+        }
+        const message = state.messages.find(function (m) { return m.id === id; });
+        if (!message || !message.input.trim()) {
+          showFeedback('Enter a message first.', 'error');
+          return;
+        }
+        try {
+          const res = await DMTOOLS.apiCall('/generate/single', {
+            method: 'POST',
+            body: JSON.stringify({
+              message: message.input.trim(),
+              tone: message.tone || $('batchTone').value || 'friendly',
+              context: $('batchContext').value.trim(),
+              platform: 'instagram'
             })
-            .catch(error => {
-                console.error('❌ Service Worker registration failed:', error);
-                
-                // Track service worker errors
-                try {
-                    if (typeof gtag !== 'undefined') {
-                        gtag('event', 'service_worker_error', {
-                            'event_category': 'PWA',
-                            'event_label': error.message
-                        });
-                    }
-                } catch (err) {
-                    console.log('Analytics tracking not available');
-                }
-            });
-    });
-    
-    // Handle service worker updates
-    let refreshing = false;
-    navigator.serviceWorker.addEventListener('controllerchange', () => {
-        if (!refreshing) {
-            refreshing = true;
-            console.log('🔄 Service Worker updated - reloading page');
-            window.location.reload();
+          });
+          message.output = res.response || '';
+          renderMessages();
+          showFeedback('Response regenerated successfully.', 'success');
+        } catch (err) {
+          showFeedback(err.message || 'Failed to regenerate response.', 'error');
         }
-    });
-} else {
-    console.warn('⚠️ Service Workers are not supported in this browser');
-}
-</script>
-
+      }
+      async function processAllMessages() {
+        const messages = state.messages.filter(function (m) { return m.input.trim(); });
+        if (!messages.length) {
+          showFeedback('No messages to process yet.', 'error');
+          return;
+        }
+        if (!state.signedIn) {
+          showFeedback('Please sign in to process messages.', 'error');
+          if (window.DMTOOLS && typeof window.DMTOOLS.openAuthModal === 'function') {
+            window.DMTOOLS.openAuthModal('login', { returnTo: '/app.html' });
+          }
+          return;
+        }
+        const snap = usageSnapshot();
+        if (snap.tier === 'free' && snap.remaining <= 0) {
+          showPaywall();
+          return;
+        }
+        const btn = $('processAllBtn');
+        btn.disabled = true;
+        btn.textContent = 'Processing...';
+        track('queue_process_start', { page_name: 'app', message_count: messages.length });
+        try {
+          const res = await DMTOOLS.apiCall('/generate/batch', {
+            method: 'POST',
+            body: JSON.stringify({
+              messages: messages.map(function (m) { return m.input.trim(); }),
+              tones: messages.map(function (m) { return m.tone || $('batchTone').value || 'friendly'; }),
+              tone: $('batchTone').value || 'friendly',
+              context: $('batchContext').value.trim(),
+              platform: 'instagram',
+              smartCategorization: !!$('smartCategorization').checked,
+              contextAware: !!$('contextAware').checked,
+              personalization: !!$('personalization').checked
+            })
+          });
+          const results = Array.isArray(res.responses) ? res.responses : [];
+          messages.forEach(function (message, index) {
+            message.output = (results[index] && (results[index].response || '')) || '';
+          });
+          renderMessages();
+          await refreshUser();
+          showFeedback('Processed ' + results.length + ' responses successfully.', 'success');
+          track('queue_process_success', { page_name: 'app', message_count: results.length });
+        } catch (err) {
+          showFeedback(err.message || 'Failed to process messages.', 'error');
+          track('queue_process_error', { page_name: 'app', message_count: messages.length, message: String(err.message || err) });
+        } finally {
+          btn.disabled = false;
+          btn.textContent = 'Process all responses';
+        }
+      }
+      function exportResults() {
+        const rows = state.messages.map(function (m) { return [m.input || '', m.output || '']; });
+        if (!rows.length) {
+          showFeedback('Nothing to export yet.', 'error');
+          return;
+        }
+        let csv = 'Incoming Message,Generated Response\n';
+        rows.forEach(function (row) {
+          const left = String(row[0]).replace(/"/g, '""');
+          const right = String(row[1]).replace(/"/g, '""');
+          csv += '"' + left + '","' + right + '"\n';
+        });
+        const blob = new Blob([csv], { type: 'text/csv' });
+        const url = window.URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = 'dmtools-responses-' + new Date().toISOString().split('T')[0] + '.csv';
+        a.click();
+        window.URL.revokeObjectURL(url);
+        showFeedback('Results exported successfully.', 'success');
+        track('queue_export', { page_name: 'app', message_count: state.messages.length });
+      }
+      async function refreshUser() {
+        if (!state.signedIn) return;
+        try {
+          const profile = await DMTOOLS.apiCall('/user/profile', { method: 'GET' });
+          state.user = profile.user || profile;
+          updateUsage();
+        } catch (_) {}
+      }
+      async function initialize() {
+        track('app_view', { page_name: 'app' });
+        restoreOnboardingState();
+        state.signedIn = await DMTOOLS.verifyToken();
+        track('auth_state_detected', { page_name: 'app', signed_in: state.signedIn });
+        setHeaderState();
+        if (state.signedIn) {
+          try {
+            const profile = await DMTOOLS.apiCall('/user/profile', { method: 'GET' });
+            state.user = profile.user || profile;
+          } catch (_) {
+            DMTOOLS.clearToken();
+            state.signedIn = false;
+          }
+        }
+        updateUsage();
+        $('signedOutNotice').classList.toggle('hidden', state.signedIn);
+        addMessage('');
+        addMessage('');
+        addMessage('');
+      }
+      function wireEvents() {
+        $('drawer-toggle').addEventListener('click', toggleDrawer);
+        $('openBrowserDrawer').addEventListener('click', function(){ openPlatform('browser'); });
+        const mobileToggle = $('mobile-menu-toggle');
+        const mobileMenu = $('mobile-menu');
+        if (mobileToggle && mobileMenu) {
+          mobileToggle.addEventListener('click', function () {
+            const expanded = mobileToggle.getAttribute('aria-expanded') === 'true';
+            mobileToggle.setAttribute('aria-expanded', String(!expanded));
+            mobileMenu.classList.toggle('show');
+            track('mobile_menu_toggle', { page_name: 'app', open: !expanded });
+          });
+        }
+        $('jumpOnboarding').addEventListener('click', function () { $('appOnboarding').scrollIntoView({ behavior: 'smooth', block: 'start' }); });
+        $('jumpQueue').addEventListener('click', function () { $('queueWorkspace').scrollIntoView({ behavior: 'smooth', block: 'start' }); });
+        $('installExtensionCta').addEventListener('click', function () { track('extension_install_click', { page_name: 'app', location: 'onboarding_primary' }); });
+        $('secondaryInstallCta').addEventListener('click', function () { track('extension_install_click', { page_name: 'app', location: 'onboarding_secondary' }); });
+        $('hideOnboarding').addEventListener('click', function () { hideOnboarding(false); });
+        $('markOnboardingDone').addEventListener('click', function () { hideOnboarding(true); });
+        $('onboardingReopen').addEventListener('click', showOnboarding);
+        document.querySelectorAll('#methodGrid .method-btn').forEach(function (btn) {
+          btn.addEventListener('click', function () { setMethod(this.dataset.method); });
+        });
+        $('addMessageBtn').addEventListener('click', function () { addMessage(''); });
+        $('applyBulkBtn').addEventListener('click', loadBulkMessages);
+        $('openBrowserBtn').addEventListener('click', function(){ openPlatform('browser'); });
+        $('csvUpload').addEventListener('change', function (e) {
+          const file = e.target.files && e.target.files[0];
+          if (!file) return;
+          const reader = new FileReader();
+          reader.onload = function () {
+            const rows = parseCSV(String(reader.result || ''));
+            if (!rows.length) {
+              showFeedback('No usable rows found in that CSV.', 'error');
+              return;
+            }
+            rows.forEach(function (row) { addMessage(row); });
+            showFeedback('CSV messages loaded into the queue.', 'success');
+          };
+          reader.readAsText(file);
+          e.target.value = '';
+        });
+        $('processAllBtn').addEventListener('click', processAllMessages);
+        $('clearAllBtn').addEventListener('click', clearAllMessages);
+        $('exportResultsBtn').addEventListener('click', exportResults);
+        $('closePaywall').addEventListener('click', hidePaywall);
+        $('paywallModal').addEventListener('click', function (e) { if (e.target === this) hidePaywall(); });
+        document.addEventListener('keydown', function (e) { if (e.key === 'Escape') hidePaywall(); });
+      }
+      document.addEventListener('DOMContentLoaded', async function () {
+        wireEvents();
+        await initialize();
+        renderMessages();
+      });
+    })();
+  </script>
+  </div>
 </body>
 </html>
-
-
-
-
-
-
-
-

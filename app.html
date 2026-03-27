@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>DMTools.fun Queue</title>
-  <meta name="description" content="Generate replies in bulk, import messages, and learn the extension workflow with a mock inbox onboarding experience.">
+  <meta name="description" content="Generate better replies faster, process message batches, and learn the extension workflow in a hands-on mock inbox.">
   <link rel="manifest" href="/manifest.json">
   <meta name="theme-color" content="#0b1730">
   <link rel="stylesheet" href="/styles.css?v=20260327-app">
@@ -236,16 +236,16 @@
     <section class="queue-hero">
       <div>
         <span class="eyebrow">Queue and inline workflow</span>
-        <h1>Generate replies in bulk, and learn the extension workflow right where you start.</h1>
-        <p>Use the queue when you have volume, or use the mock inbox below to learn the two-right-click flow before you try it on Gmail, LinkedIn, X, Instagram DMs, and other web text fields.</p>
+        <h1>Reply faster everywhere you work, and learn the extension in seconds.</h1>
+        <p>Use the queue when you need speed at scale, or use the mock inbox below to learn the two-right-click flow before you try it in Gmail, LinkedIn, X, Instagram DMs, and other web text fields.</p>
         <div class="queue-actions">
           <button class="btn btn-primary" type="button" id="jumpOnboarding">Try the extension flow</button>
           <button class="btn btn-secondary" type="button" id="jumpQueue">Go to the queue</button>
         </div>
       </div>
       <div class="queue-mini-grid">
-        <div class="queue-mini"><h3>Inline first-value</h3><p>New users can immediately understand capture and generate without leaving the page.</p></div>
-        <div class="queue-mini"><h3>Volume workflow</h3><p>Move from one-off replies to higher-volume workflows with bulk paste, CSV import, per-message editing, and exportable results.</p></div>
+        <div class="queue-mini"><h3>See the value instantly</h3><p>Understand capture and generate in one quick walkthrough before you use it in your real inboxes and DMs.</p></div>
+        <div class="queue-mini"><h3>Handle more replies</h3><p>Move from one-off replies to faster batch work with bulk paste, CSV import, per-message editing, and exportable results.</p></div>
       </div>
     </section>
 
@@ -257,7 +257,7 @@
         <div class="plan-badge" id="planBadge">Free Plan</div>
       </div>
       <div class="usage-bar"><div class="usage-fill" id="usageFill"></div></div>
-      <div class="usage-hint" id="usageHint">Sign up for 10 free responses per month.</div>
+      <div class="usage-hint" id="usageHint">Start free with 10 responses this month, then upgrade when you are ready for more volume.</div>
     </section>
 
     <div class="onboarding-wrap">
@@ -266,7 +266,7 @@
         <div class="onboarding-head">
           <div>
             <h2>Try the extension workflow right now</h2>
-            <p class="onboarding-sub">This mock inbox always works as a demo, whether the extension is installed yet or not.</p>
+            <p class="onboarding-sub">Use this mock inbox to learn the exact flow you will use later on real messages, whether you have installed the extension yet or not.</p>
           </div>
           <div class="helper-actions">
             <a class="btn btn-primary" href="https://chromewebstore.google.com/detail/dmtools-%E2%80%93-inline-reply-as/joheialcdpmcfgehhcpfjnppficonfih" target="_blank" rel="noopener noreferrer" id="installExtensionCta">Install Extension</a>
@@ -278,7 +278,7 @@
           <div class="mock-app">
             <div class="mock-topbar">
               <div class="mock-dots"><span></span><span></span><span></span></div>
-              <div class="mock-title">Mock inbox demo</div>
+              <div class="mock-title">Practice inbox</div>
               <div class="tag">Works even before install</div>
             </div>
             <div class="mock-layout">
@@ -292,7 +292,7 @@
               <div class="mock-pane">
                 <div class="mock-thread-head">
                   <div class="mock-thread-title">Partnership follow-up</div>
-                  <div class="mock-thread-meta">Generic inbox example • use the same flow later on real sites</div>
+                  <div class="mock-thread-meta">Practice here first, then use the same flow on real sites and messages.</div>
                 </div>
 
                 <div class="mock-thread-body">
@@ -303,13 +303,13 @@
                   </div>
 
                   <div class="message-bubble outgoing">
-                    <div class="message-name">What happens next</div>
-                    <div class="message-text">After capture, move to the reply box below. Use the same flow later on Gmail, LinkedIn, X, support tools, and other web text fields.</div>
+                    <div class="message-name">What to do next</div>
+                    <div class="message-text">After capture, move to the reply box below. Then use this same flow later in Gmail, LinkedIn, X, support tools, and other web text fields.</div>
                   </div>
                 </div>
 
                 <div class="mock-composer">
-                  <textarea class="composer-textarea" id="tutorialReplyBox" rows="4" placeholder="Right-click in this reply box and choose Generate with DMTools. Your generated reply should appear here."></textarea>
+                  <textarea class="composer-textarea" id="tutorialReplyBox" rows="4" placeholder="Click into this reply box, then right-click and choose Generate with DMTools. Your reply should appear here."></textarea>
                   <div class="composer-hint">
                     <span class="shadow-instruction" id="replyHint">Step 2: right-click inside this editable reply box and choose Generate.</span>
                     <span class="shadow-instruction">If nothing happens, sign into the extension first.</span>
@@ -325,29 +325,29 @@
               <div class="instruction-step">
                 <div class="step-number">1</div>
                 <div>
-                  <div class="instruction-title">Highlight the incoming message</div>
+                  <div class="instruction-title">Highlight the message you want to answer</div>
                   <div class="instruction-copy">Use the sample message on the left. Highlight it exactly the same way you would on a real site, then right-click and choose Capture with DMTools.</div>
                 </div>
               </div>
               <div class="instruction-step">
                 <div class="step-number">2</div>
                 <div>
-                  <div class="instruction-title">Right-click in the reply field</div>
-                  <div class="instruction-copy">Move to the mock reply strip and choose Generate with DMTools. This trains the behavior before you use the same flow in real inboxes and DMs.</div>
+                  <div class="instruction-title">Generate right where you type</div>
+                  <div class="instruction-copy">Move to the editable reply box and choose Generate with DMTools. Once this feels natural here, it will feel natural in real inboxes and DMs too.</div>
                 </div>
               </div>
               <div class="instruction-step">
                 <div class="step-number">3</div>
                 <div>
-                  <div class="instruction-title">Use the queue for volume</div>
-                  <div class="instruction-copy">Once you understand the inline flow, drop into the queue below to process batches, bulk text, or CSVs.</div>
+                  <div class="instruction-title">Use the queue when volume hits</div>
+                  <div class="instruction-copy">Once you understand the inline flow, use the queue below to process batches, bulk text, or CSVs when you need to move faster.</div>
                 </div>
               </div>
             </div>
 
             <div class="helper-card">
-              <h3>Quick actions</h3>
-              <p>Install the extension, keep this walkthrough visible, or hide it and reopen it later from the button above.</p>
+              <h3>Next step</h3>
+              <p>Install the extension now, or keep this walkthrough available until the flow feels automatic.</p>
               <div class="helper-actions">
                 <a class="btn btn-secondary" href="https://chromewebstore.google.com/detail/dmtools-%E2%80%93-inline-reply-as/joheialcdpmcfgehhcpfjnppficonfih" target="_blank" rel="noopener noreferrer" id="secondaryInstallCta">Install now</a>
                 <button class="btn btn-secondary" type="button" id="markOnboardingDone">I've installed it</button>
@@ -360,8 +360,8 @@
 
     <section class="queue-card hidden" id="signedOutNotice">
       <div class="empty-state">
-        <h2 style="margin-bottom:.5rem;">Sign in to generate replies and use the queue.</h2>
-        <p>You can still view the extension walkthrough above, but processing messages, regenerating, and saving usage against your account require sign-in.</p>
+        <h2 style="margin-bottom:.5rem;">Sign in to start generating replies.</h2>
+        <p>You can still try the walkthrough above, but generating replies, regenerating drafts, and tracking usage against your account require sign-in.</p>
         <div class="queue-actions" style="justify-content:center;">
           <button class="btn btn-primary" type="button" data-auth="login" data-return-to="/app.html" id="queueSignInButton">Sign in</button>
           <button class="btn btn-secondary" type="button" data-auth="register" data-return-to="/app.html">Create account</button>
@@ -374,22 +374,22 @@
         <article class="queue-card">
           <div class="card-head">
             <div>
-              <h2>Add messages to process</h2>
+              <h2>Build your queue</h2>
               <p class="card-sub">Add messages one at a time, paste them in bulk, or upload a CSV when you need to process a larger batch.</p>
             </div>
           </div>
 
           <div class="method-grid" id="methodGrid">
             <button class="method-btn active" data-method="manual" type="button">
-              <strong>Manual Entry</strong>
+              <strong>Manual entry</strong>
               <span>Add messages one by one.</span>
             </button>
             <button class="method-btn" data-method="bulk" type="button">
-              <strong>Bulk Text</strong>
+              <strong>Bulk paste</strong>
               <span>Paste multiple messages at once.</span>
             </button>
             <button class="method-btn" data-method="csv" type="button">
-              <strong>CSV Upload</strong>
+              <strong>CSV upload</strong>
               <span>Import messages from a spreadsheet.</span>
             </button>
           </div>
@@ -407,7 +407,7 @@
 
             <div class="tool-actions">
               <button class="btn btn-secondary" type="button" id="applyBulkBtn">Load bulk text into queue</button>
-              <button class="btn btn-secondary" type="button" id="openBrowserBtn">Open side browser helper</button>
+              <button class="btn btn-secondary" type="button" id="openBrowserBtn">Open browser side-by-side</button>
             </div>
           </div>
         </article>
@@ -415,14 +415,14 @@
         <article class="queue-card">
           <div class="card-head">
             <div>
-              <h2>Response settings</h2>
-              <p class="card-sub">Set the tone, add context, and fine-tune how your replies are generated before you process the whole queue.</p>
+              <h2>Shape the reply</h2>
+              <p class="card-sub">Choose the tone, add helpful context, and shape how replies come back before you process the whole queue.</p>
             </div>
           </div>
 
           <div class="queue-stack">
             <div class="field">
-              <label for="batchTone">Response style</label>
+              <label for="batchTone">Reply tone</label>
               <select id="batchTone">
                 <option value="friendly">😊 Friendly</option>
                 <option value="professional">💼 Professional</option>
@@ -442,14 +442,14 @@
             </div>
 
             <div class="field">
-              <label for="batchContext">Additional context</label>
-              <textarea id="batchContext" placeholder="Add context about your brand, style, customer situation, or reply preferences..."></textarea>
+              <label for="batchContext">What should DMTools know?</label>
+              <textarea id="batchContext" placeholder="Add brand voice, customer context, offer details, boundaries, or anything else that helps create a better reply..."></textarea>
             </div>
 
             <div class="checkbox-grid">
-              <label class="checkbox-row"><input type="checkbox" id="smartCategorization" checked> Smart categorization</label>
-              <label class="checkbox-row"><input type="checkbox" id="contextAware" checked> Context-aware</label>
-              <label class="checkbox-row"><input type="checkbox" id="personalization" checked> Personalization</label>
+              <label class="checkbox-row"><input type="checkbox" id="smartCategorization" checked> Auto-match the message intent</label>
+              <label class="checkbox-row"><input type="checkbox" id="contextAware" checked> Use surrounding context</label>
+              <label class="checkbox-row"><input type="checkbox" id="personalization" checked> Personalize the reply</label>
             </div>
           </div>
         </article>
@@ -457,7 +457,7 @@
 
       <div class="queue-stack">
         <div class="message-toolbar">
-          <strong><span id="messageCount">0</span> message pairs in queue</strong>
+          <strong><span id="messageCount">0</span> message pairs ready</strong>
           <div class="tool-actions">
             <button class="btn btn-secondary" type="button" id="clearAllBtn">Clear all</button>
             <button class="btn btn-secondary" type="button" id="exportResultsBtn">Export results</button>
@@ -467,9 +467,9 @@
         <div class="message-list" id="messageList"></div>
 
         <div class="queue-card queue-bottom-actions" id="queueBottomActions">
-          <div class="queue-bottom-actions__copy">Work down the pairs, then add another one or process the whole batch when you are ready.</div>
+          <div class="queue-bottom-actions__copy">Review each message pair, then add another one or process the whole batch when you are ready.</div>
           <div class="queue-bottom-actions__buttons">
-            <button class="btn btn-secondary" type="button" id="addMessageBtn">Add message pair</button>
+            <button class="btn btn-secondary" type="button" id="addMessageBtn">Add another pair</button>
             <button class="btn btn-primary" type="button" id="processAllBtn">Process all responses</button>
           </div>
         </div>
@@ -478,19 +478,19 @@
 
     <div class="paywall-modal" id="paywallModal" aria-hidden="true">
       <div class="paywall-content" role="dialog" aria-modal="true" aria-labelledby="paywallTitle">
-        <h2 id="paywallTitle">You were replying faster. Keep the momentum.</h2>
-        <p>Your free responses are used up. Upgrade your recurring plan or grab a one-time pack to keep processing without stopping.</p>
+        <h2 id="paywallTitle">You were moving faster. Keep the momentum.</h2>
+        <p>Your free responses are used up. Upgrade your plan or grab a one-time pack to keep the queue moving without interruption.</p>
         <div class="paywall-grid">
           <div class="paywall-option">
-            <h3>Upgrade plan</h3>
+            <h3>Upgrade your plan</h3>
             <div class="paywall-price">From $19<span>/month</span></div>
-            <p>More recurring replies, more templates, and uninterrupted queue usage.</p>
+            <p>Get more recurring replies, more templates, and uninterrupted queue usage.</p>
             <a class="btn btn-primary" href="/pricing.html">View plans</a>
           </div>
           <div class="paywall-option">
-            <h3>Get a response pack</h3>
+            <h3>Grab a response pack</h3>
             <div class="paywall-price">Top-up<span> one-time</span></div>
-            <p>Keep replying with one-time credits if you do not want to change your plan yet.</p>
+            <p>Keep replying with one-time credits if you are not ready to change plans yet.</p>
             <a class="btn btn-secondary" href="/pricing.html#packs">View packs</a>
           </div>
         </div>
@@ -501,12 +501,12 @@
 
   <footer class="footer">
     <div class="footer-content">
-      <div class="footer-brand"><a class="footer-logo" href="/index.html"><span class="logo-mark" aria-hidden="true"></span><span>DMTools.fun</span></a><p class="footer-description">Generate replies in bulk and learn the inline extension workflow in one workspace.</p></div>
+      <div class="footer-brand"><a class="footer-logo" href="/index.html"><span class="logo-mark" aria-hidden="true"></span><span>DMTools.fun</span></a><p class="footer-description">Generate better replies faster and learn the inline workflow in one workspace.</p></div>
       <div class="footer-column"><h4>Product</h4><a href="/app.html">Queue</a><a href="/presets.html">Voice</a><a href="/pricing.html">Pricing</a><a href="/account.html">Account</a></div>
       <div class="footer-column"><h4>Legal</h4><a href="/terms-of-service.html">Terms of Service</a><a href="/privacy-policy.html">Privacy Policy</a><a href="/refund-policy.html">Refund Policy</a><a href="/cookie-policy.html">Cookie Policy</a></div>
       <div class="footer-column"><h4>Support</h4><a href="/contact.html">Contact</a><a href="mailto:admin@dmtools.fun">admin@dmtools.fun</a></div>
     </div>
-    <div class="footer-bottom"><span>© 2026 DMTools.fun LLC. All rights reserved.</span><span class="small-note">Built to help customers reply faster without losing their voice.</span></div>
+    <div class="footer-bottom"><span>© 2026 DMTools.fun LLC. All rights reserved.</span><span class="small-note">Reply faster without losing your voice.</span></div>
   </footer>
 
   <script src="/js/app-core.js"></script>
@@ -619,7 +619,7 @@
             throw new Error('Popup blocked');
           }
           platformWindows[platform].focus();
-          showNotification('Browser opened on left. Drag messages to the generator on the right.', 'success');
+          showNotification('Browser opened on the left. Bring messages over while you generate replies on the right.', 'success');
           track('browser_helper_open', { page_name: 'app', platform: platform });
           try {
             setTimeout(function(){
@@ -628,7 +628,7 @@
               window.resizeTo(Math.floor(screenWidth * 0.50), windowHeight);
             }, 300);
           } catch (_) {
-            showNotification('Manually position windows side-by-side for best experience.', 'info');
+            showNotification('If needed, position both windows side-by-side for the smoothest workflow.', 'info');
           }
           const checkClosed = setInterval(function(){
             if (platformWindows[platform] && platformWindows[platform].closed) {
@@ -704,7 +704,7 @@
       function clearAllMessages() {
         state.messages = [];
         renderMessages();
-        showFeedback('All messages cleared.', 'success');
+        showFeedback('All message pairs cleared.', 'success');
       }
       function updateMessage(id, field, value) {
         const message = state.messages.find(function (m) { return m.id === id; });
@@ -748,7 +748,7 @@
         const lines = text.split(/\r?\n/).map(function (line) { return line.trim(); }).filter(Boolean);
         lines.forEach(function (line) { addMessage(line); });
         $('bulkMessages').value = '';
-        showFeedback('Bulk messages loaded into the queue.', 'success');
+        showFeedback('Bulk messages added to your queue.', 'success');
       }
       async function openSideBrowser() {
         try {
@@ -758,7 +758,7 @@
           const popup = window.open('https://www.google.com', 'dmtools_browser_helper', features);
           if (!popup || popup.closed || typeof popup.closed === 'undefined') throw new Error('Popup blocked');
           popup.focus();
-          showFeedback('Browser helper opened. Position it beside DMTools if you want a side-by-side workflow.', 'success');
+          showFeedback('Browser opened. Place it beside DMTools if you want a side-by-side workflow.', 'success');
           track('browser_helper_open', { page_name: 'app' });
         } catch (_) {
           showFeedback('Failed to open the browser helper. Please allow popups and try again.', 'error');
@@ -768,7 +768,7 @@
         $('messageCount').textContent = String(state.messages.length);
         const list = $('messageList');
         if (!state.messages.length) {
-          list.innerHTML = '<div class="empty-state"><h3 style="margin-bottom:.5rem;">Your queue is empty.</h3><p>Add a message pair, load bulk text, or import a CSV to start generating responses.</p></div>';
+          list.innerHTML = '<div class="empty-state"><h3 style="margin-bottom:.5rem;">Your queue is empty.</h3><p>Add a message pair, paste a batch, or upload a CSV to start generating replies.</p></div>';
           return;
         }
         list.innerHTML = state.messages.map(function (message, index) {
@@ -784,17 +784,17 @@
               </div>
               <div class="message-grid">
                 <div class="input-box">
-                  <div class="mini-label">Incoming message</div>
-                  <textarea class="input-textarea" data-id="${message.id}" placeholder="Paste or type the message you received...">${escapeHtml(message.input)}</textarea>
+                  <div class="mini-label">Message input</div>
+                  <textarea class="input-textarea" data-id="${message.id}" placeholder="Paste or type the message you need to reply to...">${escapeHtml(message.input)}</textarea>
                 </div>
                 <div class="output-box">
-                  <div class="mini-label">Generated response</div>
-                  <textarea class="output-textarea" data-id="${message.id}" placeholder="AI-generated response will appear here..." readonly>${escapeHtml(message.output)}</textarea>
+                  <div class="mini-label">Reply output</div>
+                  <textarea class="output-textarea" data-id="${message.id}" placeholder="Your reply will appear here..." readonly>${escapeHtml(message.output)}</textarea>
                 </div>
               </div>
               <div class="action-row">
                 <button class="mini-btn copy" type="button" data-copy="${message.id}">Copy</button>
-                <button class="mini-btn subtle" type="button" data-regenerate="${message.id}">Regenerate</button>
+                <button class="mini-btn subtle" type="button" data-regenerate="${message.id}">Try again</button>
                 <button class="mini-btn delete" type="button" data-delete="${message.id}">Delete</button>
               </div>
             </article>
@@ -861,7 +861,7 @@
           });
           message.output = res.response || '';
           renderMessages();
-          showFeedback('Response regenerated successfully.', 'success');
+          showFeedback('Reply updated successfully.', 'success');
         } catch (err) {
           showFeedback(err.message || 'Failed to regenerate response.', 'error');
         }
@@ -908,7 +908,7 @@
           });
           renderMessages();
           await refreshUser();
-          showFeedback('Processed ' + results.length + ' responses successfully.', 'success');
+          showFeedback('Processed ' + results.length + ' replies successfully.', 'success');
           track('queue_process_success', { page_name: 'app', message_count: results.length });
         } catch (err) {
           showFeedback(err.message || 'Failed to process messages.', 'error');
@@ -937,7 +937,7 @@
         a.download = 'dmtools-responses-' + new Date().toISOString().split('T')[0] + '.csv';
         a.click();
         window.URL.revokeObjectURL(url);
-        showFeedback('Results exported successfully.', 'success');
+        showFeedback('Replies exported successfully.', 'success');
         track('queue_export', { page_name: 'app', message_count: state.messages.length });
       }
       async function refreshUser() {
@@ -1006,7 +1006,7 @@
               return;
             }
             rows.forEach(function (row) { addMessage(row); });
-            showFeedback('CSV messages loaded into the queue.', 'success');
+            showFeedback('CSV messages added to your queue.', 'success');
           };
           reader.readAsText(file);
           e.target.value = '';

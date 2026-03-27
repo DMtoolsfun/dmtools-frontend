@@ -98,7 +98,8 @@
     .message-text{color:var(--text-secondary);line-height:1.55}
     .hint-chip{display:inline-flex;align-items:center;gap:.45rem;margin-top:.7rem;padding:.45rem .7rem;border-radius:999px;background:rgba(24,183,160,.12);border:1px solid rgba(24,183,160,.18);color:var(--accent-light);font-size:.78rem;font-weight:700}
     .mock-composer{padding:1rem;border-top:1px solid rgba(108,135,184,.1);background:rgba(255,255,255,.02)}
-    .composer-box{min-height:92px;padding:1rem;border-radius:16px;background:rgba(10,18,30,.88);border:1px solid rgba(108,135,184,.12);color:var(--text-muted)}
+    .composer-textarea{width:100%;min-height:110px;padding:1rem;border-radius:16px;background:rgba(10,18,30,.88);border:1px solid rgba(108,135,184,.12);color:var(--text-primary);resize:vertical;line-height:1.5}
+    .composer-textarea:focus{outline:none;border-color:rgba(79,124,255,.55);box-shadow:0 0 0 3px rgba(79,124,255,.12)}
     .composer-hint{margin-top:.7rem;display:flex;flex-wrap:wrap;gap:.5rem}
     .shadow-instruction{padding:.4rem .65rem;border-radius:999px;background:rgba(255,255,255,.04);border:1px solid rgba(108,135,184,.12);color:var(--text-secondary);font-size:.8rem}
 
@@ -308,9 +309,9 @@
                 </div>
 
                 <div class="mock-composer">
-                  <div class="composer-box">Right-click in this reply box and choose Generate with DMTools. Your extension-generated reply should appear where you are typing.</div>
+                  <textarea class="composer-textarea" id="tutorialReplyBox" rows="4" placeholder="Right-click in this reply box and choose Generate with DMTools. Your generated reply should appear here."></textarea>
                   <div class="composer-hint">
-                    <span class="shadow-instruction" id="replyHint">Step 2: right-click in the reply box and choose Generate.</span>
+                    <span class="shadow-instruction" id="replyHint">Step 2: right-click inside this editable reply box and choose Generate.</span>
                     <span class="shadow-instruction">If nothing happens, sign into the extension first.</span>
                     <span class="shadow-instruction">This mock stays visible even if you have not installed it yet.</span>
                   </div>

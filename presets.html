@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>DMTools.fun Voice</title>
-  <meta name="description" content="Create, save, copy, and manage reusable DMTools response templates across platforms.">
+  <meta name="description" content="Save reusable reply templates, keep your tone consistent, and reuse your best responses anywhere you work.">
   <link rel="manifest" href="/manifest.json">
   <meta name="theme-color" content="#0b1730">
   <link rel="stylesheet" href="/styles.css?v=20260324-presets">
@@ -99,8 +99,8 @@
     <section class="voice-hero">
       <div>
         <span class="eyebrow">Voice and reusable replies</span>
-        <h1>Teach DMTools how you sound, then reuse your best replies anywhere.</h1>
-        <p>Save response templates once, keep your tone consistent, and copy proven replies into email, DMs, customer support, or anywhere else you type.</p>
+        <h1>Teach DMTools how you sound, then reuse your best replies everywhere you work.</h1>
+        <p>Save proven replies once, keep your tone consistent, and reuse them in email, DMs, customer support, outreach, and anywhere else you type.</p>
         <div class="voice-actions">
           <button class="btn btn-primary" type="button" id="newTemplateHero">Create template</button>
           <a class="btn btn-secondary" href="/app.html">Open queue</a>
@@ -108,7 +108,7 @@
       </div>
       <div class="voice-mini-grid">
         <div class="voice-mini"><h3>Reusable voice</h3><p>Keep high-performing replies ready so you do not rewrite the same message every time.</p></div>
-        <div class="voice-mini"><h3>Cross-platform</h3><p>One template works across Instagram, TikTok, Twitter, and more. The current live page explicitly positions templates as reusable across platforms.</p></div>
+        <div class="voice-mini"><h3>Cross-platform</h3><p>One strong template can work across Instagram, TikTok, X, email, support, and more without rewriting from scratch every time.</p></div>
       </div>
     </section>
 
@@ -120,7 +120,7 @@
         <div class="plan-badge" id="planBadge">Free Plan</div>
       </div>
       <div class="progress-bar"><div class="progress-fill" id="usageProgress"></div></div>
-      <div class="upgrade-hint" id="upgradeHint">Create up to 5 templates on the free plan. Upgrade for more. fileciteturn76file0L335-L347</div>
+      <div class="upgrade-hint" id="upgradeHint">Start with 5 templates on the free plan, then upgrade when you want more room to build your voice library.</div>
     </section>
 
     <div class="loading" id="loadingState"><div><div class="spinner"></div><div>Loading your voice workspace...</div></div></div>
@@ -130,8 +130,8 @@
         <article class="voice-card">
           <div class="card-head">
             <div>
-              <h2>Create template</h2>
-              <p class="card-sub">The current live page saves templates with <code>name</code>, <code>category</code>, <code>response</code>, and <code>tags</code> to <code>/presets</code>. fileciteturn76file0L661-L684</p>
+              <h2>Build a reusable reply</h2>
+              <p class="card-sub">Create a reusable reply with a clear name, category, response, and tags so it stays easy to find later.</p>
             </div>
           </div>
           <form id="templateForm" class="voice-stack">
@@ -139,18 +139,18 @@
               <div class="field"><label for="templateName">Template name</label><input id="templateName" type="text" maxlength="120" placeholder="Collaboration follow-up"></div>
               <div class="field"><label for="templateCategory">Category</label><select id="templateCategory"><option value="collaboration">Collaboration</option><option value="compliment">Compliment</option><option value="question">Question</option><option value="business">Business</option><option value="support">Support</option><option value="promotional">Promotional</option><option value="other">Other</option></select></div>
             </div>
-            <div class="field"><label for="templateResponse">Template response</label><textarea id="templateResponse" rows="6" placeholder="Enter the reusable reply you want to save..."></textarea></div>
+            <div class="field"><label for="templateResponse">Saved reply</label><textarea id="templateResponse" rows="6" placeholder="Write the reply you want ready to reuse later..."></textarea></div>
             <div class="field"><label for="templateTags">Tags</label><input id="templateTags" type="text" placeholder="brand, outreach, follow-up"></div>
-            <div class="field"><label>Preview</label><div class="preview-box" id="templatePreview">Start typing above to preview your template. The live page also includes a preview section. fileciteturn76file0L418-L447</div></div>
-            <div class="button-row"><button class="btn btn-primary" type="submit" id="saveTemplateButton">Save template</button><button class="btn btn-secondary" type="button" id="clearTemplateButton">Clear</button></div>
+            <div class="field"><label>Preview</label><div class="preview-box" id="templatePreview">Start typing above to preview how your saved reply will look.</div></div>
+            <div class="button-row"><button class="btn btn-primary" type="submit" id="saveTemplateButton">Save reply</button><button class="btn btn-secondary" type="button" id="clearTemplateButton">Clear</button></div>
           </form>
         </article>
 
         <article class="voice-card">
           <div class="card-head">
             <div>
-              <h2>Popular starter examples</h2>
-              <p class="card-sub">The current page already ships starter examples for collaboration, compliment, question, and business. fileciteturn76file0L449-L489</p>
+              <h2>Starter examples</h2>
+              <p class="card-sub">Start with a proven example, then customize it until it sounds like you.</p>
             </div>
           </div>
           <div class="examples-grid" id="examplesGrid"></div>
@@ -161,8 +161,8 @@
         <article class="voice-card">
           <div class="card-head">
             <div>
-              <h2>Your templates</h2>
-              <p class="card-sub">The current page loads saved templates from <code>/presets</code> and expects <code>response.presets</code>. fileciteturn76file0L736-L746</p>
+              <h2>Your saved replies</h2>
+              <p class="card-sub">Keep your best replies ready to copy, reuse, and refine whenever you need them.</p>
             </div>
           </div>
           <div id="templatesList"></div>
@@ -172,8 +172,8 @@
 
     <section class="voice-card hidden" id="signedOutState">
       <div class="empty-box">
-        <h2 style="margin-bottom:.5rem;">Sign in to save and manage your templates.</h2>
-        <p>Create reusable replies, keep your tone consistent, and copy proven messages across every platform.</p>
+        <h2 style="margin-bottom:.5rem;">Sign in to save and manage your voice library.</h2>
+        <p>Save reusable replies, keep your tone consistent, and reuse proven messages across every platform you work in.</p>
         <div class="button-row" style="justify-content:center;">
           <button class="btn btn-primary" type="button" data-auth="login" data-return-to="/presets.html" id="signInPromptButton">Sign in</button>
           <button class="btn btn-secondary" type="button" data-auth="register" data-return-to="/presets.html">Create account</button>
@@ -184,12 +184,12 @@
 
   <footer class="footer">
     <div class="footer-content">
-      <div class="footer-brand"><a class="footer-logo" href="/index.html"><span class="logo-mark" aria-hidden="true"></span><span>DMTools.fun</span></a><p class="footer-description">Save reusable templates and keep your voice consistent everywhere.</p></div>
+      <div class="footer-brand"><a class="footer-logo" href="/index.html"><span class="logo-mark" aria-hidden="true"></span><span>DMTools.fun</span></a><p class="footer-description">Build a reusable voice library and keep every reply consistent.</p></div>
       <div class="footer-column"><h4>Product</h4><a href="/app.html">Queue</a><a href="/presets.html">Voice</a><a href="/pricing.html">Pricing</a><a href="/account.html">Account</a></div>
       <div class="footer-column"><h4>Legal</h4><a href="/terms-of-service.html">Terms of Service</a><a href="/privacy-policy.html">Privacy Policy</a><a href="/refund-policy.html">Refund Policy</a><a href="/cookie-policy.html">Cookie Policy</a></div>
       <div class="footer-column"><h4>Support</h4><a href="/contact.html">Contact</a><a href="mailto:admin@dmtools.fun">admin@dmtools.fun</a></div>
     </div>
-    <div class="footer-bottom"><span>© 2026 DMTools.fun LLC. All rights reserved.</span><span class="small-note">Powered by the existing live presets contract.</span></div>
+    <div class="footer-bottom"><span>© 2026 DMTools.fun LLC. All rights reserved.</span><span class="small-note">Your best replies, ready whenever you need them.</span></div>
   </footer>
 
   <script src="/js/app-core.js"></script>
@@ -248,8 +248,8 @@
             track('example_use', { page_name: 'presets', category: example.category });
             if (state.signedIn){ fillForm(example); $('templateName').focus(); }
             else {
-              try { await navigator.clipboard.writeText(example.response); showFeedback('Example copied. Sign in to save and customize templates.', 'success'); }
-              catch (_) { showFeedback('Sign in to save and customize templates.', 'success'); }
+              try { await navigator.clipboard.writeText(example.response); showFeedback('Example copied. Sign in to save it and make it your own.', 'success'); }
+              catch (_) { showFeedback('Sign in to save it and make it your own.', 'success'); }
             }
           });
         });
@@ -258,24 +258,24 @@
         try {
           await navigator.clipboard.writeText(text);
           const original = button.textContent; button.textContent = 'Copied'; button.classList.add('copied');
-          showFeedback('Template copied to clipboard.', 'success'); track('preset_copy', { page_name: 'presets' });
+          showFeedback('Saved reply copied to clipboard.', 'success'); track('preset_copy', { page_name: 'presets' });
           setTimeout(function(){ button.textContent = original; button.classList.remove('copied'); }, 1800);
-        } catch (_) { showFeedback('Failed to copy template.', 'error'); }
+        } catch (_) { showFeedback('Failed to copy saved reply.', 'error'); }
       }
       async function deleteTemplate(id){
-        if (!window.confirm('Delete this template?')) return;
+        if (!window.confirm('Delete this saved reply?')) return;
         try {
           await DMTOOLS.apiCall('/presets/' + id, { method: 'DELETE' });
           state.templates = state.templates.filter(function(t){ return String(t.id) !== String(id); });
-          renderTemplates(); updateUsage(); showFeedback('Template deleted successfully.', 'success'); track('preset_delete', { page_name: 'presets' });
-        } catch (err) { showFeedback(err.message || 'Failed to delete template.', 'error'); }
+          renderTemplates(); updateUsage(); showFeedback('Saved reply deleted successfully.', 'success'); track('preset_delete', { page_name: 'presets' });
+        } catch (err) { showFeedback(err.message || 'Failed to delete saved reply.', 'error'); }
       }
       function normalizeTemplates(res){ return Array.isArray(res && res.presets) ? res.presets : Array.isArray(res) ? res : []; }
       function renderTemplates(){
         const list = $('templatesList');
         if (!state.signedIn){ list.innerHTML = ''; return; }
         if (!state.templates.length){
-          list.innerHTML = '<div class="empty-box"><h3 style="margin-bottom:.5rem;">No templates saved yet.</h3><p>Create your first template to start building a reusable voice library.</p></div>';
+          list.innerHTML = '<div class="empty-box"><h3 style="margin-bottom:.5rem;">No saved replies yet.</h3><p>Create your first saved reply to start building a voice library you can reuse anywhere.</p></div>';
           return;
         }
         list.innerHTML = '<div class="template-grid">' + state.templates.map(function(template){
@@ -300,18 +300,18 @@
         const category = $('templateCategory').value;
         const response = $('templateResponse').value.trim();
         const tags = $('templateTags').value.trim() ? $('templateTags').value.split(',').map(function(t){ return t.trim(); }).filter(Boolean) : [];
-        if (!name || !response){ showFeedback('Template name and response are required.', 'error'); return; }
+        if (!name || !response){ showFeedback('A name and saved reply are required.', 'error'); return; }
         const limit = PLAN_LIMITS[planKey()] || PLAN_LIMITS.free;
-        if (state.templates.length >= limit){ showFeedback('Template limit reached for your current plan.', 'error'); return; }
+        if (state.templates.length >= limit){ showFeedback('You have reached the saved-reply limit for your current plan.', 'error'); return; }
         try {
           $('saveTemplateButton').disabled = true; $('saveTemplateButton').textContent = 'Saving...';
           track('preset_save_start', { page_name: 'presets', category: category });
           await DMTOOLS.apiCall('/presets', { method: 'POST', body: JSON.stringify({ name: name, category: category, response: response, tags: tags }) });
           await loadTemplates(); renderTemplates(); updateUsage(); clearForm();
-          showFeedback('Template saved successfully.', 'success'); track('preset_save_success', { page_name: 'presets', category: category });
+          showFeedback('Saved reply created successfully.', 'success'); track('preset_save_success', { page_name: 'presets', category: category });
         } catch (err) {
-          showFeedback(err.message || 'Failed to save template.', 'error'); track('preset_save_error', { page_name: 'presets', message: String(err.message || err) });
-        } finally { $('saveTemplateButton').disabled = false; $('saveTemplateButton').textContent = 'Save template'; }
+          showFeedback(err.message || 'Failed to save saved reply.', 'error'); track('preset_save_error', { page_name: 'presets', message: String(err.message || err) });
+        } finally { $('saveTemplateButton').disabled = false; $('saveTemplateButton').textContent = 'Save reply'; }
       }
       function showSignedOut(){ $('loadingState').classList.add('hidden'); $('voiceContent').classList.add('hidden'); $('signedOutState').classList.remove('hidden'); $('usageTracker').classList.add('hidden'); setHeaderState(); }
       function showSignedIn(){ $('loadingState').classList.add('hidden'); $('signedOutState').classList.add('hidden'); $('voiceContent').classList.remove('hidden'); $('usageTracker').classList.remove('hidden'); setHeaderState(); }

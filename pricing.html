@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>DMTools.fun Pricing</title>
-  <meta name="description" content="Clear DMTools pricing: subscriptions for ongoing usage, response packs for top-ups.">
+  <meta name="description" content="Choose a DMTools plan for ongoing reply volume, or grab one-time response packs when you need extra capacity.">
   <link rel="stylesheet" href="/styles.css?v=20260324a">
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-K0G9YRD39L"></script>
   <script>
@@ -109,9 +109,9 @@
   <main class="pricing-wrap">
     <section class="pricing-hero">
       <div class="pricing-hero__copy">
-        <span class="eyebrow">Clear plans, lighter page</span>
-        <h1>Pick the plan that matches how often you reply.</h1>
-        <p>Subscriptions are for ongoing usage. Response packs are top-ups when you need more capacity without changing your regular plan.</p>
+        <span class="eyebrow">Simple pricing for real reply volume</span>
+        <h1>Choose the plan that fits how often you reply.</h1>
+        <p>Use a subscription when DMTools is part of your regular workflow. Use response packs when you want extra reply capacity without changing your plan.</p>
         <div class="pricing-actions">
           <button class="btn btn-primary" type="button" data-jump="plans">View plans</button>
           <button class="btn btn-secondary" type="button" data-jump="packs">View packs</button>
@@ -119,19 +119,19 @@
       </div>
       <div class="pricing-mini-grid">
         <div class="pricing-callout">
-          <h3>Use a subscription if</h3>
-          <p>You expect DMTools to be part of your weekly or monthly workflow.</p>
+          <h3>Choose a subscription if</h3>
+          <p>You want recurring reply capacity for the messages you handle every week or month.</p>
         </div>
         <div class="pricing-callout">
-          <h3>Use a pack if</h3>
-          <p>You just need extra replies available without changing your larger plan.</p>
+          <h3>Choose a pack if</h3>
+          <p>You want a simple one-time top-up without changing your regular plan.</p>
         </div>
       </div>
     </section>
 
     <section class="pricing-status hidden" id="pricingStatus">
       <strong id="statusHeadline">Signed in</strong>
-      <div class="pricing-copyline" id="statusSubline">We found your current DMTools account.</div>
+      <div class="pricing-copyline" id="statusSubline">Here is the plan and reply balance connected to your account.</div>
       <div class="pricing-status__grid">
         <div class="pricing-status__item">
           <div class="pricing-status__label">Current plan</div>
@@ -154,7 +154,7 @@
       <div class="pricing-toolbar">
         <div>
           <h2>Subscriptions</h2>
-          <p class="lead">Three main plans first. Enterprise is separated below to keep the decision simpler.</p>
+          <p class="lead">Start with the core plans, then look at Enterprise if you need the highest reply volume.</p>
         </div>
         <div class="segmented" id="intervalToggle" aria-label="Billing interval selector">
           <button type="button" class="active" data-interval="month">Monthly</button>
@@ -169,7 +169,7 @@
     <section class="pricing-section pricing-packs" id="packsSection">
       <div>
         <h2>Response packs</h2>
-        <p class="lead">One-time top-ups for extra reply capacity.</p>
+        <p class="lead">One-time top-ups when you need more reply capacity without changing your subscription.</p>
       </div>
       <div class="pricing-grid" id="packsGrid"></div>
     </section>
@@ -177,19 +177,19 @@
     <section class="pricing-faqs">
       <article class="pricing-faq">
         <h3>What is the difference between a subscription and a pack?</h3>
-        <p>A subscription gives you recurring reply allowance and features. A pack is a one-time purchase that adds more reply balance.</p>
+        <p>A subscription gives you recurring reply capacity and plan features. A pack is a one-time purchase that adds extra reply balance.</p>
       </article>
       <article class="pricing-faq">
         <h3>Can I buy a pack without a subscription?</h3>
-        <p>Yes. Packs work as standalone top-ups or extra capacity on top of a subscription.</p>
+        <p>Yes. Packs can work on their own or as extra capacity on top of a subscription.</p>
       </article>
       <article class="pricing-faq">
         <h3>Do I need an account to checkout?</h3>
-        <p>You can check out by entering an email address. If you are already signed in, checkout uses your current account context.</p>
+        <p>Yes. You can check out with an email address, and if you are already signed in we use your current account automatically.</p>
       </article>
       <article class="pricing-faq">
         <h3>Where do I see my plan and remaining replies?</h3>
-        <p>Your account page should show current plan, billing details, reply balance, and any packs available.</p>
+        <p>Your account page shows your current plan, billing details, reply balance, and any available packs.</p>
       </article>
     </section>
   </main>
@@ -201,7 +201,7 @@
           <span class="logo-mark" aria-hidden="true"></span>
           <span>DMTools.fun</span>
         </a>
-        <p class="footer-description">Subscriptions for ongoing usage. Packs for top-ups.</p>
+        <p class="footer-description">Subscriptions for regular reply volume. Packs for one-time top-ups.</p>
       </div>
       <div class="footer-column">
         <h4>Product</h4>
@@ -225,7 +225,7 @@
     </div>
     <div class="footer-bottom">
       <span>© 2026 DMTools.fun LLC. All rights reserved.</span>
-      <span class="small-note">Powered by the existing live pricing and checkout contract.</span>
+      <span class="small-note">Choose recurring capacity or top up when you need more.</span>
     </div>
   </footer>
 
@@ -234,15 +234,15 @@
   <script>
     (function () {
       const SUBSCRIPTION_META = {
-        starter: { badge: 'Best first step', description: 'Start here if you want recurring credits without complexity.', benefits: ['Reliable recurring allowance', 'Templates included', 'Good first upgrade'], featured: false },
-        pro: { badge: 'Most popular', description: 'More capacity for heavier weekly or monthly usage.', benefits: ['Higher reply allowance', 'More room to scale', 'Best fit for regular usage'], featured: true },
-        business: { badge: 'For teams', description: 'Higher-capacity usage for professional workflows.', benefits: ['Bigger reply pool', 'Business-level limits', 'Better for shared workflows'], featured: false },
-        enterprise: { badge: 'Highest volume', description: 'Highest-capacity usage and advanced workflow coverage.', benefits: ['Highest capacity', 'Enterprise-oriented usage', 'Best for heavy volume'], featured: false }
+        starter: { badge: 'Best first step', description: 'A simple upgrade for steady reply volume without overcommitting.', benefits: ['Reliable recurring reply capacity', 'Templates included', 'Easy first upgrade'], featured: false },
+        pro: { badge: 'Most popular', description: 'More room for people who rely on DMTools regularly.', benefits: ['Higher recurring reply capacity', 'More room to scale', 'Strong fit for regular usage'], featured: true },
+        business: { badge: 'For teams', description: 'More capacity for heavier professional and shared workflows.', benefits: ['Bigger reply pool', 'Business-level limits', 'Built for shared workflows'], featured: false },
+        enterprise: { badge: 'Highest volume', description: 'The highest-capacity option for demanding reply workflows.', benefits: ['Highest reply capacity', 'Enterprise-level usage', 'Best for heavy volume'], featured: false }
       };
       const PACK_META = {
-        starter: { badge: 'Top-up', description: 'Small one-time top-up for extra capacity.', benefits: ['One-time purchase', 'Useful for overflow', 'Simple extra balance'], featured: false },
-        pro: { badge: 'Best value', description: 'Larger one-time top-up for heavier usage.', benefits: ['More reply credits', 'Useful without changing plans', 'Best balance for top-ups'], featured: true },
-        business: { badge: 'High volume', description: 'Large one-time balance without adding another recurring plan.', benefits: ['Largest one-time option', 'Useful for bursts', 'Good for bigger queues'], featured: false }
+        starter: { badge: 'Top-up', description: 'A smaller one-time top-up when you just need extra room.', benefits: ['One-time purchase', 'Useful for overflow', 'Simple extra balance'], featured: false },
+        pro: { badge: 'Best value', description: 'A larger one-time top-up for heavier reply demand.', benefits: ['More reply credits', 'Keeps you moving without changing plans', 'Best balance for top-ups'], featured: true },
+        business: { badge: 'High volume', description: 'The biggest one-time top-up for larger bursts of reply volume.', benefits: ['Largest one-time option', 'Useful for bursts', 'Good for bigger queues'], featured: false }
       };
       const PLAN_ORDER = ['starter', 'pro', 'business', 'enterprise'];
       const PACK_ORDER = ['starter', 'pro', 'business'];
@@ -353,7 +353,7 @@
             </ul>
             <div class="pricing-card__footer">
               <button class="btn btn-primary" type="button">Choose ${escapeHtml(plan.displayName)}</button>
-              <div class="pricing-card__hint">Uses the existing live checkout flow.</div>
+              <div class="pricing-card__hint">Start this plan in checkout.</div>
             </div>
           `;
           card.querySelector('button').addEventListener('click', function () { startCheckout('subscription', plan); });
@@ -401,7 +401,7 @@
             </ul>
             <div class="pricing-card__footer">
               <button class="btn btn-accent" type="button">Buy ${escapeHtml(pack.displayName)}</button>
-              <div class="pricing-card__hint">Useful when you need more replies without changing plans.</div>
+              <div class="pricing-card__hint">Add more reply capacity without changing plans.</div>
             </div>
           `;
           card.querySelector('button').addEventListener('click', function () { startCheckout('pack', pack); });
@@ -417,7 +417,7 @@
           track('pricing_catalog_loaded', { page_name: 'pricing', subscription_count: state.pricing.subscriptions.length, pack_count: state.pricing.packs.length });
         } catch (error) {
           console.error(error);
-          showFeedback('Pricing is temporarily unavailable. Please refresh and try again.', true);
+          showFeedback('Pricing is temporarily unavailable. Please refresh and try again in a moment.', true);
           track('pricing_catalog_error', { page_name: 'pricing', message: String(error.message || error) });
         }
       }
@@ -443,7 +443,7 @@
         if (!state.auth.signedIn || !state.auth.user) return;
         const status = $('pricingStatus');
         $('statusHeadline').textContent = 'Signed in as ' + (state.auth.user.email || 'DMTools user');
-        $('statusSubline').textContent = 'Your current account state was loaded from the live endpoints.';
+        $('statusSubline').textContent = 'Your current plan and reply balance are ready below.';
         $('statusPlan').textContent = prettyPlanName(state.auth.user.subscription_tier || state.auth.user.plan || 'free');
         $('statusRemaining').textContent = formatCount(state.auth.user.responses_remaining ?? '—');
         try {
@@ -456,7 +456,7 @@
         status.classList.remove('hidden');
       }
       function promptForCheckoutEmail() {
-        const raw = window.prompt('Enter your email so we can link the purchase to your account or send your receipt:');
+        const raw = window.prompt('Enter your email so we can connect this purchase to your account and send your receipt:');
         if (raw === null) return null;
         const email = String(raw).trim().toLowerCase();
         if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
@@ -467,7 +467,7 @@
       }
       async function startCheckout(kind, item) {
         if (!item || !item.variantId) {
-          window.alert('Pricing is still loading. Please try again.');
+          window.alert('Pricing is still loading. Please try again in a moment.');
           return;
         }
         let email = (state.auth.user && state.auth.user.email) || '';
@@ -489,7 +489,7 @@
           else window.open(response.url, '_blank', 'noopener');
         } catch (error) {
           console.error(error);
-          showFeedback('There was a problem starting checkout. Please try again.', true);
+          showFeedback('There was a problem starting checkout. Please try again in a moment.', true);
           track('checkout_error', { page_name: 'pricing', kind: kind, item_name: item.displayName || 'unknown', message: String(error.message || error) });
         }
       }

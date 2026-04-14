@@ -408,23 +408,19 @@ tr:hover {
                 <div class="form-group">
                     <label class="form-label">Email</label>
                     <input type="email" id="login-email" class="form-input" 
-                           value="admin@dmtools.fun" required />
+                           placeholder="admin@dmtools.fun" required />
                 </div>
 
                 <div class="form-group">
                     <label class="form-label">Password</label>
                     <input type="password" id="login-password" class="form-input" 
-                           value="DMTools2025Admin!" required />
+                           placeholder="Enter admin password" required />
                 </div>
 
                 <button type="submit" class="btn btn-primary" style="width: 100%;">
                     Sign In
                 </button>
             </form>
-
-            <div style="margin-top: 1rem; padding-top: 1rem; border-top: 1px solid #374151; font-size: 0.8rem; color: #9ca3af; text-align: center;">
-                Default credentials pre-filled for testing
-            </div>
         </div>
     </div>
 
@@ -540,13 +536,12 @@ tr:hover {
                                     <tr>
                                         <th>Email</th>
                                         <th>Plan</th>
-                                        <th>Subscription ID</th>
+                                        <th>Status</th>
                                         <th>Last Login</th>
-                                        <th>Actions</th>
                                     </tr>
                                 </thead>
                                 <tbody id="failed-payments-table">
-                                    <tr><td colspan="5" style="text-align: center; color: #9ca3af;">Loading...</td></tr>
+                                    <tr><td colspan="4" style="text-align: center; color: #9ca3af;">Loading...</td></tr>
                                 </tbody>
                             </table>
                         </div>
@@ -574,7 +569,7 @@ tr:hover {
 
                     <div class="filters">
                         <input type="text" id="search-users" class="form-input" 
-                               placeholder="Search by email..." onkeyup="applyFilters()">
+                               placeholder="Search by email, name, or user ID..." onkeyup="applyFilters()">
                         <select id="filter-plan" class="form-input" onchange="applyFilters()">
                             <option value="">All Plans</option>
                             <option value="free">Free</option>
@@ -604,13 +599,38 @@ tr:hover {
                                     <th>Plan</th>
                                     <th>Usage</th>
                                     <th>Status</th>
-                                    <th>Sub ID</th>
                                     <th>Created</th>
                                     <th>Actions</th>
                                 </tr>
                             </thead>
                             <tbody id="users-table">
-                                <tr><td colspan="9" style="text-align: center; color: #9ca3af;">Loading users...</td></tr>
+                                <tr><td colspan="8" style="text-align: center; color: #9ca3af;">Loading users...</td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+                <!-- Recent Signups -->
+                <div class="admin-section">
+                    <div class="section-header">
+                        <h2 class="section-title">🆕 Recent Signups</h2>
+                        <button class="btn btn-secondary" onclick="renderRecentSignups(currentUsers)">🔄 Refresh</button>
+                    </div>
+                    <div class="table-container">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>ID</th>
+                                    <th>Email</th>
+                                    <th>Name</th>
+                                    <th>Plan</th>
+                                    <th>Status</th>
+                                    <th>Created</th>
+                                </tr>
+                            </thead>
+                            <tbody id="recent-signups-table">
+                                <tr><td colspan="6" style="text-align: center; color: #9ca3af;">Loading recent signups...</td></tr>
                             </tbody>
                         </table>
                     </div>
@@ -768,12 +788,6 @@ tr:hover {
                         <option value="past_due">Past Due</option>
                         <option value="expired">Expired</option>
                     </select>
-                </div>
-
-                <div class="form-group">
-                    <label class="form-label">Subscription ID (LemonSqueezy)</label>
-                    <input type="text" id="edit-user-subid" class="form-input" 
-                           placeholder="LemonSqueezy subscription ID">
                 </div>
 
                 <div class="modal-buttons">
@@ -1057,7 +1071,7 @@ async function loadSubscriptionAnalytics() {
                         <td>${user.email || ''}</td>
                         <td>${user.plan || ''}</td>
                         <td><span class="badge ${badgeClass}">${user.subscription_status || 'none'}</span></td>
-                        <td>${user.count || 1}</td>
+                        <td>${user.last_login ? new Date(user.last_login).toLocaleString() : 'N/A'}</td>
                     </tr>
                 `;
             });
@@ -1082,6 +1096,7 @@ async function loadSubscriptionAnalytics() {
                 const data = await apiCall('/admin/users');
                 currentUsers = data.users;
                 renderUsers(currentUsers);
+                renderRecentSignups(currentUsers);
             } catch (error) {
                 console.error('Failed to load users:', error);
             }
@@ -1092,7 +1107,7 @@ async function loadSubscriptionAnalytics() {
             tbody.innerHTML = '';
 
             if (users.length === 0) {
-                tbody.innerHTML = '<tr><td colspan="9" style="text-align: center; color: #9ca3af;">No users found</td></tr>';
+                tbody.innerHTML = '<tr><td colspan="8" style="text-align: center; color: #9ca3af;">No users found</td></tr>';
                 return;
             }
 
@@ -1109,7 +1124,6 @@ async function loadSubscriptionAnalytics() {
                         <td><span class="badge badge-info">${user.plan || 'free'}</span></td>
                         <td>${user.monthly_usage || 0}</td>
                         <td><span class="badge ${statusClass}">${user.subscription_status || 'inactive'}</span></td>
-                        <td style="font-size: 0.75rem;">${user.subscription_id ? user.subscription_id.substring(0, 20) + '...' : 'N/A'}</td>
                         <td>${new Date(user.created_at).toLocaleDateString()}</td>
                         <td>
                             <button class="btn btn-secondary" style="padding: 0.5rem 1rem; font-size: 0.85rem; margin-right: 0.5rem;" 
@@ -1128,7 +1142,11 @@ async function loadSubscriptionAnalytics() {
             const statusFilter = document.getElementById('filter-status').value;
 
             const filtered = currentUsers.filter(user => {
-                const matchesSearch = user.email.toLowerCase().includes(searchTerm);
+                const matchesSearch =
+                    String(user.email || '').toLowerCase().includes(searchTerm) ||
+                    String(user.first_name || '').toLowerCase().includes(searchTerm) ||
+                    String(user.last_name || '').toLowerCase().includes(searchTerm) ||
+                    String(user.id || '').toLowerCase().includes(searchTerm);
                 const matchesPlan = !planFilter || user.plan === planFilter;
                 const matchesStatus = !statusFilter || user.subscription_status === statusFilter;
                 return matchesSearch && matchesPlan && matchesStatus;
@@ -1149,7 +1167,6 @@ async function loadSubscriptionAnalytics() {
             document.getElementById('edit-user-plan').value = user.plan || 'free';
             document.getElementById('edit-user-usage').value = user.monthly_usage || 0;
             document.getElementById('edit-user-substatus').value = user.subscription_status || 'inactive';
-            document.getElementById('edit-user-subid').value = user.subscription_id || '';
 
             showEditUserModal();
         }
@@ -1319,6 +1336,34 @@ async function loadSubscriptionAnalytics() {
         function hideEditUserModal() {
             document.getElementById('edit-user-modal').classList.remove('show');
             document.getElementById('edit-user-message').classList.add('hidden');
+        }
+
+        function renderRecentSignups(users) {
+            const signupBody = document.getElementById('recent-signups-table');
+            if (!signupBody) return;
+            const recent = (users || [])
+                .slice()
+                .sort((a, b) => new Date(b.created_at) - new Date(a.created_at))
+                .slice(0, 10);
+
+            if (recent.length === 0) {
+                signupBody.innerHTML = '<tr><td colspan="6" style="text-align: center; color: #9ca3af;">No recent signups found</td></tr>';
+                return;
+            }
+
+            signupBody.innerHTML = '';
+            recent.forEach(user => {
+                signupBody.innerHTML += `
+                    <tr>
+                        <td>${user.id}</td>
+                        <td>${user.email}</td>
+                        <td>${user.first_name || ''} ${user.last_name || ''}</td>
+                        <td>${user.plan || 'free'}</td>
+                        <td><span class="badge ${user.subscription_status === 'active' ? 'badge-success' : user.subscription_status === 'past_due' ? 'badge-warning' : 'badge-info'}">${user.subscription_status || 'inactive'}</span></td>
+                        <td>${new Date(user.created_at).toLocaleString()}</td>
+                    </tr>
+                `;
+            });
         }
     </script>
 </body>

@@ -67,6 +67,22 @@
     document.head.appendChild(style);
   }
 
+  function trackAuthEvent(eventName, params = {}) {
+    try {
+      if (typeof window.gtag !== 'function') return;
+      const payload = {
+        page_path: window.location.pathname || '',
+        page_location: window.location.href || '',
+        auth_mode: state.mode,
+        return_to: state.returnTo,
+        ...params
+      };
+      window.gtag('event', eventName, payload);
+    } catch (e) {
+      // no-op when analytics is not available
+    }
+  }
+
   function ensureModal() {
     let modal = document.getElementById(MODAL_ID);
     if (modal) return modal;
@@ -229,6 +245,11 @@
         throw new Error('Please agree to the Terms and Conditions to continue.');
       }
 
+      trackAuthEvent(state.mode === 'register' ? 'sign_up_attempt' : 'login_attempt', {
+        has_first_name: !!firstName,
+        has_last_name: !!lastName
+      });
+
       let data;
       if (state.mode === 'register') {
         data = await DMTOOLS.apiCall('/user/register', {
@@ -250,10 +271,20 @@
 
       if (data && data.token) DMTOOLS.setToken(data.token);
 
+      trackAuthEvent(state.mode === 'register' ? 'sign_up_success' : 'login_success', {
+        user_plan: data?.user?.plan || 'free'
+      });
+
       hide();
       const returnTo = state.returnTo || DEFAULTS.returnTo;
       DMTOOLS.redirectTo ? DMTOOLS.redirectTo(returnTo) : (window.location.href = returnTo);
     } catch (err) {
+      const errorMessage = String(err?.message || 'Authentication failed.').slice(0, 150);
+      trackAuthEvent('auth_error', {
+        auth_mode: state.mode,
+        return_to: state.returnTo,
+        error_message: errorMessage
+      });
       showError(err?.message || 'Authentication failed.');
     } finally {
       setBusy(false);
@@ -293,6 +324,11 @@
     if (mode !== 'login' && mode !== 'register') return;
     e.preventDefault();
     const returnTo = el.getAttribute('data-return-to') || getDefaultReturnTo();
+    trackAuthEvent('auth_modal_open', {
+      auth_mode: mode,
+      return_to: returnTo,
+      trigger_text: String(el.textContent || el.getAttribute('aria-label') || '').trim().slice(0, 60)
+    });
     show(mode, { returnTo });
   });
 })();

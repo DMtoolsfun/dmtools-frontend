@@ -64,7 +64,7 @@
     .pricing-card__features li::before{content:"✓";color:var(--accent-light);font-weight:900}
     .pricing-card__footer{display:grid;gap:.65rem}
     .pricing-card__hint{color:var(--text-muted);font-size:.84rem;text-align:center}
-    .pricing-enterprise{margin-top:1rem}
+    .pricing-enterprise{display:none}
     .pricing-enterprise .pricing-callout{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:1rem;align-items:center}
     .pricing-packs{margin-top:2rem}
     .pricing-faqs{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:1rem;margin-top:2rem}
@@ -328,7 +328,6 @@
         enterpriseContainer.innerHTML = '';
         const selectedPlans = subscriptionsForInterval(state.interval);
         const mainPlans = selectedPlans.filter(function (plan) { return plan.baseKey !== 'enterprise'; });
-        const enterprise = selectedPlans.find(function (plan) { return plan.baseKey === 'enterprise'; });
         mainPlans.forEach(function (plan) {
           const meta = SUBSCRIPTION_META[plan.baseKey] || {};
           const responses = (plan.limits && plan.limits.responses) || plan.responses;
@@ -359,26 +358,15 @@
           card.querySelector('button').addEventListener('click', function () { startCheckout('subscription', plan); });
           plansGrid.appendChild(card);
         });
-        if (enterprise) {
-          const meta = SUBSCRIPTION_META.enterprise || {};
-          enterpriseContainer.innerHTML = `
-            <div class="pricing-callout">
-              <div>
-                <div class="pricing-card__badge">${escapeHtml(meta.badge || 'Enterprise')}</div>
-                <h3>${escapeHtml(enterprise.displayName)}</h3>
-                <p>${escapeHtml(meta.description || 'Highest-capacity usage and advanced workflow coverage.')}</p>
-              </div>
-              <button class="btn btn-secondary" type="button" id="enterpriseButton">View enterprise option</button>
-            </div>
-          `;
-          const btn = $('enterpriseButton');
-          if (btn) btn.addEventListener('click', function () { startCheckout('subscription', enterprise); });
-        }
+
       }
       function renderPacks() {
         const packsGrid = $('packsGrid');
         packsGrid.innerHTML = '';
-        const sorted = state.pricing.packs.slice().sort(function (a, b) { return PACK_ORDER.indexOf(a.key) - PACK_ORDER.indexOf(b.key); });
+        const sorted = state.pricing.packs
+          .filter(function (pack) { return pack.key !== 'starter'; })
+          .slice()
+          .sort(function (a, b) { return PACK_ORDER.indexOf(a.key) - PACK_ORDER.indexOf(b.key); });
         sorted.forEach(function (pack) {
           const meta = PACK_META[pack.key] || {};
           const card = document.createElement('article');

@@ -364,7 +364,14 @@
         const packsGrid = $('packsGrid');
         packsGrid.innerHTML = '';
         const sorted = state.pricing.packs
-          .filter(function (pack) { return pack.key !== 'starter'; })
+          .filter(function (pack) {
+            const name = String(pack.displayName || '').toLowerCase();
+            const key = String(pack.key || '').toLowerCase();
+            const amount = Number(pack.priceAmount || 0);
+            const isFirstUsersPack = key.includes('first') || name.includes('first users');
+            const isThreeNinetyNine = amount === 3.99;
+            return !(isFirstUsersPack || isThreeNinetyNine);
+          })
           .slice()
           .sort(function (a, b) { return PACK_ORDER.indexOf(a.key) - PACK_ORDER.indexOf(b.key); });
         sorted.forEach(function (pack) {

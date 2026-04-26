@@ -1,0 +1,31 @@
+{
+  "business": {
+    "name": "DMTools.fun LLC",
+    "brand": "DMTools.fun",
+    "operator": "Dale Abbey",
+    "email": "admin@dmtools.fun",
+    "supportEmail": "support@dmtools.fun",
+    "address": "99 N 21st St #8, Las Vegas, NV 89101",
+    "website": "https://dmtools.fun",
+    "state": "Nevada",
+    "country": "United States"
+  },
+  "dates": {
+    "effectiveDate": "April 25, 2026",
+    "lastUpdated": "April 25, 2026",
+    "copyrightYear": "2026"
+  },
+  "payments": {
+    "processor": "Lemon Squeezy"
+  },
+  "vendors": {
+    "ai": "OpenAI API",
+    "hosting": "Railway",
+    "analytics": "Google Analytics"
+  },
+  "legalPages": [
+    { "source": "legal/templates/privacy-policy.html", "target": "privacy-policy.html", "title": "Privacy Policy" },
+    { "source": "legal/templates/refund-policy.html", "target": "refund-policy.html", "title": "Refund Policy" },
+    { "source": "legal/templates/terms-of-service.html", "target": "terms-of-service.html", "title": "Terms of Service" }
+  ]
+}

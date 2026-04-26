@@ -1,0 +1,8 @@
+{
+  "scripts": {
+    "legal:sync": "node scripts/sync-legal-docs.mjs",
+    "legal:check": "node scripts/check-legal-docs.mjs",
+    "legal:update": "npm run legal:sync && npm run legal:check"
+  },
+  "devDependencies": {}
+}

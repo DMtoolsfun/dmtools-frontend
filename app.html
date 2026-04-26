@@ -666,6 +666,8 @@
         localStorage.removeItem(ONBOARDING_KEY);
         $('appOnboarding').classList.remove('hidden');
         $('onboardingReopen').classList.add('hidden');
+        $('appOnboarding').setAttribute('tabindex', '-1');
+        try { $('appOnboarding').focus({ preventScroll: true }); } catch (_) {}
         track('onboarding_reopen', { page_name: 'app' });
       }
       function hideOnboarding(markComplete) {
@@ -982,7 +984,13 @@
             track('mobile_menu_toggle', { page_name: 'app', open: !expanded });
           });
         }
-        $('jumpOnboarding').addEventListener('click', function () { $('appOnboarding').scrollIntoView({ behavior: 'smooth', block: 'start' }); });
+        $('jumpOnboarding').addEventListener('click', function () {
+          showOnboarding();
+          setTimeout(function () {
+            $('appOnboarding').scrollIntoView({ behavior: 'smooth', block: 'start' });
+          }, 50);
+          track('try_extension_flow_click', { page_name: 'app', action: 'show_mock_inbox' });
+        });
         $('jumpQueue').addEventListener('click', function () { $('queueWorkspace').scrollIntoView({ behavior: 'smooth', block: 'start' }); });
         $('installExtensionCta').addEventListener('click', function () { track('extension_install_click', { page_name: 'app', location: 'onboarding_primary' }); });
         $('secondaryInstallCta').addEventListener('click', function () { track('extension_install_click', { page_name: 'app', location: 'onboarding_secondary' }); });

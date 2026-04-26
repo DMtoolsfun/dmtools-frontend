@@ -1,35 +1,335 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="theme-color" content="#8b5cf6">
-<meta name="apple-mobile-web-app-capable" content="yes">
-<link rel="manifest" href="/manifest.json">
-<link rel="stylesheet" href="/styles.css?v=20260212">
-<title>Privacy Policy - DMTools.fun</title>
-<meta name="description" content="Privacy Policy for DMTools.fun - how we collect, use, disclose, and protect personal information.">
-<link rel="icon" href="/favicon.ico" type="image/x-icon">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Privacy Policy - DMTools.fun</title>
+  <meta name="description" content="Privacy Policy for DMTools.fun - how we collect, use, protect, and disclose information.">
+  <link rel="stylesheet" href="/styles.css?v=20260323a">
+
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-K0G9YRD39L"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-K0G9YRD39L');
+    gtag('config', 'G-YFTZBVLQHF');
+
+    window.DMTOOLS = window.DMTOOLS || {};
+    window.DMTOOLS.track = function(eventName, params) {
+      try {
+        gtag('event', eventName, params || {});
+      } catch (_) {}
+    };
+  </script>
+  <style>
+    .legal-shell { padding: 5rem 1.25rem; }
+    .legal-wrap { max-width: 1040px; margin: 0 auto; }
+    .legal-header { text-align: center; margin-bottom: 2rem; }
+    .legal-header .eyebrow { display: inline-block; margin-bottom: .75rem; }
+    .legal-title { font-size: clamp(2.25rem, 6vw, 4.75rem); line-height: .95; margin: 0 0 1rem; }
+    .legal-subtitle { max-width: 760px; margin: 0 auto 1.5rem; color: var(--text-muted); font-size: 1.075rem; }
+    .legal-meta { display: inline-flex; flex-wrap: wrap; gap: .75rem; justify-content: center; padding: .9rem 1.1rem; border: 1px solid var(--border-medium); border-radius: 999px; background: rgba(15, 23, 42, .55); color: var(--text-secondary); }
+    .legal-card { padding: clamp(1.25rem, 3vw, 2.25rem); }
+    .legal-card h2 { margin-top: 2rem; padding-top: 1.25rem; border-top: 1px solid var(--border-medium); color: var(--text-primary); }
+    .legal-card h2:first-child { margin-top: 0; padding-top: 0; border-top: 0; }
+    .legal-card h3 { margin-top: 1.4rem; color: var(--accent); }
+    .legal-card p, .legal-card li { color: var(--text-secondary); line-height: 1.72; }
+    .legal-card ul, .legal-card ol { padding-left: 1.35rem; }
+    .legal-callout { margin: 1.25rem 0; padding: 1rem 1.1rem; border: 1px solid var(--border-medium); border-left: 4px solid var(--primary); border-radius: 16px; background: rgba(139, 92, 246, .08); color: var(--text-secondary); }
+    .legal-warning { border-left-color: var(--warning, #f59e0b); background: rgba(245, 158, 11, .08); }
+    .legal-table { width: 100%; border-collapse: collapse; margin: 1.25rem 0; overflow: hidden; border-radius: 16px; border: 1px solid var(--border-medium); }
+    .legal-table th, .legal-table td { padding: .9rem; text-align: left; border-bottom: 1px solid var(--border-medium); color: var(--text-secondary); vertical-align: top; }
+    .legal-table th { color: var(--text-primary); background: rgba(139, 92, 246, .12); }
+    .legal-table tr:last-child td { border-bottom: 0; }
+    .legal-footer-note { margin-top: 2rem; padding-top: 1rem; border-top: 1px solid var(--border-medium); color: var(--text-muted); font-size: .95rem; text-align: center; }
+    @media (max-width: 720px) { .legal-meta { border-radius: 18px; } .legal-table { display: block; overflow-x: auto; } }
+  </style>
 </head>
 <body>
-<header class="header"><div class="nav-container"><a href="/" class="logo">DMTools.fun</a><div class="auth-buttons" id="authButtons"><button class="mobile-menu-btn" onclick="toggleMobileMenu()" aria-label="Menu">☰</button><a href="#" data-auth="login" class="btn btn-secondary">Sign In</a><a href="#" data-auth="register" class="btn btn-primary">Sign Up</a></div></div><nav class="mobile-nav" id="mobileNav"><a href="/app.html" class="tab-btn">Generator</a><a href="/presets.html" class="tab-btn">Templates</a><a href="/packs.html" class="tab-btn">Response Packs</a><a href="/pricing.html" class="tab-btn">Pricing</a><a href="/store.html" class="tab-btn">Packs Store</a></nav></header>
-<main class="main-content"><div class="container"><div class="legal-header"><h1 class="legal-title">Privacy Policy</h1><p class="legal-subtitle">How DMTools.fun collects, uses, discloses, and protects personal information.</p><div class="effective-date"><strong>Effective Date:</strong> April 25, 2026<br><strong>Last Updated:</strong> April 25, 2026</div></div><div class="content-card">
-<h2>1. Introduction</h2><p>DMTools.fun LLC ("DMTools.fun", "we", "our", or "us") provides an AI-powered message drafting platform. This Privacy Policy explains how we collect, use, disclose, retain, and protect information when you use our website, web application, Chrome extension, and related services.</p><p>By using DMTools.fun, you acknowledge this Privacy Policy and our related Terms of Service, Refund Policy, and Cookie Policy.</p>
-<h2>2. Information We Collect</h2><h3>2.1 Information You Provide</h3><ul><li>Email address, account credentials, and optional profile information.</li><li>Preferences, templates, saved settings, and support communications.</li><li>Billing and subscription information processed by Lemon Squeezy.</li></ul><h3>2.2 Automatically Collected Information</h3><ul><li>Device, browser, session, usage, diagnostic, and security logs.</li><li>IP address and approximate location for security, fraud prevention, and analytics.</li><li>Feature usage, response counts, plan status, and performance metrics.</li></ul><h3>2.3 Message Content</h3><p>Message content submitted for generation is processed in real time to create draft responses. DMTools.fun does not permanently store submitted message content unless you intentionally save it as a template, setting, or other account content.</p><h3>2.4 Chrome Extension Data</h3><p>The Chrome extension accesses the active page only when the user intentionally activates the extension. It does not monitor browsing history, collect background tab content, or send messages automatically.</p><h3>2.5 Sources of Data</h3><ul><li>Direct user input.</li><li>Website, app, and extension usage.</li><li>OpenAI API for AI processing.</li><li>Lemon Squeezy for billing.</li><li>Google Analytics for website and web-app analytics.</li></ul><h3>2.6 Sensitive Personal Information</h3><p>We may process limited sensitive personal information, such as IP address, account login data, and security signals, only for service operation, security, fraud prevention, legal compliance, and user-requested functionality. We do not use sensitive personal information to infer characteristics or for unrelated advertising.</p>
-<h2>3. AI Functionality and Human Review</h2><p>DMTools.fun generates AI-assisted draft responses only. All generated responses are suggestions. DMTools.fun does not send messages, post content, make decisions, or take actions on behalf of users.</p><ul><li>Users must review, edit, and choose whether to send any generated response.</li><li>No autonomous communication is performed by DMTools.fun.</li><li>Users remain solely responsible for all messages they send.</li></ul>
-<h2>4. How We Use Information</h2><ul><li>Provide, secure, maintain, and improve the service.</li><li>Generate AI-assisted draft responses at user request.</li><li>Manage accounts, subscriptions, billing, usage limits, and support.</li><li>Detect abuse, prevent fraud, and comply with legal obligations.</li><li>Send service notices, security alerts, policy updates, and optional marketing where permitted.</li></ul>
-<h2>5. Legal Bases for Processing</h2><ul><li>Contract performance to provide the service.</li><li>Legitimate interests in security, service improvement, abuse prevention, and analytics.</li><li>Consent where required for optional marketing or certain cookies.</li><li>Legal obligations for tax, accounting, payment, and compliance requirements.</li></ul>
-<h2>6. Information Sharing</h2><p>We share limited information with trusted service providers only as needed to operate the service.</p><table class="data-table"><thead><tr><th>Recipient</th><th>Data</th><th>Purpose</th></tr></thead><tbody><tr><td>OpenAI API</td><td>Temporary message content</td><td>Draft generation</td></tr><tr><td>Lemon Squeezy</td><td>Billing details and email</td><td>Payment processing</td></tr><tr><td>Railway</td><td>Account and usage data</td><td>Hosting and infrastructure</td></tr><tr><td>Google Analytics</td><td>Usage and device data</td><td>Analytics and optimization</td></tr></tbody></table><p>We do not sell personal information. We do not knowingly share personal information for cross-context behavioral advertising.</p>
-<h2>7. Data Retention</h2><ul><li>Message content: real-time processing only unless saved by the user.</li><li>Templates and settings: retained until deleted or account closure.</li><li>Usage and diagnostic data: retained as needed, generally up to 24 months.</li><li>Account and billing records: retained while active and as required for legal, tax, accounting, fraud prevention, or dispute purposes.</li></ul><p>Retention periods are based on operational need, security, legal obligations, dispute resolution, and user expectations.</p>
-<h2>8. User Rights and Choices</h2><p>Depending on location, users may request access, correction, deletion, portability, restriction, objection, withdrawal of consent, opt-out of marketing, or limitation of sensitive personal information use. Contact admin@dmtools.fun to exercise rights. We may verify identity before acting on a request.</p>
-<h2>9. Cookies and Tracking</h2><p>We use essential, preference, functional, and analytics cookies. Users can manage cookies through browser settings and any available site controls. Disabling cookies may affect functionality.</p>
-<h2>10. Security</h2><p>We use reasonable administrative, technical, and physical safeguards, including encryption in transit, access controls, and monitoring. No system is completely secure, and we cannot guarantee absolute security.</p>
-<h2>11. Children</h2><p>The service is not intended for children under 13. Users under 18 should use the service only with appropriate parental or guardian consent.</p>
-<h2>12. International Transfers</h2><p>Information may be processed in the United States and other jurisdictions. We use appropriate safeguards where required by law.</p>
-<h2>13. California Privacy Rights</h2><p>California residents may have rights to know, access, delete, correct, opt out of sale or sharing, limit sensitive personal information use, and avoid discrimination for exercising privacy rights. We do not sell personal information.</p>
-<h2>14. GDPR and International Rights</h2><p>EEA, UK, and similar-region users may have rights to access, correct, erase, restrict, object, port data, withdraw consent, and lodge a complaint with a supervisory authority.</p>
-<h2>15. Intellectual Property and User Content</h2><p>Users retain ownership of their inputs and saved user content. By submitting content, users grant DMTools.fun a limited, non-exclusive license to process that content solely to provide, secure, and support the service. DMTools.fun, logos, software, extension code, designs, documentation, trade names, and related materials are owned by DMTools.fun LLC and protected by copyright, trademark, trade secret, and other laws.</p>
-<h2>16. Updates</h2><p>We may update this Privacy Policy. Material changes may be communicated by email, in-product notice, or updated posting date. Continued use after updates means the revised policy applies.</p>
-<h2>17. Contact</h2><div class="contact-info"><p><strong>Email:</strong> admin@dmtools.fun</p><p><strong>Business:</strong> DMTools.fun LLC</p><p><strong>Address:</strong> 99 N 21st St #8, Las Vegas, NV 89101</p><p><strong>Website:</strong> <a href="https://dmtools.fun">https://dmtools.fun</a></p></div>
-<p class="legal-footer-note">This Privacy Policy was last updated on April 25, 2026. © 2026 DMTools.fun LLC. All rights reserved.</p>
-</div></div></main><footer class="footer"><div class="container"><div class="footer-bottom"><p class="footer-copyright">© 2026 DMTools.fun LLC. All rights reserved.</p></div></div></footer><script>function toggleMobileMenu(){document.getElementById('mobileNav').classList.toggle('show');}</script><script src="js/app-core.js"></script><script src="js/auth-modal.js"></script></body></html>
+  <header class="header">
+    <div class="nav-container">
+      <a class="logo" href="/index.html" aria-label="DMTools.fun home">
+        <span class="logo-mark" aria-hidden="true"></span>
+        <span>DMTools.fun</span>
+      </a>
+
+      <nav class="landing-nav-desktop" aria-label="Primary">
+        <a href="/app.html" data-track="nav_link_click" data-track-location="header" data-track-target="queue">Queue</a>
+        <a href="/presets.html" data-track="nav_link_click" data-track-location="header" data-track-target="voice">Voice</a>
+        <a href="/pricing.html" data-track="nav_link_click" data-track-location="header" data-track-target="pricing">Pricing</a>
+        <a href="https://chromewebstore.google.com/detail/dmtools-%E2%80%93-inline-reply-as/joheialcdpmcfgehhcpfjnppficonfih" target="_blank" rel="noopener noreferrer" data-track="extension_install_click" data-track-location="header" data-track-target="chrome_store">Install Extension</a>
+      </nav>
+
+      <div class="header-actions">
+        <a class="btn btn-secondary hide-mobile" href="/account.html" id="account-link" data-track="nav_link_click" data-track-location="header" data-track-target="account">Account</a>
+        <button class="btn btn-secondary hide-mobile" type="button" data-auth="login" data-return-to="/app.html" data-track="auth_modal_open" data-track-mode="login" id="signin-button">Sign in</button>
+        <button class="btn btn-primary" type="button" data-auth="register" data-return-to="/app.html" data-track="auth_modal_open" data-track-mode="register" id="signup-button">Start free</button>
+        <button class="mobile-menu-btn" type="button" aria-label="Open menu" aria-expanded="false" aria-controls="mobile-menu" id="mobile-menu-toggle">☰</button>
+      </div>
+    </div>
+
+    <div class="mobile-menu" id="mobile-menu">
+      <div class="mobile-menu-links">
+        <a href="/app.html" data-track="nav_link_click" data-track-location="mobile" data-track-target="queue">Queue</a>
+        <a href="/presets.html" data-track="nav_link_click" data-track-location="mobile" data-track-target="voice">Voice</a>
+        <a href="/pricing.html" data-track="nav_link_click" data-track-location="mobile" data-track-target="pricing">Pricing</a>
+        <a href="/account.html" data-track="nav_link_click" data-track-location="mobile" data-track-target="account">Account</a>
+        <a href="https://chromewebstore.google.com/detail/dmtools-%E2%80%93-inline-reply-as/joheialcdpmcfgehhcpfjnppficonfih" target="_blank" rel="noopener noreferrer" data-track="extension_install_click" data-track-location="mobile" data-track-target="chrome_store">Install Extension</a>
+        <button class="btn btn-secondary" type="button" data-auth="login" data-return-to="/app.html" data-track="auth_modal_open" data-track-mode="login">Sign in</button>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <section class="legal-shell">
+      <div class="legal-wrap">
+        <div class="legal-header">
+          <span class="eyebrow">Legal</span>
+          <h1 class="legal-title"><span class="gradient-text">Privacy Policy</span></h1>
+          <p class="legal-subtitle">How DMTools.fun collects, uses, protects, and discloses information for the website, web app, Queue, Voice, and Chrome Extension.</p>
+          <div class="legal-meta">
+            <span><strong>Effective Date:</strong> April 25, 2026</span>
+            <span><strong>Last Updated:</strong> April 25, 2026</span>
+          </div>
+        </div>
+
+        <article class="legal-card card">
+          <h2>1. Introduction</h2>
+          <p>DMTools.fun LLC ("DMTools.fun," "we," "our," or "us") provides AI-assisted message drafting tools that help users capture messages, generate draft replies, and stay in flow. This Privacy Policy explains how we collect, use, disclose, retain, and protect information when you use our website, web application, Queue, Voice features, response packs, and Chrome Extension.</p>
+          <p>By accessing or using DMTools.fun, you acknowledge that you have read and understood this Privacy Policy. This Privacy Policy should be read together with our Terms of Service, Refund Policy, and Cookie Policy.</p>
+
+          <div class="legal-callout">
+            <strong>Important human-review notice:</strong> DMTools.fun generates draft responses only. DMTools.fun does not send messages for users. Users must review, edit, approve, and manually send any communication themselves.
+          </div>
+
+          <h2>2. Scope</h2>
+          <p>This Privacy Policy applies to DMTools.fun services, including the DMTools.fun website, web application, Queue, Voice, Response Packs, account pages, billing flows, and the DMTools Chrome Extension available through the Chrome Web Store.</p>
+
+          <h2>3. Information We Collect</h2>
+          <h3>3.1 Account Information</h3>
+          <ul>
+            <li>Email address, account credentials, and authentication details.</li>
+            <li>Optional profile information, saved settings, tone preferences, and account configuration.</li>
+            <li>Subscription plan, billing status, invoices, and payment-related records processed by our payment provider.</li>
+          </ul>
+
+          <h3>3.2 Usage and Technical Data</h3>
+          <ul>
+            <li>Feature usage, queue activity, response generation counts, template usage, plan limits, and performance events.</li>
+            <li>Device type, browser type, operating system, referring page, approximate location derived from IP address, session events, and diagnostic logs.</li>
+            <li>Error logs, abuse-prevention signals, security events, and service reliability metrics.</li>
+          </ul>
+
+          <h3>3.3 Message Content and Drafting Inputs</h3>
+          <p>When you use DMTools.fun to generate a draft, the text you provide may be processed temporarily to create the requested output. DMTools.fun does not permanently store message content unless you intentionally save it as a template, preset, queue item, account preference, support attachment, or other saved feature.</p>
+          <p>Generated outputs may be temporarily displayed, cached, or logged as necessary to provide the service, troubleshoot issues, enforce abuse protections, and maintain reliability.</p>
+
+          <h3>3.4 Chrome Extension Content Access</h3>
+          <p>The DMTools Chrome Extension accesses content from the currently active webpage only when you intentionally activate the extension or otherwise use its inline reply features. The extension does not monitor browsing history, collect keystrokes, access background tabs for unrelated browsing activity, or automatically send replies.</p>
+
+          <h3>3.5 Sources of Information</h3>
+          <ul>
+            <li>Information you provide directly through the website, app, extension, Queue, Voice, forms, and support requests.</li>
+            <li>Information created through your use of the service, including usage events and generated draft activity.</li>
+            <li>Payment and subscription information from authorized payment processors.</li>
+            <li>Analytics, hosting, security, and infrastructure systems used to operate the service.</li>
+          </ul>
+
+          <h3>3.6 Sensitive Personal Information</h3>
+          <p>We do not intentionally collect highly sensitive personal information unless you choose to include it in content you submit. We may process limited data that may be considered sensitive in certain jurisdictions, such as IP address, account login data, security logs, and precise content you voluntarily submit for drafting. We use this information only to provide, secure, troubleshoot, and improve the service, or as otherwise permitted by law.</p>
+
+          <h2>4. AI Functionality, Human Review, and User Control</h2>
+          <p>DMTools.fun is a drafting assistant. AI-generated outputs are suggestions only and may be inaccurate, incomplete, outdated, offensive, unsuitable, or legally inappropriate for a particular use.</p>
+          <ul>
+            <li>DMTools.fun does not send direct messages, emails, social messages, or other communications on behalf of users.</li>
+            <li>Users must manually review, edit, approve, copy, insert, export, or send any generated response.</li>
+            <li>Users remain solely responsible for any message they choose to send or use.</li>
+            <li>DMTools.fun does not use AI outputs to make legal, financial, employment, credit, housing, healthcare, or similarly significant decisions about users.</li>
+          </ul>
+
+          <h2>5. How We Use Information</h2>
+          <ul>
+            <li>Provide, operate, maintain, and improve DMTools.fun.</li>
+            <li>Generate AI-assisted draft responses at your request.</li>
+            <li>Manage accounts, authentication, subscriptions, billing, plan limits, and customer support.</li>
+            <li>Remember user preferences, templates, tone settings, and saved workflows.</li>
+            <li>Detect, prevent, and investigate fraud, abuse, spam, security incidents, scraping, excessive usage, and Terms violations.</li>
+            <li>Analyze performance, usage trends, reliability, and product experience.</li>
+            <li>Send service notices, security alerts, policy updates, support responses, and promotional messages where permitted.</li>
+          </ul>
+
+          <h2>6. Legal Bases for Processing</h2>
+          <p>Where applicable, we process personal information based on contract performance, legitimate interests, consent, legal obligations, and protection of rights, safety, and security.</p>
+
+          <h2>7. Information Sharing and Service Providers</h2>
+          <p>We may share limited information with vendors and service providers that help us operate DMTools.fun. These parties may process information only as needed to provide services to us or as otherwise permitted by law.</p>
+          <table class="legal-table">
+            <thead><tr><th>Category</th><th>Information</th><th>Purpose</th></tr></thead>
+            <tbody>
+              <tr><td>AI processing providers</td><td>Submitted message content and context, processed as needed</td><td>Generate requested draft responses</td></tr>
+              <tr><td>Payment processors</td><td>Email, billing status, transaction data, subscription records</td><td>Process payments, refunds, taxes, fraud checks, and subscription management</td></tr>
+              <tr><td>Hosting and infrastructure</td><td>Account, usage, logs, and operational data</td><td>Operate, host, secure, and monitor the service</td></tr>
+              <tr><td>Analytics and diagnostics</td><td>Usage events, device data, pages viewed, performance data</td><td>Improve product experience, reliability, and conversion measurement</td></tr>
+              <tr><td>Legal and compliance recipients</td><td>Information necessary to respond to lawful requests</td><td>Comply with law, enforce terms, protect rights and safety</td></tr>
+            </tbody>
+          </table>
+          <p>We do not sell personal information for money. We do not knowingly sell or share personal information of users under 16.</p>
+
+          <h2>8. Cookies and Tracking Technologies</h2>
+          <p>We use cookies, local storage, analytics tags, and similar technologies for authentication, security, preferences, performance measurement, fraud prevention, and product analytics. You can manage cookies through your browser settings. Disabling certain cookies may affect core functionality.</p>
+
+          <h2>9. Data Retention</h2>
+          <p>We retain information only as long as reasonably necessary for the purposes described in this Privacy Policy, including providing the service, meeting legal obligations, resolving disputes, enforcing agreements, maintaining security, and supporting business records.</p>
+          <table class="legal-table">
+            <thead><tr><th>Data Type</th><th>Typical Retention</th><th>Reason</th></tr></thead>
+            <tbody>
+              <tr><td>Message content used for drafting</td><td>Not permanently stored unless saved by the user or required for troubleshooting/security</td><td>Draft generation</td></tr>
+              <tr><td>Saved templates, presets, and preferences</td><td>Until deleted by user or account closure, subject to backups/legal needs</td><td>User workflow and personalization</td></tr>
+              <tr><td>Usage and analytics data</td><td>Up to 24 months unless longer retention is needed</td><td>Product improvement, security, and reliability</td></tr>
+              <tr><td>Account and billing records</td><td>Account lifetime plus applicable legal/tax/accounting periods</td><td>Account management, compliance, disputes, and support</td></tr>
+            </tbody>
+          </table>
+
+          <h2>10. Your Privacy Rights</h2>
+          <p>Depending on your location, you may have rights to access, correct, delete, export, restrict, object to, or limit certain uses of personal information. You may also opt out of marketing communications. To exercise rights, contact <a href="mailto:admin@dmtools.fun">admin@dmtools.fun</a>. We may verify your identity before fulfilling a request.</p>
+
+          <h2>11. California Privacy Rights</h2>
+          <p>California residents may have rights under the CCPA/CPRA, including the right to know, access, delete, correct, opt out of sale or sharing, limit the use of sensitive personal information, and be free from discrimination for exercising privacy rights. DMTools.fun does not sell personal information for money. Where legally required, we will honor valid opt-out preference signals.</p>
+
+          <h2>12. European and International Privacy Rights</h2>
+          <p>Users in the EEA, UK, and similar jurisdictions may have rights to access, correction, erasure, restriction, portability, objection, withdrawal of consent, and complaint to a supervisory authority. International transfers may occur to the United States and other jurisdictions, subject to appropriate safeguards where required.</p>
+
+          <h2>13. Security</h2>
+          <p>We use reasonable administrative, technical, and organizational safeguards designed to protect information, including HTTPS, access controls, authentication protections, monitoring, and security practices. No internet service is completely secure, and we cannot guarantee absolute security.</p>
+
+          <h2>14. Children’s Privacy</h2>
+          <p>DMTools.fun is not directed to children under 13, and we do not knowingly collect personal information from children under 13. Users aged 13 to 17 should use the service only with parental or guardian involvement where required.</p>
+
+          <h2>15. Intellectual Property, Trademark, and Copyright Notice</h2>
+          <p>DMTools.fun, the DMTools.fun name, logos, product names, visual identity, software, interface design, documentation, and related content are owned by DMTools.fun LLC or its licensors and are protected by trademark, copyright, trade dress, and other intellectual property laws. No rights are granted except as expressly stated in our Terms of Service.</p>
+          <p>You retain ownership of content you submit, subject to the limited license necessary for us to process that content to provide the service.</p>
+
+          <h2>16. Changes to This Privacy Policy</h2>
+          <p>We may update this Privacy Policy from time to time. Material changes may be communicated through the website, app, email, or other reasonable means. Continued use of DMTools.fun after an updated policy becomes effective means you acknowledge the updated policy.</p>
+
+          <h2>17. Contact Information</h2>
+          <p>Privacy questions, requests, or complaints may be sent to <a href="mailto:admin@dmtools.fun">admin@dmtools.fun</a>.</p>
+          <p><strong>DMTools.fun LLC</strong><br>99 N 21st St #8<br>Las Vegas, NV 89101<br>United States</p>
+
+          <p class="legal-footer-note">© 2026 DMTools.fun LLC. All rights reserved. This Privacy Policy was last updated on April 25, 2026.</p>
+        </article>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-content">
+      <div class="footer-brand">
+        <a class="footer-logo" href="/index.html">
+          <span class="logo-mark" aria-hidden="true"></span>
+          <span>DMTools.fun</span>
+        </a>
+        <p class="footer-description">Reply faster anywhere you work.</p>
+      </div>
+
+      <div class="footer-column">
+        <h4>Product</h4>
+        <a href="/app.html">Queue</a>
+        <a href="/presets.html">Voice</a>
+        <a href="/pricing.html">Pricing</a>
+        <a href="/store.html">Response Packs</a>
+      </div>
+
+      <div class="footer-column">
+        <h4>Company</h4>
+        <a href="/contact.html">Contact</a>
+        <a href="/privacy-policy.html">Privacy Policy</a>
+        <a href="/terms-of-service.html">Terms of Service</a>
+        <a href="/refund-policy.html">Refund Policy</a>
+        <a href="/cookie-policy.html">Cookie Policy</a>
+      </div>
+    </div>
+
+    <div class="footer-bottom">
+      <p>© 2026 DMTools.fun LLC. All rights reserved.</p>
+      <p>Capture once. Reply anywhere. Stay in flow.</p>
+    </div>
+  </footer>
+
+  <script src="/js/app-core.js"></script>
+  <script src="/js/auth-modal.js"></script>
+  <script>
+    (function() {
+      var pageName = 'privacy_policy';
+      function track(eventName, params) {
+        if (window.DMTOOLS && typeof window.DMTOOLS.track === 'function') {
+          window.DMTOOLS.track(eventName, params || {});
+        }
+      }
+
+      function setAuthUI(isAuthed) {
+        var signInButton = document.getElementById('signin-button');
+        var signUpButton = document.getElementById('signup-button');
+        var accountLink = document.getElementById('account-link');
+        if (isAuthed) {
+          if (signInButton) signInButton.classList.add('hidden');
+          if (signUpButton) {
+            signUpButton.outerHTML = '<a class="btn btn-primary" href="/app.html" id="signup-button" data-track="landing_cta_click" data-track-cta="open_workspace" data-track-surface="legal">Open workspace</a>';
+          }
+          if (accountLink) accountLink.textContent = 'My account';
+        }
+      }
+
+      async function hydrateAuthState() {
+        try {
+          if (window.DMTOOLS && typeof DMTOOLS.verifyToken === 'function') {
+            var authed = await DMTOOLS.verifyToken();
+            setAuthUI(authed);
+            track('auth_state_detected', {
+              page_name: pageName,
+              surface: 'legal',
+              auth_state: authed ? 'authenticated' : 'anonymous'
+            });
+          }
+        } catch (_) {}
+      }
+
+      function wireTracking() {
+        document.addEventListener('click', function(e) {
+          var el = e.target.closest('[data-track]');
+          if (!el) return;
+          var eventName = el.getAttribute('data-track');
+          var params = { page_name: pageName, surface: 'legal' };
+          Array.prototype.forEach.call(el.attributes, function(attr) {
+            if (!attr.name.startsWith('data-track-')) return;
+            var key = attr.name.replace('data-track-', '').replace(/-([a-z])/g, function(_, c) { return c.toUpperCase(); });
+            params[key] = attr.value;
+          });
+          track(eventName, params);
+        });
+      }
+
+      function wireMobileMenu() {
+        var toggle = document.getElementById('mobile-menu-toggle');
+        var menu = document.getElementById('mobile-menu');
+        if (!toggle || !menu) return;
+        toggle.addEventListener('click', function() {
+          var isOpen = menu.classList.toggle('show');
+          toggle.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+          track('mobile_menu_toggle', {
+            page_name: pageName,
+            surface: 'legal',
+            state: isOpen ? 'open' : 'closed'
+          });
+        });
+      }
+
+      track('legal_page_view', { page_name: pageName, surface: 'legal' });
+      wireTracking();
+      wireMobileMenu();
+      hydrateAuthState();
+    })();
+  </script>
+</body>
+</html>

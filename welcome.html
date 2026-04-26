@@ -791,7 +791,7 @@
                     </div>
                   </div>
                   <div class="mock-composer">
-                    <textarea id="demo-reply" placeholder="Your generated draft will appear here." readonly></textarea>
+                    <textarea id="demo-reply" placeholder="Click here, then right-click and choose DMTools → Generate with DMTools. Your draft will appear here."></textarea>
                   </div>
                 </div>
               </div>
@@ -1176,7 +1176,13 @@
           if (step < 2) return;
           step = Math.max(step, 3);
           reply.classList.add('focused');
+          reply.removeAttribute('readonly');
+          reply.disabled = false;
           reply.focus();
+          try {
+            var len = reply.value.length;
+            reply.setSelectionRange(len, len);
+          } catch (_) {}
           $('demo-generate').disabled = false;
           update('Reply box selected. In the real extension, right-click here and choose Generate with DMTools.');
           track('mock_inbox_action', { action: 'focus_reply_box' });
@@ -1185,6 +1191,13 @@
         $('demo-generate').addEventListener('click', function() {
           if (step < 3) return;
           reply.value = 'Thanks for following up — I appreciate your patience. I’m reviewing the proposal now and will send you an update shortly. If anything changes before then, I’ll let you know.';
+          reply.removeAttribute('readonly');
+          reply.disabled = false;
+          reply.focus();
+          try {
+            var len = reply.value.length;
+            reply.setSelectionRange(len, len);
+          } catch (_) {}
           mockCompleted = true;
           update('Draft generated. You would now review, edit if needed, and send manually.');
           track('mock_inbox_completed', { action: 'generate_draft' });

@@ -1,442 +1,131 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<!-- PWA Manifest -->
-<link rel="manifest" href="/manifest.json">
-<meta name="theme-color" content="#8b5cf6">
-<meta name="apple-mobile-web-app-capable" content="yes">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Contact - DMTools.fun</title>
+  <meta name="description" content="Contact DMTools.fun for support, billing questions, refunds, privacy requests, bug reports, feature requests, and Chrome Extension help.">
+  <link rel="stylesheet" href="/styles.css?v=20260323a">
+  <link rel="icon" href="/favicon.ico" type="image/x-icon">
+  <link rel="manifest" href="/manifest.json">
+  <meta name="theme-color" content="#8b5cf6">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-capable" content="yes">
 
-    <!-- Google tag (gtag.js) -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-K0G9YRD39L"></script>
-    <script>
-        window.dataLayer = window.dataLayer || [];
-        function gtag(){dataLayer.push(arguments);}
-        gtag('js', new Date());
-        gtag('config', 'G-K0G9YRD39L');
-      gtag('config', 'G-YFTZBVLQHF');
-    </script>
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-K0G9YRD39L"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-K0G9YRD39L');
+    gtag('config', 'G-YFTZBVLQHF');
 
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Contact Us - DMTools.fun</title>
-    <meta name="description" content="Get help with DMTools.fun - AI-powered universal unlimited batch response draft generator. Contact our support team for assistance.">
-    
-    <!-- Favicon -->
-    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>💬</text></svg>">
-  
-    <!-- stylesheet -->
-    <link rel="stylesheet" href="/styles.css?v=20260212">
-    
-    <style>
-/* PAGE-SPECIFIC: Contact Page */
-        
-        /* Contact Content */
-        .contact-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 3rem;
-            margin-bottom: 3rem;
-        }
+    window.DMTOOLS = window.DMTOOLS || {};
+    window.DMTOOLS.track = function(eventName, params) {
+      try { gtag('event', eventName, params || {}); } catch (_) {}
+    };
+  </script>
 
-.contact-card {
-            background: var(--bg-input);
-            border-radius: 16px;
-            padding: 2rem;
-            border: 1px solid var(--border-medium);
-            box-shadow: var(--shadow-md);
-        }
-
-/* Contact Methods */
-        .contact-method {
-            display: flex;
-            align-items: center;
-            gap: 1rem;
-            padding: 1rem;
-            background: var(--bg-card);
-            border-radius: 12px;
-            margin-bottom: 1rem;
-            transition: all 0.3s ease;
-        }
-
-.contact-method:hover {
-            background: var(--bg-light);
-            transform: translateY(-2px);
-        }
-
-.contact-icon {
-            font-size: 1.5rem;
-            width: 50px;
-            height: 50px;
-            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-.contact-info h3 {
-            color: var(--text-primary);
-            font-weight: 600;
-            margin-bottom: 0.25rem;
-        }
-
-.contact-info p {
-            color: var(--text-muted);
-            margin: 0;
-        }
-
-.contact-info a {
-            color: var(--primary);
-            text-decoration: none;
-        }
-
-.contact-info a:hover {
-            text-decoration: underline;
-        }
-
-/* FAQ Section */
-        .faq-section {
-            margin-top: 4rem;
-        }
-
-.faq-title {
-            text-align: center;
-            font-size: 2rem;
-            font-weight: 700;
-            color: var(--text-primary);
-            margin-bottom: 2rem;
-        }
-
-.faq-item {
-            background: var(--bg-input);
-            border-radius: 12px;
-            margin-bottom: 1rem;
-            border: 1px solid var(--border-medium);
-            overflow: hidden;
-        }
-
-.faq-question {
-            padding: 1.5rem;
-            background: none;
-            border: none;
-            color: var(--text-primary);
-            font-weight: 600;
-            font-size: 1rem;
-            cursor: pointer;
-            width: 100%;
-            text-align: left;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            transition: background-color 0.3s ease;
-        }
-
-.faq-question:hover {
-            background: var(--bg-card);
-        }
-
-.faq-answer {
-            padding: 0 1.5rem 1.5rem;
-            color: var(--text-muted);
-            line-height: 1.6;
-            display: none;
-        }
-
-.faq-item.active .faq-answer {
-            display: block;
-        }
-
-.faq-icon {
-            transition: transform 0.3s ease;
-        }
-
-.faq-item.active .faq-icon {
-            transform: rotate(180deg);
-        }
-
-/* Success/Error Messages */
-        .success-message {
-            background: var(--success-bg);
-            border: 1px solid var(--success);
-            color: var(--success);
-            padding: 1rem;
-            border-radius: var(--radius-md);
-            margin-bottom: 1rem;
-            display: none;
-        }
-
-/* Responsive */
-        @media (max-width: 768px) {
-            .contact-grid {
-                grid-template-columns: 1fr;
-                gap: 2rem;
-            }
-            
-            .contact-method {
-                flex-direction: column;
-                text-align: center;
-            }
-        }
-</style>
+  <style>
+    .contact-page{max-width:1120px;margin:0 auto;padding:5rem 1.5rem 6rem}.contact-page .section-header{max-width:800px;margin-left:auto;margin-right:auto;text-align:center}.contact-grid{display:grid;grid-template-columns:minmax(0,1.1fr) minmax(320px,.9fr);gap:1.5rem;align-items:start;margin-top:2rem}.contact-card{padding:2rem}.contact-card h2{margin-bottom:.5rem;font-size:clamp(1.45rem,2vw,2rem)}.contact-card p,.contact-card li{color:var(--text-secondary,#d1d5db);line-height:1.7}.contact-form-grid{display:grid;gap:1rem;margin-top:1.25rem}.form-row{display:grid;grid-template-columns:1fr 1fr;gap:1rem}.contact-methods{display:grid;gap:1rem;margin-top:1.25rem}.contact-method{display:flex;gap:1rem;align-items:flex-start;padding:1rem;border:1px solid rgba(148,163,184,.18);border-radius:18px;background:rgba(15,23,42,.45)}.contact-icon{width:44px;height:44px;border-radius:16px;display:inline-flex;align-items:center;justify-content:center;flex:0 0 auto;background:linear-gradient(135deg,rgba(139,92,246,.9),rgba(6,182,212,.9));color:#fff;font-size:1.15rem;box-shadow:0 12px 30px rgba(0,0,0,.22)}.contact-method h3{margin:0 0 .2rem;font-size:1rem}.contact-method p{margin:0;font-size:.95rem}.support-topics{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:1rem;margin-top:1.5rem}.topic-card{padding:1.25rem}.topic-card h3{margin-bottom:.35rem;font-size:1rem}.topic-card p{margin:0;font-size:.95rem;color:var(--text-secondary,#d1d5db);line-height:1.6}.faq-section{margin-top:3rem}.faq-list{max-width:860px;margin:1.5rem auto 0;display:grid;gap:.85rem}.faq-item{border:1px solid rgba(148,163,184,.18);border-radius:18px;background:rgba(15,23,42,.5);overflow:hidden}.faq-question{width:100%;padding:1.15rem 1.25rem;border:0;background:transparent;color:var(--text-primary,#fff);display:flex;align-items:center;justify-content:space-between;gap:1rem;cursor:pointer;text-align:left;font-weight:800;font-size:1rem}.faq-answer{display:none;padding:0 1.25rem 1.25rem;color:var(--text-secondary,#d1d5db);line-height:1.7}.faq-item.active .faq-answer{display:block}.faq-icon{transition:transform .2s ease}.faq-item.active .faq-icon{transform:rotate(180deg)}.notice{border:1px solid rgba(139,92,246,.32);border-left:4px solid #8b5cf6;background:rgba(139,92,246,.08);border-radius:16px;padding:1rem 1.1rem;margin-top:1rem;color:var(--text-secondary,#d1d5db);line-height:1.65}.form-status{display:none;margin-top:1rem;padding:1rem;border-radius:16px;line-height:1.6}.form-status.success{display:block;border:1px solid rgba(16,185,129,.45);background:rgba(16,185,129,.1);color:#a7f3d0}@media(max-width:900px){.contact-grid,.support-topics{grid-template-columns:1fr}}@media(max-width:640px){.contact-page{padding:3.5rem 1rem 4rem}.contact-card{padding:1.35rem}.form-row{grid-template-columns:1fr}.contact-method{flex-direction:column}}
+  </style>
 </head>
-	
+
 <body>
-    <!-- Header -->
-    <header class="header">
-        <div class="nav-container">
-            <a href="/" class="logo">DMTools.fun</a>
-            <div class="auth-buttons" id="authButtons">
-                <button class="mobile-menu-btn" onclick="toggleMobileMenu()" aria-label="Menu">☰</button>
-                <a href="#" data-auth="login" class="btn btn-secondary">Sign In</a>
-                <a href="#" data-auth="register" class="btn btn-primary">Sign Up</a>
-            </div>
+  <header class="header">
+    <div class="nav-container">
+      <a class="logo" href="/index.html" aria-label="DMTools.fun home"><span class="logo-mark" aria-hidden="true"></span><span>DMTools.fun</span></a>
+      <nav class="landing-nav-desktop" aria-label="Primary">
+        <a href="/app.html" data-track="nav_link_click" data-track-location="header" data-track-target="queue">Queue</a>
+        <a href="/presets.html" data-track="nav_link_click" data-track-location="header" data-track-target="voice">Voice</a>
+        <a href="/pricing.html" data-track="nav_link_click" data-track-location="header" data-track-target="pricing">Pricing</a>
+        <a href="https://chromewebstore.google.com/detail/dmtools-%E2%80%93-inline-reply-as/joheialcdpmcfgehhcpfjnppficonfih" target="_blank" rel="noopener noreferrer" data-track="extension_install_click" data-track-location="header" data-track-target="chrome_store">Install Extension</a>
+      </nav>
+      <div class="header-actions">
+        <a class="btn btn-secondary hide-mobile" href="/account.html" id="account-link" data-track="nav_link_click" data-track-location="header" data-track-target="account">Account</a>
+        <button class="btn btn-secondary hide-mobile" type="button" data-auth="login" data-return-to="/app.html" data-track="auth_modal_open" data-track-mode="login" id="signin-button">Sign in</button>
+        <button class="btn btn-primary" type="button" data-auth="register" data-return-to="/app.html" data-track="auth_modal_open" data-track-mode="register" id="signup-button">Start free</button>
+        <button class="mobile-menu-btn" type="button" aria-label="Open menu" aria-expanded="false" aria-controls="mobile-menu" id="mobile-menu-toggle">☰</button>
+      </div>
+    </div>
+    <div class="mobile-menu" id="mobile-menu"><div class="mobile-menu-links">
+      <a href="/app.html" data-track="nav_link_click" data-track-location="mobile" data-track-target="queue">Queue</a>
+      <a href="/presets.html" data-track="nav_link_click" data-track-location="mobile" data-track-target="voice">Voice</a>
+      <a href="/pricing.html" data-track="nav_link_click" data-track-location="mobile" data-track-target="pricing">Pricing</a>
+      <a href="/account.html" data-track="nav_link_click" data-track-location="mobile" data-track-target="account">Account</a>
+      <a href="https://chromewebstore.google.com/detail/dmtools-%E2%80%93-inline-reply-as/joheialcdpmcfgehhcpfjnppficonfih" target="_blank" rel="noopener noreferrer" data-track="extension_install_click" data-track-location="mobile" data-track-target="chrome_store">Install Extension</a>
+      <button class="btn btn-secondary" type="button" data-auth="login" data-return-to="/app.html" data-track="auth_modal_open" data-track-mode="login">Sign in</button>
+    </div></div>
+  </header>
+
+  <main>
+    <section class="contact-page">
+      <div class="section-header">
+        <span class="eyebrow">Support</span>
+        <h1 class="hero-title">Contact DMTools.fun</h1>
+        <p class="lead">Need help with Queue, Voice, billing, refunds, privacy requests, or the Chrome Extension? Send us the details and we’ll help you get unstuck.</p>
+      </div>
+
+      <div class="contact-grid">
+        <article class="card contact-card">
+          <h2>Send us a message</h2>
+          <p>Use this form for support, billing questions, bug reports, refund questions, privacy requests, or general feedback.</p>
+          <form id="contact-form" class="contact-form-grid" action="mailto:admin@dmtools.fun" method="post" enctype="text/plain">
+            <div class="form-row"><div class="form-group"><label class="form-label" for="name">Name</label><input class="form-input" id="name" name="name" type="text" autocomplete="name" required></div><div class="form-group"><label class="form-label" for="email">Email</label><input class="form-input" id="email" name="email" type="email" autocomplete="email" required></div></div>
+            <div class="form-row"><div class="form-group"><label class="form-label" for="topic">Topic</label><select class="form-select" id="topic" name="topic" required><option value="">Select a topic...</option><option value="technical_support">Technical support</option><option value="billing">Billing</option><option value="refund">Refund request</option><option value="privacy">Privacy or data request</option><option value="chrome_extension">Chrome Extension</option><option value="bug_report">Bug report</option><option value="feature_request">Feature request</option><option value="other">Other</option></select></div><div class="form-group"><label class="form-label" for="priority">Priority</label><select class="form-select" id="priority" name="priority"><option value="normal">Normal</option><option value="urgent">Urgent</option><option value="billing_sensitive">Billing-sensitive</option><option value="privacy_sensitive">Privacy-sensitive</option></select></div></div>
+            <div class="form-group"><label class="form-label" for="account_email">Account email, if different</label><input class="form-input" id="account_email" name="account_email" type="email" autocomplete="email" placeholder="Optional"></div>
+            <div class="form-group"><label class="form-label" for="message">Message</label><textarea class="form-textarea" id="message" name="message" rows="7" placeholder="Tell us what happened, what you expected, and any steps to reproduce the issue." required></textarea></div>
+            <button class="btn btn-primary" type="submit" data-track="contact_form_submit_click" data-track-location="contact_form">Send message</button>
+            <div id="form-status" class="form-status" role="status" aria-live="polite"></div>
+            <p class="muted">This form opens your email app as a reliable fallback. For best support, include your account email, plan, browser, and screenshots or error messages when relevant.</p>
+          </form>
+        </article>
+
+        <aside class="card contact-card">
+          <h2>Other ways to reach us</h2>
+          <p>Use the right subject line so we can route your request faster.</p>
+          <div class="contact-methods">
+            <div class="contact-method"><div class="contact-icon" aria-hidden="true">✉</div><div><h3>Email support</h3><p><a href="mailto:admin@dmtools.fun?subject=DMTools.fun%20Support%20Request">admin@dmtools.fun</a><br>Typical response: within 24–48 business hours.</p></div></div>
+            <div class="contact-method"><div class="contact-icon" aria-hidden="true">💳</div><div><h3>Billing or refunds</h3><p><a href="mailto:admin@dmtools.fun?subject=Billing%20or%20Refund%20Request">admin@dmtools.fun</a><br>Include your account email and transaction details.</p></div></div>
+            <div class="contact-method"><div class="contact-icon" aria-hidden="true">🔒</div><div><h3>Privacy requests</h3><p><a href="mailto:admin@dmtools.fun?subject=Privacy%20Request">admin@dmtools.fun</a><br>Use this for access, deletion, correction, or data questions.</p></div></div>
+            <div class="contact-method"><div class="contact-icon" aria-hidden="true">🧩</div><div><h3>Chrome Extension help</h3><p>Include your browser version, the site where the issue occurred, and what you clicked before the issue appeared.</p></div></div>
+          </div>
+          <div class="notice"><strong>Security note:</strong> Do not send passwords, full payment card numbers, private access tokens, or sensitive personal information through this form.</div>
+        </aside>
+      </div>
+
+      <div class="support-topics">
+        <article class="card topic-card"><h3>Technical support</h3><p>Queue issues, extension behavior, login problems, browser bugs, import/export questions, and account access.</p></article>
+        <article class="card topic-card"><h3>Billing and refunds</h3><p>Subscription questions, renewal issues, duplicate charges, cancellation help, and refund-policy questions.</p></article>
+        <article class="card topic-card"><h3>Privacy and legal</h3><p>Privacy requests, cookie questions, data deletion, terms questions, or policy-related support.</p></article>
+      </div>
+
+      <section class="faq-section">
+        <div class="section-header"><span class="eyebrow">FAQ</span><h2>Quick answers</h2><p class="lead">A few common questions before you send a message.</p></div>
+        <div class="faq-list">
+          <div class="faq-item"><button class="faq-question" type="button" aria-expanded="false">How does DMTools.fun work?<span class="faq-icon" aria-hidden="true">⌄</span></button><div class="faq-answer">DMTools.fun helps you capture an incoming message and generate a draft reply. You can work in Queue for volume, use Voice to keep replies consistent, or use the Chrome Extension for inline drafting where you are already typing. DMTools.fun does not send replies automatically; you review, edit, and send messages yourself.</div></div>
+          <div class="faq-item"><button class="faq-question" type="button" aria-expanded="false">Does DMTools send messages for me?<span class="faq-icon" aria-hidden="true">⌄</span></button><div class="faq-answer">No. DMTools.fun generates draft responses only. You remain in control and must choose whether to use, edit, or send any response.</div></div>
+          <div class="faq-item"><button class="faq-question" type="button" aria-expanded="false">What should I include in a support request?<span class="faq-icon" aria-hidden="true">⌄</span></button><div class="faq-answer">Include your account email, plan, browser, device, the page or feature involved, what you expected to happen, what actually happened, and any screenshots or error messages.</div></div>
+          <div class="faq-item"><button class="faq-question" type="button" aria-expanded="false">Can I cancel my subscription anytime?<span class="faq-icon" aria-hidden="true">⌄</span></button><div class="faq-answer">Yes. You can cancel from your account or contact support if you need help. Access generally continues until the end of the current billing period unless otherwise stated in the Refund Policy or Terms of Service.</div></div>
+          <div class="faq-item"><button class="faq-question" type="button" aria-expanded="false">Where can I read the legal policies?<span class="faq-icon" aria-hidden="true">⌄</span></button><div class="faq-answer">See the <a href="/privacy-policy.html">Privacy Policy</a>, <a href="/terms-of-service.html">Terms of Service</a>, <a href="/refund-policy.html">Refund Policy</a>, and <a href="/cookie-policy.html">Cookie Policy</a>.</div></div>
         </div>
-        
-        <nav class="mobile-nav" id="mobileNav">
-            <a href="/app.html" class="tab-btn">Generator</a>
-            <a href="/presets.html" class="tab-btn">Templates</a>
-<a href="/packs.html" class="tab-btn">Response Packs</a>
-            <a href="/pricing.html" class="tab-btn">Pricing</a>
-            <a href="/store.html" class="tab-btn">Packs Store</a>
-</nav>
-    </header>
+      </section>
+    </section>
+  </main>
 
-    <!-- Main Content -->
-    <main class="main-content">
-        <div class="container">
-            <!-- Page Header -->
-            <div class="page-header">
-                <h1 class="page-title">📞 Contact Us</h1>
-                <p class="page-description">
-                    Get help with DMTools.fun or share your feedback. We're here to help you succeed!
-                </p>
-            </div>
+  <footer class="footer">
+    <div class="footer-content">
+      <div class="footer-brand"><a class="footer-logo" href="/index.html"><span class="logo-mark" aria-hidden="true"></span><span>DMTools.fun</span></a><p class="footer-description">Reply faster anywhere you work.</p></div>
+      <div class="footer-column"><h4>Product</h4><a href="/app.html">Queue</a><a href="/presets.html">Voice</a><a href="/pricing.html">Pricing</a><a href="/store.html">Response Packs</a></div>
+      <div class="footer-column"><h4>Company</h4><a href="/contact.html">Contact</a><a href="/privacy-policy.html">Privacy Policy</a><a href="/terms-of-service.html">Terms of Service</a><a href="/refund-policy.html">Refund Policy</a><a href="/cookie-policy.html">Cookie Policy</a></div>
+    </div>
+    <div class="footer-bottom"><p>© 2026 DMTools.fun LLC. All rights reserved.</p><p>Capture once. Reply anywhere. Stay in flow.</p></div>
+  </footer>
 
-            <!-- Contact Grid -->
-            <div class="contact-grid">
-                <!-- Contact Form -->
-                <div class="contact-card">
-                    <div class="card-header">
-                        <h2 class="card-title">Send us a message</h2>
-                        <p class="card-subtitle">We'll usually get back to you within 24 business hours</p>
-                    </div>
-
-                    <div id="success-message" class="success-message">
-                        Thank you! Your message has been sent successfully.
-                    </div>
-
-                    <div id="error-message" class="error-message">
-                        Sorry, there was an error sending your message. Please try again.
-                    </div>
-
-                    <form id="contact-form" onsubmit="submitContactForm(event)">
-                        <div class="form-group">
-                            <label class="form-label" for="name">Name</label>
-                            <input type="text" id="name" name="name" class="form-input" required>
-                        </div>
-
-                        <div class="form-group">
-                            <label class="form-label" for="email">Email</label>
-                            <input type="email" id="email" name="email" class="form-input" required>
-                        </div>
-
-                        <div class="form-group">
-                            <label class="form-label" for="subject">Subject</label>
-                            <select id="subject" name="subject" class="form-select" required>
-                                <option value="">Select a topic...</option>
-                                <option value="support">Technical Support</option>
-                                <option value="billing">Billing Question</option>
-                                <option value="feature">Feature Request</option>
-                                <option value="bug">Bug Report</option>
-                                <option value="other">Other</option>
-                            </select>
-                        </div>
-
-                        <div class="form-group">
-                            <label class="form-label" for="message">Message</label>
-                            <textarea id="message" name="message" class="form-textarea" placeholder="Tell us how we can help..." required></textarea>
-                        </div>
-
-                        <button type="submit" class="btn btn-primary" style="width: 100%;">
-                            Send Message
-                        </button>
-                    </form>
-                </div>
-
-                <!-- Contact Methods -->
-                <div class="contact-card">
-                    <div class="card-header">
-                        <h2 class="card-title">Other ways to reach us</h2>
-                        <p class="card-subtitle">Choose the method that works best for you</p>
-                    </div>
-
-                    <div class="contact-method">
-                        <div class="contact-icon">📧</div>
-                        <div class="contact-info">
-                            <h3>Email Support</h3>
-                            <p><a href="mailto:admin@dmtools.fun">admin@dmtools.fun</a></p>
-                        </div>
-                    </div>
-
-                    <div class="contact-method">
-                        <div class="contact-icon">💬</div>
-                        <div class="contact-info">
-                            <h3>Live Chat</h3>
-                            <p>currently not available<br>send us an email<br>we usually respond within 24 business hours</p>
-                        </div>
-                    </div>
-
-                
-                </div>
-            </div>
-
-            <!-- FAQ Section -->
-            <div class="faq-section">
-                <h2 class="faq-title">Frequently Asked Questions</h2>
-                
-                <div class="faq-item">
-                    <button class="faq-question" onclick="toggleFAQ(this)">
-                        How does DMTools.fun work?
-                        <span class="faq-icon">▼</span>
-                    </button>
-                    <div class="faq-answer">
-                        DMTools.fun uses AI to generate personalized responses for any digital messaging service. Simply input your messages into the batch processor, choose your tone, and get perfect responses instantly. If you would rather not copy and paste to the generator the browser extension allows you to Right-click any highlighted incoming message to capture it, and Right-click in any reply-box youd like the response to appear to generate one right there. Then just press send. 
-                    </div>
-                </div>
-
-                <div class="faq-item">
-                    <button class="faq-question" onclick="toggleFAQ(this)">
-                        Is there a free plan?
-                        <span class="faq-icon">▼</span>
-                    </button>
-                    <div class="faq-answer">
-                        Yes! Our free plan includes 10 AI-generated responses per month. Perfect for trying out the service before upgrading.
-                    </div>
-                </div>
-
-                <div class="faq-item">
-                    <button class="faq-question" onclick="toggleFAQ(this)">
-                        Which platforms are supported?
-                        <span class="faq-icon">▼</span>
-                    </button>
-                    <div class="faq-answer">
-                        We support Instagram, Twitter/X, TikTok, Facebook, LinkedIn, email, SMS, and more. Our AI adapts responses to match each platform's tone.
-                    </div>
-                </div>
-
-                <div class="faq-item">
-                    <button class="faq-question" onclick="toggleFAQ(this)">
-                        Can I cancel my subscription anytime?
-                        <span class="faq-icon">▼</span>
-                    </button>
-                    <div class="faq-answer">
-                        Absolutely! You can cancel anytime from your account settings. You'll continue to have access until the end of your billing period.
-                    </div>
-                </div>
-
-                <div class="faq-item">
-                    <button class="faq-question" onclick="toggleFAQ(this)">
-                        How secure is my data?
-                        <span class="faq-icon">▼</span>
-                    </button>
-                    <div class="faq-answer">
-                        We take security seriously. All data is encrypted in transit and at rest. We never store your messages permanently.
-                    </div>
-                </div>
-            </div>
-        </div>
-    </main>
-    
-    <!-- Footer -->
-    <footer class="footer">
-        <div class="container">
-            <div class="footer-content">
-                <div class="footer-brand">
-                    <h3 class="footer-logo">DMTools.fun</h3>
-                    <p class="footer-description">
-                        AI-powered universal messaging response generator.
-                    </p>
-                </div>
-                
-                <div class="footer-links">
-                    <div class="link-group">
-                        <h4>Product</h4>
-                        <a href="/app.html">Generator</a>
-                        <a href="/presets.html">Templates</a>
-                        <a href="/pricing.html">Pricing</a>
-                        <a href="/store.html">Packs Store</a>
-                    </div>
-                    
-                    <div class="link-group">
-                        <h4>Legal</h4>
-                        <a href="/terms-of-service.html">Terms of Service</a>
-                        <a href="/privacy-policy.html">Privacy Policy</a>
-                        <a href="/refund-policy.html">Refund Policy</a>
-                        <a href="/cookie-policy.html">Cookie Policy</a>
-                    </div>
-                    
-                    <div class="link-group">
-                        <h4>Support</h4>
-                        <a href="/contact.html">Contact Us</a>
-                        <a href="mailto:support@dmtools.fun">Email Support</a>
-                    </div>
-                </div>
-            </div>
-            
-            <div class="footer-bottom">
-                <p class="footer-copyright">© 2025 DMTools.fun LLC. All rights reserved.</p>
-            </div>
-        </div>
-    </footer>
-
-    <script>
-        // Mobile menu toggle
-        function toggleMobileMenu() {
-            document.getElementById('mobileNav').classList.toggle('show');
-        }
-
-        // Contact form submission
-        function submitContactForm(event) {
-            event.preventDefault();
-            
-            const form = event.target;
-            const submitBtn = form.querySelector('button[type="submit"]');
-            const originalText = submitBtn.textContent;
-            
-            submitBtn.textContent = 'Sending...';
-            submitBtn.disabled = true;
-            
-            // Simulate API call
-            setTimeout(() => {
-                document.getElementById('success-message').style.display = 'block';
-                document.getElementById('error-message').style.display = 'none';
-                form.reset();
-                submitBtn.textContent = originalText;
-                submitBtn.disabled = false;
-                
-                setTimeout(() => {
-                    document.getElementById('success-message').style.display = 'none';
-                }, 5000);
-            }, 1000);
-        }
-
-        // FAQ toggle
-        function toggleFAQ(button) {
-            const faqItem = button.parentElement;
-            const isActive = faqItem.classList.contains('active');
-            
-            document.querySelectorAll('.faq-item').forEach(item => {
-                item.classList.remove('active');
-            });
-            
-            if (!isActive) {
-                faqItem.classList.add('active');
-            }
-        }
-    </script>
-    <script src="js/app-core.js"></script>
-    <script src="js/auth-modal.js"></script>
+  <script src="/js/app-core.js"></script>
+  <script src="/js/auth-modal.js"></script>
+  <script>
+    (function(){var pageName='contact';function track(eventName,params){if(window.DMTOOLS&&typeof window.DMTOOLS.track==='function'){window.DMTOOLS.track(eventName,params||{});}}function setAuthUI(isAuthed){var signInButton=document.getElementById('signin-button');var signUpButton=document.getElementById('signup-button');var accountLink=document.getElementById('account-link');if(isAuthed){if(signInButton)signInButton.classList.add('hidden');if(signUpButton){signUpButton.outerHTML='<a class="btn btn-primary" href="/app.html" id="signup-button" data-track="contact_cta_click" data-track-cta="open_workspace" data-track-surface="contact">Open workspace</a>';}if(accountLink)accountLink.textContent='My account';}}async function hydrateAuthState(){try{if(window.DMTOOLS&&typeof DMTOOLS.verifyToken==='function'){var authed=await DMTOOLS.verifyToken();setAuthUI(authed);track('auth_state_detected',{page_name:pageName,surface:pageName,auth_state:authed?'authenticated':'anonymous'});}}catch(_){}}function wireTracking(){document.addEventListener('click',function(e){var el=e.target.closest('[data-track]');if(!el)return;var eventName=el.getAttribute('data-track');var params={page_name:pageName,surface:pageName};Array.prototype.forEach.call(el.attributes,function(attr){if(!attr.name.startsWith('data-track-'))return;var key=attr.name.replace('data-track-','').replace(/-([a-z])/g,function(_,c){return c.toUpperCase();});params[key]=attr.value;});track(eventName,params);});}function wireMobileMenu(){var toggle=document.getElementById('mobile-menu-toggle');var menu=document.getElementById('mobile-menu');if(!toggle||!menu)return;toggle.addEventListener('click',function(){var isOpen=menu.classList.toggle('show');toggle.setAttribute('aria-expanded',isOpen?'true':'false');track('mobile_menu_toggle',{page_name:pageName,surface:pageName,state:isOpen?'open':'closed'});});}function wireFaq(){document.querySelectorAll('.faq-question').forEach(function(button){button.addEventListener('click',function(){var item=button.closest('.faq-item');var isOpen=item.classList.contains('active');document.querySelectorAll('.faq-item').forEach(function(otherItem){otherItem.classList.remove('active');var otherButton=otherItem.querySelector('.faq-question');if(otherButton)otherButton.setAttribute('aria-expanded','false');});if(!isOpen){item.classList.add('active');button.setAttribute('aria-expanded','true');track('faq_expand',{page_name:pageName,surface:pageName,question:button.textContent.trim()});}});});}function wireContactForm(){var form=document.getElementById('contact-form');var status=document.getElementById('form-status');if(!form||!status)return;form.addEventListener('submit',function(){var topic=document.getElementById('topic');var priority=document.getElementById('priority');track('contact_form_submit',{page_name:pageName,surface:pageName,topic:topic?topic.value:'',priority:priority?priority.value:''});status.className='form-status success';status.textContent='Opening your email app with the message details. If it does not open, email admin@dmtools.fun directly.';});}track('contact_page_view',{page_name:pageName,surface:pageName});wireTracking();wireMobileMenu();wireFaq();wireContactForm();hydrateAuthState();})();
+  </script>
 </body>
 </html>
-
-

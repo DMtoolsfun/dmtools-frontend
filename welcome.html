@@ -1,0 +1,1270 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Welcome to DMTools.fun</title>
+  <meta name="description" content="DMTools.fun extension onboarding. Learn the two-right-click workflow, create a free account, and start generating draft replies.">
+  <link rel="stylesheet" href="/styles.css?v=20260323a">
+  <link rel="icon" href="/favicon.ico" type="image/x-icon">
+  <link rel="manifest" href="/manifest.json">
+  <meta name="theme-color" content="#8b5cf6">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-K0G9YRD39L"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-K0G9YRD39L');
+    gtag('config', 'G-YFTZBVLQHF');
+
+    window.DMTOOLS = window.DMTOOLS || {};
+    window.DMTOOLS.track = function(eventName, params) {
+      try {
+        gtag('event', eventName, params || {});
+      } catch (_) {}
+    };
+  </script>
+
+  <style>
+    .welcome-shell {
+      max-width: 1180px;
+      margin: 0 auto;
+      padding: 4.5rem 1.5rem 6rem;
+    }
+
+    .welcome-hero {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) minmax(320px, 0.78fr);
+      gap: 1.5rem;
+      align-items: center;
+    }
+
+    .welcome-hero-card {
+      padding: 2rem;
+    }
+
+    .welcome-hero-copy .hero-title {
+      margin-bottom: 1rem;
+    }
+
+    .welcome-hero-copy .lead {
+      max-width: 720px;
+    }
+
+    .welcome-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.85rem;
+      margin-top: 1.5rem;
+    }
+
+    .welcome-proof {
+      display: grid;
+      gap: 0.85rem;
+      margin-top: 1.25rem;
+    }
+
+    .proof-row {
+      display: flex;
+      gap: 0.75rem;
+      align-items: flex-start;
+      color: var(--text-secondary, #d1d5db);
+      line-height: 1.6;
+    }
+
+    .proof-row strong {
+      color: var(--text-primary, #fff);
+    }
+
+    .proof-icon {
+      width: 30px;
+      height: 30px;
+      flex: 0 0 auto;
+      border-radius: 10px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      background: rgba(139, 92, 246, 0.16);
+      border: 1px solid rgba(139, 92, 246, 0.28);
+    }
+
+    .welcome-modal-backdrop {
+      position: fixed;
+      inset: 0;
+      z-index: 10000;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 1rem;
+      background: rgba(2, 6, 23, 0.82);
+      backdrop-filter: blur(12px);
+    }
+
+    .welcome-modal-backdrop.show {
+      display: flex;
+    }
+
+    .welcome-modal {
+      width: min(980px, 100%);
+      max-height: min(760px, calc(100vh - 2rem));
+      overflow: hidden;
+      border-radius: 28px;
+      border: 1px solid rgba(148, 163, 184, 0.2);
+      background:
+        radial-gradient(circle at top left, rgba(139, 92, 246, 0.22), transparent 34%),
+        radial-gradient(circle at bottom right, rgba(6, 182, 212, 0.16), transparent 36%),
+        rgba(15, 23, 42, 0.98);
+      box-shadow: 0 30px 90px rgba(0, 0, 0, 0.55);
+      display: grid;
+      grid-template-rows: auto 1fr auto;
+    }
+
+    .welcome-modal-header {
+      display: flex;
+      justify-content: space-between;
+      gap: 1rem;
+      align-items: center;
+      padding: 1rem 1.25rem;
+      border-bottom: 1px solid rgba(148, 163, 184, 0.16);
+    }
+
+    .welcome-modal-brand {
+      display: flex;
+      align-items: center;
+      gap: 0.65rem;
+      font-weight: 900;
+      color: var(--text-primary, #fff);
+    }
+
+    .modal-close {
+      width: 40px;
+      height: 40px;
+      border: 1px solid rgba(148, 163, 184, 0.2);
+      border-radius: 14px;
+      background: rgba(255, 255, 255, 0.04);
+      color: var(--text-primary, #fff);
+      cursor: pointer;
+      font-size: 1.35rem;
+      line-height: 1;
+    }
+
+    .welcome-progress {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 0.5rem;
+      padding: 0 1.25rem 1rem;
+    }
+
+    .progress-step {
+      height: 7px;
+      border-radius: 999px;
+      background: rgba(148, 163, 184, 0.16);
+      overflow: hidden;
+    }
+
+    .progress-step span {
+      display: block;
+      width: 0;
+      height: 100%;
+      background: linear-gradient(135deg, #8b5cf6, #06b6d4);
+      transition: width 0.25s ease;
+    }
+
+    .progress-step.active span,
+    .progress-step.complete span {
+      width: 100%;
+    }
+
+    .welcome-modal-body {
+      overflow-y: auto;
+      padding: 1.35rem;
+    }
+
+    .onboarding-step {
+      display: none;
+      animation: stepIn 0.22s ease;
+    }
+
+    .onboarding-step.active {
+      display: block;
+    }
+
+    @keyframes stepIn {
+      from { opacity: 0; transform: translateY(8px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .step-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 0.9fr) minmax(320px, 1.1fr);
+      gap: 1rem;
+      align-items: stretch;
+    }
+
+    .step-copy {
+      padding: 1rem;
+      border-radius: 22px;
+    }
+
+    .step-copy h2 {
+      margin: 0.4rem 0 0.75rem;
+      font-size: clamp(2rem, 4vw, 3.8rem);
+      line-height: 0.96;
+      letter-spacing: -0.05em;
+    }
+
+    .step-copy p,
+    .step-copy li {
+      color: var(--text-secondary, #d1d5db);
+      line-height: 1.7;
+    }
+
+    .step-callout {
+      margin-top: 1rem;
+      padding: 1rem;
+      border-radius: 18px;
+      border: 1px solid rgba(139, 92, 246, 0.3);
+      background: rgba(139, 92, 246, 0.09);
+      color: var(--text-secondary, #d1d5db);
+      line-height: 1.65;
+    }
+
+    .mini-browser {
+      border-radius: 24px;
+      border: 1px solid rgba(148, 163, 184, 0.18);
+      overflow: hidden;
+      background: rgba(2, 6, 23, 0.55);
+      min-height: 440px;
+      display: grid;
+      grid-template-rows: auto 1fr;
+    }
+
+    .mini-browser-bar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 0.75rem;
+      padding: 0.75rem 1rem;
+      border-bottom: 1px solid rgba(148, 163, 184, 0.14);
+      background: rgba(255, 255, 255, 0.03);
+    }
+
+    .browser-dots {
+      display: flex;
+      gap: 0.35rem;
+    }
+
+    .browser-dots span {
+      width: 0.62rem;
+      height: 0.62rem;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.26);
+    }
+
+    .browser-address {
+      flex: 1;
+      max-width: 420px;
+      padding: 0.45rem 0.8rem;
+      border-radius: 999px;
+      background: rgba(15, 23, 42, 0.9);
+      color: var(--text-muted, #9ca3af);
+      font-size: 0.84rem;
+      text-align: center;
+    }
+
+    .mock-inbox {
+      display: grid;
+      grid-template-columns: 210px minmax(0, 1fr);
+      min-height: 400px;
+    }
+
+    .mock-sidebar {
+      padding: 1rem;
+      border-right: 1px solid rgba(148, 163, 184, 0.12);
+      background: rgba(255, 255, 255, 0.02);
+    }
+
+    .mock-pill {
+      display: block;
+      padding: 0.7rem 0.8rem;
+      border-radius: 14px;
+      color: var(--text-secondary, #d1d5db);
+      background: rgba(255, 255, 255, 0.03);
+      margin-bottom: 0.5rem;
+      font-weight: 700;
+    }
+
+    .mock-pill.active {
+      color: var(--text-primary, #fff);
+      border: 1px solid rgba(139, 92, 246, 0.32);
+      background: rgba(139, 92, 246, 0.14);
+    }
+
+    .mock-thread {
+      display: grid;
+      grid-template-rows: auto 1fr auto;
+    }
+
+    .mock-thread-head {
+      padding: 1rem;
+      border-bottom: 1px solid rgba(148, 163, 184, 0.12);
+    }
+
+    .mock-thread-head strong {
+      display: block;
+      color: var(--text-primary, #fff);
+      margin-bottom: 0.25rem;
+    }
+
+    .mock-thread-head span {
+      color: var(--text-muted, #9ca3af);
+      font-size: 0.9rem;
+    }
+
+    .mock-thread-body {
+      padding: 1rem;
+      display: grid;
+      align-content: start;
+      gap: 0.85rem;
+    }
+
+    .mock-bubble {
+      max-width: 92%;
+      padding: 1rem;
+      border-radius: 18px;
+      border: 1px solid rgba(148, 163, 184, 0.16);
+      color: var(--text-secondary, #d1d5db);
+      line-height: 1.55;
+      background: rgba(255, 255, 255, 0.035);
+      position: relative;
+    }
+
+    .mock-bubble.reply {
+      margin-left: auto;
+      background: rgba(139, 92, 246, 0.1);
+      border-color: rgba(139, 92, 246, 0.22);
+    }
+
+    .mock-bubble.highlighted {
+      outline: 3px solid rgba(6, 182, 212, 0.55);
+      box-shadow: 0 0 0 7px rgba(6, 182, 212, 0.1);
+    }
+
+    .mock-label {
+      display: block;
+      color: var(--text-primary, #fff);
+      font-weight: 900;
+      font-size: 0.82rem;
+      margin-bottom: 0.3rem;
+    }
+
+    .mock-composer {
+      padding: 1rem;
+      border-top: 1px solid rgba(148, 163, 184, 0.12);
+      background: rgba(255, 255, 255, 0.02);
+    }
+
+    .mock-composer textarea {
+      width: 100%;
+      min-height: 105px;
+      border-radius: 16px;
+      padding: 0.9rem 1rem;
+      border: 1px solid rgba(148, 163, 184, 0.18);
+      background: rgba(2, 6, 23, 0.55);
+      color: var(--text-primary, #fff);
+      resize: vertical;
+      line-height: 1.5;
+    }
+
+    .mock-composer textarea.focused {
+      border-color: rgba(139, 92, 246, 0.6);
+      box-shadow: 0 0 0 4px rgba(139, 92, 246, 0.12);
+    }
+
+    .demo-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.65rem;
+      margin-top: 0.8rem;
+    }
+
+    .demo-status {
+      margin-top: 0.85rem;
+      padding: 0.8rem 0.95rem;
+      border-radius: 15px;
+      background: rgba(6, 182, 212, 0.09);
+      border: 1px solid rgba(6, 182, 212, 0.22);
+      color: var(--text-secondary, #d1d5db);
+      line-height: 1.55;
+      font-size: 0.95rem;
+    }
+
+    .signup-card {
+      max-width: 560px;
+      margin: 0 auto;
+      padding: 1.5rem;
+      border-radius: 24px;
+      border: 1px solid rgba(148, 163, 184, 0.18);
+      background: rgba(2, 6, 23, 0.42);
+    }
+
+    .signup-card h2 {
+      font-size: clamp(2rem, 4vw, 3.3rem);
+      line-height: 0.98;
+      margin-bottom: 0.7rem;
+      letter-spacing: -0.045em;
+    }
+
+    .signup-card p {
+      color: var(--text-secondary, #d1d5db);
+      line-height: 1.7;
+    }
+
+    .signup-form {
+      display: grid;
+      gap: 0.9rem;
+      margin-top: 1rem;
+    }
+
+    .form-row {
+      display: grid;
+      gap: 0.35rem;
+    }
+
+    .form-row label {
+      color: var(--text-secondary, #d1d5db);
+      font-weight: 700;
+      font-size: 0.92rem;
+    }
+
+    .form-row input {
+      width: 100%;
+      padding: 0.9rem 1rem;
+      border-radius: 14px;
+      border: 1px solid rgba(148, 163, 184, 0.2);
+      background: rgba(2, 6, 23, 0.62);
+      color: var(--text-primary, #fff);
+    }
+
+    .consent-row {
+      display: flex;
+      gap: 0.7rem;
+      align-items: flex-start;
+      color: var(--text-secondary, #d1d5db);
+      line-height: 1.55;
+      font-size: 0.95rem;
+    }
+
+    .consent-row input {
+      margin-top: 0.25rem;
+      accent-color: #8b5cf6;
+    }
+
+    .signup-note {
+      font-size: 0.9rem;
+      color: var(--text-muted, #9ca3af);
+    }
+
+    .status-message {
+      display: none;
+      padding: 0.85rem 1rem;
+      border-radius: 15px;
+      line-height: 1.55;
+    }
+
+    .status-message.show {
+      display: block;
+    }
+
+    .status-message.error {
+      border: 1px solid rgba(248, 113, 113, 0.45);
+      background: rgba(248, 113, 113, 0.1);
+      color: #fecaca;
+    }
+
+    .status-message.success {
+      border: 1px solid rgba(16, 185, 129, 0.45);
+      background: rgba(16, 185, 129, 0.1);
+      color: #a7f3d0;
+    }
+
+    .pin-steps {
+      display: grid;
+      gap: 0.8rem;
+      margin-top: 1rem;
+    }
+
+    .pin-step {
+      display: grid;
+      grid-template-columns: 42px 1fr;
+      gap: 0.8rem;
+      align-items: start;
+      padding: 1rem;
+      border-radius: 18px;
+      border: 1px solid rgba(148, 163, 184, 0.18);
+      background: rgba(255, 255, 255, 0.035);
+    }
+
+    .pin-number {
+      width: 42px;
+      height: 42px;
+      border-radius: 14px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      background: linear-gradient(135deg, #8b5cf6, #06b6d4);
+      color: #fff;
+      font-weight: 900;
+    }
+
+    .pin-step strong {
+      display: block;
+      color: var(--text-primary, #fff);
+      margin-bottom: 0.25rem;
+    }
+
+    .pin-step span {
+      color: var(--text-secondary, #d1d5db);
+      line-height: 1.6;
+    }
+
+    .welcome-modal-footer {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 0.75rem;
+      padding: 1rem 1.25rem;
+      border-top: 1px solid rgba(148, 163, 184, 0.16);
+      background: rgba(2, 6, 23, 0.28);
+    }
+
+    .footer-left,
+    .footer-right {
+      display: flex;
+      gap: 0.65rem;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+
+    .step-counter {
+      color: var(--text-muted, #9ca3af);
+      font-size: 0.92rem;
+      font-weight: 700;
+    }
+
+    .secondary-link {
+      border: 0;
+      background: transparent;
+      color: var(--text-muted, #9ca3af);
+      cursor: pointer;
+      text-decoration: underline;
+      text-underline-offset: 4px;
+      padding: 0.7rem 0.4rem;
+    }
+
+    @media (max-width: 900px) {
+      .welcome-hero,
+      .step-grid,
+      .mock-inbox {
+        grid-template-columns: 1fr;
+      }
+
+      .mock-sidebar {
+        display: none;
+      }
+
+      .welcome-modal {
+        max-height: calc(100vh - 1rem);
+      }
+    }
+
+    @media (max-width: 640px) {
+      .welcome-shell {
+        padding: 3.5rem 1rem 4rem;
+      }
+
+      .welcome-modal-backdrop {
+        padding: 0.5rem;
+      }
+
+      .welcome-modal-body {
+        padding: 1rem;
+      }
+
+      .welcome-modal-footer {
+        align-items: stretch;
+        flex-direction: column;
+      }
+
+      .footer-left,
+      .footer-right {
+        width: 100%;
+        justify-content: space-between;
+      }
+
+      .footer-right .btn {
+        flex: 1;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <header class="header">
+    <div class="nav-container">
+      <a class="logo" href="/index.html" aria-label="DMTools.fun home">
+        <span class="logo-mark" aria-hidden="true"></span>
+        <span>DMTools.fun</span>
+      </a>
+
+      <nav class="landing-nav-desktop" aria-label="Primary">
+        <a href="/app.html" data-track="nav_link_click" data-track-location="header" data-track-target="queue">Queue</a>
+        <a href="/presets.html" data-track="nav_link_click" data-track-location="header" data-track-target="voice">Voice</a>
+        <a href="/pricing.html" data-track="nav_link_click" data-track-location="header" data-track-target="pricing">Pricing</a>
+        <a href="https://chromewebstore.google.com/detail/dmtools-%E2%80%93-inline-reply-as/joheialcdpmcfgehhcpfjnppficonfih" target="_blank" rel="noopener noreferrer" data-track="extension_install_click" data-track-location="header" data-track-target="chrome_store">Install Extension</a>
+      </nav>
+
+      <div class="header-actions">
+        <a class="btn btn-secondary hide-mobile" href="/account.html" id="account-link" data-track="nav_link_click" data-track-location="header" data-track-target="account">Account</a>
+        <button class="btn btn-secondary hide-mobile" type="button" data-auth="login" data-return-to="/app.html" data-track="auth_modal_open" data-track-mode="login" id="signin-button">Sign in</button>
+        <button class="btn btn-primary" type="button" data-auth="register" data-return-to="/app.html" data-track="auth_modal_open" data-track-mode="register" id="signup-button">Start free</button>
+        <button class="mobile-menu-btn" type="button" aria-label="Open menu" aria-expanded="false" aria-controls="mobile-menu" id="mobile-menu-toggle">☰</button>
+      </div>
+    </div>
+
+    <div class="mobile-menu" id="mobile-menu">
+      <div class="mobile-menu-links">
+        <a href="/app.html" data-track="nav_link_click" data-track-location="mobile" data-track-target="queue">Queue</a>
+        <a href="/presets.html" data-track="nav_link_click" data-track-location="mobile" data-track-target="voice">Voice</a>
+        <a href="/pricing.html" data-track="nav_link_click" data-track-location="mobile" data-track-target="pricing">Pricing</a>
+        <a href="/account.html" data-track="nav_link_click" data-track-location="mobile" data-track-target="account">Account</a>
+        <a href="https://chromewebstore.google.com/detail/dmtools-%E2%80%93-inline-reply-as/joheialcdpmcfgehhcpfjnppficonfih" target="_blank" rel="noopener noreferrer" data-track="extension_install_click" data-track-location="mobile" data-track-target="chrome_store">Install Extension</a>
+        <button class="btn btn-secondary" type="button" data-auth="login" data-return-to="/app.html" data-track="auth_modal_open" data-track-mode="login">Sign in</button>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <section class="welcome-shell">
+      <div class="welcome-hero">
+        <div class="welcome-hero-copy">
+          <span class="eyebrow">Extension onboarding</span>
+          <h1 class="hero-title"><span class="gradient-text">Reply anywhere</span><br>in 2 right-clicks.</h1>
+          <p class="lead">Learn the DMTools workflow once: highlight a message, capture it, click where you want the reply, and generate a draft. DMTools generates drafts only — you review, edit, and send manually.</p>
+          <div class="welcome-actions">
+            <button class="btn btn-primary" type="button" id="open-onboarding">Start walkthrough</button>
+            <a class="btn btn-secondary" href="/app.html" data-track="welcome_cta_click" data-track-cta="open_queue" data-track-surface="welcome">Open Queue</a>
+            <a class="btn btn-accent" href="/pricing.html" data-track="welcome_cta_click" data-track-cta="view_pricing" data-track-surface="welcome">See paid features</a>
+          </div>
+        </div>
+
+        <article class="card welcome-hero-card">
+          <h2>What this page does</h2>
+          <div class="welcome-proof">
+            <div class="proof-row">
+              <span class="proof-icon">1</span>
+              <span><strong>Shows the workflow.</strong><br>Users see exactly what to do after installing instead of guessing.</span>
+            </div>
+            <div class="proof-row">
+              <span class="proof-icon">2</span>
+              <span><strong>Captures free accounts.</strong><br>Free accounts include limited response credits only.</span>
+            </div>
+            <div class="proof-row">
+              <span class="proof-icon">3</span>
+              <span><strong>Protects paid value.</strong><br>Voice settings, templates, saved tone rules, and advanced features stay paid-only.</span>
+            </div>
+          </div>
+        </article>
+      </div>
+    </section>
+  </main>
+
+  <div class="welcome-modal-backdrop" id="welcome-modal" role="dialog" aria-modal="true" aria-labelledby="modal-title" aria-hidden="true">
+    <div class="welcome-modal">
+      <div>
+        <div class="welcome-modal-header">
+          <div class="welcome-modal-brand">
+            <span class="logo-mark" aria-hidden="true"></span>
+            <span>DMTools.fun setup</span>
+          </div>
+          <button class="modal-close" type="button" id="modal-close" aria-label="Close onboarding">×</button>
+        </div>
+        <div class="welcome-progress" aria-hidden="true">
+          <div class="progress-step" data-progress="0"><span></span></div>
+          <div class="progress-step" data-progress="1"><span></span></div>
+          <div class="progress-step" data-progress="2"><span></span></div>
+          <div class="progress-step" data-progress="3"><span></span></div>
+        </div>
+      </div>
+
+      <div class="welcome-modal-body">
+        <section class="onboarding-step active" data-step="0">
+          <div class="step-grid">
+            <div class="step-copy">
+              <span class="eyebrow">Step 1</span>
+              <h2 id="modal-title">DMTools is installed.</h2>
+              <p>Now get your first win. DMTools helps you turn incoming messages into draft replies right where you already type.</p>
+              <ul>
+                <li>Highlight an incoming message.</li>
+                <li>Right-click and capture it with DMTools.</li>
+                <li>Right-click in a reply box to generate a draft.</li>
+                <li>You review, edit, and send manually.</li>
+              </ul>
+              <div class="step-callout"><strong>No auto-sending:</strong> DMTools does not send replies for users. It only generates drafts.</div>
+            </div>
+
+            <div class="mini-browser">
+              <div class="mini-browser-bar">
+                <div class="browser-dots"><span></span><span></span><span></span></div>
+                <div class="browser-address">mock-inbox.example/message</div>
+              </div>
+              <div class="mock-inbox">
+                <aside class="mock-sidebar">
+                  <span class="mock-pill active">Inbox</span>
+                  <span class="mock-pill">Requests</span>
+                  <span class="mock-pill">Archive</span>
+                </aside>
+                <div class="mock-thread">
+                  <div class="mock-thread-head">
+                    <strong>Partnership follow-up</strong>
+                    <span>Practice before using it on a real site.</span>
+                  </div>
+                  <div class="mock-thread-body">
+                    <div class="mock-bubble">
+                      <span class="mock-label">Incoming message</span>
+                      Hey, just checking in on the proposal we sent last week. Do you have any updates for us?
+                    </div>
+                    <div class="mock-bubble reply">
+                      <span class="mock-label">Your reply box</span>
+                      A draft will appear after you capture and generate.
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section class="onboarding-step" data-step="1">
+          <div class="step-grid">
+            <div class="step-copy">
+              <span class="eyebrow">Step 2</span>
+              <h2>Practice the mock inbox.</h2>
+              <p>Use the buttons below as a guided simulation. When using the real extension, these actions happen through the Chrome right-click menu.</p>
+              <div class="step-callout" id="demo-instruction"><strong>Start here:</strong> highlight the incoming message.</div>
+              <div class="demo-actions">
+                <button class="btn btn-secondary" type="button" id="demo-highlight">1. Highlight message</button>
+                <button class="btn btn-secondary" type="button" id="demo-capture" disabled>2. Capture with DMTools</button>
+                <button class="btn btn-secondary" type="button" id="demo-focus" disabled>3. Click reply box</button>
+                <button class="btn btn-primary" type="button" id="demo-generate" disabled>4. Generate draft</button>
+              </div>
+              <div class="demo-status" id="demo-status">This practice flow is here to teach the motion. On real websites, use right-click capture and right-click generate.</div>
+            </div>
+
+            <div class="mini-browser">
+              <div class="mini-browser-bar">
+                <div class="browser-dots"><span></span><span></span><span></span></div>
+                <div class="browser-address">practice.dmtools.fun/mock-inbox</div>
+              </div>
+              <div class="mock-inbox">
+                <aside class="mock-sidebar">
+                  <span class="mock-pill active">Inbox</span>
+                  <span class="mock-pill">Messages</span>
+                  <span class="mock-pill">Requests</span>
+                </aside>
+                <div class="mock-thread">
+                  <div class="mock-thread-head">
+                    <strong>Partnership follow-up</strong>
+                    <span>Two right-clicks once the extension is installed.</span>
+                  </div>
+                  <div class="mock-thread-body">
+                    <div class="mock-bubble" id="demo-message">
+                      <span class="mock-label">Incoming message</span>
+                      Hey, just checking in on the proposal we sent last week. Do you have any updates for us?
+                    </div>
+                    <div class="mock-bubble reply">
+                      <span class="mock-label">DMTools tip</span>
+                      Capture the incoming message first, then generate inside the reply box.
+                    </div>
+                  </div>
+                  <div class="mock-composer">
+                    <textarea id="demo-reply" placeholder="Your generated draft will appear here." readonly></textarea>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section class="onboarding-step" data-step="2">
+          <div class="signup-card">
+            <span class="eyebrow">Step 3</span>
+            <h2>Create your free account.</h2>
+            <p>Get limited free replies so you can try DMTools in Queue and with the extension.</p>
+            <div class="step-callout">
+              <strong>Important:</strong> Free accounts and response packs provide response credits only. Voice settings, saved templates, reusable tone rules, higher limits, and advanced workflow features are available on paid subscriptions.
+            </div>
+
+            <form class="signup-form" id="welcome-signup-form">
+              <div class="form-row">
+                <label for="welcome-email">Email</label>
+                <input id="welcome-email" name="email" type="email" autocomplete="email" required placeholder="you@example.com">
+              </div>
+
+              <div class="form-row">
+                <label for="welcome-password">Password</label>
+                <input id="welcome-password" name="password" type="password" autocomplete="new-password" required minlength="8" placeholder="Create a password">
+              </div>
+
+              <label class="consent-row">
+                <input id="marketing-consent" name="marketingConsent" type="checkbox">
+                <span>Send me product tips, workflow examples, updates, and occasional offers. I can unsubscribe at any time.</span>
+              </label>
+
+              <div class="status-message" id="signup-status" role="status" aria-live="polite"></div>
+
+              <button class="btn btn-primary" type="submit">Create free account</button>
+              <button class="secondary-link" type="button" id="continue-without-account">Continue without account</button>
+
+              <p class="signup-note">By creating an account, you agree to the <a href="/terms-of-service.html" target="_blank" rel="noopener noreferrer">Terms of Service</a> and acknowledge the <a href="/privacy-policy.html" target="_blank" rel="noopener noreferrer">Privacy Policy</a>.</p>
+            </form>
+          </div>
+        </section>
+
+        <section class="onboarding-step" data-step="3">
+          <div class="step-grid">
+            <div class="step-copy">
+              <span class="eyebrow">Step 4</span>
+              <h2>You’re ready.</h2>
+              <p>Pin the extension so it’s easy to find, then start with Queue or use the extension on a real message.</p>
+              <div class="pin-steps">
+                <div class="pin-step">
+                  <span class="pin-number">1</span>
+                  <span><strong>Click the puzzle icon in Chrome.</strong> It is usually near the top-right of the browser.</span>
+                </div>
+                <div class="pin-step">
+                  <span class="pin-number">2</span>
+                  <span><strong>Find DMTools.</strong> Click the pin icon next to it so it stays visible.</span>
+                </div>
+                <div class="pin-step">
+                  <span class="pin-number">3</span>
+                  <span><strong>Use the two-right-click flow.</strong> Highlight → capture → click reply box → generate.</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="signup-card">
+              <h2>Next best step</h2>
+              <p>Open Queue with sample messages and generate your first draft. Upgrade later when you want Voice settings, templates, saved tone rules, and scale.</p>
+              <div class="welcome-actions">
+                <a class="btn btn-primary" href="/app.html?source=welcome_onboarding&sample=1" id="open-queue-final">Open Queue</a>
+                <a class="btn btn-secondary" href="/pricing.html" id="see-paid-features">See paid features</a>
+                <a class="btn btn-accent" href="https://chromewebstore.google.com/detail/dmtools-%E2%80%93-inline-reply-as/joheialcdpmcfgehhcpfjnppficonfih" target="_blank" rel="noopener noreferrer" id="open-extension-store-final">Chrome Web Store</a>
+              </div>
+              <div class="step-callout"><strong>Paid upgrade path:</strong> sell control, consistency, saved voice, templates, and higher limits — not basic free trial access.</div>
+            </div>
+          </div>
+        </section>
+      </div>
+
+      <div class="welcome-modal-footer">
+        <div class="footer-left">
+          <span class="step-counter" id="step-counter">Step 1 of 4</span>
+          <button class="secondary-link" type="button" id="skip-onboarding">Skip</button>
+        </div>
+        <div class="footer-right">
+          <button class="btn btn-secondary" type="button" id="prev-step">Back</button>
+          <button class="btn btn-primary" type="button" id="next-step">Next</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <footer class="footer">
+    <div class="footer-content">
+      <div class="footer-brand">
+        <a class="footer-logo" href="/index.html">
+          <span class="logo-mark" aria-hidden="true"></span>
+          <span>DMTools.fun</span>
+        </a>
+        <p class="footer-description">Reply faster anywhere you work.</p>
+      </div>
+
+      <div class="footer-column">
+        <h4>Product</h4>
+        <a href="/app.html">Queue</a>
+        <a href="/presets.html">Voice</a>
+        <a href="/pricing.html">Pricing</a>
+        <a href="/store.html">Response Packs</a>
+      </div>
+
+      <div class="footer-column">
+        <h4>Company</h4>
+        <a href="/contact.html">Contact</a>
+        <a href="/privacy-policy.html">Privacy Policy</a>
+        <a href="/terms-of-service.html">Terms of Service</a>
+        <a href="/refund-policy.html">Refund Policy</a>
+        <a href="/cookie-policy.html">Cookie Policy</a>
+      </div>
+    </div>
+
+    <div class="footer-bottom">
+      <p>© 2026 DMTools.fun LLC. All rights reserved.</p>
+      <p>Capture once. Reply anywhere. Stay in flow.</p>
+    </div>
+  </footer>
+
+  <script src="/js/app-core.js"></script>
+  <script src="/js/auth-modal.js"></script>
+  <script>
+    (function() {
+      var pageName = 'welcome';
+      var source = new URLSearchParams(window.location.search).get('source') || 'direct';
+      var completionKey = 'dmtools_extension_onboarding_complete_v1';
+      var currentStep = 0;
+      var totalSteps = 4;
+      var mockCompleted = false;
+
+      function $(id) {
+        return document.getElementById(id);
+      }
+
+      function track(eventName, params) {
+        if (window.DMTOOLS && typeof window.DMTOOLS.track === 'function') {
+          window.DMTOOLS.track(eventName, Object.assign({
+            page_name: pageName,
+            surface: pageName,
+            source: source
+          }, params || {}));
+        }
+      }
+
+      function setAuthUI(isAuthed) {
+        var signInButton = $('signin-button');
+        var signUpButton = $('signup-button');
+        var accountLink = $('account-link');
+
+        if (isAuthed) {
+          if (signInButton) signInButton.classList.add('hidden');
+          if (signUpButton) {
+            signUpButton.outerHTML = '<a class="btn btn-primary" href="/app.html" id="signup-button" data-track="welcome_cta_click" data-track-cta="open_workspace" data-track-surface="welcome">Open workspace</a>';
+          }
+          if (accountLink) accountLink.textContent = 'My account';
+        }
+      }
+
+      async function hydrateAuthState() {
+        try {
+          if (window.DMTOOLS && typeof DMTOOLS.verifyToken === 'function') {
+            var authed = await DMTOOLS.verifyToken();
+            setAuthUI(authed);
+            track('auth_state_detected', {
+              auth_state: authed ? 'authenticated' : 'anonymous'
+            });
+          }
+        } catch (_) {}
+      }
+
+      function wireTracking() {
+        document.addEventListener('click', function(e) {
+          var el = e.target.closest('[data-track]');
+          if (!el) return;
+
+          var eventName = el.getAttribute('data-track');
+          var params = {};
+
+          Array.prototype.forEach.call(el.attributes, function(attr) {
+            if (!attr.name.startsWith('data-track-')) return;
+            var key = attr.name.replace('data-track-', '').replace(/-([a-z])/g, function(_, c) { return c.toUpperCase(); });
+            params[key] = attr.value;
+          });
+
+          track(eventName, params);
+        });
+      }
+
+      function wireMobileMenu() {
+        var toggle = $('mobile-menu-toggle');
+        var menu = $('mobile-menu');
+        if (!toggle || !menu) return;
+
+        toggle.addEventListener('click', function() {
+          var isOpen = menu.classList.toggle('show');
+          toggle.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+          track('mobile_menu_toggle', {
+            state: isOpen ? 'open' : 'closed'
+          });
+        });
+      }
+
+      function openModal(fromButton) {
+        $('welcome-modal').classList.add('show');
+        $('welcome-modal').setAttribute('aria-hidden', 'false');
+        document.body.style.overflow = 'hidden';
+        setStep(0);
+        track('onboarding_modal_start', { opened_from: fromButton || 'auto' });
+      }
+
+      function closeModal(markSkipped) {
+        $('welcome-modal').classList.remove('show');
+        $('welcome-modal').setAttribute('aria-hidden', 'true');
+        document.body.style.overflow = '';
+        if (markSkipped) {
+          track('onboarding_skipped', { step: currentStep + 1 });
+        }
+      }
+
+      function completeOnboarding(destination) {
+        localStorage.setItem(completionKey, '1');
+        track('onboarding_completed', { destination: destination || 'unknown' });
+      }
+
+      function setStep(step) {
+        currentStep = Math.max(0, Math.min(totalSteps - 1, step));
+
+        document.querySelectorAll('.onboarding-step').forEach(function(el) {
+          el.classList.toggle('active', Number(el.dataset.step) === currentStep);
+        });
+
+        document.querySelectorAll('.progress-step').forEach(function(el) {
+          var index = Number(el.dataset.progress);
+          el.classList.toggle('active', index === currentStep);
+          el.classList.toggle('complete', index < currentStep);
+        });
+
+        $('step-counter').textContent = 'Step ' + (currentStep + 1) + ' of ' + totalSteps;
+        $('prev-step').style.visibility = currentStep === 0 ? 'hidden' : 'visible';
+        $('next-step').textContent = currentStep === totalSteps - 1 ? 'Finish' : 'Next';
+
+        if (currentStep === 2) {
+          track('signup_prompt_seen', { step: currentStep + 1 });
+        }
+
+        track('onboarding_step_view', { step: currentStep + 1 });
+      }
+
+      function nextStep() {
+        if (currentStep === totalSteps - 1) {
+          completeOnboarding('finish_button');
+          closeModal(false);
+          return;
+        }
+
+        if (currentStep === 1 && !mockCompleted) {
+          $('demo-status').textContent = 'Finish the practice flow first, or use Continue without account later if you want to skip signup.';
+        }
+
+        setStep(currentStep + 1);
+      }
+
+      function prevStep() {
+        setStep(currentStep - 1);
+      }
+
+      function setSignupStatus(message, type) {
+        var status = $('signup-status');
+        status.textContent = message || '';
+        status.className = 'status-message' + (message ? ' show ' + (type || 'success') : '');
+      }
+
+      async function createFreeAccount(e) {
+        e.preventDefault();
+
+        var email = $('welcome-email').value.trim();
+        var password = $('welcome-password').value;
+        var marketingConsent = $('marketing-consent').checked;
+
+        if (!email || !password) {
+          setSignupStatus('Enter an email and password to create your free account.', 'error');
+          return;
+        }
+
+        if (marketingConsent) {
+          track('marketing_opt_in_checked', { checked: true });
+        }
+
+        var submit = e.target.querySelector('button[type="submit"]');
+        var originalText = submit.textContent;
+        submit.disabled = true;
+        submit.textContent = 'Creating account...';
+        setSignupStatus('', 'success');
+
+        try {
+          if (!window.DMTOOLS || typeof DMTOOLS.apiCall !== 'function') {
+            throw new Error('Registration service is not ready yet.');
+          }
+
+          var response = await DMTOOLS.apiCall('/auth/register', {
+            method: 'POST',
+            body: JSON.stringify({
+              email: email,
+              password: password,
+              marketing_consent: marketingConsent,
+              source: 'welcome_onboarding',
+              install_source: source,
+              plan_intent: 'free_responses_only'
+            })
+          });
+
+          try {
+            if (response && response.token && typeof DMTOOLS.setToken === 'function') {
+              DMTOOLS.setToken(response.token);
+            }
+          } catch (_) {}
+
+          track('free_account_created', {
+            marketing_opt_in: marketingConsent,
+            account_type: 'free_responses_only'
+          });
+
+          setSignupStatus('Account created. Your free account includes limited response credits. Paid subscriptions unlock Voice settings, templates, and advanced features.', 'success');
+          setTimeout(function() {
+            setStep(3);
+          }, 650);
+        } catch (error) {
+          track('free_account_create_error', {
+            message: String(error && error.message ? error.message : error)
+          });
+
+          setSignupStatus('Could not create the account from this modal. You can still use the regular signup flow.', 'error');
+
+          if (window.DMTOOLS && typeof DMTOOLS.openAuthModal === 'function') {
+            setTimeout(function() {
+              try {
+                DMTOOLS.openAuthModal('register', { returnTo: '/app.html?source=welcome_signup_fallback' });
+              } catch (_) {}
+            }, 500);
+          }
+        } finally {
+          submit.disabled = false;
+          submit.textContent = originalText;
+        }
+      }
+
+      function wireDemo() {
+        var step = 0;
+        var message = $('demo-message');
+        var reply = $('demo-reply');
+        var status = $('demo-status');
+        var instruction = $('demo-instruction');
+
+        function update(text) {
+          status.textContent = text;
+          instruction.innerHTML = '<strong>Progress:</strong> ' + text;
+        }
+
+        $('demo-highlight').addEventListener('click', function() {
+          step = Math.max(step, 1);
+          message.classList.add('highlighted');
+          $('demo-capture').disabled = false;
+          update('Message highlighted. In the real extension, you would right-click and choose Capture with DMTools.');
+          track('mock_inbox_started', { action: 'highlight' });
+        });
+
+        $('demo-capture').addEventListener('click', function() {
+          if (step < 1) return;
+          step = Math.max(step, 2);
+          $('demo-focus').disabled = false;
+          update('Message captured. Now move to the reply box where you want the draft to appear.');
+          track('mock_inbox_action', { action: 'capture' });
+        });
+
+        $('demo-focus').addEventListener('click', function() {
+          if (step < 2) return;
+          step = Math.max(step, 3);
+          reply.classList.add('focused');
+          reply.focus();
+          $('demo-generate').disabled = false;
+          update('Reply box selected. In the real extension, right-click here and choose Generate with DMTools.');
+          track('mock_inbox_action', { action: 'focus_reply_box' });
+        });
+
+        $('demo-generate').addEventListener('click', function() {
+          if (step < 3) return;
+          reply.value = 'Thanks for following up — I appreciate your patience. I’m reviewing the proposal now and will send you an update shortly. If anything changes before then, I’ll let you know.';
+          mockCompleted = true;
+          update('Draft generated. You would now review, edit if needed, and send manually.');
+          track('mock_inbox_completed', { action: 'generate_draft' });
+        });
+      }
+
+      function wireModal() {
+        $('open-onboarding').addEventListener('click', function() {
+          openModal('button');
+        });
+
+        $('modal-close').addEventListener('click', function() {
+          closeModal(true);
+        });
+
+        $('skip-onboarding').addEventListener('click', function() {
+          localStorage.setItem(completionKey, '1');
+          closeModal(true);
+        });
+
+        $('next-step').addEventListener('click', nextStep);
+        $('prev-step').addEventListener('click', prevStep);
+
+        $('continue-without-account').addEventListener('click', function() {
+          track('onboarding_continue_without_account', { step: currentStep + 1 });
+          setStep(3);
+        });
+
+        $('welcome-signup-form').addEventListener('submit', createFreeAccount);
+
+        $('open-queue-final').addEventListener('click', function() {
+          completeOnboarding('queue');
+          track('queue_opened_from_onboarding', { account_status: 'unknown' });
+        });
+
+        $('see-paid-features').addEventListener('click', function() {
+          completeOnboarding('pricing');
+          track('paid_features_view_from_onboarding', { feature_set: 'voice_templates_advanced' });
+        });
+
+        $('open-extension-store-final').addEventListener('click', function() {
+          completeOnboarding('chrome_store');
+          track('extension_install_click', { location: 'welcome_final' });
+        });
+
+        $('welcome-modal').addEventListener('click', function(e) {
+          if (e.target === $('welcome-modal')) {
+            closeModal(true);
+          }
+        });
+
+        document.addEventListener('keydown', function(e) {
+          if (e.key === 'Escape' && $('welcome-modal').classList.contains('show')) {
+            closeModal(true);
+          }
+        });
+      }
+
+      function maybeAutoOpen() {
+        var shouldAutoOpen = source === 'chrome_install' || source === 'extension_install' || new URLSearchParams(window.location.search).get('onboarding') === '1';
+        var completed = localStorage.getItem(completionKey) === '1';
+
+        if (shouldAutoOpen && !completed) {
+          setTimeout(function() {
+            openModal('auto_' + source);
+          }, 350);
+        }
+      }
+
+      track('welcome_page_view', {
+        completed_before_view: localStorage.getItem(completionKey) === '1'
+      });
+
+      wireTracking();
+      wireMobileMenu();
+      wireDemo();
+      wireModal();
+      hydrateAuthState();
+      maybeAutoOpen();
+    })();
+  </script>
+</body>
+</html>

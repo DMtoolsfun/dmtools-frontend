@@ -1,548 +1,506 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<!-- PWA Manifest -->
-<link rel="manifest" href="/manifest.json">
-<meta name="theme-color" content="#8b5cf6">
-<meta name="mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-capable" content="yes">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cookie Policy - DMTools.fun</title>
+  <meta name="description" content="Cookie Policy for DMTools.fun - how we use cookies, local storage, analytics, and similar technologies.">
+  <link rel="stylesheet" href="/styles.css?v=20260323a">
+  <link rel="icon" href="/favicon.ico" type="image/x-icon">
+  <link rel="manifest" href="/manifest.json">
+  <meta name="theme-color" content="#8b5cf6">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-capable" content="yes">
 
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-K0G9YRD39L"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-K0G9YRD39L');
+    gtag('config', 'G-YFTZBVLQHF');
 
-  <!-- Google tag (gtag.js) -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-K0G9YRD39L"></script>
-    <script>
-        window.dataLayer = window.dataLayer || [];
-        function gtag(){dataLayer.push(arguments);}
-        gtag('js', new Date());
-        gtag('config', 'G-K0G9YRD39L');
-      gtag('config', 'G-YFTZBVLQHF');
-    </script>
-  
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cookie Policy - DMTools.fun</title>
-    <meta name="description" content="Cookie Policy for DMTools.fun - How we use cookies and tracking technologies">
-    <link rel="icon" href="/favicon.ico" type="image/x-icon">
+    window.DMTOOLS = window.DMTOOLS || {};
+    window.DMTOOLS.track = function(eventName, params) {
+      try {
+        gtag('event', eventName, params || {});
+      } catch (_) {}
+    };
+  </script>
 
-    <link rel="stylesheet" href="/styles.css?v=20260212">
-    
   <style>
-.legal-header {
-            text-align: center;
-            margin-bottom: 4rem;
-        }
-
-.legal-title {
-            font-size: 3rem;
-            font-weight: 900;
-            margin-bottom: 1rem;
-            background: linear-gradient(135deg, #8b5cf6, #06b6d4);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-        }
-
-.legal-subtitle {
-            font-size: 1.2rem;
-            color: #9ca3af;
-            margin-bottom: 1rem;
-        }
-
-.effective-date {
-            background: rgba(139, 92, 246, 0.1);
-            border: 1px solid #8b5cf6;
-            border-radius: 12px;
-            padding: 1rem;
-            text-align: center;
-            margin-bottom: 2rem;
-            font-weight: 600;
-        }
-
-.content-card {
-            background: rgba(30, 41, 59, 0.6);
-            backdrop-filter: blur(10px);
-            border: 1px solid #374151;
-            border-radius: 24px;
-            padding: 3rem;
-            margin-bottom: 2rem;
-            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
-        }
-
-.content-card h2 {
-            color: #8b5cf6;
-            font-size: 1.5rem;
-            font-weight: 700;
-            margin: 2rem 0 1rem 0;
-            padding-bottom: 0.5rem;
-            border-bottom: 2px solid #374151;
-        }
-
-.content-card h3 {
-            color: #06b6d4;
-            font-size: 1.2rem;
-            font-weight: 600;
-            margin: 1.5rem 0 1rem 0;
-        }
-
-.content-card p {
-            margin-bottom: 1rem;
-            color: #d1d5db;
-        }
-
-.content-card ul, .content-card ol {
-            margin-bottom: 1rem;
-            padding-left: 2rem;
-        }
-
-.content-card li {
-            margin-bottom: 0.5rem;
-            color: #d1d5db;
-        }
-
-.highlight-box {
-            background: rgba(16, 185, 129, 0.1);
-            border-left: 4px solid #10b981;
-            padding: 1.5rem;
-            margin: 1.5rem 0;
-            border-radius: 0 8px 8px 0;
-        }
-
-.warning-box {
-            background: rgba(245, 158, 11, 0.1);
-            border-left: 4px solid #f59e0b;
-            padding: 1.5rem;
-            margin: 1.5rem 0;
-            border-radius: 0 8px 8px 0;
-        }
-
-.cookie-table {
-            width: 100%;
-            border-collapse: collapse;
-            margin: 1.5rem 0;
-            background: rgba(30, 41, 59, 0.8);
-            border-radius: 12px;
-            overflow: hidden;
-            border: 1px solid #374151;
-        }
-
-.cookie-table th {
-            background: rgba(139, 92, 246, 0.2);
-            color: #8b5cf6;
-            padding: 1rem;
-            text-align: left;
-            font-weight: 600;
-        }
-
-.cookie-table td {
-            padding: 1rem;
-            border-bottom: 1px solid #374151;
-        }
-
-.cookie-table tr:last-child td {
-            border-bottom: none;
-  
-        
-        }
-
-}
-</style>
-  
-</head>
-  <body>
-  
-   <!-- Header -->
-<header class="header">
-    <div class="nav-container">
-        <a href="/" class="logo">DMTools.fun</a>
-        <div class="auth-buttons" id="authButtons">
-            <button class="mobile-menu-btn" onclick="toggleMobileMenu()" aria-label="Menu">☰</button>
-            <a href="#" data-auth="login" class="btn btn-secondary">Sign In</a>
-            <a href="#" data-auth="register" class="btn btn-primary">Sign Up</a>
-        </div>
-    </div>
-    
-    <nav class="mobile-nav" id="mobileNav">
-        <a href="/app.html" class="tab-btn">Generator</a>
-        <a href="/presets.html" class="tab-btn">Templates</a>
-<a href="/packs.html" class="tab-btn">Response Packs</a>
-        <a href="/pricing.html" class="tab-btn">Pricing</a>
-        <a href="/store.html" class="tab-btn">Packs Store</a>
-</nav>
-</header>
-
-<script>
-    function toggleMobileMenu() {
-        document.getElementById('mobileNav').classList.toggle('show');
+    .legal-page {
+      max-width: 980px;
+      margin: 0 auto;
+      padding: 5rem 1.5rem 6rem;
     }
-</script>
 
-    <!-- Main Content -->
-    <main class="main-content">
-        <div class="container">
-            <div class="legal-header">
-                <h1 class="legal-title">Cookie Policy</h1>
-                <p class="legal-subtitle">How we use cookies and tracking technologies to enhance your experience</p>
-                
-                <div class="effective-date">
-                    <strong>Effective Date:</strong> August 31, 2025<br>
-                    <strong>Last Updated:</strong> August 31, 2025
-                </div>
-            </div>
+    .legal-page .section-header {
+      max-width: 780px;
+      margin-left: auto;
+      margin-right: auto;
+      text-align: center;
+    }
 
-            <div class="content-card">
-                <h2>1. Introduction</h2>
-                <p>This Cookie Policy explains how DMTools.fun (operated by Dale Abbey) uses cookies and similar tracking technologies on our website and AI-powered universal unlimited batch response draft generator assistant service. This policy should be read together with our Privacy Policy and Terms of Service.</p>
+    .legal-date-pill {
+      display: inline-flex;
+      gap: 1rem;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: center;
+      margin-top: 1.5rem;
+      padding: 0.9rem 1.25rem;
+      border: 1px solid rgba(139, 92, 246, 0.35);
+      border-radius: 999px;
+      background: rgba(139, 92, 246, 0.08);
+      color: var(--text-secondary, #d1d5db);
+      font-size: 0.95rem;
+    }
 
-                <div class="highlight-box">
-                    <strong>Quick Summary:</strong> We use cookies to keep you logged in, remember your preferences, and understand how you use our service to make it better. You can control most cookies through your browser settings.
-                </div>
+    .legal-card {
+      max-width: 760px;
+      margin: 2rem auto 0;
+      padding: 2.25rem;
+    }
 
-                <h2>2. What Are Cookies?</h2>
-                <p>Cookies are small text files that are stored on your device (computer, tablet, or mobile) when you visit a website. They help the website remember information about your visit, such as your preferred language, login status, and other settings that can make your next visit easier and the site more useful to you.</p>
+    .legal-card h2 {
+      margin-top: 2.25rem;
+      margin-bottom: 0.9rem;
+      font-size: clamp(1.5rem, 2vw, 2rem);
+      line-height: 1.15;
+    }
 
-                <h3>2.1 Types of Cookies</h3>
-                <ul>
-                    <li><strong>Session Cookies:</strong> Temporary cookies that expire when you close your browser</li>
-                    <li><strong>Persistent Cookies:</strong> Cookies that remain on your device until they expire or are deleted</li>
-                    <li><strong>First-Party Cookies:</strong> Set directly by our website (dmtools.fun)</li>
-                    <li><strong>Third-Party Cookies:</strong> Set by other services we use (like Google Analytics)</li>
-                </ul>
+    .legal-card h2:first-child {
+      margin-top: 0;
+    }
 
-                <h2>3. How We Use Cookies</h2>
+    .legal-card h3 {
+      margin-top: 1.5rem;
+      margin-bottom: 0.65rem;
+      font-size: 1.1rem;
+    }
 
-                <h3>3.1 Essential Cookies</h3>
-                <p>These cookies are necessary for our website to function properly and cannot be switched off:</p>
-                <table class="cookie-table">
-                    <thead>
-                        <tr>
-                            <th>Cookie Name</th>
-                            <th>Purpose</th>
-                            <th>Duration</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td>dmtools_session</td>
-                            <td>Maintains your login session and authentication</td>
-                            <td>Session (expires when browser closes)</td>
-                        </tr>
-                        <tr>
-                            <td>dmtools_token</td>
-                            <td>Secures your account and API requests</td>
-                            <td>7 days</td>
-                        </tr>
-                        <tr>
-                            <td>dmtools_csrf</td>
-                            <td>Protects against cross-site request forgery attacks</td>
-                            <td>Session</td>
-                        </tr>
-                        <tr>
-                            <td>dmtools_preferences</td>
-                            <td>Remembers your account and interface preferences</td>
-                            <td>1 year</td>
-                        </tr>
-                    </tbody>
-                </table>
+    .legal-card p,
+    .legal-card li {
+      color: var(--text-secondary, #d1d5db);
+      line-height: 1.75;
+    }
 
-                <h3>3.2 Analytics Cookies</h3>
-                <p>We use Google Analytics to understand how visitors use our website:</p>
-                <table class="cookie-table">
-                    <thead>
-                        <tr>
-                            <th>Cookie Name</th>
-                            <th>Purpose</th>
-                            <th>Duration</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td>_ga</td>
-                            <td>Distinguishes unique users for analytics</td>
-                            <td>2 years</td>
-                        </tr>
-                        <tr>
-                            <td>_ga_[ID]</td>
-                            <td>Collects data on page views and user behavior</td>
-                            <td>2 years</td>
-                        </tr>
-                        <tr>
-                            <td>_gid</td>
-                            <td>Stores information about how visitors use our website</td>
-                            <td>24 hours</td>
-                        </tr>
-                        <tr>
-                            <td>_gat</td>
-                            <td>Throttles request rate to Google Analytics</td>
-                            <td>1 minute</td>
-                        </tr>
-                    </tbody>
-                </table>
+    .legal-card ul,
+    .legal-card ol {
+      padding-left: 1.35rem;
+      margin: 0.75rem 0 1.1rem;
+    }
 
-                <h3>3.3 Functional Cookies</h3>
-                <p>These cookies enable enhanced functionality and personalization:</p>
-                <table class="cookie-table">
-                    <thead>
-                        <tr>
-                            <th>Cookie Name</th>
-                            <th>Purpose</th>
-                            <th>Duration</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td>dmtools_theme</td>
-                            <td>Remembers your preferred theme/appearance settings</td>
-                            <td>1 year</td>
-                        </tr>
-                        <tr>
-                            <td>dmtools_language</td>
-                            <td>Stores your language preference</td>
-                            <td>1 year</td>
-                        </tr>
-                        <tr>
-                            <td>dmtools_onboarding</td>
-                            <td>Tracks completion of tutorial and onboarding steps</td>
-                            <td>6 months</td>
-                        </tr>
-                        <tr>
-                            <td>dmtools_notifications</td>
-                            <td>Remembers your notification preferences</td>
-                            <td>1 year</td>
-                        </tr>
-                    </tbody>
-                </table>
+    .legal-callout {
+      border: 1px solid rgba(139, 92, 246, 0.32);
+      border-left: 4px solid #8b5cf6;
+      background: rgba(139, 92, 246, 0.08);
+      border-radius: 16px;
+      padding: 1rem 1.1rem;
+      margin: 1.25rem 0;
+    }
 
-                <h3>3.4 Performance Cookies</h3>
-                <p>These cookies help us understand website performance and user experience:</p>
-                <ul>
-                    <li>Page load times and performance metrics</li>
-                    <li>Error tracking and debugging information</li>
-                    <li>Feature usage statistics and optimization data</li>
-                    <li>A/B testing variations and results</li>
-                </ul>
+    .legal-warning {
+      border-color: rgba(245, 158, 11, 0.45);
+      border-left-color: #f59e0b;
+      background: rgba(245, 158, 11, 0.08);
+    }
 
-                <h2>4. Third-Party Cookies</h2>
+    .legal-table-wrap {
+      width: 100%;
+      overflow-x: auto;
+      margin: 1.25rem 0;
+      border: 1px solid rgba(148, 163, 184, 0.18);
+      border-radius: 18px;
+    }
 
-                <h3>4.1 Google Analytics</h3>
-                <p>We use Google Analytics to analyze website traffic and user behavior. Google Analytics uses cookies to:</p>
-                <ul>
-                    <li>Count website visitors and page views</li>
-                    <li>Understand user navigation patterns</li>
-                    <li>Measure marketing campaign effectiveness</li>
-                    <li>Provide insights into user demographics and interests</li>
-                </ul>
-                <p>You can opt out of Google Analytics tracking by visiting the <a href="https://tools.google.com/dlpage/gaoptout" target="_blank">Google Analytics Opt-out Browser Add-on</a> page.</p>
+    .legal-table {
+      width: 100%;
+      border-collapse: collapse;
+      min-width: 680px;
+      background: rgba(15, 23, 42, 0.55);
+    }
 
-                <h3>4.2 lemon squeezy Integration</h3>
-                <p>When processing payments, lemons squeezy may set cookies for:</p>
-                <ul>
-                    <li>Fraud prevention and security</li>
-                    <li>Payment processing and transaction completion</li>
-                    <li>User experience optimization</li>
-                </ul>
-                <p>lemon squeezy's cookies are governed by their own privacy policy and cookie policy.</p>
+    .legal-table th,
+    .legal-table td {
+      padding: 1rem;
+      text-align: left;
+      vertical-align: top;
+      border-bottom: 1px solid rgba(148, 163, 184, 0.16);
+      color: var(--text-secondary, #d1d5db);
+    }
 
-                <h3>4.3 Content Delivery Network (CDN)</h3>
-                <p>We use CDN services to deliver website content efficiently:</p>
-                <ul>
-                    <li>Performance optimization cookies</li>
-                    <li>Geographic location detection</li>
-                    <li>Content caching and delivery optimization</li>
-                </ul>
+    .legal-table th {
+      color: var(--text-primary, #ffffff);
+      background: rgba(139, 92, 246, 0.12);
+      font-weight: 800;
+    }
 
-                <h2>5. Cookie Consent and Your Choices</h2>
+    .legal-table tr:last-child td {
+      border-bottom: 0;
+    }
 
-                <h3>5.1 Consent Management</h3>
-                <p>When you first visit our website, we request your consent for non-essential cookies. You can:</p>
-                <ul>
-                    <li>Accept all cookies for the full website experience</li>
-                    <li>Accept only essential cookies for basic functionality</li>
-                    <li>Customize your preferences by cookie category</li>
-                    <li>Change your preferences at any time in your account settings</li>
-                </ul>
+    .legal-footer-note {
+      margin-top: 2.5rem;
+      padding-top: 1.5rem;
+      border-top: 1px solid rgba(148, 163, 184, 0.18);
+      text-align: center;
+      font-size: 0.9rem;
+      color: var(--text-muted, #9ca3af);
+    }
 
-                <h3>5.2 Browser Controls</h3>
-                <p>You can control cookies through your browser settings:</p>
-                <ul>
-                    <li><strong>Block all cookies:</strong> Prevents websites from setting cookies (may break functionality)</li>
-                    <li><strong>Block third-party cookies:</strong> Allows first-party cookies but blocks third-party tracking</li>
-                    <li><strong>Clear existing cookies:</strong> Deletes all stored cookies from your browser</li>
-                    <li><strong>Set cookie preferences:</strong> Configure which types of cookies to allow</li>
-                </ul>
+    @media (max-width: 768px) {
+      .legal-page {
+        padding: 3.5rem 1rem 4rem;
+      }
 
-                <div class="warning-box">
-                    <strong>Important:</strong> Disabling essential cookies may prevent you from using certain features of our service, including logging in and saving your preferences.
-                </div>
+      .legal-card {
+        padding: 1.35rem;
+      }
 
-                <h3>5.3 Browser-Specific Instructions</h3>
-                <ul>
-                    <li><strong>Chrome:</strong> Settings > Privacy and security > Cookies and other site data</li>
-                    <li><strong>Firefox:</strong> Settings > Privacy & Security > Cookies and Site Data</li>
-                    <li><strong>Safari:</strong> Preferences > Privacy > Cookies and website data</li>
-                    <li><strong>Edge:</strong> Settings > Cookies and site permissions > Cookies and site data</li>
-                </ul>
+      .legal-date-pill {
+        border-radius: 18px;
+        align-items: flex-start;
+      }
+    }
+  </style>
+</head>
 
-                <h2>6. Mobile App Considerations</h2>
-                <p>If you access DMTools.fun through a mobile browser or our future mobile applications:</p>
-                <ul>
-                    <li>Similar tracking technologies may be used for functionality and analytics</li>
-                    <li>Mobile-specific identifiers may be used instead of traditional cookies</li>
-                    <li>You can typically manage these settings through your device's privacy settings</li>
-                    <li>In-app browsers may have different cookie management capabilities</li>
-                </ul>
+<body>
+  <header class="header">
+    <div class="nav-container">
+      <a class="logo" href="/index.html" aria-label="DMTools.fun home">
+        <span class="logo-mark" aria-hidden="true"></span>
+        <span>DMTools.fun</span>
+      </a>
 
-                <h2>7. Cookie Security and Privacy</h2>
+      <nav class="landing-nav-desktop" aria-label="Primary">
+        <a href="/app.html" data-track="nav_link_click" data-track-location="header" data-track-target="queue">Queue</a>
+        <a href="/presets.html" data-track="nav_link_click" data-track-location="header" data-track-target="voice">Voice</a>
+        <a href="/pricing.html" data-track="nav_link_click" data-track-location="header" data-track-target="pricing">Pricing</a>
+        <a href="https://chromewebstore.google.com/detail/dmtools-%E2%80%93-inline-reply-as/joheialcdpmcfgehhcpfjnppficonfih" target="_blank" rel="noopener noreferrer" data-track="extension_install_click" data-track-location="header" data-track-target="chrome_store">Install Extension</a>
+      </nav>
 
-                <h3>7.1 Security Measures</h3>
-                <p>We implement security measures to protect cookie data:</p>
-                <ul>
-                    <li><strong>Secure Flag:</strong> Authentication cookies are marked as secure (HTTPS only)</li>
-                    <li><strong>HttpOnly Flag:</strong> Session cookies are not accessible via JavaScript</li>
-                    <li><strong>SameSite Policy:</strong> Cookies are configured to prevent cross-site attacks</li>
-                    <li><strong>Encryption:</strong> Sensitive cookie data is encrypted</li>
-                </ul>
-
-                <h3>7.2 Data Minimization</h3>
-                <p>We follow data minimization principles:</p>
-                <ul>
-                    <li>Only collect cookie data necessary for stated purposes</li>
-                    <li>Use the shortest retention periods appropriate for each cookie type</li>
-                    <li>Regularly review and delete unnecessary cookie data</li>
-                    <li>Anonymize or pseudonymize cookie data where possible</li>
-                </ul>
-
-                <h2>8. International Considerations</h2>
-
-                <h3>8.1 European Union (GDPR)</h3>
-                <p>For users in the EU, we comply with GDPR requirements:</p>
-                <ul>
-                    <li>Obtain explicit consent before setting non-essential cookies</li>
-                    <li>Provide clear information about cookie purposes and durations</li>
-                    <li>Allow users to withdraw consent at any time</li>
-                    <li>Honor user rights regarding cookie data</li>
-                </ul>
-
-                <h3>8.2 Other Jurisdictions</h3>
-                <p>We comply with applicable cookie and privacy laws in all jurisdictions where we operate, including:</p>
-                <ul>
-                    <li>California Consumer Privacy Act (CCPA)</li>
-                    <li>ePrivacy Directive (Cookie Law)</li>
-                    <li>Other regional privacy regulations</li>
-                </ul>
-
-                <h2>9. Updates and Changes</h2>
-                <p>We may update this Cookie Policy from time to time to reflect:</p>
-                <ul>
-                    <li>Changes in our cookie usage practices</li>
-                    <li>New features or services that require additional cookies</li>
-                    <li>Updates to legal requirements or industry standards</li>
-                    <li>Improvements to user control and transparency</li>
-                </ul>
-
-                <p>We will notify users of significant changes through:</p>
-                <ul>
-                    <li>Email notifications to registered users</li>
-                    <li>Prominent notices on our website</li>
-                    <li>Updates to this policy with revised "Last Updated" date</li>
-                </ul>
-
-                <h2>10. Contact Information</h2>
-                <div class="contact-info">
-                    <h3>Questions About Our Cookie Policy?</h3>
-                    <p>If you have questions about our use of cookies or this Cookie Policy, please contact us:</p>
-                    <ul>
-                        <li><strong>Email:</strong> admin@dmtools.fun</li>
-                        <li><strong>Subject Line:</strong> "Cookie Policy Question"</li>
-                        <li><strong>Business Name:</strong> DMTools.fun (operated by Dale Abbey)</li>
-                        <li><strong>Address:</strong> 325 E Flamingo Rd #1112, Las Vegas, NV 89169</li>
-                        <li><strong>Website:</strong> <a href="https://dmtools.fun">https://dmtools.fun</a></li>
-                        <li><strong>Response Time:</strong> We typically respond within 48 hours</li>
-                    </ul>
-                </div>
-
-                <h2>11. Related Policies</h2>
-                <p>This Cookie Policy should be read together with our other policies:</p>
-                <ul>
-                    <li><a href="/privacy-policy.html">Privacy Policy</a> - How we handle your personal data</li>
-                    <li><a href="/terms-of-service.html">Terms of Service</a> - Terms for using our service</li>
-                    <li><a href="/refund-policy.html">Refund Policy</a> - Our refund terms and procedures</li>
-                </ul>
-
-                <h2>12. Technical Information</h2>
-                <p>For developers and technically-minded users, here are additional details:</p>
-
-                <div class="highlight-box">
-                    <strong>Technical Specifications:</strong>
-                    <ul>
-                        <li><strong>Cookie Domain:</strong> .dmtools.fun</li>
-                        <li><strong>Secure Cookies:</strong> All authentication cookies use the Secure flag</li>
-                        <li><strong>SameSite Policy:</strong> Strict for essential cookies, Lax for analytics</li>
-                        <li><strong>Cookie Encryption:</strong> Session cookies are encrypted using industry-standard methods</li>
-                        <li><strong>Storage Format:</strong> JSON for structured data, encrypted strings for sensitive data</li>
-                        <li><strong>Expiration Handling:</strong> Automatic cleanup of expired cookies</li>
-                    </ul>
-                </div>
-
-                <h2>13. Troubleshooting</h2>
-                <p>If you experience issues with cookies on our site:</p>
-                <ul>
-                    <li><strong>Clear browser cache and cookies:</strong> May resolve login or preference issues</li>
-                    <li><strong>Check browser cookie settings:</strong> Ensure cookies are enabled for dmtools.fun</li>
-                    <li><strong>Disable browser extensions:</strong> Some ad blockers may interfere with cookies</li>
-                    <li><strong>Try incognito/private browsing:</strong> Helps identify browser-specific issues</li>
-                    <li><strong>Contact support:</strong> Email us if problems persist</li>
-                </ul>
-
-                <p style="margin-top: 3rem; padding-top: 2rem; border-top: 1px solid #374151; font-size: 0.875rem; color: #9ca3af; text-align: center;">
-                    This Cookie Policy was last updated on August 31, 2025. By continuing to use DMTools.fun, you acknowledge that you have read and understood this Cookie Policy. This policy is part of our Terms of Service and Privacy Policy.
-                </p>
-            </div>
-        </div>
-    </main>
-
-<footer class="footer">
-    <div class="container">
-        <div class="footer-content">
-            <div class="footer-brand">
-                <h3 class="footer-logo">DMTools.fun</h3>
-                <p class="footer-description">
-                    AI-powered universal messaging response generator.
-                </p>
-            </div>
-            
-            <div class="footer-links">
-                <div class="link-group">
-                    <h4>Product</h4>
-                    <a href="/app.html">Generator</a>
-                    <a href="/presets.html">Templates</a>
-                    <a href="/pricing.html">Pricing</a>
-                    <a href="/store.html">Packs Store</a>
-                </div>
-                
-                <div class="link-group">
-                    <h4>Legal</h4>
-                    <a href="/terms-of-service.html">Terms of Service</a>
-                    <a href="/privacy-policy.html">Privacy Policy</a>
-                    <a href="/refund-policy.html">Refund Policy</a>
-                    <a href="/cookie-policy.html">Cookie Policy</a>
-                </div>
-                
-                <div class="link-group">
-                    <h4>Support</h4>
-                    <a href="/contact.html">Contact Us</a>
-                    <a href="mailto:support@dmtools.fun">Email Support</a>
-                </div>
-            </div>
-        </div>
-        
-        <div class="footer-bottom">
-            <p class="footer-copyright">© 2025 DMTools.fun LLC. All rights reserved.</p>
-        </div>
+      <div class="header-actions">
+        <a class="btn btn-secondary hide-mobile" href="/account.html" id="account-link" data-track="nav_link_click" data-track-location="header" data-track-target="account">Account</a>
+        <button class="btn btn-secondary hide-mobile" type="button" data-auth="login" data-return-to="/app.html" data-track="auth_modal_open" data-track-mode="login" id="signin-button">Sign in</button>
+        <button class="btn btn-primary" type="button" data-auth="register" data-return-to="/app.html" data-track="auth_modal_open" data-track-mode="register" id="signup-button">Start free</button>
+        <button class="mobile-menu-btn" type="button" aria-label="Open menu" aria-expanded="false" aria-controls="mobile-menu" id="mobile-menu-toggle">☰</button>
+      </div>
     </div>
-</footer>
-<script src="js/app-core.js"></script>
-<script src="js/auth-modal.js"></script>
+
+    <div class="mobile-menu" id="mobile-menu">
+      <div class="mobile-menu-links">
+        <a href="/app.html" data-track="nav_link_click" data-track-location="mobile" data-track-target="queue">Queue</a>
+        <a href="/presets.html" data-track="nav_link_click" data-track-location="mobile" data-track-target="voice">Voice</a>
+        <a href="/pricing.html" data-track="nav_link_click" data-track-location="mobile" data-track-target="pricing">Pricing</a>
+        <a href="/account.html" data-track="nav_link_click" data-track-location="mobile" data-track-target="account">Account</a>
+        <a href="https://chromewebstore.google.com/detail/dmtools-%E2%80%93-inline-reply-as/joheialcdpmcfgehhcpfjnppficonfih" target="_blank" rel="noopener noreferrer" data-track="extension_install_click" data-track-location="mobile" data-track-target="chrome_store">Install Extension</a>
+        <button class="btn btn-secondary" type="button" data-auth="login" data-return-to="/app.html" data-track="auth_modal_open" data-track-mode="login">Sign in</button>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <section class="legal-page">
+      <div class="section-header">
+        <span class="eyebrow">Legal</span>
+        <h1 class="hero-title">Cookie Policy</h1>
+        <p class="lead">How DMTools.fun uses cookies, local storage, analytics, and similar technologies across the website, web app, checkout flow, and Chrome Extension.</p>
+        <div class="legal-date-pill">
+          <span><strong>Effective Date:</strong> April 25, 2026</span>
+          <span><strong>Last Updated:</strong> April 25, 2026</span>
+        </div>
+      </div>
+
+      <article class="card legal-card">
+        <h2>1. Overview</h2>
+        <p>This Cookie Policy explains how DMTools.fun LLC ("DMTools.fun," "we," "our," or "us") uses cookies, browser storage, pixels, tags, analytics tools, and similar technologies when you visit <a href="https://dmtools.fun">dmtools.fun</a>, use the DMTools.fun web application, interact with our checkout flows, or use related services.</p>
+        <p>This policy should be read together with our <a href="/privacy-policy.html">Privacy Policy</a>, <a href="/terms-of-service.html">Terms of Service</a>, and <a href="/refund-policy.html">Refund Policy</a>.</p>
+
+        <div class="legal-callout">
+          <strong>Plain-English summary:</strong> We use essential technologies to keep the service working, remember user preferences, secure accounts, process payments, and understand website performance. We do not use cookies to automatically send messages for you, and the DMTools Chrome Extension does not collect browsing history or monitor background tabs.
+        </div>
+
+        <h2>2. What Cookies and Similar Technologies Are</h2>
+        <p>Cookies are small files stored on your device by your browser. Similar technologies include local storage, session storage, pixels, tags, SDKs, server logs, and browser-based identifiers. These technologies can help websites remember login status, preferences, security settings, analytics events, and performance information.</p>
+
+        <h3>2.1 Types of technologies we may use</h3>
+        <ul>
+          <li><strong>Session cookies:</strong> temporary cookies that usually expire when you close your browser.</li>
+          <li><strong>Persistent cookies:</strong> cookies that remain until they expire or are deleted.</li>
+          <li><strong>Local storage:</strong> browser storage used to remember preferences or app state.</li>
+          <li><strong>Analytics tags:</strong> tools used to understand traffic, usage, and performance.</li>
+          <li><strong>Server logs:</strong> technical logs used for security, diagnostics, abuse prevention, and reliability.</li>
+        </ul>
+
+        <h2>3. Scope: Website, Web App, Checkout, and Extension</h2>
+
+        <h3>3.1 Website and web application</h3>
+        <p>The DMTools.fun website and web application may use cookies and browser storage for authentication, preferences, analytics, security, error handling, and product improvement.</p>
+
+        <h3>3.2 Chrome Extension</h3>
+        <p>The DMTools Chrome Extension works differently from the website. The extension may use Chrome extension storage or local browser storage to remember user-configured preferences and support functionality. The extension does not collect browsing history, monitor background tabs, or send messages on behalf of users. It only processes content when the user actively uses the extension to help draft a response.</p>
+
+        <h3>3.3 Checkout and payment pages</h3>
+        <p>Payments are processed by Lemon Squeezy or other authorized payment providers. When you interact with checkout or billing pages, the payment provider may use cookies or similar technologies for fraud prevention, payment completion, tax compliance, security, and account management. Those technologies are governed by the payment provider's own policies.</p>
+
+        <h2>4. Categories of Cookies We Use</h2>
+
+        <div class="legal-table-wrap">
+          <table class="legal-table">
+            <thead>
+              <tr>
+                <th>Category</th>
+                <th>Purpose</th>
+                <th>Examples</th>
+                <th>Can You Disable?</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Essential</td>
+                <td>Required for login, account security, session management, fraud prevention, and core service functionality.</td>
+                <td>Authentication state, security tokens, CSRF protection, account session handling.</td>
+                <td>Not through our service. You may block them in your browser, but the service may stop working.</td>
+              </tr>
+              <tr>
+                <td>Preferences</td>
+                <td>Remember settings that improve your experience.</td>
+                <td>Interface choices, saved preferences, onboarding status, display settings.</td>
+                <td>Yes, through browser controls and any available account or site settings.</td>
+              </tr>
+              <tr>
+                <td>Analytics and performance</td>
+                <td>Help us understand site traffic, feature usage, errors, and performance so we can improve DMTools.fun.</td>
+                <td>Google Analytics events, page views, device/browser category, performance data.</td>
+                <td>Yes, where required, through consent choices, browser settings, opt-out tools, or privacy controls.</td>
+              </tr>
+              <tr>
+                <td>Payment and fraud prevention</td>
+                <td>Support checkout, billing, fraud prevention, tax calculation, and transaction security.</td>
+                <td>Lemon Squeezy checkout/session technologies and payment-provider fraud checks.</td>
+                <td>Some may be essential to complete payment transactions.</td>
+              </tr>
+              <tr>
+                <td>Security and abuse prevention</td>
+                <td>Protect accounts, prevent fraud, detect suspicious activity, and maintain service reliability.</td>
+                <td>Rate-limit signals, security logs, abuse-prevention identifiers.</td>
+                <td>Generally no, because these protect the service and users.</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="legal-warning legal-callout">
+          <strong>Accuracy note:</strong> Cookie names, providers, and expiration periods may change as the service evolves. Instead of relying only on this policy, you can inspect current cookies in your browser's developer tools or privacy settings.
+        </div>
+
+        <h2>5. Google Analytics and Measurement</h2>
+        <p>We use Google Analytics on the DMTools.fun website and web application to understand usage, traffic patterns, performance, and product effectiveness. Google Analytics may set cookies such as <code>_ga</code> or related measurement identifiers. Cookie lifetimes may vary depending on browser settings, platform restrictions, user choices, and Google's configuration.</p>
+        <p>Analytics data helps us understand what pages are used, how users move through the site, whether pages are working properly, and how product improvements perform. We do not use Google Analytics to automatically send messages for users.</p>
+
+        <h3>5.1 Google Analytics opt-out</h3>
+        <p>You may be able to limit Google Analytics through browser controls, privacy extensions, Google-provided opt-out tools, or any cookie preference controls we make available. Browser privacy features may also shorten or block analytics cookie storage automatically.</p>
+
+        <h2>6. Cookies We Do Not Intentionally Use</h2>
+        <p>Unless we update this policy or provide notice, we do not intentionally use cookies to:</p>
+        <ul>
+          <li>sell your personal information;</li>
+          <li>automatically send messages or replies on your behalf;</li>
+          <li>collect Chrome Extension browsing history;</li>
+          <li>monitor background tabs through the Chrome Extension;</li>
+          <li>collect keystrokes unrelated to user-initiated DMTools functionality; or</li>
+          <li>serve behavioral advertising based on sensitive personal information.</li>
+        </ul>
+
+        <h2>7. Consent and Your Choices</h2>
+
+        <h3>7.1 Essential technologies</h3>
+        <p>Essential cookies and similar technologies are necessary to provide the service and generally cannot be disabled through our service without affecting core functionality.</p>
+
+        <h3>7.2 Non-essential technologies</h3>
+        <p>Where required by law, we will request consent before using non-essential cookies or similar technologies. You may withdraw or change consent through available cookie controls, account settings, browser settings, or device settings.</p>
+
+        <h3>7.3 Browser controls</h3>
+        <p>Most browsers allow you to block, delete, or limit cookies. You can usually find these controls under privacy or security settings. Blocking all cookies may prevent sign-in, checkout, saved preferences, and other core features from working correctly.</p>
+
+        <h3>7.4 Global Privacy Control and opt-out preference signals</h3>
+        <p>Where legally required and technically feasible, we will honor recognized browser-based opt-out preference signals, such as Global Privacy Control, for applicable sale, sharing, or targeted advertising choices. Because DMTools.fun does not intentionally sell personal information, these signals primarily help confirm your opt-out preferences where applicable.</p>
+
+        <h2>8. Data Collected Through Cookies and Similar Technologies</h2>
+        <p>Depending on your use of the service, cookies and similar technologies may process:</p>
+        <ul>
+          <li>IP address and approximate region;</li>
+          <li>browser type, operating system, and device category;</li>
+          <li>pages visited and actions taken on the site;</li>
+          <li>referring URLs and campaign parameters;</li>
+          <li>account/session status;</li>
+          <li>preference settings;</li>
+          <li>error, performance, and diagnostic information; and</li>
+          <li>security and fraud-prevention signals.</li>
+        </ul>
+
+        <h2>9. Retention</h2>
+        <p>Cookie and browser storage retention depends on the category of technology, browser behavior, user settings, legal requirements, and service needs. Session cookies may expire when the browser closes. Persistent cookies or local storage may remain for a set period or until deleted by the user. Analytics cookies may remain longer, but browsers or privacy settings may shorten their lifespan.</p>
+        <p>We review our use of cookies and similar technologies periodically and aim to keep retention no longer than reasonably necessary for the stated purposes.</p>
+
+        <h2>10. Security</h2>
+        <p>We use reasonable safeguards for cookies and related data, which may include HTTPS, secure cookie flags, access controls, session expiration, SameSite protections, and other measures designed to reduce unauthorized access or misuse. No security method is perfect, and we cannot guarantee absolute security.</p>
+
+        <h2>11. International Privacy Considerations</h2>
+
+        <h3>11.1 EU, UK, and similar jurisdictions</h3>
+        <p>Where required, we request consent for non-essential cookies and provide information about the purpose of those technologies. Users may withdraw consent where applicable.</p>
+
+        <h3>11.2 California and other U.S. state privacy laws</h3>
+        <p>We describe our cookie and tracking practices in this Cookie Policy and our Privacy Policy. Where required by applicable law, users may exercise privacy rights or opt-out choices by contacting us or using available controls.</p>
+
+        <h2>12. Updates to This Cookie Policy</h2>
+        <p>We may update this Cookie Policy from time to time to reflect changes in technology, law, vendors, product features, analytics practices, or security needs. Material changes may be communicated through the website, email, in-product notice, or an updated "Last Updated" date.</p>
+
+        <h2>13. Contact</h2>
+        <p>Questions about this Cookie Policy or our use of cookies and similar technologies can be sent to:</p>
+        <ul>
+          <li><strong>Email:</strong> admin@dmtools.fun</li>
+          <li><strong>Subject line:</strong> Cookie Policy Question</li>
+          <li><strong>Business:</strong> DMTools.fun LLC</li>
+          <li><strong>Address:</strong> 99 N 21st St #8, Las Vegas, NV 89101</li>
+          <li><strong>Website:</strong> <a href="https://dmtools.fun">https://dmtools.fun</a></li>
+        </ul>
+
+        <h2>14. Related Policies</h2>
+        <ul>
+          <li><a href="/privacy-policy.html">Privacy Policy</a></li>
+          <li><a href="/terms-of-service.html">Terms of Service</a></li>
+          <li><a href="/refund-policy.html">Refund Policy</a></li>
+        </ul>
+
+        <p class="legal-footer-note">This Cookie Policy was last updated on April 25, 2026. By continuing to use DMTools.fun, you acknowledge that you have read and understood this Cookie Policy.</p>
+      </article>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-content">
+      <div class="footer-brand">
+        <a class="footer-logo" href="/index.html">
+          <span class="logo-mark" aria-hidden="true"></span>
+          <span>DMTools.fun</span>
+        </a>
+        <p class="footer-description">Reply faster anywhere you work.</p>
+      </div>
+
+      <div class="footer-column">
+        <h4>Product</h4>
+        <a href="/app.html">Queue</a>
+        <a href="/presets.html">Voice</a>
+        <a href="/pricing.html">Pricing</a>
+        <a href="/store.html">Response Packs</a>
+      </div>
+
+      <div class="footer-column">
+        <h4>Company</h4>
+        <a href="/contact.html">Contact</a>
+        <a href="/privacy-policy.html">Privacy Policy</a>
+        <a href="/terms-of-service.html">Terms of Service</a>
+        <a href="/refund-policy.html">Refund Policy</a>
+        <a href="/cookie-policy.html">Cookie Policy</a>
+      </div>
+    </div>
+
+    <div class="footer-bottom">
+      <p>© 2026 DMTools.fun LLC. All rights reserved.</p>
+      <p>Capture once. Reply anywhere. Stay in flow.</p>
+    </div>
+  </footer>
+
+  <script src="/js/app-core.js"></script>
+  <script src="/js/auth-modal.js"></script>
+  <script>
+    (function() {
+      var pageName = 'cookie_policy';
+
+      function track(eventName, params) {
+        if (window.DMTOOLS && typeof window.DMTOOLS.track === 'function') {
+          window.DMTOOLS.track(eventName, params || {});
+        }
+      }
+
+      function setAuthUI(isAuthed) {
+        var signInButton = document.getElementById('signin-button');
+        var signUpButton = document.getElementById('signup-button');
+        var accountLink = document.getElementById('account-link');
+
+        if (isAuthed) {
+          if (signInButton) signInButton.classList.add('hidden');
+          if (signUpButton) {
+            signUpButton.outerHTML = '<a class="btn btn-primary" href="/app.html" id="signup-button" data-track="legal_cta_click" data-track-cta="open_workspace" data-track-surface="cookie_policy">Open workspace</a>';
+          }
+          if (accountLink) accountLink.textContent = 'My account';
+        }
+      }
+
+      async function hydrateAuthState() {
+        try {
+          if (window.DMTOOLS && typeof DMTOOLS.verifyToken === 'function') {
+            var authed = await DMTOOLS.verifyToken();
+            setAuthUI(authed);
+            track('auth_state_detected', {
+              page_name: pageName,
+              surface: pageName,
+              auth_state: authed ? 'authenticated' : 'anonymous'
+            });
+          }
+        } catch (_) {}
+      }
+
+      function wireTracking() {
+        document.addEventListener('click', function(e) {
+          var el = e.target.closest('[data-track]');
+          if (!el) return;
+          var eventName = el.getAttribute('data-track');
+          var params = {
+            page_name: pageName,
+            surface: pageName
+          };
+
+          Array.prototype.forEach.call(el.attributes, function(attr) {
+            if (!attr.name.startsWith('data-track-')) return;
+            var key = attr.name.replace('data-track-', '').replace(/-([a-z])/g, function(_, c) { return c.toUpperCase(); });
+            params[key] = attr.value;
+          });
+
+          track(eventName, params);
+        });
+      }
+
+      function wireMobileMenu() {
+        var toggle = document.getElementById('mobile-menu-toggle');
+        var menu = document.getElementById('mobile-menu');
+        if (!toggle || !menu) return;
+
+        toggle.addEventListener('click', function() {
+          var isOpen = menu.classList.toggle('show');
+          toggle.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+          track('mobile_menu_toggle', {
+            page_name: pageName,
+            surface: pageName,
+            state: isOpen ? 'open' : 'closed'
+          });
+        });
+      }
+
+      track('legal_page_view', {
+        page_name: pageName,
+        surface: pageName
+      });
+
+      wireTracking();
+      wireMobileMenu();
+      hydrateAuthState();
+    })();
+  </script>
 </body>
 </html>
-
-

@@ -565,6 +565,49 @@
         }
         return { tier: 'free', used: 0, limit: 10, remaining: 10 };
       }
+      function getSafeGenerateAnalyticsMeta(flow, extra) {
+        const snap = usageSnapshot();
+        const meta = Object.assign({
+          source: 'web_app',
+          flow: flow,
+          queue_count: state.messages.filter(function (m) { return String(m.input || '').trim(); }).length,
+          plan: snap.tier,
+          remaining: snap.remaining
+        }, extra || {});
+        Object.keys(meta).forEach(function (key) {
+          const value = meta[key];
+          if (value === undefined || value === null || value === '') {
+            delete meta[key];
+          }
+        });
+        if (meta.status_code !== undefined) {
+          const statusCode = Number(meta.status_code);
+          if (Number.isFinite(statusCode)) meta.status_code = statusCode;
+          else delete meta.status_code;
+        }
+        if (meta.message_count !== undefined) {
+          const messageCount = Number(meta.message_count);
+          if (Number.isFinite(messageCount)) meta.message_count = messageCount;
+          else delete meta.message_count;
+        }
+        return meta;
+      }
+      function safeErrorCode(err) {
+        const status = Number(err && err.status);
+        if (status === 429) return 'quota_blocked';
+        if (status === 401 || status === 403) return 'auth_required';
+        if (status === 400) return 'validation_error';
+        if (status >= 500) return 'server_error';
+        const msg = String(err && err.message || '').toLowerCase();
+        if (msg.includes('network') || msg.includes('failed to fetch') || msg.includes('load failed')) return 'network_error';
+        return 'unknown_error';
+      }
+      function trackReplyGenerated(flow, count, extra) {
+        const total = Math.max(0, Number(count) || 0);
+        for (let i = 0; i < total; i++) {
+          track('reply_generated', getSafeGenerateAnalyticsMeta(flow, Object.assign({ message_count: 1 }, extra || {})));
+        }
+      }
 
       let drawerOpen = false;
       const platformWindows = {};
@@ -796,7 +839,7 @@
               </div>
               <div class="action-row">
                 <button class="mini-btn copy" type="button" data-copy="${message.id}">Copy</button>
-                <button class="mini-btn subtle" type="button" data-regenerate="${message.id}">Try again</button>
+                <button class="mini-btn subtle" type="button" data-regenerate="${message.id}"${message.processing ? ' disabled' : ''}>${message.processing ? 'Generating...' : 'Try again'}</button>
                 <button class="mini-btn delete" type="button" data-delete="${message.id}">Delete</button>
               </div>
             </article>
@@ -839,43 +882,104 @@
           .replace(/'/g, '&#39;');
       }
       async function regenerateMessage(id) {
+        const message = state.messages.find(function (m) { return m.id === id; });
+        const tone = (message && message.tone) || $('batchTone').value || 'friendly';
+        track('generate_button_click', getSafeGenerateAnalyticsMeta('single_regenerate', {
+          message_count: 1,
+          tone: tone
+        }));
         if (!state.signedIn) {
           showFeedback('Please sign in to regenerate responses.', 'error');
+          track('generate_request_error', getSafeGenerateAnalyticsMeta('single_regenerate', {
+            message_count: 1,
+            tone: tone,
+            error_code: 'auth_required'
+          }));
           if (window.DMTOOLS && typeof window.DMTOOLS.openAuthModal === 'function') {
             window.DMTOOLS.openAuthModal('login', { returnTo: '/app.html' });
           }
           return;
         }
-        const message = state.messages.find(function (m) { return m.id === id; });
         if (!message || !message.input.trim()) {
           showFeedback('Enter a message first.', 'error');
+          track('generate_request_error', getSafeGenerateAnalyticsMeta('single_regenerate', {
+            message_count: 1,
+            tone: tone,
+            error_code: 'validation_error'
+          }));
           return;
         }
+        message.processing = true;
+        renderMessages();
+        track('generate_request_started', getSafeGenerateAnalyticsMeta('single_regenerate', {
+          message_count: 1,
+          tone: tone
+        }));
         try {
           const res = await DMTOOLS.apiCall('/generate/single', {
             method: 'POST',
             body: JSON.stringify({
               message: message.input.trim(),
-              tone: message.tone || $('batchTone').value || 'friendly',
+              tone: tone,
               context: $('batchContext').value.trim(),
               platform: 'instagram'
             })
           });
           message.output = res.response || '';
+          message.processing = false;
           renderMessages();
+          await refreshUser();
           showFeedback('Reply updated successfully.', 'success');
+          trackReplyGenerated('single_regenerate', 1, { tone: tone });
         } catch (err) {
+          message.processing = false;
+          renderMessages();
+          const errorCode = safeErrorCode(err);
+          const statusCode = Number(err && err.status);
+          if (errorCode === 'quota_blocked') {
+            const snap = usageSnapshot();
+            const limitEvent = snap.tier === 'free' ? 'free_limit_hit' : 'usage_limit_blocked';
+            track(limitEvent, getSafeGenerateAnalyticsMeta('single_regenerate', {
+              message_count: 1,
+              tone: tone,
+              status_code: Number.isFinite(statusCode) ? statusCode : undefined
+            }));
+            if (snap.tier === 'free') {
+              showPaywall();
+            }
+          }
           showFeedback(err.message || 'Failed to regenerate response.', 'error');
+          track('generate_request_error', getSafeGenerateAnalyticsMeta('single_regenerate', {
+            message_count: 1,
+            tone: tone,
+            status_code: Number.isFinite(statusCode) ? statusCode : undefined,
+            error_code: errorCode
+          }));
         }
       }
       async function processAllMessages() {
         const messages = state.messages.filter(function (m) { return m.input.trim(); });
+        const batchTone = $('batchTone').value || 'friendly';
+        track('generate_button_click', getSafeGenerateAnalyticsMeta('batch_generate', {
+          message_count: messages.length,
+          tone: batchTone
+        }));
         if (!messages.length) {
           showFeedback('No messages to process yet.', 'error');
+          track('generate_request_error', getSafeGenerateAnalyticsMeta('batch_generate', {
+            message_count: 0,
+            tone: batchTone,
+            error_code: 'validation_error'
+          }));
           return;
         }
         if (!state.signedIn) {
           showFeedback('Please sign in to process messages.', 'error');
+          track('generate_request_error', getSafeGenerateAnalyticsMeta('batch_generate', {
+            message_count: messages.length,
+            tone: batchTone,
+            error_code: 'auth_required'
+          }));
           if (window.DMTOOLS && typeof window.DMTOOLS.openAuthModal === 'function') {
             window.DMTOOLS.openAuthModal('login', { returnTo: '/app.html' });
           }
@@ -883,6 +987,10 @@
         }
         const snap = usageSnapshot();
         if (snap.tier === 'free' && snap.remaining <= 0) {
+          track('free_limit_hit', getSafeGenerateAnalyticsMeta('batch_generate', {
+            message_count: messages.length,
+            tone: batchTone
+          }));
           showPaywall();
           return;
         }
@@ -890,13 +998,17 @@
         btn.disabled = true;
         btn.textContent = 'Processing...';
         track('queue_process_start', { page_name: 'app', message_count: messages.length });
+        track('generate_request_started', getSafeGenerateAnalyticsMeta('batch_generate', {
+          message_count: messages.length,
+          tone: batchTone
+        }));
         try {
           const res = await DMTOOLS.apiCall('/generate/batch', {
             method: 'POST',
             body: JSON.stringify({
               messages: messages.map(function (m) { return m.input.trim(); }),
-              tones: messages.map(function (m) { return m.tone || $('batchTone').value || 'friendly'; }),
-              tone: $('batchTone').value || 'friendly',
+              tones: messages.map(function (m) { return m.tone || batchTone; }),
+              tone: batchTone,
               context: $('batchContext').value.trim(),
               platform: 'instagram',
               smartCategorization: !!$('smartCategorization').checked,
@@ -905,16 +1017,39 @@
             })
           });
           const results = Array.isArray(res.responses) ? res.responses : [];
+          let successCount = 0;
           messages.forEach(function (message, index) {
-            message.output = (results[index] && (results[index].response || '')) || '';
+            const output = (results[index] && (results[index].response || '')) || '';
+            message.output = output;
+            if (output) successCount += 1;
           });
           renderMessages();
           await refreshUser();
-          showFeedback('Processed ' + results.length + ' replies successfully.', 'success');
-          track('queue_process_success', { page_name: 'app', message_count: results.length });
+          showFeedback('Processed ' + successCount + ' replies successfully.', 'success');
+          trackReplyGenerated('batch_generate', successCount, { tone: batchTone });
+          track('queue_process_success', { page_name: 'app', message_count: successCount });
         } catch (err) {
+          const errorCode = safeErrorCode(err);
+          const statusCode = Number(err && err.status);
+          if (errorCode === 'quota_blocked') {
+            const currentSnap = usageSnapshot();
+            const limitEvent = currentSnap.tier === 'free' ? 'free_limit_hit' : 'usage_limit_blocked';
+            track(limitEvent, getSafeGenerateAnalyticsMeta('batch_generate', {
+              message_count: messages.length,
+              tone: batchTone,
+              status_code: Number.isFinite(statusCode) ? statusCode : undefined
+            }));
+            if (currentSnap.tier === 'free') {
+              showPaywall();
+            }
+          }
           showFeedback(err.message || 'Failed to process messages.', 'error');
-          track('queue_process_error', { page_name: 'app', message_count: messages.length, message: String(err.message || err) });
+          track('generate_request_error', getSafeGenerateAnalyticsMeta('batch_generate', {
+            message_count: messages.length,
+            tone: batchTone,
+            status_code: Number.isFinite(statusCode) ? statusCode : undefined,
+            error_code: errorCode
+          }));
         } finally {
           btn.disabled = false;
           btn.textContent = 'Process all responses';

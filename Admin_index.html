@@ -260,6 +260,76 @@ tr:hover {
             justify-content: flex-end;
         }
 
+.hidden {
+    display: none !important;
+}
+
+.modal.show {
+    display: flex !important;
+}
+
+.modal-content {
+    background: rgba(30, 41, 59, 0.98);
+    border: 1px solid #374151;
+    border-radius: 16px;
+    padding: 2rem;
+    width: 100%;
+    max-width: 600px;
+    max-height: 90vh;
+    overflow-y: auto;
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.75);
+}
+
+.modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1rem;
+}
+
+.modal-title {
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: #e5e7eb;
+}
+
+.modal-close {
+    background: transparent;
+    border: none;
+    color: #9ca3af;
+    font-size: 2rem;
+    cursor: pointer;
+}
+
+.form-label {
+    display: block;
+    margin-bottom: 0.5rem;
+    color: #d1d5db;
+    font-weight: 600;
+}
+
+.form-input {
+    width: 100%;
+    padding: 0.875rem 1rem;
+    border: 1px solid #374151;
+    border-radius: 8px;
+    background: #111827;
+    color: #e5e7eb;
+}
+
+.message.success {
+    background: rgba(16, 185, 129, 0.15);
+    border: 1px solid #10b981;
+    color: #10b981;
+}
+
+.message.error {
+    background: rgba(239, 68, 68, 0.15);
+    border: 1px solid #ef4444;
+    color: #ef4444;
+}
+        
+
 /* Filters */
         .filters {
             display: flex;

@@ -1197,7 +1197,7 @@ async function loadSubscriptionAnalytics() {
                         <td>${new Date(user.created_at).toLocaleDateString()}</td>
                         <td>
                             <button class="btn btn-secondary" style="padding: 0.5rem 1rem; font-size: 0.85rem; margin-right: 0.5rem;" 
-                                    onclick="edituser(${user.id})">Edit</button>
+                                    onclick="editUser(${user.id})">Edit</button>
                             <button class="btn btn-danger" style="padding: 0.5rem 1rem; font-size: 0.85rem;" 
                                     onclick="deleteUser(${user.id}, '${user.email}')">Delete</button>
                         </td>

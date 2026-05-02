@@ -1,5 +1,8 @@
 /* =========================================================
    DMTools Access + Redirect Rules
+   Legacy candidate:
+     - Current repo scan found no HTML page that includes this file.
+     - Keeps an older redirect-based auth path for compatibility review.
    Phase 2 rule:
      - After login/register -> portal.html
    ========================================================= */

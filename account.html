@@ -245,12 +245,30 @@
         enterpriseannual:{badge:'Enterprise Annual',price:'$3,591/year',notes:['High-capacity usage','Unlimited templates','3 months free equivalent']}
       };
       const state = { signedIn:false, user:null, usage:null, billing:null, packs:null, editing:false };
-      function track(name, params){ try { if (window.DMTOOLS && typeof window.DMTOOLS.track === 'function') window.DMTOOLS.track(name, params || {}); } catch (_) {} }
-      function $(id){ return document.getElementById(id); }
+
+      // Shared page state and formatting helpers.
+      function track(name, params){
+        try {
+          if (window.DMTOOLS && typeof window.DMTOOLS.track === 'function') {
+            window.DMTOOLS.track(name, params || {});
+          }
+        } catch (_) {}
+      }
+
+      function $(id){
+        return document.getElementById(id);
+      }
+
       function showFeedback(message, type){
-        const el = $('accountFeedback'); if (!el) return;
-        if (!message){ el.textContent=''; el.className='account-feedback hidden'; return; }
-        el.textContent = message; el.className = 'account-feedback' + (type === 'error' ? ' is-error' : type === 'success' ? ' is-success' : '');
+        const el = $('accountFeedback');
+        if (!el) return;
+        if (!message){
+          el.textContent = '';
+          el.className = 'account-feedback hidden';
+          return;
+        }
+        el.textContent = message;
+        el.className = 'account-feedback' + (type === 'error' ? ' is-error' : type === 'success' ? ' is-success' : '');
       }
       function formatDate(v){ if (!v) return '—'; const d = new Date(v); return Number.isNaN(d.getTime()) ? '—' : d.toLocaleDateString('en-US',{year:'numeric',month:'long',day:'numeric'}); }
       function formatDateShort(v){ if (!v) return '—'; const d = new Date(v); return Number.isNaN(d.getTime()) ? '—' : d.toLocaleDateString('en-US',{year:'numeric',month:'short',day:'numeric'}); }
@@ -268,8 +286,22 @@
           else { primaryButton.textContent='Start free'; primaryButton.setAttribute('data-auth','register'); primaryButton.setAttribute('data-return-to','/account.html'); primaryButton.onclick = null; }
         }
       }
-      function showSignedOut(){ $('loadingState').classList.add('hidden'); $('accountContent').classList.add('hidden'); $('accountStatus').classList.add('hidden'); $('signedOutState').classList.remove('hidden'); setHeaderState(); }
-      function showSignedIn(){ $('loadingState').classList.add('hidden'); $('signedOutState').classList.add('hidden'); $('accountContent').classList.remove('hidden'); $('accountStatus').classList.remove('hidden'); setHeaderState(); }
+      function showSignedOut(){
+        $('loadingState').classList.add('hidden');
+        $('accountContent').classList.add('hidden');
+        $('accountStatus').classList.add('hidden');
+        $('signedOutState').classList.remove('hidden');
+        setHeaderState();
+      }
+      function showSignedIn(){
+        $('loadingState').classList.add('hidden');
+        $('signedOutState').classList.add('hidden');
+        $('accountContent').classList.remove('hidden');
+        $('accountStatus').classList.remove('hidden');
+        setHeaderState();
+      }
+
+      // Rendering helpers for the signed-in account state.
       function renderProfile(){
         const u = state.user || {};
         $('profileEmail').textContent = safeText(u.email);
@@ -341,6 +373,8 @@
         $('editToggleButton').disabled = editing;
         $('editToggleButton').textContent = editing ? 'Editing...' : 'Edit profile';
       }
+
+      // Endpoint response normalization.
       function normalizeUsage(payload){
         const data = payload && (payload.data || payload) || {};
         const current = data.current || {};
@@ -372,10 +406,29 @@
         const data = payload || {}; const summary = data.summary || {};
         return { activeResponses:Number(summary.activeResponses ?? summary.active_responses ?? 0) || 0, queuedResponses:Number(summary.queuedResponses ?? summary.queued_responses ?? 0) || 0, totalAvailable:Number(summary.totalAvailable ?? summary.total_available ?? 0) || 0 };
       }
-      async function loadProfile(){ const res = await DMTOOLS.apiCall('/user/profile', { method:'GET' }); state.user = res.user || res; }
-      async function loadUsage(){ const res = await DMTOOLS.apiCall('/account/usage', { method:'GET' }); state.usage = normalizeUsage(res); }
-      async function loadBilling(){ const res = await DMTOOLS.apiCall('/account/billing', { method:'GET' }); state.billing = normalizeBilling(res); }
-      async function loadPacks(){ try { const res = await DMTOOLS.apiCall('/packs/status', { method:'GET' }); state.packs = normalizePacks(res); } catch (_) { state.packs = normalizePacks({}); } }
+
+      // Data loaders for the current account view.
+      async function loadProfile(){
+        const res = await DMTOOLS.apiCall('/user/profile', { method:'GET' });
+        state.user = res.user || res;
+      }
+      async function loadUsage(){
+        const res = await DMTOOLS.apiCall('/account/usage', { method:'GET' });
+        state.usage = normalizeUsage(res);
+      }
+      async function loadBilling(){
+        const res = await DMTOOLS.apiCall('/account/billing', { method:'GET' });
+        state.billing = normalizeBilling(res);
+      }
+      async function loadPacks(){
+        try {
+          const res = await DMTOOLS.apiCall('/packs/status', { method:'GET' });
+          state.packs = normalizePacks(res);
+        } catch (_) {
+          state.packs = normalizePacks({});
+        }
+      }
+
       async function initialize(){
         track('account_view', { page_name:'account' });
         state.signedIn = await DMTOOLS.verifyToken();
@@ -429,6 +482,8 @@
         }
       }
       function logout(){ DMTOOLS.clearToken(); window.location.href = '/index.html'; }
+
+      // Event wiring and page bootstrap.
       function wireEvents(){
         const mobileToggle = $('mobile-menu-toggle'); const mobileMenu = $('mobile-menu');
         if (mobileToggle && mobileMenu){

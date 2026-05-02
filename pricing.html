@@ -249,9 +249,27 @@
       const PACK_ORDER = ['starter', 'pro', 'business'];
       const state = { interval: 'month', pricing: { subscriptions: [], packs: [] }, auth: { signedIn: false, user: null } };
 
-      function track(name, params) { try { if (window.DMTOOLS && typeof window.DMTOOLS.track === 'function') window.DMTOOLS.track(name, params || {}); } catch (_) {} }
-      function $(id) { return document.getElementById(id); }
-      function escapeHtml(value) { return String(value ?? '').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;').replace(/'/g,'&#39;'); }
+      // Shared page state and formatting helpers.
+      function track(name, params) {
+        try {
+          if (window.DMTOOLS && typeof window.DMTOOLS.track === 'function') {
+            window.DMTOOLS.track(name, params || {});
+          }
+        } catch (_) {}
+      }
+
+      function $(id) {
+        return document.getElementById(id);
+      }
+
+      function escapeHtml(value) {
+        return String(value ?? '')
+          .replace(/&/g, '&amp;')
+          .replace(/</g, '&lt;')
+          .replace(/>/g, '&gt;')
+          .replace(/"/g, '&quot;')
+          .replace(/'/g, '&#39;');
+      }
       function formatCount(value) {
         if (value === undefined || value === null || value === '') return '—';
         if (String(value).toLowerCase() === 'unlimited') return 'Unlimited';
@@ -265,18 +283,33 @@
         try { return new Intl.NumberFormat('en-US', { style:'currency', currency:currency || 'USD', maximumFractionDigits:value % 1 === 0 ? 0 : 2 }).format(value); }
         catch (_) { return '$' + value.toFixed(value % 1 === 0 ? 0 : 2); }
       }
-      function labelForInterval(value) { if (value === 'week') return 'Weekly'; if (value === 'year') return 'Annual'; return 'Monthly'; }
+      function labelForInterval(value) {
+        if (value === 'week') return 'Weekly';
+        if (value === 'year') return 'Annual';
+        return 'Monthly';
+      }
       function normalizeInterval(value) {
         const raw = String(value || '').toLowerCase();
         if (raw.includes('week')) return 'week';
         if (raw.includes('year') || raw.includes('annual')) return 'year';
         return 'month';
       }
-      function basePlanKey(key) { return String(key || '').toLowerCase().replace(/_monthly$/,'').replace(/_weekly$/,'').replace(/_annual$/,'').replace(/_yearly$/,''); }
+      function basePlanKey(key) {
+        return String(key || '')
+          .toLowerCase()
+          .replace(/_monthly$/, '')
+          .replace(/_weekly$/, '')
+          .replace(/_annual$/, '')
+          .replace(/_yearly$/, '');
+      }
       function showFeedback(message, isError) {
         const el = $('pricingFeedback');
         if (!el) return;
-        if (!message) { el.textContent = ''; el.className = 'pricing-feedback hidden'; return; }
+        if (!message) {
+          el.textContent = '';
+          el.className = 'pricing-feedback hidden';
+          return;
+        }
         el.textContent = message;
         el.className = 'pricing-feedback' + (isError ? ' is-error' : '');
       }
@@ -284,6 +317,8 @@
         const p = String(plan || 'free').replace(/_/g, ' ').trim();
         return p.charAt(0).toUpperCase() + p.slice(1);
       }
+
+      // Pricing catalog normalization and UI rendering.
       function normalizeCatalog(data) {
         const items = Array.isArray(data && data.items) ? data.items : [];
         const subscriptions = [];
@@ -404,6 +439,8 @@
           packsGrid.appendChild(card);
         });
       }
+
+      // Auth hydration and checkout handoff.
       async function loadCatalog() {
         try {
           const data = await DMTOOLS.apiCall('/subscription/pricing', { method: 'GET' });
@@ -489,6 +526,8 @@
           track('checkout_error', { page_name: 'pricing', kind: kind, item_name: item.displayName || 'unknown', message: String(error.message || error) });
         }
       }
+
+      // Event wiring and page bootstrap.
       function wireControls() {
         document.querySelectorAll('#intervalToggle [data-interval]').forEach(function (button) {
           button.addEventListener('click', function () {

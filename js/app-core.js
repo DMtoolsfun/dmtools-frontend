@@ -2,6 +2,7 @@
    DMTools Frontend Core Helpers
    - API calls
    - Token storage
+   - Shared across static frontend pages
    ========================================================= */
 
 window.DMTOOLS = window.DMTOOLS || {};
@@ -27,7 +28,7 @@ DMTOOLS.getQueryParam = function (name) {
   try {
     const url = new URL(window.location.href);
     return url.searchParams.get(name);
-  } catch (e) {
+  } catch (_) {
     return null;
   }
 };
@@ -69,7 +70,7 @@ DMTOOLS.verifyToken = async function () {
   try {
     await DMTOOLS.apiCall('/user/profile', { method: 'GET' });
     return true;
-  } catch (e) {
+  } catch (_) {
     DMTOOLS.clearToken();
     return false;
   }

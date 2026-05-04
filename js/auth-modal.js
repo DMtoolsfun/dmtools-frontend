@@ -12,8 +12,8 @@
           <a href="/register.html" data-auth="register">Sign Up</a>
 
    Optional:
-     - Pass a return path:
-          DMTOOLS.openAuthModal('login', { returnTo: '/portal.html' })
+      - Pass a return path:
+          DMTOOLS.openAuthModal('login', { returnTo: '/app.html' })
 ========================================================= */
 
 (function () {
@@ -23,13 +23,27 @@
   const STYLE_ID = 'dmtools-auth-modal-style';
 
   const DEFAULTS = {
-    returnTo: '/portal.html'
+    returnTo: '/app.html'
   };
+
+  function sanitizeReturnTo(value, fallback = DEFAULTS.returnTo) {
+    const raw = String(value || '').trim();
+    if (!raw) return fallback;
+
+    try {
+      const parsed = new URL(raw, window.location.origin);
+      if (parsed.origin !== window.location.origin) return fallback;
+      if (!parsed.pathname || !parsed.pathname.startsWith('/')) return fallback;
+      return `${parsed.pathname}${parsed.search}${parsed.hash}`;
+    } catch (e) {
+      return fallback;
+    }
+  }
 
   function getDefaultReturnTo() {
     try {
       const path = `${window.location.pathname || ''}${window.location.search || ''}${window.location.hash || ''}`;
-      if (path && path !== '/' && path !== '/index.html') return path;
+      if (path && path !== '/' && path !== '/index.html') return sanitizeReturnTo(path, DEFAULTS.returnTo);
     } catch (e) {}
     return DEFAULTS.returnTo;
   }
@@ -276,7 +290,7 @@
       });
 
       hide();
-      const returnTo = state.returnTo || DEFAULTS.returnTo;
+      const returnTo = sanitizeReturnTo(state.returnTo, DEFAULTS.returnTo);
       DMTOOLS.redirectTo ? DMTOOLS.redirectTo(returnTo) : (window.location.href = returnTo);
     } catch (err) {
       const errorMessage = String(err?.message || 'Authentication failed.').slice(0, 150);
@@ -293,7 +307,7 @@
 
   function show(mode = 'login', options = {}) {
     const modal = ensureModal();
-    state.returnTo = options.returnTo || getDefaultReturnTo();
+    state.returnTo = sanitizeReturnTo(options.returnTo, getDefaultReturnTo());
     setMode(mode);
     modal.classList.add('show');
 
@@ -323,7 +337,7 @@
     const mode = (el.getAttribute('data-auth') || '').toLowerCase();
     if (mode !== 'login' && mode !== 'register') return;
     e.preventDefault();
-    const returnTo = el.getAttribute('data-return-to') || getDefaultReturnTo();
+    const returnTo = sanitizeReturnTo(el.getAttribute('data-return-to'), getDefaultReturnTo());
     trackAuthEvent('auth_modal_open', {
       auth_mode: mode,
       return_to: returnTo,

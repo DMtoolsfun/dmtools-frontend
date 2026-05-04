@@ -1110,8 +1110,9 @@
         if (state.signedIn) return;
         if (!window.DMTOOLS || typeof window.DMTOOLS.openAuthModal !== 'function') return;
         const requestedAuth = String(DMTOOLS.getQueryParam('auth') || '').toLowerCase();
-        if (requestedAuth !== 'register') return;
-        window.DMTOOLS.openAuthModal('register', { returnTo: '/app.html' });
+        if (requestedAuth !== 'login' && requestedAuth !== 'register') return;
+        const returnTo = DMTOOLS.getQueryParam('returnTo') || '/app.html';
+        window.DMTOOLS.openAuthModal(requestedAuth, { returnTo });
       }
       function wireEvents() {
         $('drawer-toggle').addEventListener('click', toggleDrawer);

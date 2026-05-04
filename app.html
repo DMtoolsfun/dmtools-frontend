@@ -1106,6 +1106,13 @@
         addMessage('');
         addMessage('');
       }
+      function maybeOpenRequestedAuthModal() {
+        if (state.signedIn) return;
+        if (!window.DMTOOLS || typeof window.DMTOOLS.openAuthModal !== 'function') return;
+        const requestedAuth = String(DMTOOLS.getQueryParam('auth') || '').toLowerCase();
+        if (requestedAuth !== 'register') return;
+        window.DMTOOLS.openAuthModal('register', { returnTo: '/app.html' });
+      }
       function wireEvents() {
         $('drawer-toggle').addEventListener('click', toggleDrawer);
         $('openBrowserDrawer').addEventListener('click', function(){ openPlatform('browser'); });
@@ -1165,6 +1172,7 @@
         wireEvents();
         await initialize();
         renderMessages();
+        maybeOpenRequestedAuthModal();
       });
     })();
   </script>

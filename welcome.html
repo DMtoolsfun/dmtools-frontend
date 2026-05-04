@@ -738,8 +738,8 @@
                       Hey, just checking in on the proposal we sent last week. Do you have any updates for us?
                     </div>
                     <div class="mock-bubble reply">
-                      <span class="mock-label">Your reply box</span>
-                      A draft will appear after you capture and generate.
+                      <span class="mock-label">Reply box</span>
+                      DMTools will place the draft here after you right-click and choose Generate with DMTools.
                     </div>
                   </div>
                 </div>
@@ -752,8 +752,8 @@
           <div class="step-grid">
             <div class="step-copy">
               <span class="eyebrow">Step 2</span>
-              <h2>Practice the mock inbox.</h2>
-              <p>Use the buttons below as a guided simulation. When using the real extension, these actions happen through the Chrome right-click menu.</p>
+              <h2>Practice the flow once.</h2>
+              <p>This is a guided simulation. When using the real extension, these actions happen through the Chrome right-click menu.</p>
               <div class="step-callout" id="demo-instruction"><strong>Start here:</strong> highlight the incoming message.</div>
               <div class="demo-actions">
                 <button class="btn btn-secondary" type="button" id="demo-highlight">1. Highlight message</button>
@@ -1097,7 +1097,7 @@
             throw new Error('Registration service is not ready yet.');
           }
 
-          var response = await DMTOOLS.apiCall('/auth/register', {
+          var response = await DMTOOLS.apiCall('/user/register', {
             method: 'POST',
             body: JSON.stringify({
               email: email,

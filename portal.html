@@ -110,7 +110,7 @@
   <script src="/js/auth-modal.js"></script>
   <script>
     (function () {
-      const token = localStorage.getItem('token');
+      const token = localStorage.getItem('authToken');
       if (!token) {
         if (window.DMTOOLS?.openAuthModal) {
           window.DMTOOLS.openAuthModal('login', { returnTo: '/packs.html' });

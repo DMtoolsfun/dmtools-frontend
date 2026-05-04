@@ -70,8 +70,11 @@ DMTOOLS.verifyToken = async function () {
   try {
     await DMTOOLS.apiCall('/user/profile', { method: 'GET' });
     return true;
-  } catch (_) {
-    DMTOOLS.clearToken();
+  } catch (err) {
+    const status = Number(err && err.status);
+    if (status === 401 || status === 403) {
+      DMTOOLS.clearToken();
+    }
     return false;
   }
 };

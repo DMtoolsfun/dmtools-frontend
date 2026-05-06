@@ -275,11 +275,16 @@
       }
       function basePlanKey(key) { return String(key || '').toLowerCase().replace(/_monthly$/,'').replace(/_weekly$/,'').replace(/_annual$/,'').replace(/_yearly$/,''); }
       function publicPackKey(item) {
-        const raw = String((item && (item.key || item.display_name || item.displayName || item.name)) || '').toLowerCase();
-        if (raw.includes('quick')) return 'quick';
-        if (raw.includes('starter')) return 'starter';
-        if (raw.includes('pro')) return 'pro';
-        return basePlanKey(raw);
+        const label = String((item && (item.display_name || item.displayName || item.name)) || '').toLowerCase();
+        if (label.includes('quick')) return 'quick';
+        if (label.includes('starter pack')) return 'starter';
+        if (label.includes('pro pack')) return 'pro';
+        const key = String((item && item.key) || '').toLowerCase();
+        if (key === 'starter') return 'quick';
+        if (key === 'pro') return 'starter';
+        if (key === 'business') return 'pro';
+        if (key === 'founder') return 'founder';
+        return basePlanKey(key);
       }
       function isPrivatePack(item) {
         const raw = String([item && item.key, item && item.display_name, item && item.displayName, item && item.name].filter(Boolean).join(' ')).toLowerCase();

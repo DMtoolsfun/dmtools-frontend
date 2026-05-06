@@ -36,10 +36,6 @@
     .pricing-status__label{font-size:.8rem;color:var(--text-muted);margin-bottom:.22rem}
     .pricing-status__value{color:var(--text-primary);font-size:1rem;font-weight:800}
     .pricing-toolbar{display:flex;flex-wrap:wrap;justify-content:space-between;gap:.8rem;align-items:center;margin-bottom:1rem}
-    .segmented{display:inline-flex;padding:.28rem;border-radius:999px;background:rgba(11,21,36,.92);border:1px solid var(--border-medium);gap:.25rem}
-    .segmented button{appearance:none;border:0;border-radius:999px;padding:.7rem .95rem;background:transparent;color:var(--text-secondary);font-weight:760;min-width:94px;transition:background var(--transition-fast),color var(--transition-fast)}
-    .segmented button.active{background:var(--gradient-primary-dark);color:#fff;box-shadow:var(--shadow-primary)}
-    .segmented button:not(.active):hover{background:rgba(79,124,255,.10);color:var(--text-primary)}
     .pricing-copyline{color:var(--text-muted);font-size:.94rem}
     .pricing-feedback{padding:.9rem 1rem;margin-bottom:1rem;color:var(--text-secondary)}
     .pricing-feedback.hidden,.hidden{display:none!important}
@@ -72,7 +68,7 @@
     .pricing-faq h3{font-size:1rem;margin-bottom:.3rem}
     .pricing-faq p{margin:0;color:var(--text-secondary)}
     @media (max-width:1100px){.pricing-hero,.pricing-grid,.pricing-status__grid,.pricing-faqs,.pricing-enterprise .pricing-callout{grid-template-columns:1fr}}
-    @media (max-width:760px){.pricing-wrap{width:min(100vw - 1rem,100%)}.pricing-toolbar{align-items:stretch}.segmented{width:100%}.segmented button{flex:1 1 0;min-width:0}.pricing-actions{flex-direction:column;align-items:stretch}}
+    @media (max-width:760px){.pricing-wrap{width:min(100vw - 1rem,100%)}.pricing-toolbar{align-items:stretch}.pricing-actions{flex-direction:column;align-items:stretch}}
   </style>
 </head>
 <body>
@@ -111,8 +107,8 @@
     <section class="pricing-hero">
       <div class="pricing-hero__copy">
         <span class="eyebrow">Simple pricing for real reply volume</span>
-        <h1>Choose the plan that fits how often you reply.</h1>
-        <p>Use a subscription when DMTools is part of your regular workflow. Use response packs when you want extra reply capacity without changing your plan.</p>
+        <h1>Reply faster without sounding generic.</h1>
+        <p>Try DMTools free, then upgrade when you’re ready to use it for real inbox volume.</p>
         <div class="pricing-actions">
           <button class="btn btn-primary" type="button" data-jump="plans">View plans</button>
           <button class="btn btn-secondary" type="button" data-jump="packs">View packs</button>
@@ -121,11 +117,11 @@
       <div class="pricing-mini-grid">
         <div class="pricing-callout">
           <h3>Choose a subscription if</h3>
-          <p>You want recurring reply capacity for the messages you handle every week or month.</p>
+          <p>You want recurring reply capacity for the messages you handle every month.</p>
         </div>
         <div class="pricing-callout">
           <h3>Choose a pack if</h3>
-          <p>You want a simple one-time top-up without changing your regular plan.</p>
+          <p>You want a simple one-time pack without changing your regular plan.</p>
         </div>
       </div>
     </section>
@@ -155,12 +151,7 @@
       <div class="pricing-toolbar">
         <div>
           <h2>Subscriptions</h2>
-          <p class="lead">Start with the core plans, then look at Enterprise if you need the highest reply volume.</p>
-        </div>
-        <div class="segmented" id="intervalToggle" aria-label="Billing interval selector">
-          <button type="button" class="active" data-interval="month">Monthly</button>
-          <button type="button" data-interval="week">Weekly</button>
-          <button type="button" data-interval="year">Annual</button>
+          <p class="lead">Monthly plans for regular inbox work.</p>
         </div>
       </div>
       <div class="pricing-grid" id="plansGrid"></div>
@@ -170,7 +161,7 @@
     <section class="pricing-section pricing-packs" id="packsSection">
       <div>
         <h2>Response packs</h2>
-        <p class="lead">One-time top-ups when you need more reply capacity without changing your subscription.</p>
+        <p class="lead">Need a few extra replies? Grab a one-time pack. Subscriptions are the best value for regular inbox work.</p>
       </div>
       <div class="pricing-grid" id="packsGrid"></div>
     </section>
@@ -237,17 +228,26 @@
       const SUBSCRIPTION_META = {
         starter: { badge: 'Best first step', description: 'A simple upgrade for steady reply volume without overcommitting.', benefits: ['Reliable recurring reply capacity', 'Templates included', 'Easy first upgrade'], featured: false },
         pro: { badge: 'Most popular', description: 'More room for people who rely on DMTools regularly.', benefits: ['Higher recurring reply capacity', 'More room to scale', 'Strong fit for regular usage'], featured: true },
-        business: { badge: 'For teams', description: 'More capacity for heavier professional and shared workflows.', benefits: ['Bigger reply pool', 'Business-level limits', 'Built for shared workflows'], featured: false },
-        enterprise: { badge: 'Highest volume', description: 'The highest-capacity option for demanding reply workflows.', benefits: ['Highest reply capacity', 'Enterprise-level usage', 'Best for heavy volume'], featured: false }
+        business: { badge: 'For teams', description: 'More capacity for heavier professional and shared workflows.', benefits: ['2,000 replies each month', 'Business-level limits', 'Built for shared workflows'], featured: false }
       };
       const PACK_META = {
-        starter: { badge: 'Top-up', description: 'A smaller one-time top-up when you just need extra room.', benefits: ['One-time purchase', 'Useful for overflow', 'Simple extra balance'], featured: false },
-        pro: { badge: 'Best value', description: 'A larger one-time top-up for heavier reply demand.', benefits: ['More reply credits', 'Keeps you moving without changing plans', 'Best balance for top-ups'], featured: true },
-        business: { badge: 'High volume', description: 'The biggest one-time top-up for larger bursts of reply volume.', benefits: ['Largest one-time option', 'Useful for bursts', 'Good for bigger queues'], featured: false }
+        quick: { badge: 'Quick top-up', description: 'A small one-time pack when you need just a few more replies.', benefits: ['25 replies', 'One-time purchase', 'Useful for overflow'], featured: false },
+        starter: { badge: 'Top-up', description: 'A practical one-time pack for extra room.', benefits: ['100 replies', 'One-time purchase', 'Simple extra balance'], featured: false },
+        pro: { badge: 'Best value', description: 'A larger one-time pack for heavier reply demand.', benefits: ['300 replies', 'Keeps you moving without changing plans', 'Best balance for top-ups'], featured: true }
       };
-      const PLAN_ORDER = ['starter', 'pro', 'business', 'enterprise'];
-      const PACK_ORDER = ['starter', 'pro', 'business'];
-      const state = { interval: 'month', pricing: { subscriptions: [], packs: [] }, auth: { signedIn: false, user: null } };
+      const PUBLIC_SUBSCRIPTIONS = {
+        starter: { displayName: 'Starter Plan', priceAmount: 9, responses: 100 },
+        pro: { displayName: 'Pro Plan', priceAmount: 29, responses: 500 },
+        business: { displayName: 'Business Plan', priceAmount: 79, responses: 2000 }
+      };
+      const PUBLIC_PACKS = {
+        quick: { displayName: 'Quick Pack', priceAmount: 5, responses: 25 },
+        starter: { displayName: 'Starter Pack', priceAmount: 12, responses: 100 },
+        pro: { displayName: 'Pro Pack', priceAmount: 29, responses: 300 }
+      };
+      const PLAN_ORDER = ['starter', 'pro', 'business'];
+      const PACK_ORDER = ['quick', 'starter', 'pro'];
+      const state = { pricing: { subscriptions: [], packs: [] }, auth: { signedIn: false, user: null } };
 
       function track(name, params) { try { if (window.DMTOOLS && typeof window.DMTOOLS.track === 'function') window.DMTOOLS.track(name, params || {}); } catch (_) {} }
       function $(id) { return document.getElementById(id); }
@@ -266,6 +266,7 @@
         catch (_) { return '$' + value.toFixed(value % 1 === 0 ? 0 : 2); }
       }
       function labelForInterval(value) { if (value === 'week') return 'Weekly'; if (value === 'year') return 'Annual'; return 'Monthly'; }
+      function suffixForInterval(value) { return value === 'week' ? 'week' : value === 'year' ? 'year' : 'month'; }
       function normalizeInterval(value) {
         const raw = String(value || '').toLowerCase();
         if (raw.includes('week')) return 'week';
@@ -273,6 +274,18 @@
         return 'month';
       }
       function basePlanKey(key) { return String(key || '').toLowerCase().replace(/_monthly$/,'').replace(/_weekly$/,'').replace(/_annual$/,'').replace(/_yearly$/,''); }
+      function publicPackKey(item) {
+        const raw = String((item && (item.key || item.display_name || item.displayName || item.name)) || '').toLowerCase();
+        if (raw.includes('quick')) return 'quick';
+        if (raw.includes('starter')) return 'starter';
+        if (raw.includes('pro')) return 'pro';
+        return basePlanKey(raw);
+      }
+      function isPrivatePack(item) {
+        const raw = String([item && item.key, item && item.display_name, item && item.displayName, item && item.name].filter(Boolean).join(' ')).toLowerCase();
+        const amount = Number((item && item.price && item.price.amount) || (item && item.price_amount) || (item && item.price) || 0);
+        return raw.includes('founder') || raw.includes('test') || raw.includes('first') || amount === 3.99;
+      }
       function showFeedback(message, isError) {
         const el = $('pricingFeedback');
         if (!el) return;
@@ -302,12 +315,22 @@
             responses: item.responses || (item.limits && item.limits.responses) || 0,
             variantId: item.variantId || item.variant_id || null
           };
-          if (normalized.kind === 'subscription') subscriptions.push(normalized);
-          if (normalized.kind === 'pack') packs.push(normalized);
+          if (normalized.kind === 'subscription' && normalized.billingInterval === 'month' && PUBLIC_SUBSCRIPTIONS[normalized.baseKey]) {
+            Object.assign(normalized, PUBLIC_SUBSCRIPTIONS[normalized.baseKey]);
+            normalized.limits = Object.assign({}, normalized.limits, { responses: PUBLIC_SUBSCRIPTIONS[normalized.baseKey].responses });
+            subscriptions.push(normalized);
+          }
+          if (normalized.kind === 'pack' && !isPrivatePack(item)) {
+            normalized.key = publicPackKey(item);
+            if (PUBLIC_PACKS[normalized.key]) {
+              Object.assign(normalized, PUBLIC_PACKS[normalized.key]);
+              packs.push(normalized);
+            }
+          }
         });
         return { subscriptions: subscriptions, packs: packs };
       }
-      function subscriptionsForInterval(interval) {
+      function monthlySubscriptions() {
         const groups = new Map();
         state.pricing.subscriptions.forEach(function (plan) {
           if (!groups.has(plan.baseKey)) groups.set(plan.baseKey, []);
@@ -315,9 +338,8 @@
         });
         const selected = [];
         groups.forEach(function (plans) {
-          const exact = plans.find(function (plan) { return plan.billingInterval === interval; });
-          const fallback = plans.find(function (plan) { return plan.billingInterval === 'month'; }) || plans[0];
-          selected.push(exact || fallback);
+          const monthly = plans.find(function (plan) { return plan.billingInterval === 'month'; });
+          if (monthly) selected.push(monthly);
         });
         selected.sort(function (a, b) { return PLAN_ORDER.indexOf(a.baseKey) - PLAN_ORDER.indexOf(b.baseKey); });
         return selected;
@@ -327,8 +349,7 @@
         const enterpriseContainer = $('enterpriseContainer');
         plansGrid.innerHTML = '';
         enterpriseContainer.innerHTML = '';
-        const selectedPlans = subscriptionsForInterval(state.interval);
-        const mainPlans = selectedPlans.filter(function (plan) { return plan.baseKey !== 'enterprise'; });
+        const mainPlans = monthlySubscriptions();
         mainPlans.forEach(function (plan) {
           const meta = SUBSCRIPTION_META[plan.baseKey] || {};
           const responses = (plan.limits && plan.limits.responses) || plan.responses;
@@ -341,7 +362,7 @@
             <div class="pricing-card__sub">${escapeHtml(meta.description || 'Recurring reply allowance and plan features.')}</div>
             <div class="pricing-card__price">
               <span class="amount">${escapeHtml(formatUsd(plan.priceAmount, plan.currency))}</span>
-              <span class="suffix">/${escapeHtml(state.interval === 'week' ? 'week' : state.interval === 'year' ? 'year' : 'month')}</span>
+              <span class="suffix">/${escapeHtml(suffixForInterval(plan.billingInterval))}</span>
             </div>
             <div class="pricing-card__meta">
               <div><span>Replies</span><span>${escapeHtml(formatCount(responses))}</span></div>
@@ -365,14 +386,6 @@
         const packsGrid = $('packsGrid');
         packsGrid.innerHTML = '';
         const sorted = state.pricing.packs
-          .filter(function (pack) {
-            const name = String(pack.displayName || '').toLowerCase();
-            const key = String(pack.key || '').toLowerCase();
-            const amount = Number(pack.priceAmount || 0);
-            const isFirstUsersPack = key.includes('first') || name.includes('first users');
-            const isThreeNinetyNine = amount === 3.99;
-            return !(isFirstUsersPack || isThreeNinetyNine);
-          })
           .slice()
           .sort(function (a, b) { return PACK_ORDER.indexOf(a.key) - PACK_ORDER.indexOf(b.key); });
         sorted.forEach(function (pack) {
@@ -490,16 +503,6 @@
         }
       }
       function wireControls() {
-        document.querySelectorAll('#intervalToggle [data-interval]').forEach(function (button) {
-          button.addEventListener('click', function () {
-            const next = button.dataset.interval;
-            if (state.interval === next) return;
-            state.interval = next;
-            document.querySelectorAll('#intervalToggle [data-interval]').forEach(function (btn) { btn.classList.toggle('active', btn.dataset.interval === next); });
-            renderPlans();
-            track('pricing_interval_change', { page_name: 'pricing', billing_interval: next });
-          });
-        });
         document.querySelectorAll('[data-jump]').forEach(function (button) {
           button.addEventListener('click', function () {
             const target = button.dataset.jump === 'packs' ? $('packsSection') : $('plansSection');

@@ -63,6 +63,9 @@
     .pricing-enterprise{display:none}
     .pricing-enterprise .pricing-callout{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:1rem;align-items:center}
     .pricing-packs{margin-top:2rem}
+    .pricing-partner .pricing-card{max-width:760px}
+    .pricing-partner__body{color:var(--text-secondary);margin-bottom:1rem}
+    .pricing-partner__disclosure{color:var(--text-muted);font-size:.84rem;margin:.75rem 0 0}
     .pricing-faqs{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:1rem;margin-top:2rem}
     .pricing-faq{padding:1.1rem 1.15rem}
     .pricing-faq h3{font-size:1rem;margin-bottom:.3rem}
@@ -164,6 +167,18 @@
         <p class="lead">Need a few extra replies? Grab a one-time pack. Subscriptions are the best value for regular inbox work.</p>
       </div>
       <div class="pricing-grid" id="packsGrid"></div>
+    </section>
+
+    <section class="pricing-section pricing-partner" aria-labelledby="partnerResourceTitle">
+      <h2 id="partnerResourceTitle">Partner resource</h2>
+      <article class="pricing-card">
+        <div class="pricing-card__name">Need an email follow-up tool for your leads?</div>
+        <p class="pricing-partner__body">DMtools helps you reply faster in DMs and inboxes. If you also want to build email follow-up flows, this partner tool may be worth checking out.</p>
+        <div class="pricing-card__footer">
+          <a class="btn btn-secondary" href="PASTE_THE_FINAL_CLICKBANK_HOPLINK_HERE" target="_blank" rel="sponsored noopener noreferrer">View partner tool</a>
+          <p class="pricing-partner__disclosure">Affiliate disclosure: This is a partner link. If you purchase through it, DMtools.fun may earn a commission at no extra cost to you.</p>
+        </div>
+      </article>
     </section>
 
     <section class="pricing-faqs">

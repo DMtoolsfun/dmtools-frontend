@@ -63,14 +63,14 @@
     .pricing-enterprise{display:none}
     .pricing-enterprise .pricing-callout{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:1rem;align-items:center}
     .pricing-packs{margin-top:2rem}
-    .pricing-partner .pricing-card{max-width:760px}
-    .pricing-partner__body{color:var(--text-secondary);margin-bottom:1rem}
-    .pricing-partner__disclosure{color:var(--text-muted);font-size:.84rem;margin:.75rem 0 0}
+    .pricing-partner__body{color:var(--text-secondary);max-width:760px;margin-bottom:1rem}
+    .pricing-partner__grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:.9rem}
+    .pricing-partner__disclosure{color:var(--text-muted);font-size:.84rem;margin:1rem 0 0}
     .pricing-faqs{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:1rem;margin-top:2rem}
     .pricing-faq{padding:1.1rem 1.15rem}
     .pricing-faq h3{font-size:1rem;margin-bottom:.3rem}
     .pricing-faq p{margin:0;color:var(--text-secondary)}
-    @media (max-width:1100px){.pricing-hero,.pricing-grid,.pricing-status__grid,.pricing-faqs,.pricing-enterprise .pricing-callout{grid-template-columns:1fr}}
+    @media (max-width:1100px){.pricing-hero,.pricing-grid,.pricing-status__grid,.pricing-partner__grid,.pricing-faqs,.pricing-enterprise .pricing-callout{grid-template-columns:1fr}}
     @media (max-width:760px){.pricing-wrap{width:min(100vw - 1rem,100%)}.pricing-toolbar{align-items:stretch}.pricing-actions{flex-direction:column;align-items:stretch}}
   </style>
 </head>
@@ -169,16 +169,34 @@
       <div class="pricing-grid" id="packsGrid"></div>
     </section>
 
-    <section class="pricing-section pricing-partner" aria-labelledby="partnerResourceTitle">
-      <h2 id="partnerResourceTitle">Partner resource</h2>
-      <article class="pricing-card">
-        <div class="pricing-card__name">Need an email follow-up tool for your leads?</div>
-        <p class="pricing-partner__body">DMtools helps you reply faster in DMs and inboxes. If you also want to build email follow-up flows, this partner tool may be worth checking out.</p>
-        <div class="pricing-card__footer">
-          <a class="btn btn-secondary" href="https://2f6f94phvf-gshrjs5scc2vu85.hop.clickbank.net" target="_blank" rel="sponsored noopener noreferrer">View partner tool</a>
-          <p class="pricing-partner__disclosure">Affiliate disclosure: This is a partner link. If you purchase through it, DMtools.fun may earn a commission at no extra cost to you.</p>
-        </div>
-      </article>
+    <section class="pricing-section pricing-partner" aria-labelledby="partnerResourcesTitle">
+      <span class="eyebrow">Partner resources</span>
+      <h2 id="partnerResourcesTitle">Helpful tools for growing and managing conversations</h2>
+      <p class="pricing-partner__body">A few optional tools that may help with lead follow-up, email workflows, and online business growth.</p>
+      <div class="pricing-partner__grid">
+        <article class="pricing-card">
+          <div class="pricing-card__name">Email follow-up tool</div>
+          <p class="pricing-card__sub">Build email follow-up flows for leads after the first conversation.</p>
+          <div class="pricing-card__footer">
+            <a class="btn btn-secondary" href="PASTE_CLICKBANK_LINK_1_HERE" target="_blank" rel="sponsored noopener noreferrer">View partner tool</a>
+          </div>
+        </article>
+        <article class="pricing-card">
+          <div class="pricing-card__name">PASTE_TOOL_2_TITLE_HERE</div>
+          <p class="pricing-card__sub">PASTE_TOOL_2_SHORT_DESCRIPTION_HERE</p>
+          <div class="pricing-card__footer">
+            <a class="btn btn-secondary" href="PASTE_AFFILIATE_LINK_2_HERE" target="_blank" rel="sponsored noopener noreferrer">View partner tool</a>
+          </div>
+        </article>
+        <article class="pricing-card">
+          <div class="pricing-card__name">PASTE_TOOL_3_TITLE_HERE</div>
+          <p class="pricing-card__sub">PASTE_TOOL_3_SHORT_DESCRIPTION_HERE</p>
+          <div class="pricing-card__footer">
+            <a class="btn btn-secondary" href="PASTE_AFFILIATE_LINK_3_HERE" target="_blank" rel="sponsored noopener noreferrer">View partner tool</a>
+          </div>
+        </article>
+      </div>
+      <p class="pricing-partner__disclosure">Affiliate disclosure: Some links on this page are partner links. If you purchase through them, DMtools.fun may earn a commission at no extra cost to you.</p>
     </section>
 
     <section class="pricing-faqs">

@@ -1115,9 +1115,10 @@
             }
           } catch (_) {}
 
-          track('free_account_created', {
+          track('free_account_create_response_success', {
             marketing_opt_in: marketingConsent,
-            account_type: 'free_responses_only'
+            account_type: 'free_responses_only',
+            source: 'welcome_onboarding'
           });
 
           setSignupStatus('Account created. Your free account includes limited response credits. Paid subscriptions unlock Voice settings, templates, and advanced features.', 'success');
@@ -1126,7 +1127,8 @@
           }, 650);
         } catch (error) {
           track('free_account_create_error', {
-            message: String(error && error.message ? error.message : error)
+            source: 'welcome_onboarding',
+            result: 'frontend_or_api_error'
           });
 
           setSignupStatus('Could not create the account from this modal. You can still use the regular signup flow.', 'error');

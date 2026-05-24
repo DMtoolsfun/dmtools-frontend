@@ -938,7 +938,7 @@
           const statusCode = Number(err && err.status);
           if (errorCode === 'quota_blocked') {
             const snap = usageSnapshot();
-            const limitEvent = snap.tier === 'free' ? 'free_limit_hit' : 'usage_limit_blocked';
+            const limitEvent = snap.tier === 'free' ? 'free_limit_hit' : 'reply_generation_quota_blocked';
             track(limitEvent, getSafeGenerateAnalyticsMeta('single_regenerate', {
               message_count: 1,
               tone: tone,
@@ -1033,7 +1033,7 @@
           const statusCode = Number(err && err.status);
           if (errorCode === 'quota_blocked') {
             const currentSnap = usageSnapshot();
-            const limitEvent = currentSnap.tier === 'free' ? 'free_limit_hit' : 'usage_limit_blocked';
+            const limitEvent = currentSnap.tier === 'free' ? 'free_limit_hit' : 'reply_generation_quota_blocked';
             track(limitEvent, getSafeGenerateAnalyticsMeta('batch_generate', {
               message_count: messages.length,
               tone: batchTone,

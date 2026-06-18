@@ -17,6 +17,8 @@ Manual live verification is still required after deployment to confirm the publi
 
 - App name: Tap-Out
 - Package ID: `fun.dmtools.tapout`
+- Gameplay summary: Tap-Out is an arcade tunnel runner / wave survival game where players steer a ship left and right with touch tracking, dodge red hazard gates and walls, collect coins, reach checkpoint stores, and use unlockable weapons to break blocks in the path.
+- Music credit: Original gameplay music composed and produced by Dale Abbey Organizednoise Productions.
 - Accounts/login: No
 - Chat/social messaging: No
 - In-app purchases: No current IAP flow

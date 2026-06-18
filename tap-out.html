@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="Tap-Out is an ad-supported quick-reaction arcade game from DMTools.fun LLC for Android.">
+  <meta name="description" content="Tap-Out is an ad-supported arcade tunnel runner from DMTools.fun LLC for Android.">
   <title>Tap-Out | DMTools.fun</title>
   <link rel="stylesheet" href="styles.css">
   <style>
@@ -208,23 +208,44 @@
       font-weight: 800;
     }
 
-    .tapout-grid {
+    .tapout-tunnel {
       align-self: center;
       display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 12px;
+      grid-template-columns: repeat(5, 1fr);
+      grid-template-rows: repeat(6, 1fr);
+      gap: 8px;
+      min-height: 260px;
     }
 
-    .tapout-tile {
-      aspect-ratio: 1;
+    .tapout-gate {
+      min-height: 28px;
       border-radius: 8px;
       background: rgba(154, 223, 241, 0.12);
       border: 1px solid rgba(154, 223, 241, 0.2);
     }
 
-    .tapout-tile-hot {
-      background: linear-gradient(135deg, #f5a524, #18b7a0);
-      box-shadow: 0 0 32px rgba(245, 165, 36, 0.35);
+    .tapout-gate-hazard {
+      background: linear-gradient(135deg, #ff4d5a, #a51f32);
+      border-color: rgba(255, 109, 121, 0.62);
+      box-shadow: 0 0 28px rgba(255, 77, 90, 0.32);
+    }
+
+    .tapout-gate-coin {
+      background: linear-gradient(135deg, #f5a524, #ffd27a);
+      border-color: rgba(255, 210, 122, 0.72);
+      box-shadow: 0 0 22px rgba(245, 165, 36, 0.28);
+    }
+
+    .tapout-ship {
+      grid-column: 3;
+      grid-row: 6;
+      align-self: end;
+      justify-self: center;
+      width: 30px;
+      height: 44px;
+      clip-path: polygon(50% 0, 100% 100%, 50% 78%, 0 100%);
+      background: linear-gradient(180deg, #9adff1, #18b7a0);
+      box-shadow: 0 0 26px rgba(24, 183, 160, 0.4);
     }
 
     .tapout-status {
@@ -305,9 +326,9 @@
         <p class="tapout-kicker">Android arcade game</p>
         <h1 id="tapout-title">Tap-Out</h1>
         <p class="tapout-lead">
-          Tap-Out is an ad-supported, fast reaction game built for quick mobile sessions.
-          Tap the active targets, keep your streak alive, and push for a cleaner run
-          each time you play.
+          Tap-Out is an ad-supported arcade tunnel runner where you steer a ship with
+          touch tracking, survive waves of gates, dodge red hazards, collect coins, and
+          use unlockable weapons to break blocks on the way to checkpoint stores.
         </p>
         <div class="tapout-actions">
           <a class="tapout-button tapout-button-primary" href="tap-out-support.html">Contact Support</a>
@@ -337,21 +358,38 @@
         <div class="tapout-screen">
           <div class="tapout-playfield">
             <div class="tapout-score">
-              <span>Score 128</span>
-              <span>Streak 12</span>
+              <span>Wave 4</span>
+              <span>Coins 128</span>
             </div>
-            <div class="tapout-grid" aria-hidden="true">
-              <span class="tapout-tile"></span>
-              <span class="tapout-tile tapout-tile-hot"></span>
-              <span class="tapout-tile"></span>
-              <span class="tapout-tile"></span>
-              <span class="tapout-tile"></span>
-              <span class="tapout-tile tapout-tile-hot"></span>
-              <span class="tapout-tile tapout-tile-hot"></span>
-              <span class="tapout-tile"></span>
-              <span class="tapout-tile"></span>
+            <div class="tapout-tunnel" aria-hidden="true">
+              <span class="tapout-gate"></span>
+              <span class="tapout-gate tapout-gate-hazard"></span>
+              <span class="tapout-gate"></span>
+              <span class="tapout-gate"></span>
+              <span class="tapout-gate tapout-gate-coin"></span>
+              <span class="tapout-gate"></span>
+              <span class="tapout-gate"></span>
+              <span class="tapout-gate tapout-gate-hazard"></span>
+              <span class="tapout-gate"></span>
+              <span class="tapout-gate"></span>
+              <span class="tapout-gate tapout-gate-coin"></span>
+              <span class="tapout-gate"></span>
+              <span class="tapout-gate"></span>
+              <span class="tapout-gate"></span>
+              <span class="tapout-gate tapout-gate-hazard"></span>
+              <span class="tapout-gate"></span>
+              <span class="tapout-gate tapout-gate-hazard"></span>
+              <span class="tapout-gate"></span>
+              <span class="tapout-gate tapout-gate-coin"></span>
+              <span class="tapout-gate"></span>
+              <span class="tapout-gate"></span>
+              <span class="tapout-gate"></span>
+              <span class="tapout-gate tapout-gate-hazard"></span>
+              <span class="tapout-gate"></span>
+              <span class="tapout-gate"></span>
+              <span class="tapout-ship"></span>
             </div>
-            <p class="tapout-status">Tap the lit targets</p>
+            <p class="tapout-status">Steer through the next gate wave</p>
           </div>
         </div>
       </div>
@@ -361,20 +399,24 @@
       <h2 id="about-title">Built For Short Runs</h2>
       <div class="tapout-feature-grid">
         <article class="tapout-card">
-          <p class="tapout-label">Simple Controls</p>
-          <p class="tapout-value">Tap highlighted targets before the round moves on.</p>
+          <p class="tapout-label">Ship Steering</p>
+          <p class="tapout-value">Track your finger left and right to guide the ship through each gate wave.</p>
         </article>
         <article class="tapout-card">
-          <p class="tapout-label">Score Chase</p>
-          <p class="tapout-value">Build streaks and improve your personal best over repeated plays.</p>
+          <p class="tapout-label">Wave Survival</p>
+          <p class="tapout-value">Dodge red hazard gates, collect coins, manage lives, and push your local high score.</p>
         </article>
         <article class="tapout-card">
-          <p class="tapout-label">Mobile Ready</p>
-          <p class="tapout-value">Designed for quick Android sessions with local high scores and settings.</p>
+          <p class="tapout-label">Weapons And Blocks</p>
+          <p class="tapout-value">Unlock and select weapons to break purple, red armored, blue elite, and later orange shooter blocks.</p>
         </article>
         <article class="tapout-card">
           <p class="tapout-label">Ads</p>
           <p class="tapout-value">Contains Google AdMob banner, interstitial, and rewarded ads.</p>
+        </article>
+        <article class="tapout-card">
+          <p class="tapout-label">Music</p>
+          <p class="tapout-value">Original gameplay music composed and produced by Dale Abbey Organizednoise Productions.</p>
         </article>
       </div>
     </section>

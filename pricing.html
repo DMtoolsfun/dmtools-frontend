@@ -43,8 +43,8 @@
     .pricing-section{margin-top:1.2rem}
     .pricing-section h2{font-size:1.85rem;margin-bottom:.35rem}
     .pricing-section p.lead{color:var(--text-secondary);max-width:760px;margin-bottom:1rem}
-    .pricing-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:.9rem}
-    .pricing-card{padding:1.25rem;display:flex;flex-direction:column;min-height:100%}
+    .pricing-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:.9rem}
+    .pricing-card{padding:1.25rem;display:flex;flex-direction:column;min-width:0;min-height:100%}
     .pricing-card.featured{border-color:rgba(79,124,255,.42);box-shadow:var(--shadow-primary-lg);transform:translateY(-2px)}
     .pricing-card__badge{align-self:flex-start;padding:.34rem .6rem;border-radius:999px;border:1px solid rgba(79,124,255,.24);background:rgba(79,124,255,.14);color:var(--primary-light);font-size:.76rem;font-weight:800;margin-bottom:.8rem;text-transform:uppercase;letter-spacing:.02em}
     .pricing-card__name{font-size:1.2rem;font-weight:850;color:var(--text-primary);margin-bottom:.25rem}
@@ -53,24 +53,23 @@
     .pricing-card__price .amount{font-size:clamp(2rem,3vw,2.45rem);font-weight:900;line-height:1}
     .pricing-card__price .suffix{color:var(--text-muted);font-weight:700;padding-bottom:.16rem}
     .pricing-card__meta{padding:.9rem 0;border-top:1px solid rgba(108,135,184,.14);border-bottom:1px solid rgba(108,135,184,.14);display:grid;gap:.45rem;margin-bottom:1rem}
-    .pricing-card__meta div{display:flex;justify-content:space-between;gap:1rem;color:var(--text-secondary);font-size:.94rem}
-    .pricing-card__meta span:last-child{color:var(--text-primary);font-weight:800}
+    .pricing-card__meta div{display:flex;justify-content:space-between;align-items:flex-start;gap:1rem;color:var(--text-secondary);font-size:.94rem}
+    .pricing-card__meta span:last-child{max-width:65%;color:var(--text-primary);font-weight:800;text-align:right;overflow-wrap:anywhere}
     .pricing-card__features{list-style:none;padding:0;margin:0 0 1rem;display:grid;gap:.55rem;color:var(--text-secondary);flex:1 1 auto}
     .pricing-card__features li{display:grid;grid-template-columns:1rem 1fr;gap:.5rem;align-items:start}
     .pricing-card__features li::before{content:"✓";color:var(--accent-light);font-weight:900}
+    .pricing-card__value-note{margin:-.2rem 0 .9rem;color:var(--primary-light);font-size:.86rem;font-weight:750}
     .pricing-card__footer{display:grid;gap:.65rem}
     .pricing-card__hint{color:var(--text-muted);font-size:.84rem;text-align:center}
     .pricing-enterprise{display:none}
     .pricing-enterprise .pricing-callout{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:1rem;align-items:center}
     .pricing-packs{margin-top:2rem}
-    .pricing-partner__body{color:var(--text-secondary);max-width:760px;margin-bottom:1rem}
-    .pricing-partner__grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:.9rem}
-    .pricing-partner__disclosure{color:var(--text-muted);font-size:.84rem;margin:1rem 0 0}
     .pricing-faqs{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:1rem;margin-top:2rem}
     .pricing-faq{padding:1.1rem 1.15rem}
     .pricing-faq h3{font-size:1rem;margin-bottom:.3rem}
     .pricing-faq p{margin:0;color:var(--text-secondary)}
-    @media (max-width:1100px){.pricing-hero,.pricing-grid,.pricing-status__grid,.pricing-partner__grid,.pricing-faqs,.pricing-enterprise .pricing-callout{grid-template-columns:1fr}}
+    @media (max-width:1100px){.pricing-hero,.pricing-status__grid,.pricing-faqs,.pricing-enterprise .pricing-callout{grid-template-columns:1fr}}
+    @media (max-width:620px){.pricing-grid{grid-template-columns:1fr}}
     @media (max-width:760px){.pricing-wrap{width:min(100vw - 1rem,100%)}.pricing-toolbar{align-items:stretch}.pricing-actions{flex-direction:column;align-items:stretch}}
   </style>
 </head>
@@ -154,7 +153,7 @@
       <div class="pricing-toolbar">
         <div>
           <h2>Subscriptions</h2>
-          <p class="lead">Monthly plans for regular inbox work.</p>
+          <p class="lead">Start with 5 free replies. Upgrade when DMTools becomes part of your regular inbox workflow.</p>
         </div>
       </div>
       <div class="pricing-grid" id="plansGrid"></div>
@@ -167,36 +166,6 @@
         <p class="lead">Need a few extra replies? Grab a one-time pack. Subscriptions are the best value for regular inbox work.</p>
       </div>
       <div class="pricing-grid" id="packsGrid"></div>
-    </section>
-
-    <section class="pricing-section pricing-partner" aria-labelledby="partnerResourcesTitle">
-      <span class="eyebrow">Partner resources</span>
-      <h2 id="partnerResourcesTitle">Helpful tools for growing and managing conversations</h2>
-      <p class="pricing-partner__body">A few optional tools that may help with lead follow-up, email workflows, social media traffic, and online business growth.</p>
-      <div class="pricing-partner__grid">
-        <article class="pricing-card">
-          <div class="pricing-card__name">Email follow-up tool</div>
-          <p class="pricing-card__sub">Build email follow-up flows for leads after the first conversation.</p>
-          <div class="pricing-card__footer">
-            <a class="btn btn-secondary" href="https://2f6f94phvf-gshrjs5scc2vu85.hop.clickbank.net" target="_blank" rel="sponsored noopener noreferrer">View tool</a>
-          </div>
-        </article>
-        <article class="pricing-card">
-          <div class="pricing-card__name">Online business growth resource</div>
-          <p class="pricing-card__sub">A partner resource for people exploring affiliate marketing, side-hustle funnels, and online business growth strategies.</p>
-          <div class="pricing-card__footer">
-            <a class="btn btn-secondary" href="https://7a79510l-i-kkfptperf-5-ci0.hop.clickbank.net" target="_blank" rel="sponsored noopener noreferrer">View resource</a>
-          </div>
-        </article>
-        <article class="pricing-card">
-          <div class="pricing-card__name">Social media traffic resource</div>
-          <p class="pricing-card__sub">A partner resource for people exploring social media traffic, online promotion, and affiliate marketing workflows.</p>
-          <div class="pricing-card__footer">
-            <a class="btn btn-secondary" href="https://be017zohygplni2l2ym-ynocik.hop.clickbank.net" target="_blank" rel="sponsored noopener noreferrer">View resource</a>
-          </div>
-        </article>
-      </div>
-      <p class="pricing-partner__disclosure">Affiliate disclosure: Some links on this page are partner links. If you purchase through them, DMtools.fun may earn a commission at no extra cost to you.</p>
     </section>
 
     <section class="pricing-faqs">
@@ -259,9 +228,10 @@
   <script>
     (function () {
       const SUBSCRIPTION_META = {
-        starter: { badge: 'Best first step', description: 'A simple upgrade for steady reply volume without overcommitting.', benefits: ['Reliable recurring reply capacity', 'Templates included', 'Easy first upgrade'], featured: false },
-        pro: { badge: 'Most popular', description: 'More room for people who rely on DMTools regularly.', benefits: ['Higher recurring reply capacity', 'More room to scale', 'Strong fit for regular usage'], featured: true },
-        business: { badge: 'For teams', description: 'More capacity for heavier professional and shared workflows.', benefits: ['2,000 replies each month', 'Business-level limits', 'Built for shared workflows'], featured: false }
+        free: { badge: 'Try it free', description: 'Generate your first replies and confirm the workflow fits before paying.', bestFor: 'Testing the workflow', valueNote: 'No card required', featured: false },
+        starter: { badge: 'Best first step', description: 'A focused upgrade for light, recurring reply work.', bestFor: 'Light weekly use', valueNote: 'About 25 replies per week', featured: false },
+        pro: { badge: 'Most popular', description: 'More room for people who rely on DMTools throughout the workweek.', bestFor: 'Regular daily use', valueNote: 'About 125 replies per week', featured: true },
+        business: { badge: 'For teams', description: 'High-volume capacity for professional and shared workflows.', bestFor: 'High-volume teams', valueNote: 'About 500 replies per week', featured: false }
       };
       const PACK_META = {
         quick: { badge: 'Quick top-up', description: 'A small one-time pack when you need just a few more replies.', benefits: ['25 replies', 'One-time purchase', 'Useful for overflow'], featured: false },
@@ -273,6 +243,7 @@
         pro: { displayName: 'Pro Plan', priceAmount: 29, responses: 500 },
         business: { displayName: 'Business Plan', priceAmount: 79, responses: 2000 }
       };
+      const PUBLIC_FREE = { displayName: 'Free', priceAmount: 0, responses: 5, templates: 5 };
       const PUBLIC_PACKS = {
         quick: { displayName: 'Quick Pack', priceAmount: 5, responses: 25 },
         starter: { displayName: 'Starter Pack', priceAmount: 12, responses: 100 },
@@ -280,7 +251,7 @@
       };
       const PLAN_ORDER = ['starter', 'pro', 'business'];
       const PACK_ORDER = ['quick', 'starter', 'pro'];
-      const state = { pricing: { subscriptions: [], packs: [] }, auth: { signedIn: false, user: null }, checkoutInProgress: false };
+      const state = { pricing: { freePlan: null, subscriptions: [], packs: [] }, auth: { signedIn: false, user: null }, checkoutInProgress: false };
 
       function track(name, params) { try { if (window.DMTOOLS && typeof window.DMTOOLS.track === 'function') window.DMTOOLS.track(name, params || {}); } catch (_) {} }
       function $(id) { return document.getElementById(id); }
@@ -297,6 +268,12 @@
         if (!Number.isFinite(value)) return '';
         try { return new Intl.NumberFormat('en-US', { style:'currency', currency:currency || 'USD', maximumFractionDigits:value % 1 === 0 ? 0 : 2 }).format(value); }
         catch (_) { return '$' + value.toFixed(value % 1 === 0 ? 0 : 2); }
+      }
+      function formatUnitCost(amount, responses) {
+        const price = Number(amount);
+        const count = Number(responses);
+        if (!Number.isFinite(price) || !Number.isFinite(count) || price <= 0 || count <= 0) return '';
+        return formatUsd(price / count, 'USD') + ' per reply';
       }
       function labelForInterval(value) { if (value === 'week') return 'Weekly'; if (value === 'year') return 'Annual'; return 'Monthly'; }
       function suffixForInterval(value) { return value === 'week' ? 'week' : value === 'year' ? 'year' : 'month'; }
@@ -337,6 +314,25 @@
       }
       function normalizeCatalog(data) {
         const items = Array.isArray(data && data.items) ? data.items : [];
+        const rawFree = data && data.plans && data.plans.free;
+        const freePlan = rawFree ? {
+          kind: 'subscription',
+          key: 'free',
+          baseKey: 'free',
+          displayName: rawFree.display_name || rawFree.name || PUBLIC_FREE.displayName,
+          priceAmount: Number(rawFree.price_amount ?? rawFree.price ?? PUBLIC_FREE.priceAmount),
+          currency: rawFree.currency || data.currency || 'USD',
+          billingInterval: normalizeInterval(rawFree.billing_interval || rawFree.interval),
+          limits: rawFree.limits || { responses: PUBLIC_FREE.responses, templates: PUBLIC_FREE.templates },
+          responses: Number((rawFree.limits && rawFree.limits.responses) ?? PUBLIC_FREE.responses),
+          features: Array.isArray(rawFree.features) ? rawFree.features : []
+        } : {
+          kind: 'subscription', key: 'free', baseKey: 'free', displayName: PUBLIC_FREE.displayName,
+          priceAmount: PUBLIC_FREE.priceAmount, currency: 'USD', billingInterval: 'month',
+          limits: { responses: PUBLIC_FREE.responses, templates: PUBLIC_FREE.templates },
+          responses: PUBLIC_FREE.responses,
+          features: ['5 AI responses per month', 'Basic templates', 'All platforms']
+        };
         const subscriptions = [];
         const packs = [];
         items.forEach(function (item) {
@@ -350,6 +346,7 @@
             currency: (item.price && item.price.currency) || item.currency || 'USD',
             billingInterval: normalizeInterval(item.billing_interval),
             limits: item.limits || {},
+            features: Array.isArray(item.features) ? item.features : [],
             responses: item.responses || (item.limits && item.limits.responses) || 0,
             variantId: item.variantId || item.variant_id || null
           };
@@ -366,7 +363,7 @@
             }
           }
         });
-        return { subscriptions: subscriptions, packs: packs };
+        return { freePlan: freePlan, subscriptions: subscriptions, packs: packs };
       }
       function monthlySubscriptions() {
         const groups = new Map();
@@ -387,11 +384,14 @@
         const enterpriseContainer = $('enterpriseContainer');
         plansGrid.innerHTML = '';
         enterpriseContainer.innerHTML = '';
-        const mainPlans = monthlySubscriptions();
+        const mainPlans = [state.pricing.freePlan].filter(Boolean).concat(monthlySubscriptions());
         mainPlans.forEach(function (plan) {
           const meta = SUBSCRIPTION_META[plan.baseKey] || {};
           const responses = (plan.limits && plan.limits.responses) || plan.responses;
           const templates = plan.limits && plan.limits.templates;
+          const isFree = plan.baseKey === 'free';
+          const valueLine = isFree ? meta.valueNote : [meta.valueNote, formatUnitCost(plan.priceAmount, responses)].filter(Boolean).join(' · ');
+          const benefits = Array.isArray(plan.features) && plan.features.length ? plan.features : [];
           const card = document.createElement('article');
           card.className = 'pricing-card' + (meta.featured ? ' featured' : '');
           card.innerHTML = `
@@ -402,20 +402,32 @@
               <span class="amount">${escapeHtml(formatUsd(plan.priceAmount, plan.currency))}</span>
               <span class="suffix">/${escapeHtml(suffixForInterval(plan.billingInterval))}</span>
             </div>
+            <div class="pricing-card__value-note">${escapeHtml(valueLine)}</div>
             <div class="pricing-card__meta">
               <div><span>Replies</span><span>${escapeHtml(formatCount(responses))}</span></div>
               <div><span>Templates</span><span>${escapeHtml(formatCount(templates))}</span></div>
-              <div><span>Billing</span><span>${escapeHtml(labelForInterval(plan.billingInterval))}</span></div>
+              <div><span>Best for</span><span>${escapeHtml(meta.bestFor || 'Regular use')}</span></div>
             </div>
             <ul class="pricing-card__features">
-              ${(meta.benefits || []).map(function (benefit) { return `<li>${escapeHtml(benefit)}</li>`; }).join('')}
+              ${benefits.map(function (benefit) { return `<li>${escapeHtml(benefit)}</li>`; }).join('')}
             </ul>
             <div class="pricing-card__footer">
-              <button class="btn btn-primary" type="button">Choose ${escapeHtml(plan.displayName)}</button>
-              <div class="pricing-card__hint">Start this plan in checkout.</div>
+              <button class="btn ${isFree ? 'btn-secondary' : 'btn-primary'}" type="button">${isFree ? (state.auth.signedIn ? 'Open Queue' : 'Start free') : 'Choose ' + escapeHtml(plan.displayName)}</button>
+              <div class="pricing-card__hint">${isFree ? (state.auth.signedIn ? 'Use your included replies now.' : 'Create an account with no card required.') : 'Start this plan in secure checkout.'}</div>
             </div>
           `;
-          card.querySelector('button').addEventListener('click', function () { startCheckout('subscription', plan); });
+          card.querySelector('button').addEventListener('click', function () {
+            if (!isFree) {
+              startCheckout('subscription', plan);
+              return;
+            }
+            track('free_plan_start_click', { page_name: 'pricing', authenticated: state.auth.signedIn });
+            if (state.auth.signedIn) {
+              window.location.href = '/app.html?source=pricing_free&sample=1';
+            } else if (window.DMTOOLS && typeof DMTOOLS.openAuthModal === 'function') {
+              DMTOOLS.openAuthModal('register', { returnTo: '/app.html?source=pricing_free&sample=1' });
+            }
+          });
           plansGrid.appendChild(card);
         });
 

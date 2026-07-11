@@ -43,7 +43,7 @@
     .notification.info{border-color:rgba(79,124,255,.34)}
     @keyframes slideIn{from{opacity:0;transform:translateY(-10px)}to{opacity:1;transform:translateY(0)}}
 
-    .queue-hero,.queue-card,.queue-feedback,.queue-usage,.queue-empty,.onboarding-card,.message-card,.message-toolbar{
+    .queue-hero,.queue-card,.queue-feedback,.queue-usage,.upgrade-nudge,.queue-empty,.onboarding-card,.message-card,.message-toolbar{
       background:var(--bg-card);
       border:1px solid var(--border-medium);
       border-radius:22px;
@@ -69,6 +69,12 @@
     .usage-bar{height:10px;background:rgba(11,19,31,.95);border-radius:999px;overflow:hidden;border:1px solid rgba(108,135,184,.12);margin-bottom:.6rem}
     .usage-fill{height:100%;width:0;background:var(--gradient-primary-dark);transition:width .35s ease;border-radius:999px}
     .usage-hint{color:var(--text-muted);font-size:.92rem}
+    .upgrade-nudge{display:flex;justify-content:space-between;align-items:center;gap:1rem;padding:1rem 1.1rem;margin-bottom:1rem;border-color:rgba(79,124,255,.34);background:linear-gradient(135deg,rgba(79,124,255,.13),rgba(24,183,160,.09))}
+    .upgrade-nudge__copy{min-width:0}
+    .upgrade-nudge__copy strong{display:block;color:var(--text-primary);font-size:1.02rem;margin-bottom:.18rem}
+    .upgrade-nudge__copy span{color:var(--text-secondary);font-size:.92rem}
+    .upgrade-nudge__actions{display:flex;align-items:center;gap:.6rem;flex:0 0 auto}
+    .upgrade-nudge__dismiss{border:0;background:transparent;color:var(--text-muted);cursor:pointer;font-weight:750;padding:.55rem}
 
     .onboarding-wrap{position:relative;margin-bottom:1rem}
     .onboarding-reopen{position:absolute;right:0;top:-.35rem}
@@ -188,6 +194,8 @@
     @media (max-width:760px){
       .queue-shell{width:min(100vw - 1rem,100%)}
       .queue-actions,.voice-actions,.helper-actions,.tool-actions,.action-row,.usage-head,.message-toolbar,.card-head,.onboarding-head{flex-direction:column;align-items:stretch}
+      .upgrade-nudge{align-items:stretch;flex-direction:column}
+      .upgrade-nudge__actions{align-items:stretch;flex-direction:column}
       .onboarding-reopen{position:static;margin-bottom:.75rem}
     }
   </style>
@@ -258,6 +266,17 @@
       </div>
       <div class="usage-bar"><div class="usage-fill" id="usageFill"></div></div>
       <div class="usage-hint" id="usageHint">Start free with 5 replies this month, then upgrade when you are ready for more volume.</div>
+    </section>
+
+    <section class="upgrade-nudge hidden" id="upgradeNudge" aria-live="polite">
+      <div class="upgrade-nudge__copy">
+        <strong id="upgradeNudgeTitle">Your reply is ready.</strong>
+        <span id="upgradeNudgeBody">Keep the momentum with more monthly replies.</span>
+      </div>
+      <div class="upgrade-nudge__actions">
+        <a class="btn btn-primary" href="/pricing.html?source=queue_upgrade&amp;trigger=reply_success#plansSection" id="upgradeNudgeCta">Compare plans</a>
+        <button class="upgrade-nudge__dismiss" type="button" id="upgradeNudgeDismiss" aria-label="Dismiss upgrade suggestion">Not now</button>
+      </div>
     </section>
 
     <div class="onboarding-wrap">
@@ -479,19 +498,19 @@
     <div class="paywall-modal" id="paywallModal" aria-hidden="true">
       <div class="paywall-content" role="dialog" aria-modal="true" aria-labelledby="paywallTitle">
         <h2 id="paywallTitle">You were moving faster. Keep the momentum.</h2>
-        <p>Your free responses are used up. Upgrade your plan or grab a one-time pack to keep the queue moving without interruption.</p>
+        <p id="paywallBody">Your free responses are used up. Upgrade your plan or grab a one-time pack to keep the queue moving without interruption.</p>
         <div class="paywall-grid">
           <div class="paywall-option">
             <h3>Upgrade your plan</h3>
             <div class="paywall-price">From $9<span>/month</span></div>
             <p>Get more recurring replies, more templates, and uninterrupted queue usage.</p>
-            <a class="btn btn-primary" href="/pricing.html">View plans</a>
+            <a class="btn btn-primary" href="/pricing.html?source=free_limit&amp;offer=subscription#plansSection" data-upgrade-action="subscription">View plans</a>
           </div>
           <div class="paywall-option">
             <h3>Grab a response pack</h3>
             <div class="paywall-price">Top-up<span> one-time</span></div>
             <p>Keep replying with one-time credits if you are not ready to change plans yet.</p>
-            <a class="btn btn-secondary" href="/pricing.html#packs">View packs</a>
+            <a class="btn btn-secondary" href="/pricing.html?source=free_limit&amp;offer=pack#packsSection" data-upgrade-action="pack">View packs</a>
           </div>
         </div>
         <button class="paywall-close" type="button" id="closePaywall">Close</button>
@@ -523,7 +542,8 @@
         user: null,
         messages: [],
         nextId: 1,
-        method: 'manual'
+        method: 'manual',
+        upgradeNudgeLevel: 0
       };
 
       function track(name, params) {
@@ -695,15 +715,71 @@
         $('usageLimit').textContent = formatCount(snap.limit);
         $('usageFill').style.width = Math.max(0, Math.min(100, Math.round((snap.used / Math.max(1, snap.limit)) * 100))) + '%';
         $('planBadge').textContent = snap.tier.charAt(0).toUpperCase() + snap.tier.slice(1) + ' Plan';
-        $('usageHint').textContent = snap.tier === 'free'
-          ? 'Sign up for 10 free responses per month.'
+        $('usageHint').textContent = !state.signedIn
+          ? 'Start free with ' + formatCount(snap.limit) + ' replies this month, then upgrade when you are ready for more volume.'
+          : snap.tier === 'free'
+          ? formatCount(snap.remaining) + ' of ' + formatCount(snap.limit) + ' free replies remaining this month.'
           : snap.remaining > 0
             ? formatCount(snap.remaining) + ' responses remaining this cycle.'
             : 'You have used your available responses for this cycle.';
       }
-      function showPaywall() {
+      function maybeShowUpgradeNudge(trigger, beforeSnapshot, successCount) {
+        const count = Math.max(0, Number(successCount) || 0);
+        const current = usageSnapshot();
+        if (!state.signedIn || current.tier !== 'free' || count <= 0) return;
+
+        let level = 0;
+        let levelName = '';
+        let title = '';
+        let body = '';
+        if (current.remaining <= 0) {
+          level = 3;
+          levelName = 'exhausted';
+          title = 'Your replies are ready. Your free allowance is used.';
+          body = 'Upgrade for recurring capacity, or choose a one-time pack when you only need a top-up.';
+        } else if (current.remaining <= 2) {
+          level = 2;
+          levelName = 'low_remaining';
+          title = formatCount(current.remaining) + ' free ' + (current.remaining === 1 ? 'reply' : 'replies') + ' left.';
+          body = 'Keep your workflow moving with a monthly plan from $9, or continue free until you reach the limit.';
+        } else if (beforeSnapshot && beforeSnapshot.tier === 'free' && beforeSnapshot.used === 0) {
+          level = 1;
+          levelName = 'first_value';
+          title = 'Your first reply is ready.';
+          body = 'Review it now. If DMTools fits your workflow, paid plans add more replies and templates when you need them.';
+        }
+        if (!level || level <= state.upgradeNudgeLevel) return;
+
+        state.upgradeNudgeLevel = level;
+        $('upgradeNudgeTitle').textContent = title;
+        $('upgradeNudgeBody').textContent = body;
+        const cta = $('upgradeNudgeCta');
+        cta.href = '/pricing.html?source=queue_upgrade&trigger=' + encodeURIComponent(levelName) + '#plansSection';
+        $('upgradeNudge').classList.remove('hidden');
+        track('upgrade_prompt_view', getSafeGenerateAnalyticsMeta('upgrade_prompt', {
+          trigger: trigger,
+          prompt_level: levelName,
+          remaining: current.remaining,
+          surface: 'inline'
+        }));
+      }
+      function showPaywall(trigger) {
+        const snap = usageSnapshot();
+        const isOversizedBatch = trigger === 'batch_exceeds_remaining' && snap.remaining > 0;
+        $('paywallTitle').textContent = isOversizedBatch
+          ? 'This batch needs more replies than you have left.'
+          : 'You were moving faster. Keep the momentum.';
+        $('paywallBody').textContent = isOversizedBatch
+          ? 'Process fewer messages now, upgrade for recurring capacity, or add a one-time response pack.'
+          : 'Your free responses are used up. Upgrade your plan or grab a one-time pack to keep the queue moving without interruption.';
         $('paywallModal').classList.add('show');
         $('paywallModal').setAttribute('aria-hidden', 'false');
+        track('upgrade_prompt_view', getSafeGenerateAnalyticsMeta('upgrade_prompt', {
+          trigger: trigger || 'free_limit',
+          prompt_level: 'exhausted',
+          remaining: snap.remaining,
+          surface: 'modal'
+        }));
       }
       function hidePaywall() {
         $('paywallModal').classList.remove('show');
@@ -913,6 +989,15 @@
           }));
           return;
         }
+        const beforeGeneration = usageSnapshot();
+        if (beforeGeneration.tier === 'free' && beforeGeneration.remaining <= 0) {
+          track('free_limit_hit', getSafeGenerateAnalyticsMeta('single_regenerate', {
+            message_count: 1,
+            tone: tone
+          }));
+          showPaywall('single_preflight');
+          return;
+        }
         message.processing = true;
         renderMessages();
         track('generate_request_started', getSafeGenerateAnalyticsMeta('single_regenerate', {
@@ -935,6 +1020,7 @@
           await refreshUser();
           showFeedback('Reply updated successfully.', 'success');
           trackReplyGenerated('single_regenerate', 1, { tone: tone });
+          maybeShowUpgradeNudge('single_reply_success', beforeGeneration, message.output ? 1 : 0);
         } catch (err) {
           message.processing = false;
           renderMessages();
@@ -949,7 +1035,7 @@
               status_code: Number.isFinite(statusCode) ? statusCode : undefined
             }));
             if (snap.tier === 'free') {
-              showPaywall();
+              showPaywall('single_quota_blocked');
             }
           }
           showFeedback(err.message || 'Failed to regenerate response.', 'error');
@@ -995,7 +1081,17 @@
             message_count: messages.length,
             tone: batchTone
           }));
-          showPaywall();
+          showPaywall('batch_preflight');
+          return;
+        }
+        if (snap.tier === 'free' && messages.length > snap.remaining) {
+          showFeedback('You have ' + formatCount(snap.remaining) + ' free ' + (snap.remaining === 1 ? 'reply' : 'replies') + ' left. Process fewer messages or choose more capacity.', 'error');
+          track('batch_exceeds_remaining', getSafeGenerateAnalyticsMeta('batch_generate', {
+            message_count: messages.length,
+            tone: batchTone,
+            remaining: snap.remaining
+          }));
+          showPaywall('batch_exceeds_remaining');
           return;
         }
         const btn = $('processAllBtn');
@@ -1032,6 +1128,7 @@
           showFeedback('Processed ' + successCount + ' replies successfully.', 'success');
           trackReplyGenerated('batch_generate', successCount, { tone: batchTone });
           track('queue_process_success', { page_name: 'app', message_count: successCount });
+          maybeShowUpgradeNudge('batch_reply_success', snap, successCount);
         } catch (err) {
           const errorCode = safeErrorCode(err);
           const statusCode = Number(err && err.status);
@@ -1044,7 +1141,7 @@
               status_code: Number.isFinite(statusCode) ? statusCode : undefined
             }));
             if (currentSnap.tier === 'free') {
-              showPaywall();
+              showPaywall('batch_quota_blocked');
             }
           }
           showFeedback(err.message || 'Failed to process messages.', 'error');
@@ -1177,6 +1274,29 @@
         $('processAllBtn').addEventListener('click', processAllMessages);
         $('clearAllBtn').addEventListener('click', clearAllMessages);
         $('exportResultsBtn').addEventListener('click', exportResults);
+        $('upgradeNudgeDismiss').addEventListener('click', function () {
+          $('upgradeNudge').classList.add('hidden');
+          track('upgrade_prompt_dismiss', getSafeGenerateAnalyticsMeta('upgrade_prompt', {
+            prompt_level: state.upgradeNudgeLevel === 3 ? 'exhausted' : state.upgradeNudgeLevel === 2 ? 'low_remaining' : 'first_value',
+            surface: 'inline'
+          }));
+        });
+        $('upgradeNudgeCta').addEventListener('click', function () {
+          track('upgrade_prompt_click', getSafeGenerateAnalyticsMeta('upgrade_prompt', {
+            prompt_level: state.upgradeNudgeLevel === 3 ? 'exhausted' : state.upgradeNudgeLevel === 2 ? 'low_remaining' : 'first_value',
+            offer: 'subscription',
+            surface: 'inline'
+          }));
+        });
+        document.querySelectorAll('[data-upgrade-action]').forEach(function (link) {
+          link.addEventListener('click', function () {
+            track('upgrade_prompt_click', getSafeGenerateAnalyticsMeta('upgrade_prompt', {
+              prompt_level: 'exhausted',
+              offer: link.dataset.upgradeAction,
+              surface: 'modal'
+            }));
+          });
+        });
         $('closePaywall').addEventListener('click', hidePaywall);
         $('paywallModal').addEventListener('click', function (e) { if (e.target === this) hidePaywall(); });
         document.addEventListener('keydown', function (e) { if (e.key === 'Escape') hidePaywall(); });

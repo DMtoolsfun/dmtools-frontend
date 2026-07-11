@@ -53,7 +53,10 @@
       .dmtools-auth-modal__label{display:block;color:#d1d5db;font-weight:600;margin-bottom:6px;font-size:.9rem}
       .dmtools-auth-modal__input{width:100%;padding:12px 12px;background:#1f2937;border:1px solid #4b5563;border-radius:10px;color:#fff;font-size:1rem;outline:none}
       .dmtools-auth-modal__input:focus{border-color:#8b5cf6;box-shadow:0 0 0 3px rgba(139,92,246,.12)}
-      .dmtools-auth-modal__namegrid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+      .dmtools-auth-modal__password-wrap{position:relative}
+      .dmtools-auth-modal__password-wrap .dmtools-auth-modal__input{padding-right:68px}
+      .dmtools-auth-modal__password-toggle{position:absolute;right:8px;top:50%;transform:translateY(-50%);border:0;background:transparent;color:#c4b5fd;font-weight:700;cursor:pointer;padding:6px}
+      .dmtools-auth-modal__hint{margin:6px 0 0;color:#9ca3af;font-size:.82rem}
       .dmtools-auth-modal__btn{width:100%;margin-top:4px;padding:12px 14px;border:0;border-radius:12px;font-weight:800;cursor:pointer;color:#fff;background:linear-gradient(135deg,#8b5cf6,#7c3aed)}
       .dmtools-auth-modal__btn:disabled{opacity:.65;cursor:not-allowed}
       .dmtools-auth-modal__footer{margin-top:12px;text-align:center;color:#9ca3af;font-size:.95rem}
@@ -62,7 +65,6 @@
       .dmtools-auth-modal__terms input{margin-top:2px}
       .dmtools-auth-modal__terms a{color:#a78bfa}
       .dmtools-auth-modal__terms a:hover{color:#c4b5fd}
-      @media (max-width:520px){.dmtools-auth-modal__namegrid{grid-template-columns:1fr}}
     `;
     document.head.appendChild(style);
   }
@@ -125,24 +127,17 @@
 
         <div class="dmtools-auth-modal__error" id="dmtools-auth-error"></div>
 
-        <div class="dmtools-auth-modal__row dmtools-auth-modal__namegrid" id="dmtools-auth-names" style="display:none">
-          <div>
-            <label class="dmtools-auth-modal__label" for="dmtools-auth-first">First name</label>
-            <input class="dmtools-auth-modal__input" id="dmtools-auth-first" autocomplete="given-name" />
-          </div>
-          <div>
-            <label class="dmtools-auth-modal__label" for="dmtools-auth-last">Last name</label>
-            <input class="dmtools-auth-modal__input" id="dmtools-auth-last" autocomplete="family-name" />
-          </div>
-        </div>
-
         <div class="dmtools-auth-modal__row">
           <label class="dmtools-auth-modal__label" for="dmtools-auth-email">Email</label>
-          <input class="dmtools-auth-modal__input" id="dmtools-auth-email" type="email" autocomplete="email" placeholder="you@example.com" />
+          <input class="dmtools-auth-modal__input" id="dmtools-auth-email" type="email" autocomplete="email" inputmode="email" placeholder="you@example.com" required />
         </div>
         <div class="dmtools-auth-modal__row">
           <label class="dmtools-auth-modal__label" for="dmtools-auth-pass">Password</label>
-          <input class="dmtools-auth-modal__input" id="dmtools-auth-pass" type="password" autocomplete="current-password" placeholder="Your password" />
+          <div class="dmtools-auth-modal__password-wrap">
+            <input class="dmtools-auth-modal__input" id="dmtools-auth-pass" type="password" autocomplete="current-password" placeholder="Your password" required />
+            <button class="dmtools-auth-modal__password-toggle" type="button" id="dmtools-auth-password-toggle" aria-label="Show password" aria-pressed="false">Show</button>
+          </div>
+          <p class="dmtools-auth-modal__hint" id="dmtools-auth-password-hint" hidden>Use at least 6 characters.</p>
         </div>
         <div class="dmtools-auth-modal__row" id="dmtools-auth-terms-row" style="display:none">
           <label class="dmtools-auth-modal__terms">
@@ -178,13 +173,30 @@
       setMode(state.mode === 'login' ? 'register' : 'login');
     });
     modal.querySelector('#dmtools-auth-submit').addEventListener('click', () => submit());
+    modal.querySelector('#dmtools-auth-password-toggle').addEventListener('click', () => {
+      const pass = modal.querySelector('#dmtools-auth-pass');
+      const toggle = modal.querySelector('#dmtools-auth-password-toggle');
+      const isVisible = pass.type === 'text';
+      pass.type = isVisible ? 'password' : 'text';
+      toggle.textContent = isVisible ? 'Show' : 'Hide';
+      toggle.setAttribute('aria-label', isVisible ? 'Show password' : 'Hide password');
+      toggle.setAttribute('aria-pressed', String(!isVisible));
+      pass.focus();
+    });
+    modal.addEventListener('keydown', (e) => {
+      if (e.key !== 'Enter' || e.shiftKey || e.isComposing) return;
+      if (e.target.closest('a, button')) return;
+      e.preventDefault();
+      submit();
+    });
 
     return modal;
   }
 
   const state = {
     mode: 'login',
-    returnTo: DEFAULTS.returnTo
+    returnTo: DEFAULTS.returnTo,
+    submitting: false
   };
 
   function setMode(mode) {
@@ -193,35 +205,44 @@
 
     const title = modal.querySelector('#dmtools-auth-title');
     const subtitle = modal.querySelector('#dmtools-auth-subtitle');
-    const names = modal.querySelector('#dmtools-auth-names');
     const submitBtn = modal.querySelector('#dmtools-auth-submit');
     const switchText = modal.querySelector('#dmtools-auth-switch-text');
     const switchBtn = modal.querySelector('#dmtools-auth-switch-btn');
     const pass = modal.querySelector('#dmtools-auth-pass');
+    const passHint = modal.querySelector('#dmtools-auth-password-hint');
+    const passToggle = modal.querySelector('#dmtools-auth-password-toggle');
     const termsRow = modal.querySelector('#dmtools-auth-terms-row');
     const terms = modal.querySelector('#dmtools-auth-terms');
 
     if (state.mode === 'register') {
       title.textContent = 'Create Account';
-      subtitle.textContent = 'Start generating AI responses today';
-      names.style.display = '';
+      subtitle.textContent = 'Try your first reply free';
       termsRow.style.display = '';
       terms.checked = false;
       submitBtn.textContent = 'Create Account';
       switchText.textContent = 'Already have an account?';
       switchBtn.textContent = 'Sign In';
       pass.autocomplete = 'new-password';
+      pass.minLength = 6;
+      passHint.hidden = false;
     } else {
       title.textContent = 'Sign In';
       subtitle.textContent = 'Access your account';
-      names.style.display = 'none';
       termsRow.style.display = 'none';
       terms.checked = false;
       submitBtn.textContent = 'Sign In';
       switchText.textContent = "Don't have an account?";
       switchBtn.textContent = 'Sign Up';
       pass.autocomplete = 'current-password';
+      pass.removeAttribute('minlength');
+      passHint.hidden = true;
     }
+
+    pass.type = 'password';
+    passToggle.textContent = 'Show';
+    passToggle.setAttribute('aria-label', 'Show password');
+    passToggle.setAttribute('aria-pressed', 'false');
+    submitBtn.dataset.originalText = submitBtn.textContent;
 
     clearError();
   }
@@ -249,32 +270,36 @@
   }
 
   async function submit() {
+    if (state.submitting) return;
+    state.submitting = true;
     const modal = ensureModal();
     clearError();
     setBusy(true);
 
-    const email = (modal.querySelector('#dmtools-auth-email').value || '').trim();
+    const emailInput = modal.querySelector('#dmtools-auth-email');
+    const email = (emailInput.value || '').trim();
     const password = modal.querySelector('#dmtools-auth-pass').value || '';
-    const firstName = (modal.querySelector('#dmtools-auth-first').value || '').trim();
-    const lastName = (modal.querySelector('#dmtools-auth-last').value || '').trim();
     const termsAccepted = !!modal.querySelector('#dmtools-auth-terms')?.checked;
     const isRegister = state.mode === 'register';
     let signupRequestStarted = false;
 
     try {
       if (!email) throw new Error('Please enter your email.');
+      if (!emailInput.validity.valid) throw new Error('Please enter a valid email address.');
       if (!password) throw new Error('Please enter your password.');
+      if (isRegister && password.length < 6) throw new Error('Use at least 6 characters for your password.');
       if (isRegister && !termsAccepted) {
         throw new Error('Please agree to the Terms and Conditions to continue.');
       }
 
       const attemptParams = {
         surface: 'auth_modal',
-        source: 'auth_modal',
-        has_first_name: !!firstName,
-        has_last_name: !!lastName
+        source: 'auth_modal'
       };
-      if (isRegister) attemptParams.plan = 'free';
+      if (isRegister) {
+        attemptParams.plan = 'free';
+        attemptParams.signup_fields = 2;
+      }
       trackAuthEvent(isRegister ? 'sign_up_attempt' : 'login_attempt', attemptParams);
 
       if (!window.DMTOOLS || typeof DMTOOLS.apiCall !== 'function') {
@@ -289,8 +314,6 @@
           body: JSON.stringify({
             email,
             password,
-            first_name: firstName || null,
-            last_name: lastName || null,
             terms_accepted: true
           })
         });
@@ -339,6 +362,7 @@
       trackAuthEvent('auth_error', authErrorParams);
       showError(err?.message || 'Authentication failed.');
     } finally {
+      state.submitting = false;
       setBusy(false);
     }
   }

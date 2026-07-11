@@ -825,6 +825,55 @@ select:focus {
   display: none !important;
 }
 
+/* Ad placements stay on public content/marketing surfaces only. */
+.ad-placement {
+  width: min(100% - 2rem, var(--container-md));
+  margin: 3rem auto;
+  padding: 1rem 0;
+  clear: both;
+  overflow: hidden;
+  text-align: center;
+}
+
+.ad-placement__label {
+  margin-bottom: 0.55rem;
+  color: var(--text-muted);
+  font-size: 0.72rem;
+  font-weight: 750;
+  letter-spacing: 0.08em;
+  line-height: 1.4;
+  text-transform: uppercase;
+}
+
+.ad-placement .adsbygoogle {
+  display: block;
+  max-width: 100%;
+  min-width: 0;
+}
+
+.ad-placement--display {
+  min-height: 180px;
+  border-top: 1px solid rgba(111, 138, 183, 0.14);
+  border-bottom: 1px solid rgba(111, 138, 183, 0.14);
+}
+
+.ad-placement--article {
+  width: min(100%, 760px);
+  min-height: 250px;
+  margin: 2.5rem auto;
+  padding: 1.25rem 0;
+  border-top: 1px solid rgba(111, 138, 183, 0.14);
+  border-bottom: 1px solid rgba(111, 138, 183, 0.14);
+}
+
+.ad-placement--related {
+  min-height: 240px;
+  margin-top: 2.75rem;
+  margin-bottom: 0;
+  padding-top: 1.25rem;
+  border-top: 1px solid rgba(111, 138, 183, 0.14);
+}
+
 @media (max-width: 1080px) {
   .hero,
   .cta-band {
@@ -880,5 +929,22 @@ select:focus {
   .footer-bottom {
     flex-direction: column;
     align-items: flex-start;
+  }
+
+  .ad-placement {
+    width: min(100% - 1rem, var(--container-md));
+    margin: 2.25rem auto;
+  }
+
+  .ad-placement--display {
+    min-height: 140px;
+  }
+
+  .ad-placement--article {
+    min-height: 200px;
+  }
+
+  .ad-placement--related {
+    min-height: 180px;
   }
 }

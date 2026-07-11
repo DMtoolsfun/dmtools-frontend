@@ -103,6 +103,7 @@
     const requestedReturnTo = state.returnTo || DEFAULTS.returnTo;
     if (!isRegister) return requestedReturnTo;
     if (requestedReturnTo.includes('sample=1')) return requestedReturnTo;
+    if (requestedReturnTo === '/account.html?source=checkout_success') return requestedReturnTo;
     return '/app.html?source=signup_activation&sample=1';
   }
 
@@ -386,12 +387,15 @@
     const modal = ensureModal();
     state.returnTo = options.returnTo || getDefaultReturnTo();
     setMode(mode);
+    const email = modal.querySelector('#dmtools-auth-email');
+    const password = modal.querySelector('#dmtools-auth-pass');
+    const prefillEmail = options.email || options.prefillEmail || '';
+    if (email && prefillEmail) email.value = String(prefillEmail);
+    if (password && prefillEmail) password.value = '';
     modal.classList.add('show');
 
     // focus email field
     setTimeout(() => {
-      const email = modal.querySelector('#dmtools-auth-email');
-      if (email && options.email) email.value = String(options.email);
       if (email) email.focus();
     }, 0);
   }
@@ -400,6 +404,13 @@
     const modal = document.getElementById(MODAL_ID);
     if (!modal) return;
     modal.classList.remove('show');
+    const email = modal.querySelector('#dmtools-auth-email');
+    const password = modal.querySelector('#dmtools-auth-pass');
+    const terms = modal.querySelector('#dmtools-auth-terms');
+    if (email) email.value = '';
+    if (password) password.value = '';
+    if (terms) terms.checked = false;
+    clearError();
   }
 
   // Public API

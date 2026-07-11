@@ -21,7 +21,7 @@
   <script src="https://app.lemonsqueezy.com/js/lemon.js" defer></script>
   <style>
     .pricing-wrap{width:min(1240px,calc(100vw - 1rem));margin:0 auto;padding:3rem 0 4rem}
-    .pricing-hero,.pricing-status,.pricing-card,.pricing-callout,.pricing-faq,.pricing-feedback{background:var(--bg-card);border:1px solid var(--border-medium);border-radius:22px;box-shadow:var(--shadow-md);backdrop-filter:blur(14px)}
+    .pricing-hero,.pricing-status,.pricing-card,.pricing-callout,.pricing-faq,.pricing-feedback,.checkout-recovery{background:var(--bg-card);border:1px solid var(--border-medium);border-radius:22px;box-shadow:var(--shadow-md);backdrop-filter:blur(14px)}
     .pricing-hero{display:grid;grid-template-columns:minmax(0,1.15fr) minmax(280px,.85fr);gap:1rem;padding:1.6rem;margin-bottom:1rem}
     .pricing-hero__copy h1{margin-bottom:.8rem}
     .pricing-hero__copy p{color:var(--text-secondary);max-width:700px;margin-bottom:1rem}
@@ -40,6 +40,13 @@
     .pricing-feedback{padding:.9rem 1rem;margin-bottom:1rem;color:var(--text-secondary)}
     .pricing-feedback.hidden,.hidden{display:none!important}
     .pricing-feedback.is-error{border-color:rgba(239,68,68,.34);background:rgba(50,17,24,.28);color:#ffdbe1}
+    .checkout-recovery{padding:1.1rem 1.2rem;margin-bottom:1rem;border-color:rgba(79,124,255,.34);background:linear-gradient(135deg,rgba(79,124,255,.11),rgba(24,183,160,.07))}
+    .checkout-recovery.is-error{border-color:rgba(239,68,68,.34);background:rgba(50,17,24,.28)}
+    .checkout-recovery.is-success{border-color:rgba(34,197,94,.38);background:rgba(20,83,45,.24)}
+    .checkout-recovery h2{font-size:1.2rem;margin:0 0 .35rem}
+    .checkout-recovery p{color:var(--text-secondary);margin:0}
+    .checkout-recovery__actions{display:flex;flex-wrap:wrap;gap:.65rem;margin-top:.9rem;align-items:center}
+    .checkout-recovery:focus{outline:3px solid rgba(79,124,255,.42);outline-offset:3px}
     .pricing-section{margin-top:1.2rem}
     .pricing-section h2{font-size:1.85rem;margin-bottom:.35rem}
     .pricing-section p.lead{color:var(--text-secondary);max-width:760px;margin-bottom:1rem}
@@ -70,7 +77,7 @@
     .pricing-faq p{margin:0;color:var(--text-secondary)}
     @media (max-width:1100px){.pricing-hero,.pricing-status__grid,.pricing-faqs,.pricing-enterprise .pricing-callout{grid-template-columns:1fr}}
     @media (max-width:620px){.pricing-grid{grid-template-columns:1fr}}
-    @media (max-width:760px){.pricing-wrap{width:min(100vw - 1rem,100%)}.pricing-toolbar{align-items:stretch}.pricing-actions{flex-direction:column;align-items:stretch}}
+    @media (max-width:760px){.pricing-wrap{width:min(100vw - 1rem,100%)}.pricing-toolbar{align-items:stretch}.pricing-actions,.checkout-recovery__actions{flex-direction:column;align-items:stretch}}
   </style>
 </head>
 <body>
@@ -148,6 +155,19 @@
     </section>
 
     <div class="pricing-feedback hidden" id="pricingFeedback"></div>
+
+    <section class="checkout-recovery hidden" id="checkoutRecovery" role="status" aria-live="polite" aria-labelledby="checkoutRecoveryTitle" tabindex="-1">
+      <h2 id="checkoutRecoveryTitle">Continue your checkout</h2>
+      <p id="checkoutRecoveryBody">Your selection is saved for this browser session.</p>
+      <div class="checkout-recovery__actions">
+        <button class="btn btn-primary" type="button" id="checkoutRetryButton">Continue checkout</button>
+        <button class="btn btn-secondary" type="button" id="checkoutAlreadyPaidButton">I already paid</button>
+        <a class="btn btn-primary hidden" href="/account.html?source=checkout_success" id="checkoutOpenAccountButton">Open account</a>
+        <button class="btn btn-primary hidden" type="button" id="checkoutCreateAccountButton">Create account</button>
+        <button class="btn btn-secondary hidden" type="button" id="checkoutSignInButton">Sign in</button>
+        <button class="btn btn-secondary" type="button" id="checkoutDismissButton">Dismiss</button>
+      </div>
+    </section>
 
     <section class="pricing-section" id="plansSection">
       <div class="pricing-toolbar">
@@ -251,11 +271,189 @@
       };
       const PLAN_ORDER = ['starter', 'pro', 'business'];
       const PACK_ORDER = ['quick', 'starter', 'pro'];
-      const state = { pricing: { freePlan: null, subscriptions: [], packs: [] }, auth: { signedIn: false, user: null }, checkoutInProgress: false };
+      const CHECKOUT_INTENT_KEY = 'dmtools_checkout_intent_v1';
+      const CHECKOUT_INTENT_VERSION = 1;
+      const CHECKOUT_INTENT_MAX_AGE_MS = 24 * 60 * 60 * 1000;
+      const state = {
+        pricing: { freePlan: null, subscriptions: [], packs: [] },
+        auth: { signedIn: false, user: null },
+        checkoutInProgress: false,
+        checkoutRetryInProgress: false,
+        checkoutSuccessHandled: false,
+        checkoutIntent: null,
+        checkoutSuccessEmail: '',
+        lemonSqueezyReady: false
+      };
 
       function track(name, params) { try { if (window.DMTOOLS && typeof window.DMTOOLS.track === 'function') window.DMTOOLS.track(name, params || {}); } catch (_) {} }
       function $(id) { return document.getElementById(id); }
       function escapeHtml(value) { return String(value ?? '').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;').replace(/'/g,'&#39;'); }
+      function safeCheckoutItemKey(value) {
+        const key = String(value || '').toLowerCase();
+        return /^[a-z0-9][a-z0-9_-]{0,79}$/.test(key) ? key : '';
+      }
+      function checkoutItemKey(kind, item) {
+        return safeCheckoutItemKey(kind === 'subscription' ? (item && (item.baseKey || item.key)) : item && item.key);
+      }
+      function clearCheckoutIntent() {
+        state.checkoutIntent = null;
+        try { sessionStorage.removeItem(CHECKOUT_INTENT_KEY); } catch (_) {}
+      }
+      function persistCheckoutIntent(intent) {
+        state.checkoutIntent = intent;
+        try { sessionStorage.setItem(CHECKOUT_INTENT_KEY, JSON.stringify(intent)); } catch (_) {}
+        return intent;
+      }
+      function readCheckoutIntent() {
+        let raw = '';
+        try { raw = sessionStorage.getItem(CHECKOUT_INTENT_KEY) || ''; } catch (_) { return null; }
+        if (!raw) return null;
+        try {
+          const parsed = JSON.parse(raw);
+          const startedAt = Number(parsed && parsed.startedAt);
+          const age = Date.now() - startedAt;
+          const itemKey = safeCheckoutItemKey(parsed && parsed.itemKey);
+          const validKind = parsed && (parsed.kind === 'subscription' || parsed.kind === 'pack');
+          const validStage = parsed && ['opening', 'opened', 'failed'].includes(parsed.stage);
+          if (parsed.version !== CHECKOUT_INTENT_VERSION || !validKind || !validStage || !itemKey || !Number.isFinite(startedAt) || age < -60000 || age > CHECKOUT_INTENT_MAX_AGE_MS) {
+            clearCheckoutIntent();
+            return null;
+          }
+          return persistCheckoutIntent({
+            version: CHECKOUT_INTENT_VERSION,
+            kind: parsed.kind,
+            itemKey: itemKey,
+            itemName: String(parsed.itemName || 'selected offer').slice(0, 120),
+            stage: parsed.stage,
+            startedAt: startedAt
+          });
+        } catch (_) {
+          clearCheckoutIntent();
+          return null;
+        }
+      }
+      function saveCheckoutIntent(kind, item, stage, reuseExisting) {
+        const itemKey = checkoutItemKey(kind, item);
+        const existing = reuseExisting ? (state.checkoutIntent || readCheckoutIntent()) : null;
+        const reuseStartedAt = existing && existing.kind === kind && existing.itemKey === itemKey;
+        return persistCheckoutIntent({
+          version: CHECKOUT_INTENT_VERSION,
+          kind: kind,
+          itemKey: itemKey,
+          itemName: String((item && item.displayName) || 'selected offer').slice(0, 120),
+          stage: stage,
+          startedAt: reuseStartedAt ? existing.startedAt : Date.now()
+        });
+      }
+      function setCheckoutIntentStage(stage) {
+        if (!state.checkoutIntent) return null;
+        return persistCheckoutIntent(Object.assign({}, state.checkoutIntent, { stage: stage }));
+      }
+      function checkoutRecoveryMeta(intent) {
+        const source = intent || state.checkoutIntent;
+        return {
+          page_name: 'pricing',
+          kind: source && source.kind || 'unknown',
+          item_key: source && safeCheckoutItemKey(source.itemKey) || 'unknown',
+          recovery_stage: source && source.stage || 'unknown',
+          recovery_age_seconds: source && Number.isFinite(Number(source.startedAt)) ? Math.max(0, Math.round((Date.now() - Number(source.startedAt)) / 1000)) : undefined,
+          authenticated: state.auth.signedIn
+        };
+      }
+      function findCheckoutItem(intent) {
+        if (!intent) return null;
+        const items = intent.kind === 'subscription' ? monthlySubscriptions() : state.pricing.packs;
+        return items.find(function (item) { return checkoutItemKey(intent.kind, item) === intent.itemKey; }) || null;
+      }
+      function setRecoveryActionVisibility(options) {
+        const config = options || {};
+        $('checkoutRetryButton').classList.toggle('hidden', !config.retry);
+        $('checkoutAlreadyPaidButton').classList.toggle('hidden', !config.alreadyPaid);
+        $('checkoutOpenAccountButton').classList.toggle('hidden', !config.openAccount);
+        $('checkoutCreateAccountButton').classList.toggle('hidden', !config.createAccount);
+        $('checkoutSignInButton').classList.toggle('hidden', !config.signIn);
+      }
+      function showCheckoutRecovery(mode, intent) {
+        const panel = $('checkoutRecovery');
+        const title = $('checkoutRecoveryTitle');
+        const body = $('checkoutRecoveryBody');
+        const itemName = intent && intent.itemName || 'your selection';
+        panel.className = 'checkout-recovery' + (mode === 'failed' || mode === 'unavailable' ? ' is-error' : '');
+        if (mode === 'failed') {
+          title.textContent = 'Checkout did not open. Your selection is saved.';
+          body.textContent = 'Retry ' + itemName + ' now, or use “I already paid” if checkout completed in another tab.';
+          $('checkoutRetryButton').textContent = 'Retry checkout';
+          setRecoveryActionVisibility({ retry: true, alreadyPaid: true });
+        } else if (mode === 'unavailable') {
+          title.textContent = 'That checkout is temporarily unavailable.';
+          body.textContent = 'Choose another current offer below, or use “I already paid” if payment already completed.';
+          setRecoveryActionVisibility({ alreadyPaid: true });
+        } else {
+          title.textContent = 'Continue your ' + itemName + ' checkout.';
+          body.textContent = 'If you closed the secure checkout, your selection is still ready for this browser session.';
+          $('checkoutRetryButton').textContent = 'Continue checkout';
+          setRecoveryActionVisibility({ retry: true, alreadyPaid: true });
+        }
+        panel.classList.remove('hidden');
+        try {
+          panel.scrollIntoView({ behavior: 'smooth', block: 'center' });
+          if (mode === 'failed' || mode === 'unavailable') panel.focus({ preventScroll: true });
+        } catch (_) {}
+        track('checkout_recovery_shown', Object.assign(checkoutRecoveryMeta(intent), { recovery_mode: mode }));
+      }
+      function showPostPurchaseRecovery(source, email) {
+        const priorIntent = state.checkoutIntent;
+        clearCheckoutIntent();
+        state.checkoutSuccessEmail = String(email || '').trim();
+        const panel = $('checkoutRecovery');
+        panel.className = 'checkout-recovery is-success';
+        $('checkoutRecoveryTitle').textContent = source === 'success' ? 'Payment received. Access is syncing.' : 'Already paid? Finish connecting your access.';
+        $('checkoutRecoveryBody').textContent = state.auth.signedIn
+          ? 'Open your account to check plan status. Webhook processing can take a moment, so refresh there if access is still syncing.'
+          : 'Create an account or sign in with the same email used at checkout so DMTools can connect the purchase after the secure webhook arrives.';
+        setRecoveryActionVisibility(state.auth.signedIn
+          ? { openAccount: true }
+          : { createAccount: true, signIn: true });
+        panel.classList.remove('hidden');
+        try {
+          panel.scrollIntoView({ behavior: 'smooth', block: 'center' });
+          panel.focus({ preventScroll: true });
+        } catch (_) {}
+        return priorIntent;
+      }
+      function extractCheckoutEmail(order) {
+        const candidates = [
+          order && order.attributes && order.attributes.user_email,
+          order && order.user_email,
+          order && order.data && order.data.attributes && order.data.attributes.user_email
+        ];
+        const email = String(candidates.find(Boolean) || '').trim();
+        return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email) ? email : '';
+      }
+      function handleLemonSqueezyEvent(event) {
+        if (!event || event.event !== 'Checkout.Success') return;
+        if (state.checkoutSuccessHandled) return;
+        state.checkoutSuccessHandled = true;
+        const intent = state.checkoutIntent || readCheckoutIntent();
+        const meta = checkoutRecoveryMeta(intent);
+        const email = extractCheckoutEmail(event.data);
+        try {
+          if (window.LemonSqueezy && window.LemonSqueezy.Url && typeof window.LemonSqueezy.Url.Close === 'function') window.LemonSqueezy.Url.Close();
+        } catch (_) {}
+        showPostPurchaseRecovery('success', email);
+        track('checkout_success_observed', Object.assign(meta, { email_available_for_prefill: Boolean(email) }));
+      }
+      function setupLemonSqueezy() {
+        if (state.lemonSqueezyReady) return true;
+        if (!window.LemonSqueezy || typeof window.LemonSqueezy.Setup !== 'function') return false;
+        try {
+          window.LemonSqueezy.Setup({ eventHandler: handleLemonSqueezyEvent });
+          state.lemonSqueezyReady = true;
+          return true;
+        } catch (_) {
+          return false;
+        }
+      }
       function formatCount(value) {
         if (value === undefined || value === null || value === '') return '—';
         if (String(value).toLowerCase() === 'unlimited') return 'Unlimited';
@@ -481,11 +679,14 @@
           state.pricing = normalizeCatalog(data);
           renderPlans();
           renderPacks();
+          showFeedback('');
           track('pricing_catalog_loaded', { page_name: 'pricing', subscription_count: state.pricing.subscriptions.length, pack_count: state.pricing.packs.length });
+          return true;
         } catch (error) {
           console.error(error);
           showFeedback('Pricing is temporarily unavailable. Please refresh and try again in a moment.', true);
           track('pricing_catalog_error', { page_name: 'pricing', message: String(error.message || error) });
+          return false;
         }
       }
       async function hydrateAuthState() {
@@ -526,12 +727,17 @@
         }
         status.classList.remove('hidden');
       }
-      async function startCheckout(kind, item) {
+      async function startCheckout(kind, item, options) {
+        const settings = options || {};
+        if (state.checkoutInProgress || (state.checkoutRetryInProgress && !settings.retryExecution)) return;
+        state.checkoutSuccessHandled = false;
+        const intent = saveCheckoutIntent(kind, item, 'opening', Boolean(settings.reuseIntent));
         if (!item || !item.variantId) {
-          window.alert('Pricing is still loading. Please try again in a moment.');
+          setCheckoutIntentStage('failed');
+          showCheckoutRecovery('unavailable', intent);
+          track('checkout_error', Object.assign(checkoutRecoveryMeta(intent), { error_code: 'offer_unavailable' }));
           return;
         }
-        if (state.checkoutInProgress) return;
         state.checkoutInProgress = true;
         const email = (state.auth.user && state.auth.user.email) || '';
         try {
@@ -540,16 +746,40 @@
           const response = await DMTOOLS.apiCall('/checkout/create', { method: 'POST', body: JSON.stringify({ kind: kind, variantId: item.variantId, email: email || undefined }) });
           if (!response || !response.url) throw new Error('Checkout URL missing');
           showFeedback('');
+          const openedIntent = setCheckoutIntentStage('opened') || intent;
+          showCheckoutRecovery('opened', openedIntent);
           track('checkout_ready', { page_name: 'pricing', kind: kind, item_name: item.displayName, billing_interval: item.billingInterval || null, authenticated: state.auth.signedIn });
-          if (window.LemonSqueezy && window.LemonSqueezy.Url) window.LemonSqueezy.Url.Open(response.url);
-          else window.location.assign(response.url);
+          setupLemonSqueezy();
+          if (window.LemonSqueezy && window.LemonSqueezy.Url && typeof window.LemonSqueezy.Url.Open === 'function') {
+            try { window.LemonSqueezy.Url.Open(response.url); }
+            catch (_) { window.location.assign(response.url); }
+          } else {
+            window.location.assign(response.url);
+          }
         } catch (error) {
           console.error(error);
-          showFeedback('There was a problem starting checkout. Please try again in a moment.', true);
-          track('checkout_error', { page_name: 'pricing', kind: kind, item_name: item.displayName || 'unknown', message: String(error.message || error) });
+          showFeedback('');
+          const failedIntent = setCheckoutIntentStage('failed') || intent;
+          const statusCode = Number(error && error.status);
+          const retryable = !Number.isFinite(statusCode) || statusCode >= 500 || statusCode === 429;
+          showCheckoutRecovery(retryable ? 'failed' : 'unavailable', failedIntent);
+          track('checkout_error', Object.assign(checkoutRecoveryMeta(failedIntent), {
+            error_code: retryable ? (Number.isFinite(statusCode) ? 'server_error' : 'network_error') : 'offer_unavailable',
+            status_code: Number.isFinite(statusCode) ? statusCode : undefined
+          }));
         } finally {
           state.checkoutInProgress = false;
         }
+      }
+      function restoreCheckoutRecovery() {
+        const intent = readCheckoutIntent();
+        if (!intent) return;
+        const item = findCheckoutItem(intent);
+        if (!item) {
+          showCheckoutRecovery('unavailable', intent);
+          return;
+        }
+        showCheckoutRecovery(intent.stage === 'failed' ? 'failed' : 'opened', intent);
       }
       function wireControls() {
         document.querySelectorAll('[data-jump]').forEach(function (button) {
@@ -569,12 +799,68 @@
             track('mobile_menu_toggle', { page_name: 'pricing', open: !expanded });
           });
         }
+        $('checkoutRetryButton').addEventListener('click', async function () {
+          if (state.checkoutRetryInProgress) return;
+          state.checkoutRetryInProgress = true;
+          const retryButton = $('checkoutRetryButton');
+          retryButton.disabled = true;
+          retryButton.textContent = 'Refreshing checkout…';
+          const intent = state.checkoutIntent || readCheckoutIntent();
+          track('checkout_retry_click', checkoutRecoveryMeta(intent));
+          try {
+            const catalogLoaded = await loadCatalog();
+            if (!catalogLoaded) {
+              showCheckoutRecovery('failed', intent);
+              return;
+            }
+            const item = findCheckoutItem(intent);
+            if (!intent || !item) {
+              showCheckoutRecovery('unavailable', intent);
+              return;
+            }
+            await startCheckout(intent.kind, item, { reuseIntent: true, retryExecution: true });
+          } finally {
+            state.checkoutRetryInProgress = false;
+            retryButton.disabled = false;
+            retryButton.textContent = state.checkoutIntent && state.checkoutIntent.stage === 'opened' ? 'Continue checkout' : 'Retry checkout';
+          }
+        });
+        $('checkoutAlreadyPaidButton').addEventListener('click', function () {
+          const intent = state.checkoutIntent || readCheckoutIntent();
+          const meta = checkoutRecoveryMeta(intent);
+          showPostPurchaseRecovery('manual', '');
+          track('checkout_post_purchase_cta_click', Object.assign(meta, { action: 'already_paid' }));
+        });
+        $('checkoutDismissButton').addEventListener('click', function () {
+          const intent = state.checkoutIntent;
+          track('checkout_recovery_dismiss', checkoutRecoveryMeta(intent));
+          clearCheckoutIntent();
+          state.checkoutSuccessEmail = '';
+          $('checkoutRecovery').classList.add('hidden');
+        });
+        $('checkoutOpenAccountButton').addEventListener('click', function () {
+          track('checkout_post_purchase_cta_click', { page_name: 'pricing', action: 'open_account', authenticated: true });
+        });
+        $('checkoutCreateAccountButton').addEventListener('click', function () {
+          track('checkout_post_purchase_cta_click', { page_name: 'pricing', action: 'create_account', authenticated: false, email_prefilled: Boolean(state.checkoutSuccessEmail) });
+          if (window.DMTOOLS && typeof DMTOOLS.openAuthModal === 'function') {
+            DMTOOLS.openAuthModal('register', { returnTo: '/account.html?source=checkout_success', email: state.checkoutSuccessEmail });
+          }
+        });
+        $('checkoutSignInButton').addEventListener('click', function () {
+          track('checkout_post_purchase_cta_click', { page_name: 'pricing', action: 'sign_in', authenticated: false, email_prefilled: Boolean(state.checkoutSuccessEmail) });
+          if (window.DMTOOLS && typeof DMTOOLS.openAuthModal === 'function') {
+            DMTOOLS.openAuthModal('login', { returnTo: '/account.html?source=checkout_success', email: state.checkoutSuccessEmail });
+          }
+        });
       }
       document.addEventListener('DOMContentLoaded', async function () {
         track('pricing_view', { page_name: 'pricing' });
+        setupLemonSqueezy();
         wireControls();
         await hydrateAuthState();
         await loadCatalog();
+        restoreCheckoutRecovery();
       });
     })();
   </script>

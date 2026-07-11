@@ -341,6 +341,7 @@
       DMTOOLS.redirectTo ? DMTOOLS.redirectTo(returnTo) : (window.location.href = returnTo);
     } catch (err) {
       const statusCode = getStatusCode(err);
+      const accountCreated = isRegister && err?.data?.accountCreated === true;
       const authErrorParams = {
         auth_mode: state.mode,
         return_to: state.returnTo,
@@ -348,7 +349,16 @@
       };
       if (statusCode) authErrorParams.status_code = statusCode;
 
-      if (isRegister && signupRequestStarted) {
+      if (isRegister && signupRequestStarted && accountCreated) {
+        trackAuthEvent('signup_recovery_required', {
+          surface: 'auth_modal',
+          source: 'auth_modal',
+          plan: 'free',
+          backend_status: getSignupBackendStatus(err),
+          account_created: true,
+          ...(statusCode ? { status_code: statusCode } : {})
+        });
+      } else if (isRegister && signupRequestStarted) {
         trackAuthEvent('free_account_create_error', {
           surface: 'auth_modal',
           source: 'auth_modal',
@@ -360,7 +370,12 @@
       }
 
       trackAuthEvent('auth_error', authErrorParams);
-      showError(err?.message || 'Authentication failed.');
+      if (accountCreated) {
+        setMode('login');
+        showError(err?.message || 'Your account was created, but automatic sign-in failed. Sign in with the same email and password.');
+      } else {
+        showError(err?.message || 'Authentication failed.');
+      }
     } finally {
       state.submitting = false;
       setBusy(false);
@@ -376,6 +391,7 @@
     // focus email field
     setTimeout(() => {
       const email = modal.querySelector('#dmtools-auth-email');
+      if (email && options.email) email.value = String(options.email);
       if (email) email.focus();
     }, 0);
   }

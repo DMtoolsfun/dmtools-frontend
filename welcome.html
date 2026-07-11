@@ -629,8 +629,8 @@
 
       <div class="header-actions">
         <a class="btn btn-secondary hide-mobile" href="/account.html" id="account-link" data-track="nav_link_click" data-track-location="header" data-track-target="account">Account</a>
-        <button class="btn btn-secondary hide-mobile" type="button" data-auth="login" data-return-to="/app.html" data-track="auth_modal_open" data-track-mode="login" id="signin-button">Sign in</button>
-        <button class="btn btn-primary" type="button" data-auth="register" data-return-to="/app.html" data-track="auth_modal_open" data-track-mode="register" id="signup-button">Start free</button>
+        <button class="btn btn-secondary hide-mobile" type="button" data-auth="login" data-return-to="/app.html" data-track-mode="login" id="signin-button">Sign in</button>
+        <button class="btn btn-primary" type="button" data-auth="register" data-return-to="/app.html" data-track-mode="register" id="signup-button">Start free</button>
         <button class="mobile-menu-btn" type="button" aria-label="Open menu" aria-expanded="false" aria-controls="mobile-menu" id="mobile-menu-toggle">☰</button>
       </div>
     </div>
@@ -642,7 +642,7 @@
         <a href="/pricing.html" data-track="nav_link_click" data-track-location="mobile" data-track-target="pricing">Pricing</a>
         <a href="/account.html" data-track="nav_link_click" data-track-location="mobile" data-track-target="account">Account</a>
         <a href="https://chromewebstore.google.com/detail/dmtools-%E2%80%93-inline-reply-as/joheialcdpmcfgehhcpfjnppficonfih" target="_blank" rel="noopener noreferrer" data-track="extension_install_click" data-track-location="mobile" data-track-target="chrome_store">Install Extension</a>
-        <button class="btn btn-secondary" type="button" data-auth="login" data-return-to="/app.html" data-track="auth_modal_open" data-track-mode="login">Sign in</button>
+        <button class="btn btn-secondary" type="button" data-auth="login" data-return-to="/app.html" data-track-mode="login">Sign in</button>
       </div>
     </div>
   </header>
@@ -670,11 +670,11 @@
             </div>
             <div class="proof-row">
               <span class="proof-icon">2</span>
-              <span><strong>Captures free accounts.</strong><br>Free accounts include limited response credits only.</span>
+              <span><strong>Captures free accounts.</strong><br>Free accounts include 5 replies per month and up to 5 basic templates.</span>
             </div>
             <div class="proof-row">
               <span class="proof-icon">3</span>
-              <span><strong>Protects paid value.</strong><br>Voice settings, templates, saved tone rules, and advanced features stay paid-only.</span>
+              <span><strong>Protects paid value.</strong><br>Paid plans expand reply and template limits for recurring workflows.</span>
             </div>
           </div>
         </article>
@@ -805,7 +805,7 @@
             <h2>Create your free account.</h2>
             <p>Get limited free replies so you can try DMTools in Queue and with the extension.</p>
             <div class="step-callout">
-              <strong>Important:</strong> Free accounts and response packs provide response credits only. Voice settings, saved templates, reusable tone rules, higher limits, and advanced workflow features are available on paid subscriptions.
+              <strong>Included free:</strong> 5 replies per month and up to 5 basic templates. Paid subscriptions add much higher reply and template limits for recurring workflows.
             </div>
 
             <form class="signup-form" id="welcome-signup-form">
@@ -816,7 +816,8 @@
 
               <div class="form-row">
                 <label for="welcome-password">Password</label>
-                <input id="welcome-password" name="password" type="password" autocomplete="new-password" required minlength="8" placeholder="Create a password">
+                <input id="welcome-password" name="password" type="password" autocomplete="new-password" required minlength="6" placeholder="At least 6 characters" aria-describedby="welcome-password-hint">
+                <span class="muted" id="welcome-password-hint">Use at least 6 characters.</span>
               </div>
 
               <label class="consent-row">
@@ -858,13 +859,13 @@
 
             <div class="signup-card">
               <h2>Next best step</h2>
-              <p>Open Queue with sample messages and generate your first draft. Upgrade later when you want Voice settings, templates, saved tone rules, and scale.</p>
+              <p>Open Queue with sample messages and generate your first draft. Upgrade later when you need more replies, more templates, and room to scale.</p>
               <div class="welcome-actions">
                 <a class="btn btn-primary" href="/app.html?source=welcome_onboarding&sample=1" id="open-queue-final">Open Queue</a>
                 <a class="btn btn-secondary" href="/pricing.html" id="see-paid-features">See paid features</a>
                 <a class="btn btn-accent" href="https://chromewebstore.google.com/detail/dmtools-%E2%80%93-inline-reply-as/joheialcdpmcfgehhcpfjnppficonfih" target="_blank" rel="noopener noreferrer" id="open-extension-store-final">Chrome Web Store</a>
               </div>
-              <div class="step-callout"><strong>Paid upgrade path:</strong> sell control, consistency, saved voice, templates, and higher limits — not basic free trial access.</div>
+              <div class="step-callout"><strong>Paid upgrade path:</strong> choose a plan when the free reply and template limits no longer cover your workflow.</div>
             </div>
           </div>
         </section>
@@ -1147,6 +1148,7 @@
             DMTOOLS.redirectTo ? DMTOOLS.redirectTo(activationUrl) : (window.location.href = activationUrl);
           }, 650);
         } catch (error) {
+          var accountCreated = Boolean(error && error.data && error.data.accountCreated === true);
           if (signupRequestStarted) {
             var statusCode = getStatusCode(error);
             var errorParams = {
@@ -1155,18 +1157,23 @@
               plan: 'free',
               result: 'signup_failed',
               backend_status: getSignupBackendStatus(error),
-              account_created: false
+              account_created: accountCreated
             };
             if (statusCode) errorParams.status_code = statusCode;
-            track('free_account_create_error', errorParams);
+            track(accountCreated ? 'signup_recovery_required' : 'free_account_create_error', errorParams);
           }
 
-          setSignupStatus('Could not create the account from this modal. You can still use the regular signup flow.', 'error');
+          setSignupStatus(accountCreated
+            ? 'Your account was created, but automatic sign-in failed. Sign in with the same email and password.'
+            : 'Could not create the account from this modal. You can still use the regular signup flow.', 'error');
 
           if (window.DMTOOLS && typeof DMTOOLS.openAuthModal === 'function') {
             setTimeout(function() {
               try {
-                DMTOOLS.openAuthModal('register', { returnTo: '/app.html?source=welcome_signup_fallback&sample=1' });
+                DMTOOLS.openAuthModal(accountCreated ? 'login' : 'register', {
+                  returnTo: '/app.html?source=welcome_signup_fallback&sample=1',
+                  email: email
+                });
               } catch (_) {}
             }, 500);
           }

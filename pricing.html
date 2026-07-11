@@ -100,7 +100,7 @@
         <a href="/pricing.html">Pricing</a>
         <a href="/account.html">Account</a>
         <a href="https://chromewebstore.google.com/detail/dmtools-%E2%80%93-inline-reply-as/joheialcdpmcfgehhcpfjnppficonfih" target="_blank" rel="noopener noreferrer">Install Extension</a>
-        <button class="btn btn-secondary" type="button" data-auth="login" data-return-to="/pricing.html">Sign in</button>
+        <button class="btn btn-secondary" type="button" data-auth="login" data-return-to="/pricing.html" id="mobile-signin-button">Sign in</button>
       </div>
     </div>
   </header>
@@ -351,14 +351,22 @@
             variantId: item.variantId || item.variant_id || null
           };
           if (normalized.kind === 'subscription' && normalized.billingInterval === 'month' && PUBLIC_SUBSCRIPTIONS[normalized.baseKey]) {
-            Object.assign(normalized, PUBLIC_SUBSCRIPTIONS[normalized.baseKey]);
-            normalized.limits = Object.assign({}, normalized.limits, { responses: PUBLIC_SUBSCRIPTIONS[normalized.baseKey].responses });
+            const fallback = PUBLIC_SUBSCRIPTIONS[normalized.baseKey];
+            normalized.displayName = normalized.displayName || fallback.displayName;
+            if (!Number.isFinite(Number(normalized.priceAmount)) || Number(normalized.priceAmount) <= 0) normalized.priceAmount = fallback.priceAmount;
+            if (!Number.isFinite(Number(normalized.responses)) || Number(normalized.responses) <= 0) normalized.responses = fallback.responses;
+            if (!Number.isFinite(Number(normalized.limits.responses)) || Number(normalized.limits.responses) <= 0) {
+              normalized.limits = Object.assign({}, normalized.limits, { responses: fallback.responses });
+            }
             subscriptions.push(normalized);
           }
           if (normalized.kind === 'pack' && !isPrivatePack(item)) {
             normalized.key = publicPackKey(item);
             if (PUBLIC_PACKS[normalized.key]) {
-              Object.assign(normalized, PUBLIC_PACKS[normalized.key]);
+              const fallback = PUBLIC_PACKS[normalized.key];
+              normalized.displayName = normalized.displayName || fallback.displayName;
+              if (!Number.isFinite(Number(normalized.priceAmount)) || Number(normalized.priceAmount) <= 0) normalized.priceAmount = fallback.priceAmount;
+              if (!Number.isFinite(Number(normalized.responses)) || Number(normalized.responses) <= 0) normalized.responses = fallback.responses;
               packs.push(normalized);
             }
           }
@@ -485,6 +493,10 @@
           const signedIn = await DMTOOLS.verifyToken();
           state.auth.signedIn = signedIn;
           const primaryAuthButton = $('primary-auth-button');
+          const signinButton = $('signin-button');
+          const mobileSigninButton = $('mobile-signin-button');
+          if (signinButton) signinButton.classList.toggle('hidden', signedIn);
+          if (mobileSigninButton) mobileSigninButton.classList.toggle('hidden', signedIn);
           if (signedIn) {
             const profile = await DMTOOLS.apiCall('/user/profile', { method: 'GET' });
             state.auth.user = (profile && (profile.user || profile)) || null;

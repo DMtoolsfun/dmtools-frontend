@@ -55,6 +55,7 @@ DMTOOLS.apiCall = async function (path, options = {}) {
       : `HTTP ${res.status}`;
     const err = new Error(msg);
     err.status = res.status;
+    err.data = data;
     throw err;
   }
 

@@ -175,7 +175,7 @@
     .paywall-content{max-width:760px;width:100%;background:linear-gradient(135deg,#1e293b 0%,#0f172a 100%);border:2px solid var(--primary);border-radius:20px;padding:2rem;box-shadow:var(--shadow-primary-lg)}
     .paywall-content h2{margin-bottom:.4rem}
     .paywall-content p{color:var(--text-secondary)}
-    .paywall-grid{display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin:1.25rem 0}
+    .paywall-grid{display:grid;grid-template-columns:1fr;gap:1rem;margin:1.25rem 0}
     .paywall-option{padding:1.2rem;border-radius:18px;background:rgba(255,255,255,.05);border:1px solid rgba(108,135,184,.16)}
     .paywall-option h3{margin-bottom:.35rem}
     .paywall-price{font-size:2rem;font-weight:900;color:var(--text-primary);margin-bottom:.75rem}
@@ -498,19 +498,13 @@
     <div class="paywall-modal" id="paywallModal" aria-hidden="true">
       <div class="paywall-content" role="dialog" aria-modal="true" aria-labelledby="paywallTitle">
         <h2 id="paywallTitle">You were moving faster. Keep the momentum.</h2>
-        <p id="paywallBody">Your free responses are used up. Upgrade your plan or grab a one-time pack to keep the queue moving without interruption.</p>
+        <p id="paywallBody">Your free responses are used up. Upgrade your plan for recurring Queue capacity and keep replying without interruption.</p>
         <div class="paywall-grid">
           <div class="paywall-option">
             <h3>Upgrade your plan</h3>
             <div class="paywall-price">From $9<span>/month</span></div>
             <p>Get more recurring replies, more templates, and uninterrupted queue usage.</p>
             <a class="btn btn-primary" href="/pricing.html?source=free_limit&amp;offer=subscription#plansSection" data-upgrade-action="subscription">View plans</a>
-          </div>
-          <div class="paywall-option">
-            <h3>Grab a response pack</h3>
-            <div class="paywall-price">Top-up<span> one-time</span></div>
-            <p>Keep replying with one-time credits if you are not ready to change plans yet.</p>
-            <a class="btn btn-secondary" href="/pricing.html?source=free_limit&amp;offer=pack#packsSection" data-upgrade-action="pack">View packs</a>
           </div>
         </div>
         <button class="paywall-close" type="button" id="closePaywall">Close</button>
@@ -543,7 +537,9 @@
         messages: [],
         nextId: 1,
         method: 'manual',
-        upgradeNudgeLevel: 0
+        upgradeNudgeLevel: 0,
+        paywallPromptLevel: '',
+        paywallTrigger: ''
       };
 
       function track(name, params) {
@@ -585,9 +581,12 @@
             : (tier === 'enterprise' ? 25000 : tier === 'business' ? 2000 : tier === 'pro' ? 500 : tier === 'starter' ? 100 : 5);
           const used = Number(state.user.monthly_usage || 0) || 0;
           const remaining = typeof state.user.responses_remaining === 'number' ? Number(state.user.responses_remaining) : Math.max(0, limit - used);
-          return { tier, used, limit, remaining };
+          const hasGeneratedReply = typeof state.user.has_generated_reply === 'boolean'
+            ? state.user.has_generated_reply
+            : used > 0;
+          return { tier, used, limit, remaining, hasGeneratedReply };
         }
-        return { tier: 'free', used: 0, limit: 5, remaining: 5 };
+        return { tier: 'free', used: 0, limit: 5, remaining: 5, hasGeneratedReply: false };
       }
       function getSafeGenerateAnalyticsMeta(flow, extra) {
         const snap = usageSnapshot();
@@ -736,13 +735,13 @@
           level = 3;
           levelName = 'exhausted';
           title = 'Your replies are ready. Your free allowance is used.';
-          body = 'Upgrade for recurring capacity, or choose a one-time pack when you only need a top-up.';
+          body = 'Upgrade for recurring capacity and keep your Queue workflow moving.';
         } else if (current.remaining <= 2) {
           level = 2;
           levelName = 'low_remaining';
           title = formatCount(current.remaining) + ' free ' + (current.remaining === 1 ? 'reply' : 'replies') + ' left.';
           body = 'Keep your workflow moving with a monthly plan from $9, or continue free until you reach the limit.';
-        } else if (beforeSnapshot && beforeSnapshot.tier === 'free' && beforeSnapshot.used === 0) {
+        } else if (beforeSnapshot && beforeSnapshot.tier === 'free' && beforeSnapshot.hasGeneratedReply === false) {
           level = 1;
           levelName = 'first_value';
           title = 'Your first reply is ready.';
@@ -766,24 +765,37 @@
       function showPaywall(trigger) {
         const snap = usageSnapshot();
         const isOversizedBatch = trigger === 'batch_exceeds_remaining' && snap.remaining > 0;
+        const promptLevel = isOversizedBatch ? 'batch_exceeds_remaining' : 'exhausted';
+        state.paywallPromptLevel = promptLevel;
+        state.paywallTrigger = trigger || 'free_limit';
         $('paywallTitle').textContent = isOversizedBatch
           ? 'This batch needs more replies than you have left.'
           : 'You were moving faster. Keep the momentum.';
         $('paywallBody').textContent = isOversizedBatch
-          ? 'Process fewer messages now, upgrade for recurring capacity, or add a one-time response pack.'
-          : 'Your free responses are used up. Upgrade your plan or grab a one-time pack to keep the queue moving without interruption.';
+          ? 'Process fewer messages now, or upgrade for the recurring capacity this batch needs.'
+          : 'Your free responses are used up. Upgrade your plan for recurring Queue capacity and keep replying without interruption.';
         $('paywallModal').classList.add('show');
         $('paywallModal').setAttribute('aria-hidden', 'false');
         track('upgrade_prompt_view', getSafeGenerateAnalyticsMeta('upgrade_prompt', {
-          trigger: trigger || 'free_limit',
-          prompt_level: 'exhausted',
+          trigger: state.paywallTrigger,
+          prompt_level: promptLevel,
           remaining: snap.remaining,
           surface: 'modal'
         }));
       }
-      function hidePaywall() {
-        $('paywallModal').classList.remove('show');
-        $('paywallModal').setAttribute('aria-hidden', 'true');
+      function hidePaywall(dismissMethod) {
+        const modal = $('paywallModal');
+        if (!modal.classList.contains('show')) return;
+        modal.classList.remove('show');
+        modal.setAttribute('aria-hidden', 'true');
+        if (dismissMethod) {
+          track('upgrade_prompt_dismiss', getSafeGenerateAnalyticsMeta('upgrade_prompt', {
+            trigger: state.paywallTrigger || 'free_limit',
+            prompt_level: state.paywallPromptLevel || 'exhausted',
+            surface: 'modal',
+            dismiss_method: dismissMethod
+          }));
+        }
       }
       function showOnboarding() {
         localStorage.removeItem(ONBOARDING_KEY);
@@ -1291,15 +1303,16 @@
         document.querySelectorAll('[data-upgrade-action]').forEach(function (link) {
           link.addEventListener('click', function () {
             track('upgrade_prompt_click', getSafeGenerateAnalyticsMeta('upgrade_prompt', {
-              prompt_level: 'exhausted',
+              trigger: state.paywallTrigger || 'free_limit',
+              prompt_level: state.paywallPromptLevel || 'exhausted',
               offer: link.dataset.upgradeAction,
               surface: 'modal'
             }));
           });
         });
-        $('closePaywall').addEventListener('click', hidePaywall);
-        $('paywallModal').addEventListener('click', function (e) { if (e.target === this) hidePaywall(); });
-        document.addEventListener('keydown', function (e) { if (e.key === 'Escape') hidePaywall(); });
+        $('closePaywall').addEventListener('click', function () { hidePaywall('close_button'); });
+        $('paywallModal').addEventListener('click', function (e) { if (e.target === this) hidePaywall('backdrop'); });
+        document.addEventListener('keydown', function (e) { if (e.key === 'Escape') hidePaywall('escape_key'); });
       }
       document.addEventListener('DOMContentLoaded', async function () {
         wireEvents();

@@ -210,7 +210,7 @@
       </article>
       <article class="pricing-faq">
         <h3>Do I need an account to checkout?</h3>
-        <p>Yes. You can check out with an email address, and if you are already signed in we use your current account automatically.</p>
+        <p>No. Lemon Squeezy collects your email during checkout. If you are already signed in, DMTools securely connects the purchase to your current account automatically.</p>
       </article>
       <article class="pricing-faq">
         <h3>Where do I see my plan and remaining replies?</h3>
@@ -280,7 +280,7 @@
       };
       const PLAN_ORDER = ['starter', 'pro', 'business'];
       const PACK_ORDER = ['quick', 'starter', 'pro'];
-      const state = { pricing: { subscriptions: [], packs: [] }, auth: { signedIn: false, user: null } };
+      const state = { pricing: { subscriptions: [], packs: [] }, auth: { signedIn: false, user: null }, checkoutInProgress: false };
 
       function track(name, params) { try { if (window.DMTOOLS && typeof window.DMTOOLS.track === 'function') window.DMTOOLS.track(name, params || {}); } catch (_) {} }
       function $(id) { return document.getElementById(id); }
@@ -502,42 +502,29 @@
         }
         status.classList.remove('hidden');
       }
-      function promptForCheckoutEmail() {
-        const raw = window.prompt('Enter your email so we can connect this purchase to your account and send your receipt:');
-        if (raw === null) return null;
-        const email = String(raw).trim().toLowerCase();
-        if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
-          window.alert('Please enter a valid email address.');
-          return null;
-        }
-        return email;
-      }
       async function startCheckout(kind, item) {
         if (!item || !item.variantId) {
           window.alert('Pricing is still loading. Please try again in a moment.');
           return;
         }
-        let email = (state.auth.user && state.auth.user.email) || '';
-        if (!email) {
-          email = promptForCheckoutEmail();
-          if (!email) {
-            track('checkout_blocked', { page_name: 'pricing', kind: kind, reason: 'missing_email' });
-            if (window.DMTOOLS && typeof window.DMTOOLS.openAuthModal === 'function') window.DMTOOLS.openAuthModal('login');
-            return;
-          }
-        }
+        if (state.checkoutInProgress) return;
+        state.checkoutInProgress = true;
+        const email = (state.auth.user && state.auth.user.email) || '';
         try {
-          showFeedback('');
-          track('checkout_start', { page_name: 'pricing', kind: kind, item_name: item.displayName, billing_interval: item.billingInterval || null, value: item.priceAmount || undefined, currency: item.currency || 'USD' });
+          showFeedback('Opening secure checkout…');
+          track('checkout_start', { page_name: 'pricing', kind: kind, item_name: item.displayName, billing_interval: item.billingInterval || null, value: item.priceAmount || undefined, currency: item.currency || 'USD', authenticated: state.auth.signedIn, email_prefilled: !!email });
           const response = await DMTOOLS.apiCall('/checkout/create', { method: 'POST', body: JSON.stringify({ kind: kind, variantId: item.variantId, email: email || undefined }) });
           if (!response || !response.url) throw new Error('Checkout URL missing');
-          track('checkout_ready', { page_name: 'pricing', kind: kind, item_name: item.displayName, billing_interval: item.billingInterval || null });
+          showFeedback('');
+          track('checkout_ready', { page_name: 'pricing', kind: kind, item_name: item.displayName, billing_interval: item.billingInterval || null, authenticated: state.auth.signedIn });
           if (window.LemonSqueezy && window.LemonSqueezy.Url) window.LemonSqueezy.Url.Open(response.url);
-          else window.open(response.url, '_blank', 'noopener');
+          else window.location.assign(response.url);
         } catch (error) {
           console.error(error);
           showFeedback('There was a problem starting checkout. Please try again in a moment.', true);
           track('checkout_error', { page_name: 'pricing', kind: kind, item_name: item.displayName || 'unknown', message: String(error.message || error) });
+        } finally {
+          state.checkoutInProgress = false;
         }
       }
       function wireControls() {

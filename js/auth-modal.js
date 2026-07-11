@@ -83,6 +83,27 @@
     }
   }
 
+  function getStatusCode(err) {
+    const status = Number(err?.status);
+    return Number.isInteger(status) ? status : null;
+  }
+
+  function getSignupBackendStatus(err) {
+    const status = getStatusCode(err);
+    if (status === 400) return 'validation_error';
+    if (status === 409) return 'duplicate_email';
+    if (status === 429) return 'rate_limited';
+    if (status >= 500) return 'server_error';
+    return status ? 'request_failed' : 'request_error';
+  }
+
+  function getPostAuthReturnTo(isRegister) {
+    const requestedReturnTo = state.returnTo || DEFAULTS.returnTo;
+    if (!isRegister) return requestedReturnTo;
+    if (requestedReturnTo.includes('sample=1')) return requestedReturnTo;
+    return '/app.html?source=signup_activation&sample=1';
+  }
+
   function ensureModal() {
     let modal = document.getElementById(MODAL_ID);
     if (modal) return modal;
@@ -237,21 +258,32 @@
     const firstName = (modal.querySelector('#dmtools-auth-first').value || '').trim();
     const lastName = (modal.querySelector('#dmtools-auth-last').value || '').trim();
     const termsAccepted = !!modal.querySelector('#dmtools-auth-terms')?.checked;
+    const isRegister = state.mode === 'register';
+    let signupRequestStarted = false;
 
     try {
       if (!email) throw new Error('Please enter your email.');
       if (!password) throw new Error('Please enter your password.');
-      if (state.mode === 'register' && !termsAccepted) {
+      if (isRegister && !termsAccepted) {
         throw new Error('Please agree to the Terms and Conditions to continue.');
       }
 
-      trackAuthEvent(state.mode === 'register' ? 'sign_up_attempt' : 'login_attempt', {
+      const attemptParams = {
+        surface: 'auth_modal',
+        source: 'auth_modal',
         has_first_name: !!firstName,
         has_last_name: !!lastName
-      });
+      };
+      if (isRegister) attemptParams.plan = 'free';
+      trackAuthEvent(isRegister ? 'sign_up_attempt' : 'login_attempt', attemptParams);
+
+      if (!window.DMTOOLS || typeof DMTOOLS.apiCall !== 'function') {
+        throw new Error('Authentication service is not ready.');
+      }
 
       let data;
-      if (state.mode === 'register') {
+      if (isRegister) {
+        signupRequestStarted = true;
         data = await DMTOOLS.apiCall('/user/register', {
           method: 'POST',
           body: JSON.stringify({
@@ -269,22 +301,42 @@
         });
       }
 
+      if (isRegister && data?.accountCreated !== true) {
+        throw new Error('Your account could not be confirmed. Please try again.');
+      }
+
       if (data && data.token) DMTOOLS.setToken(data.token);
 
-      trackAuthEvent(state.mode === 'register' ? 'sign_up_success' : 'login_success', {
-        user_plan: data?.user?.plan || 'free'
-      });
+      if (!isRegister) {
+        trackAuthEvent('login_success', {
+          user_plan: data?.user?.plan || 'free'
+        });
+      }
 
       hide();
-      const returnTo = state.returnTo || DEFAULTS.returnTo;
+      const returnTo = getPostAuthReturnTo(isRegister);
       DMTOOLS.redirectTo ? DMTOOLS.redirectTo(returnTo) : (window.location.href = returnTo);
     } catch (err) {
-      const errorMessage = String(err?.message || 'Authentication failed.').slice(0, 150);
-      trackAuthEvent('auth_error', {
+      const statusCode = getStatusCode(err);
+      const authErrorParams = {
         auth_mode: state.mode,
         return_to: state.returnTo,
-        error_message: errorMessage
-      });
+        backend_status: isRegister ? getSignupBackendStatus(err) : 'auth_failed'
+      };
+      if (statusCode) authErrorParams.status_code = statusCode;
+
+      if (isRegister && signupRequestStarted) {
+        trackAuthEvent('free_account_create_error', {
+          surface: 'auth_modal',
+          source: 'auth_modal',
+          plan: 'free',
+          backend_status: getSignupBackendStatus(err),
+          account_created: false,
+          ...(statusCode ? { status_code: statusCode } : {})
+        });
+      }
+
+      trackAuthEvent('auth_error', authErrorParams);
       showError(err?.message || 'Authentication failed.');
     } finally {
       setBusy(false);

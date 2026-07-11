@@ -942,6 +942,20 @@
         }
       }
 
+      function getStatusCode(error) {
+        var status = Number(error && error.status);
+        return Number.isInteger(status) ? status : null;
+      }
+
+      function getSignupBackendStatus(error) {
+        var status = getStatusCode(error);
+        if (status === 400) return 'validation_error';
+        if (status === 409) return 'duplicate_email';
+        if (status === 429) return 'rate_limited';
+        if (status >= 500) return 'server_error';
+        return status ? 'request_failed' : 'request_error';
+      }
+
       function setAuthUI(isAuthed) {
         var signInButton = $('signin-button');
         var signUpButton = $('signup-button');
@@ -1076,6 +1090,7 @@
         var email = $('welcome-email').value.trim();
         var password = $('welcome-password').value;
         var marketingConsent = $('marketing-consent').checked;
+        var signupRequestStarted = false;
 
         if (!email || !password) {
           setSignupStatus('Enter an email and password to create your free account.', 'error');
@@ -1093,10 +1108,17 @@
         setSignupStatus('', 'success');
 
         try {
+          track('sign_up_attempt', {
+            source: 'welcome_onboarding',
+            surface: 'welcome',
+            plan: 'free'
+          });
+
           if (!window.DMTOOLS || typeof DMTOOLS.apiCall !== 'function') {
             throw new Error('Registration service is not ready yet.');
           }
 
+          signupRequestStarted = true;
           var response = await DMTOOLS.apiCall('/user/register', {
             method: 'POST',
             body: JSON.stringify({
@@ -1109,34 +1131,42 @@
             })
           });
 
+          if (!response || response.accountCreated !== true) {
+            throw new Error('Your account could not be confirmed. Please try again.');
+          }
+
           try {
             if (response && response.token && typeof DMTOOLS.setToken === 'function') {
               DMTOOLS.setToken(response.token);
             }
           } catch (_) {}
 
-          track('free_account_create_response_success', {
-            marketing_opt_in: marketingConsent,
-            account_type: 'free_responses_only',
-            source: 'welcome_onboarding'
-          });
-
-          setSignupStatus('Account created. Your free account includes limited response credits. Paid subscriptions unlock Voice settings, templates, and advanced features.', 'success');
+          setSignupStatus('Account created. Opening a sample message so you can generate your first reply.', 'success');
           setTimeout(function() {
-            setStep(3);
+            var activationUrl = '/app.html?source=welcome_signup&sample=1';
+            DMTOOLS.redirectTo ? DMTOOLS.redirectTo(activationUrl) : (window.location.href = activationUrl);
           }, 650);
         } catch (error) {
-          track('free_account_create_error', {
-            source: 'welcome_onboarding',
-            result: 'frontend_or_api_error'
-          });
+          if (signupRequestStarted) {
+            var statusCode = getStatusCode(error);
+            var errorParams = {
+              source: 'welcome_onboarding',
+              surface: 'welcome',
+              plan: 'free',
+              result: 'signup_failed',
+              backend_status: getSignupBackendStatus(error),
+              account_created: false
+            };
+            if (statusCode) errorParams.status_code = statusCode;
+            track('free_account_create_error', errorParams);
+          }
 
           setSignupStatus('Could not create the account from this modal. You can still use the regular signup flow.', 'error');
 
           if (window.DMTOOLS && typeof DMTOOLS.openAuthModal === 'function') {
             setTimeout(function() {
               try {
-                DMTOOLS.openAuthModal('register', { returnTo: '/app.html?source=welcome_signup_fallback' });
+                DMTOOLS.openAuthModal('register', { returnTo: '/app.html?source=welcome_signup_fallback&sample=1' });
               } catch (_) {}
             }, 500);
           }

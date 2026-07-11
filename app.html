@@ -514,6 +514,10 @@
   <script>
     (function () {
       const ONBOARDING_KEY = 'dmtools_app_onboarding_hidden_v1';
+      const activationParams = new URLSearchParams(window.location.search);
+      const isSignupActivation = activationParams.get('sample') === '1';
+      const activationSource = String(activationParams.get('source') || 'signup_activation').slice(0, 80);
+      const SIGNUP_SAMPLE_MESSAGE = 'Hi! I saw your service and I am interested. Could you explain what is included and how to get started?';
       const state = {
         signedIn: false,
         user: null,
@@ -1102,9 +1106,25 @@
         }
         updateUsage();
         $('signedOutNotice').classList.toggle('hidden', state.signedIn);
-        addMessage('');
-        addMessage('');
-        addMessage('');
+        if (isSignupActivation) {
+          addMessage(SIGNUP_SAMPLE_MESSAGE);
+          showFeedback('Your sample message is ready. Choose a tone, then select “Process all responses” to generate your first reply.', 'success');
+          track('signup_activation_view', {
+            page_name: 'app',
+            source: activationSource,
+            signed_in: state.signedIn,
+            sample_loaded: true
+          });
+          setTimeout(function () {
+            $('queueWorkspace').scrollIntoView({ behavior: 'smooth', block: 'start' });
+            const firstInput = document.querySelector('.input-textarea');
+            if (firstInput) firstInput.focus({ preventScroll: true });
+          }, 100);
+        } else {
+          addMessage('');
+          addMessage('');
+          addMessage('');
+        }
       }
       function wireEvents() {
         $('drawer-toggle').addEventListener('click', toggleDrawer);

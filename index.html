@@ -78,7 +78,7 @@
           </p>
 
           <div class="hero-actions">
-            <a class="btn btn-primary" href="/app.html" data-track="landing_cta_click" data-track-cta="open_queue" data-track-surface="home">Open Queue</a>
+            <button class="btn btn-primary" type="button" id="hero-signup-button" data-auth="register" data-return-to="/app.html?source=homepage_signup&amp;sample=1" data-track="landing_cta_click" data-track-cta="homepage_try_reply_free" data-track-surface="home">Try a reply free</button>
             <a class="btn btn-accent" href="https://chromewebstore.google.com/detail/dmtools-%E2%80%93-inline-reply-as/joheialcdpmcfgehhcpfjnppficonfih" target="_blank" rel="noopener noreferrer" data-track="extension_install_click" data-track-location="hero" data-track-target="chrome_store">Install Extension</a>
             <a class="btn btn-secondary" href="/pricing.html" data-track="landing_cta_click" data-track-cta="view_pricing" data-track-surface="home">See pricing</a>
           </div>
@@ -333,6 +333,7 @@
       function setAuthUI(isAuthed) {
         var signInButton = document.getElementById('signin-button');
         var signUpButton = document.getElementById('signup-button');
+        var heroSignUpButton = document.getElementById('hero-signup-button');
         var accountLink = document.getElementById('account-link');
         if (isAuthed) {
           if (signInButton) signInButton.classList.add('hidden');
@@ -341,6 +342,9 @@
             signUpButton.removeAttribute('data-auth');
             signUpButton.setAttribute('href', '/app.html');
             signUpButton.outerHTML = '<a class="btn btn-primary" href="/app.html" id="signup-button" data-track="landing_cta_click" data-track-cta="open_workspace" data-track-surface="home">Open workspace</a>';
+          }
+          if (heroSignUpButton) {
+            heroSignUpButton.outerHTML = '<a class="btn btn-primary" href="/app.html" id="hero-signup-button" data-track="landing_cta_click" data-track-cta="open_workspace" data-track-surface="home">Open workspace</a>';
           }
           if (accountLink) accountLink.textContent = 'My account';
         }

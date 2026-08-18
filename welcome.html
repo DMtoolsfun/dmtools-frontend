@@ -1138,7 +1138,7 @@
 
           try {
             if (response && response.token && typeof DMTOOLS.setToken === 'function') {
-              DMTOOLS.setToken(response.token);
+              DMTOOLS.setToken(response.token, response.user && response.user.id);
             }
           } catch (_) {}
 

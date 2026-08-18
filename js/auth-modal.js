@@ -329,7 +329,7 @@
         throw new Error('Your account could not be confirmed. Please try again.');
       }
 
-      if (data && data.token) DMTOOLS.setToken(data.token);
+      if (data && data.token) DMTOOLS.setToken(data.token, data?.user?.id);
 
       if (!isRegister) {
         trackAuthEvent('login_success', {
